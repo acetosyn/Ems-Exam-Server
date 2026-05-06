@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Biology",
+  "exam_title": "BIOLOGY INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "In vaccination, the principle used is:",
+      "options": ["Active acquired immunity", "Passive immunity", "Innate immunity", "Autoimmunity"],
+      "answer": "Active acquired immunity"
+    },
+    {
+      "id": 2,
+      "question": "The pacemaker of the heart is:",
+      "options": ["AV node", "SA node", "Purkinje fibers", "Bundle of His"],
+      "answer": "SA node"
+    },
+    {
+      "id": 3,
+      "question": "The lac operon in E. coli is an example of:",
+      "options": ["Inducible negative regulation", "Repressible positive regulation", "Constitutive expression", "Post-transcriptional control"],
+      "answer": "Inducible negative regulation"
+    },
+    {
+      "id": 4,
+      "question": "In prokaryotic cells, the site of protein synthesis is:",
+      "options": ["Nucleus", "Ribosomes in cytoplasm", "Mitochondria", "Endoplasmic reticulum"],
+      "answer": "Ribosomes in cytoplasm"
+    },
+    {
+      "id": 5,
+      "question": "Darwin's theory of natural selection is based on:",
+      "options": ["Inheritance of acquired characteristics", "Variation, overproduction, and survival of the fittest", "Use and disuse of organs", "Germplasm theory"],
+      "answer": "Variation, overproduction, and survival of the fittest"
+    },
+    {
+      "id": 6,
+      "question": "The greenhouse effect is primarily caused by:",
+      "options": ["CO₂ and water vapor trapping infrared radiation", "Ozone depletion", "Acid rain", "Eutrophication"],
+      "answer": "CO₂ and water vapor trapping infrared radiation"
+    },
+    {
+      "id": 7,
+      "question": "During DNA replication, the enzyme that joins Okazaki fragments is:",
+      "options": ["DNA polymerase III", "Helicase", "Ligase", "Primase"],
+      "answer": "Ligase"
+    },
+    {
+      "id": 8,
+      "question": "Homologous structures in different species indicate:",
+      "options": ["Convergent evolution", "Divergent evolution", "Parallel evolution", "Coevolution"],
+      "answer": "Divergent evolution"
+    },
+    {
+      "id": 9,
+      "question": "The central dogma of molecular biology states that genetic information flows from:",
+      "options": ["DNA → RNA → Protein", "Protein → RNA → DNA", "RNA → DNA → Protein", "Protein → DNA → RNA"],
+      "answer": "DNA → RNA → Protein"
+    },
+    {
+      "id": 10,
+      "question": "In osmosis, water moves from a region of:",
+      "options": ["High solute to low solute concentration", "Low solute to high solute concentration", "Equal solute concentration", "High pressure to low pressure"],
+      "answer": "Low solute to high solute concentration"
+    },
+    {
+      "id": 11,
+      "question": "Mutations caused by intercalating agents like ethidium bromide lead to:",
+      "options": ["Base substitutions", "Frameshift mutations", "Deletions", "Transitions only"],
+      "answer": "Frameshift mutations"
+    },
+    {
+      "id": 12,
+      "question": "The endosymbiotic theory explains the origin of:",
+      "options": ["Nucleus", "Chloroplasts and mitochondria", "Cell wall", "Plasma membrane"],
+      "answer": "Chloroplasts and mitochondria"
+    },
+    {
+      "id": 13,
+      "question": "The role of chlorophyll in photosynthesis is to:",
+      "options": ["Absorb light energy", "Fix CO₂", "Produce ATP", "Split water"],
+      "answer": "Absorb light energy"
+    },
+    {
+      "id": 14,
+      "question": "Restriction enzymes are used in recombinant DNA technology to:",
+      "options": ["Synthesize proteins", "Cut DNA at specific sequences", "Amplify DNA (PCR)", "Sequence DNA"],
+      "answer": "Cut DNA at specific sequences"
+    },
+    {
+      "id": 15,
+      "question": "The Hardy-Weinberg equilibrium assumes:",
+      "options": ["No mutation, no migration, infinite population size", "Small population with frequent mating", "High mutation rate", "Directional selection"],
+      "answer": "No mutation, no migration, infinite population size"
+    },
+    {
+      "id": 16,
+      "question": "The carrying capacity (K) in logistic growth model represents:",
+      "options": ["Maximum population size environment can sustain", "Initial population growth rate", "Exponential growth phase", "Death rate"],
+      "answer": "Maximum population size environment can sustain"
+    },
+    {
+      "id": 17,
+      "question": "The fluid mosaic model of the plasma membrane was proposed by:",
+      "options": ["Singer and Nicolson", "Watson and Crick", "Schleiden and Schwann", "Virchow"],
+      "answer": "Singer and Nicolson"
+    },
+    {
+      "id": 18,
+      "question": "Gram-positive bacteria retain the stain due to:",
+      "options": ["Thick peptidoglycan layer", "Thin cell wall", "Lipid content", "Capsule presence"],
+      "answer": "Thick peptidoglycan layer"
+    },
+    {
+      "id": 19,
+      "question": "In pedigree analysis, a trait showing X-linked recessive inheritance is more common in:",
+      "options": ["Females", "Males", "Equal in both", "Depends on environment"],
+      "answer": "Males"
+    },
+    {
+      "id": 20,
+      "question": "The Miller-Urey experiment simulated conditions to demonstrate:",
+      "options": ["Origin of life from inorganic molecules", "Photosynthesis in early Earth", "Evolution of eukaryotes", "Speciation events"],
+      "answer": "Origin of life from inorganic molecules"
+    },
+    {
+      "id": 21,
+      "question": "The Calvin cycle in photosynthesis occurs in the:",
+      "options": ["Stroma of chloroplast", "Thylakoid membrane", "Cytoplasm", "Mitochondria"],
+      "answer": "Stroma of chloroplast"
+    },
+    {
+      "id": 22,
+      "question": "Plasmids are used as vectors in genetic engineering because they:",
+      "options": ["Replicate independently and carry foreign DNA", "Are linear chromosomes", "Cannot be cut by enzymes", "Are essential for host survival"],
+      "answer": "Replicate independently and carry foreign DNA"
+    },
+    {
+      "id": 23,
+      "question": "The hormone responsible for fight-or-flight response is:",
+      "options": ["Insulin", "Adrenaline", "Thyroxine", "Estrogen"],
+      "answer": "Adrenaline"
+    },
+    {
+      "id": 24,
+      "question": "Sickle cell anemia is an example of:",
+      "options": ["Codominance", "Incomplete dominance", "Pleiotropy", "Multiple alleles"],
+      "answer": "Pleiotropy"
+    },
+    {
+      "id": 25,
+      "question": "The Golgi apparatus primarily functions in:",
+      "options": ["Lipid synthesis", "Packaging and modification of proteins", "DNA replication", "Carbohydrate storage"],
+      "answer": "Packaging and modification of proteins"
+    },
+    {
+      "id": 26,
+      "question": "PCR (Polymerase Chain Reaction) amplifies DNA by repeated cycles of:",
+      "options": ["Denaturation, annealing, extension", "Ligation, transcription, translation", "Restriction, insertion, transformation", "Hybridization, sequencing, cloning"],
+      "answer": "Denaturation, annealing, extension"
+    },
+    {
+      "id": 27,
+      "question": "Succession starting on bare rock is:",
+      "options": ["Primary succession", "Secondary succession", "Cyclic succession", "Autogenic succession only"],
+      "answer": "Primary succession"
+    },
+    {
+      "id": 28,
+      "question": "During mitosis, the phase where chromosomes align at the metaphase plate is:",
+      "options": ["Prophase", "Metaphase", "Anaphase", "Telophase"],
+      "answer": "Metaphase"
+    },
+    {
+      "id": 29,
+      "question": "Double circulation in humans ensures:",
+      "options": ["Separation of oxygenated and deoxygenated blood", "Mixing of blood in heart", "Low pressure in pulmonary circuit only", "Single ventricle"],
+      "answer": "Separation of oxygenated and deoxygenated blood"
+    },
+    {
+      "id": 30,
+      "question": "Lysosomes are involved in:",
+      "options": ["Photosynthesis", "Intracellular digestion", "ATP production", "Protein synthesis"],
+      "answer": "Intracellular digestion"
+    },
+    {
+      "id": 31,
+      "question": "The fossil record provides evidence for evolution through:",
+      "options": ["Transitional forms", "Absolute dating only", "Modern distributions", "Molecular clocks"],
+      "answer": "Transitional forms"
+    },
+    {
+      "id": 32,
+      "question": "The process of nitrogen fixation is carried out by:",
+      "options": ["Rhizobium bacteria in root nodules", "Fungi in mycorrhizae", "Algae in lichens", "Protozoa"],
+      "answer": "Rhizobium bacteria in root nodules"
+    },
+    {
+      "id": 33,
+      "question": "In humans, the ABO blood group is determined by:",
+      "options": ["Multiple alleles with codominance", "Single gene with complete dominance", "Sex-linked inheritance", "Polygenic inheritance"],
+      "answer": "Multiple alleles with codominance"
+    },
+    {
+      "id": 34,
+      "question": "In an ecosystem, the trophic level with the least biomass is typically:",
+      "options": ["Producers", "Primary consumers", "Secondary consumers", "Top carnivores"],
+      "answer": "Top carnivores"
+    },
+    {
+      "id": 35,
+      "question": "The powerhouse of the cell, mitochondria, has its own DNA which is:",
+      "options": ["Circular and maternal", "Linear and paternal", "Circular and biparental", "Linear and maternal"],
+      "answer": "Circular and maternal"
+    },
+    {
+      "id": 36,
+      "question": "The hormone responsible for fight-or-flight response is:",
+      "options": ["Insulin", "Adrenaline", "Thyroxine", "Estrogen"],
+      "answer": "Adrenaline"
+    },
+    {
+      "id": 37,
+      "question": "The Miller-Urey experiment simulated conditions to demonstrate:",
+      "options": ["Origin of life from inorganic molecules", "Photosynthesis in early Earth", "Evolution of eukaryotes", "Speciation events"],
+      "answer": "Origin of life from inorganic molecules"
+    },
+    {
+      "id": 38,
+      "question": "The Calvin cycle in photosynthesis occurs in the:",
+      "options": ["Stroma of chloroplast", "Thylakoid membrane", "Cytoplasm", "Mitochondria"],
+      "answer": "Stroma of chloroplast"
+    },
+    {
+      "id": 39,
+      "question": "Genetic drift is most significant in:",
+      "options": ["Large populations", "Small populations (founder effect)", "Stabilizing selection", "Disruptive selection"],
+      "answer": "Small populations (founder effect)"
+    },
+    {
+      "id": 40,
+      "question": "Phototropism in plants is mediated by:",
+      "options": ["Gibberellins", "Auxin (IAA) redistribution", "Cytokinins", "Abscisic acid"],
+      "answer": "Auxin (IAA) redistribution"
+    }
+  ]
+}

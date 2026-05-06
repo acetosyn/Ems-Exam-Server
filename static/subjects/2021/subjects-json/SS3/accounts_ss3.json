@@ -1,0 +1,630 @@
+{
+  "subject": "Financial Accounting",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "Contract costing is not used in one of the following industries.",
+      "diagram": null,
+      "options": [
+        "A. Ship building",
+        "B. Civil construction",
+        "C. Automobile",
+        "D. Construction of bridges"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "A contract is generally of ______ duration.",
+      "diagram": null,
+      "options": [
+        "A. long",
+        "B. small",
+        "C. average",
+        "D. very small"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Retention money serves as a ______ with the contractee.",
+      "diagram": null,
+      "options": [
+        "A. security",
+        "B. balance",
+        "C. profit",
+        "D. loss"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "When cash ratio is ______ retention money is 13%.",
+      "diagram": null,
+      "options": [
+        "A. 50%",
+        "B. 87%",
+        "C. 78%",
+        "D. 99%"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Sub contract cost is always treated as ______ to the contract.",
+      "diagram": null,
+      "options": [
+        "A. indirect charge",
+        "B. direct charge",
+        "C. income",
+        "D. revenue"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "When the completion stage of the contract is more than half, the profit to be credited to profit and loss account will be equal to ______.",
+      "diagram": null,
+      "options": [
+        "A. 1/3 of notional profit × cash received / work certified",
+        "B. 1/2 of notional profit × cash received / work certified",
+        "C. 2/3 of notional profit × cash received / work certified",
+        "D. Full notional profit"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "Departments are located in ______.",
+      "diagram": null,
+      "options": [
+        "A. same place",
+        "B. another city",
+        "C. outside state",
+        "D. foreign country"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "Departmental accounting facilitates ______.",
+      "diagram": null,
+      "options": [
+        "A. comparison of trading results",
+        "B. intelligent planning and control",
+        "C. evaluating departmental performance",
+        "D. all of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "Indirect expenses are also called ______.",
+      "diagram": null,
+      "options": [
+        "A. prime cost",
+        "B. common expenses",
+        "C. direct expenses",
+        "D. management expenses"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "Expenses which can be apportioned to departments must be shown in the ______.",
+      "diagram": null,
+      "options": [
+        "A. balance sheet",
+        "B. trading account",
+        "C. profit and loss account",
+        "D. profit and loss appropriation account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "When goods are transferred from one department to another, they are called ______.",
+      "diagram": null,
+      "options": [
+        "A. inter departmental transfer",
+        "B. outer departmental transfer",
+        "C. not a transfer",
+        "D. regular transfer"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "When goods are transferred from one department to another, the department transferring the goods should be ______.",
+      "diagram": null,
+      "options": [
+        "A. debited",
+        "B. credited",
+        "C. added",
+        "D. subtracted"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "When goods are transferred from one department to another, the department receiving the goods should be ______.",
+      "diagram": null,
+      "options": [
+        "A. debited",
+        "B. credited",
+        "C. added",
+        "D. subtracted"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "In departmental accounts, expenses like directors’ fees and interest are transferred to ______.",
+      "diagram": null,
+      "options": [
+        "A. balance sheet",
+        "B. trading account",
+        "C. profit and loss appropriation account",
+        "D. general profit and loss account"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Departmental accounting enables a business firm to maximize ______.",
+      "diagram": null,
+      "options": [
+        "A. profit",
+        "B. losses",
+        "C. cash",
+        "D. assets"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "question": "A branch which does not maintain its own set of books is ______.",
+      "diagram": null,
+      "options": [
+        "A. dependent branch",
+        "B. independent branch",
+        "C. foreign branch",
+        "D. local branch"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "A branch whose business policies are wholly controlled by the head office is ______.",
+      "diagram": null,
+      "options": [
+        "A. independent branch",
+        "B. dependent branch",
+        "C. local branch",
+        "D. foreign branch"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "Branches not keeping full system of accounting are ______.",
+      "diagram": null,
+      "options": [
+        "A. independent branch",
+        "B. dependent branch",
+        "C. local branch",
+        "D. foreign branch"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "Dependent branch makes ______.",
+      "diagram": null,
+      "options": [
+        "A. only cash sales",
+        "B. only credit sales",
+        "C. cash and credit sales",
+        "D. installment sales"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Under branch debtor system, closing balance of assets are recorded on the ______.",
+      "diagram": null,
+      "options": [
+        "A. credit side",
+        "B. debit side",
+        "C. first credit and debit side",
+        "D. first debit and credit side"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "Under branch debtor system, bad debts and discount allowed are ______.",
+      "diagram": null,
+      "options": [
+        "A. shown in debit side",
+        "B. shown in credit side",
+        "C. shown in asset side",
+        "D. not shown"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Under branch debtor system, credit side is ______.",
+      "diagram": null,
+      "options": [
+        "A. shown in credit side",
+        "B. shown in asset side",
+        "C. shown in debit side",
+        "D. not shown"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "The difference between goods sent by head office and goods received by the branch is known as ______.",
+      "diagram": null,
+      "options": [
+        "A. goods in warehouse",
+        "B. goods in production",
+        "C. goods in sales",
+        "D. goods in transit"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Hire purchase system is governed by the ______.",
+      "diagram": null,
+      "options": [
+        "A. Hire Purchase Act, 1972",
+        "B. Sales of Goods Act",
+        "C. Installment Act",
+        "D. Properties Registration Act"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "The act of buying an asset without making full payment immediately is known as ______.",
+      "diagram": null,
+      "options": [
+        "A. finance lease",
+        "B. hire purchase",
+        "C. operating lease",
+        "D. sale and leaseback"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "question": "What is transferred to the hirer under hire purchase system?",
+      "diagram": null,
+      "options": [
+        "A. Ownership of asset",
+        "B. Ownership and possession of asset",
+        "C. Possession of asset",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "The price at which goods can be purchased for ready cash is known as ______.",
+      "diagram": null,
+      "options": [
+        "A. HP price",
+        "B. installment price",
+        "C. cash price",
+        "D. down payment"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "A contract written, signed, sealed and delivered is known as ______.",
+      "diagram": null,
+      "options": [
+        "A. formal contract",
+        "B. informal contract",
+        "C. non-formal contract",
+        "D. rigid contract"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 29,
+      "diagram": "/static/uploads/diagrams/2021/accounts_ss3/diagram_29.PNG",
+      "question": "An offer of a contract can be terminated by the following:",
+      "options": [
+        "A. I and II only",
+        "B. II only",
+        "C. III only",
+        "D. I, II and III"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 30,
+      "question": "The expenses applicable to a particular contract is debited to ______.",
+      "diagram": null,
+      "options": [
+        "A. personal account of customer",
+        "B. stores account",
+        "C. profit and loss account",
+        "D. retention money account"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "diagram": "/static/uploads/diagrams/2021/accounts_ss3/diagram_31.PNG",
+      "question": "What is the selling expense for department A?",
+      "options": [
+        "A. ₦305",
+        "B. ₦300",
+        "C. ₦360",
+        "D. ₦306"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "diagram": "/static/uploads/diagrams/2021/accounts_ss3/diagram_31.PNG",
+      "question": "What is the selling expense for department B?",
+      "options": [
+        "A. ₦306",
+        "B. ₦603",
+        "C. ₦350",
+        "D. ₦360"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "diagram": "/static/uploads/diagrams/2021/accounts_ss3/diagram_31.PNG",
+      "question": "What is the net sale of departments A and B?",
+      "options": [
+        "A. ₦10,340",
+        "B. ₦10,300",
+        "C. ₦10,304",
+        "D. ₦10,403"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 34,
+      "question": "Which of the following is the basis for apportioning rent among departments?",
+      "diagram": null,
+      "options": [
+        "A. Direct labour",
+        "B. Turnover",
+        "C. Sales",
+        "D. Floor area"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 35,
+      "question": "A branch is a unit of business organization not located within the same premises as the head office.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 36,
+      "question": "In branch accounting, another name for invoice price is ______.",
+      "diagram": null,
+      "options": [
+        "A. transfer price",
+        "B. cash price",
+        "C. dividend",
+        "D. finance charge"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "question": "A branch whose accounting records are maintained by the head office is ______.",
+      "diagram": null,
+      "options": [
+        "A. foreign branch",
+        "B. national branch",
+        "C. dependent branch",
+        "D. independent branch"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 38,
+      "diagram": "/static/uploads/diagrams/2021/accounts_ss3/diagram_38.PNG",
+      "question": "Goods supplied to dependent branches by head office may be at:",
+      "options": [
+        "A. III only",
+        "B. II only",
+        "C. I and II only",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 39,
+      "question": "When head office maintains all books, goods sent to branch is credited to ______.",
+      "diagram": null,
+      "options": [
+        "A. branch stock account",
+        "B. head office current account",
+        "C. branch stock adjustment account",
+        "D. goods sent to branch account"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 40,
+      "question": "The initial sum payable by hire purchase buyer is known as ______.",
+      "diagram": null,
+      "options": [
+        "A. lease amount",
+        "B. cash price",
+        "C. finance charge",
+        "D. deposit"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "question": "In hire purchase, the buyer usually purchases a ______.",
+      "diagram": null,
+      "options": [
+        "A. fixed asset",
+        "B. intangible asset",
+        "C. current asset",
+        "D. fictitious asset"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 42,
+      "question": "In hire purchase transaction, ownership of the goods remains with the hirer.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "question": "The taking back of goods from a defaulting hire purchase customer is known as ______.",
+      "diagram": null,
+      "options": [
+        "A. readmission",
+        "B. repossession",
+        "C. reallocation",
+        "D. reappointment"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 44,
+      "question": "Branch stock adjustment account is used to determine ______.",
+      "diagram": null,
+      "options": [
+        "A. cost price",
+        "B. branch profit",
+        "C. selling price",
+        "D. branch expenses"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 45,
+      "question": "Where head office maintains all books, goods sent to branch is credited to ______.",
+      "diagram": null,
+      "options": [
+        "A. goods sent to branch account",
+        "B. branch stock account",
+        "C. branch stock adjustment account",
+        "D. head office current account"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "diagram": "/static/uploads/diagrams/2021/accounts_ss3/diagram_46.PNG",
+      "question": "Goods sent to branch are recorded in the head office’s books at ______.",
+      
+      "options": [
+        "A. I and II only",
+        "B. I and III only",
+        "C. II and III only",
+        "D. I, II and III"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "question": "Rent owed by a department is treated in the balance sheet as ______.",
+      "diagram": null,
+      "options": [
+        "A. asset of the business",
+        "B. asset of the department",
+        "C. liability of the business",
+        "D. liability of the place"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "question": "In departmental accounts, administration expenses are recorded in the ______.",
+      "diagram": null,
+      "options": [
+        "A. trading account",
+        "B. balance sheet",
+        "C. profit and loss account",
+        "D. profit and loss appropriation"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "question": "Carriage outward is classified as ______.",
+      "diagram": null,
+      "options": [
+        "A. selling and distribution expense",
+        "B. administration expense",
+        "C. trading expense",
+        "D. finance expense"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "question": "The assumption that a business will continue to operate in the foreseeable future is known as the concept of ______.",
+      "diagram": null,
+      "options": [
+        "A. business entity",
+        "B. going concern",
+        "C. realization",
+        "D. accrual"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

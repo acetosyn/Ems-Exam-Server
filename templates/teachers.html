@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block title %}Teacher Dashboard | EMIS Portal{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/teachers.css') }}">
+
+<!-- 🔥**Add Flash Message Here** -->
+<div id="flashMessage" class="flash-message hidden"></div>
+
+<div class="admin-dashboard fade-in">
+
+  <!-- HEADER -->
+  <div class="dash-header">
+    <div>
+      <h2>Teacher Dashboard</h2>
+      <p>Manage exams, monitor results, and access your teaching tools</p>
+    </div>
+    <div class="header-actions">
+      <button id="manageSystem" class="btn-secondary">
+        <i class="fa-solid fa-sliders"></i> Manage
+      </button>
+      <button id="refreshDashboard" class="btn-primary">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- TEACHER STATS -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <i class="fa-solid fa-users icon"></i>
+      <div>
+        <p>Total Students</p>
+        <h2 id="totalStudents">--</h2>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa-solid fa-book-open icon"></i>
+      <div>
+        <p>Exams Uploaded</p>
+        <h2 id="totalExams">--</h2>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa-solid fa-chart-line icon"></i>
+      <div>
+        <p>Average Performance</p>
+        <h2 id="avgScore">--%</h2>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa-solid fa-clock-rotate-left icon"></i>
+      <div>
+        <p>Recent Uploads</p>
+        <h2 id="recentUploads">--</h2>
+      </div>
+    </div>
+  </div>
+
+ <!-- QUICK TEACHER TOOLS -->
+<div class="quick-modules">
+  <h3><i class="fa-solid fa-bolt text-accent"></i> Quick Teacher Tools</h3>
+  <p class="sub-text">Access uploads, results, reports, and teaching utilities</p>
+
+  <div class="modules-grid">
+
+<!-- === Upload Related Tools === -->
+<div id="upload-section"></div> 
+
+ <!-- <div class="module-item blue" onclick="window.open('/student_login', '_blank');">
+    <i class="fa-solid fa-user-graduate"></i>
+    <span>Student Portal</span>
+</div> -->
+
+
+<div class="module-item blue" data-page="uploads.html">
+  <i class="fa-solid fa-upload"></i>
+  Upload Exams
+</div>
+
+
+
+
+    <div class="module-item teal" data-page="past_questions.html">
+      <i class="fa-solid fa-file-lines"></i>
+      Past Questions
+    </div>
+
+
+
+   <!-- === Results === -->
+<div class="module-item green"
+     onclick="window.location.href='{{ url_for('admin_bp.admin_results') }}'">
+  <i class="fa-solid fa-chart-bar"></i>
+  <span>Results</span>
+</div>
+
+
+    <div class="module-item yellow" data-page="export_results.html">
+      <i class="fa-solid fa-file-excel"></i>
+      Export to Excel
+    </div>
+
+    <div class="module-item red" data-page="print_results.html">
+      <i class="fa-solid fa-print"></i>
+      Print Results
+    </div>
+
+    <!-- === General Utilities (Now inside same card) === -->
+    <div class="module-item purple" data-page="reports.html">
+      <i class="fa-solid fa-file-pdf"></i>
+      Generate Reports
+    </div>
+
+    <div class="module-item orange" data-page="analytics.html">
+      <i class="fa-solid fa-chart-pie"></i>
+      Analytics
+    </div>
+
+    <div class="module-item gray" data-page="resources.html">
+      <i class="fa-solid fa-book"></i>
+      Resources
+    </div>
+
+    <div class="module-item pink" data-page="settings.html">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </div>
+
+  </div>
+</div>
+
+
+
+  <!-- DYNAMIC CONTENT AREA -->
+  <div id="teacherDynamicContent" class="fade-in"></div>
+
+</div>
+<!-- External JS only -->
+<!-- <script src="{{ url_for('static', filename='js/teacher.js') }}"></script> -->
+<script src="{{ url_for('static', filename='js/teacher_pageroutes.js') }}"></script>
+<script src="{{ url_for('static', filename='js/uploads.js') }}"></script>
+<script src="{{ url_for('static', filename='js/convert.js') }}"></script>
+<script src="{{ url_for('static', filename='js/push.js') }}"></script>
+<script src="{{ url_for('static', filename='js/available_years.js') }}"></script>
+
+{% endblock %}

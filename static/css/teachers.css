@@ -1,0 +1,349 @@
+/* ==========================================================
+   EMIS TEACHER DASHBOARD — teachers.css (v4.0)
+   ----------------------------------------------------------
+   Compact e-Clinic-style button cards + soft hover glow
+========================================================== */
+
+:root {
+  --primary: #0f2b46;
+  --accent: #e11d48;
+  --bg-white: #ffffff;
+  --bg-soft: #f8fafc;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
+  --shadow-hover: 0 8px 20px rgba(0,0,0,0.16);
+  --transition: all 0.25s ease;
+}
+
+/* ----------------------------------------------------------
+   CORE LAYOUT
+---------------------------------------------------------- */
+.admin-dashboard {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f9fafc, #eef2f7);
+  animation: fadeIn .6s ease both;
+}
+
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.dash-header h2 {
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+}
+.dash-header p {
+  color: #64748b;
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ----------------------------------------------------------
+   BUTTONS (header)
+---------------------------------------------------------- */
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.25);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: var(--primary);
+  border: 1px solid #cbd5e1;
+}
+.btn-secondary:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------------
+   STATS GRID
+---------------------------------------------------------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.stat-card .icon { font-size: 1.6rem; color: var(--accent); }
+.stat-card p { font-weight: 600; color: var(--primary); margin: 0; font-size: 0.85rem; }
+.stat-card h2 { font-size: 1.3rem; color: var(--accent); margin: 0.1rem 0 0; }
+
+/* ----------------------------------------------------------
+   QUICK TEACHER TOOLS (Compact Grid)
+---------------------------------------------------------- */
+.quick-modules {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 1.4rem 1.5rem 1.6rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn .5s ease both;
+}
+.quick-modules h3 {
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+.quick-modules .sub-text {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+/* GRID */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+  gap: 0.8rem;
+  justify-items: center;
+}
+
+/* BUTTON CARDS */
+.module-item {
+  width: 100%;
+  max-width: 90px;
+  min-height: 75px;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.74rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.module-item i {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+.module-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+.module-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  border-radius: inherit;
+  background: rgba(255,255,255,0.25);
+  transition: var(--transition);
+}
+.module-item:hover::after { opacity: 1; }
+
+/* ----------------------------------------------------------
+   COLOR VARIANTS
+---------------------------------------------------------- */
+.blue    { background: #3b82f6; }
+.teal    { background: #0d9488; }
+.dark    { background: #1e293b; }
+.green   { background: #10b981; }
+.yellow  { background: #facc15; color: #111; }
+.red     { background: #e11d48; }
+.purple  { background: #6366f1; }
+.orange  { background: #f59e0b; }
+.gray    { background: #6b7280; }
+.pink    { background: #ec4899; }
+
+/* ----------------------------------------------------------
+   DYNAMIC CONTENT AREA
+---------------------------------------------------------- */
+#teacherDynamicContent {
+  margin-top: 1.8rem;
+  animation: fadeSlideIn .6s ease both;
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+   ANIMATIONS
+---------------------------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .admin-dashboard { padding: 1.3rem; }
+  .modules-grid { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.7rem; }
+  .module-item { max-width: 80px; min-height: 70px; font-size: 0.7rem; }
+}
+@media (max-width: 640px) {
+  .dash-header { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .header-actions { width: 100%; flex-wrap: wrap; gap: 0.4rem; }
+  .modules-grid { gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); }
+  .module-item { max-width: 75px; min-height: 65px; font-size: 0.68rem; }
+  .module-item i { font-size: 0.95rem; }
+}
+
+/* ----------------------------------------------------------
+   LOADER + ERROR PANEL
+---------------------------------------------------------- */
+.route-loader { text-align: center; padding: 2rem 0; }
+.loader-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  margin: 0 auto 0.8rem;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-panel {
+  background: #fff1f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  color: #991b1b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.error-panel p { margin-top: 0.5rem; }
+
+.module-item.active {
+  outline: 3px solid rgba(255,255,255,0.4);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-hover);
+}
+
+
+/* ==========================================================
+   FIX: Force visible colored header buttons (override admin1.css)
+========================================================== */
+.btn-primary,
+.btn-secondary {
+  all: unset; /* remove inherited white button rules */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.4rem !important;
+  border-radius: 10px !important;
+  padding: 0.6rem 1rem !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  cursor: pointer !important;
+  color: #fff !important;
+  transition: all 0.25s ease !important;
+}
+
+/* Manage button (Primary) */
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a) !important;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.25) !important;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e3a8a) !important;
+  transform: translateY(-2px);
+}
+
+/* Refresh button (Secondary) */
+.btn-secondary {
+  background: linear-gradient(135deg, #0d9488, #115e59) !important;
+  box-shadow: 0 3px 10px rgba(13,148,136,0.25) !important;
+}
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #0f766e, #134e4a) !important;
+  transform: translateY(-2px);
+}
+
+
+
+/* ============================================================
+   GLOBAL FLASH MESSAGE (Success / Error)
+============================================================ */
+.flash-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+
+  background: #0f2b46;
+  color: #fff;
+  padding: 0.85rem 1.4rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+
+  transition: all 0.35s ease;
+}
+
+.flash-message.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(5px);
+}
+
+.flash-message.success { background: #16a34a; }  /* Green */
+.flash-message.error   { background: #dc2626; }  /* Red */
+
+@media (max-width: 600px) {
+  .flash-message {
+    width: 90%;
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+  }
+}

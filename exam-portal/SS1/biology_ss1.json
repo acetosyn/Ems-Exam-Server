@@ -1,0 +1,610 @@
+{
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "Biology",
+    "exam_title": "1st Term Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 120,
+    "class_category": "SS1",
+    "questions": [
+        {
+            "id": 1,
+            "question": "The basic unit of life is",
+            "diagram": null,
+            "options": [
+                "A. species",
+                "B. cells",
+                "C. tissues",
+                "D. organs"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 2,
+            "question": "Angiosperm belong to the class",
+            "diagram": null,
+            "options": [
+                "A. thallophyta",
+                "B. bryophyte",
+                "C. spermatophyta",
+                "D. pteridophyta"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 3,
+            "question": "The study of animals is called",
+            "diagram": null,
+            "options": [
+                "A. Botany",
+                "B. Ecology",
+                "C. Zoology",
+                "D. Entomology"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 4,
+            "question": "One of these is not a characteristic of living things",
+            "diagram": null,
+            "options": [
+                "A. Smiling",
+                "B. Growth",
+                "C. Feeding",
+                "D. Reproduction"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 5,
+            "question": "Which of the following organism exist as a colony?",
+            "diagram": null,
+            "options": [
+                "A. Amoeba",
+                "B. Volvox",
+                "C. Euglena",
+                "D. Paramecium"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "question": "Shrimps, spiders and crabs belong to the group of animals called",
+            "diagram": null,
+            "options": [
+                "A. arthropoda",
+                "B. nematoda",
+                "C. coelenterate",
+                "D. Mollusca"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 7,
+            "question": "One of these is regarded as the father of cells",
+            "diagram": null,
+            "options": [
+                "A. Robert Hooke",
+                "B. Felix Dwardin",
+                "C. Mathias Schleiden",
+                "D. Carl Linneaus"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 8,
+            "question": "One of these brought about taxonomy",
+            "diagram": null,
+            "options": [
+                "A. Carl Linneaus",
+                "B. Mathias Schleiden",
+                "C. Robert Hooke",
+                "D. Felix Dwardin"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 9,
+            "question": "The structure below represent ........... organism",
+            "diagram": "/static/uploads/diagrams/biology_ss1/diagram_9.PNG",
+            "options": [
+                "A. Euglena",
+                "B. Paramecium",
+                "C. Amoeba",
+                "D. Volvox"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 10,
+            "question": "The part labeled III is the",
+            "diagram": null,
+            "options": [
+                "A. endoderm",
+                "B. ectoderm",
+                "C. nucleus",
+                "D. food vacuole"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 11,
+            "question": "Contractile vacuole is the part labeled",
+            "diagram": null,
+            "options": [
+                "A. II",
+                "B. III",
+                "C. I",
+                "D. IV"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 12,
+            "question": "Which of these is not correct about fish?",
+            "diagram": null,
+            "options": [
+                "A. Live in water",
+                "B. Skin is covered with scales",
+                "C. Perspires through gill",
+                "D. They are poikilothermic"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 13,
+            "question": "The following are levels of organization of life except",
+            "diagram": null,
+            "options": [
+                "A. cells",
+                "B. organs",
+                "C. organisms",
+                "D. tissues"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 14,
+            "question": "The largest and strongest bone in human body is the",
+            "diagram": null,
+            "options": [
+                "A. radius",
+                "B. ulna",
+                "C. tibia",
+                "D. femur"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 15,
+            "question": "The two Greek words which biology was coined from are",
+            "diagram": null,
+            "options": [
+                "A. Bios and logo",
+                "B. Bios and logos",
+                "C. Bios and Lagos",
+                "D. Bios and Lagoon"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 16,
+            "question": "A system is the ..... level of organization of life",
+            "diagram": null,
+            "options": [
+                "A. 1st",
+                "B. 2nd",
+                "C. 4th",
+                "D. 3rd"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 17,
+            "question": "A group of similar cells form a layer called",
+            "diagram": null,
+            "options": [
+                "A. organs",
+                "B. tissues",
+                "C. system",
+                "D. organism"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 18,
+            "question": "A cell without a membrane bound nucleus is called",
+            "diagram": null,
+            "options": [
+                "A. Protista cell",
+                "B. prokaryotic cell",
+                "C. eukaryotic cell",
+                "D. bacterial cell"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 19,
+            "question": "One of these is not a phylum in animal kingdom",
+            "diagram": null,
+            "options": [
+                "A. Mollusca",
+                "B. Annelida",
+                "C. Nematoda",
+                "D. Insecta"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 20,
+            "question": "One of these organisms is slippers-shaped",
+            "diagram": null,
+            "options": [
+                "A. Amoeba",
+                "B. Euglena",
+                "C. Paramecium",
+                "D. Chlamydomonas"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 21,
+            "question": "The organism below belongs to the phylum",
+            "diagram": "/static/uploads/diagrams/biology_ss1/diagram_21.PNG",
+            "options": [
+                "A. Arthropoda",
+                "B. Mollusca",
+                "C. Chordate",
+                "D. Annelida"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 22,
+            "question": "The part labelled IV is called",
+            "diagram": null,
+            "options": [
+                "A. foot",
+                "B. shell",
+                "C. tentacle",
+                "D. mouth"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 23,
+            "question": "The used for sight sensation are",
+            "diagram": null,
+            "options": [
+                "A. I and III",
+                "B. IV and II",
+                "C. V and II",
+                "D. I and II"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 24,
+            "question": "The cell theory was postulated in the year",
+            "diagram": null,
+            "options": [
+                "A. 1939",
+                "B. 1858",
+                "C. 1839",
+                "D. 1855"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 25,
+            "question": "One of these is not an animal characteristic of euglena",
+            "diagram": null,
+            "options": [
+                "A. possession of eye spot",
+                "B. possession of flagellum",
+                "C. possession of chloroplast",
+                "D. possession of contractile vacuole"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 26,
+            "question": "The removal of metabolic waste from living organisms is called",
+            "diagram": null,
+            "options": [
+                "A. egestion",
+                "B. digestion",
+                "C. secretion",
+                "D. excretion"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 27,
+            "question": "The ability of living organisms to perpetuate their kind is called",
+            "diagram": null,
+            "options": [
+                "A. production",
+                "B. reproduction",
+                "C. conjugation",
+                "D. replication"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "question": "All are control measures of harmful micro-organisms except",
+            "diagram": null,
+            "options": [
+                "A. high temperature",
+                "B. sterilization",
+                "C. inhygiene",
+                "D. hygiene"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 29,
+            "question": "One of these scientists put an end to spontaneous generation",
+            "diagram": null,
+            "options": [
+                "A. Rudolf Von Virchow",
+                "B. Theodor Schwann",
+                "C. Mathias Schleiden",
+                "D. Robert Hooke"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 30,
+            "question": "The sudden retraction of body from a noticed environmental change is termed",
+            "diagram": null,
+            "options": [
+                "A. irritation",
+                "B. irrigation",
+                "C. irritability",
+                "D. stimulus"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 31,
+            "question": "The fusion of male and female gamete is called",
+            "diagram": null,
+            "options": [
+                "A. zygote",
+                "B. gametocyte",
+                "C. progeny",
+                "D. fertilization"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 32,
+            "question": "Feeding on solid food substances requiring digestion before absorption is termed",
+            "diagram": null,
+            "options": [
+                "A. parasitic",
+                "B. symbiotic",
+                "C. saprophytic",
+                "D. holozoic"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 33,
+            "question": "All hereditary information of a living organism is stored in",
+            "diagram": null,
+            "options": [
+                "A. nucleus",
+                "B. nucleolus",
+                "C. lysosome",
+                "D. ribosomes"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 34,
+            "question": "One of these organelles controls the green pigmentation of plant leaves",
+            "diagram": null,
+            "options": [
+                "A. Chlorophyll",
+                "B. Chloroplast",
+                "C. Vacuole",
+                "D. Lysosome"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 35,
+            "question": "All are examples of protozoa except",
+            "diagram": null,
+            "options": [
+                "A. Amoeba",
+                "B. Paramecium",
+                "C. Trypanosome",
+                "D. Algae"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 36,
+            "question": "The surface of leaves and wings of insects contains ______ that makes them proof",
+            "diagram": null,
+            "options": [
+                "A. hyphae",
+                "B. spores",
+                "C. chitin",
+                "D. mycelium"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 37,
+            "question": "One of these undergo saprophytic mode of nutrition",
+            "diagram": null,
+            "options": [
+                "A. Protozoa",
+                "B. Plants",
+                "C. Animals",
+                "D. Fungi"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 38,
+            "question": "A tentative answer to a scientific question is called",
+            "diagram": null,
+            "options": [
+                "A. Testing",
+                "B. Theory",
+                "C. Hypothesis",
+                "D. Law"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 39,
+            "question": "One of these is not true about plants",
+            "diagram": null,
+            "options": [
+                "A. Growth is indefinite and apical",
+                "B. Growth is definite and intercalary",
+                "C. Slow response to stimulus",
+                "D. Undergo holophytic nutrition"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 40,
+            "question": "C6H12O6 + 6O2 → 6CO2 + 6H2O + energy summarizes",
+            "diagram": null,
+            "options": [
+                "A. excretion",
+                "B. respiration",
+                "C. adaptation",
+                "D. nutrition"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "question": "Urine is stored temporarily in the",
+            "diagram": null,
+            "options": [
+                "A. Liver",
+                "B. Kidney",
+                "C. Gall bladder",
+                "D. Bladder"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 42,
+            "question": "Monocot plants are easily recognized by",
+            "diagram": null,
+            "options": [
+                "A. short leaves with petiole",
+                "B. long leaves with parallel veins",
+                "C. short leaves with many veins",
+                "D. long leaves with interconnected veins"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "One of these is a unicellular organism",
+            "diagram": null,
+            "options": [
+                "A. Spirogyra",
+                "B. Hydra",
+                "C. Amoeba",
+                "D. Cat"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 44,
+            "question": "All are branches of biology except",
+            "diagram": null,
+            "options": [
+                "A. Zoology",
+                "B. Geology",
+                "C. Botany",
+                "D. Microbiology"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 45,
+            "question": "Which of these does NOT control harmful microbes?",
+            "diagram": null,
+            "options": [
+                "A. Hygiene",
+                "B. High temperature",
+                "C. Inhygiene",
+                "D. Sterilization"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 46,
+            "question": "The powerhouse of the cell is the",
+            "diagram": null,
+            "options": [
+                "A. nucleus",
+                "B. nucleolus",
+                "C. golgi apparatus",
+                "D. mitochondrion"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 47,
+            "question": "One of these structures cannot be found in the nucleus",
+            "diagram": null,
+            "options": [
+                "A. Genes",
+                "B. Ribosomes",
+                "C. Chromosomes",
+                "D. Nucleolus"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "question": "All are advantages of complexity in higher organisms except",
+            "diagram": null,
+            "options": [
+                "A. cellular differentiation",
+                "B. internal structural specialization",
+                "C. difficulties in acquiring essential materials",
+                "D. mutual interdependence"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 49,
+            "question": "Amoeba uses one of the following for movement",
+            "diagram": null,
+            "options": [
+                "A. Flagella",
+                "B. Cilia",
+                "C. Legs",
+                "D. Pseudopodia"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 50,
+            "question": "One of these plays a major role in protein synthesis",
+            "diagram": null,
+            "options": [
+                "A. Centrioles",
+                "B. Ribosomes",
+                "C. Lysosomes",
+                "D. Mitochondrion"
+            ],
+            "correctOption": "B"
+        }
+    ]
+}

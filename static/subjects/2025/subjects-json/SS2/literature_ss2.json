@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Literature",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 60,
+  "questions": [
+    {
+      "id": 1,
+      "question": "The first person narrator in a novel is usually the",
+      "options": [
+        "A. alter ego",
+        "B. antagonist",
+        "C. flat character",
+        "D. protagonist"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "The mood of a poet influences his/her",
+      "options": [
+        "A. diction",
+        "B. setting",
+        "C. style",
+        "D. tone"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "question": "Denouement is a point in drama where crisis is",
+      "options": [
+        "A. complicated",
+        "B. exposed",
+        "C. introduced",
+        "D. resolved"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "The following are features of poetry except",
+      "options": [
+        "A. flashback",
+        "B. metre",
+        "C. quatrain",
+        "D. stanza"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "The major division in a play is",
+      "options": [
+        "A. act",
+        "B. chapter",
+        "C. line",
+        "D. scene"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "The sequence of events in a literary work is",
+      "options": [
+        "A. episode",
+        "B. plot",
+        "C. setting",
+        "D. style"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "The act of selecting actors for their specific roles in a play is",
+      "options": [
+        "A. acting",
+        "B. auditioning",
+        "C. casting",
+        "D. featuring"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "A poem of two lines with similar end rhymes is",
+      "options": [
+        "A. couplet",
+        "B. monostich",
+        "C. quatrain",
+        "D. sestet"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "A temporary moment of reprieve in a play is",
+      "options": [
+        "A. comic relief",
+        "B. dramatic monologue",
+        "C. epilogue",
+        "D. interlude"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Pick the odd item from the following",
+      "options": [
+        "A. Alliteration",
+        "B. Allusion",
+        "C. Assonance",
+        "D. Onomatopoeia"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "Octave and sestet are features of ....sonnet",
+      "options": [
+        "A. Italian",
+        "B. Miltonic",
+        "C. Modern",
+        "D. Shakespearean"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "A major distinguishing feature between novel and short story is the",
+      "options": [
+        "A. development",
+        "B. length",
+        "C. setting",
+        "D. structure"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "Epitaph is a/an",
+      "options": [
+        "A. inscription on a monument",
+        "B. inscription on a tombstone",
+        "C. poem of fourteen lines",
+        "D. poem of lamentation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "A novelist is to prose, what a .....is to drama",
+      "options": [
+        "A. playwright",
+        "B. producer",
+        "C. prompter",
+        "D. scriptwriter"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "“Twinkle, twinkle, little star....” exemplifies the use of",
+      "options": [
+        "A. assonance",
+        "B. rhyme",
+        "C. onomatopoeia",
+        "D. refrain"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Pick out the odd item",
+      "options": [
+        "A. Appostroph",
+        "B. Aside",
+        "C. Mime",
+        "D. Monologue"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "The most striking feature of drama is",
+      "options": [
+        "A. action",
+        "B. character",
+        "C. plot",
+        "D. diction"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "A play that evokes pity and ends sadly is",
+      "options": [
+        "A. comedy",
+        "B. farce",
+        "C. melodrama",
+        "D. tragedy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "An expression containing words with contrasting meanings in close proximity is",
+      "options": [
+        "A. antithesis",
+        "B. apostrophe",
+        "C. litotes",
+        "D. oxymoron"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "“Many dances like flamingos” is an example of",
+      "options": [
+        "A. anaphora",
+        "B. metaphor",
+        "C. metonymy",
+        "D. simile"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 21,
+      "question": "The author’s tone is that of",
+      "options": [
+        "A. celebration",
+        "B. defeat",
+        "C. fear",
+        "D. praise"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "The point of view employed by the author is ........narration technique",
+      "options": [
+        "A. eclectic",
+        "B. first-person",
+        "C. second person",
+        "D. third person"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "The underlined phrase is an example of",
+      "options": [
+        "A. allusion",
+        "B. hyperbole",
+        "C. metaphor",
+        "D. personification"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "The most suitable title for the passage is",
+      "options": [
+        "A. Amalinze the great wrestler",
+        "B. community fight in Umuofia",
+        "C. defeat the great wrestler",
+        "D. Okonkwo the great wrestler"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "The story .....in nature",
+      "options": [
+        "A. argumentative",
+        "B. descriptive",
+        "C. epistolary",
+        "D. narrative"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "The subject matter of the poem is",
+      "options": [
+        "A. anxiety",
+        "B. courage",
+        "C. fear",
+        "D. hope"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "The figure of speech used in line 2 is",
+      "options": [
+        "A. alliteration",
+        "B. emjambment",
+        "C. metaphor",
+        "D. onomatopoeia"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "The tone of the poem is that of",
+      "options": [
+        "A. celebration",
+        "B. confidence",
+        "C. distrust",
+        "D. excitement"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "The rhyme scheme of the first stanza of the poem is",
+      "options": [
+        "A. AABB",
+        "B. ABAA",
+        "C. ABAB",
+        "D. ABBA"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "The underlined expression implies that the poet persona is",
+      "options": [
+        "A. fearful",
+        "B. proud",
+        "C. resolute",
+        "D. rigid"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Who is the speaker of the above excerpt",
+      "options": [
+        "A. Mardian",
+        "B. Fulvia",
+        "C. Cleopatra",
+        "D. Octavia"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "The speaker is addressing",
+      "options": [
+        "A. Caesar",
+        "B. Enobarbus",
+        "C. Agrippa",
+        "D. Antony"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "“The greatest soldier of the world, Art turned the greatest liar” who is the soldier and the liar?",
+      "options": [
+        "A. Caesar",
+        "B. Antony",
+        "C. Agrippa",
+        "D. Enobarbus"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "What is another word for “farewell” in line 2?",
+      "options": [
+        "A. Coma",
+        "B. Go",
+        "C. Goodbye",
+        "D. Be safe"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "In Act II, Menas advises Pompey to do what to his fellow soldier?",
+      "options": [
+        "A. Gift them",
+        "B. Kill them",
+        "C. Praise them",
+        "D. Make them drunk"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "Who uttered the above statement?",
+      "options": [
+        "A. Pompey",
+        "B. Antony",
+        "C. Caesar",
+        "D. Menas"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "One of the following is not an audience member at the above speech event",
+      "options": [
+        "A. Pompey",
+        "B. Antony",
+        "C. Caesar",
+        "D. Agrippa"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "“You take from me a great part of myself” What is taken away from the speaker?",
+      "options": [
+        "A. Crown",
+        "B. Sister",
+        "C. Brother",
+        "D. Wife"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "Who takes the unknown thing away from the speaker?",
+      "options": [
+        "A. Pompey",
+        "B. Antony",
+        "C. Caesar",
+        "D. Agrippa"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "Who is the speaker talking about?",
+      "options": [
+        "A. Fulvia",
+        "B. Cleopatra",
+        "C. Octavia",
+        "D. Alexis"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "Who is the speaker?",
+      "options": [
+        "A. Dolabella",
+        "B. Antony",
+        "C. Ambassador",
+        "D. Pompey"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "“Lord of his fortunes he salutes thee” what is he?",
+      "options": [
+        "A. Antony",
+        "B. Lepidus",
+        "C. Agrippa",
+        "D. Enoburbus"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "What is another for “breathe” in line 3?",
+      "options": [
+        "A. Inhale",
+        "B. Live",
+        "C. Die",
+        "D. Free"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "Who is the speaker addressing?",
+      "options": [
+        "A. Pompey",
+        "B. Julius Caesar",
+        "C. Antony",
+        "D. Octavius"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 45,
+      "question": "What does the word “circle” in line 8 means?",
+      "options": [
+        "A. Shape",
+        "B. House",
+        "C. Crown",
+        "D. Life"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Does the addressee accept to do all the above?",
+      "options": [
+        "A. Yes",
+        "B. No",
+        "C. Partially",
+        "D. Was not there"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "How does Eros die?",
+      "options": [
+        "A. Kills himself",
+        "B. Killed by Antony",
+        "C. Dies by poisoning",
+        "D. Dies in battle"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "Why does Enobarbus betray Antony",
+      "options": [
+        "A. Because of love",
+        "B. Because Antony hates him",
+        "C. Because Antony is a woman man",
+        "D. Because he decides to change his environment"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "What does Enobarbus leave behind while betraying Antony?",
+      "options": [
+        "A. Money",
+        "B. Sword",
+        "C. Clothes",
+        "D. A letter"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 50,
+      "question": "How does Enobarbus die?",
+      "options": [
+        "A. Out of guilt",
+        "B. In battle",
+        "C. In the hands of Caesar",
+        "D. Suicide"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "class_category": "SS2"
+}

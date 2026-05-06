@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Literature",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 60,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Literature is simply knowledge related because",
+      "options": [
+        "A. it is simple",
+        "B. it refers to everything in print or written",
+        "C. it is a jack of all trade",
+        "D. none of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "The imaginative work of art produced by writers and creators is the main concern of",
+      "options": [
+        "A. literature",
+        "B. politics",
+        "C. music",
+        "D. creation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Literature is a source of power because",
+      "options": [
+        "A. it makes people to be powerful",
+        "B. it is a knowledge of democracy",
+        "C. it enables people to create ideas and experience that shape reality",
+        "D. it makes people love power"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "The term the genres of literature refers to",
+      "options": [
+        "A. the study of literature",
+        "B. the form of art",
+        "C. the way of life",
+        "D. the main three branches of literature"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "Literature represents human experience through",
+      "options": [
+        "A. the genres of literature",
+        "B. the form of behavior",
+        "C. the manipulative work of science",
+        "D. the means of worship"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "Literature entertains, informs and also",
+      "options": [
+        "A. tells some stories",
+        "B. educates",
+        "C. misleads",
+        "D. encourages crime"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "One of the following is a unit of literature",
+      "options": [
+        "A. Story of life",
+        "B. Poetry",
+        "C. So the Path Does Not Die",
+        "D. History"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "A piece of writing that tells a story is called",
+      "options": [
+        "A. drama",
+        "B. song",
+        "C. literature",
+        "D. prose"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "Literary narratives are based on",
+      "options": [
+        "A. shared experience",
+        "B. love",
+        "C. war",
+        "D. flashback"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "The recurring image in the work of art is called",
+      "options": [
+        "A. flashback",
+        "B. motif",
+        "C. setting",
+        "D. foreshadow"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is common to all forms of literature?",
+      "options": [
+        "A. Language",
+        "B. Chorus",
+        "C. Action",
+        "D. Narrator"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "The three major forms of literature are",
+      "options": [
+        "A. tragedy, comedy, tragic-comedy",
+        "B. poetry, drama, folktales",
+        "C. drama, lyric, prose fiction",
+        "D. poetry, drama, prose"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "Beauty in poetry depends mainly on",
+      "options": [
+        "A. expression and rhythm",
+        "B. length and theme",
+        "C. vowels and consonants",
+        "D. mood and verse form"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "The central message or issue conveyed by a piece of art is the term",
+      "options": [
+        "A. plot",
+        "B. setting",
+        "C. theme",
+        "D. tone"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "The plot of a work of art is the",
+      "options": [
+        "A. main idea",
+        "B. time and locate of action",
+        "C. blurb of a story",
+        "D. arrangement of ideas"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "The act of assigning roles and action to characters in a work of art is",
+      "options": [
+        "A. simile",
+        "B. characterization",
+        "C. plot",
+        "D. motif"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "The shorter form of novel is called",
+      "options": [
+        "A. novella",
+        "B. short story",
+        "C. prologue",
+        "D. a side"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "The angle of narration or the perspective of which a story is narrated is called",
+      "options": [
+        "A. monologue",
+        "B. point of view",
+        "C. angle of elevation",
+        "D. verisimilitude"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "The device used in stories drama and other piece of art which makes action seems real or close to reality is called",
+      "options": [
+        "A. reality",
+        "B. voice",
+        "C. verisimilitude",
+        "D. deus-ex-machina"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Deusex-machina is a device used in drama when",
+      "options": [
+        "A. there is a machine in the play",
+        "B. resolution of conflict is based on good’s intervention",
+        "C. there is a confusion",
+        "D. the play is a comedy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "In a play, a character who is set in opposition against the main character is called",
+      "options": [
+        "A. protagonist",
+        "B. antagonist",
+        "C. flat character",
+        "D. jester"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "The piece of art that narrates or tells a story is called",
+      "options": [
+        "A. drama",
+        "B. play",
+        "C. rogue narrative",
+        "D. prose"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "A long story is said to be",
+      "options": [
+        "A. novel",
+        "B. novella",
+        "C. trikstar",
+        "D. elegy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "Chapter is to .....as act and scene are to drama",
+      "options": [
+        "A. poetry",
+        "B. novel",
+        "C. play",
+        "D. dirge"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "In literary studies, stories that are based on real life account belong to the prose genre known as",
+      "options": [
+        "A. fiction stories",
+        "B. prologue",
+        "C. non-fictional stories",
+        "D. fictive narratives"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Stories or actions in a piece of art that are based on make believe are said to be",
+      "options": [
+        "A. analogy",
+        "B. limerick",
+        "C. threnody",
+        "D. fictional stories"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "One of the following poets defined poetry as “the spontaneous overflow of powerful feelings. It takes its origin from emotion recollected in tranquility”",
+      "options": [
+        "A. Soyinka",
+        "B. T.S. Eliot",
+        "C. J. P. Clerk",
+        "D. William Wordsworth"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 28,
+      "question": "One of the major uniqueness of poetry is that it is written in",
+      "options": [
+        "A. chapter",
+        "B. acts",
+        "C. stanza",
+        "D. paragraphs"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "The sequence of stressed and unstressed syllables in a poem is called",
+      "options": [
+        "A. metre",
+        "B. rhyme",
+        "C. rhythm",
+        "D. tone"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The line of poetry written in metre is called",
+      "options": [
+        "A. enjambment",
+        "B. prose",
+        "C. verse",
+        "D. refrain"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Refrain in poetry is a",
+      "options": [
+        "A. song",
+        "B. word or phrase which is repeated at regular interval",
+        "C. proverb which addresses reality",
+        "D. blabbing strategy used to mimick"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "Ballad is a kind of poetry which authors are",
+      "options": [
+        "A. well known",
+        "B. mostly anonymous",
+        "C. visible",
+        "D. herders"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Threnody is a type of",
+      "options": [
+        "A. lyric",
+        "B. dirge/elegy",
+        "C. ballad",
+        "D. epic"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "A humorous poem of five lines is called a/an",
+      "options": [
+        "A. threnody",
+        "B. pun",
+        "C. limerick",
+        "D. sonnet"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "A poem meant to lull children into sleep is called",
+      "options": [
+        "A. lyric",
+        "B. epic",
+        "C. pastoral",
+        "D. lullaby"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "A situation in a drama or any literary piece when a character is faced by two ugly situations of confusion is known as",
+      "options": [
+        "A. dilemma",
+        "B. flashback",
+        "C. simile",
+        "D. foreshadow"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "The device used to relate the past with the present is called",
+      "options": [
+        "A. recall",
+        "B. flashback",
+        "C. irony",
+        "D. anagnorisis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "In drama or any literary piece, a situation when the audience are aware of what a character does not known is called",
+      "options": [
+        "A. flashback",
+        "B. anagnorisis",
+        "C. dramatic irony",
+        "D. anaphora"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "A sudden change in circumstance of a major character is called",
+      "options": [
+        "A. poetic drama",
+        "B. epilogue",
+        "C. prologue",
+        "D. peripeteia"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "A speech or situations presented before the main play is known as",
+      "options": [
+        "A. prologue",
+        "B. epilogue",
+        "C. dialogue",
+        "D. aside"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "A closing comment in a play which explains certain actions or attempts to explain withheld actions at the end of a play is",
+      "options": [
+        "A. an aside",
+        "B. epilogue",
+        "C. dialogue",
+        "D. prologue"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "The expression “Gori is like an old pig” exemplified",
+      "options": [
+        "A. metaphor",
+        "B. irony",
+        "C. simile",
+        "D. hyperbole"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "The figure of speech used in “Rosana’s heart is made of stone” is",
+      "options": [
+        "A. simile",
+        "B. irony",
+        "C. personification",
+        "D. metaphor"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "question": "The expression “Lagos does not sleep at night” exemplified the use of",
+      "options": [
+        "A. irony",
+        "B. personification",
+        "C. metaphor",
+        "D. alliteration"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "The figure of speech used in addressing or talking to an object as though it is a person who can listen and provide a reply is called",
+      "options": [
+        "A. personification",
+        "B. apostrophe",
+        "C. innuendo",
+        "D. oxymoron"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "“Life, why are you wicked” demonstrates the use of",
+      "options": [
+        "A. irony",
+        "B. apostrophe",
+        "C. metaphor",
+        "D. personification"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "The statement “Emeka is a wise fool” demonstrates the use of",
+      "options": [
+        "A. oxymoron",
+        "B. hyperbole",
+        "C. simile",
+        "D. metaphor"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "The statement “what a man can do, a woman can do it better” exemplified the use of",
+      "options": [
+        "A. oxymoron",
+        "B. antithesis",
+        "C. pun",
+        "D. innuendo"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "The expression “Ojo has now become wise” demonstrates the use of",
+      "options": [
+        "A. irony",
+        "B. pathetic falacy",
+        "C. innuendo",
+        "D. transferred epithet"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 50,
+      "question": "The statement “a child is the father of a man’ is an example of",
+      "options": [
+        "A. innuendo",
+        "B. falacy",
+        "C. metaphor",
+        "D. paradox"
+      ],
+      "correctOption": "D"
+    }
+  ],
+  "class_category": "SS1"
+}

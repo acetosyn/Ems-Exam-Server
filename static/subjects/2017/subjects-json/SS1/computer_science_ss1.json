@@ -1,0 +1,657 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Computer Studies",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "The type of data item that consists of a combination of alphabetic and numeric characters is called",
+      "diagram": null,
+      "options": [
+        "A. alphabetic data item",
+        "B. numeric data item",
+        "C. alphanumeric data item",
+        "D. special keys"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "question": "A collection of related data items or fields is known as a",
+      "diagram": null,
+      "options": [
+        "A. field",
+        "B. record",
+        "C. data",
+        "D. none"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 3,
+      "question": "Which of the following is NOT a file access method?",
+      "diagram": null,
+      "options": [
+        "A. Random file",
+        "B. Sequential file",
+        "C. Transaction file",
+        "D. Serial file"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 4,
+      "question": "Arithmetic manipulation of data is called",
+      "diagram": null,
+      "options": [
+        "A. summarizing",
+        "B. calculating",
+        "C. sorting",
+        "D. comparing"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "question": "Data items are physically arranged as _____ in a computer file",
+      "diagram": null,
+      "options": [
+        "A. computer file",
+        "B. fields",
+        "C. data items",
+        "D. records"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 6,
+      "question": "The descending order of data/file hierarchy is",
+      "diagram": null,
+      "options": [
+        "A. database – file – record – field – byte",
+        "B. database – file – record – field – bit – byte",
+        "C. database – record – file – field – byte – bit",
+        "D. database – record – field – file – byte – bit"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 7,
+      "question": "In a _____ file organization, records are arranged in the order they are added",
+      "diagram": null,
+      "options": [
+        "A. serial",
+        "B. random",
+        "C. sequential",
+        "D. master"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "question": "Which of the following is NOT a class of computer file?",
+      "diagram": null,
+      "options": [
+        "A. Random file",
+        "B. Reference file",
+        "C. Transaction file",
+        "D. Master file"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "question": "Destruction of files for malicious reasons is classified as",
+      "diagram": null,
+      "options": [
+        "A. modified",
+        "B. accessed",
+        "C. destroyed",
+        "D. unauthorized access"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 10,
+      "question": "Sorting of records is a necessary condition for creating a",
+      "diagram": null,
+      "options": [
+        "A. sequential file",
+        "B. serial file",
+        "C. random file",
+        "D. indexed sequential file"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "question": "Direct access method of file organization is best suited for",
+      "diagram": null,
+      "options": [
+        "A. offline applications",
+        "B. storage medium",
+        "C. batch applications",
+        "D. online applications"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 12,
+      "question": "The basic operation of retrieving a lost file is known as",
+      "diagram": null,
+      "options": [
+        "A. restate",
+        "B. delete",
+        "C. retrieve",
+        "D. move"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 13,
+      "question": "Which of the following is NOT a limitation of a computerized file system?",
+      "diagram": null,
+      "options": [
+        "A. cheap to set up",
+        "B. data duplication",
+        "C. vulnerability to virus attacks",
+        "D. incompatible data files"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "question": "Which of the following is NOT suitable for securing files?",
+      "diagram": null,
+      "options": [
+        "A. saving documents without password",
+        "B. use of backup",
+        "C. use of antivirus",
+        "D. proper labeling of devices"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 15,
+      "question": "The instruction fetched into the CPU is decoded by the",
+      "diagram": null,
+      "options": [
+        "A. primary memory",
+        "B. program counter",
+        "C. ALU",
+        "D. control unit"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "question": "A transaction file can also be referred to as a",
+      "diagram": null,
+      "options": [
+        "A. master file",
+        "B. movement file",
+        "C. reference file",
+        "D. historical file"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 17,
+      "question": "An advantage of sequential access over serial access is that",
+      "diagram": null,
+      "options": [
+        "A. it is slow",
+        "B. it is detailed",
+        "C. it does not use key",
+        "D. records can be located faster"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 18,
+      "question": "Computer security can be improved by the use of",
+      "diagram": null,
+      "options": [
+        "A. account number",
+        "B. BVN number",
+        "C. password",
+        "D. user ID"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 19,
+      "question": "Any document saved on a disk is called a",
+      "diagram": null,
+      "options": [
+        "A. field",
+        "B. folder",
+        "C. file",
+        "D. record"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "question": "By default, Microsoft Word prints documents in",
+      "diagram": null,
+      "options": [
+        "A. landscape",
+        "B. portrait",
+        "C. print view",
+        "D. vertical"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "To open a previously saved file, use the",
+      "diagram": null,
+      "options": [
+        "A. close",
+        "B. new",
+        "C. open",
+        "D. save"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "question": "Making copies of files for restoration after loss is known as",
+      "diagram": null,
+      "options": [
+        "A. antivirus",
+        "B. copy",
+        "C. backup",
+        "D. move"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "question": "Deleting an unwanted file is called",
+      "diagram": null,
+      "options": [
+        "A. delete",
+        "B. create",
+        "C. copy",
+        "D. close"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "question": "A user-chosen string of characters used for access is a",
+      "diagram": null,
+      "options": [
+        "A. secret string",
+        "B. password",
+        "C. antivirus",
+        "D. program code"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "question": "A program that protects against virus attacks is an",
+      "diagram": null,
+      "options": [
+        "A. data protector",
+        "B. firewall",
+        "C. backup",
+        "D. antivirus"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 26,
+      "question": "To move a document from one location to another is to",
+      "diagram": null,
+      "options": [
+        "A. copy",
+        "B. drag and place",
+        "C. cut",
+        "D. paste"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 27,
+      "question": "Which is NOT a function of a word processor?",
+      "diagram": null,
+      "options": [
+        "A. typing documents",
+        "B. editing documents",
+        "C. copy and paste",
+        "D. creating videos"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 28,
+      "question": "Word processing can be used for",
+      "diagram": null,
+      "options": [
+        "A. presentations",
+        "B. calculations",
+        "C. database design",
+        "D. writing articles"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 29,
+      "question": "Which storage medium has the lowest capacity?",
+      "diagram": null,
+      "options": [
+        "A. CD-ROM",
+        "B. flash drive",
+        "C. hard disk",
+        "D. floppy disk"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 30,
+      "question": "Which is NOT a word processor?",
+      "diagram": null,
+      "options": [
+        "A. Microsoft Word",
+        "B. Lotus Notes",
+        "C. Perfect Writer",
+        "D. Amateur Writer"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 31,
+      "diagram": "/static/uploads/diagrams/2017/computer_science_ss1/diagram_31.PNG",
+      "question": "Figure 1 represents",
+      "options": [
+        "A. NOT gate",
+        "B. NAND gate",
+        "C. AND gate",
+        "D. OR gate"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 32,
+      "question": "X, Y and Z respectively represent",
+      "diagram": null,
+      "options": [
+        "A. input, output, input",
+        "B. output, output, input",
+        "C. input, input, output",
+        "D. output, input, output"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 33,
+      "question": "When X = 0 and Y = 1, signal Z is",
+      "diagram": null,
+      "options": [
+        "A. 0.1",
+        "B. 0",
+        "C. 1",
+        "D. 0+1"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "question": "A part of a system that can function independently is a",
+      "diagram": null,
+      "options": [
+        "A. system",
+        "B. super-system",
+        "C. subsystem",
+        "D. designer"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 35,
+      "question": "How many stages are in the System Development Life Cycle (SDLC)?",
+      "diagram": null,
+      "options": ["A. 4", "B. 5", "C. 6", "D. 7"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "question": "The structured steps used to develop an information system is called",
+      "diagram": null,
+      "options": [
+        "A. analytical cycle",
+        "B. design cycle",
+        "C. system development life cycle",
+        "D. program specification"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "question": "Actual coding of a program is done during the",
+      "diagram": null,
+      "options": [
+        "A. maintenance phase",
+        "B. design phase",
+        "C. analysis phase",
+        "D. development and documentation phase"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 38,
+      "question": "The stage that determines whether a project should continue is",
+      "diagram": null,
+      "options": [
+        "A. feasibility study",
+        "B. opportunity identification",
+        "C. system evaluation",
+        "D. program specification"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 39,
+      "question": "Those responsible for managing system development are",
+      "diagram": null,
+      "options": [
+        "A. project managers",
+        "B. network managers",
+        "C. graphic designers",
+        "D. system analysts"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "question": "Debugging means",
+      "diagram": null,
+      "options": [
+        "A. writing program code",
+        "B. finding and correcting errors",
+        "C. creating algorithm",
+        "D. identifying tasks"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 41,
+      "question": "SDLC stands for",
+      "diagram": null,
+      "options": [
+        "A. system design life cycle",
+        "B. system design level cycle",
+        "C. system development life cycle",
+        "D. serial development life cycle"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 42,
+      "question": "Program testing is also known as",
+      "diagram": null,
+      "options": [
+        "A. proofreading",
+        "B. maintenance",
+        "C. program running",
+        "D. none of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "question": "Which of the following is NOT an interpreted language?",
+      "diagram": null,
+      "options": [
+        "A. BASIC",
+        "B. JAVA",
+        "C. PYTHON",
+        "D. C"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "question": "A laptop differs from a desktop because a laptop",
+      "diagram": null,
+      "options": [
+        "A. has no mouse",
+        "B. uses USB only",
+        "C. cannot connect to internet",
+        "D. has a built-in battery"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "question": "Which of the following is NOT an example of synchronous communication?",
+      "diagram": null,
+      "options": [
+        "A. blogs",
+        "B. Google Talk",
+        "C. phone",
+        "D. video conferencing"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "question": "Integrated circuit chips are made from",
+      "diagram": null,
+      "options": [
+        "A. silicon",
+        "B. silver",
+        "C. gold",
+        "D. copper"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 47,
+      "question": "A secret user-chosen string for computer access is called a",
+      "diagram": null,
+      "options": [
+        "A. password",
+        "B. address code",
+        "C. internet protocol",
+        "D. ID name"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 48,
+      "question": "The property of a disk that determines how much data it can hold is",
+      "diagram": null,
+      "options": [
+        "A. size",
+        "B. volume capacity",
+        "C. storage capacity",
+        "D. storage power"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "question": "The term hardcopy refers to",
+      "diagram": null,
+      "options": [
+        "A. printout",
+        "B. writing on board",
+        "C. data on hard disk",
+        "D. amount of data"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "question": "The instruction fetched into the CPU is decoded by the",
+      "diagram": null,
+      "options": [
+        "A. control unit",
+        "B. arithmetic logic unit",
+        "C. primary memory",
+        "D. secondary memory"
+      ],
+      "correctOption": "A"
+    }
+
+  ]
+}

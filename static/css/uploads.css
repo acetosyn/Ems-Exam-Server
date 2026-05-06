@@ -1,0 +1,817 @@
+/* ============================================================
+   EPICONSULT EMIS — UPLOADS PAGE (2025/2026)
+   Soft Premium Light-Blue Theme
+   Clean, modern, subtle gradients, calm tones
+   ============================================================ */
+
+:root {
+  --primary: #2a4d77;             /* soft blue, not navy */
+  --primary-dark: #1f3b5c;
+  --primary-light: #e8f1fb;       /* very light blue background */
+
+  --accent: #e11d48;
+  --accent-light: #f47288;
+
+  --card-bg: #ffffff;
+  --card-bg-soft: rgba(255, 255, 255, 0.65);
+  --border-soft: rgba(0,0,0,0.06);
+
+  --text-dark: #0f172a;
+  --text-soft: #475569;
+
+  --radius: 14px;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 6px 28px rgba(0,0,0,0.12);
+
+  --gradient-soft: linear-gradient(135deg, #eef6ff, #f6faff);
+}
+
+/* ============================================================
+   GLOBAL RESET + UTILITIES
+   ============================================================ */
+
+.fade-in {
+  animation: fadeIn .45s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pretty-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) #d9e4f5;
+}
+.pretty-scroll::-webkit-scrollbar { width: 6px; }
+.pretty-scroll::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+.pretty-scroll::-webkit-scrollbar-track {
+  background: #d9e4f5;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 1rem 1.2rem;
+  backdrop-filter: blur(6px);
+}
+
+/* ============================================================
+   PAGE WRAPPER + HEADER
+   ============================================================ */
+
+.uploads-wrapper {
+  padding: 1.6rem;
+  background: var(--primary-light);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+  min-height: 100%;
+}
+
+.uploads-header {
+  margin-bottom: 1.6rem;
+}
+
+.uploads-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.3rem;
+  flex-wrap: wrap;
+}
+
+.uploads-header-left h3 {
+  color: var(--primary-dark);
+  font-size: 1.65rem;
+  margin-bottom: .3rem;
+  font-weight: 800;
+}
+
+.sub-text {
+  font-size: .92rem;
+  color: var(--text-soft);
+}
+
+/* ============================================================
+   ROLE BANNER — Beautiful soft gradient
+   ============================================================ */
+
+.role-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .5rem 1rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--accent);
+  background: var(--gradient-soft);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  color: var(--primary-dark);
+}
+
+.role-banner[data-role="teacher"] {
+  border-left-color: #10b981;
+  background: linear-gradient(135deg, #e8fff4, #f3fffb);
+}
+
+/* ============================================================
+   GRID LAYOUT (3 columns)
+   ============================================================ */
+
+.uploads-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.45fr 1.1fr;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+/* ============================================================
+   LEFT PANEL — UPLOAD ZONE
+   ============================================================ */
+
+.upload-panel.card {
+  max-height: 580px;
+  overflow-y: auto;
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.panel-header h4 {
+  margin-bottom: .25rem;
+  color: var(--primary-dark);
+  font-weight: 800;
+}
+
+.panel-subtitle {
+  color: var(--text-soft);
+  font-size: .82rem;
+  margin-bottom: .6rem;
+}
+
+.drop-box {
+  padding: 1.2rem;
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #f3f7ff, #ffffff);
+  transition: .25s ease;
+}
+
+.drop-box:hover {
+  background: #f0f6ff;
+  border-color: var(--primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.upload-icon {
+  font-size: 2.8rem;
+  color: var(--primary);
+  margin-bottom: .4rem;
+}
+
+.btn-row button {
+  margin-right: .5rem;
+  font-size: .85rem;
+}
+
+.upload-actions {
+  display: flex;
+  gap: .7rem;
+  margin-top: 1rem;
+}
+
+.upload-actions button {
+  padding: .7rem 1rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+/* Progress */
+.progress {
+  margin-top: .9rem;
+  background: #d7e3f7;
+  height: 6px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 10px;
+  width: 0%;
+  transition: width .3s ease;
+}
+
+.progress-label {
+  font-size: .8rem;
+  color: var(--primary-dark);
+  display: block;
+  margin-top: .35rem;
+}
+
+/* ============================================================
+   MIDDLE PANEL — TABLE
+   ============================================================ */
+
+.dashboard-panel.card {
+  max-height: 580px;
+  overflow-y: auto;
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.table-wrapper {
+  overflow-y: auto;
+  max-height: 380px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #eef2f6;
+}
+
+.uploads-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.uploads-table th {
+  background: #f1f6ff;
+  padding: .55rem .6rem;
+  text-align: left;
+  font-weight: 800;
+  color: var(--primary-dark);
+  font-size: .82rem;
+  border-bottom: 1px solid #e3ecfa;
+}
+
+.uploads-table td {
+  padding: .55rem .6rem;
+  font-size: .82rem;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.uploads-table tr:hover td {
+  background: #f7fbff;
+}
+
+/* ============================================================
+   RIGHT PANEL — PUSH PANEL
+   ============================================================ */
+
+.push-panel.card {
+  max-height: 580px;
+  overflow-y: auto;
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.push-year-control label {
+  font-size: .82rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.push-year-control select {
+  margin-top: .3rem;
+}
+
+/* Summary */
+.portal-summary {
+  margin-top: .7rem;
+  padding: .9rem;
+  background: #f4f8ff;
+  border-radius: 10px;
+  border: 1px solid #e0e8f6;
+  display: flex;
+  gap: .8rem;
+  align-items: center;
+}
+
+.portal-icon {
+  padding: .6rem .75rem;
+  background: #ffffff;
+  border-radius: 10px;
+  font-size: 1.7rem;
+  color: var(--primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-title {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.summary-sub {
+  font-size: .78rem;
+  color: #5b6a7f;
+}
+
+/* Buttons */
+.push-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.push-actions-row {
+  display: flex;
+  gap: .7rem;
+}
+
+/* Clear Queue */
+#clearQueue {
+  opacity: .85;
+  font-size: .72rem !important;
+  width: fit-content;
+}
+
+/* ============================================================
+   PREVIEW CARD
+   ============================================================ */
+
+.preview-card {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f7faff;
+  border: 1px solid #e1e9f7;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.preview-card-header h5 {
+  font-size: .96rem;
+  font-weight: 800;
+  margin-bottom: .2rem;
+}
+
+.preview-pill {
+  background: #e2ebf9;
+  padding: .25rem .55rem;
+  border-radius: 6px;
+  font-size: .72rem;
+}
+
+.preview-body {
+  background: #ffffff;
+  border: 1px solid #e6eaf1;
+  padding: .7rem;
+  border-radius: 8px;
+  max-height: 170px;
+  overflow-y: auto;
+  font-size: .78rem;
+}
+
+/* ============================================================
+   PORTAL LOG
+   ============================================================ */
+
+.log-box {
+  margin-top: 1rem;
+  background: #f2f7ff;
+  padding: .9rem;
+  border-radius: 10px;
+  border: 1px solid #dce7f9;
+  height: 165px;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-title {
+  font-weight: 800;
+  color: var(--primary-dark);
+  font-size: .9rem;
+}
+
+.log-body {
+  margin-top: .3rem;
+  font-size: .78rem;
+  overflow-y: auto;
+}
+
+/* ============================================================
+   SUBJECT CARDS (MODAL)
+   ============================================================ */
+
+.subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  gap: .8rem;
+}
+
+.subject-card {
+  background: #ffffff;
+  padding: .65rem;
+  border-radius: 10px;
+  border: 1px solid #e4e9f3;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+
+.subject-name {
+  font-weight: 800;
+  font-size: .85rem;
+  color: var(--primary-dark);
+}
+
+.subject-filename {
+  font-size: .72rem;
+  color: #5b6b84;
+}
+
+.subject-version-pill {
+  padding: .15rem .4rem;
+  font-size: .65rem;
+  background: #eef4fd;
+  border-radius: 5px;
+}
+
+.subject-actions {
+  margin-top: .4rem;
+  display: flex;
+  gap: .35rem;
+}
+
+.subject-actions button {
+  font-size: .68rem !important;
+  padding: .25rem .4rem !important;
+  border-radius: 6px !important;
+}
+
+/* ============================================================
+   PREMIUM SQUARE MODALS — RESTORED FROM OLD UPLOADS.CSS
+   Compact • Beautiful • Strong Shadow • Perfect Buttons
+============================================================ */
+
+/* Backdrop + container */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding-top: 110px !important;   /* Push modal slightly downward */
+  z-index: 3000;
+}
+
+.modal.hidden {
+  display: none !important;
+}
+
+/* Dimmed blurred background */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.52);     /* stronger dark fade */
+  backdrop-filter: blur(4px);       /* premium blur */
+}
+
+/* ============================================================
+   SQUARE MODAL CARD — TRUE PREMIUM VERSION
+============================================================ */
+.modal-card.small {
+  width: 310px !important;
+  min-height: 310px !important;
+
+  background: #ffffff;
+  border-radius: 18px !important;     /* thick premium rounding */
+  padding: 0 !important;
+
+  box-shadow: 0 18px 45px rgba(0,0,0,0.22);  /* premium shadow */
+  display: flex;
+  flex-direction: column;
+
+  animation: fadeInModal .25s ease-out;
+}
+
+/* Smooth animation */
+@keyframes fadeInModal {
+  from { opacity: 0; transform: translateY(-16px) scale(.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============================================================
+   HEADER — bold & compact
+============================================================ */
+.modal-card.small .modal-header {
+  padding: .75rem .9rem !important;
+  background: #f1f5fb !important;
+  border-bottom: 1px solid #e4e8f1;
+  text-align: center;
+}
+
+.modal-card.small .modal-header h3 {
+  margin: 0;
+  font-size: 1rem !important;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #475569;
+}
+
+/* ============================================================
+   BODY — centered modern layout
+============================================================ */
+.modal-card.small .modal-body {
+  padding: .9rem .8rem !important;
+  text-align: center;
+
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-card.small .warning-text {
+  font-size: .78rem;
+  color: #475569;
+  margin-bottom: .6rem;
+}
+
+/* ============================================================
+   CLASS OPTIONS — compact premium buttons
+============================================================ */
+.class-options {
+  display: flex;
+  justify-content: center;
+  gap: .55rem;
+  margin-top: .4rem;
+}
+
+.class-btn,
+.clear-btn {
+  width: 70px !important;
+  padding: .5rem 0 !important;
+
+  background: #eef4ff;
+  border: 1px solid #cddbf5;
+  border-radius: 8px !important;
+
+  font-size: .8rem !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+
+  color: var(--primary-dark);
+  transition: .25s ease;
+}
+
+/* Hover effects */
+.class-btn:hover,
+.clear-btn:hover {
+  background: var(--primary) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Danger button */
+.clear-btn.danger {
+  background: #ffe2e2 !important;
+  border-color: #f5bcbc !important;
+  color: #b91c1c !important;
+}
+
+.clear-btn.danger:hover {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+/* ============================================================
+   FOOTER — premium centered buttons
+============================================================ */
+.modal-card.small .modal-footer {
+  padding: .75rem .9rem !important;
+  background: #f7faff !important;
+  border-top: 1px solid #e6eaf3;
+
+  display: flex;
+  justify-content: center;
+  gap: .55rem;
+  width: 100%;
+}
+
+.modal-card.small .modal-footer button {
+  padding: .48rem .85rem !important;
+  font-size: .82rem !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+}
+
+/* Disabled state */
+.btn-primary.disabled,
+#btnConfirmPush.disabled {
+  opacity: .4;
+  cursor: not-allowed !important;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1080px) {
+  .uploads-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================================
+   TEACHER OVERRIDES
+   ============================================================ */
+
+#teacherDynamicContent .modal-card {
+  width: 78% !important;
+  transform: translateY(-15%) !important;
+}
+
+#teacherDynamicContent .subjects-grid {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+}
+
+#teacherDynamicContent .subject-card {
+  padding: .55rem !important;
+  border-radius: 8px !important;
+}
+
+/* ============================================================
+   SELECT YEAR — Soft Premium Blue Styling
+   ============================================================ */
+
+.year-selector {
+  appearance: none;
+  background: #f1f6ff;
+  border: 1px solid #d4e2f7;
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%232a4d77' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 2.2rem;
+}
+
+.year-selector:hover {
+  background: #e9f1ff;
+  border-color: var(--primary);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.year-selector:focus {
+  outline: none;
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 0 3px rgba(70,120,190,0.25);
+}
+
+/* ============================================================
+   CLASS FILTER PILL BAR
+   ============================================================ */
+
+.class-filter {
+  display: flex;
+  gap: 6px;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.class-pill {
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #e2e8f0;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.25s ease;
+}
+
+.class-pill:hover {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.class-pill.active {
+  background: #2563eb !important;
+  color: white !important;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+}
+
+
+
+/* ============================================================
+   FIX — MAKE SMALL MODALS ACTUALLY SMALL (OVERRIDE BASE STYLES)
+   ============================================================ */
+
+.modal-card.small {
+  width: 310px !important;      /* enforce square width */
+  max-width: 310px !important;
+  min-height: 310px !important;
+
+  height: auto !important;       /* do not stretch full height */
+  max-height: 400px !important;
+
+  margin: 0 !important;
+}
+
+
+/* ===========================================================
+   ACTIVE YEAR CARD — CLEAN ADMIN UI
+   =========================================================== */
+
+.active-year-card {
+  display: inline-flex;
+  align-items: center;
+  background: #f1f5ff;                  /* soft blue background */
+  border: 1px solid #d0dbff;            /* subtle border */
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  margin-left: 12px;
+  user-select: none;
+}
+
+.active-year-card #activeYearLabel {
+  font-weight: 800;
+  color: #1d2f73;                       /* deep academic blue */
+  letter-spacing: 0.3px;
+}
+
+
+
+/* =========================================================
+   HEADER CENTER — AVAILABLE WAEC YEARS
+========================================================= */
+
+.uploads-header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.uploads-header-center {
+  flex: 0 0 auto;
+}
+
+.available-years-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 8px 12px;
+  min-width: 220px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.available-years-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.available-years-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.available-years-list .year-badge {
+  background: #e0ecff;
+  color: #1d4ed8;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.year-loading {
+  font-size: 0.7rem;
+  color: #6b7280;
+}

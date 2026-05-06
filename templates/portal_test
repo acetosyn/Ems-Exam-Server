@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Candidate Dashboard - EMIS Exam Portal{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_portal.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="up-shell">
+  
+  <!-- Typewriter Banner -->
+  <div class="up-typewriter">
+    <span id="typewriter"></span>
+  </div>
+
+  <!-- Welcome / Header strip -->
+  <header class="up-hero">
+    <div class="up-hero-left">
+      <div class="up-hero-greeting">Welcome back,</div>
+      <h1 class="up-hero-name">{{ full_name or "Candidate" }}</h1>
+      <p class="up-hero-sub">
+        This is your exam dashboard. Review your details and proceed when ready.
+      </p>
+    </div>
+    <div class="up-hero-right">
+      <div class="up-pill {{ 'pill-green' if exam_submitted else ('pill-amber' if exam_started else 'pill-gray') }}">
+        {% if exam_submitted %}
+          ✅ Exam submitted
+        {% elif exam_started %}
+          ⏳ Exam in progress
+        {% else %}
+          🕒 Exam not started
+        {% endif %}
+      </div>
+      <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+    </div>
+  </header>
+
+  <!-- Grid Layout -->
+  <div class="up-grid">
+    
+    <!-- Candidate Profile -->
+    <section class="up-card up-profile">
+      <h2 class="up-card-head">👤 Candidate Information</h2>
+      <div class="up-profile-content">
+        <div class="up-profile-row"><span>Full Name:</span> <strong>{{ full_name or '-' }}</strong></div>
+        <div class="up-profile-row"><span>Email:</span> <strong>{{ email or '-' }}</strong></div>
+        <div class="up-profile-row"><span>Username:</span> <code>{{ username or '-' }}</code></div>
+        <div class="up-profile-row"><span>Gender:</span> <strong>{{ gender or '-' }}</strong></div>
+        <div class="up-profile-row"><span>Subject:</span> <strong>{{ subject or '-' }}</strong></div>
+      </div>
+    </section>
+
+    <!-- Exam Card -->
+    <section class="up-card up-actions">
+      <h2 class="up-card-head">📝 Your Exam</h2>
+      <ul class="up-list">
+        <li><span>Status</span><strong>{% if exam_submitted %}Submitted{% elif exam_started %}In Progress{% else %}Not Started{% endif %}</strong></li>
+        <li><span>Mode</span><strong>Multiple Choice</strong></li>
+        <li><span>Duration</span><strong>60 minutes</strong></li>
+        <li><span>Subject</span><strong>{{ subject or '-' }}</strong></li>
+      </ul>
+      <div class="up-actions-row">
+        {% if not exam_started and not exam_submitted %}
+          <!-- Changed: no POST, just link to /exam -->
+          <a href="{{ url_for('exam') }}" class="btn-primary">📖 View Exam Instructions</a>
+        {% elif exam_submitted %}
+          <a href="{{ url_for('result') }}" class="btn-success">📊 View Results</a>
+        {% elif exam_started %}
+          <a href="{{ url_for('exam') }}" class="btn-warning">⏳ Resume Exam</a>
+        {% endif %}
+      </div>
+      <p class="up-hint">
+        You’ll first see <strong>instructions</strong>.  
+        The exam will only begin when you click <strong>🚀 Start Exam</strong> inside the instructions modal.
+      </p>
+    </section>
+
+    <!-- Pre-exam Checklist -->
+    <section class="up-card up-help">
+      <h2 class="up-card-head">⚡ Before You Begin</h2>
+      <ul class="up-bullets">
+        <li>Ensure a stable internet connection & keep your device plugged in or fully charged.</li>
+        <li>Use a modern browser (Chrome, Edge, Safari, Firefox).</li>
+        <li>Close other apps/tabs to avoid distractions during your exam.</li>
+      </ul>
+
+      <div class="up-cta-row">
+        <button class="btn-link" id="openSupport">Need help?</button>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="up-card up-activity">
+      <h2 class="up-card-head">📜 Recent Activity</h2>
+      <div id="activityList" class="up-activity-list">
+        <div class="up-activity-item">
+          <div class="dot"></div>
+          <div>
+            <div class="title">Portal Accessed</div>
+            <div class="meta">Just now</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Support Modal -->
+<div id="supportModal" class="up-modal hidden">
+  <div class="up-modal-card">
+    <div class="up-modal-head">
+      <h3>Support</h3>
+      <button class="up-modal-close" id="closeSupport">✕</button>
+    </div>
+    <div class="up-modal-body">
+      <p>Having trouble signing in or starting your exam?</p>
+      <ul class="up-bullets">
+        <li>Email: <a href="mailto:admin@emis.example">admin@emis.example</a></li>
+        <li>Contact your exam administrator directly</li>
+      </ul>
+    </div>
+    <div class="up-modal-foot">
+      <button class="btn-secondary" id="dismissSupport">Close</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/user_portal.js') }}"></script>
+{% endblock %}
+
+
+
+        <ul class="checklist">
+          <li>📶 Ensure strong internet (4G/5G or Wi-Fi).</li>
+          <li>🔋 Keep your device charged or plugged in.</li>
+          <li>🖥️ Use Chrome, Safari, or Edge.</li>
+          <li>🚫 Avoid switching tabs during the exam.</li>
+          <li>📵 Close background apps.</li>
+          <li>⏲️ Timer cannot be paused.</li>
+          <li>💾 Auto-save after every question.</li>
+        </ul>

@@ -1,0 +1,636 @@
+[
+  {
+    "id": 1,
+    "question": "Calculate the median of the following set of numbers: 3, 2, 6, 8, 9, 8, 12, 11, 12, 6.",
+    "diagram": null,
+    "options": [
+      "A. 9",
+      "B. 8",
+      "C. 7",
+      "D. 6"
+    ],
+    "correctOption": "B"
+  },
+
+  {
+    "id": 2,
+    "question": "If 3 + x ≤ 5 and 8 + x ≥ 5, what range of values of x satisfies both inequalities?",
+    "diagram": null,
+    "options": [
+      "A. x ≤ 2",
+      "B. x ≥ −3",
+      "C. −3 ≤ x ≤ 2",
+      "D. x ≥ −1"
+    ],
+    "correctOption": "C"
+  },
+
+  {
+    "id": 3,
+    "question": "If −(x + 5) < 2(1 − x), then x is __________.",
+    "diagram": null,
+    "options": [
+      "A. x < 7",
+      "B. x < 8",
+      "C. x > 10",
+      "D. x < 2"
+    ],
+    "correctOption": "A"
+  },
+
+  {
+    "id": 4,
+    "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_11.PNG",
+    "question": "What is ∠SQR in the figure above?",
+    "options": [
+      "A. 30°",
+      "B. 45°",
+      "C. 60°",
+      "D. 75°"
+    ],
+    "correctOption": "B"
+  },
+
+ {
+  "id": 5,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_5.PNG",
+  "question": "If (x − 2)(x − 3) = 12, find the positive value of x.",
+  "options": [
+    "A. 6",
+    "B. 5",
+    "C. 4",
+    "D. 3"
+  ],
+  "correctOption": "A"
+}
+,
+
+  {
+    "id": 6,
+    "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_11.PNG",
+    "question": "The number of students who took the test is __________.",
+    "options": [
+      "A. 3",
+      "B. 9",
+      "C. 10",
+      "D. 11"
+    ],
+    "correctOption": "D"
+  },
+
+  {
+    "id": 7,
+    "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_11.PNG",
+    "question": "The mean score of the students is __________.",
+    "options": [
+      "A. 4.9",
+      "B. 5.1",
+      "C. 6.0",
+      "D. 7.8"
+    ],
+    "correctOption": "B"
+  },
+
+  {
+    "id": 8,
+    "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_11.PNG",
+    "question": "The number of students who scored at least 5 is __________.",
+    "options": [
+      "A. 3",
+      "B. 9",
+      "C. 10",
+      "D. 11"
+    ],
+    "correctOption": "B"
+  },
+
+  {
+    "id": 9,
+    "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_11.PNG",
+    "question": "The modal score of the distribution is __________.",
+    "options": [
+      "A. 4",
+      "B. 5",
+      "C. 6",
+      "D. 7"
+    ],
+    "correctOption": "C"
+  },
+
+  {
+    "id": 10,
+    "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_11.PNG",
+    "question": "The median score of the distribution is __________.",
+    "options": [
+      "A. 5",
+      "B. 4.5",
+      "C. 3",
+      "D. 5.5"
+    ],
+    "correctOption": "A"
+  },
+
+  {
+    "id": 11,
+     "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_19.PNG",
+    "question": "Express m in terms of n in the figure above.",
+    "options": [
+      "A. m = n + 2",
+      "B. m = n − 2",
+      "C. m = 2n",
+      "D. m = n/2"
+    ],
+    "correctOption": "A"
+  },
+
+  {
+    "id": 12,
+    "question": "The 8th term of the arithmetic progression −4, −2, 0, … is __________.",
+    "diagram": null,
+    "options": [
+      "A. 10",
+      "B. 12",
+      "C. −10",
+      "D. 8"
+    ],
+    "correctOption": "D"
+  },
+
+  {
+    "id": 13,
+    "question": "If 2x − y = 6 and 2x + 4y = 1, find the value of 4x + 3y.",
+    "diagram": null,
+    "options": [
+      "A. 1",
+      "B. 3",
+      "C. 5",
+      "D. 7"
+    ],
+    "correctOption": "B"
+  },
+
+  {
+    "id": 14,
+    "question": "Given the scores 2, 3, 4, 5, 6, find the standard deviation.",
+    "diagram": null,
+    "options": [
+      "A. 2.0",
+      "B. 1.4",
+      "C. 1.3",
+      "D. 1.2"
+    ],
+    "correctOption": "B"
+  },
+
+  {
+    "id": 15,
+    "question": "Find the variance of the scores 2, 3, 4, 5, 6.",
+    "diagram": null,
+    "options": [
+      "A. 1.20",
+      "B. 1.44",
+      "C. 1.69",
+      "D. 2.00"
+    ],
+    "correctOption": "B"
+  },
+
+
+{
+  "id": 16,
+  "diagram": null,
+  "question": "The average age of three children in a family is 9 years. If the average age of their parents is 39 years, the average age of the whole family is __________.",
+  "options": [
+    "A. 20 years",
+    "B. 21 years",
+    "C. 24 years",
+    "D. 27 years"
+  ],
+  "correctOption": "A"
+},
+
+{
+  "id": 17,
+  "diagram": null,
+  "question": "One of the following is not a measure of dispersion.",
+  "options": [
+    "A. Mean deviation",
+    "B. Mode",
+    "C. Range",
+    "D. Standard deviation"
+  ],
+  "correctOption": "B"
+},
+
+{
+  "id": 18,
+  "diagram": null,
+  "question": "If log₁₀6 = 0.778 and log₁₀3 = 0.477, evaluate log₁₀54.",
+  "options": [
+    "A. 1.732",
+    "B. 1.301",
+    "C. 2.732",
+    "D. 2.301"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 19,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_19.PNG",
+  "question": "Find the modal class of the distribution shown.",
+  "options": [
+    "A. 0–9",
+    "B. 40–49",
+    "C. 50–59",
+    "D. 30–39"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 20,
+  "diagram": null,
+  "question": "A ruler of length 12 cm was measured by a student as 10 cm. What is the percentage error in length?",
+  "options": [
+    "A. 16.67%",
+    "B. 2%",
+    "C. 22%",
+    "D. 8.8%"
+  ],
+  "correctOption": "A"
+},
+
+{
+  "id": 21,
+  "diagram": null,
+  "question": "If x varies inversely as the cube root of y and x = 1 when y = 8, find the value of y when x = 3.",
+  "options": [
+    "A. 1/3",
+    "B. 2/3",
+    "C. 8/27",
+    "D. 4/9"
+  ],
+  "correctOption": "C"
+},
+
+{
+  "id": 22,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_22.PNG",
+  "question": "Find the variance of the frequency distribution shown.",
+  "options": [
+    "A. 1.4",
+    "B. 2.0",
+    "C. 3.0",
+    "D. 1.0"
+  ],
+  "correctOption": "A"
+},
+
+{
+  "id": 23,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_23.PNG",
+  "question": "What percentage of the students obtained a C4 grade?",
+  "options": [
+    "A. 52%",
+    "B. 43.2%",
+    "C. 40%",
+    "D. 12%"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 24,
+  "diagram": null,
+  "question": "Solve the inequality 2 − x > x².",
+  "options": [
+    "A. x < −2 or x > 1",
+    "B. x > 2 or x < −1",
+    "C. −1 < x < 2",
+    "D. −2 < x < 1"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 25,
+  "diagram": null,
+  "question": "A chord 8.4 cm long is 5.6 cm from the centre of a circle. Find the radius of the circle.",
+  "options": [
+    "A. 4 cm",
+    "B. 5 cm",
+    "C. 6 cm",
+    "D. 7 cm"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 26,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_26.PNG",
+  "question": "Calculate the value of x in the figure shown.",
+  "options": [
+    "A. 100°",
+    "B. 110°",
+    "C. 120°",
+    "D. 130°"
+  ],
+  "correctOption": "C"
+},
+
+{
+  "id": 27,
+  "diagram": null,
+  "question": "The values of three angles at a point are (3y − 45)°, (y + 25)° and y°. Find the value of y.",
+  "options": [
+    "A. 70°",
+    "B. 86°",
+    "C. 96°",
+    "D. 106°"
+  ],
+  "correctOption": "C"
+},
+
+{
+  "id": 28,
+  "diagram": null,
+  "question": "The opposite angles of a cyclic quadrilateral are __________.",
+  "options": [
+    "A. corresponding",
+    "B. supplementary",
+    "C. alternate",
+    "D. irrelevant"
+  ],
+  "correctOption": "B"
+},
+
+{
+  "id": 29,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_29.PNG",
+  "question": "In the diagram shown, C is the centre of the circle and PCQ is a diameter. If ∠PSR = 41°, find ∠RPQ.",
+  "options": [
+    "A. 29°",
+    "B. 39°",
+    "C. 49°",
+    "D. 59°"
+  ],
+  "correctOption": "C"
+},
+
+{
+  "id": 30,
+  "diagram": null,
+  "question": "The surface area of a sphere of radius 3.5 cm is __________.",
+  "options": [
+    "A. 124 cm²",
+    "B. 134 cm²",
+    "C. 144 cm²",
+    "D. 154 cm²"
+  ],
+  "correctOption": "D"
+},
+
+
+{
+  "id": 31,
+  "diagram": null,
+  "question": "Find two natural numbers whose difference is 3 and whose sum of squares is 117.",
+  "options": [
+    "A. 3 and 6",
+    "B. 5 and 8",
+    "C. 7 and 10",
+    "D. 6 and 9"
+  ],
+  "correctOption": "B"
+},
+{
+  "id": 32,
+  "diagram": null,
+  "question": "Solve the inequality (a − 3)(a − 4) ≤ 0.",
+  "options": [
+    "A. 3 ≤ a ≤ 4",
+    "B. a ≤ 3",
+    "C. a ≤ 4",
+    "D. a ≤ 7"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 33,
+  "diagram": null,
+  "question": "Simplify \\( \\frac{12a^2 b^3 d}{18ab^4 d^2} \\).",
+  "options": [
+    "A. \\( \\frac{2a}{3bd} \\)",
+    "B. \\( \\frac{2}{3bd} \\)",
+    "C. \\( \\frac{2a}{3b} \\)",
+    "D. \\( \\frac{2a}{3d} \\)"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 34,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_34.PNG",
+  "question": "In the diagram shown, XR = 4 cm, RZ = 12 cm, SR = n, YZ = m and SR ∥ YZ. Find m in terms of n.",
+  "options": [
+    "A. m = 2n",
+    "B. m = 3n",
+    "C. m = 4n",
+    "D. m = 5n"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 35,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_35.PNG",
+  "question": "In the diagram shown, ∠QPR = 90°. If q² = 25 − r², find the value of P.",
+  "options": [
+    "A. 3",
+    "B. 4",
+    "C. 5",
+    "D. 6"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 36,
+  "diagram": null,
+  "question": "An arc of a circle of radius 14 cm is 18.33 cm long. Calculate, correct to the nearest degree, the angle subtended at the centre.",
+  "options": [
+    "A. 110°",
+    "B. 200°",
+    "C. 220°",
+    "D. 75°"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 37,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_37.PNG",
+  "question": "In the diagram shown, SQ = 4 cm, PT = 7 cm, TR = 5 cm and ST ∥ QR. If SP = x cm, find x.",
+  "options": [
+    "A. 5.6 cm",
+    "B. 6.5 cm",
+    "C. 6.6 cm",
+    "D. 6.8 cm"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 38,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_38.PNG",
+  "question": "The pie chart shows the distribution of 4320 students. How many students graduated from the Science department?",
+  "options": [
+    "A. 840",
+    "B. 860",
+    "C. 920",
+    "D. 960"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 39,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_38.PNG",
+  "question": "If a student is picked at random, what is the probability that the student is not from the Education department?",
+  "options": [
+    "A. 3/10",
+    "B. 2/9",
+    "C. 5/18",
+    "D. 7/10"
+  ],
+  "correctOption": "D"
+},
+{
+  "id": 40,
+  "diagram": null,
+  "question": "Solve the inequality \\( \\frac{-m}{2} - \\frac{5}{4} \\le \\frac{5m}{12} - \\frac{7}{6} \\).",
+  "options": [
+    "A. m ≥ 5/4",
+    "B. m ≤ −5/4",
+    "C. m ≥ −1/11",
+    "D. m ≤ −1/11"
+  ],
+  "correctOption": "D"
+},
+{
+  "id": 41,
+  "diagram": null,
+  "question": "If \\( U_n = n(n^2 + 1) \\), evaluate \\( U_5 − U_4 \\).",
+  "options": [
+    "A. 18",
+    "B. 56",
+    "C. 62",
+    "D. 80"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 42,
+  "diagram": null,
+  "question": "Express \\( \\frac{2}{x+3} - \\frac{1}{x-2} \\) as a single fraction.",
+  "options": [
+    "A. \\( \\frac{x-7}{x^2+x-6} \\)",
+    "B. \\( \\frac{x-1}{x^2+x-6} \\)",
+    "C. \\( \\frac{x-2}{x^2+x-6} \\)",
+    "D. \\( \\frac{x+7}{x^2+x-6} \\)"
+  ],
+  "correctOption": "B"
+},
+{
+  "id": 43,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_43.PNG",
+  "question": "Calculate, correct to one decimal place, the length of arc PQ.",
+  "options": [
+    "A. 175.0 cm",
+    "B. 157.1 cm",
+    "C. 37.7 cm",
+    "D. 3.1 cm"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 44,
+  "diagram": "static/uploads/diagrams/2017/maths_ss2/diagram_43.PNG",
+  "question": "Calculate, to three significant figures, the area of sector OPQ.",
+  "options": [
+    "A. 3.403 cm²",
+    "B. 5.350 cm²",
+    "C. 10.99 cm²",
+    "D. 157.1 cm²"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 45,
+  "diagram": null,
+  "question": "Solve the inequality 2x + 3 < 5x.",
+  "options": [
+    "A. x > 1",
+    "B. x < 3/7",
+    "C. x > 3/7",
+    "D. x > −1"
+  ],
+  "correctOption": "C"
+},
+
+{
+  "id": 46,
+  "diagram": null,
+  "question": "A bicycle wheel of radius 42 cm is rolled over a distance of 66 metres. How many revolutions does it make?",
+  "options": [
+    "A. 2.5",
+    "B. 5",
+    "C. 25",
+    "D. 50"
+  ],
+  "correctOption": "D"
+},
+{
+  "id": 47,
+  "diagram": null,
+  "question": "The base diameter of a cone is 14 cm and its volume is 462 cm³. Find the height of the cone.",
+  "options": [
+    "A. 3.5 cm",
+    "B. 5 cm",
+    "C. 7 cm",
+    "D. 9 cm"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 48,
+  "diagram": null,
+  "question": "Which of the following is not a rational number?",
+  "options": [
+    "A. −5",
+    "B. 4",
+    "C. 33/4",
+    "D. √90"
+  ],
+  "correctOption": "D"
+},
+{
+  "id": 49,
+  "diagram": null,
+  "question": "The difference between the solutions to questions 41 and 12 in this examination is __________.",
+  "options": [
+    "A. −52",
+    "B. 52",
+    "C. 62",
+    "D. 10"
+  ],
+  "correctOption": "B"
+},
+{
+  "id": 50,
+  "diagram": null,
+  "question": "Adekunle Saheed and Hussein Kachalla were eating when Ahmad Wagani bought buttons worth ₦50 with a fake ₦200 note. Kachalla collected the fake note and gave the realcorrect change. When the note was discovered to be fake, Kachalla replaced it with his own money. What was Kachalla’s loss?",
+  "options": [
+    "A. ₦250",
+    "B. ₦350",
+    "C. ₦400",
+    "D. No loss, it was a fun"
+  ],
+  "correctOption": "A"
+}
+]

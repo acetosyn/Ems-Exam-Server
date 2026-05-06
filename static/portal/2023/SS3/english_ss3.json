@@ -1,0 +1,1085 @@
+{
+    "subject": "English Language",
+    "class": "SS3",
+    "session": "2023/2024",
+    "time_allowed_minutes": 60,
+    "questions": [
+        {
+            "id": 1,
+            "isInstruction": true,
+            "question": "SECTION A:\nChoose the option (A\u2013D) that is most nearly OPPOSITE in meaning to the underlined word or group of words.",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 2,
+            "question": "The chairman gave a <span class=\"focus-word\">candid</span> response to the allegations.",
+            "options": [
+                "A. honest",
+                "B. frank",
+                "C. evasive",
+                "D. direct"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 3,
+            "question": "The teacher\u2019s <span class=\"focus-word\">lenient</span> attitude surprised the students.",
+            "options": [
+                "A. harsh",
+                "B. mild",
+                "C. calm",
+                "D. patient"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 4,
+            "question": "The meeting ended on a <span class=\"focus-word\">cordial</span> note.",
+            "options": [
+                "A. friendly",
+                "B. bitter",
+                "C. polite",
+                "D. warm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 5,
+            "question": "He gave a <span class=\"focus-word\">plausible</span> explanation.",
+            "options": [
+                "A. convincing",
+                "B. doubtful",
+                "C. reasonable",
+                "D. acceptable"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "question": "The road was <span class=\"focus-word\">narrow</span> and dangerous.",
+            "options": [
+                "A. slim",
+                "B. wide",
+                "C. tiny",
+                "D. short"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 7,
+            "question": "She spoke in a <span class=\"focus-word\">coherent</span> manner.",
+            "options": [
+                "A. confusing",
+                "B. logical",
+                "C. fluent",
+                "D. smooth"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 8,
+            "question": "The crowd became <span class=\"focus-word\">restive</span>.",
+            "options": [
+                "A. calm",
+                "B. violent",
+                "C. noisy",
+                "D. angry"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 9,
+            "question": "His response was <span class=\"focus-word\">prompt</span>.",
+            "options": [
+                "A. slow",
+                "B. quick",
+                "C. early",
+                "D. sharp"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 10,
+            "question": "The decision was <span class=\"focus-word\">temporary</span>.",
+            "options": [
+                "A. final",
+                "B. brief",
+                "C. short-lived",
+                "D. momentary"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 11,
+            "question": "She is known for her <span class=\"focus-word\">prudence</span>.",
+            "options": [
+                "A. wisdom",
+                "B. recklessness",
+                "C. caution",
+                "D. care"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 12,
+            "isInstruction": true,
+            "question": "Choose the option (A\u2013D) that is nearest in meaning to the underlined word.",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 13,
+            "question": "The news was <span class=\"focus-word\">astonishing</span>.",
+            "options": [
+                "A. surprising",
+                "B. alarming",
+                "C. confusing",
+                "D. shocking"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 14,
+            "question": "He gave a <span class=\"focus-word\">vivid</span> description.",
+            "options": [
+                "A. clear",
+                "B. lively",
+                "C. long",
+                "D. sharp"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 15,
+            "question": "The politician was <span class=\"focus-word\">eloquent</span>.",
+            "options": [
+                "A. persuasive",
+                "B. noisy",
+                "C. arrogant",
+                "D. careless"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 16,
+            "question": "She felt <span class=\"focus-word\">relieved</span>.",
+            "options": [
+                "A. worried",
+                "B. calm",
+                "C. comforted",
+                "D. happy"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 17,
+            "question": "The room was <span class=\"focus-word\">spacious</span>.",
+            "options": [
+                "A. narrow",
+                "B. large",
+                "C. tall",
+                "D. empty"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 18,
+            "question": "He gave a <span class=\"focus-word\">meagre</span> excuse.",
+            "options": [
+                "A. weak",
+                "B. poor",
+                "C. little",
+                "D. small"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 19,
+            "question": "The speech was <span class=\"focus-word\">concise</span>.",
+            "options": [
+                "A. brief",
+                "B. dull",
+                "C. long",
+                "D. boring"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 20,
+            "question": "She showed <span class=\"focus-word\">gratitude</span>.",
+            "options": [
+                "A. anger",
+                "B. joy",
+                "C. thankfulness",
+                "D. pride"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 21,
+            "question": "The task was <span class=\"focus-word\">arduous</span>.",
+            "options": [
+                "A. simple",
+                "B. difficult",
+                "C. quick",
+                "D. boring"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 22,
+            "question": "He was <span class=\"focus-word\">reluctant</span> to speak.",
+            "options": [
+                "A. eager",
+                "B. unwilling",
+                "C. bold",
+                "D. ready"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 23,
+            "isInstruction": true,
+            "question": "SECTION B:\nChoose the option (A\u2013D) that best completes each sentence.",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 24,
+            "question": "Neither Musa nor his friends ______ present.",
+            "options": [
+                "A. are",
+                "B. were",
+                "C. is",
+                "D. have"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 25,
+            "question": "She insisted ______ paying the bill.",
+            "options": [
+                "A. in",
+                "B. on",
+                "C. at",
+                "D. with"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 26,
+            "question": "The boy was accused ______ stealing.",
+            "options": [
+                "A. of",
+                "B. for",
+                "C. about",
+                "D. with"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 27,
+            "question": "Hardly had he arrived ______ it began to rain.",
+            "options": [
+                "A. than",
+                "B. when",
+                "C. while",
+                "D. as"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "question": "She speaks English ______ than her sister.",
+            "options": [
+                "A. more fluent",
+                "B. most fluent",
+                "C. fluently",
+                "D. more fluently"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 29,
+            "question": "The committee has arrived ______ a decision.",
+            "options": [
+                "A. on",
+                "B. at",
+                "C. in",
+                "D. to"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 30,
+            "question": "He is not only intelligent ______ hardworking.",
+            "options": [
+                "A. but",
+                "B. and",
+                "C. also",
+                "D. too"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 31,
+            "question": "The furniture ______ already been delivered.",
+            "options": [
+                "A. have",
+                "B. has",
+                "C. are",
+                "D. were"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 32,
+            "question": "She behaved as if she ______ the truth.",
+            "options": [
+                "A. knows",
+                "B. knew",
+                "C. had known",
+                "D. know"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 33,
+            "question": "He was prevented ______ attending the meeting.",
+            "options": [
+                "A. in",
+                "B. on",
+                "C. from",
+                "D. by"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 34,
+            "question": "The news was too good ______ true.",
+            "options": [
+                "A. to be",
+                "B. to being",
+                "C. being",
+                "D. be"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 35,
+            "question": "She objected ______ the proposal.",
+            "options": [
+                "A. against",
+                "B. for",
+                "C. to",
+                "D. with"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 36,
+            "question": "He is capable ______ doing the work.",
+            "options": [
+                "A. for",
+                "B. in",
+                "C. of",
+                "D. with"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 37,
+            "question": "I would rather stay at home ______ go out.",
+            "options": [
+                "A. than",
+                "B. to",
+                "C. and",
+                "D. but"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 38,
+            "question": "She apologized ______ being late.",
+            "options": [
+                "A. for",
+                "B. of",
+                "C. about",
+                "D. with"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 39,
+            "question": "The police are looking ______ the suspect.",
+            "options": [
+                "A. after",
+                "B. for",
+                "C. into",
+                "D. at"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 40,
+            "question": "He succeeded ______ spite of difficulties.",
+            "options": [
+                "A. despite",
+                "B. in",
+                "C. on",
+                "D. by"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "isInstruction": true,
+            "question": "SECTION C:\nChoose the interpretation that best explains the meaning of each sentence.",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 42,
+            "question": "He turned a deaf ear to her advice. This means he:",
+            "options": [
+                "A. did not hear her",
+                "B. ignored her advice",
+                "C. argued with her",
+                "D. misunderstood her"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "The plan fell through at the last minute. This means it:",
+            "options": [
+                "A. was postponed",
+                "B. succeeded late",
+                "C. failed",
+                "D. was approved"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 44,
+            "question": "She bore the brunt of the blame. This means she:",
+            "options": [
+                "A. shared the blame",
+                "B. accepted most of the blame",
+                "C. denied the blame",
+                "D. caused the blame"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 45,
+            "question": "He made a clean break from the past. This means he:",
+            "options": [
+                "A. travelled far",
+                "B. forgot everything",
+                "C. completely separated",
+                "D. returned home"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 46,
+            "question": "They were at loggerheads. This means they:",
+            "options": [
+                "A. agreed",
+                "B. quarrelled",
+                "C. negotiated",
+                "D. discussed"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 47,
+            "question": "The issue is still up in the air. This means it is:",
+            "options": [
+                "A. flying",
+                "B. undecided",
+                "C. resolved",
+                "D. important"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "question": "He let the cat out of the bag. This means he:",
+            "options": [
+                "A. freed an animal",
+                "B. revealed a secret",
+                "C. made a mistake",
+                "D. caused trouble"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 49,
+            "question": "She kept the matter under wraps. This means she:",
+            "options": [
+                "A. forgot it",
+                "B. hid it",
+                "C. discussed it",
+                "D. ignored it"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 50,
+            "question": "The remark hit the nail on the head. This means it:",
+            "options": [
+                "A. was painful",
+                "B. was exact",
+                "C. was rude",
+                "D. was harsh"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 51,
+            "question": "He was skating on thin ice. This means he was:",
+            "options": [
+                "A. confident",
+                "B. careless",
+                "C. taking a risk",
+                "D. playing"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 52,
+            "isInstruction": true,
+            "question": "SECTION D:\nChoose the most appropriate option (A\u2013D) to fill each numbered gap in the passage.",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 53,
+            "passage": "Reading is an important habit that enhances \u201453\u2014 development. It improves vocabulary and \u201454\u2014 skills. Students who read widely often perform better in \u201455\u2014 and examinations. Reading also helps in the development of \u201456\u2014 thinking and broadens one\u2019s \u201457\u2014 of the world.",
+            "question": "53.",
+            "options": [
+                "A. mental",
+                "B. physical",
+                "C. social",
+                "D. moral"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 54,
+            "question": "54.",
+            "options": [
+                "A. writing",
+                "B. listening",
+                "C. speaking",
+                "D. reading"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 55,
+            "question": "55.",
+            "options": [
+                "A. sports",
+                "B. debates",
+                "C. academics",
+                "D. labour"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 56,
+            "question": "56.",
+            "options": [
+                "A. critical",
+                "B. shallow",
+                "C. weak",
+                "D. slow"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 57,
+            "question": "57.",
+            "options": [
+                "A. view",
+                "B. understanding",
+                "C. belief",
+                "D. idea"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 58,
+            "isInstruction": true,
+            "question": "SECTION E:\nChoose the option (A\u2013D) that best answers each question.",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 59,
+            "question": "Which of the following is a diphthong?",
+            "options": [
+                "A. /i:/",
+                "B. /e/",
+                "C. /ai/",
+                "D. /u:/"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 60,
+            "question": "The stressed syllable in \u2018important\u2019 is:",
+            "options": [
+                "A. im-",
+                "B. por-",
+                "C. -tant",
+                "D. -port"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 61,
+            "question": "Which word has a silent letter?",
+            "options": [
+                "A. know",
+                "B. see",
+                "C. go",
+                "D. do"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 62,
+            "question": "Choose the word with a different vowel sound.",
+            "options": [
+                "A. seat",
+                "B. meat",
+                "C. bread",
+                "D. heat"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 63,
+            "question": "Which word ends with a consonant sound?",
+            "options": [
+                "A. play",
+                "B. go",
+                "C. sing",
+                "D. see"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 64,
+            "question": "Identify the word with a silent consonant.",
+            "options": [
+                "A. debt",
+                "B. dog",
+                "C. cat",
+                "D. pen"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 65,
+            "question": "Which word contains a triphthong?",
+            "options": [
+                "A. fire",
+                "B. boy",
+                "C. cow",
+                "D. ear"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 66,
+            "question": "Which word has the same consonant sound as \u2018church\u2019?",
+            "options": [
+                "A. ship",
+                "B. judge",
+                "C. measure",
+                "D. vision"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 67,
+            "question": "Which of the following is a voiced sound?",
+            "options": [
+                "A. /p/",
+                "B. /t/",
+                "C. /b/",
+                "D. /s/"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 68,
+            "question": "The word \u2018honest\u2019 begins with a:",
+            "options": [
+                "A. vowel sound",
+                "B. consonant sound",
+                "C. diphthong",
+                "D. triphthong"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 69,
+            "question": "Which word has the stress on the first syllable?",
+            "options": [
+                "A. permit (noun)",
+                "B. permit (verb)",
+                "C. reduce",
+                "D. maintain"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 70,
+            "question": "Which of the following is an example of elision?",
+            "options": [
+                "A. next please",
+                "B. want to",
+                "C. hand bag",
+                "D. good girl"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 71,
+            "question": "Choose the correct stress pattern for \u2018photograph\u2019.",
+            "options": [
+                "A. PHO-to-graph",
+                "B. pho-TO-graph",
+                "C. pho-to-GRAPH",
+                "D. pho-TO-GRAPH"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 72,
+            "question": "Which word has a different consonant sound?",
+            "options": [
+                "A. think",
+                "B. thank",
+                "C. thick",
+                "D. this"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 73,
+            "question": "The underlined sound in \u2018vision\u2019 is:",
+            "options": [
+                "A. /\u0283/",
+                "B. /\u0292/",
+                "C. /z/",
+                "D. /s/"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 74,
+            "question": "Which word has the same vowel sound as \u2018bird\u2019?",
+            "options": [
+                "A. bed",
+                "B. beard",
+                "C. burn",
+                "D. bad"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 75,
+            "question": "Choose the word with a final consonant cluster.",
+            "options": [
+                "A. desk",
+                "B. pen",
+                "C. go",
+                "D. tea"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 76,
+            "question": "Which word contains a nasal sound?",
+            "options": [
+                "A. bat",
+                "B. man",
+                "C. sit",
+                "D. cup"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 77,
+            "question": "The word \u2018psychology\u2019 begins with:",
+            "options": [
+                "A. /p/",
+                "B. /s/",
+                "C. /k/",
+                "D. /\u0283/"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 78,
+            "question": "Which of the following words has a weak form?",
+            "options": [
+                "A. man",
+                "B. the",
+                "C. table",
+                "D. book"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 79,
+            "question": "Which word has a long vowel sound?",
+            "options": [
+                "A. sit",
+                "B. beat",
+                "C. hat",
+                "D. cut"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 80,
+            "question": "Choose the word with a different stress pattern.",
+            "options": [
+                "A. record (noun)",
+                "B. record (verb)",
+                "C. export (noun)",
+                "D. import (noun)"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 81,
+            "question": "Which of the following is a plosive sound?",
+            "options": [
+                "A. /f/",
+                "B. /s/",
+                "C. /b/",
+                "D. /m/"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 82,
+            "question": "The stressed syllable in \u2018education\u2019 is:",
+            "options": [
+                "A. e-",
+                "B. du-",
+                "C. -ca-",
+                "D. -tion"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 83,
+            "question": "Which word contains a glide?",
+            "options": [
+                "A. yes",
+                "B. bus",
+                "C. cup",
+                "D. pen"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 84,
+            "question": "Which word ends with a voiced consonant?",
+            "options": [
+                "A. cap",
+                "B. bat",
+                "C. back",
+                "D. desk"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 85,
+            "question": "The underlined sound in \u2018think\u2019 is:",
+            "options": [
+                "A. /t/",
+                "B. /\u03b8/",
+                "C. /\u00f0/",
+                "D. /s/"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 86,
+            "question": "Which word contains a syllabic consonant?",
+            "options": [
+                "A. little",
+                "B. cat",
+                "C. bag",
+                "D. pen"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 87,
+            "question": "Which word has a falling intonation?",
+            "options": [
+                "A. statement",
+                "B. yes/no question",
+                "C. surprise",
+                "D. doubt"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 88,
+            "question": "Choose the word with a different vowel sound.",
+            "options": [
+                "A. pull",
+                "B. full",
+                "C. fool",
+                "D. bull"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 89,
+            "question": "Which word has the same consonant sound as \u2018ship\u2019?",
+            "options": [
+                "A. vision",
+                "B. measure",
+                "C. machine",
+                "D. this"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 90,
+            "question": "Which word begins with a vowel sound?",
+            "options": [
+                "A. university",
+                "B. honest",
+                "C. union",
+                "D. useful"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 91,
+            "question": "The plural of \u2018criterion\u2019 is:",
+            "options": [
+                "A. criterions",
+                "B. criteria",
+                "C. criterias",
+                "D. criterion"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 92,
+            "question": "Which word is correctly spelt?",
+            "options": [
+                "A. accomodation",
+                "B. accommodation",
+                "C. acommodation",
+                "D. accomodation"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 93,
+            "question": "Which of the following is a collective noun?",
+            "options": [
+                "A. team",
+                "B. man",
+                "C. child",
+                "D. worker"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 94,
+            "question": "The antonym of \u2018scarce\u2019 is:",
+            "options": [
+                "A. few",
+                "B. rare",
+                "C. abundant",
+                "D. limited"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 95,
+            "question": "Which sentence is grammatically correct?",
+            "options": [
+                "A. He don\u2019t know",
+                "B. He doesn\u2019t knows",
+                "C. He doesn\u2019t know",
+                "D. He don\u2019t knows"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 96,
+            "question": "Choose the correct spelling.",
+            "options": [
+                "A. embarass",
+                "B. embarrass",
+                "C. embaras",
+                "D. embarras"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 97,
+            "question": "The synonym of \u2018begin\u2019 is:",
+            "options": [
+                "A. end",
+                "B. stop",
+                "C. start",
+                "D. finish"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 98,
+            "question": "Which word is an adjective?",
+            "options": [
+                "A. beauty",
+                "B. beautiful",
+                "C. beautify",
+                "D. beautifully"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 99,
+            "question": "Which of the following is an abstract noun?",
+            "options": [
+                "A. honesty",
+                "B. table",
+                "C. chair",
+                "D. book"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 100,
+            "question": "The plural of \u2018analysis\u2019 is:",
+            "options": [
+                "A. analysises",
+                "B. analyses",
+                "C. analysis",
+                "D. analysi"
+            ],
+            "correctOption": "B"
+        }
+    ]
+}

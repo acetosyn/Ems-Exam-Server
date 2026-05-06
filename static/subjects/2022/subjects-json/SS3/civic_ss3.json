@@ -1,0 +1,659 @@
+{
+  "subject": "Civic Education",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Rule of law means …",
+      "options": [
+        "A. supremacy of the law",
+        "B. absence of immunity",
+        "C. peace, order and stability",
+        "D. obedience to authority"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "A system of government that listens to public opinion and tolerates opposition is …",
+      "options": [
+        "A. capitalist government",
+        "B. socialist government",
+        "C. democratic government",
+        "D. dictatorial government"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "A situation where most of the citizens fail to vote in elections could be described as political …",
+      "options": [
+        "A. apathy",
+        "B. culture",
+        "C. socialization",
+        "D. legitimacy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "The division of Nigeria into various constituencies with each electing a person to represent it in the National Assembly is a demonstration of …",
+      "options": [
+        "A. checks and balances",
+        "B. popular participation",
+        "C. political apathy",
+        "D. direct democracy"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "Conflicts are better resolved in the society through …",
+      "options": [
+        "A. honesty",
+        "B. fair play",
+        "C. dialogue",
+        "D. the court"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "To prevent the spread of HIV/AIDS, people should be encouraged to …",
+      "options": [
+        "A. marry early in life",
+        "B. pursue higher education",
+        "C. engage in gainful employment",
+        "D. avoid casual sexual activities"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "The nearest government to the people and an important means of promoting grassroots development is the …",
+      "options": [
+        "A. state government",
+        "B. unitary government",
+        "C. local government",
+        "D. federal government"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "Political apathy often leads to …",
+      "options": [
+        "A. low level of participation",
+        "B. good governance",
+        "C. political stability",
+        "D. women in governance"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Human rights are the cornerstones of …",
+      "options": [
+        "A. plutocracy",
+        "B. democracy",
+        "C. aristocracy",
+        "D. theocracy"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "In order to guarantee transparency and accountability in governance, leaders should ensure that …",
+      "options": [
+        "A. immunity covers government officials",
+        "B. trials are held in secret",
+        "C. constitutionalism thrives",
+        "D. the judiciary is supervised"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "Constitutional democracy is also known as …",
+      "options": [
+        "A. autocratic government",
+        "B. communism",
+        "C. communalism",
+        "D. limited government"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "The principle of rule of law is upheld in the society to …",
+      "options": [
+        "A. protect citizens from arbitrary rule",
+        "B. accord immunity to the president",
+        "C. preserve customs and tradition",
+        "D. encourage mass literacy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Which of the following is not a consequence of human trafficking?",
+      "options": [
+        "A. family bonding and reunion",
+        "B. relative deprivation",
+        "C. discontentment of individuals",
+        "D. violation of rights"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "The origin of democracy is traced to the …",
+      "options": [
+        "A. Greeks",
+        "B. Romans",
+        "C. British",
+        "D. Germans"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "Which of the following skills is needed for youth empowerment?",
+      "options": [
+        "A. non-cognitive skills",
+        "B. cross-curricular skills",
+        "C. transversal skills",
+        "D. manipulative skills"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "What do human traffickers use to instill fear into their victims?",
+      "options": [
+        "A. intimidation",
+        "B. elimination",
+        "C. exploitation",
+        "D. confrontation"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "Which of the following categories of students will not likely be a major target of campus cult recruitment?",
+      "options": [
+        "A. students with influential parents",
+        "B. bold and morally upright students",
+        "C. proud students from wealthy homes",
+        "D. wayward and fun-loving students"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "The totality of legislative, executive and judicial powers constitutes …",
+      "options": [
+        "A. sovereignty",
+        "B. authority",
+        "C. state",
+        "D. government"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "Trafficked children are likely to experience all the following except …",
+      "options": [
+        "A. empowerment",
+        "B. forced labour",
+        "C. prostitution",
+        "D. unwanted pregnancy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "Which of the following is not a function of the judicial arm of government?",
+      "options": [
+        "A. interpretation of the law",
+        "B. implementation of the law",
+        "C. adjudication of cases",
+        "D. pronouncement of judgement"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "Authorized road users include the following except …",
+      "options": [
+        "A. bicycle riders",
+        "B. tricycle riders",
+        "C. roller skaters",
+        "D. pedestrians"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "Being faithful in marriage can greatly assist to prevent …",
+      "options": [
+        "A. HIV infection",
+        "B. hatred",
+        "C. extravagance",
+        "D. love"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "The inability of citizens to freely elect their leaders is a threat to …",
+      "options": [
+        "A. oligarchy",
+        "B. democracy",
+        "C. federalism",
+        "D. totalitarianism"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "The inalienable entitlements of an individual in a society are known as …",
+      "options": [
+        "A. fundamental human rights",
+        "B. human rights",
+        "C. basic necessities",
+        "D. natural justice"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "The process of acquisition of necessary skills by young people for national development is known as …",
+      "options": [
+        "A. sponsorship",
+        "B. encouragement",
+        "C. motivation",
+        "D. empowerment"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "The drug usually referred to as marijuana is …",
+      "options": [
+        "A. cannabis",
+        "B. caffeine",
+        "C. heroin",
+        "D. cocaine"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "Nationalism is a product of all the following features except …",
+      "options": [
+        "A. cultural similarity",
+        "B. historical association",
+        "C. shared interest",
+        "D. social complexity"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "Which of the following is a function of the legislative arm of government?",
+      "options": [
+        "A. execution of policies",
+        "B. implementation of policies",
+        "C. interpretation of laws",
+        "D. enactment of laws"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "Fundamental rights are the rights one can enjoy because one is …",
+      "options": [
+        "A. an individual",
+        "B. a human being",
+        "C. a citizen",
+        "D. an educated elite"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "Citizenship education will not help to achieve which of the following?",
+      "options": [
+        "A. moral decadence",
+        "B. promoting democracy",
+        "C. national unity",
+        "D. education of the youth"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Incidences of broken homes and irresponsible parenthood are major causes of the following except …",
+      "options": [
+        "A. armed robbery",
+        "B. cultism",
+        "C. migration",
+        "D. unhealthy growth"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "A citizen is someone who …",
+      "options": [
+        "A. has lived in the country for a long time",
+        "B. supports the country’s development",
+        "C. holds a chieftaincy title",
+        "D. is a legal member of the country"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "When a person is fair, impartial and reasonable, such a person is said to be …",
+      "options": [
+        "A. responsible",
+        "B. tolerant",
+        "C. honest",
+        "D. humble"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "Orderliness can be exhibited in the following ways except …",
+      "options": [
+        "A. queuing culture",
+        "B. observing traffic lights",
+        "C. decorum behaviour",
+        "D. interrupting an individual"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Discipline is described as the …",
+      "options": [
+        "A. ability to behave in a controlled manner",
+        "B. tendency to fight",
+        "C. quality of being brave",
+        "D. ability to show hospitality"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "The defence of the territorial integrity of a country by her citizens is part of …",
+      "options": [
+        "A. political participation",
+        "B. political culture",
+        "C. duties and obligations",
+        "D. self determination"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "The Universal Declaration of Human Rights (UDHR) was adopted by …",
+      "options": [
+        "A. ECOWAS",
+        "B. AU",
+        "C. Commonwealth",
+        "D. UNO"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "The best means through which individual rights can be safeguarded is …",
+      "options": [
+        "A. knowledge acquisition",
+        "B. judicial independence",
+        "C. press censorship",
+        "D. improved standard of living"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "A father that effectively discharges his duty towards his children could be described as a …",
+      "options": [
+        "A. responsible parent",
+        "B. philanthropist",
+        "C. celebrity",
+        "D. permissive father"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "A programme established to foster common ties among Nigerians is …",
+      "options": [
+        "A. Subsidy Re-investment Programme",
+        "B. Universal Basic Education",
+        "C. Education Trust Fund",
+        "D. National Youth Service Corps"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Which of the following is not a skill for settling inter-communal conflict?",
+      "options": [
+        "A. dialogue",
+        "B. war",
+        "C. mediation",
+        "D. arbitration"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "Which of the following skills negates the promotion of interpersonal relationship?",
+      "options": [
+        "A. selfishness",
+        "B. kindness",
+        "C. caring",
+        "D. tolerance"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "Which of the following is not a common way by which people abuse drugs?",
+      "options": [
+        "A. intrusion",
+        "B. inhalation",
+        "C. injection",
+        "D. ingestion"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "An enlightenment and awareness campaign on HIV/AIDS could …",
+      "options": [
+        "A. lead to discrimination",
+        "B. create job opportunities",
+        "C. cause conflict",
+        "D. provide people with genuine information"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "In a democratic government, franchise is given to all …",
+      "options": [
+        "A. party members",
+        "B. resident adults",
+        "C. adult citizens",
+        "D. opinion leaders"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "Operation of the rule of law could be undermined by the …",
+      "options": [
+        "A. existence of civil society groups",
+        "B. existence of free press",
+        "C. establishment of administrative tribunals",
+        "D. encouragement of effective opposition"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "The most suitable form of democracy for a small village or community is …",
+      "options": [
+        "A. communal democracy",
+        "B. constitutional democracy",
+        "C. indirect democracy",
+        "D. direct democracy"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Chapter IV of the 1999 Constitution of Nigeria is about …",
+      "options": [
+        "A. composition of the National Assembly",
+        "B. fundamental human rights",
+        "C. impeachment of the president",
+        "D. formation of quorum in the senate"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "The smooth operation of the public service in Nigeria is being hampered by …",
+      "options": [
+        "A. privatization policy",
+        "B. bribery and corruption",
+        "C. debt burden",
+        "D. adequate training"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "Political neutrality of civil servants means that they …",
+      "options": [
+        "A. do not engage in partisan politics",
+        "B. should not be seen and heard",
+        "C. should not work with politicians",
+        "D. do not receive praise nor blame"
+      ],
+      "correctOption": "A"
+    }
+
+  ]
+}

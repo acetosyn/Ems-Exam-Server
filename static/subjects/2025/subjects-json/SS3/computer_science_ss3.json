@@ -1,0 +1,610 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Computer Science",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "A ......refers to the initial or main web page of a website",
+      "diagram": null,
+      "options": [
+        "A. Web browser",
+        "B. Home page",
+        "C. Website",
+        "D. Book marked page"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Which one is not a type of navigation in www?",
+      "diagram": null,
+      "options": [
+        "A. Left navigation",
+        "B. Top navigation",
+        "C. Right navigation",
+        "D. Bottom navigation"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": ".....is a device that converts a digital data to an analogue data and vice versa",
+      "diagram": null,
+      "options": [
+        "A. The router",
+        "B. The switch",
+        "C. Modem",
+        "D. Network interface card"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Which one of these is not a web browser?",
+      "diagram": null,
+      "options": [
+        "A. E-SUN",
+        "B. Netscape navigator",
+        "C. Firefox",
+        "D. Apple's Safari"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "What is the decimal equivalent of 110₂?",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 8"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": ".....was the first widely available network system for microcomputers popular in the 1980s for automation tasks",
+      "diagram": null,
+      "options": [
+        "A. Token ring",
+        "B. Ethernet",
+        "C. ARCNET",
+        "D. Bus"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "The octal has a base of",
+      "diagram": null,
+      "options": [
+        "A. 16",
+        "B. 4",
+        "C. 96",
+        "D. 8"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "Which one of the following is not a benefit of a website?",
+      "diagram": null,
+      "options": [
+        "A. Offer inconvenience",
+        "B. Support e-learning",
+        "C. Market expansion",
+        "D. Support e-banking"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "The ......is a system of interlinked hypertext documents accessed through the internet",
+      "diagram": null,
+      "options": [
+        "A. Web browser",
+        "B. Website",
+        "C. World wide web",
+        "D. W4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "Which one of the following is not a basic database model?",
+      "diagram": null,
+      "options": [
+        "A. Network model",
+        "B. Relational model",
+        "C. Programming model",
+        "D. Hierarchical database model"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "Which one is not a category of network topologies?",
+      "diagram": null,
+      "options": [
+        "A. Star topology",
+        "B. Logical topology",
+        "C. Bus topology",
+        "D. Ring topology"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "Multiply 1111₂ by 111₂",
+      "diagram": null,
+      "options": [
+        "A. 1001011₂",
+        "B. 1000111₂",
+        "C. 1011001₂",
+        "D. 10101010₂"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "CTRL + C =",
+      "diagram": null,
+      "options": [
+        "A. Copy",
+        "B. Cut",
+        "C. Cancel",
+        "D. Create"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "The .....is the set of values that attributes are allowed to take",
+      "diagram": null,
+      "options": [
+        "A. Domain",
+        "B. Relations",
+        "C. Network",
+        "D. Database"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Which of the following is not a common example of graphic packages?",
+      "diagram": null,
+      "options": [
+        "A. Print master",
+        "B. Photoshop Pro",
+        "C. Harvard graphics",
+        "D. MS PowerPoint"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "A .....is the fundamental specification describing how a database is structured and used",
+      "diagram": null,
+      "options": [
+        "A. Database model",
+        "B. Relational model",
+        "C. Network model",
+        "D. Programming model"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "A .....is a complete set of attributes about an entity, place or event",
+      "diagram": null,
+      "options": [
+        "A. Field",
+        "B. Record",
+        "C. Information",
+        "D. File"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "A .......is a network device that connects two or more dissimilar network together",
+      "diagram": null,
+      "options": [
+        "A. Router",
+        "B. Modem",
+        "C. Switch",
+        "D. Bridge"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "Which of the following tools is not used to place objects on the page?",
+      "diagram": null,
+      "options": [
+        "A. The ellipse tool",
+        "B. The zoom tool",
+        "C. The polygon tool",
+        "D. The rectangle tool"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "CTRL + Z =",
+      "diagram": null,
+      "options": [
+        "A. Copy",
+        "B. Undo",
+        "C. Paste",
+        "D. Zip"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "A .....is a collection of computers and devices interconnected by communication channels that facilitates communication and resource sharing",
+      "diagram": null,
+      "options": [
+        "A. Computer network",
+        "B. Work group",
+        "C. Bus topology",
+        "D. Star topology"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "A/an ........is a program that translates and executes source programs one line at a time",
+      "diagram": null,
+      "options": [
+        "A. Compiler",
+        "B. Assembler",
+        "C. Interpreter",
+        "D. Hacker"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "Which one of these is not a key term extensively used in database models?",
+      "diagram": null,
+      "options": [
+        "A. Relations",
+        "B. Attribute",
+        "C. Network",
+        "D. Domain"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "The .....system has a base of 16 absolute numbers",
+      "diagram": null,
+      "options": [
+        "A. Decimal",
+        "B. Hexadecimal",
+        "C. Base 2",
+        "D. Octal"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "A .....is a vocabulary and set of grammatical rules for performing specific tasks",
+      "diagram": null,
+      "options": [
+        "A. Programming language",
+        "B. Assembly language",
+        "C. High level language",
+        "D. Low level language"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "The ......statement is a loop statement used to repeat portions of a program",
+      "diagram": null,
+      "options": [
+        "A. FOR.......NEXT",
+        "B. DIM",
+        "C. Array",
+        "D. WHILE........WEND"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Which of the following is not a feature of PASCAL, BASIC, C and COBOL?",
+      "diagram": null,
+      "options": [
+        "A. Loops",
+        "B. Output from keyboard",
+        "C. Subroutines",
+        "D. Input from keyboard"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "The ......changes dynamically depending on the tool being used and the number of objects being edited",
+      "diagram": null,
+      "options": [
+        "A. Menu bar",
+        "B. Title bar",
+        "C. Tool box",
+        "D. Property box"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "Which of these is not a feature of CorelDraw?",
+      "diagram": null,
+      "options": [
+        "A. Sublime",
+        "B. Menu bar",
+        "C. Paint",
+        "D. Title bar"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "What is the binary equivalent of 25?",
+      "diagram": null,
+      "options": [
+        "A. 11110",
+        "B. 11011",
+        "C. 11001",
+        "D. 10011"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Which one of the following is not a benefit of website?",
+      "diagram": null,
+      "options": [
+        "A. Very expensive and stiff advertising",
+        "B. Two-way communicative marketing",
+        "C. Improves credibility",
+        "D. Growth opportunity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "........is a networking protocol that governs transfer of HTML documents in the www",
+      "diagram": null,
+      "options": [
+        "A. HTML",
+        "B. HTTP",
+        "C. SMTP",
+        "D. Protocol"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "........is not a disadvantage of Bus topology",
+      "diagram": null,
+      "options": [
+        "A. Easy to detect faults and remove parts",
+        "B. Terminators required at both ends",
+        "C. Entire network shuts down if main cable breaks",
+        "D. Difficult to identify the problem if entire network shuts down"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "A .......is a device that connects all the other devices in a star network together",
+      "diagram": null,
+      "options": [
+        "A. Modem",
+        "B. Router",
+        "C. Switch",
+        "D. Hub"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 35,
+      "question": "REM in BASIC PROGRAMMING stands for",
+      "diagram": null,
+      "options": [
+        "A. Remark",
+        "B. Close",
+        "C. Rename",
+        "D. All of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Any BASIC statement that begins with REM is",
+      "diagram": null,
+      "options": [
+        "A. Executed",
+        "B. Not executed",
+        "C. Print",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "......are high level language designed to solve scientific problems",
+      "diagram": null,
+      "options": [
+        "A. Artificial intelligence",
+        "B. Business intelligence",
+        "C. Command language",
+        "D. Scientific high level language"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "The LET statement is used to",
+      "diagram": null,
+      "options": [
+        "A. Assign a value to a variable",
+        "B. Clear the screen",
+        "C. Include the main part of the program",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "High level languages are also called",
+      "diagram": null,
+      "options": [
+        "A. Artificial intelligence",
+        "B. Scientific intelligence",
+        "C. Problem oriented language",
+        "D. Mathematics language"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "A .......is a single organized collection of data for one or more purposes stored with minimum duplication",
+      "diagram": null,
+      "options": [
+        "A. Data hole",
+        "B. Field",
+        "C. Database",
+        "D. Record room"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "Which of the following is an example of graphic package?",
+      "diagram": null,
+      "options": [
+        "A. Ventura",
+        "B. Picstory",
+        "C. Twitter",
+        "D. Word"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "CTRL + X =",
+      "diagram": null,
+      "options": [
+        "A. Copy",
+        "B. Undo",
+        "C. Paste",
+        "D. Cut"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "In computer networks, ...............refers to the layout of connected devices",
+      "diagram": null,
+      "options": [
+        "A. ARCNET",
+        "B. Token ring",
+        "C. Topology",
+        "D. Intranet"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 44,
+      "question": "What is the decimal equivalent of 47348₈?",
+      "diagram": null,
+      "options": [
+        "A. 20210",
+        "B. 20002",
+        "C. 20200",
+        "D. 96700"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "Which one is not a common number system used in computing?",
+      "diagram": null,
+      "options": [
+        "A. Trio-decimal",
+        "B. Hexadecimal",
+        "C. Decimal",
+        "D. Octal"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 46,
+      "question": "......use mnemonics to represent operations performed by the computer and symbols represent data",
+      "diagram": null,
+      "options": [
+        "A. Machine language",
+        "B. Interpreter language",
+        "C. High level language",
+        "D. Assembly language"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "question": "Which one of the following is not a web development software in www?",
+      "diagram": null,
+      "options": [
+        "A. WordPress",
+        "B. Sublime text",
+        "C. MS Word",
+        "D. Adobe tools"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 48,
+      "question": "CTRL + V =",
+      "diagram": null,
+      "options": [
+        "A. Zoom",
+        "B. Verify",
+        "C. Paste",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "What is the binary equivalent of 20?",
+      "diagram": null,
+      "options": [
+        "A. 10101",
+        "B. 10100",
+        "C. 10110",
+        "D. 11110"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "......is defined as raw facts or unprocessed facts",
+      "diagram": null,
+      "options": [
+        "A. Field",
+        "B. Record",
+        "C. Information",
+        "D. Data"
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

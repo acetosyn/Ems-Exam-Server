@@ -1,0 +1,324 @@
+/* ==========================================================
+   EMIS ADMIN DASHBOARD — Dynamic v4 (2025)
+   Refined with colored header buttons, compact quick modules,
+   and modern glass visual system.
+========================================================== */
+
+/* ---------------- CORE ---------------- */
+.admin-dashboard {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+  animation: fadeIn 0.5s ease;
+}
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.dash-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin: 0;
+}
+.dash-header p {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* ---------------- HEADER BUTTON COLORS ---------------- */
+.header-actions button {
+  margin-left: 0.6rem;
+  font-weight: 600;
+  padding: 0.65rem 1.2rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+
+/* Manage System — Red Accent */
+#manageSystem {
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.35);
+}
+#manageSystem:hover {
+  background: linear-gradient(135deg, #be123c, #9f1239);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(225, 29, 72, 0.45);
+}
+
+/* Refresh — Blue Gradient */
+#refreshDashboard {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+}
+#refreshDashboard:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.5);
+}
+
+/* ---------------- STATS ---------------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.3rem;
+  margin-bottom: 2.2rem;
+}
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 18px;
+  padding: 1.3rem 1.6rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: var(--shadow-md);
+}
+.stat-card .icon {
+  font-size: 2rem;
+  color: var(--primary);
+}
+.stat-card p {
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0;
+}
+.stat-card h2 {
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin: 0.2rem 0 0;
+}
+
+/* ---------------- QUICK MODULES ---------------- */
+.quick-modules {
+  padding: 1.6rem;
+  background: #ffffffb0;
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+}
+.quick-modules h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+}
+.sub-text {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+/* Smaller Grid Buttons */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.8rem;
+}
+.module-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 12px;
+  padding: 0.7rem 0.6rem;
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: #fff;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  height: 85px;
+}
+.module-item i {
+  font-size: 1.2rem;
+}
+.module-item:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: var(--shadow-md);
+}
+
+/* Colors */
+.blue { background: #3b82f6; }
+.green { background: #10b981; }
+.purple { background: #6366f1; }
+.orange { background: #f59e0b; }
+.pink { background: #e11d48; }
+.gray { background: #6b7280; }
+.teal { background: #0d9488; }
+.red { background: #dc2626; }
+.dark { background: #1e293b; }
+.yellow { background: #facc15; color: #111; }
+
+/* ---------------- PANELS ---------------- */
+.info-panels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.panel {
+  border-radius: 18px;
+  padding: 1.6rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f7faff 100%);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+}
+.panel:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+.panel h4 {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.panel-body {
+  border: 1px solid var(--border);
+  background: rgba(250, 250, 255, 0.9);
+  border-radius: 14px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+  height: 170px;
+  overflow-y: auto;
+}
+.scrollable ul { padding-left: 1.2rem; }
+.scrollable li { margin-bottom: 0.4rem; }
+
+.status-list { list-style: none; padding: 0; margin: 0; }
+.status-list li {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+.status {
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.78rem;
+}
+.status.success { background: #16a34a; color: #fff; }
+.status.warn { background: #f59e0b; color: #fff; }
+
+.progress-bar-wrapper {
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  margin-top: 0.8rem;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, #16a34a, #22c55e);
+  border-radius: 999px;
+}
+
+/* ---------------- TEACHER & STUDENT PANELS ---------------- */
+.dual-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.teacher, .student {
+  background: linear-gradient(160deg, #ffffff 0%, #f0f4ff 100%);
+}
+.teacher h4 i { color: var(--accent); }
+.student h4 i { color: #10b981; }
+
+/* ---------------- ANIMATIONS ---------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.6s ease both; }
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .admin-dashboard { padding: 1rem; }
+  .modules-grid { grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); }
+  .module-item {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.75rem;
+    height: 75px;
+  }
+  .module-item i { font-size: 1rem; }
+}
+
+
+
+/* ROLE DECORATOR BADGE */
+.user-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  color: #fff;
+  letter-spacing: 0.3px;
+  margin-top: 0.8rem;
+  animation: fadeIn 0.5s ease both;
+}
+
+.user-role-badge[data-role="admin"] {
+  background: linear-gradient(135deg, #0f2b46, #1e3a8a);
+}
+
+.user-role-badge[data-role="teacher"] {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+/* ==========================================================
+   LOGGED-IN USER DISPLAY
+   ----------------------------------------------------------
+   Shows the current username or teacher ID elegantly
+========================================================== */
+.logged-user-display {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  opacity: 0.9;
+}
+
+.logged-user-display i {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.logged-user-display strong {
+  color: var(--accent);
+  font-weight: 700;
+}

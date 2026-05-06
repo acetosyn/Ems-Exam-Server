@@ -1,0 +1,642 @@
+{
+  "subject": "Literature-in-English",
+  "class": "SS3",
+  "session": "2023/2024",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "A novel that features spiritual apparitions as major characters is",
+      "options": [
+        "A. epistolary",
+        "B. gothic",
+        "C. historical",
+        "D. sociological"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 2,
+      "question": "The literary term describing individuals in a work of literature is",
+      "options": [
+        "A. character",
+        "B. protagonist",
+        "C. narrator",
+        "D. villain"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 3,
+      "question": "Several hands stretched out for free meals at the refugee camp illustrates",
+      "options": [
+        "A. antithesis",
+        "B. euphemism",
+        "C. litotes",
+        "D. synecdoche"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 4,
+      "question": "A short play performed between the acts of a bigger play for entertainment is",
+      "options": [
+        "A. an in media res",
+        "B. an interlude",
+        "C. an incantation",
+        "D. a deusex-machine"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "question": "In literature, the two component of diction are",
+      "options": [
+        "A. sentence construction and punctuation",
+        "B. vocabulary and punctuation",
+        "C. syntax and sentence construction",
+        "D. vocabulary and syntax"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 6,
+      "question": "A story with elements that have both literal and figurative meanings is",
+      "options": [
+        "A. an allegory",
+        "B. a fable",
+        "C. a novela",
+        "D. an epistle"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 7,
+      "question": "“My bounty is as boundless as the sea, My love as deep.” The above lines illustrate",
+      "options": [
+        "A. apostrophe",
+        "B. epigram",
+        "C. hyperbole",
+        "D. euphemism"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 8,
+      "question": "In drama, catharsis is the",
+      "options": [
+        "A. change of setting",
+        "B. conflict between two characters",
+        "C. resolution of conflict",
+        "D. purging of emotions from tension"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 9,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_9.PNG",
+      "question": "The poem is",
+      "options": [
+        "A. allegoric",
+        "B. didactic",
+        "C. metaphysical",
+        "D. romantic"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 10,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_9.PNG",
+      "question": "The tone of the poet is",
+      "options": [
+        "A. jocular",
+        "B. harsh",
+        "C. mournful",
+        "D. sombre"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_9.PNG",
+      "question": "Lines 3 and 4 illustrate",
+      "options": [
+        "A. antithesis",
+        "B. oxymoron",
+        "C. anti-climax",
+        "D. metonymy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "question": "A word or a phrase that is repeated at regular intervals in a poem or a play is",
+      "options": [
+        "A. dirge",
+        "B. refrain",
+        "C. lullaby",
+        "D. verse"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 13,
+      "question": "“The warriors conquered my men and my country” illustrates the use of",
+      "options": [
+        "A. paradox",
+        "B. litotes",
+        "C. parallelism",
+        "D. zeugma"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 14,
+      "question": "Disguise in drama mostly portrays the theme of",
+      "options": [
+        "A. known identity",
+        "B. plain identity",
+        "C. unknown identity",
+        "D. mistaken identity"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 15,
+      "question": "“Men swift to see things done do not run their commanding.” The underlined words exemplify",
+      "options": [
+        "A. pun",
+        "B. end rhyme",
+        "C. paradox",
+        "D. internal rhyme"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "question": "An aside in drama is used to mostly create a sense of",
+      "options": [
+        "A. admiration",
+        "B. conspiracy",
+        "C. greatness",
+        "D. superiority"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 17,
+      "question": "“More haste, less speed” illustrates the use of",
+      "options": [
+        "A. anaphora",
+        "B. paradox",
+        "C. litotes",
+        "D. synecdoche"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "question": "A dramatic performance without words is",
+      "options": [
+        "A. a mime",
+        "B. an aside",
+        "C. a monologue",
+        "D. a soliloquy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "Utopia is a term used to describe",
+      "options": [
+        "A. a strange circumstance",
+        "B. difficult conditions",
+        "C. pleasant feelings",
+        "D. ideal societies"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 20,
+      "question": "“The lawyer addressed the bench” illustrates",
+      "options": [
+        "A. simile",
+        "B. oxymoron",
+        "C. alliteration",
+        "D. metonymy"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 21,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_21.PNG",
+      "question": "The dominant feeling in the passage is that of",
+      "options": [
+        "A. nostalgic",
+        "B. anger",
+        "C. expectancy",
+        "D. fear"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 22,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_21.PNG",
+      "question": "The feeling is conveyed by the",
+      "options": [
+        "A. moulding on the door",
+        "B. boys’ action",
+        "C. tender care of his mother",
+        "D. little girl’s taunts"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_21.PNG",
+      "question": "The dominant literary device in the passage is",
+      "options": [
+        "A. personification",
+        "B. antithesis",
+        "C. litotes",
+        "D. parallelism"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 24,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_21.PNG",
+      "question": "“...and he had rushed at them, scattering them as some shrieked and some laughed” illustrates",
+      "options": [
+        "A. Onomatopoeia",
+        "B. Climax",
+        "C. Metaphor",
+        "D. Metonymy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_21.PNG",
+      "question": "The main character is",
+      "options": [
+        "A. playful",
+        "B. inquisitive",
+        "C. sad",
+        "D. humorous"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_26.PNG",
+      "question": "The poem is about",
+      "options": [
+        "A. debtors",
+        "B. dreams",
+        "C. costumes",
+        "D. appearances"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 27,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_26.PNG",
+      "question": "The poet tone is",
+      "options": [
+        "A. supplicatory",
+        "B. defiant",
+        "C. conciliatory",
+        "D. complaint"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 28,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_26.PNG",
+      "question": "The rhyme scheme of the first stanza is",
+      "options": [
+        "A. aabcc",
+        "B. ababa",
+        "C. aabbc",
+        "D. abbac"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 29,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_26.PNG",
+      "question": "The dominant mood is one of",
+      "options": [
+        "A. sadness",
+        "B. fear",
+        "C. joy",
+        "D. optimism"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 30,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_26.PNG",
+      "question": "“We wear the mask that grins and lies” illustrates",
+      "options": [
+        "A. irony",
+        "B. personification",
+        "C. synecdoche",
+        "D. alliteration"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 31,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_31.PNG",
+      "question": "Speaker X is",
+      "options": [
+        "A. Hermia",
+        "B. Philostrate",
+        "C. Demetrius",
+        "D. Lysander"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 32,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_31.PNG",
+      "question": "Speaker Y is",
+      "options": [
+        "A. Titania",
+        "B. Peaceblossom",
+        "C. Hippolyta",
+        "D. Helena"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 33,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_31.PNG",
+      "question": "Speaker X sees Speaker Y",
+      "options": [
+        "A. as a pretender",
+        "B. as a past lover",
+        "C. for the first time",
+        "D. for the last time"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_31.PNG",
+      "question": "Both speakers are in the woods",
+      "options": [
+        "A. to hide from each other",
+        "B. to spy on each other",
+        "C. for different reason",
+        "D. for the same reason"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 35,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_31.PNG",
+      "question": "Night evokes in the speakers",
+      "options": [
+        "A. huge responsibilities",
+        "B. contrasting feelings",
+        "C. despairing thoughts",
+        "D. erotic feelings"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_36.PNG",
+      "question": "The speaker is",
+      "options": [
+        "A. Bottom",
+        "B. Peaceblossom",
+        "C. Quince",
+        "D. Puck"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_36.PNG",
+      "question": "The speaker is addressing",
+      "options": [
+        "A. artists",
+        "B. painters",
+        "C. actors",
+        "D. writers"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 38,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_36.PNG",
+      "question": "They intend to rehearse the play",
+      "options": [
+        "A. A Mid-summer Night’s Dream",
+        "B. Pyramus and Thisby",
+        "C. The Tragedy of Lovers",
+        "D. The Battle Royal"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 39,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_36.PNG",
+      "question": "The rehearsal is in preparation for",
+      "options": [
+        "A. Egeus' acceptance of Lysander",
+        "B. the dance of the fairies",
+        "C. Theseus’ wedding",
+        "D. Titania waking up from a dream"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 40,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_36.PNG",
+      "question": "The main actors will be",
+      "options": [
+        "A. Snug and Snout",
+        "B. Philostrate and Starveling",
+        "C. Puck and Mustardseed",
+        "D. Quince and Bottom"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_41.PNG",
+      "question": "Speaker X is",
+      "options": [
+        "A. Titania",
+        "B. Hippolyta",
+        "C. Snout",
+        "D. Oberon"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 42,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_41.PNG",
+      "question": "Speaker X has just",
+      "options": [
+        "A. escaped from the city",
+        "B. fallen into a world of dreams",
+        "C. woken up from an induced sleep",
+        "D. abandoned a loved one"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 43,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_41.PNG",
+      "question": "Speaker Y is",
+      "options": [
+        "A. Quince",
+        "B. Lysander",
+        "C. Demetrius",
+        "D. Bottom"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_41.PNG",
+      "question": "Speaker Y is a member of",
+      "options": [
+        "A. Theseus’ retinue",
+        "B. Titania’s retinue",
+        "C. the group of actors",
+        "D. the group of lovers"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 45,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_41.PNG",
+      "question": "Speaker X’s speech can be described as",
+      "options": [
+        "A. satire",
+        "B. conceit",
+        "C. paradox",
+        "D. parody"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_46.PNG",
+      "question": "The speaker is",
+      "options": [
+        "A. Flute",
+        "B. Quince",
+        "C. Bottom",
+        "D. Philostrate"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_46.PNG",
+      "question": "The speech is part of the",
+      "options": [
+        "A. prologue",
+        "B. epilogue",
+        "C. exposition",
+        "D. lyric"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 48,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_46.PNG",
+      "question": "The speaker is involved in putting on",
+      "options": [
+        "A. a scene",
+        "B. a skit",
+        "C. an act",
+        "D. a play"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 49,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_46.PNG",
+      "question": "The occasion is",
+      "options": [
+        "A. the celebration of the royal marriage",
+        "B. the king’s decision to banish Hermia",
+        "C. Oberon’s threat to punish Titania",
+        "D. Titania falling in love with Bottom"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "diagram": "static/uploads/diagrams/2023/literature/diagram_46.PNG",
+      "question": "The speech is",
+      "options": [
+        "A. romantic",
+        "B. satire",
+        "C. comic",
+        "D. tragic"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

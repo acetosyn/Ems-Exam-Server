@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard | EMIS</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/students.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/student-exams.css') }}"/>
+</head>
+
+<body class="students-body">
+
+  <!-- ======================================================
+       HEADER
+  ======================================================= -->
+  <header class="student-header">
+    <div class="header-left">
+      <i class="fa-solid fa-graduation-cap header-logo"></i>
+      <span class="portal-title">EMIS Student Portal</span>
+    </div>
+
+    <div class="header-right">
+
+      <!-- Live Clock -->
+      <span id="liveClock" class="live-clock"></span>
+
+      <!-- Logout -->
+      <a href="{{ url_for('user_bp.student_login') }}" class="logout-btn" title="Logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+
+      <!-- Notifications -->
+      <button class="icon-btn" id="notifBtn" title="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+
+      <!-- Theme Toggle -->
+      <button class="icon-btn" id="themeToggle" title="Toggle Theme">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+
+      <!-- Avatar -->
+      <img src="{{ url_for('static', filename='images/student.jpg') }}"
+           alt="Student Avatar"
+           class="student-avatar"/>
+    </div>
+  </header>
+
+
+
+  <!-- ======================================================
+       HERO SPLIT — PROFILE LEFT, ACTIONS RIGHT
+  ======================================================= -->
+  <section class="hero-split">
+
+    <!-- LEFT PANE -->
+    <div class="hero-left">
+      <div class="profile-card hero-profile-card">
+
+        <div class="profile-header">
+          <i class="fa-solid fa-id-card profile-icon"></i>
+          <h2>Student Profile</h2>
+          <p>Your basic information</p>
+        </div>
+
+        <div class="profile-grid">
+
+          <div class="profile-item">
+            <span>Full Name</span>
+            <strong>{{ student.full_name }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Admission Number</span>
+            <strong>{{ student.admission_number }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Class</span>
+            <strong>{{ student.class }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>Class Category</span>
+            <strong>{{ student.class_category }}</strong>
+          </div>
+
+          <div class="profile-item">
+            <span>System ID</span>
+            <strong>{{ student.id }}</strong>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- RIGHT PANE -->
+    <div class="hero-right">
+
+      <h1 class="hero-title">Welcome back, {{ student.full_name }}!</h1>
+      <p class="hero-sub">Your academic dashboard — everything you need at a glance.</p>
+
+      <div class="hero-buttons">
+
+        <button class="btn-primary" id="openExamPortal">
+          <i class="fa-solid fa-laptop-file"></i> Exam Portal
+        </button>
+
+        <button class="btn-light" id="openSubjectsBtn">
+          <i class="fa-solid fa-book"></i> Subjects
+        </button>
+
+        <a href="{{ url_for('student_portal_bp.result') }}" class="btn-light">
+          <i class="fa-solid fa-chart-line"></i> Results
+        </a>
+
+        <button class="btn-light">
+          <i class="fa-solid fa-folder-open"></i> Past Questions
+        </button>
+
+
+
+
+        <!-- SMALL AVAILABLE SUBJECTS CARD -->
+        <div class="available-subjects-card" id="availableSubjectsCard">
+          <h4><i class="fa-solid fa-book-open"></i> Available Exams</h4>
+          <p class="small-sub">Subjects pushed to your portal:</p>
+
+          <ul id="availableSubjectsList" class="subjects-list"></ul>
+
+          <button id="viewSubjectsBtn" class="btn-mini">
+            View All
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+
+  <!-- ======================================================
+       MAIN DASHBOARD (CARDS)
+  ======================================================= -->
+  <main class="content-area">
+
+    <div class="dashboard-wrapper card">
+
+      <div class="dashboard-grid">
+
+        <!-- 1. Performance -->
+        <div class="mini-card mini-performance">
+          <h3><i class="fa-solid fa-chart-pie"></i> Performance</h3>
+
+          <div class="mini-stats">
+            <div><span>Avg</span><strong id="avgScore">--%</strong></div>
+            <div><span>Exams</span><strong id="examCount">--</strong></div>
+            <div><span>Passed</span><strong id="passedSubjects">--</strong></div>
+          </div>
+
+          <canvas id="performanceChart" class="mini-chart"></canvas>
+        </div>
+
+
+        <!-- 2. Activity -->
+        <div class="mini-card mini-activity">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> Activity</h3>
+          <div id="activityList" class="mini-list"></div>
+        </div>
+
+
+        <!-- 3. Announcements -->
+        <div class="mini-card mini-announce">
+          <h3><i class="fa-solid fa-bullhorn"></i> Announcements</h3>
+          <ul id="announcementList" class="mini-list"></ul>
+        </div>
+
+
+        <!-- 4. Feedback -->
+        <div class="mini-card mini-feedback">
+          <h3><i class="fa-solid fa-comments"></i> Feedback</h3>
+
+          <div class="mini-chat">
+            <div id="chatMessages" class="chat-messages"></div>
+
+            <form id="feedbackForm" class="chat-input">
+              <textarea id="feedbackText" placeholder="Type..."></textarea>
+              <button class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+  <footer class="student-footer">
+    <p>&copy; <span id="year"></span> EMIS Portal — Empowering Students for Success</p>
+  </footer>
+
+
+
+
+  <!-- ======================================================
+       EXAM MODAL — NOW YEAR-AWARE & FILLED BY JS
+  ======================================================= -->
+  <div class="modal-overlay" id="examModal">
+    <div class="modal-box">
+
+      <h2 class="modal-title">
+        <i class="fa-solid fa-pen-to-square"></i> Go to Exam Portal
+      </h2>
+
+      <div class="form-group">
+        <label for="subjectDropdown">Select Subject</label>
+
+        <!-- EMPTY → JS will fill this dynamically -->
+        <select id="subjectDropdown">
+  <option value="">-- Select Subject --</option>
+
+        <option value="BIOLOGY">BIOLOGY</option>
+        <option value="CHEMISTRY">CHEMISTRY</option>
+        <option value="CIVIC EDUCATION">CIVIC EDUCATION</option>
+        <option value="COMPUTER SCIENCE">COMPUTER SCIENCE</option>
+        <option value="ECONOMICS">ECONOMICS</option>
+        <option value="ENGLISH LANGUAGE">ENGLISH LANGUAGE</option>
+        <option value="FINANCIAL ACCOUNTING">FINANCIAL ACCOUNTING</option>
+        <option value="GEOGRAPHY">GEOGRAPHY</option>
+        <option value="GOVERNMENT">GOVERNMENT</option>
+        <option value="LITERATURE-IN-ENGLISH">LITERATURE-IN-ENGLISH</option>
+        <option value="MATHEMATICS">MATHEMATICS</option>
+        <option value="PHYSICS">PHYSICS</option>
+        <option value="TECHNICAL DRAWING">TECHNICAL DRAWING</option>
+      </select>
+
+
+
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" id="refreshSubjectsBtn">Refresh Subjects</button>
+        <button class="btn-primary" id="startExamBtn" disabled>Go to Exam portal</button>
+        <button class="btn-secondary" id="closeExamModal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- ======================================================
+       JS FILES
+  ======================================================= -->
+  <script src="{{ url_for('static', filename='js/student-exams.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/student-dashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/students.js') }}"></script>
+
+</body>
+</html>

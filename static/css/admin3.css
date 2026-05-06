@@ -1,0 +1,408 @@
+/* ============================================================
+   ADMIN3.CSS — PANELS / FORMS / TABLES / ANIMATIONS / DARK MODE
+   Continuation of admin1.css + admin2.css
+   ============================================================ */
+
+/* ---------------- GENERAL STRUCTURE ---------------- */
+.card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.route {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.route.active {
+  display: block;
+  opacity: 1;
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- FORM ELEMENTS ---------------- */
+.form-label {
+  font-weight: 600;
+  color: var(--navy-dark);
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.form-input,
+textarea.form-input,
+select.form-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background: #fff;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus,
+textarea.form-input:focus,
+select.form-input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.2);
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ---------------- TABLES ---------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+table thead {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ---------------- PROGRESS BAR ---------------- */
+.progress {
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--orange);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+/* ---------------- NOTIFICATION PANEL ---------------- */
+.notification-center {
+  position: relative;
+}
+
+.notif-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.notif-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
+.notif-panel {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 150%;
+  width: 260px;
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 0.8rem;
+  color: var(--text-dark);
+  z-index: 50;
+}
+
+.notification-center:hover .notif-panel {
+  display: block;
+}
+
+.notif-panel h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--navy-dark);
+}
+
+.notif-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notif-panel li {
+  padding: 0.4rem 0.2rem;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.notif-panel li:last-child {
+  border-bottom: none;
+}
+.notif-panel i {
+  color: var(--orange);
+}
+
+/* ---------------- SUPPORT PANEL ---------------- */
+#supportForm {
+  background: #f9fafb;
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+#sendSupportBtn {
+  min-width: 160px;
+}
+
+#supportStatus {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* ---------------- SETTINGS PANEL ---------------- */
+#panel-settings .form-input {
+  background: #fff;
+}
+
+#panel-settings button {
+  margin-top: 0.3rem;
+}
+
+#serverControlStatus {
+  min-height: 20px;
+}
+
+/* ---------------- LOGS / ACTIVITY PANEL ---------------- */
+#activityList, #errorLogList {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+}
+
+#activityList ul, #errorLogList ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#activityList li, #errorLogList li {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+#activityList li:last-child, #errorLogList li:last-child {
+  border-bottom: none;
+}
+
+#exportLogsBtn, #clearLogsBtn {
+  min-width: 140px;
+}
+
+/* ---------------- ID GENERATOR PANEL ---------------- */
+#idOutputArea {
+  font-family: "Roboto Mono", monospace;
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--radius);
+}
+
+#copyIDBtn, #clearIDBtn {
+  min-width: 100px;
+}
+
+/* ---------------- CREDENTIALS PANEL ---------------- */
+#panel-credentials table {
+  font-family: "Inter", sans-serif;
+}
+
+#panel-credentials th {
+  color: var(--navy-dark);
+}
+
+#panel-credentials td {
+  color: #374151;
+}
+
+#panel-credentials button {
+  min-width: 160px;
+}
+
+/* ---------------- SUPPORT AREA ---------------- */
+#panel-support textarea {
+  font-family: "Inter", sans-serif;
+}
+
+#panel-support .btn-primary i {
+  margin-right: 6px;
+}
+
+/* ---------------- UTILITIES ---------------- */
+.text-primary { color: var(--navy); }
+.text-primary-dark { color: var(--navy-dark); }
+.text-orange { color: var(--orange); }
+
+.border-t { border-top: 1px solid #e5e7eb; }
+.border { border: 1px solid #e5e7eb; }
+
+.max-h-60 { max-height: 15rem; }
+.max-h-64 { max-height: 16rem; }
+.max-h-72 { max-height: 18rem; }
+.overflow-y-auto { overflow-y: auto; }
+
+/* ---------------- SCROLLBAR ---------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange);
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+  background: #f9fafb;
+  border-top: 1px solid #e2e8f0;
+  padding: 2rem 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+footer strong {
+  color: var(--navy-dark);
+}
+
+/* ---------------- DARK MODE ---------------- */
+[data-theme="dark"] {
+  --bg-white: #1e293b;
+  --bg-soft: #0f172a;
+  --text-dark: #f8fafc;
+}
+
+[data-theme="dark"] body {
+  background: var(--bg-soft);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .notif-panel {
+  background: #1e293b;
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .sidebar {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .sidebar-menu li a.active {
+  background: var(--orange);
+  color: #fff;
+}
+
+[data-theme="dark"] .form-input {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] table thead {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] footer {
+  background: #0f172a;
+  border-top-color: #334155;
+  color: #94a3b8;
+}
+
+/* ---------------- RESPONSIVE DESIGN ---------------- */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    left: -250px;
+  }
+  .sidebar.active {
+    left: 0;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+  .top-header {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .brand-title {
+    font-size: 1rem;
+  }
+  .main-nav {
+    display: none;
+  }
+  .mobile-menu-btn {
+    background: transparent;
+    color: #fff;
+    font-size: 1.3rem;
+    border: none;
+  }
+  .card {
+    padding: 1rem;
+  }
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(249,115,22,0); }
+  50% { box-shadow: 0 0 10px rgba(249,115,22,0.4); }
+}
+
+.btn-primary:hover,
+.btn-accent:hover,
+.btn-orange:hover,
+.btn-green:hover,
+.btn-danger:hover {
+  animation: glowPulse 1.2s ease infinite;
+}

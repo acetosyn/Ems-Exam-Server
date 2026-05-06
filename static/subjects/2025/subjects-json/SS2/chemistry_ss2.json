@@ -1,0 +1,610 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Chemistry",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The property of elements which increases down a group of the periodic table is",
+      "diagram": null,
+      "options": [
+        "A. electronegativity",
+        "B. electron affinity",
+        "C. atomic radius",
+        "D. ionization energy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following conditions would lead to an increase in the rate of a chemical reaction?",
+      "diagram": null,
+      "options": [
+        "A. Increase in temperature and decrease in the surface area of reactants",
+        "B. Increase in both temperature and concentration of reactants",
+        "C. Decrease in temperature and increase in concentration of reactants",
+        "D. Decrease in temperature and increase in the surface area of reactants"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "How many electrons are in the outermost shell of group 3 elements?",
+      "diagram": null,
+      "options": [
+        "A. 3",
+        "B. 7",
+        "C. 8",
+        "D. 10"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "In the periodic table, each group has a common name. Which of the following is the name of 2A group?",
+      "diagram": null,
+      "options": [
+        "A. Alkaline earth metal",
+        "B. Alkali metals",
+        "C. Noble gases",
+        "D. Halogens"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Which of the following physical properties decreases across the period?",
+      "diagram": null,
+      "options": [
+        "A. Ionization potential",
+        "B. Electron affinity",
+        "C. Electro negativity",
+        "D. Atomic radius"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Elements in the same period have the same",
+      "diagram": null,
+      "options": [
+        "A. number of shells",
+        "B. valence electron",
+        "C. nucleon number",
+        "D. size"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "In the reaction 2S(s) + 3O<sub>2</sub>(g) → 2SO<sub>3</sub>(g), the effect of increase in pressure is",
+      "diagram": null,
+      "options": [
+        "A. to encourage backward reaction",
+        "B. to encourage forward reaction",
+        "C. to remove the energy barrier",
+        "D. to stabilize the system"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "These factors affect equilibrium reaction except",
+      "diagram": null,
+      "options": [
+        "A. pressure (for gaseous system)",
+        "B. pressure (for solid system)",
+        "C. temperature",
+        "D. concentration"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "In the decomposition CaCO<sub>3</sub>(s) → CaO(s) + CO<sub>2</sub>(g). The reaction attains dynamic equilibrium only",
+      "diagram": null,
+      "options": [
+        "A. when catalyzed",
+        "B. when in open system",
+        "C. when heated",
+        "D. when in a closed system"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "Two men balanced steadily in a sea saw game is an example of",
+      "diagram": null,
+      "options": [
+        "A. mutual equilibrium",
+        "B. homogenous equilibrium",
+        "C. dynamic equilibrium",
+        "D. static equilibrium"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Reaction in which heat is given out to the surrounding is",
+      "diagram": null,
+      "options": [
+        "A. endothermic",
+        "B. catalytic",
+        "C. reversible",
+        "D. exothermic"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "Four elements P, Q, R and S have atomic numbers 4, 10, 12 and 14 respectively. Which is a noble gas?",
+      "diagram": null,
+      "options": [
+        "A. P",
+        "B. Q",
+        "C. R",
+        "D. S"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is correct about the trend of ionization energy?",
+      "diagram": null,
+      "options": [
+        "A. Decreases across a period",
+        "B. Increase down the group",
+        "C. Increase across a period",
+        "D. Unchanged down a group"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Increase in pressure in the reaction 2SO<sub>2</sub> + O<sub>2</sub> = 2SO<sub>3</sub> causes",
+      "diagram": null,
+      "options": [
+        "A. decrease in rate of reaction",
+        "B. decrease in temperature",
+        "C. increase in temperature of SO<sub>3</sub>",
+        "D. increase in concentration of SO<sub>3</sub>"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "A solution of NaOH containing 5g in 1dm<sup>3</sup> has concentration of [NaOH = 40g/mol]",
+      "diagram": null,
+      "options": [
+        "A. 0.04mol/dm<sup>3</sup>",
+        "B. 0.60mol/dm<sup>3</sup>",
+        "C. 0.50mol/dm<sup>3</sup>",
+        "D. 0.125mol/dm<sup>3</sup>"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "The expression n/kg of solvent is true for",
+      "diagram": null,
+      "options": [
+        "A. molality",
+        "B. morality",
+        "C. molar volume",
+        "D. concentration"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "S.I unit of Avogadro’s constant is",
+      "diagram": null,
+      "options": [
+        "A. mol<sup>-1</sup>",
+        "B. gmol<sup>-1</sup>",
+        "C. N",
+        "D. dm<sup>3</sup>"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "The energy which accompanies the addition of an electron to an isolated gaseous atom is",
+      "diagram": null,
+      "options": [
+        "A. atomization",
+        "B. electro negativity",
+        "C. electron affinity",
+        "D. ionization"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "What mass of sodium trioxocarbonate IV is present in 1dm<sup>3</sup> of 0.5mol/dm<sup>3</sup>?",
+      "diagram": null,
+      "options": [
+        "A. 53g",
+        "B. 5.3g",
+        "C. 531g",
+        "D. 106g"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is solid at room temperature?",
+      "diagram": null,
+      "options": [
+        "A. Bromine",
+        "B. Chlorine",
+        "C. Fluorine",
+        "D. Iodine"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 21,
+      "question": "S-block elements of the periodic table are made up of group",
+      "diagram": null,
+      "options": [
+        "A. 1 and 2",
+        "B. 3 and 7",
+        "C. 4 and 2",
+        "D. 3 and 4"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Which property of a reversible reaction is affected by a catalyst?",
+      "diagram": null,
+      "options": [
+        "A. Heat content",
+        "B. Activation energy",
+        "C. Free energy change",
+        "D. Equilibrium position"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "The periodic properties that increase across the periods are",
+      "diagram": null,
+      "options": [
+        "A. atomic radii",
+        "B. atomic radius",
+        "C. ionic radii and electro negativity",
+        "D. electron affinity and electro negativity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Minimum amount of energy required before a chemical reaction could occur is called",
+      "diagram": null,
+      "options": [
+        "A. effective energy",
+        "B. activation complex",
+        "C. reaction energy",
+        "D. activation energy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "Catalyst",
+      "diagram": null,
+      "options": [
+        "A. increase the energy barrier of reaction",
+        "B. increase the equilibrium constant",
+        "C. brings about energy barrier of reaction",
+        "D. lowers the activation energy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "The unit of the rate of a chemical reaction is",
+      "diagram": null,
+      "options": [
+        "A. mol dm<sup>-3</sup> s<sup>-1</sup>",
+        "B. mol dm<sup>-3</sup>",
+        "C. dm<sup>-3</sup>",
+        "D. mol s<sup>-1</sup>"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Given the electronic configuration 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup>, the element belongs to",
+      "diagram": null,
+      "options": [
+        "A. group 0",
+        "B. period 4",
+        "C. contains 3 unpaired electrons",
+        "D. atomic number 27"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "The atomic radii of metals are usually",
+      "diagram": null,
+      "options": [
+        "A. greater than ionic radii",
+        "B. equal to ionic radii",
+        "C. less than ionic radii",
+        "D. less than those of non-metals"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "If ∆H is positive for a reaction, this means the reaction is",
+      "diagram": null,
+      "options": [
+        "A. exothermic",
+        "B. endothermic",
+        "C. spontaneous",
+        "D. slow"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "The following affect equilibrium position except",
+      "diagram": null,
+      "options": [
+        "A. catalyst",
+        "B. temperature",
+        "C. pressure",
+        "D. concentration"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Which elements belong to the same group? P:1s<sup>2</sup> Q:1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> R:1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>1</sup> S:1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>2</sup> 3s<sup>2</sup> 3p<sup>2</sup>",
+      "diagram": null,
+      "options": [
+        "A. P and R",
+        "B. P and Q",
+        "C. R and S",
+        "D. Q, R and S only"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Rare gases are stable because they",
+      "diagram": null,
+      "options": [
+        "A. are chemically active",
+        "B. contain equal protons and neutrons",
+        "C. contain more electrons than protons",
+        "D. have duplet/octet structures"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following elements is diatomic?",
+      "diagram": null,
+      "options": [
+        "A. Iron",
+        "B. Nitrogen",
+        "C. Potassium",
+        "D. Sodium"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following elements is a metalloid?",
+      "diagram": null,
+      "options": [
+        "A. Carbon",
+        "B. Oxygen",
+        "C. Silicon",
+        "D. Sodium"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Chemical equilibrium is attained when",
+      "diagram": null,
+      "options": [
+        "A. all reactants completely used",
+        "B. reaction goes to completion",
+        "C. concentration remains constant",
+        "D. concentration of reactants = products"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "The position of equilibrium is affected by",
+      "diagram": null,
+      "options": [
+        "A. particle size",
+        "B. vigorous stirring",
+        "C. presence of catalyst",
+        "D. change in concentration"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "question": "Position of equilibrium NOT affected by pressure increase",
+      "diagram": null,
+      "options": [
+        "A. 3Fe(s) + 4H<sub>2</sub>O(g) = Fe<sub>3</sub>O<sub>4</sub> + 4H<sub>2</sub>(g)",
+        "B. 2NO<sub>2</sub>(g) = N<sub>2</sub>O<sub>4</sub>(g)",
+        "C. 3H<sub>2</sub> + N<sub>2</sub> = 2NH<sub>3</sub>",
+        "D. 2SO<sub>2</sub> + O<sub>2</sub> = 2SO<sub>3</sub>"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Which statement about endothermic reaction is correct?",
+      "diagram": null,
+      "options": [
+        "A. Activation energy is high",
+        "B. A catalyst is red",
+        "C. It occurs reversibly",
+        "D. Heat is absorbed"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "Surface area of reactant particles can be increased by",
+      "diagram": null,
+      "options": [
+        "A. breaking into powder",
+        "B. increasing temperature",
+        "C. applying catalyst",
+        "D. increasing concentration"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "The rate of chemical reaction of solids is not affected by",
+      "diagram": null,
+      "options": [
+        "A. catalyst",
+        "B. pressure",
+        "C. particle size",
+        "D. temperature"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "An exothermic reaction is one which involves",
+      "diagram": null,
+      "options": [
+        "A. attainment of dynamic equilibrium",
+        "B. loss of heat to the surrounding",
+        "C. evolution of gas",
+        "D. positive change in value of enthalpy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "If ∆H is negative, the reaction is",
+      "diagram": null,
+      "options": [
+        "A. slow",
+        "B. exothermic",
+        "C. spontaneous",
+        "D. irreversible"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "Which element can be placed in two groups?",
+      "diagram": null,
+      "options": [
+        "A. Carbon",
+        "B. Copper",
+        "C. Hydrogen",
+        "D. Oxygen"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 44,
+      "question": "Fluorine and chlorine belongs to the same group because both",
+      "diagram": null,
+      "options": [
+        "A. are metals",
+        "B. form cation",
+        "C. are electron donors",
+        "D. have same number of valence electrons"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 45,
+      "question": "Volume of oxygen required to burn 14g of ethane at STP",
+      "diagram": null,
+      "options": [
+        "A. 67.2dm<sup>3</sup>",
+        "B. 33.6dm<sup>3</sup>",
+        "C. 11.2dm<sup>3</sup>",
+        "D. 3.73dm<sup>3</sup>"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "These factors affect chemical reactions except",
+      "diagram": null,
+      "options": [
+        "A. temperature",
+        "B. catalyst",
+        "C. concentration",
+        "D. activation energy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "question": "Determine mass of sulphur(IV) oxide produced Reactants: S + O<sub>2</sub> → SO<sub>2</sub>",
+      "diagram": null,
+      "options": [
+        "A. 123g",
+        "B. 139g",
+        "C. 155g",
+        "D. 182g"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "Elements are arranged in the periodic table according to",
+      "diagram": null,
+      "options": [
+        "A. atomic mass",
+        "B. atomic volume",
+        "C. size",
+        "D. atomic number"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "Which arrangement shows increasing order of reactivity of halogens?",
+      "diagram": null,
+      "options": [
+        "A. F<sub>2</sub> > Cl<sub>2</sub> > Br<sub>2</sub> > I<sub>2</sub>",
+        "B. I<sub>2</sub> < Br<sub>2</sub> < Cl<sub>2</sub> < F<sub>2</sub>",
+        "C. F<sub>2</sub> < Cl<sub>2</sub> < Br<sub>2</sub> < I<sub>2</sub>",
+        "D. I<sub>2</sub> > Br<sub>2</sub> > Cl<sub>2</sub> > F<sub>2</sub>"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "In the energy profile diagram for chemical reaction, the apex of the curve represents",
+      "diagram": null,
+      "options": [
+        "A. activation energy",
+        "B. heat of reaction",
+        "C. products",
+        "D. activated complex"
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

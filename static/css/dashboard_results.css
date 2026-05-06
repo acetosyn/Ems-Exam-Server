@@ -1,0 +1,307 @@
+/* ==========================================================
+   dashboard_results.css — Stable Modal Layer Fix (v13)
+   Architect Build 2025 — Full Gradients, Animations & Z-Stack Fix
+   ========================================================== */
+
+/* === Wrappers === */
+#credentialsWrapper,
+#resultsWrapper {
+  margin-top: 1.25rem;
+  background: #ffffff;
+  padding: 1.5rem 1.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 43, 70, 0.08);
+  box-shadow: 0 4px 14px rgba(15, 43, 70, 0.08);
+  transition: all 0.3s ease;
+  overflow-x: auto;
+}
+#credentialsWrapper:hover,
+#resultsWrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 43, 70, 0.12);
+}
+
+/* === Buttons === */
+button[class^="btn-"],
+button[class*=" btn-"] {
+  cursor: pointer;
+  border: none;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #0f2b46, #173b61);
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #173b61, #1e4a7a);
+  transform: translateY(-1px);
+}
+
+.btn-export {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
+.btn-export:hover {
+  background: linear-gradient(135deg, #1e40af, #1d3a94);
+  transform: translateY(-1px);
+}
+
+.btn-clear {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+}
+.btn-clear:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+}
+.btn-danger:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #173b61;
+  color: #173b61;
+  padding: 0.45rem 0.9rem;
+}
+.btn-outline:hover {
+  background: #173b61;
+  color: #fff;
+}
+
+/* === Table === */
+.modern-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  table-layout: auto;
+}
+.modern-table thead {
+  background: #0f2b46;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.82rem;
+}
+.modern-table th,
+.modern-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+.modern-table th {
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+.modern-table th.asc::after,
+.modern-table th.desc::after {
+  content: "▲";
+  position: absolute;
+  right: 10px;
+  font-size: 0.6rem;
+}
+.modern-table th.desc::after {
+  content: "▼";
+}
+.modern-table tbody tr {
+  transition: all 0.2s ease;
+}
+.modern-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* === Inputs === */
+.form-input {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+.form-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================================================
+   MODALS (Bright, Solid White — No Transparency)
+   ========================================================== */
+
+/* === Main Modals (Results, Credentials) === */
+#resultsModal,
+#credentialsModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(240, 242, 247, 0.95); /* subtle light tint */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: none; /* remove blur */
+  animation: fadeIn 0.25s ease forwards;
+}
+#resultsModal:not(.hidden),
+#credentialsModal:not(.hidden) {
+  display: flex;
+}
+#resultsModal .modal-content,
+#credentialsModal .modal-content {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.35s ease forwards;
+  border: 1px solid rgba(15, 43, 70, 0.1);
+}
+
+/* === View Modal (Independent on Top) === */
+#viewModal,
+.view-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(240, 242, 247, 0.98);
+  z-index: 99999 !important;
+  animation: fadeIn 0.3s ease forwards;
+}
+#viewModal:not(.hidden),
+.view-modal:not(.hidden) {
+  display: flex !important;
+}
+#viewModal > div,
+.view-modal-content {
+  background: #ffffff;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  padding: 1.75rem;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  position: relative;
+  animation: slideUp 0.4s ease forwards;
+  border: 1px solid rgba(15, 43, 70, 0.1);
+}
+.view-close,
+#closeViewModal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+}
+.view-close:hover,
+#closeViewModal:hover {
+  color: #dc2626;
+}
+
+/* === Typography === */
+.panel-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #0f2b46;
+}
+.muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* === Skeleton Loader === */
+.skeleton {
+  height: 14px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* === Toasts === */
+.toast {
+  position: fixed;
+  right: 1rem;
+  bottom: -60px;
+  background: #0f2b46;
+  color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s;
+  z-index: 120000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+.toast.visible {
+  bottom: 1rem;
+  opacity: 1;
+  transform: translateY(0);
+}
+.toast-success { background: #16a34a; }
+.toast-error { background: #dc2626; }
+.toast-info { background: #2563eb; }
+
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(25px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .modern-table th, .modern-table td {
+    padding: 8px 6px;
+    font-size: 0.8rem;
+  }
+  button[class^="btn-"], button[class*=" btn-"] {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.75rem;
+  }
+  #credentialsWrapper, #resultsWrapper {
+    padding: 1rem;
+  }
+  #viewModal > div, .view-modal-content {
+    width: 94%;
+    padding: 1.25rem;
+  }
+}

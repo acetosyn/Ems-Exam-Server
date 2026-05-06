@@ -1,0 +1,670 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Computer Studies",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "In the late 19th century (1886), a census statistician at the US Bureau born at Buffalo, New York, the father of IBM is called",
+      "options": [
+        "A. Charles Babbage",
+        "B. Blaise Pascal",
+        "C. John Napier",
+        "D. Herman Hollerith"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "What is the full meaning of TMC?",
+      "options": [
+        "A. Tabulating Machine Company",
+        "B. Total Machine Company",
+        "C. Televised Machine Company",
+        "D. Telecom Machine Company"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "What is the full meaning of IBM?",
+      "options": [
+        "A. Internet Business Machine",
+        "B. Intercommunication Business Machine",
+        "C. International Business Machine",
+        "D. Intercom Business Machine"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "The first machine designed by Charles Babbage is called",
+      "options": [
+        "A. Difference Engine",
+        "B. Analytical Machine",
+        "C. IBM",
+        "D. TMC"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Who is the father of computer?",
+      "options": [
+        "A. Herman Hollerith",
+        "B. Charles Babbage",
+        "C. Howard Aiken",
+        "D. Ecl J. Eckert"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "In early 17th century (1614), the astronomer and Scottish mathematician that invented Napier’s Bone is called",
+      "options": [
+        "A. Prof. Maurice Wilices",
+        "B. John Mauchly",
+        "C. J. Eckert",
+        "D. None of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "At what age did Blaise Pascal invent his first machine?",
+      "options": [
+        "A. 18",
+        "B. 19",
+        "C. 20",
+        "D. 21"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "Pascaline or Pascal machine can carry out which operation?",
+      "options": [
+        "A. Addition only",
+        "B. Addition and subtraction",
+        "C. Subtraction only",
+        "D. Multiplication and division"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "In 1671, the German mathematician who improved on the Pascal machine is called",
+      "options": [
+        "A. Gotfried Von Leibniz",
+        "B. Charles Babbage",
+        "C. Hollerith",
+        "D. John Napier"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "The first counting device is called",
+      "options": [
+        "A. Abacus",
+        "B. Napier’s Bone",
+        "C. Pascaline",
+        "D. MARK 1"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "Who is regarded as the first programmer?",
+      "options": [
+        "A. Lady Micheal Bush",
+        "B. Lady Ada Augusta",
+        "C. Lady Ada Clinton",
+        "D. Lady Charles"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "Abacus was derived from the Greek word",
+      "options": [
+        "A. Abax",
+        "B. Abac",
+        "C. Abal",
+        "D. Aban"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Abacus has been in existence since around",
+      "options": [
+        "A. 3500 BC",
+        "B. 1500 BC",
+        "C. 2500 BC",
+        "D. 4500 BC"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "In 1937, the physicist who designed the first electronic computer was",
+      "options": [
+        "A. Prof Howard Aiken",
+        "B. J. Eckert",
+        "C. Prof Mauchly",
+        "D. Charles Babbage"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "The acronym ENIAC stands for",
+      "options": [
+        "A. Electronic Numeric Integrated and Computer",
+        "B. Electronic Numeric Integrated and Calculator",
+        "C. Elementary Numeric Integrated and Calculator",
+        "D. Electronic Nature Integrated and Calculator"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Where was ENIAC first constructed?",
+      "options": [
+        "A. Moore School of Electrical Engineering, University of Pennsylvania",
+        "B. University of London",
+        "C. University of California",
+        "D. Totness Devonshire University"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Who designed MARK 1?",
+      "options": [
+        "A. Prof Howard Aiken",
+        "B. John Mauchly",
+        "C. J. Eckert",
+        "D. Hollerith"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Abacus was originally designed by the",
+      "options": [
+        "A. Babylonians",
+        "B. Nigerian",
+        "C. Canadian",
+        "D. Ethiopia"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "\"Abax\" in Greek means",
+      "options": [
+        "A. calculating table",
+        "B. beads",
+        "C. wire",
+        "D. string"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Which of these is another name for MARK 1?",
+      "options": [
+        "A. AWCC",
+        "B. ASCC",
+        "C. EDSAC",
+        "D. ATBD"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Charles Babbage was born in",
+      "options": [
+        "A. England",
+        "B. South Africa",
+        "C. Los Angeles",
+        "D. Totness Devonshire"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "What prevented Charles Babbage from completing the analytical machine?",
+      "options": [
+        "A. Technology at that time was insufficient and he did not plan to use electricity",
+        "B. He did not spend much time on earth",
+        "C. He was not educated",
+        "D. He was busy designing other machines"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "The first wire or string in the Abacus represents",
+      "options": [
+        "A. thousand",
+        "B. hundred",
+        "C. tens",
+        "D. unit"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Which of these represent data under symbols?",
+      "options": [
+        "A. Name",
+        "B. Country",
+        "C. N",
+        "D. 12"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "Which of these is NOT an input device?",
+      "options": [
+        "A. Plotter",
+        "B. Scanner",
+        "C. Joystick",
+        "D. Electronic signature"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "The blinking symbol that shows text position is called",
+      "options": [
+        "A. pointer",
+        "B. cursor",
+        "C. mouse",
+        "D. character"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Which keys are used to type >, <, = ?",
+      "options": [
+        "A. Function keys",
+        "B. Special character keys",
+        "C. Cursor control keys",
+        "D. Command keys"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "Function keys on a keyboard range from",
+      "options": [
+        "A. F12",
+        "B. F9",
+        "C. F15",
+        "D. F20"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "Function keys can be found on which keyboard row?",
+      "options": [
+        "A. First row from top",
+        "B. First row from bottom",
+        "C. Second row from top",
+        "D. Third row from top"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The longest key on the keyboard is the",
+      "options": [
+        "A. space bar",
+        "B. backspace",
+        "C. delete key",
+        "D. enter key"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Which keys move the cursor around the typing area?",
+      "options": [
+        "A. Numeric keys",
+        "B. Alphabetic keys",
+        "C. Arrow keys",
+        "D. Special character keys"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Which of these is a command key?",
+      "options": [
+        "A. Alphabetic key",
+        "B. Esc key",
+        "C. Numeric keys",
+        "D. Special character key"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "All these are features of a mouse except",
+      "options": [
+        "A. left button",
+        "B. scroll button",
+        "C. right button",
+        "D. pad"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "Which device can be used to capture a document or picture into the computer?",
+      "options": [
+        "A. Mouse",
+        "B. Light pen",
+        "C. Scanner",
+        "D. Joystick"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Which input device can be used for simulation and car testing in automobile companies?",
+      "options": [
+        "A. Wheel and pedal",
+        "B. Light pen",
+        "C. Keyboard",
+        "D. Conveyor belt"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Digital camera represents images in",
+      "options": [
+        "A. 0’s and 1’s",
+        "B. graphs",
+        "C. fine art",
+        "D. monochrome"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Data processing takes place in",
+      "options": [
+        "A. VDU",
+        "B. CPU",
+        "C. Joystick",
+        "D. UPS"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "How many beads are in a single line of an Abacus?",
+      "options": [
+        "A. 9",
+        "B. 12",
+        "C. 13",
+        "D. 14"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Which company introduced the first micro-computer?",
+      "options": [
+        "A. IBM",
+        "B. Intel",
+        "C. Microsoft",
+        "D. Linux"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "The first micro-computer was introduced in",
+      "options": [
+        "A. 1971",
+        "B. 1982",
+        "C. 1985",
+        "D. 1973"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "UNIAC was introduced by",
+      "options": [
+        "A. Eckert and Mauchly",
+        "B. Herman and Hollerith",
+        "C. Blaise Pascal",
+        "D. Charles Babbage"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Who invented EDSAC?",
+      "options": [
+        "A. Prof Maurice Wilice",
+        "B. Eckert",
+        "C. Mauchly",
+        "D. Prof Aiken"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "The singular form of the word DATA is",
+      "options": [
+        "A. datum",
+        "B. bits",
+        "C. bite",
+        "D. word"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "Which of the following is NOT data?",
+      "options": [
+        "A. N",
+        "B. Age",
+        "C. I have N5",
+        "D. 12"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "The unit of a number on Napier’s bone is written in the",
+      "options": [
+        "A. lower diagonal",
+        "B. upper diagonal",
+        "C. rectangular",
+        "D. triangular"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 46,
+      "question": "Slide rule deals with arrangement of",
+      "options": [
+        "A. micrometer screw gauge",
+        "B. rulers",
+        "C. ammeter",
+        "D. voltmeter"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "Which of these is NOT part of early Abacus components?",
+      "options": [
+        "A. Word",
+        "B. String or wire",
+        "C. Beads",
+        "D. MARK 1"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "question": "Which keyboard shortcut opens a new window?",
+      "options": [
+        "A. Ctrl + P",
+        "B. Ctrl + B",
+        "C. Ctrl + N",
+        "D. Ctrl + Y"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "Which keyboard shortcut closes a window?",
+      "options": [
+        "A. Ctrl + C",
+        "B. Ctrl + Z",
+        "C. Alt + F4",
+        "D. Alt + F5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "After highlighting a text, which shortcut changes text between upper and lower case?",
+      "options": [
+        "A. Ctrl + D",
+        "B. Shift + F3",
+        "C. Alt + F1",
+        "D. Ctrl + Esc"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 51,
+      "question": "Which keys are used to access a projector?",
+      "options": [
+        "A. Windows key + P",
+        "B. Alt + P",
+        "C. Ctrl + P",
+        "D. Shift + F11"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 52,
+      "question": "The modern sewing machine depends on the invention of",
+      "options": [
+        "A. Charles Babbage",
+        "B. Herman Hollerith",
+        "C. Yang and Filo",
+        "D. Joseph Jacquard"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 53,
+      "question": "Which shortcut opens Computer (Windows Explorer)?",
+      "options": [
+        "A. Alt + O",
+        "B. Shift + O",
+        "C. Windows key + E",
+        "D. Ctrl + Shift"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 54,
+      "question": "Which keys warm-boot a system?",
+      "options": [
+        "A. Ctrl + Del + A",
+        "B. Ctrl + Alt + Del",
+        "C. Ctrl + Warm Boot",
+        "D. Ctrl + V"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 55,
+      "question": "UPS means",
+      "options": [
+        "A. Unusual Power Supply",
+        "B. Uninterrupted Power Supply",
+        "C. Under Paid Staff",
+        "D. Undefined Project Schedule"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 56,
+      "question": "Two booting processes in computer are ____ booting",
+      "options": [
+        "A. warm and cold",
+        "B. warm and weak",
+        "C. weak and hard",
+        "D. warm and hard"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 57,
+      "question": "Data is simply referred to as",
+      "options": [
+        "A. unprocessed facts",
+        "B. date",
+        "C. prepared facts",
+        "D. datum"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 58,
+      "question": "Computer is generally classified into",
+      "options": [
+        "A. hardware and software",
+        "B. soft print and hard print",
+        "C. hard drive and soft drive",
+        "D. hard pin and soft pin"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 59,
+      "question": "Hardware is the ______ part of the computer",
+      "options": [
+        "A. touchable",
+        "B. untouchable",
+        "C. raw",
+        "D. indefinite"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 60,
+      "question": "Information is simply referred to as",
+      "options": [
+        "A. processed data",
+        "B. unprocessed data",
+        "C. data",
+        "D. news format"
+      ],
+      "correctOption": "A"
+    }
+  ]
+}

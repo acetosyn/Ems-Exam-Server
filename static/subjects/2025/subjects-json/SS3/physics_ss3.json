@@ -1,0 +1,600 @@
+{
+  "school": "Epitome Model Islamic Schools",
+  "subject": "Physics",
+  "exam_title": "1st Term Examination",
+  "instructions": "Do not start until you are told to do so",
+  "time_allowed_minutes": null,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the unit of gravitational field strength?",
+      "options": [
+        "A. N/kg",
+        "B. N/m",
+        "C. J/kg",
+        "D. m/s<sup>2</sup>"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "The gravitational field strength on the earth’s surface is approximately",
+      "options": [
+        "A. 8.9 m/s<sup>2</sup>",
+        "B. 9.8 N/kg",
+        "C. 6.7 N/kg",
+        "D. 10 m/s<sup>2</sup>"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "What is the formula for electric field due to a point charge?",
+      "options": [
+        "A. E = kq/r",
+        "B. E = kq/r<sup>2</sup>",
+        "C. E = q/r<sup>2</sup>",
+        "D. E = k/r"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "Calculate the electric field at a distance of 2 m from a charge of 44 C. (k = 9 × 10<sup>9</sup> Nm<sup>2</sup>/C<sup>2</sup>)",
+      "options": [
+        "A. 9 × 10<sup>3</sup> N/C",
+        "B. 18 × 10<sup>3</sup> N/C",
+        "C. 9 × 10<sup>6</sup> N/C",
+        "D. 18 × 10<sup>3</sup> N/C"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Electrolysis is...",
+      "options": [
+        "A. Passage of current through metals",
+        "B. Chemical decomposition by electric current",
+        "C. Charging of capacitor",
+        "D. Flow of electrons in gases"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Which of these is a primary cell?",
+      "options": [
+        "A. Lead–acid battery",
+        "B. Leclanche cell",
+        "C. Nickel–cadmium cell",
+        "D. Lithium–ion battery"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "Capacitance is measured in",
+      "options": [
+        "A. Farads",
+        "B. Volts",
+        "C. Ampere",
+        "D. Ohms"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "The equivalent capacitance of 2 μF and 3 μF capacitors in series is",
+      "options": [
+        "A. 12 μF",
+        "B. 5 μF",
+        "C. 6 μF",
+        "D. 1 μF"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "What is resistivity?",
+      "options": [
+        "A. Ability to conduct electricity",
+        "B. Opposition to electric flow",
+        "C. Measure of capacitance",
+        "D. Rate of electrolysis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "The unit of resistivity is",
+      "options": [
+        "A. Ohm",
+        "B. Ohm–meter",
+        "C. Ampere",
+        "D. Volt"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 11,
+      "question": "Conductivity is the...",
+      "diagram": "/static/uploads/diagrams/physics_ss3/diagraam_11.PNG",
+      "options": [
+        "A. Inverse of resistivity",
+        "B. Same as resistivity",
+        "C. Measure of capacitance",
+        "D. Measure of inductance"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "question": "Calculate the total charge in the circuit.",
+      "options": [
+        "A. 80 μC",
+        "B. 35 μC",
+        "C. 20 μC",
+        "D. 16 μC"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Calculate the potential difference across the capacitors in parallel.",
+      "options": [
+        "A. 10 V",
+        "B. 8 V",
+        "C. 6.7 V",
+        "D. 2 V"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Calculate the capacitance of a parallel capacitor with area 0.1 m², separation 0.01 m and ε = 8.85 × 10<sup>-12</sup> C/m.",
+      "options": [
+        "A. 88.5 pF",
+        "B. 885 pF",
+        "C. 885 nF",
+        "D. 88.5 nF"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Electric field lines emerge from",
+      "options": [
+        "A. Negative charges",
+        "B. Positive charges",
+        "C. Neutrons",
+        "D. Conductors"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 16,
+      "question": "Gravitational potential energy depends on",
+      "options": [
+        "A. Mass and weight",
+        "B. Mass only",
+        "C. Height only",
+        "D. Velocity"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 17,
+      "question": "A capacitor stores energy in",
+      "options": [
+        "A. Magnetic field",
+        "B. Electric field",
+        "C. Gravitational field",
+        "D. Heat"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "question": "Lead–acid battery is an example of",
+      "options": [
+        "A. Primary cell",
+        "B. Secondary cell",
+        "C. Fuel cell",
+        "D. Solar cell"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 19,
+      "question": "Resistivity depends on",
+      "options": [
+        "A. Length only",
+        "B. Area only",
+        "C. Material and temperature",
+        "D. Voltage"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "question": "Equivalent capacitance of capacitors in parallel is",
+      "options": [
+        "A. Sum of individual capacitances",
+        "B. Less than individual capacitances",
+        "C. Product of capacitances",
+        "D. Inverse sum"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 21,
+      "question": "Coulomb’s law relates to",
+      "options": [
+        "A. Gravitational force",
+        "B. Electric force",
+        "C. Magnetic force",
+        "D. Nuclear force"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 22,
+      "question": "Electrolysis involves",
+      "options": [
+        "A. Only liquid",
+        "B. Only gases",
+        "C. Only solid",
+        "D. Liquid and molten salts"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 23,
+      "question": "Calculate the resistance if resistivity is 1.7 × 10<sup>-8</sup> Ωm, length = 10 m and area = 0.5 mm².",
+      "options": [
+        "A. 0.34 Ω",
+        "B. 3.4 Ω",
+        "C. 34 Ω",
+        "D. 0.034 Ω"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "question": "________ affects conductivity",
+      "options": [
+        "A. Temperature only",
+        "B. Material only",
+        "C. Material and temperature",
+        "D. Length"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 25,
+      "question": "Calculate the mass of copper deposited during electrolysis with current 10 A for 10³ seconds. (e<sub>ce</sub> = 3.3 × 10<sup>-7</sup> kg/C)",
+      "options": [
+        "A. 6.6 × 10<sup>-3</sup> kg",
+        "B. 3.3 × 10<sup>-3</sup> kg",
+        "C. 6.6 × 10<sup>-5</sup> kg",
+        "D. 3.3 × 10<sup>-5</sup> kg"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 26,
+      "question": "Calculate the gravitational force between 10 kg and 20 kg masses separated by 2 m. (G = 6.67 × 10<sup>-11</sup> Nm²/kg²)",
+      "options": [
+        "A. 3.34 × 10<sup>-10</sup> N",
+        "B. 6.67 × 10<sup>-10</sup> N",
+        "C. 1.67 × 10<sup>-9</sup> N",
+        "D. 3.34 × 10<sup>-9</sup> N"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "Inverse of resistance is",
+      "options": [
+        "A. Resistivity",
+        "B. Conductance",
+        "C. Capacitance",
+        "D. Inductance"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "question": "A charge of 10 C is transferred across a potential difference of 220 V. Determine the work done.",
+      "options": [
+        "A. 22 J",
+        "B. 210 J",
+        "C. 230 J",
+        "D. 220 J"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 29,
+      "question": "Electricity meters in houses measure energy consumed in",
+      "options": [
+        "A. Kilowatt–hour",
+        "B. Volts",
+        "C. Ampere",
+        "D. Coulomb"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 30,
+      "question": "Which of the following factors does NOT affect the emf of a primary cell?",
+      "options": [
+        "A. Size",
+        "B. Internal resistance",
+        "C. Operating temperature",
+        "D. Duration of usage"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 31,
+      "question": "An aluminium cable of diameter 4 × 10<sup>-3</sup> m and resistivity 3 × 10<sup>-8</sup> Ωm has resistance 12 Ω. Calculate its length. (π = 3.142)",
+      "options": [
+        "A. 8.0 × 10<sup>2</sup> m",
+        "B. 8.8 × 10<sup>3</sup> m",
+        "C. 8.0 × 10<sup>4</sup> m",
+        "D. 8.8 × 10<sup>4</sup> m"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "question": "Cathode rays are",
+      "options": [
+        "A. Positive ions",
+        "B. Electrons",
+        "C. Neutrons",
+        "D. Photons"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "question": "Electric potential is measured in",
+      "options": [
+        "A. Volt",
+        "B. Ampere",
+        "C. Ohm",
+        "D. Farad"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "question": "Which of the following materials does NOT serve as a safety device in electrical circuits?",
+      "options": [
+        "A. Connecting wire",
+        "B. Earth wire",
+        "C. Fuse",
+        "D. Switch"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "question": "Which of the following sources of energy is renewable?",
+      "options": [
+        "A. Petroleum",
+        "B. Uranium",
+        "C. Sun",
+        "D. Coal"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "question": "A device that converts mechanical energy into electrical energy is",
+      "options": [
+        "A. Dynamo",
+        "B. Electric motor",
+        "C. Transformer",
+        "D. Induction coil"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "question": "The area under a velocity–time graph represents",
+      "options": [
+        "A. Speed",
+        "B. Acceleration",
+        "C. Moment",
+        "D. Distance"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 38,
+      "question": "Which of the following instruments is NOT a wind instrument?",
+      "options": [
+        "A. Clarinet",
+        "B. Saxophone",
+        "C. Trumpet",
+        "D. Xylophone"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "question": "Which of the following does NOT affect the resistance of a wire?",
+      "options": [
+        "A. Length",
+        "B. Mass",
+        "C. Temperature",
+        "D. Cross–sectional area"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 40,
+      "question": "The quality of a note depends on its",
+      "options": [
+        "A. Frequency",
+        "B. Pitch",
+        "C. Overtones",
+        "D. Amplitude"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 41,
+      "question": "Current through gases involves",
+      "options": [
+        "A. Only electrons",
+        "B. Electrons and ions",
+        "C. Only ions",
+        "D. Neutrons"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 42,
+      "question": "Discharge in gases occurs at",
+      "options": [
+        "A. Low pressure",
+        "B. High pressure",
+        "C. Only in vacuum",
+        "D. In solid"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "question": "The resultant of both forces is",
+      "diagram": "/static/uploads/diagrams/physics_ss3/diagram_43.PNG",
+      "options": [
+        "A. 5 N",
+        "B. 11 N",
+        "C. 12 N",
+        "D. 24 N"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 44,
+      "question": "The resultant forces in a couple is",
+      "options": [
+        "A. Sum of the forces",
+        "B. Product of the forces",
+        "C. Half of the forces",
+        "D. Zero"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "question": "Which of the following liquids has the highest surface tension?",
+      "options": [
+        "A. Soapy water",
+        "B. Cold water",
+        "C. Hot water",
+        "D. Oily water"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "question": "A bird flies at 10 m/s for 3 s and 20 m/s for 4 s. Calculate the bird’s average speed.",
+      "options": [
+        "A. 4.5 m/s",
+        "B. 15.0 m/s",
+        "C. 15.5 m/s",
+        "D. 51.7 m/s"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 47,
+      "question": "Which of the following simple machines is a second–class lever?",
+      "options": [
+        "A. Seesaw",
+        "B. Crowbar",
+        "C. Wheelbarrow",
+        "D. Claw hammer"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "question": "A graphical representation of Boyle’s law is shown as:",
+      "diagram": "/static/uploads/diagrams/physics_ss3/diagram_48.PNG",
+      "options": [
+        "A. Option A",
+        "B. Option B",
+        "C. Option C",
+        "D. Option D"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 49,
+      "question": "An instrument used to measure pressure of a gas is",
+      "options": [
+        "A. Hyprometer",
+        "B. Manometer",
+        "C. Hydrometer",
+        "D. Metre rule"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 50,
+      "question": "The movement of fluid up or down a narrow tube is",
+      "options": [
+        "A. Diffusion",
+        "B. Brownian motion",
+        "C. Osmosis",
+        "D. Capillarity"
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

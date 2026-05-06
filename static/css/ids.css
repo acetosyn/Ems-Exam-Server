@@ -1,0 +1,442 @@
+/* ==========================================================
+   EMIS ID MANAGEMENT — ids.css (Compact v7.6)
+   ----------------------------------------------------------
+   Ultra-light, compact, beautiful layout:
+   - Small stat cards
+   - Compact quick modules
+   - Tight student cards
+   - Clean teacher table
+========================================================== */
+
+:root {
+  --primary: #0f2b46;
+  --accent: #e11d48;
+  --bg-white: #ffffff;
+  --bg-soft: #f8fafc;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 10px rgba(0,0,0,.10);
+  --shadow-lg: 0 8px 20px rgba(0,0,0,.12);
+  --transition: all .22s ease;
+}
+
+/* ==========================================================
+   PAGE LAYOUT
+========================================================== */
+.admin-dashboard {
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #f8fafc, #eef2f7);
+  animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.dash-header h2 {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+
+.dash-header p {
+  font-size: .8rem;
+  color: #6b7280;
+}
+
+.header-actions {
+  display: flex;
+  gap: .5rem;
+}
+
+/* ==========================================================
+   BUTTONS (Compact)
+========================================================== */
+.btn-primary,
+.btn-secondary {
+  all: unset;
+  cursor: pointer;
+  padding: .45rem .8rem;      /* SMALLER */
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: #fff;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #0d9488, #115e59);
+}
+.btn-secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
+   COMPACT STAT CARDS
+========================================================== */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* MUCH SMALLER */
+  gap: .7rem;
+  margin-bottom: 1.4rem;
+}
+
+.stat-card {
+  background: var(--primary);
+  color: #fff;
+  padding: .6rem .8rem;      /* SMALLER */
+  border-radius: 10px;
+  display: flex;
+  gap: .4rem;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  min-height: 55px;          /* COMPACT HEIGHT */
+}
+
+.stat-card .icon {
+  font-size: 1rem;
+  opacity: .9;
+}
+
+.stat-card p {
+  font-size: .7rem;
+  margin: 0;
+}
+
+.stat-card h2 {
+  font-size: .9rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* ==========================================================
+   COMPACT QUICK MODULE TILES
+========================================================== */
+.quick-modules {
+  background: var(--bg-white);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.5rem;
+}
+
+.quick-modules h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.sub-text {
+  font-size: .78rem;
+  color: #6b7280;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); /* SMALL TILES */
+  gap: .7rem;
+  margin-top: .9rem;
+}
+
+.module-item {
+  min-height: 70px;       /* smaller */
+  padding: .6rem .3rem;
+  font-size: .7rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.module-item i {
+  font-size: 1rem;        /* smaller icon */
+  margin-bottom: .25rem;
+}
+
+/* Colors remain the same */
+.blue { background: #3b82f6; }
+.teal { background: #0d9488; }
+.green { background: #10b981; }
+.orange { background: #f59e0b; color: #000; }
+.purple { background: #6366f1; }
+.red { background: #e11d48; }
+.yellow { background: #facc15; color: #111; }
+.pink { background: #ec4899; }
+
+/* ==========================================================
+   TEACHER TABLE — COMPACT ROWS
+========================================================== */
+.table-container {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.table-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: .7rem;
+  color: var(--primary);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background: var(--primary);
+  color: #fff;
+  padding: .55rem;
+  font-size: .75rem;
+}
+
+tbody td {
+  padding: .5rem .55rem;
+  font-size: .78rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ==========================================================
+   STUDENT CARDS — COMPACT
+========================================================== */
+.student-card {
+  display: flex;
+  align-items: center;
+  padding: .6rem;
+  background: #f9fafc;
+  border-radius: 10px;
+  transition: var(--transition);
+}
+
+.student-card .avatar {
+  width: 36px;
+  height: 36px;            /* smaller */
+  border-radius: 50%;
+  background: #0ea5e9;
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-card h4 {
+  font-size: .85rem;
+  margin-bottom: 2px;
+}
+
+.detail-line {
+  font-size: .75rem;
+  margin-top: 2px;
+}
+
+.login-hint {
+  font-size: .7rem;
+  margin-top: 4px;
+}
+
+/* ==========================================================
+   MODALS
+========================================================== */
+.modal.hidden,
+.cred-overlay.hidden {
+  display: none !important;
+}
+
+.modal,
+.cred-overlay {
+  display: flex;
+}
+
+
+.modal.show,
+.cred-overlay:not(.hidden) {
+  display: flex;
+}
+
+.modal,
+.cred-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content,
+.cred-container {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.2rem;
+  width: 92%;
+  max-width: 450px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn .35s ease;
+}
+
+.cred-container {
+  max-width: 650px;
+}
+
+.modal-content button[id^="close"],
+.cred-container button[id^="close"] {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  font-size: .85rem;
+  background: #e5e7eb;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+
+
+/* ==========================================================
+   DELETE CONFIRMATION MODAL — PREMIUM STYLING
+========================================================== */
+#deleteConfirmModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none; /* hidden by default */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  padding: 1rem;
+}
+
+#deleteConfirmModal:not(.hidden) {
+  display: flex !important;
+}
+
+#deleteConfirmModal .modal-content {
+  background: #ffffff;
+  padding: 1.5rem 1.7rem;
+  border-radius: 16px;
+  width: 92%;
+  max-width: 380px;
+  box-shadow: var(--shadow-lg);
+  animation: scaleIn .28s ease-out;
+  position: relative;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Title */
+#deleteConfirmModal h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #dc2626; /* red-600 */
+  text-align: center;
+  margin-bottom: .5rem;
+}
+
+/* Description text */
+#deleteConfirmModal p {
+  font-size: .82rem;
+  color: #4b5563;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+/* Buttons container */
+#deleteConfirmModal .btn-row {
+  display: flex;
+  gap: .7rem;
+}
+
+/* Buttons */
+#deleteConfirmModal button {
+  flex: 1;
+  padding: .55rem 0;
+  border-radius: 8px;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* Cancel */
+#cancelDelete {
+  background: #e5e7eb;
+  color: #374151;
+}
+#cancelDelete:hover {
+  background: #d1d5db;
+}
+
+/* Confirm Delete */
+#confirmDelete {
+  background: #dc2626;
+  color: white;
+}
+#confirmDelete:hover {
+  background: #b91c1c;
+}
+
+/* Close (X) button */
+#closeDeleteConfirm {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: .8rem;
+  background: #e5e7eb;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#closeDeleteConfirm:hover {
+  background: #dc2626;
+  color: white;
+}

@@ -1,0 +1,209 @@
+/* ================================
+   Admin Login Styles
+   ================================ */
+
+/* Page Background */
+.login-shell {
+  background: url("../images/school2.jpg") no-repeat center center/cover;
+  backdrop-filter: blur(4px); /* mirage blur */
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+}
+
+/* Overlay tint */
+.login-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 43, 70, 0.55);
+  z-index: 0;
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Logo & Titles */
+.login-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f2b46;
+}
+
+.login-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* Typewriter */
+.typewriter-text {
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #001f54; /* bright navy blue */
+  min-height: 24px;
+  display: inline-block;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  background: #001f54;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+
+/* Form */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #0f2b46;
+}
+
+.form-input {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  width: 100%;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: #0284c7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+/* Password Box */
+.password-box {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #6b7280;
+  transition: color 0.2s;
+}
+
+.toggle-password:hover {
+  color: #0284c7;
+}
+
+/* Button */
+.btn-primary {
+  background: linear-gradient(135deg, #0284c7, #0f2b46);
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0f2b46, #0284c7);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Footer */
+.login-footer {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 43, 70, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.loading-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #ddd;
+  border-top-color: #0284c7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.loading-spinner.big {
+  width: 40px;
+  height: 40px;
+  border-width: 4px;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

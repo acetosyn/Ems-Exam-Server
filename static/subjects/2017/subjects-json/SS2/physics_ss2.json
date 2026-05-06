@@ -1,0 +1,699 @@
+{
+  "subject": "Physics",
+  "class": "SS2",
+  "session": "2016/2017",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Which of the following physical quantities is a vector?",
+      "options": [
+        "A. Temperature",
+        "B. Energy",
+        "C. Time",
+        "D. Density",
+        "E. Magnetic flux density"
+      ],
+      "correctOption": "E"
+    },
+
+    {
+      "id": 2,
+      "diagram": "static/uploads/diagrams/2017/physics_ss2/diagram_2.PNG",
+      "question": "Each of the diagrams shows two equal forces of magnitude P acting on a body. Which of them represents a couple?",
+      "options": [
+        "A. Diagram E",
+        "B. Diagram D",
+        "C. Diagram A",
+        "D. Diagram C",
+        "E. Diagram B"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "The maximum displacement on either side of the equilibrium position of an object in simple harmonic motion represents the __________.",
+      "options": [
+        "A. Wavelength",
+        "B. Frequency",
+        "C. Amplitude",
+        "D. Velocity",
+        "E. Period"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "Which thermometer is used to calibrate other thermometers?",
+      "options": [
+        "A. Liquid-in-glass thermometer",
+        "B. Constant volume gas thermometer",
+        "C. Optical pyrometer",
+        "D. Thermocouple",
+        "E. Resistance thermometer"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "The volume of a given mass of gas at 27°C and 800 mmHg is 76 cm³. Calculate its volume at STP.",
+      "options": [
+        "A. 100 cm³",
+        "B. 72.8 cm³",
+        "C. 60 cm³",
+        "D. 36.4 cm³",
+        "E. 50 cm³"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "The slope of a linear distance–time graph represents __________.",
+      "options": [
+        "A. Acceleration",
+        "B. Displacement",
+        "C. Speed",
+        "D. Velocity",
+        "E. Force"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "The acceleration of a body undergoing simple harmonic motion is given by __________.",
+      "options": [
+        "A. −ω²x",
+        "B. ωx",
+        "C. ωx²",
+        "D. ω/x",
+        "E. x/ω"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "A body weighs 0.30 N in air, 0.25 N in water and 0.27 N in a liquid. Calculate the relative density of the liquid.",
+      "options": [
+        "A. 6",
+        "B. 0.6",
+        "C. 0.006",
+        "D. 60",
+        "E. 600"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "The tendency of a body to remain at rest or in uniform motion is known as __________.",
+      "options": [
+        "A. Force",
+        "B. Work done",
+        "C. Inertia",
+        "D. Impulse",
+        "E. Momentum"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "A resultant force of 15 N acts on a body of mass 4 kg for 4 s. Calculate the change in momentum.",
+      "options": [
+        "A. 11 Ns",
+        "B. 35 Ns",
+        "C. 60 Ns",
+        "D. 50 Ns",
+        "E. 100 Ns"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "Which statement is true for an elastic collision?",
+      "options": [
+        "A. Energy is conserved",
+        "B. Both kinetic energy and momentum are conserved",
+        "C. Only momentum is conserved",
+        "D. Energy is doubled",
+        "E. None of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "An inclined plane of angle 30° is used as a machine. What is the velocity ratio?",
+      "options": [
+        "A. 2",
+        "B. 0.5",
+        "C. 5",
+        "D. 20",
+        "E. 0.02"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "A machine has an efficiency of 75%. The work done in raising a load of 50 kg through a vertical height of 6 m is __________.",
+      "options": [
+        "A. 3000 J",
+        "B. 2500 J",
+        "C. 500 J",
+        "D. 4000 J",
+        "E. 5000 J"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "A pulley system has a velocity ratio of 6 and an efficiency of 75%. Calculate the mechanical advantage.",
+      "options": [
+        "A. 5",
+        "B. 4.5",
+        "C. 7.5",
+        "D. 10",
+        "E. 2"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "A temperature of 45°C is equivalent to __________.",
+      "options": [
+        "A. 250°F",
+        "B. 570°F",
+        "C. 100°F",
+        "D. 113°F",
+        "E. 81°F"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "A piece of iron of mass 0.1 kg cools from 70°C to 20°C. Calculate the heat energy released.",
+      "options": [
+        "A. 2.3 × 10⁶ J",
+        "B. 9.2 × 10³ J",
+        "C. 1.2 × 10⁴ J",
+        "D. 2.3 × 10³ J",
+        "E. 9.2 × 10² J"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "The quantity of heat required to raise the temperature of 1 kg of a substance by 1 K is known as __________.",
+      "options": [
+        "A. Heat energy",
+        "B. Kinetic energy",
+        "C. Specific heat capacity",
+        "D. Latent heat",
+        "E. Evaporation"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "To obtain maximum horizontal range, a projectile must be projected at __________.",
+      "options": [
+        "A. 10°",
+        "B. 45°",
+        "C. 90°",
+        "D. 50°",
+        "E. 60°"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "Ice of mass 10 g at −5°C is converted completely to water at 0°C. Calculate the heat required.",
+      "options": [
+        "A. 105 J",
+        "B. 3255 J",
+        "C. 3465 J",
+        "D. 1682 J",
+        "E. 1620 J"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "An electric heater of resistance 50 Ω draws a current of 4.0 A. Calculate the heat produced in 2 minutes.",
+      "options": [
+        "A. 400 J",
+        "B. 96000 J",
+        "C. 5000 J",
+        "D. 1600 J",
+        "E. 24000 J"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "To determine the density of a liquid, what additional quantity must be measured apart from volume?",
+      "options": [
+        "A. Depth of the liquid",
+        "B. Mass of the cylinder",
+        "C. Mass of the liquid",
+        "D. Temperature of the liquid",
+        "E. None of the above"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "Which substance lowers the surface tension of water?",
+      "options": [
+        "A. Metal",
+        "B. Sand",
+        "C. Detergent",
+        "D. Paper",
+        "E. Acid"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "The velocity–time coordinates of a body are (10 s, 10 m s⁻¹) and (30 s, 50 m s⁻¹). Calculate its acceleration.",
+      "options": [
+        "A. 0.5 m s⁻²",
+        "B. 2.0 m s⁻²",
+        "C. 10 m s⁻²",
+        "D. 40 m s⁻²",
+        "E. 50 m s⁻²"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "A cork is projected at 40° and travels 4.5 m horizontally in 1.25 s. Calculate its horizontal velocity.",
+      "options": [
+        "A. 4.2 m s⁻¹",
+        "B. 4.9 m s⁻¹",
+        "C. 5.6 m s⁻¹",
+        "D. 7.1 m s⁻¹",
+        "E. 2.0 m s⁻¹"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "A metre rule balances at 35 cm when a 120 g mass is hung at 10 cm. Calculate the mass of the metre rule.",
+      "options": [
+        "A. 60 g",
+        "B. 80 g",
+        "C. 120 g",
+        "D. 200 g",
+        "E. 300 g"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "The velocity of a body thrown vertically upwards at its maximum height is __________.",
+      "options": [
+        "A. Maximum",
+        "B. Zero",
+        "C. Double its initial value",
+        "D. Half its initial value",
+        "E. None of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "Resonance occurs when a vibrating object forces another object to vibrate at its natural __________.",
+      "options": [
+        "A. Amplitude",
+        "B. Speed",
+        "C. Frequency",
+        "D. Period",
+        "E. Intensity"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 28,
+      "diagram": "static/uploads/diagrams/2017/physics_ss2/diagram_28.PNG",
+      "question": "In a clinical thermometer, the function of the kink is to __________.",
+      "options": [
+        "A. I only",
+        "B. I and II only",
+        "C. I and IV only",
+        "D. III and IV only",
+        "E. IV only"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "The pair of musical instruments that work by vibration of air in pipes is __________.",
+      "options": [
+        "A. Piano and organ",
+        "B. Guitar and flute",
+        "C. Trumpet and violin",
+        "D. Flute and trumpet"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "A thermometer reads 4 cm at ice point and 29 cm at steam point. What is the temperature when the mercury level is 9 cm?",
+      "options": [
+        "A. 13°C",
+        "B. 20°C",
+        "C. 33°C",
+        "D. 38°C",
+        "E. 40°C"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Which statement correctly describes the effect of dissolved salt on the freezing point of water?",
+      "options": [
+        "A. The freezing point is lowered",
+        "B. The freezing point is increased",
+        "C. There is no change",
+        "D. It depends on temperature"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "The distance between two successive troughs of a wave is 0.4 m. If the frequency is 825 Hz, calculate the wave speed.",
+      "options": [
+        "A. 165 m s⁻¹",
+        "B. 330 m s⁻¹",
+        "C. 412.5 m s⁻¹",
+        "D. 825 m s⁻¹",
+        "E. 200 m s⁻¹"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "A concave mirror forms a real, inverted and magnified image when the object is placed __________.",
+      "options": [
+        "A. At the focus",
+        "B. At the centre of curvature",
+        "C. Beyond the centre of curvature",
+        "D. Between the centre of curvature and the focus"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "Electricity meters measure energy consumption in __________.",
+      "options": [
+        "A. Kilowatt-hour",
+        "B. Volt",
+        "C. Ampere",
+        "D. Coulomb",
+        "E. Joule"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "The area under a force–velocity graph represents __________.",
+      "options": [
+        "A. Energy",
+        "B. Power",
+        "C. Momentum",
+        "D. Pressure",
+        "E. Force"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "The maximum displacement from equilibrium in simple harmonic motion is called the __________.",
+      "options": [
+        "A. Period",
+        "B. Amplitude",
+        "C. Wavelength",
+        "D. Frequency",
+        "E. Speed"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "When salt is dissolved in water, the freezing point __________.",
+      "options": [
+        "A. Increases",
+        "B. Decreases",
+        "C. Remains the same",
+        "D. Increases then decreases"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "An electric heater of resistance 50 Ω draws a current of 4 A for 2 minutes. Calculate the heat gained.",
+      "options": [
+        "A. 400 J",
+        "B. 1600 J",
+        "C. 24000 J",
+        "D. 96000 J",
+        "E. 10000 J"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Given the wave equation y = 2 sin 2π(t/0.01 − x/30), calculate the period.",
+      "options": [
+        "A. 0.001 s",
+        "B. 0.01 s",
+        "C. 10 s",
+        "D. 100 s"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "Images formed by a convex mirror are always __________.",
+      "options": [
+        "A. Magnified",
+        "B. Behind the mirror",
+        "C. Real",
+        "D. Inverted"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "If the refractive index of glass is 1.5, calculate the critical angle.",
+      "options": [
+        "A. 19°",
+        "B. 21°",
+        "C. 39°",
+        "D. 42°",
+        "E. 50°"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "Which of the following sources of energy is renewable?",
+      "options": [
+        "A. Petroleum",
+        "B. Charcoal",
+        "C. Hydro",
+        "D. Nuclear"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "A body accelerates uniformly at 5 m s⁻² from rest to 25 m s⁻¹. Calculate the time taken.",
+      "options": [
+        "A. 2.5 s",
+        "B. 5.0 s",
+        "C. 10.0 s",
+        "D. 12.5 s",
+        "E. 15.0 s"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "Which of the following is not a property of longitudinal waves?",
+      "options": [
+        "A. Deflection",
+        "B. Reflection",
+        "C. Refraction",
+        "D. Polarization"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "A wave has a period of 0.02 s and speed of 330 m s⁻¹. Calculate its wavelength.",
+      "options": [
+        "A. 6.6 m",
+        "B. 5.0 m",
+        "C. 4.0 m",
+        "D. 3.3 m",
+        "E. 8.0 m"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "The image formed by a pinhole camera is always __________.",
+      "options": [
+        "A. Diminished",
+        "B. Enlarged",
+        "C. Upright",
+        "D. Inverted"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "Waves that do not require a material medium for propagation are called __________.",
+      "options": [
+        "A. Water waves",
+        "B. Sound waves",
+        "C. Mechanical waves",
+        "D. Electromagnetic waves"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Which of the following physical quantities is a vector?",
+      "options": [
+        "A. Temperature",
+        "B. Energy",
+        "C. Magnetic flux density",
+        "D. Density",
+        "E. Distance"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "Ice of mass 10 g at −5°C is converted completely to water at 0°C. Calculate the heat required.",
+      "options": [
+        "A. 345 J",
+        "B. 4000 J",
+        "C. 5000 J",
+        "D. 1500 J",
+        "E. 2000 J"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "The dimension of momentum is __________.",
+      "options": [
+        "A. MLT",
+        "B. MLT⁻¹",
+        "C. ML⁻¹T⁻¹",
+        "D. LT⁻¹",
+        "E. LT⁻²"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

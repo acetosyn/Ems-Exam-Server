@@ -1,0 +1,610 @@
+{
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "Biology",
+    "exam_title": "1st Term Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 160,
+    "class_category": "SS3",
+    "questions": [
+        {
+            "id": 1,
+            "question": "The branch of Biology that deals with the classification of organisms is called",
+            "diagram": null,
+            "options": [
+                "A. Morphology",
+                "B. Taxonomy",
+                "C. Ecology",
+                "D. Physiology"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 2,
+            "question": "The five-kingdom classification system was proposed by",
+            "diagram": null,
+            "options": [
+                "A. Aristotle",
+                "B. Whittaker",
+                "C. Darwin",
+                "D. Linnaeus"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 3,
+            "question": "Which of the following organisms is a prokaryote?",
+            "diagram": null,
+            "options": [
+                "A. Amoeba",
+                "B. Bacteria",
+                "C. Euglena",
+                "D. Chlamydomonas"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 4,
+            "question": "The binomial system of naming organisms was introduced by",
+            "diagram": null,
+            "options": [
+                "A. Mendel",
+                "B. Linnaeus",
+                "C. Lamarck",
+                "D. Whittaker"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 5,
+            "question": "In the binomial system, the first name represents the",
+            "diagram": null,
+            "options": [
+                "A. class",
+                "B. family",
+                "C. genus",
+                "D. species"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 6,
+            "question": "Which of the following groups contains only vertebrates?",
+            "diagram": null,
+            "options": [
+                "A. Pisces, Amphibia, Reptilia, Aves, Mammalia",
+                "B. Protozoa, Mollusca, Aves, Mammalia",
+                "C. Arthropoda, Pisces, Amphibia, Annelida",
+                "D. Coelenterata, Reptilia, Aves, Mammalia"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 7,
+            "question": "Which of the following organisms is not a member of the kingdom Protista?",
+            "diagram": null,
+            "options": [
+                "A. Paramecium",
+                "B. Amoeba",
+                "C. Chlamydomonas",
+                "D. Mushroom"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 8,
+            "question": "Which of the following is not a characteristic of living things?",
+            "diagram": null,
+            "options": [
+                "A. Respiration",
+                "B. Photosynthesis",
+                "C. Reproduction",
+                "D. Excretion"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 9,
+            "question": "The organelle responsible for energy production in the cell is the",
+            "diagram": null,
+            "options": [
+                "A. Ribosome",
+                "B. Nucleus",
+                "C. Mitochondrion",
+                "D. Lysosome"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 10,
+            "question": "The cell wall of plants is mainly composed of",
+            "diagram": null,
+            "options": [
+                "A. protein",
+                "B. cellulose",
+                "C. lignin",
+                "D. pectin"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 11,
+            "question": "The organelle responsible for protein synthesis is the",
+            "diagram": null,
+            "options": [
+                "A. Ribosome",
+                "B. Golgi body",
+                "C. Chloroplast",
+                "D. Vacuole"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 12,
+            "question": "Which of the following is absent in animal cells?",
+            "diagram": null,
+            "options": [
+                "A. Mitochondrion",
+                "B. Chloroplast",
+                "C. Nucleus",
+                "D. Ribosome"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 13,
+            "question": "Which of the following is the control center of the cell?",
+            "diagram": null,
+            "options": [
+                "A. Cytoplasm",
+                "B. Nucleus",
+                "C. Mitochondrion",
+                "D. Golgi body"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 14,
+            "question": "The cell theory was proposed by",
+            "diagram": null,
+            "options": [
+                "A. Watson and Crick",
+                "B. Schleiden and Schwann",
+                "C. Darwin and Lamarck",
+                "D. Hooke and Pasteur"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 15,
+            "question": "The powerhouse of the cell is the",
+            "diagram": null,
+            "options": [
+                "A. Ribosome",
+                "B. Nucleus",
+                "C. Mitochondrion",
+                "D. Vacuole"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 16,
+            "question": "Which of the following cell structures is selectively permeable?",
+            "diagram": null,
+            "options": [
+                "A. Nucleus",
+                "B. Cytoplasm",
+                "C. Cell membrane",
+                "D. Cell wall"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 17,
+            "question": "The main conducting tissue in plants responsible for transporting water is",
+            "diagram": null,
+            "options": [
+                "A. Phloem",
+                "B. Xylem",
+                "C. Cambium",
+                "D. Cortex"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 18,
+            "question": "Food manufactured in the leaves of plants is transported through the",
+            "diagram": null,
+            "options": [
+                "A. Xylem",
+                "B. Phloem",
+                "C. Stomata",
+                "D. Cambium"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 19,
+            "question": "Which of the following is a characteristic of xylem vessels?",
+            "diagram": null,
+            "options": [
+                "A. Living cells with sieve plates",
+                "B. Dead and hollow cells",
+                "C. Cells with nuclei and cytoplasm",
+                "D. Transport only food substances"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 20,
+            "question": "The red colouration of blood is due to the presence of",
+            "diagram": null,
+            "options": [
+                "A. Haemoglobin",
+                "B. Chlorophyll",
+                "C. Plasma",
+                "D. Platelets"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 21,
+            "question": "Which of the following blood cells is responsible for fighting infections?",
+            "diagram": null,
+            "options": [
+                "A. Red blood cell",
+                "B. White blood cell",
+                "C. Platelets",
+                "D. Plasma"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 22,
+            "question": "The chamber of the mammalian heart that pumps blood to the lungs is the",
+            "diagram": null,
+            "options": [
+                "A. left atrium",
+                "B. right atrium",
+                "C. left ventricle",
+                "D. right ventricle"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 23,
+            "question": "Which of the following blood vessels carries oxygenated blood?",
+            "diagram": null,
+            "options": [
+                "A. Pulmonary artery",
+                "B. Pulmonary vein",
+                "C. Vena cava",
+                "D. Right atrium"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 24,
+            "question": "In plants, transportation mainly takes place through",
+            "diagram": null,
+            "options": [
+                "A. cuticle",
+                "B. stomata",
+                "C. lenticels",
+                "D. epidermis"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 25,
+            "question": "The tissue responsible for transport of manufactured food in plants is",
+            "diagram": null,
+            "options": [
+                "A. phloem",
+                "B. xylem",
+                "C. cambium",
+                "D. cortex"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 26,
+            "question": "Which of the following prevents backflow of blood in veins?",
+            "diagram": null,
+            "options": [
+                "A. Valves",
+                "B. Arterioles",
+                "C. Capillaries",
+                "D. Walls of the veins"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 27,
+            "question": "Which of the following organs regulates the amount of water in the human body?",
+            "diagram": null,
+            "options": [
+                "A. Liver",
+                "B. Kidney",
+                "C. Pancreas",
+                "D. Lungs"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "question": "The hormone responsible for controlling the level of sugar in the blood is",
+            "diagram": null,
+            "options": [
+                "A. Insulin",
+                "B. Adrenaline",
+                "C. Thyroxine",
+                "D. Testosterone"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 29,
+            "question": "The part of the brain that regulates body temperature is the",
+            "diagram": null,
+            "options": [
+                "A. Cerebellum",
+                "B. Medulla",
+                "C. Hypothalamus",
+                "D. Cerebrum"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 30,
+            "question": "In mammals, shivering during cold weather is a mechanism to",
+            "diagram": null,
+            "options": [
+                "A. produce sweat",
+                "B. generate heat",
+                "C. reduce body temperature",
+                "D. store glycogen"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 31,
+            "question": "Which of the following is not a component of homeostasis?",
+            "diagram": null,
+            "options": [
+                "A. Temperature regulation",
+                "B. Blood sugar regulation",
+                "C. Excretion of waste",
+                "D. Photosynthesis"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 32,
+            "question": "The antidiuretic hormone (ADH) controls the",
+            "diagram": null,
+            "options": [
+                "A. rate of digestion",
+                "B. reabsorption of water in the kidney tubules",
+                "C. production of bile in the liver",
+                "D. breakdown of glycogen in the muscles"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 33,
+            "question": "Which of these is an example of negative feedback?",
+            "diagram": null,
+            "options": [
+                "A. Sweating during heat",
+                "B. Increase in heartbeat after exercise",
+                "C. Milk ejection during suckling",
+                "D. Ovulation in female mammals"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 34,
+            "question": "Homeostasis in humans is mainly maintained through the activities of the",
+            "diagram": null,
+            "options": [
+                "A. endocrine and nervous systems",
+                "B. excretory and digestive systems",
+                "C. skeletal and muscular systems",
+                "D. circulatory and respiratory systems"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 35,
+            "question": "Which of the following hormones promotes seed germination in plants?",
+            "diagram": null,
+            "options": [
+                "A. Auxin",
+                "B. Cytokinin",
+                "C. Gibberellin",
+                "D. Ethylene"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 36,
+            "question": "Which plant hormone is responsible for ripening of fruits?",
+            "diagram": null,
+            "options": [
+                "A. Auxin",
+                "B. Gibberellin",
+                "C. Ethylene",
+                "D. Cytokinin"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 37,
+            "question": "In humans, the hormone responsible for secondary sexual characteristics in males is",
+            "diagram": null,
+            "options": [
+                "A. oestrogen",
+                "B. progesterone",
+                "C. testosterone",
+                "D. insulin"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 38,
+            "question": "Adrenaline is secreted by the",
+            "diagram": null,
+            "options": [
+                "A. pancreas",
+                "B. adrenal gland",
+                "C. pituitary gland",
+                "D. thyroid gland"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 39,
+            "question": "Which of the following hormones regulates metabolism in humans?",
+            "diagram": null,
+            "options": [
+                "A. Thyroxine",
+                "B. Insulin",
+                "C. Progesterone",
+                "D. Oxytocin"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 40,
+            "question": "Which of the following is an example of tropic movement in plants?",
+            "diagram": null,
+            "options": [
+                "A. Folding of mimosa leaves",
+                "B. Opening of flowers at night",
+                "C. Growth of roots towards gravity",
+                "D. Dropping of leaves during water shortage"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 41,
+            "question": "The part of the brain that regulates secretion of hormones from the pituitary gland is the",
+            "diagram": null,
+            "options": [
+                "A. Medulla",
+                "B. Hypothalamus",
+                "C. Cerebrum",
+                "D. Cerebellum"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 42,
+            "question": "The hormone responsible for the contraction of the uterus during childbirth is",
+            "diagram": null,
+            "options": [
+                "A. insulin",
+                "B. oxytocin",
+                "C. progesterone",
+                "D. prolactin"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "The structural and functional unit of the nervous system is the",
+            "diagram": null,
+            "options": [
+                "A. Axon",
+                "B. Nephron",
+                "C. Neuron",
+                "D. Dendrite"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 44,
+            "question": "The part of the human brain responsible for voluntary movement is the",
+            "diagram": null,
+            "options": [
+                "A. Medulla",
+                "B. Cerebellum",
+                "C. Cerebrum",
+                "D. Hypothalamus"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 45,
+            "question": "In a reflex arc, the effector is usually a",
+            "diagram": null,
+            "options": [
+                "A. sensory neuron",
+                "B. muscle or gland",
+                "C. relay neuron",
+                "D. spinal cord"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "question": "Which of the following is not a sense organ?",
+            "diagram": null,
+            "options": [
+                "A. Nose",
+                "B. Eye",
+                "C. Tongue",
+                "D. Kidney"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 47,
+            "question": "The part of the eye that regulates the amount of light entering is the",
+            "diagram": null,
+            "options": [
+                "A. Cornea",
+                "B. Lens",
+                "C. Retina",
+                "D. Iris"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 48,
+            "question": "The gap between two adjacent neurons is called",
+            "diagram": null,
+            "options": [
+                "A. Synapse",
+                "B. Axon",
+                "C. Myelin",
+                "D. Dendrite"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 49,
+            "question": "The nerve that connects the eye to the brain is the",
+            "diagram": null,
+            "options": [
+                "A. Auditory nerve",
+                "B. Optic nerve",
+                "C. Olfactory nerve",
+                "D. Spinal nerve"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 50,
+            "question": "Which of the following activities is controlled by the medulla oblongata?",
+            "diagram": null,
+            "options": [
+                "A. Thinking",
+                "B. Walking",
+                "C. Breathing",
+                "D. Balancing"
+            ],
+            "correctOption": "C"
+        }
+    ]
+}

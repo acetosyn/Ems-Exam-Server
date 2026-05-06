@@ -1,0 +1,362 @@
+{
+  "school": "Epitome Model Islamic Schools",
+  "subject": "Physics",
+  "exam_title": "1st Term Examination",
+  "instructions": "Do not start until you are told to do so",
+  "time_allowed_minutes": null,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "A body which is uniformly retarded comes to rest in 10s after traveling a distance of 20m. Calculate its initial velocity.",
+      "options": ["A. 0.5ms⁻¹", "B. 2.0ms⁻¹", "C. 4.0ms⁻¹", "D. 20.0ms⁻¹"],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "A body moving with uniform acceleration has two points (5, 15) and (20, 60) on the velocity–time graph of its motion. Calculate the acceleration a.",
+      "options": ["A. 0.25ms⁻²", "B. 3.00ms⁻²", "C. 4.00ms⁻²", "D. 9.00ms⁻²"],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Which of the following is the incorrect formula for a body accelerating uniformly?",
+      "options": [
+        "A. a = (v - u) / 2s",
+        "B. v² = u² + 2as",
+        "C. s = ½ut + at²",
+        "D. v² - u² = 2as"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Which of these dimensions represents impulse?",
+      "options": ["A. MLT⁻²", "B. MLT", "C. MLT⁻¹", "D. LT⁻²"],
+      "correctOption": "C"
+    },
+    {
+    "id": 5,
+    "question": "The Kelvin equivalence of 100°C is",
+    "options": ["A. 373K", "B. 273K", "C. 273.15K", "D. 300K"],
+    "correctOption": "A"
+    }
+,
+    {
+      "id": 6,
+      "question": "The area under a velocity–time graph represents",
+      "options": ["A. Acceleration", "B. Speed", "C. Distance", "D. Time"],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "A beam balance is used for measuring",
+      "options": ["A. Volume", "B. Thickness", "C. Mass", "D. Weight"],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "A stone is thrown horizontally with an initial velocity of 15ms⁻¹ from a tower 20m high. How long does it take to reach the ground?",
+      "options": ["A. 2s", "B. 4s", "C. 5s", "D. 1s"],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "Heat is a form of energy also called",
+      "options": ["A. Solar energy", "B. Kinetic energy", "C. Nuclear energy", "D. Thermal energy"],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "What is the density of fuel of relative density 0.72? (Density of water = 1000kg/m³)",
+      "options": ["A. 72kg/m³", "B. 7200kg/m³", "C. 72000kg/m³", "D. 720kg/m³"],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "The rate of change in momentum is",
+      "options": ["A. Force", "B. Power", "C. Pressure", "D. Impulse"],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "An object of mass 5kg moves with a velocity of 10ms⁻¹. Calculate its momentum.",
+      "options": ["A. 50kgms⁻¹", "B. 15kgms⁻¹", "C. 50kgms⁻¹", "D. 50g/s"],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is a scalar quantity?",
+      "options": ["A. Distance", "B. Displacement", "C. Force", "D. Velocity"],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "A force of 100N is used to kick a football of mass 0.8kg. Find the velocity with which the ball moves, if it takes 0.8s to be kicked.",
+      "options": ["A. 100ms⁻¹", "B. 32ms⁻¹", "C. 50ms⁻¹", "D. 64ms⁻¹"],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "An ideal machine has a percentage efficiency of",
+      "options": ["A. 60%", "B. 45%", "C. 50%", "D. 100%"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "question": "The graphical representation of Boyle's law is",
+      "options": ["A. diagram a", "B. diagram b", "C. diagram c", "D. diagram d"],
+      "correctOption": "A",
+      "diagram": "/static/uploads/diagrams/physics_ss2/diagram_16.PNG"
+    },
+
+    {
+      "id": 17,
+      "question": "Which of these is not a unit of pressure?",
+      "options": ["A. Pascal", "B. Newton per square meter", "C. Candela", "D. Millimeter mercury"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 18,
+      "question": "The SI unit moment of a force is",
+      "options": ["A. Nm", "B. Nm⁻¹", "C. N", "D. Nm⁻²"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "A physical quantity that has the same unit as energy is",
+      "options": ["A. Force", "B. Velocity", "C. Work", "D. Power"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "question": "Derived unit for pressure can be expressed as",
+      "options": ["A. kgm⁻¹s²", "B. kgm⁻¹s⁻²", "C. kgms", "D. kgm²s⁻²"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "A car covers a distance of 20km in 1 hour. Calculate its average speed.",
+      "options": ["A. 2km/hr", "B. 20km/hr", "C. 15km/hr", "D. 4km/hr"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 22,
+      "question": "The radius of a wheel is 30cm and that of its axle is 6cm. Calculate the effort required to lift a load of 120N.",
+      "options": ["A. 600N", "B. 40N", "C. 24N", "D. 20N"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 23,
+      "question": "In an elastic collision momentum is conserved as well as",
+      "options": ["A. Potential energy", "B. Kinetic energy", "C. Velocity", "D. Speed"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 24,
+      "question": "A force acting on a body causes a change in momentum from 12kgms⁻¹ to 16kgms⁻¹ in 0.2s. Calculate the magnitude of the force.",
+      "options": ["A. 20N", "B. 0.8N", "C. 4N", "D. 140N"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "question": "A body of mass 8kg moving at 30ms⁻¹ is brought to rest in 2.5s by a constant retarding force. Calculate the magnitude of the force.",
+      "options": ["A. 240N", "B. 96N", "C. 20N", "D. 9N"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 26,
+      "question": "A machine of efficiency 80% is used to lift a box. If the effort applied is twice the weight, calculate the velocity ratio.",
+      "options": ["A. 0.63", "B. 0.80", "C. 1.60", "D. 0.50"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 27,
+      "question": "The resultant force in a couple is",
+      "options": ["A. 24N", "B. 11N", "C. 5N", "D. 2.5N"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 28,
+      "question": "When a body is thrown vertically upwards, its velocity at maximum height is",
+      "options": ["A. Doubled", "B. Halved", "C. Zero", "D. Maximum"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 29,
+      "question": "A body dropped from a certain height falls with uniform",
+      "options": ["A. Retardation", "B. Speed", "C. Velocity", "D. Acceleration"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 30,
+      "question": "Which of the following simple machines is a second class lever?",
+      "options": ["A. Wheel barrow", "B. Crowbar", "C. Claw hammer", "D. Sea-saw"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "question": "When the linear momentum of a body is constant, the net force becomes",
+      "options": ["A. Constant", "B. Decreased", "C. Increased", "D. Zero"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 32,
+      "question": "The forces 6N and 8N act eastwards and northwards respectively. Calculate the magnitude of their equilibrium.",
+      "options": ["A. 2N", "B. 10N", "C. 14N", "D. 7N"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "question": "The velocity ratio of an inclined plane whose angle is θ is",
+      "options": ["A. sinθ", "B. cosθ", "C. 1/sinθ", "D. 1/cosθ"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 34,
+      "question": "An upward force acting opposite to the weight of an object in a fluid is",
+      "options": ["A. Upthrust", "B. Viscosity", "C. Weight", "D. Density"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "question": "In a machine, the velocity ratio of a screw jack is",
+      "options": ["A. p/2πr", "B. 2πr/p", "C. p²/2πR", "D. 2πr/p"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "question": "Which of the following velocity–time graphs does NOT represent accelerated motion?",
+      "options": ["A. (diagram)", "B. (diagram)", "C. (diagram)", "D. (diagram)"],
+      "correctOption": "C",
+      "diagram": "/static/uploads/diagrams/physics_ss2/diagram_36.PNG"
+    },
+
+    {
+      "id": 37,
+      "question": "The time rate of change in displacement is known as",
+      "options": ["A. Speed", "B. Velocity", "C. Acceleration", "D. Time"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "question": "Determine the magnitude of F₂.",
+      "options": ["A. 100N", "B. 25N", "C. 50N", "D. 500N"],
+      "correctOption": "C",
+      "diagram": "/static/uploads/diagrams/physics_ss2/diagram_38.PNG"
+    },
+
+    {
+      "id": 39,
+      "question": "Which of the following machines does NOT apply the lever principle?",
+      "options": ["A. Sugar tongs", "B. Wheel barrow", "C. Hammer", "D. Single pulley"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 40,
+      "question": "The resultant of both forces shown is",
+      "options": ["A. 5N", "B. 11N", "C. 12N", "D. 24N"],
+      "correctOption": "C",
+      "diagram": "/static/uploads/diagrams/physics_ss2/diagram_40.PNG"
+    },
+
+    {
+      "id": 41,
+      "question": "The resultant force in a couple is",
+      "options": ["A. Sum of the forces", "B. Product of the forces", "C. Half of the forces", "D. Zero"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "question": "A body of volume 0.046m³ is immersed in a liquid of density 980kg/m³ with 3/4 submerged. Calculate the upthrust.",
+      "options": ["A. 11.27N", "B. 33.8N", "C. 338.10N", "D. 112.70N"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 43,
+      "question": "Which of the following figures represents a couple?",
+      "options": ["A. (diagram)", "B. (diagram)", "C. (diagram)", "D. (diagram)"],
+      "correctOption": "C",
+      "diagram": "/static/uploads/diagrams/physics_ss2/diagram_43.PNG"
+    },
+
+    {
+      "id": 44,
+      "question": "Find the value of W in the diagram.",
+      "options": ["A. 80g", "B. 50g", "C. 20g", "D. 40g"],
+      "correctOption": "B",
+      "diagram": "/static/uploads/diagrams/physics_ss2/diagram_44.PNG"
+    },
+
+    {
+      "id": 45,
+      "question": "A solid floats in a liquid if its",
+      "options": ["A. Density is less", "B. Mass equals liquid", "C. Density is greater", "D. Mass is less"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "question": "The velocity ratio of an inclined plane",
+      "options": [
+        "A. Increases with increased angle",
+        "B. Increases with decreased angle",
+        "C. Decreases with decreased angle",
+        "D. Independent of angle"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 47,
+      "question": "The motion of smoke particles from a chimney is typical of",
+      "options": ["A. Random motion", "B. Rotational motion", "C. Oscillatory motion", "D. Circular motion"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 48,
+      "question": "Which of the following quantities is NOT an example of force?",
+      "options": ["A. Tension", "B. Weight", "C. Friction", "D. Mass"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 49,
+      "question": "The energy stored in a simple cell is",
+      "options": ["A. Electrical", "B. Nuclear", "C. Thermal", "D. Chemical"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 50,
+      "question": "A bullet of mass 4kg is released with a speed of 2ms⁻¹. Calculate its kinetic energy.",
+      "options": ["A. 4J", "B. 2J", "C. 10J", "D. 8J"],
+      "correctOption": "A"
+    }
+  ]
+}

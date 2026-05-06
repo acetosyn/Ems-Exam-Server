@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block title %}EMIS Admin Dashboard — Control Center{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+
+<!-- ================= HEADER ================= -->
+<div class="dash-header">
+  <div class="title-block">
+    <h2>Admin Dashboard</h2>
+    <p>Real-time analytics • Performance tracking • Exam control</p>
+
+    <!-- ROLE DECORATOR -->
+    <div class="user-role-badge" data-role="{{ user_type|default('admin') }}">
+      {% if user_type == 'teacher' %}
+        <i class="fa-solid fa-chalkboard-user"></i> Teacher Account
+      {% else %}
+        <i class="fa-solid fa-shield-halved"></i> Admin Account
+      {% endif %}
+    </div>
+
+    <!-- LOGGED-IN USER DISPLAY -->
+    <div class="logged-user-display">
+      <i class="fa-solid fa-user-circle"></i>
+      <span>Logged in as:</span>
+      <strong>{{ session.get('username') or session.get('teacher_id') }}</strong>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <button id="manageSystem" class="btn-secondary">
+      <i class="fa-solid fa-gear"></i> Manage System
+    </button>
+    <button id="refreshDashboard" class="btn-primary">
+      <i class="fa-solid fa-rotate"></i> Refresh
+    </button>
+  </div>
+</div>
+
+  <!-- ================= STATS OVERVIEW ================= -->
+  <section class="stat-grid fade-in">
+    <div class="stat-card glass">
+      <div class="icon"><i class="fa-solid fa-users"></i></div>
+      <div class="details">
+        <p>Total Candidates</p>
+        <h2 id="statTotalStudents">--</h2>
+      </div>
+    </div>
+
+    <div class="stat-card glass">
+      <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
+      <div class="details">
+        <p>Active Exams</p>
+        <h2 id="statActiveExams">--</h2>
+      </div>
+    </div>
+
+    <div class="stat-card glass">
+      <div class="icon"><i class="fa-solid fa-hourglass-half"></i></div>
+      <div class="details">
+        <p>Pending Results</p>
+        <h2 id="statPending">--</h2>
+      </div>
+    </div>
+
+    <div class="stat-card glass">
+      <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+      <div class="details">
+        <p>Average Score</p>
+        <h2 id="statAvg">--</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUICK MODULES ================= -->
+  <section class="quick-modules card">
+    <h3><i class="fa-solid fa-bolt text-accent"></i> Quick Access Modules</h3>
+    <p class="sub-text">Instant navigation to primary operations</p>
+
+    <div class="modules-grid">
+      <button class="module-item blue"
+        onclick="window.open('/student_login', '_blank');">
+    <i class="fa-solid fa-user-graduate"></i>
+    <span>Student Portal</span>
+</button>
+
+<button class="module-item green" onclick="window.location.href='/admin/teachers'">
+    <i class="fa-solid fa-chalkboard-user"></i>
+    <span>Teachers Dashboard</span>
+</button>
+
+
+
+  
+
+
+<button class="module-item purple uploads-btn"
+    onclick="window.location.href='/admin/teachers?open=uploads';">
+    <i class="fa-solid fa-file-arrow-up"></i>
+    <span>Upload Exam</span>
+</button>
+
+
+
+<button class="module-item orange"
+    onclick="window.location.href='{{ url_for('admin_bp.admin_results') }}'">
+    <i class="fa-solid fa-chart-line"></i>
+    <span>Results</span>
+</button>
+
+
+<button class="module-item pink"
+    onclick="window.location.href='{{ url_for('admin_bp.admin_ids') }}'">
+    <i class="fa-solid fa-id-card"></i>
+    <span>IDs</span>
+</button>
+
+
+
+
+      <button class="module-item gray"><i class="fa-solid fa-book"></i><span>Past Questions</span></button>
+      <button class="module-item teal"><i class="fa-solid fa-briefcase"></i><span>Third-Party</span></button>
+      <button class="module-item red"><i class="fa-solid fa-list-check"></i><span>Activities</span></button>
+      <button class="module-item dark"><i class="fa-solid fa-sliders"></i><span>Settings</span></button>
+      <button class="module-item yellow"><i class="fa-solid fa-headset"></i><span>Support</span></button>
+    </div>
+  </section>
+
+  <!-- ================= INFORMATION PANELS ================= -->
+  <section class="info-panels-grid fade-in">
+    <!-- Live Notifications -->
+    <div class="panel notifications">
+      <h4><i class="fa-solid fa-bell text-accent"></i> Live Notifications</h4>
+      <div id="notificationsPanel" class="panel-body">
+        <p>No notifications yet</p>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="panel activity">
+      <h4><i class="fa-solid fa-clock text-green-600"></i> Recent Activity</h4>
+      <div id="recentActivity" class="panel-body">
+        <p>No activity logged</p>
+      </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="panel system-status">
+      <h4><i class="fa-solid fa-server text-gray-600"></i> System Status</h4>
+      <ul class="status-list">
+        <li>Database — <span class="status success">Online</span></li>
+        <li>Exam Server — <span class="status success">Running</span></li>
+        <li>Storage — <span class="status warn">80% Used</span></li>
+      </ul>
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar" style="width:80%"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TEACHER & STUDENT ACTIVITY ================= -->
+  <section class="dual-panel fade-in">
+    <!-- Teacher Uploads -->
+    <div class="panel teacher">
+      <h4><i class="fa-solid fa-chalkboard-user text-accent"></i> Teacher Uploads</h4>
+      <p class="sub-text">Latest exam uploads and drafts</p>
+      <div id="teacherUploadsList" class="panel-body scrollable">
+        <ul>
+          <li>No uploads yet</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Student Activity -->
+    <div class="panel student">
+      <h4><i class="fa-solid fa-user-graduate text-green-600"></i> Student Activity</h4>
+      <p class="sub-text">Ongoing exams and automatic marking</p>
+      <div id="studentActivityList" class="panel-body scrollable">
+        <ul>
+          <li>No activity yet</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

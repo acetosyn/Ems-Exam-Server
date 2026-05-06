@@ -1,0 +1,610 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Government",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Judicial review in Nigeria is the constitutional responsibility of the",
+      "diagram": null,
+      "options": [
+        "A. Supreme Court",
+        "B. Privy Council",
+        "C. Court of Appeal",
+        "D. Executive arm of government"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "States in Nigeria operate",
+      "diagram": null,
+      "options": [
+        "A. Bi-cameral legislative status",
+        "B. Proxy legislative status",
+        "C. Uni-cameral legislative status",
+        "D. Fusion of responsibilities"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Nigeria's constitution can be described as",
+      "diagram": null,
+      "options": [
+        "A. Flexible and written",
+        "B. Flexible and unitary",
+        "C. Federal and flexible",
+        "D. Written and rigid"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "The mid-western region was created in which year?",
+      "diagram": null,
+      "options": [
+        "A. 1960",
+        "B. 1954",
+        "C. 1957",
+        "D. 1963"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "The Privy Council was abolished in Nigeria by which constitution?",
+      "diagram": null,
+      "options": [
+        "A. Lyttleton Constitution of 1954",
+        "B. 1963 First Republic Constitution",
+        "C. 1960 Independence Constitution",
+        "D. 1979 Second Republic Constitution"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "The January coup of 1966 was led by",
+      "diagram": null,
+      "options": [
+        "A. Major Theophilus Danjuma",
+        "B. General Aguiyi Ironsi",
+        "C. Major Kaduna Nzeogwu",
+        "D. Col. Bukar Sukar Dimka"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "The last batch of state creation was carried out by",
+      "diagram": null,
+      "options": [
+        "A. Gen. Abdulsalami Abubakar",
+        "B. Gen. Ibrahim Babangida",
+        "C. Gen. Sani Abacha",
+        "D. Gen. Olusegun Obasanjo"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "The creation of the office of the Prime Minister in Nigeria was accomplished in",
+      "diagram": null,
+      "options": [
+        "A. 1960",
+        "B. 1957",
+        "C. 1963",
+        "D. 1954"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Residual powers under the Nigerian Independence Constitution were exercised by",
+      "diagram": null,
+      "options": [
+        "A. The regional governments",
+        "B. The central and regional governments",
+        "C. The local governments",
+        "D. The local and regional governments"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is under the concurrent legislative list?",
+      "diagram": null,
+      "options": [
+        "A. Immigration",
+        "B. Education",
+        "C. Mining",
+        "D. Chieftaincy affairs"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "Exclusive responsibility in Nigeria is the prerogative of the",
+      "diagram": null,
+      "options": [
+        "A. Central government",
+        "B. State government",
+        "C. Local government",
+        "D. State and central government"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "The highest court of appeal under the Republican Constitution of Nigeria was the",
+      "diagram": null,
+      "options": [
+        "A. Appeal Court",
+        "B. Privy Council",
+        "C. Federal High Court",
+        "D. Supreme Court"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "The Supreme Court of Nigeria was created in",
+      "diagram": null,
+      "options": [
+        "A. 1960",
+        "B. 1963",
+        "C. 1979",
+        "D. 1954"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Which of these political parties was led by Ernest Ikoli?",
+      "diagram": null,
+      "options": [
+        "A. Nigerian National Democratic Party",
+        "B. National Council of Nigerian Citizens",
+        "C. Action Group",
+        "D. Nigerian Youth Movement"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Lagos Daily News was used by which of these political parties?",
+      "diagram": null,
+      "options": [
+        "A. Action Group",
+        "B. Northern People’s Congress",
+        "C. Nigerian National Democratic Party",
+        "D. United Middle Belt Congress"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "Which of these political parties was led by Joseph Tarka?",
+      "diagram": null,
+      "options": [
+        "A. NNDP",
+        "B. AG",
+        "C. NCNC",
+        "D. UMBC"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 17,
+      "question": "The twelve-state structure was created in Nigeria in",
+      "diagram": null,
+      "options": [
+        "A. 1967",
+        "B. 1963",
+        "C. 1966",
+        "D. 1960"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Decree No. 34 was promulgated by",
+      "diagram": null,
+      "options": [
+        "A. Gen. Yakubu Gowon",
+        "B. Gen. Murtala Muhammed",
+        "C. Gen. Aguiyi Ironsi",
+        "D. Tafawa Balewa"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "The two parties that formed the coalition government in 1959 were",
+      "diagram": null,
+      "options": [
+        "A. NPC and NCNC",
+        "B. NPC and NNA",
+        "C. PRP and UPGA",
+        "D. NCNC and AG"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "The head of state under the Independence Constitution of Nigeria was",
+      "diagram": null,
+      "options": [
+        "A. An absolute monarch",
+        "B. A constitutional monarch",
+        "C. Imposed by the British",
+        "D. Popularly elected"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "The principle of separation of powers implies that the three organs of government work",
+      "diagram": null,
+      "options": [
+        "A. Separately",
+        "B. Together for the interest of the state",
+        "C. Against one another",
+        "D. Independently but cooperatively"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "The first political party in Nigeria was formed after the introduction of the",
+      "diagram": null,
+      "options": [
+        "A. Macpherson Constitution",
+        "B. Clifford Constitution",
+        "C. Richards Constitution",
+        "D. Independence Constitution"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "The second military coup in Nigeria took place on",
+      "diagram": null,
+      "options": [
+        "A. July 29, 1966",
+        "B. January 15, 1966",
+        "C. July 29, 1975",
+        "D. February 13, 1976"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "The coup that ousted Gen. Murtala Muhammed was led by",
+      "diagram": null,
+      "options": [
+        "A. Major Chukwuma Nzeogwu",
+        "B. Col. Bukar Dimka",
+        "C. Major Theophilus Danjuma",
+        "D. Gen. Olusegun Obasanjo"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "The 19-state structure in Nigeria was created by",
+      "diagram": null,
+      "options": [
+        "A. Gen. Yakubu Gowon",
+        "B. Gen. Olusegun Obasanjo",
+        "C. Gen. Muhammadu Buhari",
+        "D. Gen. Murtala Muhammed"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "Nigeria became a federation under the 1954 Constitution because the Constitution",
+      "diagram": null,
+      "options": [
+        "A. Provided equal representation between regions",
+        "B. Provided indirect elections",
+        "C. Provided division of functions between centre and regions",
+        "D. Made the Supreme Court the highest court"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "Which of these political parties produced the prime minister in the First Republic?",
+      "diagram": null,
+      "options": [
+        "A. NCNC",
+        "B. AG",
+        "C. NPC",
+        "D. NNDP"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Herbert Macaulay died in which year?",
+      "diagram": null,
+      "options": [
+        "A. 1923",
+        "B. 1944",
+        "C. 1946",
+        "D. 1957"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "The 1951 Macpherson Constitution can best be described as a",
+      "diagram": null,
+      "options": [
+        "A. Unitary constitution",
+        "B. Federal constitution",
+        "C. Presidential constitution",
+        "D. Parliamentary constitution"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "Pre-election political arrangement where two or more political parties merge to form a new party is called",
+      "diagram": null,
+      "options": [
+        "A. Coalition",
+        "B. Alliance",
+        "C. Merger",
+        "D. Commission"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "The first president of the National Council of Nigeria and the Cameroons (NCNC) was",
+      "diagram": null,
+      "options": [
+        "A. Dr. Nnamdi Azikiwe",
+        "B. Chief Obafemi Awolowo",
+        "C. Sir S.L. Akintola",
+        "D. Sir Herbert Macaulay"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "question": "A political authority which maintains sovereign power over a specific geographical area is termed a",
+      "diagram": null,
+      "options": [
+        "A. Community",
+        "B. State",
+        "C. Nation",
+        "D. Country"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "The Jumiyya Mutanen Arewa cultural group later developed into the",
+      "diagram": null,
+      "options": [
+        "A. Northern Elements Progressive Union",
+        "B. Northern People’s Congress",
+        "C. United Middle Belt Congress",
+        "D. Jamiyya People’s Party"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "The founder and editor of the West African Pilot was",
+      "diagram": null,
+      "options": [
+        "A. Dr. Nnamdi Azikiwe",
+        "B. Sir Herbert Macaulay",
+        "C. Dr. Kwame Nkrumah",
+        "D. Chief Obafemi Awolowo"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "Which of the following is not an English-speaking country in West Africa?",
+      "diagram": null,
+      "options": [
+        "A. Nigeria",
+        "B. Gambia",
+        "C. Ghana",
+        "D. Guinea"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "The first nominal president of Nigeria was",
+      "diagram": null,
+      "options": [
+        "A. Alhaji Shehu Shagari",
+        "B. Dr. Nnamdi Azikiwe",
+        "C. Sir Ahmadu Bello",
+        "D. Tafawa Balewa"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "Military governments usually rule through",
+      "diagram": null,
+      "options": [
+        "A. Promulgation of decrees",
+        "B. Drafting of constitutions",
+        "C. Act of constitutionalism",
+        "D. Rule of law"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "The presidential system of government was adopted in Nigeria in",
+      "diagram": null,
+      "options": [
+        "A. 1963",
+        "B. 1960",
+        "C. 1954",
+        "D. 1979"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "The National Council of Nigeria and the Cameroons (NCNC) was formed in",
+      "diagram": null,
+      "options": [
+        "A. 1935",
+        "B. 1944",
+        "C. 1946",
+        "D. 1951"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Northern People’s Congress was led by",
+      "diagram": null,
+      "options": [
+        "A. Sir Ahmadu Bello",
+        "B. Dr. Nnamdi Azikiwe",
+        "C. Tafawa Balewa",
+        "D. Ibrahim Waziri"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "Who was the founder and leader of the Dynamic Party (DP)?",
+      "diagram": null,
+      "options": [
+        "A. Kingsley Mbadiwe",
+        "B. Samuel Mbakwe",
+        "C. Chike Obi",
+        "D. Nnamdi Azikiwe"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "Which political party controlled the Western Region in the First Republic?",
+      "diagram": null,
+      "options": [
+        "A. NPC",
+        "B. NCNC",
+        "C. NNDP",
+        "D. AG"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "A post-election political arrangement where two or more political parties come together to form the government is called",
+      "diagram": null,
+      "options": [
+        "A. Alliance",
+        "B. Merger",
+        "C. Coalition",
+        "D. Arbitration"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 44,
+      "question": "The following were minor political parties in the First Republic except",
+      "diagram": null,
+      "options": [
+        "A. BYM",
+        "B. NCNC",
+        "C. NEPU",
+        "D. DP"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "In the First Republic, the Prime Minister was both the",
+      "diagram": null,
+      "options": [
+        "A. Head of State and Head of Government",
+        "B. Head of Government and a Lawmaker",
+        "C. Head of State and Commander-in-Chief",
+        "D. Head of State and Party Leader"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Two-party system was operated in Nigeria in which republic?",
+      "diagram": null,
+      "options": [
+        "A. First Republic",
+        "B. Second Republic",
+        "C. Third Republic",
+        "D. Fourth Republic"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "The Nigerian Advanced Party (NAP) was led by",
+      "diagram": null,
+      "options": [
+        "A. Tunji Braithwaite",
+        "B. Ernest Ikoli",
+        "C. Obafemi Awolowo",
+        "D. Ibrahim Waziri"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "The following were Second Republic political parties except",
+      "diagram": null,
+      "options": [
+        "A. UMBC",
+        "B. UPN",
+        "C. NPP",
+        "D. NPN"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "Great Nigeria People's Party was led by",
+      "diagram": null,
+      "options": [
+        "A. Nnamdi Azikiwe",
+        "B. Obafemi Awolowo",
+        "C. Ernest Ikoli",
+        "D. Ibrahim Waziri"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 50,
+      "question": "Which political party won the Presidential Election in 1979?",
+      "diagram": null,
+      "options": [
+        "A. UPN",
+        "B. NPN",
+        "C. NPP",
+        "D. GNPP"
+      ],
+      "correctOption": "B"
+    }
+  ]
+}

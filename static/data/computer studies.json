@@ -1,0 +1,330 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Computer Studies",
+  "exam_title": "COMPUTER STUDIES INTERVIEW QUESTIONS",
+  "instruction": "Attempt all questions from this section",
+  "time_allowed": "60 minutes",
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "number": 1,
+      "question": "Which of the following is NOT an input device?",
+      "options": ["Keyboard", "Scanner", "Monitor", "Microphone"],
+      "answer": "Monitor"
+    },
+    {
+      "number": 2,
+      "question": "The smallest unit of data in a computer is:",
+      "options": ["Bit", "Byte", "Nibble", "Word"],
+      "answer": "Bit"
+    },
+    {
+      "number": 3,
+      "question": "ROM is used for:",
+      "options": [
+        "Temporary storage of data",
+        "Permanent storage of system instructions",
+        "Storing user documents",
+        "Storing cache data"
+      ],
+      "answer": "Permanent storage of system instructions"
+    },
+    {
+      "number": 4,
+      "question": "Which of the following is a volatile memory?",
+      "options": ["Hard disk", "ROM", "RAM", "SSD"],
+      "answer": "RAM"
+    },
+    {
+      "number": 5,
+      "question": "The speed of a processor is measured in:",
+      "options": ["Bytes per second", "Hertz", "Bits per inch", "MIPS"],
+      "answer": "Hertz"
+    },
+    {
+      "number": 6,
+      "question": "Which device converts digital signals to analog for transmission over phone lines?",
+      "options": ["Router", "Modem", "Switch", "Hub"],
+      "answer": "Modem"
+    },
+    {
+      "number": 7,
+      "question": "Cache memory is used to:",
+      "options": [
+        "Store data permanently",
+        "Reduce CPU processing speed",
+        "Increase data transfer rate between CPU and main memory",
+        "Backup data"
+      ],
+      "answer": "Increase data transfer rate between CPU and main memory"
+    },
+    {
+      "number": 8,
+      "question": "Which of the following storage devices has no moving parts?",
+      "options": ["Hard disk drive", "Floppy disk", "Solid-state drive", "CD-ROM"],
+      "answer": "Solid-state drive"
+    },
+    {
+      "number": 9,
+      "question": "BIOS stands for:",
+      "options": [
+        "Basic Input Output System",
+        "Binary Integrated Operating Setup",
+        "Basic Internal Output Software",
+        "Built-in Operating Sequence"
+      ],
+      "answer": "Basic Input Output System"
+    },
+    {
+      "number": 10,
+      "question": "Which of the following is NOT an example of system software?",
+      "options": [
+        "Device drivers",
+        "Operating system",
+        "Utility software",
+        "Spreadsheet application"
+      ],
+      "answer": "Spreadsheet application"
+    },
+    {
+      "number": 11,
+      "question": "High-level programming languages are:",
+      "options": [
+        "Machine-dependent",
+        "Machine-independent",
+        "Written in binary code",
+        "Used only for system software"
+      ],
+      "answer": "Machine-independent"
+    },
+    {
+      "number": 12,
+      "question": "Which of these is NOT an object-oriented programming concept?",
+      "options": ["Inheritance", "Encapsulation", "Compilation", "Polymorphism"],
+      "answer": "Compilation"
+    },
+    {
+      "number": 13,
+      "question": "Compiler translates:",
+      "options": [
+        "High-level language into machine code",
+        "Machine code into high-level language",
+        "Assembly language into machine code line by line",
+        "Executes code directly without translation"
+      ],
+      "answer": "High-level language into machine code"
+    },
+    {
+      "number": 14,
+      "question": "Algorithm complexity is measured by:",
+      "options": [
+        "Speed of the processor",
+        "Time and space efficiency",
+        "Number of programming languages used",
+        "Size of the source code"
+      ],
+      "answer": "Time and space efficiency"
+    },
+    {
+      "number": 15,
+      "question": "A variable in programming is:",
+      "options": [
+        "A constant value",
+        "A memory location identified by a name",
+        "An operator",
+        "A data type"
+      ],
+      "answer": "A memory location identified by a name"
+    },
+    {
+      "number": 16,
+      "question": "In binary number system, 1011 equals:",
+      "options": ["9", "10", "11", "13"],
+      "answer": "11"
+    },
+    {
+      "number": 17,
+      "question": "Which data structure uses FIFO (First In, First Out)?",
+      "options": ["Stack", "Queue", "Tree", "Graph"],
+      "answer": "Queue"
+    },
+    {
+      "number": 18,
+      "question": "Which SQL command is used to extract data from a database?",
+      "options": ["SELECT", "UPDATE", "INSERT", "DELETE"],
+      "answer": "SELECT"
+    },
+    {
+      "number": 19,
+      "question": "Which of the following is NOT a programming language?",
+      "options": ["Python", "Java", "HTML", "C++"],
+      "answer": "HTML"
+    },
+    {
+      "number": 20,
+      "question": "Flowcharts are used to:",
+      "options": ["Compile code", "Document algorithms visually", "Execute programs", "Debug hardware"],
+      "answer": "Document algorithms visually"
+    },
+    {
+      "number": 21,
+      "question": "Which protocol is used to transfer web pages?",
+      "options": ["FTP", "HTTP", "SMTP", "POP3"],
+      "answer": "HTTP"
+    },
+    {
+      "number": 22,
+      "question": "IP address 192.168.1.1 belongs to:",
+      "options": ["Public IP range", "Private IP range", "Loopback address", "Broadcast address"],
+      "answer": "Private IP range"
+    },
+    {
+      "number": 23,
+      "question": "Firewall in computer networking is used for:",
+      "options": [
+        "Increasing network speed",
+        "Protecting against unauthorized access",
+        "Data backup",
+        "Controlling printer access"
+      ],
+      "answer": "Protecting against unauthorized access"
+    },
+    {
+      "number": 24,
+      "question": "DNS is responsible for:",
+      "options": [
+        "Converting domain names to IP addresses",
+        "Encrypting data packets",
+        "Hosting websites",
+        "Assigning MAC addresses"
+      ],
+      "answer": "Converting domain names to IP addresses"
+    },
+    {
+      "number": 25,
+      "question": "Which of the following is a wireless communication standard?",
+      "options": ["Ethernet", "Wi-Fi (IEEE 802.11)", "Coaxial", "Token Ring"],
+      "answer": "Wi-Fi (IEEE 802.11)"
+    },
+    {
+      "number": 26,
+      "question": "Topology where every node is connected to a central hub is called:",
+      "options": ["Mesh", "Star", "Bus", "Ring"],
+      "answer": "Star"
+    },
+    {
+      "number": 27,
+      "question": "Phishing is an example of:",
+      "options": [
+        "Hardware failure",
+        "Social engineering attack",
+        "Software update",
+        "Data compression"
+      ],
+      "answer": "Social engineering attack"
+    },
+    {
+      "number": 28,
+      "question": "Which layer of the OSI model is responsible for end-to-end delivery?",
+      "options": ["Network layer", "Data link layer", "Transport layer", "Physical layer"],
+      "answer": "Transport layer"
+    },
+    {
+      "number": 29,
+      "question": "SMTP is used for:",
+      "options": ["Sending emails", "Receiving emails", "Transferring files", "Streaming media"],
+      "answer": "Sending emails"
+    },
+    {
+      "number": 30,
+      "question": "VPN (Virtual Private Network) provides:",
+      "options": [
+        "Public broadcasting",
+        "Encrypted private communication over public network",
+        "Free internet access",
+        "Faster download speed"
+      ],
+      "answer": "Encrypted private communication over public network"
+    },
+    {
+      "number": 31,
+      "question": "Spreadsheet software is mainly used for:",
+      "options": ["Image editing", "Numeric data analysis", "Word processing", "Presentation design"],
+      "answer": "Numeric data analysis"
+    },
+    {
+      "number": 32,
+      "question": "Which of these is NOT a cloud storage service?",
+      "options": ["Google Drive", "Dropbox", "OneDrive", "BIOS"],
+      "answer": "BIOS"
+    },
+    {
+      "number": 33,
+      "question": "Open-source software means:",
+      "options": [
+        "Freeware with no license",
+        "Source code is publicly available for modification",
+        "Trial version with limitations",
+        "Proprietary software"
+      ],
+      "answer": "Source code is publicly available for modification"
+    },
+    {
+      "number": 34,
+      "question": "Which of the following is a vector graphics software?",
+      "options": ["Adobe Illustrator", "Adobe Photoshop", "Corel Painter", "MS Paint"],
+      "answer": "Adobe Illustrator"
+    },
+    {
+      "number": 35,
+      "question": "Ergonomics in computing refers to:",
+      "options": [
+        "Reducing electricity consumption",
+        "Designing safe and comfortable workspaces",
+        "Installing antivirus software",
+        "Using faster processors"
+      ],
+      "answer": "Designing safe and comfortable workspaces"
+    },
+    {
+      "number": 36,
+      "question": "Which of the following is an example of malicious software?",
+      "options": ["Firewall", "Trojan horse", "Operating system", "Utility program"],
+      "answer": "Trojan horse"
+    },
+    {
+      "number": 37,
+      "question": "The process of copying data for recovery in case of loss is called:",
+      "options": ["Formatting", "Backup", "Defragmentation", "Encryption"],
+      "answer": "Backup"
+    },
+    {
+      "number": 38,
+      "question": "ICT integration in education enhances learning mainly by:",
+      "options": [
+        "Replacing teachers",
+        "Providing interactive and engaging content",
+        "Increasing textbook prices",
+        "Reducing collaboration"
+      ],
+      "answer": "Providing interactive and engaging content"
+    },
+    {
+      "number": 39,
+      "question": "Which of these is a biometric security method?",
+      "options": ["Password", "PIN", "Fingerprint scanning", "CAPTCHA"],
+      "answer": "Fingerprint scanning"
+    },
+    {
+      "number": 40,
+      "question": "E-waste management primarily deals with:",
+      "options": [
+        "Disposal and recycling of electronic devices",
+        "Backup of email data",
+        "Wireless internet setup",
+        "Software license renewal"
+      ],
+      "answer": "Disposal and recycling of electronic devices"
+    }
+  ]
+}

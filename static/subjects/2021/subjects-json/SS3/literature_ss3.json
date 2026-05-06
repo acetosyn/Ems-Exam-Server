@@ -1,0 +1,488 @@
+{
+  "subject": "Literature-in-English",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The term used to designate categories to which literary works belong is called ________________",
+      "options": ["A. class", "B. division", "C. form", "D. genre", "E. style"],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The discourse in a non-fiction is usually based on ________________",
+      "options": ["A. action", "B. animal ordeals", "C. factual events", "D. imaginary events", "E. love of adventure"],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A long narrative lyrical verse which praises is called a/an ________________",
+      "options": ["A. ballad", "B. dirge", "C. epic", "D. ode", "E. sonnet"],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The privilege which poets enjoy in departing from the normal order of grammatical structures is called poetic ________________",
+      "options": ["A. diction", "B. licence", "C. style", "D. technique", "E. voice"],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A one-act play is called a/an ________________",
+      "options": ["A. farce", "B. melodrama", "C. playlet", "D. single play", "E. trilogy"],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A romantic poem focuses on ________________",
+      "options": ["A. animals", "B. humans", "C. nature", "D. romance", "E. war"],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "Which of the following is NOT related to drama?",
+      "options": ["A. Act", "B. Cast", "C. Chapter", "D. Scene", "E. Stage"],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The technique used in sustaining readers’ interest is known as ________________",
+      "options": ["A. flashback", "B. humour", "C. point of view", "D. stream of consciousness", "E. suspense"],
+      "correctOption": "E"
+    },
+    {
+      "id": 9,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The earliest form of literature is ________________",
+      "options": ["A. ballad", "B. epic", "C. music", "D. oral literature", "E. written literature"],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The emotional quality in a literary work is called ________________",
+      "options": ["A. atmosphere", "B. mood", "C. setting", "D. theme", "E. tone"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 11,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "An imitation of a serious literary composition in a humorous manner is called ________________",
+      "options": ["A. fable", "B. fiction", "C. melodrama", "D. mimesis", "E. parody"],
+      "correctOption": "E"
+    },
+    {
+      "id": 12,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The sequential arrangement of events in a literary text is known as ________________",
+      "options": ["A. characterization", "B. form", "C. plot", "D. setting", "E. technique"],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "Characterization refers to the ________________",
+      "options": [
+        "A. introductory remarks on characters",
+        "B. italicization of characters",
+        "C. list of characters",
+        "D. narrator’s traits",
+        "E. ways characters are presented"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 14,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The device used to bring past events to the present is called ________________",
+      "options": ["A. flash across", "B. flashback", "C. foreshadowing", "D. interlude", "E. point of view"],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A song that celebrates the exploits of a warrior is a/an ________________",
+      "options": ["A. dirge", "B. epic", "C. lullaby", "D. ode", "E. panegyric"],
+      "correctOption": "E"
+    },
+
+    {
+      "id": 16,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A novel with events arranged chronologically has a ________________ plot",
+      "options": ["A. complex", "B. complicated", "C. disjointed", "D. multiple", "E. simple"],
+      "correctOption": "E"
+    },
+    {
+      "id": 17,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "Pick out the odd item",
+      "options": ["A. act", "B. interlude", "C. scene", "D. stage", "E. verse"],
+      "correctOption": "E"
+    },
+    {
+      "id": 18,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "“I made the news an open secret” is an example of ________________",
+      "options": ["A. euphemism", "B. irony", "C. metaphor", "D. oxymoron", "E. paradox"],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "Dirge differs from elegy in that it is meant to be ________________",
+      "options": ["A. composed", "B. danced", "C. sung", "D. written", "E. none"],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A poem of seven lines is called a ________________",
+      "options": ["A. couplet", "B. quintet", "C. septet", "D. sestet", "E. tercet"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The point at which conflict is resolved is called ________________",
+      "options": ["A. anti-climax", "B. catharsis", "C. climax", "D. crisis", "E. denouement"],
+      "correctOption": "E"
+    },
+    {
+      "id": 22,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A literary work written in the form of a letter is called ________________",
+      "options": ["A. article", "B. epistolary", "C. essay", "D. novel", "E. novelette"],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "Stanza is to poetry as ________________ is to prose",
+      "options": ["A. chapter", "B. lines", "C. paragraph", "D. scene", "E. verse"],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A dramatic presentation with music but little or no speech is ________________",
+      "options": ["A. burlesque", "B. farce", "C. melodrama", "D. mime", "E. opera"],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "“Lives were lost, houses destroyed and cars damaged” is an example of ________________",
+      "options": ["A. anti-climax", "B. antithesis", "C. climax", "D. oxymoron", "E. paradox"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 26,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "The major male character in a story is the ________________",
+      "options": ["A. actor", "B. chorus", "C. clown", "D. hero", "E. heroine"],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "A lullaby is sung to ________________",
+      "options": [
+        "A. celebrate baby’s birth",
+        "B. celebrate heroes",
+        "C. mourn the dead",
+        "D. praise nature",
+        "E. soothe a baby to sleep"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 28,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "Pick the odd item",
+      "options": ["A. Alliteration", "B. Hyperbole", "C. Irony", "D. Metaphor", "E. Simile"],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "In drama, a clown usually ________________",
+      "options": [
+        "A. creates comic relief",
+        "B. creates sorrow",
+        "C. directs actions",
+        "D. supports the protagonist",
+        "E. wears the best dress"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_1.PNG",
+      "question": "“I sat singing songs of sorrow” illustrates ________________",
+      "options": ["A. alliteration", "B. assonance", "C. onomatopoeia", "D. pun", "E. repetition"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_31.PNG",
+      "question": "The passage is ________________ in nature",
+      "options": ["A. argumentative", "B. descriptive", "C. discursive", "D. expository", "E. narrative"],
+      "correctOption": "E"
+    },
+    {
+      "id": 32,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_31.PNG",
+      "question": "The predominant figure of speech is ________________",
+      "options": ["A. hyperbole", "B. metaphor", "C. metonymy", "D. oxymoron", "E. personification"],
+      "correctOption": "E"
+    },
+    {
+      "id": 33,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_31.PNG",
+      "question": "The word “baffled” means ________________",
+      "options": ["A. enjoyed", "B. excited", "C. interested", "D. pained", "E. puzzled"],
+      "correctOption": "E"
+    },
+    {
+      "id": 34,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_31.PNG",
+      "question": "The narrative technique used is ________________",
+      "options": ["A. first person", "B. omniscient", "C. second person", "D. stream of consciousness", "E. third person"],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_31.PNG",
+      "question": "The passage ends on a note of ________________",
+      "options": ["A. anger", "B. comfort", "C. discomfort", "D. indifference", "E. joy"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_36.PNG",
+      "question": "The predominant figure of speech in the poem is ________________",
+      "options": ["A. hyperbole", "B. irony", "C. litotes", "D. personification", "E. simile"],
+      "correctOption": "E"
+    },
+    {
+      "id": 37,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_36.PNG",
+      "question": "The poem is an example of a ________________",
+      "options": ["A. octave", "B. quatrain", "C. quintet", "D. septet", "E. sonnet"],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_36.PNG",
+      "question": "The rhyme scheme is ________________",
+      "options": ["A. aabb", "B. aabc", "C. abab", "D. abca", "E. abcd"],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_36.PNG",
+      "question": "The word “forks” refers to ________________",
+      "options": ["A. barks", "B. branches", "C. leaves", "D. nests", "E. roots"],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_36.PNG",
+      "question": "The poem celebrates the beauty of ________________",
+      "options": ["A. birds", "B. garden", "C. nature", "D. streets", "E. trees"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 41,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_41.PNG",
+      "question": "The speaker is ________________",
+      "options": ["A. Helena", "B. Hermia", "C. Hippolyta", "D. Thisby", "E. Titania"],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_41.PNG",
+      "question": "The speaker is addressing ________________",
+      "options": ["A. Helena", "B. Hermia", "C. Lysander", "D. Herself", "E. Oberon"],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_41.PNG",
+      "question": "The extract is an example of a ________________",
+      "options": ["A. aside", "B. dialogue", "C. monologue", "D. soliloquy", "E. travelogue"],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_41.PNG",
+      "question": "The character who exits before the speech is ________________",
+      "options": ["A. Bottom", "B. Demetrius", "C. Helena", "D. Hermia", "E. Lysander"],
+      "correctOption": "E"
+    },
+    {
+      "id": 45,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_41.PNG",
+      "question": "The speaker’s mood is that of ________________",
+      "options": ["A. astonishment", "B. bewilderment", "C. distress", "D. sadness", "E. unhappiness"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_46.PNG",
+      "question": "Speaker A is ________________",
+      "options": ["A. Bottom", "B. Demetrius", "C. Flute", "D. Quince", "E. Snout"],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_46.PNG",
+      "question": "Speaker B is ________________",
+      "options": ["A. Flute", "B. Puck", "C. Quince", "D. Snug", "E. Starveling"],
+      "correctOption": "C"
+    },
+    {
+      "id": 48,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_46.PNG",
+      "question": "The characters are about to start a ________________",
+      "options": ["A. assembly", "B. fight", "C. pageant", "D. play", "E. showcase"],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_46.PNG",
+      "question": "The scene takes place in ________________",
+      "options": [
+        "A. a cottage in Athens",
+        "B. Quince’s house",
+        "C. palace of Theseus",
+        "D. Theseus’ apartment",
+        "E. the wood"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_46.PNG",
+      "question": "Which character is NOT on stage?",
+      "options": ["A. Bottom", "B. Egeus", "C. Flute", "D. Snug", "E. Starveling"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 51,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_51.PNG",
+      "question": "The scene takes place at ________________",
+      "options": [
+        "A. Theseus’ palace",
+        "B. a wood near Athens",
+        "C. Theseus’ apartment",
+        "D. Quince’s house",
+        "E. a distant wood"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 52,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_51.PNG",
+      "question": "The speaker is a ________________",
+      "options": ["A. amazon warrior", "B. drafter", "C. fairy queen", "D. fairy", "E. amazon queen"],
+      "correctOption": "C"
+    },
+    {
+      "id": 53,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_51.PNG",
+      "question": "The speaker is ________________",
+      "options": ["A. Helena", "B. Hermia", "C. Hippolyta", "D. Thisby", "E. Titania"],
+      "correctOption": "E"
+    },
+    {
+      "id": 54,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_51.PNG",
+      "question": "The speaker is addressing ________________",
+      "options": ["A. Bottom", "B. Egeus", "C. Lysander", "D. Oberon", "E. Philostrate"],
+      "correctOption": "D"
+    },
+    {
+      "id": 55,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_51.PNG",
+      "question": "The speaker accuses the addressee of ________________",
+      "options": [
+        "A. pride",
+        "B. leaving India",
+        "C. infidelity",
+        "D. loving amazons",
+        "E. staging a play"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 56,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_56.PNG",
+      "question": "The speaker is ________________",
+      "options": ["A. Bottom", "B. Oberon", "C. Quince", "D. Robin", "E. Snug"],
+      "correctOption": "A"
+    },
+    {
+      "id": 57,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_56.PNG",
+      "question": "The speech is made to ________________",
+      "options": ["A. Flute", "B. Moonshine", "C. Nobody", "D. Snug", "E. Thisby"],
+      "correctOption": "C"
+    },
+    {
+      "id": 58,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_56.PNG",
+      "question": "The speaker had just had a ________________",
+      "options": ["A. diagnosis", "B. dream", "C. fight", "D. flashback", "E. kiss"],
+      "correctOption": "B"
+    },
+    {
+      "id": 59,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_56.PNG",
+      "question": "The scene takes place in ________________",
+      "options": [
+        "A. Quince’s house",
+        "B. a cottage in Athens",
+        "C. Theseus’ palace",
+        "D. fairy queen’s palace",
+        "E. the wood"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 60,
+      "diagram": "/static/uploads/diagrams/2021/literature_ss3/diagram_56.PNG",
+      "question": "The speaker’s intention is to ________________",
+      "options": [
+        "A. create a new play",
+        "B. entice the duke",
+        "C. kill the heroine",
+        "D. share his dream",
+        "E. sing the vision"
+      ],
+      "correctOption": "D"
+    }
+
+  ]
+}

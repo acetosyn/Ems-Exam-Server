@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Physics",
+  "exam_title": "PHYSICS INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "A projectile is launched at an angle θ with initial velocity u. The maximum height reached is given by:",
+      "options": ["(u² sin²θ)/(2g)", "(u² cos²θ)/(2g)", "(u² sinθ cosθ)/g", "(u² tanθ)/g"],
+      "answer": "(u² sin²θ)/(2g)"
+    },
+    {
+      "id": 2,
+      "question": "In a simple harmonic motion, the phase difference between displacement and acceleration is:",
+      "options": ["0°", "90°", "180°", "270°"],
+      "answer": "180°"
+    },
+    {
+      "id": 3,
+      "question": "A body of mass m is moving in a circle of radius r with constant speed v. The centripetal acceleration is:",
+      "options": ["v²/r", "mv/r", "mv²/r", "r/v²"],
+      "answer": "v²/r"
+    },
+    {
+      "id": 4,
+      "question": "According to Newton's third law, if a rocket expels gas backwards with force F, the forward force on the rocket is:",
+      "options": ["F (equal and opposite)", "2F", "F/2", "Zero (due to relativity)"],
+      "answer": "F (equal and opposite)"
+    },
+    {
+      "id": 5,
+      "question": "The work done by friction on a block sliding down an inclined plane is:",
+      "options": ["Always positive", "Always negative", "Zero if no slipping", "Equal to kinetic energy gained"],
+      "answer": "Always negative"
+    },
+    {
+      "id": 6,
+      "question": "In an elastic collision between two bodies of equal mass moving towards each other with speeds u1 and u2, the velocities after collision are:",
+      "options": ["u1 and u2 (unchanged)", "-u2 and -u1", "(u1 + u2)/2 for both", "Zero for both"],
+      "answer": "-u2 and -u1"
+    },
+    {
+      "id": 7,
+      "question": "The moment of inertia of a thin rod of length L about an axis perpendicular to its length and passing through its center is:",
+      "options": ["(1/12) m L²", "(1/3) m L²", "m L²", "(1/2) m L²"],
+      "answer": "(1/12) m L²"
+    },
+    {
+      "id": 8,
+      "question": "Bernoulli's principle explains why:",
+      "options": ["Airplanes fly", "Magnets attract iron", "Light bends in water", "Sound travels faster in solids"],
+      "answer": "Airplanes fly"
+    },
+    {
+      "id": 9,
+      "question": "A satellite in geostationary orbit has a period of:",
+      "options": ["12 hours", "24 hours", "1 hour", "365 days"],
+      "answer": "24 hours"
+    },
+    {
+      "id": 10,
+      "question": "The escape velocity from Earth's surface is approximately:",
+      "options": ["7.9 km/s", "11.2 km/s", "25 km/s", "1.4 km/s"],
+      "answer": "11.2 km/s"
+    },
+    {
+      "id": 11,
+      "question": "For an ideal gas, the internal energy U depends only on:",
+      "options": ["Volume", "Pressure", "Temperature", "Number of moles"],
+      "answer": "Temperature"
+    },
+    {
+      "id": 12,
+      "question": "In a Carnot engine, the efficiency η is given by:",
+      "options": ["1 - (T_c / T_h)", "(T_h - T_c)/T_h", "T_c / T_h", "(T_h / T_c) - 1"],
+      "answer": "1 - (T_c / T_h)"
+    },
+    {
+      "id": 13,
+      "question": "The first law of thermodynamics is a statement of conservation of:",
+      "options": ["Momentum", "Energy", "Charge", "Angular momentum"],
+      "answer": "Energy"
+    },
+    {
+      "id": 14,
+      "question": "During an adiabatic process for an ideal gas, the temperature:",
+      "options": ["Increases if volume decreases", "Remains constant", "Always decreases", "Depends on pressure only"],
+      "answer": "Increases if volume decreases"
+    },
+    {
+      "id": 15,
+      "question": "The root mean square speed of gas molecules is proportional to:",
+      "options": ["√T / M", "T / √M", "√M / T", "M / √T"],
+      "answer": "√T / M"
+    },
+    {
+      "id": 16,
+      "question": "The speed of sound in air increases with:",
+      "options": ["Decrease in temperature", "Increase in humidity", "Increase in density", "Decrease in frequency"],
+      "answer": "Increase in humidity"
+    },
+    {
+      "id": 17,
+      "question": "In a standing wave on a string fixed at both ends, the number of nodes for the fundamental mode is:",
+      "options": ["0", "1", "2", "3"],
+      "answer": "2"
+    },
+    {
+      "id": 18,
+      "question": "Doppler effect: If source and observer are moving towards each other, the observed frequency is:",
+      "options": ["Higher than source frequency", "Lower than source frequency", "Unchanged", "Zero"],
+      "answer": "Higher than source frequency"
+    },
+    {
+      "id": 19,
+      "question": "The phenomenon of beats occurs due to:",
+      "options": ["Interference of two waves of slightly different frequencies", "Diffraction of sound waves", "Refraction in air", "Polarization of waves"],
+      "answer": "Interference of two waves of slightly different frequencies"
+    },
+    {
+      "id": 20,
+      "question": "Wave equation: The general form for a transverse wave is y = A sin(ωt - kx + φ), where φ is:",
+      "options": ["Phase constant", "Amplitude", "Wavelength", "Frequency"],
+      "answer": "Phase constant"
+    },
+    {
+      "id": 21,
+      "question": "The refractive index of a medium is 1.5. The critical angle for total internal reflection is:",
+      "options": ["sin⁻¹(2/3)", "sin⁻¹(1/1.5)", "cos⁻¹(1.5)", "tan⁻¹(1.5)"],
+      "answer": "sin⁻¹(1/1.5)"
+    },
+    {
+      "id": 22,
+      "question": "In Young's double-slit experiment, the fringe width β is proportional to:",
+      "options": ["λ D / d", "d / (λ D)", "λ / (D d)", "D / (λ d)"],
+      "answer": "λ D / d"
+    },
+    {
+      "id": 23,
+      "question": "A convex lens forms a real image when the object is placed:",
+      "options": ["Beyond focal point", "At focal point", "Between focal point and lens", "At infinity only"],
+      "answer": "Beyond focal point"
+    },
+    {
+      "id": 24,
+      "question": "Polarization of light proves its:",
+      "options": ["Transverse nature", "Longitudinal nature", "Particle nature", "Wave-particle duality"],
+      "answer": "Transverse nature"
+    },
+    {
+      "id": 25,
+      "question": "The magnifying power of a simple microscope is maximum when the image is at:",
+      "options": ["Infinity", "Least distance of distinct vision", "Focal point", "Center of curvature"],
+      "answer": "Least distance of distinct vision"
+    },
+    {
+      "id": 26,
+      "question": "Kirchhoff's voltage law is based on conservation of:",
+      "options": ["Charge", "Energy", "Momentum", "Mass"],
+      "answer": "Energy"
+    },
+    {
+      "id": 27,
+      "question": "The magnetic field inside a long solenoid is:",
+      "options": ["μ₀ n I", "Zero", "μ₀ I / (2π r)", "μ₀ I / r"],
+      "answer": "μ₀ n I"
+    },
+    {
+      "id": 28,
+      "question": "In a series RLC circuit at resonance, the impedance is:",
+      "options": ["R", "XL - XC", "Zero", "Infinite"],
+      "answer": "R"
+    },
+    {
+      "id": 29,
+      "question": "Coulomb's law is analogous to:",
+      "options": ["Newton's gravitational law", "Ohm's law", "Faraday's law", "Hooke's law"],
+      "answer": "Newton's gravitational law"
+    },
+    {
+      "id": 30,
+      "question": "The force on a current-carrying conductor in a magnetic field is maximum when the angle between current and field is:",
+      "options": ["90°", "0°", "180°", "45°"],
+      "answer": "90°"
+    },
+    {
+      "id": 31,
+      "question": "Faraday's law relates induced EMF to:",
+      "options": ["Rate of change of magnetic flux", "Electric field strength", "Current density", "Capacitance"],
+      "answer": "Rate of change of magnetic flux"
+    },
+    {
+      "id": 32,
+      "question": "The unit of electric permittivity ε₀ is:",
+      "options": ["F/m", "H/m", "Ω m", "V/m"],
+      "answer": "F/m"
+    },
+    {
+      "id": 33,
+      "question": "In a transformer, the voltage ratio is equal to:",
+      "options": ["Turns ratio", "Current ratio", "Power ratio", "Impedance ratio"],
+      "answer": "Turns ratio"
+    },
+    {
+      "id": 34,
+      "question": "The drift velocity of electrons in a conductor is:",
+      "options": ["Very small (~10⁻⁴ m/s)", "Equal to speed of light", "Equal to thermal velocity", "Zero in insulators"],
+      "answer": "Very small (~10⁻⁴ m/s)"
+    },
+    {
+      "id": 35,
+      "question": "Gauss's law for magnetism states that magnetic monopoles:",
+      "options": ["Do not exist", "Exist in pairs", "Are equal to electric charges", "Depend on current"],
+      "answer": "Do not exist"
+    },
+    {
+      "id": 36,
+      "question": "The photoelectric effect demonstrates:",
+      "options": ["Particle nature of light", "Wave nature of light", "Diffraction of electrons", "Interference of photons"],
+      "answer": "Particle nature of light"
+    },
+    {
+      "id": 37,
+      "question": "In Bohr's model, the radius of the nth orbit is proportional to:",
+      "options": ["n²", "1/n", "n", "1/n²"],
+      "answer": "n²"
+    },
+    {
+      "id": 38,
+      "question": "The de Broglie wavelength λ of a particle is given by:",
+      "options": ["h / p", "h p", "p / h", "√(h p)"],
+      "answer": "h / p"
+    },
+    {
+      "id": 39,
+      "question": "Nuclear fission releases energy due to:",
+      "options": ["Conversion of mass to energy (E = mc²)", "Binding energy per nucleon increase", "Electron capture", "Proton emission"],
+      "answer": "Conversion of mass to energy (E = mc²)"
+    },
+    {
+      "id": 40,
+      "question": "The half-life of a radioactive substance is the time for:",
+      "options": ["Half the atoms to decay", "All atoms to decay", "Activity to double", "Mass to halve"],
+      "answer": "Half the atoms to decay"
+    }
+  ]
+}

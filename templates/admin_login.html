@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - EMIS Exam Portal</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0f2b46',
+            accent: '#e11d48',
+            blueBright: '#2563eb',
+            'bg-soft': '#f8fafc',
+            'text-dark': '#0f172a',
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_login.css') }}">
+</head>
+
+<body class="font-inter bg-bg-soft text-text-dark">
+  <div class="login-shell flex flex-col items-center justify-center min-h-screen px-4 text-center">
+
+    <!-- Refined Welcome Section -->
+    <section class="welcome-container relative overflow-hidden rounded-xl mb-6">
+      <div class="floating-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+      </div>
+      <div class="welcome-content relative z-10 px-6 py-3">
+        <h1 class="welcome-title">
+          Welcome to the <span>EMIS Exam Portal</span>
+        </h1>
+        <p class="welcome-subtext">
+          Empowering academic excellence through technology — Seamless. Secure. Smart.
+        </p>
+      </div>
+    </section>
+
+    <!-- Login Card -->
+    <div class="login-card shadow-modern rounded-xl p-8 w-full max-w-md">
+      <!-- Logo / Branding -->
+      <div class="logo-wrap text-center mb-6">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo" class="login-logo mx-auto mb-3 glow-logo">
+        <h2 class="login-title">EMIS Admin Portal</h2>
+        <p class="login-subtitle">Epitome Model Islamic Schools</p>
+      </div>
+
+      <!-- Typewriter Text -->
+      <div id="typewriter" class="typewriter-text mb-5 text-center"></div>
+
+     <!-- Login Form -->
+{% if error %}
+  <div class="error-box bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 animate-fadeIn">
+    <strong class="font-semibold">Login Failed:</strong> {{ error }}
+  </div>
+{% endif %}
+
+<form id="adminLoginForm" method="POST" action="{{ url_for('admin_bp.admin_login') }}" class="space-y-5">
+  <!-- Username -->
+  <div class="form-group">
+    <label for="admin-username" class="form-label">Username / ID</label>
+    <div class="input-box">
+      <i class="fa-solid fa-user input-icon"></i>
+      <input
+        type="text"
+        id="admin-username"
+        name="username"
+        required
+        placeholder="Enter Admin or Teacher ID"
+        class="form-input pl-10"
+      >
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="form-group">
+    <label for="admin-password" class="form-label">Password</label>
+    <div class="password-box input-box">
+      <i class="fa-solid fa-lock input-icon"></i>
+      <input
+        type="password"
+        id="admin-password"
+        name="password"
+        required
+        placeholder="Enter your password"
+        class="form-input pl-10 pr-10"
+      >
+      <button
+        type="button"
+        class="toggle-password"
+        data-target="admin-password"
+        aria-label="Show/Hide password"
+      >
+        <i class="fas fa-eye"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <button
+    type="submit"
+    id="loginButton"
+    class="btn-primary w-full flex items-center justify-center gap-2"
+  >
+    <span class="btn-text">🔑 Login to Dashboard</span>
+    <span class="btn-loader hidden">
+      <div class="outer-circle"></div>
+      <div class="inner-circle"></div>
+    </span>
+  </button>
+</form>
+
+
+      <!-- Footer -->
+      <p class="login-footer text-center mt-6 text-sm text-gray-500">
+        Powered by <strong>EMIS</strong> – Epitome Model Islamic Schools
+      </p>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-box">
+      <div class="loading-spinner big"></div>
+      <p>Signing you in...</p>
+    </div>
+  </div>
+
+  <!-- Page Scripts -->
+  <script src="{{ url_for('static', filename='js/admin_login.js') }}"></script>
+
+</body>
+</html>

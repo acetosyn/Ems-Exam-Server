@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Civic Education",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Bureaucracy in public service simply means",
+      "options": [
+        "A. favourism",
+        "B. nepotism",
+        "C. red-tapism",
+        "D. patriotism"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "Constant changes in public service has led to",
+      "options": [
+        "A. overdependence on crude oil",
+        "B. abandonment of many projects",
+        "C. large scale unemployment",
+        "D. poor standard of living"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "Which institution was set up to address unfair treatment of citizens by public servants?",
+      "options": [
+        "A. Independent Corrupt Practices Commission",
+        "B. Economic and Financial Crimes Commission",
+        "C. Public Complaint Commission/Ombudsman",
+        "D. International Labour Organization"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Public servants are directly responsible for the poor quality of service delivery due to",
+      "options": [
+        "A. poor working mindsets",
+        "B. misallocation of resources",
+        "C. poor condition of services",
+        "D. overbearing external influence"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Execution and implementation of government policies are functions of the",
+      "options": [
+        "A. public service",
+        "B. civil society",
+        "C. military",
+        "D. legislature"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "The machinery through which the will of the state is driven is described as",
+      "options": [
+        "A. custom and tradition",
+        "B. administration",
+        "C. government",
+        "D. rule of law"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "Officials of the administrative agency of the state that are most active in governance belong to the",
+      "options": [
+        "A. legislative organ",
+        "B. executive organ",
+        "C. civil societies",
+        "D. judicial organ"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Organizations working against dictatorship and mounting campaigns for civic rule are called",
+      "options": [
+        "A. civil societies",
+        "B. professional bodies",
+        "C. religious institutions",
+        "D. political parties"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "One major complaint against the public service is",
+      "options": [
+        "A. victimization",
+        "B. inefficiency",
+        "C. discrimination",
+        "D. election rigging"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is not a problem of civic society?",
+      "options": [
+        "A. Leadership struggle",
+        "B. Poor funding",
+        "C. Embezzlement of funds",
+        "D. Planning to capture political power"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Which societal value is most expected of every public office holder?",
+      "options": [
+        "A. Excellence",
+        "B. Accountability",
+        "C. Hospitality",
+        "D. Diplomacy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "Which of the following is NOT a feature of civic society?",
+      "options": [
+        "A. Protection of the interest of society",
+        "B. Voluntary membership",
+        "C. Respect for constituted authority",
+        "D. Soliciting for political patronage"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "A major limitation to operational effectiveness of public service is",
+      "options": [
+        "A. Change of government",
+        "B. Nepotism",
+        "C. Corruption",
+        "D. Bureaucratic red-tapism"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "The principle of rule of law is upheld to",
+      "options": [
+        "A. protect citizens from arbitrary rule",
+        "B. accord immunity to the president",
+        "C. preserve customs and traditions",
+        "D. encourage mass literacy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Which of the following is a focus of civil society activities?",
+      "options": [
+        "A. Equity",
+        "B. Anonymity",
+        "C. Position seeking",
+        "D. Policy implementation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "Which principle prohibits public servants from being seen or heard in public?",
+      "options": [
+        "A. Permanence",
+        "B. Impartiality",
+        "C. Meritocracy",
+        "D. Anonymity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 17,
+      "question": "Which concept can guarantee adherence to the rule of law?",
+      "options": [
+        "A. Political immunity",
+        "B. Representative democracy",
+        "C. Political jerrymandering",
+        "D. National development"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "A significant companion of the rule of law is",
+      "options": [
+        "A. Supremacy of ordinary law",
+        "B. Fusion of arms of government",
+        "C. One party system",
+        "D. Enforcement of law by legislature"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "An organized group independent of the state is called",
+      "options": [
+        "A. Civil defence",
+        "B. Civil society",
+        "C. Pressure group",
+        "D. Community group"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "The public service performs all these functions except",
+      "options": [
+        "A. Advising government on policy formulation",
+        "B. Keeping government records",
+        "C. Budget approval",
+        "D. Provision of social services"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "The highest class in public service is the",
+      "options": [
+        "A. Technical",
+        "B. Administrative",
+        "C. Clerical",
+        "D. Manipulative"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "Law and order can best be maintained through",
+      "options": [
+        "A. Prohibition of public protest",
+        "B. Enforcement of rules and regulations",
+        "C. Use of divide and rule",
+        "D. Promotion of indigenization"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "The idea that law should be impartial implies",
+      "options": [
+        "A. Equality before the law",
+        "B. Fair hearing",
+        "C. Legal representation",
+        "D. Habeas corpus"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "Successful application of the rule of law requires",
+      "options": [
+        "A. Employment opportunities",
+        "B. Political will to enforce the law",
+        "C. Fusion of government arms",
+        "D. Extension of judges’ retirement age"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "The society can be more peaceful if individuals learn to",
+      "options": [
+        "A. seek redress in court",
+        "B. understand human rights",
+        "C. gather knowledge about politics",
+        "D. respect and obey the law"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "The public service is important for ensuring",
+      "options": [
+        "A. professional equality",
+        "B. continuity in governance",
+        "C. gender equality",
+        "D. superiority of pressure groups"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Political participation is facilitated for the following reasons except",
+      "options": [
+        "A. fostering political stability",
+        "B. enhancing dividends of democracy",
+        "C. engaging in moral upliftment",
+        "D. influencing direction of government"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Interest and willingness to participate in national affairs are forms of",
+      "options": [
+        "A. political apathy",
+        "B. citizenship education",
+        "C. national consciousness",
+        "D. popular participation"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "Popular participation can be achieved through the following except",
+      "options": [
+        "A. debate",
+        "B. consultation",
+        "C. election",
+        "D. media"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 30,
+      "question": "The rule of law requires that",
+      "options": [
+        "A. government be subject to the law",
+        "B. law be subject to the government",
+        "C. laws be made for individuals",
+        "D. traditional rulers control laws"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Who popularized the doctrine of Rule of Law?",
+      "options": [
+        "A. Thomas Hobbes",
+        "B. John Locke",
+        "C. A. V. Dicey",
+        "D. Karl Marx"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Which of these is NOT a feature of rule of law?",
+      "options": [
+        "A. Supremacy of the law",
+        "B. Equality before the law",
+        "C. Lack of judicial independence",
+        "D. Respect for human rights"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "Which is an example of civil society organization?",
+      "options": [
+        "A. Alliance for Democracy",
+        "B. Campaign for Democracy and Human Rights",
+        "C. Liberty Party",
+        "D. National Teachers’ Institute"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Ministers, commissioners and supervisory councillors belong to which organ?",
+      "options": [
+        "A. Legislature",
+        "B. Executive",
+        "C. Civil service",
+        "D. Judiciary"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "The executive, legislative and judiciary constitute the",
+      "options": [
+        "A. tiers of government",
+        "B. forms of government",
+        "C. systems of government",
+        "D. arms of government"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "The principles and ideas cherished by society constitute",
+      "options": [
+        "A. culture",
+        "B. behaviour",
+        "C. value",
+        "D. fashion"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Obedience to rules without coercion is",
+      "options": [
+        "A. discipline",
+        "B. humility",
+        "C. tolerance",
+        "D. integrity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Adherence to road signs can lead to",
+      "options": [
+        "A. loss of lives",
+        "B. loss of man-power",
+        "C. road accident",
+        "D. free flow of traffic"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "Major source of funding civil society organizations is through",
+      "options": [
+        "A. grants",
+        "B. loan",
+        "C. donations",
+        "D. taxes"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "A citizen who votes in an election performs a ______ obligation.",
+      "options": [
+        "A. cultural",
+        "B. political",
+        "C. religious",
+        "D. social"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "Engaging in profitable ventures is an example of ______ right.",
+      "options": [
+        "A. economic",
+        "B. religious",
+        "C. social",
+        "D. political"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Which of the following is NOT an agent of civic education?",
+      "options": [
+        "A. Print and electronic media",
+        "B. Family",
+        "C. Pressure group",
+        "D. Ministry of Labour and Productivity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "The fundamental agent in children’s guidance and training is",
+      "options": [
+        "A. peers",
+        "B. society",
+        "C. parents",
+        "D. school"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 44,
+      "question": "The most common method of acquiring citizenship is by",
+      "options": [
+        "A. naturalization",
+        "B. marriage",
+        "C. birth",
+        "D. registration"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "The quality of being fair and reasonable in treatment is known as",
+      "options": [
+        "A. love",
+        "B. justice",
+        "C. honesty",
+        "D. integrity"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Boldness to be honest under persecution is",
+      "options": [
+        "A. humility",
+        "B. obedience",
+        "C. courage",
+        "D. strength"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "The Senate and House of Representatives constitute the",
+      "options": [
+        "A. Federal Congress",
+        "B. National Assembly",
+        "C. Federal Legislature",
+        "D. National Parliament"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Approval of the government budget is the responsibility of the",
+      "options": [
+        "A. ministers",
+        "B. executive",
+        "C. legislature",
+        "D. judiciary"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "The lowest court in Nigeria is the",
+      "options": [
+        "A. Magistrate/District Court",
+        "B. Court of Appeal",
+        "C. State High Court",
+        "D. Sharia Court of Appeal"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Which of the following has the power to impeach the president in Nigeria?",
+      "options": [
+        "A. Executive",
+        "B. Judiciary",
+        "C. Legislature",
+        "D. Supreme Court"
+      ],
+      "correctOption": "C"
+    }
+  ]
+}

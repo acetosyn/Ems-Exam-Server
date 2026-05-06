@@ -1,0 +1,612 @@
+{
+  "subject": "Mathematics",
+  "class": "SS3",
+  "session": "2023/2024",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "Multiply 3.4 × 10<sup>-5</sup> by 7.1 × 10<sup>8</sup> and leave the answer in standard form.",
+      "options": [
+        "A. 2.414 × 10<sup>2</sup>",
+        "B. 2.414 × 10<sup>3</sup>",
+        "C. 2.414 × 10<sup>4</sup>",
+        "D. 2.414 × 10<sup>5</sup>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "question": "Express in index form: log<sub>a</sub>x + log<sub>a</sub>y = 3",
+      "options": [
+        "A. x + y = 3",
+        "B. xy = 3",
+        "C. x + y = a<sup>3</sup>",
+        "D. xy = a<sup>3</sup>"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 3,
+      "question": "If (3 − 4√2)(1 + 3√2) = a + b√2, find the value of b.",
+      "options": [
+        "A. 5",
+        "B. -5",
+        "C. -21",
+        "D. 21"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "question": "Find the time for which ₦1,250 will amount to ₦2,031.25 at 12.5% per annum simple interest.",
+      "options": [
+        "A. 2 years",
+        "B. 3 years",
+        "C. 4 years",
+        "D. 5 years"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 5,
+      "question": "If log<sub>3</sub>(2x − 1) = 5, find x.",
+      "options": [
+        "A. 16",
+        "B. 122",
+        "C. 64",
+        "D. 8"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 6,
+      "question": "A trader gave a change of ₦540.00 instead of ₦570.00 to a customer. Calculate the percentage error.",
+      "options": [
+        "A. 55/19%",
+        "B. 55/9%",
+        "C. 57/19%",
+        "D. 57/9%"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "question": "If 3x − 2y = −5 and x + 2y = 9, find the value of (x − y) / (x + y).",
+      "options": [
+        "A. 5/3",
+        "B. 3/5",
+        "C. −3/5",
+        "D. −5/3"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 8,
+      "question": "Make R the subject of the relation V = πl(R<sup>2</sup> − r<sup>2</sup>).",
+      "options": [
+        "A. R = √(V/(πl) + r<sup>2</sup>)",
+        "B. R = √(V/(πl) − r<sup>2</sup>)",
+        "C. R = V − πlr<sup>2</sup>",
+        "D. R = V + πlr<sup>2</sup>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "question": "A number is added to both numerator and denominator of 1/8. If the result is 1/2, find the number.",
+      "options": [
+        "A. 3",
+        "B. 4",
+        "C. 5",
+        "D. 6"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 10,
+      "question": "Madeenah, Bilikisu and Hauwa shared 60 oranges in the ratio 5 : 3 : 7. How many did Bilikisu receive?",
+      "options": [
+        "A. 12",
+        "B. 16",
+        "C. 20",
+        "D. 28"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "question": "Find the quadratic equation whose roots are 2/3 and −1.",
+      "options": [
+        "A. 3x<sup>2</sup> + x − 2 = 0",
+        "B. 3x<sup>2</sup> − x − 2 = 0",
+        "C. 3x<sup>2</sup> + x + 2 = 0",
+        "D. 3x<sup>2</sup> + x − 1 = 0"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "question": "Given that P is 25 m on a bearing of 330° from Q, how far south of P is Q?",
+      "options": [
+        "A. 25.2 m",
+        "B. 21.7 m",
+        "C. 19.8 m",
+        "D. 18.5 m"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 13,
+      "question": "A car valued at ₦600,000 depreciates by 10% yearly. Find its value after two years.",
+      "options": [
+        "A. ₦120,000",
+        "B. ₦480,000",
+        "C. ₦486,000",
+        "D. ₦540,000"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 14,
+      "question": "Factorize completely: 27x<sup>2</sup> − 49y<sup>2</sup>.",
+      "options": [
+        "A. (3x − 7y)(9x + 7y)",
+        "B. 3(3x + 4y)(3x − 4y)",
+        "C. (3x + 7y)(9x − 7y)",
+        "D. 3(9x − 16y)(9x + 16y)"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 15,
+      "question": "For what values of x is (x − 3)/4 + (x − 1)/8 ≥ 2?",
+      "options": [
+        "A. x ≥ 5",
+        "B. x ≥ 6",
+        "C. x ≥ 7",
+        "D. x ≥ 8"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "question": "The gradient of line PQ where P(2, −8) and Q(1, y) is −4. Find y.",
+      "options": [
+        "A. 2",
+        "B. 4",
+        "C. −4",
+        "D. −3"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 17,
+      "question": "The perimeter of a garden is 90 m and width is 7 m less than its length. Find the length.",
+      "options": [
+        "A. 19 m",
+        "B. 23 m",
+        "C. 24 m",
+        "D. 26 m"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 18,
+      "question": "Four angles of a hexagon sum to 420°. The remaining angles are equal. Find each angle.",
+      "options": [
+        "A. 60°",
+        "B. 100°",
+        "C. 120°",
+        "D. 150°"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 19,
+      "diagram": "static/uploads/diagrams/2023/mathematics/diagram_19.PNG",
+      "question": "Given masses 59, 44, 53, 57, 49, 40, 48 and 50 kg, find the mean.",
+      "options": [
+        "A. 40 kg",
+        "B. 44 kg",
+        "C. 50 kg",
+        "D. 53 kg"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "diagram": "static/uploads/diagrams/2023/mathematics/diagram_19.PNG",
+      "question": "Using the same data, find the variance.",
+      "options": [
+        "A. 35",
+        "B. 36",
+        "C. 40",
+        "D. 50"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "Two opposite sides of a rectangle are (5x + 3)m and (2x + 9)m. An adjacent side is (6x − 7)m. Find the area.",
+      "options": [
+        "A. 45 m²",
+        "B. 65 m²",
+        "C. 125 m²",
+        "D. 166 m²"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "question": "A die is tossed once. Find the probability of getting a prime number.",
+      "options": [
+        "A. 1/2",
+        "B. 1/6",
+        "C. 1/3",
+        "D. 2/3"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "question": "Find the angle of a sector of radius 7 cm whose area is 51.3 cm² (to nearest whole number).",
+      "options": [
+        "A. 60°",
+        "B. 120°",
+        "C. 150°",
+        "D. 180°"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "question": "Probability Bobbori passes = 3/7, Jessica = 4/9. Find probability both pass.",
+      "options": [
+        "A. 2/21",
+        "B. 9/21",
+        "C. 5/21",
+        "D. 4/21"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "question": "Fourth and eighth terms of an A.P. are 16 and 40. Find the common difference.",
+      "options": [
+        "A. −6",
+        "B. −2",
+        "C. 6",
+        "D. 2"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 26,
+      "question": "Find amount of ₦3,000 after 5 years at 6% simple interest.",
+      "options": [
+        "A. ₦3,900",
+        "B. ₦3,750",
+        "C. ₦3,600",
+        "D. ₦3,300"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "Express √0.000144 in standard form.",
+      "options": [
+        "A. 1.2 × 10<sup>-4</sup>",
+        "B. 1.2 × 10<sup>-3</sup>",
+        "C. 1.2 × 10<sup>-2</sup>",
+        "D. 1.2 × 10<sup>-1</sup>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 28,
+      "question": "If 9<sup>2x</sup> = (1/3)(27<sup>x</sup>), find x.",
+      "options": [
+        "A. 2",
+        "B. 1",
+        "C. −1",
+        "D. −2"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 29,
+      "question": "Solve (2x + 1)/6 − (3x − 1)/4 = 0.",
+      "options": [
+        "A. 1",
+        "B. 1/5",
+        "C. −1/5",
+        "D. −1"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "question": "If C and K are roots of 6 − x − x² = 0, evaluate C + K.",
+      "options": [
+        "A. 2",
+        "B. 1",
+        "C. −1",
+        "D. −3"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "question": "Simplify: (1/2)3<sup>2</sup> − √8 + √2.",
+      "options": [
+        "A. 0",
+        "B. 2",
+        "C. 2√2",
+        "D. 4√2"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 32,
+      "question": "An arc of a circle subtends 60° at the centre. If radius is 3 cm, find its length in terms of π.",
+      "options": [
+        "A. π cm",
+        "B. 2π cm",
+        "C. 3π cm",
+        "D. 6π cm"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 33,
+      "question": "Solve 3(x + 1) ≤ 5(x + 2) + 15.",
+      "options": [
+        "A. x ≥ −14",
+        "B. x ≤ −14",
+        "C. x ≤ −11",
+        "D. x ≥ −11"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "question": "An empty tank 250 cm × 120 cm receives 130 L of water. Find the height.",
+      "options": [
+        "A. 6.0 cm",
+        "B. 5.5 cm",
+        "C. 5.0 cm",
+        "D. 4.5 cm"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 35,
+      "question": "Given tan x = 1 for 0° ≤ x ≤ 90°, evaluate (1 − sin x) / cos x.",
+      "options": [
+        "A. 2√2",
+        "B. √2",
+        "C. 2/√2",
+        "D. 1/2"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "question": "Mean of numbers 2, 5, 2x, 7 is ≤ 5. Find range of x.",
+      "options": [
+        "A. x ≤ 3",
+        "B. x ≥ 3",
+        "C. x < 3",
+        "D. x > 3"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "question": "If (x − p)(2x + 1) = 0 and sum of roots is 1, find p.",
+      "options": [
+        "A. 1½",
+        "B. ½",
+        "C. −½",
+        "D. −1½"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 38,
+      "question": "If sin 3y = cos 2y and 0° ≤ y ≤ 90°, find y.",
+      "options": [
+        "A. 18°",
+        "B. 36°",
+        "C. 54°",
+        "D. 90°"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 39,
+      "question": "If ₦112 exchanges for D14.95, find value of D1 in Naira.",
+      "options": [
+        "A. 0.13",
+        "B. 7.49",
+        "C. 8.00",
+        "D. 13.00"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "question": "Find smaller root of x² + 7x + 10 = 0.",
+      "options": [
+        "A. 5",
+        "B. 2",
+        "C. −2",
+        "D. −5"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "diagram": "static/uploads/diagrams/2023/mathematics/diagram_19.PNG",
+      "question": "Simplify: log 27 / log 81.",
+      "options": [
+        "A. 3",
+        "B. 2",
+        "C. 3/2",
+        "D. 3/4"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "question": "What must be added to (2x − 3y) to get (x − 2y)?",
+      "options": [
+        "A. 5y − x",
+        "B. y − x",
+        "C. y − 5x",
+        "D. x − y"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "question": "If 27<sup>x</sup> = 9<sup>y</sup>, find x/y.",
+      "options": [
+        "A. 1/3",
+        "B. 2/3",
+        "C. 11/2",
+        "D. 3"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "question": "A 6 m ladder rests at 53° to horizontal. Find height reached on wall.",
+      "options": [
+        "A. 3.611 m",
+        "B. 4.521 m",
+        "C. 4.792 m",
+        "D. 7.962 m"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 45,
+      "question": "Given 4P4 = 11910, find P.",
+      "options": [
+        "A. 3",
+        "B. 2",
+        "C. 1",
+        "D. 5"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 46,
+      "question": "In △XYZ, |YZ| = 6 cm, ∠YXZ = 60°, XYZ is right angle. Find |XZ| in surd form.",
+      "options": [
+        "A. 2√3",
+        "B. 4√3",
+        "C. 6√3",
+        "D. 12√3"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 47,
+      "question": "Given P varies as q² and q varies inversely as √r, how does P vary with r?",
+      "options": [
+        "A. P ∝ r²",
+        "B. P ∝ √r",
+        "C. P ∝ 1/r",
+        "D. P ∝ 1/r²"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "question": "Aisha, Mubarak and Safiyah shared ₦500 in ratio 3 : 2 : x. If Aisha received ₦150, find x.",
+      "options": [
+        "A. 1",
+        "B. 4",
+        "C. 5",
+        "D. 6"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "question": "Jajere made a 15% loss by selling an article for ₦595. Find cost price.",
+      "options": [
+        "A. ₦600.00",
+        "B. ₦684.25",
+        "C. ₦700.00",
+        "D. ₦892.50"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 50,
+      "question": "The square root of a number is 2k. What is half of the number?",
+      "options": [
+        "A. k/2",
+        "B. k",
+        "C. ½k²",
+        "D. 2k²"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

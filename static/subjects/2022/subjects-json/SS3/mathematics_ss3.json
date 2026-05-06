@@ -1,0 +1,471 @@
+{
+  "subject": "Mathematics",
+  "class": "SS3",
+  "session": "2022/2023",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Evaluate (0.13)<sup>3</sup> correct to three significant figures.",
+      "options": ["A. 0.00219", "B. 0.00220", "C. 0.00300", "D. 0.00390"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Simplify: 11011<sub>two</sub> − 1101<sub>two</sub>.",
+      "options": ["A. 101000<sub>two</sub>", "B. 1100<sub>two</sub>", "C. 1110<sub>two</sub>", "D. 1011<sub>two</sub>"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "Simplify: (25<sup>2</sup>/3) ÷ (25<sup>1</sup>/6).",
+      "options": ["A. 25", "B. 1", "C. 5", "D. 125"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "If 30% of y is equal to x, what in terms of x is 30% of 3y?",
+      "options": ["A. x", "B. 3x", "C. 9x", "D. 30x"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "A baker used 40% of a 50 kg bag of flour. If 3/5 of the amount used was for cake, how many kilograms of flour was used for cake?",
+      "options": ["A. 2 kg", "B. 6 kg", "C. 15 kg", "D. 17 kg"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "If tan y = 0.404 where y is acute, find tan 2y.",
+      "options": ["A. 0.035", "B. 0.719", "C. 0.808", "D. 0.927"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "The ratio of boys to girls in a class is 5 : 3. Find the probability of selecting a girl.",
+      "options": ["A. 3/8", "B. 5/8", "C. 1/3", "D. 1/5"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "What must be added to x<sup>2</sup> − 3x to make it a perfect square?",
+      "options": ["A. 9/4", "B. 3", "C. 6", "D. 9"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Given that (2x − 1)(x + 5) = 2x<sup>2</sup> − mx − 5, find the value of m.",
+      "options": ["A. 11", "B. 5", "C. −9", "D. −10"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "What is the place value of 9 in the number 3.0492?",
+      "options": ["A. Tenths", "B. Hundredths", "C. Thousandths", "D. Ten-thousandths"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "If the simple interest on a sum at 3% per annum for 2½ years is ₦123, find the principal.",
+      "options": ["A. ₦676.50", "B. ₦820", "C. ₦1,640", "D. ₦4,920"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "A machine valued at ₦20,000 depreciates by 10% yearly. Find its value after two years.",
+      "options": ["A. ₦16,200", "B. ₦14,200", "C. ₦12,000", "D. ₦8,000"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "If 2x + y = 10 and y ≥ 0, which of the following is not a possible value of x?",
+      "options": ["A. 4", "B. 5", "C. 8", "D. 10"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "If x + y = 12 and 3x − y = 20, find the value of 2x − y.",
+      "options": ["A. 8", "B. 10", "C. 12", "D. 15"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "If log<sub>a</sub>270 − log<sub>a</sub>10 + log<sub>a</sub>3 = 2, find the value of a.",
+      "options": ["A. 3", "B. 4", "C. 5", "D. 6"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "A conical water jug has diameter 7 cm and height 6 cm. Find the volume of water it can hold.",
+      "options": ["A. 22 cm<sup>3</sup>", "B. 44 cm<sup>3</sup>", "C. 77 cm<sup>3</sup>", "D. 308 cm<sup>3</sup>"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "Madeenah allows 20% discount for cash payment. What is the ratio of cash payment to marked price?",
+      "options": ["A. 1:4", "B. 1:5", "C. 3:4", "D. 4:5"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "Find the nth term of the sequence 5, 10, 20, 40, 80, …",
+      "options": ["A. 5 × 2<sup>n+1</sup>", "B. 2 × 5<sup>n−1</sup>", "C. 5 × 2<sup>n−1</sup>", "D. 5 × 5<sup>n−1</sup>"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "The wheel of a tractor has diameter 1.4 m. Find the distance covered in 100 revolutions.",
+      "options": ["A. 140 m", "B. 220 m", "C. 280 m", "D. 440 m"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "Which of the following is not a measure of central tendency?",
+      "options": ["A. Mean", "B. Mode", "C. Range", "D. Median"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": "/static/uploads/diagrams/2022/mathematics_ss3/diagram_21.PNG",
+      "question": "The diagram shows an arc MN of a circle of radius 10 cm. If ∠MON = 72°, calculate the length of the arc. [π = 22/7]",
+      "options": ["A. 6.28 cm", "B. 12.6 cm", "C. 22.6 cm", "D. 62.8 cm"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "Find the volume of a solid cylinder of radius 10 cm and height 14 cm.",
+      "options": ["A. 220 cm<sup>3</sup>", "B. 880 cm<sup>3</sup>", "C. 1400 cm<sup>3</sup>", "D. 4400 cm<sup>3</sup>"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Find the value of 3x<sup>2</sup> − 2y + z when x = 3, y = 2 and z = 4.",
+      "options": ["A. 17", "B. 27", "C. 35", "D. 71"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "Solve the simultaneous equations: x + y = 2 and 3x − 2y = 1.",
+      "options": ["A. x = 2, y = 1", "B. x = 1, y = 1", "C. x = 1, y = 2", "D. x = −1, y = 1"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "A chord of length 6 cm is drawn in a circle of radius 5 cm. Find the distance of the chord from the centre.",
+      "options": ["A. 2.5 cm", "B. 3.0 cm", "C. 3.5 cm", "D. 4.0 cm"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "A sector of a circle of radius 14 cm containing an angle of 60° is folded to form a cone. Find the radius of the base.",
+      "options": ["A. 5 cm", "B. 4 cm", "C. 3 cm", "D. 2 cm"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "Find the value to which ₦3000 will amount in 5 years at 6% simple interest.",
+      "options": ["A. ₦3,900", "B. ₦3,750", "C. ₦3,600", "D. ₦3,300"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "If (2x + 3)<sup>3</sup> = 125, find the value of x.",
+      "options": ["A. 1", "B. 2", "C. 3", "D. 4"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "If 9<sup>2x</sup> = 27<sup>x</sup>, find the value of x.",
+      "options": ["A. 2", "B. 1", "C. −1", "D. −2"],
+      "correctOption": "B"
+    },
+
+    
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "If P = {1, 3, 5, 7, 9} and Q = {2, 4, 6, 8, 10} are subsets of U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, find P′ ∩ Q′.",
+      "options": [
+        "A. {1, 3, 5, 7, 9}",
+        "B. {2, 4, 6, 8, 10}",
+        "C. { }",
+        "D. {1, 2, 6, 8, 10}"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "The values of three angles at a point are (3y − 45)°, (y + 25)° and y°. Find the value of y.",
+      "options": ["A. 40°", "B. 58°", "C. 68°", "D. 76°"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "A rectangular carpet 2.5 m long and 2.4 m wide covers 5% of a rectangular floor. Calculate the area of the floor.",
+      "options": ["A. 30 m<sup>2</sup>", "B. 57 m<sup>2</sup>", "C. 120 m<sup>2</sup>", "D. 225 m<sup>2</sup>"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "Simplify: (3 × 10<sup>5</sup>) ÷ (0.4 × 10<sup>7</sup>) leaving your answer in standard form.",
+      "options": [
+        "A. 7.5 × 10<sup>−4</sup>",
+        "B. 7.5 × 10<sup>−3</sup>",
+        "C. 7.5 × 10<sup>−2</sup>",
+        "D. 7.5 × 10<sup>−1</sup>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "A ladder 16 m long leans against a vertical wall making an angle of 65° with the ground. How far up the wall does it reach?",
+      "options": ["A. 6.8 m", "B. 14.5 m", "C. 17.7 m", "D. 34.3 m"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Simplify: 3√45 − 12√5 + 16√20, leaving your answer in surd form.",
+      "options": [
+        "A. 29√5",
+        "B. 14√15",
+        "C. 12√15",
+        "D. 11√5"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "For what value of x is the expression (x − 3)/(x + 1) not defined?",
+      "options": ["A. 3", "B. 2", "C. −1", "D. −3"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "If 8x + 1 = 0, find the value of x.",
+      "options": ["A. −1/8", "B. −1", "C. 1/8", "D. 1"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "Q is 32 km away from P on a bearing of 042° and R is 25 km from P on a bearing of 132°. Calculate the bearing of R from Q.",
+      "options": ["A. 122°", "B. 184°", "C. 190°", "D. 226°"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Which of the following is a factor of 2 − x − x<sup>2</sup>?",
+      "options": ["A. 1 − x", "B. 1 + x", "C. x − 1", "D. 2 − x"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "For what range of values of x is 4x − 3 ≥ 2x − 1?",
+      "options": [
+        "A. x ≥ −1",
+        "B. x ≤ 1",
+        "C. x ≥ 1",
+        "D. x ≤ −1"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Two circles have radii 16 cm and 23 cm. Find the difference between their circumferences. [π = 22/7]",
+      "options": [
+        "A. 244.92 cm",
+        "B. 149.92 cm",
+        "C. 44.00 cm",
+        "D. 43.96 cm"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "The volume of a cylinder is 1200 cm<sup>3</sup> and the area of its base is 150 cm<sup>2</sup>. Find the height of the cylinder.",
+      "options": ["A. 80.0 cm", "B. 8.0 cm", "C. 0.8 cm", "D. 0.08 cm"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "If log 2 = x, log 3 = y and log 7 = z, find log (12/7) in terms of x, y and z.",
+      "options": [
+        "A. 2x + y − z",
+        "B. 2x + z − y",
+        "C. x + y − 2z",
+        "D. x + z − y"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "Solve for y given: 2x + 3y = 7 and x + 5y = 0.",
+      "options": ["A. −1", "B. 1", "C. 5", "D. −5"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "If (2x + 3)<sup>3</sup> = 125, find the value of x.",
+      "options": ["A. 1", "B. 2", "C. 3", "D. 4"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "If 9<sup>2x</sup> = 27<sup>x</sup>, find the value of x.",
+      "options": ["A. 2", "B. 1", "C. −1", "D. −2"],
+      "correctOption": "B"
+    },
+
+    
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "Find the value to which ₦3000 will amount in 5 years at 6% simple interest.",
+      "options": ["A. ₦3,900", "B. ₦3,750", "C. ₦3,600", "D. ₦3,300"],
+      "correctOption": "A"
+    }
+
+    ,
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "Find the value to which ₦3000.00 will amount in 5 years at 6% per annum, simple interest.",
+      "options": [
+        "A. ₦3,900",
+        "B. ₦3,750",
+        "C. ₦3,600",
+        "D. ₦3,300"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Solve for y in the equations: 2x + 3y = 7 and x + 5y = 0.",
+      "options": [
+        "A. −1",
+        "B. 1",
+        "C. 5",
+        "D. −5"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "If (2x + 3)<sup>3</sup> = 125, find the value of x.",
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "If 9<sup>2x</sup> = \\(\\frac{1}{3}\\)(27<sup>x</sup>), find the value of x.",
+      "options": [
+        "A. 2",
+        "B. 1",
+        "C. −1",
+        "D. −2"
+      ],
+      "correctOption": "B"
+    }
+
+
+  ]
+}

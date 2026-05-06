@@ -1,0 +1,618 @@
+{
+  "subject": "Government",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Which of the following constitutions made Nigeria a federal state?",
+      "options": [
+        "A. 1922 Clifford Constitution",
+        "B. 1947 Richards Constitution",
+        "C. 1951 Macpherson Constitution",
+        "D. 1954 Lyttleton Constitution"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Nigeria had how many tiers of government in 1960?",
+      "options": [
+        "A. Two tiers",
+        "B. Three tiers",
+        "C. Four tiers",
+        "D. One tier"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "Which of the following constitutions made human rights fundamental in Nigeria?",
+      "options": [
+        "A. 1963 Constitution",
+        "B. 1979 Constitution",
+        "C. 1960 Constitution",
+        "D. 1951 Constitution"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "Who abrogated the Nigerian federal structure in 1966?",
+      "options": [
+        "A. Nnamdi Azikiwe",
+        "B. Tafawa Balewa",
+        "C. Yakubu Gowon",
+        "D. Aguiyi Ironsi"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "The march towards federalism in Nigeria started in which year?",
+      "options": [
+        "A. 1939",
+        "B. 1947",
+        "C. 1954",
+        "D. 1963"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "Nigeria became a federation of twelve states during the era of …",
+      "options": [
+        "A. Aguiyi Ironsi",
+        "B. Sani Abacha",
+        "C. Shehu Shagari",
+        "D. Yakubu Gowon"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "Police affairs is under which of the following legislative lists?",
+      "options": [
+        "A. Exclusive",
+        "B. Concurrent",
+        "C. Residual",
+        "D. Recurrent"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "At the inception of federalism in Nigeria, residual list was given to the …",
+      "options": [
+        "A. Federal government",
+        "B. Regional government",
+        "C. Local government",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Chieftaincy affairs falls under …",
+      "options": [
+        "A. Exclusive list",
+        "B. Residual list",
+        "C. Concurrent list",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "Which of the following countries practice federal system of government?",
+      "options": [
+        "A. Ghana",
+        "B. France",
+        "C. China",
+        "D. Canada"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "Under federal system of government, litigation among the tiers of government is settled by the …",
+      "options": [
+        "A. Judiciary",
+        "B. Executive",
+        "C. Legislature",
+        "D. The press"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "Under federal system of government, fiscal federalism implies …",
+      "options": [
+        "A. Revenue collection",
+        "B. Collective responsibility",
+        "C. Devolution of power",
+        "D. Resource control by federating units"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Nigeria became a 21 states structure in …",
+      "options": [
+        "A. 1976",
+        "B. 1987",
+        "C. 1991",
+        "D. 1986"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "Which of the following Heads of State created Katsina State?",
+      "options": [
+        "A. Yakubu Gowon",
+        "B. Murtala Muhammed",
+        "C. Muhammadu Buhari",
+        "D. Ibrahim Babangida"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "All federal systems of government have …",
+      "options": [
+        "A. Industrialized economies",
+        "B. Flexible constitution",
+        "C. Written constitution",
+        "D. Unwritten constitution"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "Which constitution created the Mid-Western Region in Nigeria?",
+      "options": [
+        "A. 1963",
+        "B. 1954",
+        "C. 1979",
+        "D. 1960"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "In Nigeria, the decision of the Supreme Court is …",
+      "options": [
+        "A. Final",
+        "B. Subject to appeal",
+        "C. Subject to judicial review",
+        "D. A and C above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "In a federal state, powers that are shared between central and state governments are called …",
+      "options": [
+        "A. Concurrent",
+        "B. Exclusive",
+        "C. Arbitrary",
+        "D. Residual"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "Nigeria inherited the practice of federalism from which country?",
+      "options": [
+        "A. Ghana",
+        "B. Britain",
+        "C. China",
+        "D. U.S.A"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "A federal system of government is one in which …",
+      "options": [
+        "A. Power is shared between the central government and local government",
+        "B. Power is concentrated at the centre",
+        "C. Power is shared between the centre and component units",
+        "D. Subordinate units exercise sovereign power"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "Formation of political parties in Nigeria was made possible through …",
+      "options": [
+        "A. Elective principle of 1922",
+        "B. Election principle",
+        "C. Richards Constitution",
+        "D. Enactment of fundamental laws"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "The first established political party in Nigeria was …",
+      "options": [
+        "A. NCNC",
+        "B. NYM",
+        "C. UMBC",
+        "D. NNDP"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "The first political party in Nigeria was led by …",
+      "options": [
+        "A. Nnamdi Azikiwe",
+        "B. Sir Ahmadu Bello",
+        "C. Obafemi Awolowo",
+        "D. Herbert Macaulay"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "Which of the following political parties was formed before independence?",
+      "options": [
+        "A. SDP",
+        "B. NRC",
+        "C. NPN",
+        "D. NPC"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "Who replaced Herbert Macaulay as the leader of NCNC in 1946?",
+      "options": [
+        "A. Nnamdi Azikiwe",
+        "B. Obafemi Awolowo",
+        "C. Ernest Ikoli",
+        "D. Joseph Tarka"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "United Middle Belt Congress was led by …",
+      "options": [
+        "A. Ibrahim Waziri",
+        "B. Aminu Kano",
+        "C. Solomon Lar",
+        "D. Joseph Tarka"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "Which of the following political parties was formed in the Third Republic?",
+      "options": [
+        "A. Unity Party of Nigeria",
+        "B. National Party of Nigeria",
+        "C. Social Democratic Party",
+        "D. People’s Democratic Party"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "The Northern Region of Nigeria became internally self-governing in …",
+      "options": [
+        "A. 1960",
+        "B. 1957",
+        "C. 1959",
+        "D. 1958"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "Eastern and Western regions in Nigeria attained self-government in …",
+      "options": [
+        "A. 1957",
+        "B. 1959",
+        "C. 1960",
+        "D. 1963"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "Which of the following political parties were referred to as minor parties in the First Republic?",
+      "options": [
+        "A. AG and NYM",
+        "B. NCNC and NPP",
+        "C. NAP and NPP",
+        "D. UMBC and DP"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "The two political parties that formed a coalition government in 1959 were …",
+      "options": [
+        "A. NCNC and AG",
+        "B. NNA and AG",
+        "C. NYM and AG",
+        "D. NPC and NCNC"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "States are created in Nigeria mainly because of …",
+      "options": [
+        "A. Cultural diversity",
+        "B. Role as giant of Africa",
+        "C. Competition with other nations",
+        "D. Desire of military government"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "Which of the following is an advantage of federalism?",
+      "options": [
+        "A. Allows dictatorial government",
+        "B. Allows minority leadership",
+        "C. Component parts have secession rights",
+        "D. Ensures sharing of power among component units"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "For a nation to possess statehood, it must have political …",
+      "options": [
+        "A. Dependence",
+        "B. Inter-dependence",
+        "C. Independence",
+        "D. Emancipation"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Which of the following political parties was formed in the Fourth Republic?",
+      "options": [
+        "A. SDP",
+        "B. AD",
+        "C. UPN",
+        "D. UMBC"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "Who was the presidential candidate of the Unity Party of Nigeria?",
+      "options": [
+        "A. Nnamdi Azikiwe",
+        "B. Herbert Macaulay",
+        "C. S. L. Akintola",
+        "D. Obafemi Awolowo"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "Great Nigerian Peoples Party was led by …",
+      "options": [
+        "A. Ibrahim Waziri",
+        "B. Aminu Kano",
+        "C. Nnamdi Azikiwe",
+        "D. S. L. Akintola"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "The motion for self-government in 1956 was moved by …",
+      "options": [
+        "A. Obafemi Awolowo",
+        "B. S. L. Akintola",
+        "C. Nnamdi Azikiwe",
+        "D. Anthony Enahoro"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Which political party introduced Universal Primary Education?",
+      "options": [
+        "A. NCNC",
+        "B. AG",
+        "C. NPC",
+        "D. NNDP"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "One major problem of First Republic political parties was …",
+      "options": [
+        "A. Provision of quality education",
+        "B. Promotion of national interest",
+        "C. Intra-party synergy",
+        "D. Regional politics"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Politics of Eastern Region in the First Republic was controlled by …",
+      "options": [
+        "A. NCNC",
+        "B. AG",
+        "C. NPC",
+        "D. UMBC"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "Northern People’s Congress was formed in …",
+      "options": [
+        "A. 1944",
+        "B. 1941",
+        "C. 1959",
+        "D. 1951"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "Jam’iyyar Mutanen Arewa metamorphosed into …",
+      "options": [
+        "A. NCNC",
+        "B. AG",
+        "C. NEPU",
+        "D. NPC"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "The Kano riot took place in …",
+      "options": [
+        "A. 1953",
+        "B. 1956",
+        "C. 1960",
+        "D. 1950"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "Who led the tour of Northern Nigeria that caused the Kano riot?",
+      "options": [
+        "A. Obafemi Awolowo",
+        "B. Nnamdi Azikiwe",
+        "C. Aminu Kano",
+        "D. S. L. Akintola"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "Nigeria changed from parliamentary to presidential system in …",
+      "options": [
+        "A. 1963",
+        "B. 1960",
+        "C. 1979",
+        "D. 1999"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "Which political party controlled the central government in 1979?",
+      "options": [
+        "A. UPN",
+        "B. NPN",
+        "C. GNPP",
+        "D. NPP"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Which of the following political parties was formed in 1982?",
+      "options": [
+        "A. UPN",
+        "B. UMBC",
+        "C. PRP",
+        "D. NAP"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "During the Second Republic, GNPP won governorship elections in …",
+      "options": [
+        "A. Sokoto and Kano",
+        "B. Borno and Bauchi",
+        "C. Gongola and Sokoto",
+        "D. Borno and Gongola"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "Ethnic politics in Nigeria can be traced to the …",
+      "options": [
+        "A. Richards Constitution of 1946",
+        "B. Macpherson Constitution of 1951",
+        "C. Lyttleton Constitution of 1954",
+        "D. Clifford Constitution of 1922"
+      ],
+      "correctOption": "A"
+    }
+
+  ]
+}

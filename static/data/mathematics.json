@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Mathematics",
+  "exam_title": "MATHEMATICS INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Convert the binary number 101101 to its decimal equivalent.",
+      "options": ["45", "46", "47", "48"],
+      "answer": "45"
+    },
+    {
+      "id": 2,
+      "question": "In base 8, what is the value of (456)₈ when converted to base 10?",
+      "options": ["298", "300", "302", "304"],
+      "answer": "302"
+    },
+    {
+      "id": 3,
+      "question": "Express 0.625 as a fraction in its lowest terms.",
+      "options": ["1/2", "3/4", "5/8", "7/10"],
+      "answer": "5/8"
+    },
+    {
+      "id": 4,
+      "question": "Simplify √(16/81) in its simplest radical form.",
+      "options": ["4/9", "2/9", "4/3", "2/3"],
+      "answer": "4/9"
+    },
+    {
+      "id": 5,
+      "question": "What is the value of 2³ × 3² in standard form?",
+      "options": ["72", "512", "216", "648"],
+      "answer": "72"
+    },
+    {
+      "id": 6,
+      "question": "If a:b = 3:4 and b:c = 5:6, what is the ratio a:c?",
+      "options": ["3:6", "15:24", "5:8", "3:10"],
+      "answer": "5:8"
+    },
+    {
+      "id": 7,
+      "question": "Convert 0.375 to a percentage.",
+      "options": ["37.5%", "3.75%", "375%", "0.375%"],
+      "answer": "37.5%"
+    },
+    {
+      "id": 8,
+      "question": "If 20% of a number is 45, what is 35% of the same number?",
+      "options": ["78.75", "225", "63", "90"],
+      "answer": "78.75"
+    },
+    {
+      "id": 9,
+      "question": "Simplify the ratio 48:72:96 to its lowest terms.",
+      "options": ["2:3:4", "4:6:8", "1:2:3", "3:4:6"],
+      "answer": "2:3:4"
+    },
+    {
+      "id": 10,
+      "question": "A mixture contains 2/5 salt and the rest water. If 3 liters of water is added, the salt becomes 1/3 of the new mixture. Find the original volume of the mixture.",
+      "options": ["6 liters", "9 liters", "12 liters", "15 liters"],
+      "answer": "12 liters"
+    },
+    {
+      "id": 11,
+      "question": "Simplify 8^(2/3) × 2^(-1/3).",
+      "options": ["4", "2", "8", "1/2"],
+      "answer": "4"
+    },
+    {
+      "id": 12,
+      "question": "Solve for x: log₂(x) + log₂(x-1) = 1.",
+      "options": ["x = 2", "x = √2", "x = 1 + √2", "x = 3"],
+      "answer": "x = 2"
+    },
+    {
+      "id": 13,
+      "question": "If 3ˣ = 81, what is the value of x?",
+      "options": ["4", "3", "2", "5"],
+      "answer": "4"
+    },
+    {
+      "id": 14,
+      "question": "Express log₁₀(100 / 10) as a single logarithm.",
+      "options": ["log₁₀10", "1", "0", "2"],
+      "answer": "log₁₀10"
+    },
+    {
+      "id": 15,
+      "question": "Simplify (16^(3/4)) / (4^(1/2)).",
+      "options": ["2", "4", "8", "1"],
+      "answer": "8"
+    },
+    {
+      "id": 16,
+      "question": "If A = {1,2,3,4}, B = {3,4,5,6}, find A ∩ B.",
+      "options": ["{3,4}", "{1,2,5,6}", "{1,2,3,4,5,6}", "Ø"],
+      "answer": "{3,4}"
+    },
+    {
+      "id": 17,
+      "question": "The universal set U = {1,...,10}, A = {even numbers}, B = {multiples of 3}. Find n(A ∪ B).",
+      "options": ["6", "7", "8", "10"],
+      "answer": "7"
+    },
+    {
+      "id": 18,
+      "question": "If n(A) = 5, n(B) = 7, n(A ∪ B) = 9, find n(A ∩ B).",
+      "options": ["3", "4", "2", "1"],
+      "answer": "3"
+    },
+    {
+      "id": 19,
+      "question": "Factorize x² - 5x - 24 completely.",
+      "options": ["(x-8)(x+3)", "(x-6)(x+4)", "(x-3)(x-8)", "(x+6)(x-4)"],
+      "answer": "(x-8)(x+3)"
+    },
+    {
+      "id": 20,
+      "question": "Solve the quadratic equation x² - 6x + 8 = 0 by factorization.",
+      "options": ["x=2,4", "x=1,8", "x=3,3", "x=-2,-4"],
+      "answer": "x=2,4"
+    },
+    {
+      "id": 21,
+      "question": "Solve the inequality 2x - 3 > 5 and express in interval notation.",
+      "options": ["(4, ∞)", "[4, ∞)", "(-∞, 4)", "[4, ∞)"],
+      "answer": "(4, ∞)"
+    },
+    {
+      "id": 22,
+      "question": "Expand (2x + 3y)².",
+      "options": ["4x² + 12xy + 9y²", "4x² + 6xy + 9y²", "4x² + 12xy + 3y²", "4x² + 9y²"],
+      "answer": "4x² + 12xy + 9y²"
+    },
+    {
+      "id": 23,
+      "question": "If f(x) = 2x² - 3x + 1, find f(-1).",
+      "options": ["6", "2", "0", "4"],
+      "answer": "6"
+    },
+    {
+      "id": 24,
+      "question": "Solve for x: 3(x+1) = 27.",
+      "options": ["2", "3", "1", "4"],
+      "answer": "8"
+    },
+    {
+      "id": 25,
+      "question": "Simplify (x² + 2x + 1)/(x + 1).",
+      "options": ["x + 1", "x - 1", "x² + 1", "x"],
+      "answer": "x + 1"
+    },
+    {
+      "id": 26,
+      "question": "The roots of x² - px + q = 0 are 2 and 3. Find p and q.",
+      "options": ["p=5, q=6", "p=-5, q=-6", "p=1, q=6", "p=5, q=-6"],
+      "answer": "p=5, q=6"
+    },
+    {
+      "id": 27,
+      "question": "Find the 5th term of the arithmetic sequence where a=2, d=3.",
+      "options": ["14", "11", "8", "17"],
+      "answer": "14"
+    },
+    {
+      "id": 28,
+      "question": "The sum of the first n terms of a GP is given by Sn = 3(2ⁿ - 1). Find the first term.",
+      "options": ["3", "1", "2", "6"],
+      "answer": "3"
+    },
+    {
+      "id": 29,
+      "question": "In an AP, if the 3rd term is 7 and the 7th term is 15, find the common difference.",
+      "options": ["2", "1", "3", "4"],
+      "answer": "2"
+    },
+    {
+      "id": 30,
+      "question": "In a triangle ABC, angle A = 40°, angle B = 60°. What is angle C?",
+      "options": ["80°", "100°", "70°", "90°"],
+      "answer": "80°"
+    },
+    {
+      "id": 31,
+      "question": "The exterior angle of a regular polygon is 72°. How many sides does it have?",
+      "options": ["5", "6", "4", "8"],
+      "answer": "5"
+    },
+    {
+      "id": 32,
+      "question": "In circle with center O, chord AB subtends 120° at the center. What is the angle at the circumference?",
+      "options": ["60°", "120°", "90°", "30°"],
+      "answer": "60°"
+    },
+    {
+      "id": 33,
+      "question": "Prove that the sum of angles in a quadrilateral is 360° (conceptual: which theorem?).",
+      "options": ["Two triangles", "One triangle", "Circle theorem", "Pythagoras"],
+      "answer": "Two triangles"
+    },
+    {
+      "id": 34,
+      "question": "If two lines are parallel, and a transversal makes 65° with one, what is the corresponding angle?",
+      "options": ["65°", "115°", "90°", "180°"],
+      "answer": "65°"
+    },
+    {
+      "id": 35,
+      "question": "Find the area of a circle with radius 7 cm (use π=22/7).",
+      "options": ["154 cm²", "44 cm²", "22 cm²", "49 cm²"],
+      "answer": "154 cm²"
+    },
+    {
+      "id": 36,
+      "question": "The volume of a cylinder with radius 5 cm and height 10 cm is:",
+      "options": ["250π cm³", "50π cm³", "100π cm³", "785 cm³ (approx)"],
+      "answer": "250π cm³"
+    },
+    {
+      "id": 37,
+      "question": "Surface area of a cube with side 4 cm.",
+      "options": ["96 cm²", "64 cm²", "24 cm²", "16 cm²"],
+      "answer": "96 cm²"
+    },
+    {
+      "id": 38,
+      "question": "The area of a trapezium with parallel sides 10 cm and 6 cm, height 5 cm.",
+      "options": ["40 cm²", "80 cm²", "30 cm²", "50 cm²"],
+      "answer": "40 cm²"
+    },
+    {
+      "id": 39,
+      "question": "If a cone has base radius r and slant height l, surface area (lateral) is:",
+      "options": ["πrl", "πr²", "2πrl", "πr(l+r)"],
+      "answer": "πrl"
+    },
+    {
+      "id": 40,
+      "question": "In a right triangle, sin θ = 3/5, find cos θ.",
+      "options": ["4/5", "3/4", "5/3", "5/4"],
+      "answer": "4/5"
+    }
+  ]
+}

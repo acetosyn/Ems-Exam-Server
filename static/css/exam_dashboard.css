@@ -1,0 +1,583 @@
+/* ============================================================
+   EMIS EXAM DASHBOARD — PREMIUM DARK GLASS + BRIGHT TEXT
+   Option B: 4 small cards, candidate info in card 1
+   ============================================================ */
+
+:root {
+  --bg-dark: #09101f;
+  --bg-grad: radial-gradient(circle at top, #0f1a33, #09101f 70%);
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-light: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.12);
+
+  --white: #ffffff;
+  --white-dim: #d9e5ff;
+
+  --neon: #3b82f6;
+  --neon-soft: #60a5fa;
+  --green: #22c55e;
+  --amber: #fbbf24;
+
+  --radius: 18px;
+  --shadow: 0px 14px 32px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ========================= SHELL ========================= */
+
+.exdash-shell {
+    background: #354970;   /* soft grey */
+  min-height: 100vh;
+  padding: 30px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ========================= TYPEWRITER ========================= */
+
+.exdash-typewriter {
+  text-align: center;
+  color: var(--white);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 22px;
+  text-shadow: 0 0 8px var(--neon-soft);
+}
+
+
+/* ========================= GRID ========================= */
+
+.exdash-grid {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+
+/* ========================= CARD BASE ========================= */
+
+.exdash-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  padding: 24px 26px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: var(--white);
+  backdrop-filter: blur(20px);
+  transition: .25s ease;
+}
+
+.exdash-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 18px 46px rgba(59, 130, 246, 0.35);
+}
+
+.exdash-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--neon), #93c5fd);
+}
+
+
+/* ========================= LIGHT CARD (candidate info) ========================= */
+
+.ex-card-light {
+  background: var(--glass-light);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.ex-card-light::before {
+  background: linear-gradient(90deg, #e0eaff, #bcd0ff);
+}
+
+
+/* ========================= HEADINGS ========================= */
+
+.card-head {
+  font-size: 1.18rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  color: var(--white);
+  text-shadow: 0 0 6px var(--neon-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* ========================= INFO ROWS ========================= */
+
+.info div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: .95rem;
+  color: var(--white-dim);
+}
+
+.info strong {
+  color: var(--white);
+}
+
+
+/* ========================= STATUS PILL ========================= */
+
+.status-pill {
+  margin-top: 16px;
+  padding: 7px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: .9rem;
+  display: inline-block;
+}
+
+.pill-gray { background: #cbd5e1; color: #000; }
+.pill-amber { background: #facc15; color: #000; }
+.pill-green { background: #4ade80; color: #000; }
+
+
+/* ========================= OVERVIEW ========================= */
+
+.overview-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: var(--white-dim);
+}
+
+.overview-list strong {
+  color: var(--white);
+}
+
+
+/* ========================= BUTTONS ========================= */
+
+.btn-primary,
+.btn-success,
+.btn-warning {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 12px;
+  transition: .25s ease;
+}
+
+.btn-primary {
+  background: var(--neon);
+  color: #fff;
+}
+.btn-primary:hover { transform: translateY(-3px); opacity: .9; }
+
+.btn-success {
+  background: var(--green);
+  color: #fff;
+}
+.btn-warning {
+  background: var(--amber);
+  color: #000;
+}
+
+.btn-viewexam {
+  text-decoration: none !important;
+  font-size: 1rem;
+  letter-spacing: .3px;
+}
+
+
+/* ========================= INSTRUCTIONS (special styling) ========================= */
+
+.instructions-card {
+  background: rgba(30, 41, 59, 0.45);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.instructions-card::before {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+}
+
+.instructions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.instructions-list li {
+  background: rgba(255,255,255,0.08);
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: .3px;
+  border-left: 4px solid var(--neon);
+  transition: .25s ease;
+}
+
+.instructions-list li:hover {
+  transform: translateX(6px);
+  background: rgba(255,255,255,0.12);
+}
+
+
+/* ========================= ACTIVITY ========================= */
+
+.activity-item {
+  display: flex;
+  gap: 12px;
+  background: rgba(255,255,255,0.09);
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.activity-item .dot {
+  width: 10px; height: 10px;
+  background: var(--neon);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+
+
+.students-body {
+  background: #e5e7eb !important;  /* soft grey */
+}
+
+
+
+/* ================================================
+   GOLD WARNING GLOW — Animated Perimeter Border
+   ================================================ */
+
+.warn-glow {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.10);
+  font-weight: 700;
+  color: #fff;
+}
+
+.warn-glow .glow-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: -1;
+  
+  /* The animated border itself */
+  background: conic-gradient(
+      from 0deg,
+      #fcd34d,
+      #f59e0b,
+      #facc15,
+      #fcd34d
+  );
+  mask: linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+
+  padding: 2px;
+  animation: glow-rotate 3.2s linear infinite;
+}
+
+/* rotation animation anti-clockwise + clockwise */
+@keyframes glow-rotate {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+/* ============================================================
+   EXAM START MODAL — PREMIUM STEPPED STYLE
+============================================================ */
+
+.exam-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+}
+
+.exam-modal.hidden {
+  display: none;
+}
+
+.exam-modal-content {
+  width: 480px;
+  background: #1e293b;
+  padding: 32px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  position: relative;
+  animation: popIn 0.35s ease;
+}
+
+/* Close Button */
+.exam-modal-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  background: #ef4444;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 4px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.exam-modal-close:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+/* Title */
+.exam-modal-title {
+  text-align: center;
+  color: #fbbf24;
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.exam-modal-title i {
+  margin-right: 8px;
+}
+
+/* Subtitle */
+.exam-modal-sub {
+  text-align: center;
+  color: #e2e8f0;
+  margin-bottom: 22px;
+}
+
+/* Steps Container */
+.exam-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+/* Individual Step */
+.exam-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: rgba(255,255,255,0.06);
+  padding: 12px 14px;
+  border-radius: 10px;
+  border-left: 4px solid #3b82f6;
+}
+
+.step-number {
+  background: #3b82f6;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.step-text {
+  color: #f1f5f9;
+  font-size: .94rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Start Exam button */
+/* Start Exam button — shorter */
+.exam-modal-startbtn {
+  display: block;
+  background: #3b82f6;
+  color: #fff;
+  padding: 10px 26px;   /* shorter */
+  text-align: center;
+  font-weight: 800;
+  border-radius: 10px;
+  text-decoration: none !important;
+  transition: 0.25s;
+  font-size: 1.05rem;
+
+  width: fit-content;   /* shrink button */
+  margin: 0 auto;       /* center it */
+}
+
+.exam-modal-startbtn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+/* Animation */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
+
+/* ============================================================
+   ALREADY-WRITTEN MODAL (Same style as Start Exam modal)
+============================================================ */
+
+#alreadyWrittenModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#alreadyWrittenModal.hidden {
+    display: none;
+}
+
+#alreadyWrittenModal .exam-modal-content {
+    background: #ffffff;
+    width: 90%;
+    max-width: 520px;
+    border-radius: 18px;
+    padding: 2rem 2.3rem;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+    position: relative;
+    animation: fadeUpModal 0.35s ease;
+    text-align: center;
+}
+
+/* Close button */
+#alreadyWrittenModal .exam-modal-close {
+    position: absolute;
+    right: 18px;
+    top: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #555;
+    transition: 0.2s ease;
+}
+#alreadyWrittenModal .exam-modal-close:hover {
+    color: #000;
+}
+
+/* Title */
+#alreadyWrittenModal .exam-modal-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: #dc2626; /* Red color for warning */
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Subtext */
+#alreadyWrittenModal .exam-modal-sub {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+/* Start/View Results Button */
+#alreadyWrittenModal .exam-modal-startbtn {
+    display: inline-block;
+    background: #22c55e;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 0.8rem 1.8rem;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: 0.25s ease;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+#alreadyWrittenModal .exam-modal-startbtn:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+}
+
+/* Smooth Fade-Up Animation */
+@keyframes fadeUpModal {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+/* ============================================================
+    FLASH BAR — TOP SCREEN NOTIFICATION
+============================================================ */
+
+.flash-bar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  z-index: 99999;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+.flash-bar.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(10px);
+}
+
+.flash-red { background: #dc2626; }
+.flash-green { background: #16a34a; }
+
+.hidden { display: none !important; }

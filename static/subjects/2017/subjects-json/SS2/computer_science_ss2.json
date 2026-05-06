@@ -1,0 +1,627 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Computer Studies",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "A language that consists of instructions executed directly by the CPU is called",
+      "diagram": null,
+      "options": [
+        "A. Machine language",
+        "B. High level language",
+        "C. Low level language",
+        "D. Technology"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 2,
+      "question": "Which statement displays \"ENTER NUMBER\" and stores the input under B?",
+      "diagram": null,
+      "options": [
+        "A. INPUT B; \"ENTER NUMBER\"",
+        "B. INPUT \"ENTER NUMBER\" : B",
+        "C. INPUT \"ENTER NUMBER\" = B",
+        "D. INPUT \"ENTER NUMBER\"; B"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 3,
+      "question": "Which of the following is NOT a common BASIC keyword?",
+      "diagram": null,
+      "options": [
+        "A. DATA",
+        "B. PRINT",
+        "C. END",
+        "D. CONFIG"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 4,
+      "question": "A list of instructions given to a computer to perform a task is a",
+      "diagram": null,
+      "options": [
+        "A. application",
+        "B. program",
+        "C. document",
+        "D. command"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "question": "Which is NOT a feature of high-level languages?",
+      "diagram": null,
+      "options": [
+        "A. It comprises rules that must be obeyed",
+        "B. It uses symbols, sentences and words",
+        "C. It uses binary",
+        "D. It is machine independent"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 6,
+      "question": "Software designed to operate hardware and support applications is",
+      "diagram": null,
+      "options": [
+        "A. Application software",
+        "B. Games software",
+        "C. System software",
+        "D. Design software"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "question": "A peripheral that produces text or graphics on paper is a",
+      "diagram": null,
+      "options": [
+        "A. pixel",
+        "B. speaker",
+        "C. plotter",
+        "D. printer"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 8,
+      "question": "How many major types of software are there?",
+      "diagram": null,
+      "options": ["A. 1", "B. 2", "C. 3", "D. 4"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 9,
+      "question": "An operating system that allows many users at the same time is",
+      "diagram": null,
+      "options": [
+        "A. single-user",
+        "B. multi-user",
+        "C. GUI",
+        "D. command-based"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 10,
+      "question": "The original BASIC language was designed in",
+      "diagram": null,
+      "options": ["A. 1961", "B. 1962", "C. 1963", "D. 1964"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "question": "An operating system that links computers to share resources is",
+      "diagram": null,
+      "options": [
+        "A. GUI",
+        "B. Network OS",
+        "C. Single-user OS",
+        "D. Command-based OS"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 12,
+      "question": "There are how many major levels of programming languages?",
+      "diagram": null,
+      "options": ["A. 4", "B. 3", "C. 2", "D. 1"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 13,
+      "question": "CLS means",
+      "diagram": null,
+      "options": [
+        "A. Command Line Sequence",
+        "B. Clear Screen",
+        "C. Clear Start",
+        "D. Control Left Shift"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 14,
+      "question": "BASIC was designed at Dartmouth College in",
+      "diagram": null,
+      "options": [
+        "A. New York",
+        "B. New Orleans",
+        "C. New Hampshire",
+        "D. New Jersey"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "question": "The statement used to assign a value to a variable is",
+      "diagram": null,
+      "options": [
+        "A. LET",
+        "B. INPUT C",
+        "C. INPUT AS",
+        "D. DATA"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "question": "Any device used to display processed data is an",
+      "diagram": null,
+      "options": [
+        "A. input device",
+        "B. throughput device",
+        "C. output device",
+        "D. read-only device"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 17,
+      "question": "Which of the following is NOT a multi-user operating system?",
+      "diagram": null,
+      "options": [
+        "A. UNIX",
+        "B. Xenix",
+        "C. GUI",
+        "D. MS-DOS"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 18,
+      "question": "The statement that allows a numeric value to be entered for C is",
+      "diagram": null,
+      "options": [
+        "A. INPUT",
+        "B. INPUT C",
+        "C. INPUT AS",
+        "D. CLS"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 19,
+      "question": "Which is a feature of machine language?",
+      "diagram": null,
+      "options": [
+        "A. It is translated",
+        "B. It is machine independent",
+        "C. It uses words and symbols",
+        "D. It is difficult and time-consuming"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 20,
+      "question": "REM in BASIC means",
+      "diagram": null,
+      "options": [
+        "A. Remove",
+        "B. Remedy",
+        "C. Removal",
+        "D. Remark"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 21,
+      "question": "Which is a single-user operating system?",
+      "diagram": null,
+      "options": [
+        "A. MS-DOS",
+        "B. LINUX",
+        "C. UNIX",
+        "D. MAC"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 22,
+      "question": "Which is NOT a type of operating system?",
+      "diagram": null,
+      "options": [
+        "A. Dual-user",
+        "B. Single-user",
+        "C. Multi-user",
+        "D. Graphical user interface"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "question": "The original BASIC was designed by",
+      "diagram": null,
+      "options": [
+        "A. John George Andrew",
+        "B. George Bush and Bill Clinton",
+        "C. John Kennedy and Thomas Kurtz",
+        "D. James Kemeny and Thomas Kurtz"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 24,
+      "question": "Any BASIC statement beginning with which keyword is not executed?",
+      "diagram": null,
+      "options": ["A. CLS", "B. REM", "C. LET", "D. END"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "question": "Software written to perform specific tasks is called",
+      "diagram": null,
+      "options": [
+        "A. Application software",
+        "B. System software",
+        "C. Installed software",
+        "D. Single-user software"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 26,
+      "question": "Types of monitors include",
+      "diagram": null,
+      "options": [
+        "A. Monochrome and colour",
+        "B. LCD and HD",
+        "C. Monochrome and flat screen",
+        "D. Dual chrome and CRT"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "GUI stands for",
+      "diagram": null,
+      "options": [
+        "A. Graphical Universal Interface",
+        "B. Graphical User Interface",
+        "C. General User Interface",
+        "D. Graphical User Internet"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "question": "Commercial software designed for users is called",
+      "diagram": null,
+      "options": [
+        "A. Application packages",
+        "B. System software",
+        "C. User application",
+        "D. Antivirus"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 29,
+      "question": "Which is NOT a non-impact printer?",
+      "diagram": null,
+      "options": [
+        "A. Laser",
+        "B. Inkjet",
+        "C. Thermal",
+        "D. Dot matrix"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 30,
+      "question": "Which is NOT a language translator?",
+      "diagram": null,
+      "options": [
+        "A. Novell NetWare",
+        "B. Compiler",
+        "C. Assembler",
+        "D. Interpreter"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "question": "Which is NOT a high-level language?",
+      "diagram": null,
+      "options": [
+        "A. HTML",
+        "B. COBOL",
+        "C. PASCAL",
+        "D. BASIC"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 32,
+      "question": "The most frequently used output device is the",
+      "diagram": null,
+      "options": [
+        "A. keyboard",
+        "B. monitor",
+        "C. speaker",
+        "D. printer"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "question": "Languages that are machine oriented are called",
+      "diagram": null,
+      "options": [
+        "A. Machine language",
+        "B. High level language",
+        "C. Low level language",
+        "D. Assembler"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "question": "Types of printers include",
+      "diagram": null,
+      "options": [
+        "A. Line and daisy wheel",
+        "B. Dot matrix and laser",
+        "C. Impact and non-impact",
+        "D. Inkjet and laser"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 35,
+      "question": "Which is NOT system software?",
+      "diagram": null,
+      "options": [
+        "A. Operating system",
+        "B. Utility software",
+        "C. Language translator",
+        "D. Game"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 36,
+      "question": "Which is NOT a BASIC character set?",
+      "diagram": null,
+      "options": [
+        "A. Alternative keys",
+        "B. Alphabets A–Z",
+        "C. Digits 0–9",
+        "D. Special characters"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "question": "Which of these is a programming language?",
+      "diagram": null,
+      "options": [
+        "A. MCSE",
+        "B. Command Prompt",
+        "C. Apache",
+        "D. Visual Basic"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 38,
+      "question": "Languages closer to human language are",
+      "diagram": null,
+      "options": [
+        "A. Machine language",
+        "B. Low level language",
+        "C. High level language",
+        "D. Assembly language"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 39,
+      "question": "Which is NOT a category of application package?",
+      "diagram": null,
+      "options": [
+        "A. Payroll program",
+        "B. Statistical software",
+        "C. Database software",
+        "D. Web design software"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 40,
+      "question": "Which statement prints the value of N if N = 50?",
+      "diagram": null,
+      "options": [
+        "A. PRINT",
+        "B. PRINTER",
+        "C. PRINT N",
+        "D. PRINT 50"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 41,
+      "question": "The intangible part of a computer system is",
+      "diagram": null,
+      "options": [
+        "A. program",
+        "B. game",
+        "C. application",
+        "D. software"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "question": "Languages similar to machine language but using symbols are",
+      "diagram": null,
+      "options": [
+        "A. High level",
+        "B. Low level",
+        "C. Machine",
+        "D. Assembly"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 43,
+      "question": "Which statement indicates the end of a BASIC program?",
+      "diagram": null,
+      "options": ["A. END", "B. CLOSE", "C. PRINT", "D. DATA"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "question": "Which is NOT a high-level language?",
+      "diagram": null,
+      "options": [
+        "A. C",
+        "B. C++",
+        "C. FORTRAN",
+        "D. APACHE"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "question": "Which statement about inkjet printers is false?",
+      "diagram": null,
+      "options": [
+        "A. They are slow",
+        "B. They are cheap",
+        "C. They are suitable for mass production",
+        "D. They are portable"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "question": "The term programming language usually refers to",
+      "diagram": null,
+      "options": [
+        "A. high level language",
+        "B. average level language",
+        "C. low level language",
+        "D. machine language"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 47,
+      "question": "Every BASIC program should begin with",
+      "diagram": null,
+      "options": ["A. INPUT", "B. CLS", "C. LET", "D. REM"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 48,
+      "question": "An error that violates grammar rules is a",
+      "diagram": null,
+      "options": [
+        "A. modular error",
+        "B. logic error",
+        "C. syntax error",
+        "D. dramatic error"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "question": "Eliminating errors in a program is called",
+      "diagram": null,
+      "options": [
+        "A. debugging",
+        "B. modularizing",
+        "C. coding",
+        "D. clarifying"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "question": "Which is NOT an arithmetic operator in BASIC?",
+      "diagram": null,
+      "options": ["A. +", "B. =", "C. /", "D. *"],
+      "correctOption": "B"
+    }
+
+  ]
+}

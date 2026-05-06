@@ -1,0 +1,659 @@
+{
+  "subject": "Computer Science",
+  "class": "SS3",
+  "session": "2022/2023",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Which of the following is true about raw data?",
+      "options": [
+        "A. It is well categorized",
+        "B. It exists in oral form only",
+        "C. It exists in written form only",
+        "D. It cannot be relied on to make decision"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Which of the following was used by Joseph Marie Jacquard in inventing the loom?",
+      "options": [
+        "A. Punched card",
+        "B. Smart card",
+        "C. Smart chip",
+        "D. Sound card"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "Which generation of computers used vacuum tubes in their circuitry?",
+      "options": [
+        "A. First generation",
+        "B. Second generation",
+        "C. Third generation",
+        "D. Fourth generation"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "The full meaning of the acronym ENIAC is _________________",
+      "options": [
+        "A. Electronic Numerical Integrator and Calculator",
+        "B. Electronic Numerical Integrator and Computer",
+        "C. Electronic Numeric Integration Automatic Calculator",
+        "D. Electronic Numeric Integrated Automatic Calculator"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "The primary memory of the computer can be divided into _________________",
+      "options": [
+        "A. register and random access memory",
+        "B. mass storage and read only memory",
+        "C. volatile memory and auxiliary memory",
+        "D. random access memory and read only memory"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "A common communication pathway shared by hardware components in the computer is called _________________",
+      "options": [
+        "A. bus",
+        "B. channel",
+        "C. firmware",
+        "D. register"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "Which of the following can be described as the brain of the computer hardware?",
+      "options": [
+        "A. BIOS",
+        "B. Micro-processor",
+        "C. RAM Chip",
+        "D. System clock"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "Which of the following is not a computer output device?",
+      "options": [
+        "A. Disk",
+        "B. Plotter",
+        "C. Printer",
+        "D. Speaker"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "The computer process that electronically prepares a disk to store data is called _________________",
+      "options": [
+        "A. coupling",
+        "B. initialization",
+        "C. decoding",
+        "D. standardization"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "Data to be processed by the micro-processor is temporarily stored in _________________",
+      "options": [
+        "A. auxiliary storage",
+        "B. backing storage",
+        "C. main storage",
+        "D. random access memory"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "The smallest unit of information representation which is addressable on the computer memory is _________________",
+      "options": [
+        "A. 1 bit",
+        "B. 2 bits",
+        "C. 4 bits",
+        "D. 8 bits"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "Software is referred to as the _________________",
+      "options": [
+        "A. generic term for computer programs",
+        "B. physical components of the computer",
+        "C. part of the computer for communication",
+        "D. part of the computer which is breakable"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "The software whose output is intended for human use is called _________________",
+      "options": [
+        "A. application software",
+        "B. firmware",
+        "C. malware",
+        "D. system software"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "Sorting of records is a sufficient and necessary condition for creating _________________",
+      "options": [
+        "A. random file",
+        "B. indirect file",
+        "C. sequential file",
+        "D. indexed sequential file"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "We can improve computer security by the use of _________________",
+      "options": [
+        "A. account number",
+        "B. user name",
+        "C. passwords",
+        "D. ID number"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "A pictorial representation of the logic of a program is called _________________",
+      "options": [
+        "A. diagram",
+        "B. flowchart",
+        "C. pseudocode",
+        "D. software"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "A sub-routine is called in a flowchart through the use of _________________",
+      "options": [
+        "A. data",
+        "B. predefined process",
+        "C. process",
+        "D. terminator"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "The symbol used to represent an executive flow in a flowchart is _________________",
+      "options": [
+        "A. rhombus",
+        "B. parallelogram",
+        "C. arrow",
+        "D. circle"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "A suitable BASIC notation for the expression MC² is _________________",
+      "options": [
+        "A. M * C ^ 2",
+        "B. M * C * 2",
+        "C. M * C ** 2",
+        "D. M * C * ^ 2"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 20,
+      "diagram": "/static/uploads/diagrams/2022/computer_science_ss3/diagram_20.PNG",
+      "question": "How many times will the statements in lines 50 and 60 be repeated?",
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": "/static/uploads/diagrams/2022/computer_science_ss3/diagram_20.PNG",
+      "question": "Which of the following best represents the sequence output from the program?",
+      "options": [
+        "A. 2, 4",
+        "B. 4, 20, 36",
+        "C. 4, 16, 36, 64",
+        "D. 4, 20, 56, 120"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "diagram": "/static/uploads/diagrams/2022/computer_science_ss3/diagram_20.PNG",
+      "question": "The last output that will be displayed by the program is _________________",
+      "options": [
+        "A. 20",
+        "B. 36",
+        "C. 64",
+        "D. 120"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Which of the following networks can be extended to cover continents?",
+      "options": [
+        "A. Metropolitan Area Network",
+        "B. Personal Area Network",
+        "C. Wide Area Network",
+        "D. Wireless Area Network"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "A computer virus _________________ data files",
+      "options": [
+        "A. destroys and erases",
+        "B. protects",
+        "C. hangs",
+        "D. reboots"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "Trap doors and bombs are typical examples of _________________",
+      "options": [
+        "A. Adware",
+        "B. Computer worms",
+        "C. Firewall",
+        "D. Trojan horse"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "A calculating machine that is made with cursors of glass and metal is called _________________",
+      "options": [
+        "A. Abacus",
+        "B. Difference engine",
+        "C. Pascaline",
+        "D. Punch card"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "The two main components of a radio communication system are _________________",
+      "options": [
+        "A. transmitter and terminal",
+        "B. receiver and determiner",
+        "C. transmitter and receiver",
+        "D. transmitter and terminator"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "Which of the following can a traveller rely on for direction in a new environment?",
+      "options": [
+        "A. DNS",
+        "B. GPRS",
+        "C. GPS",
+        "D. TCP"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "The default number of sheets in a workbook is _________________",
+      "options": [
+        "A. one",
+        "B. two",
+        "C. three",
+        "D. four"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "The chart type that does not have X and Y axes display is the _________________",
+      "options": [
+        "A. area chart",
+        "B. bar chart",
+        "C. pie chart",
+        "D. scatter diagram"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "The four standard ports include the following buses except _________________",
+      "options": [
+        "A. fast infrared",
+        "B. high performance serial",
+        "C. parallel",
+        "D. universal serial"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "By default in Microsoft Word, documents print in _________________ mode",
+      "options": [
+        "A. landscape",
+        "B. page setup",
+        "C. portrait",
+        "D. print view"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "What displays the content of the active cell in Excel?",
+      "options": [
+        "A. Formula bar",
+        "B. Name box",
+        "C. Range",
+        "D. Cell"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "The _________________ is added to a host computer to expand its abilities",
+      "options": [
+        "A. input device",
+        "B. peripheral",
+        "C. scanner",
+        "D. monitor"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "A computer that features Liquid Crystal Display (LCD) is known as _________________ computer",
+      "options": [
+        "A. desktop",
+        "B. digital",
+        "C. hybrid",
+        "D. notebook"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "One of these is a function of the control unit in the CPU",
+      "options": [
+        "A. It decodes program instructions",
+        "B. It generates data",
+        "C. It stores instructions",
+        "D. It performs logic functions"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "Integrated circuit chips used in microcomputers are made of the element _________________",
+      "options": [
+        "A. silicon",
+        "B. chromium",
+        "C. copper",
+        "D. carbon"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "The common name for all input and output devices is _________________",
+      "options": [
+        "A. keyboard",
+        "B. peripheral",
+        "C. printer",
+        "D. storage medium"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Gotfried Von Leibnitz improved upon the idea of _________________",
+      "options": [
+        "A. Pascal’s arithmetic machine",
+        "B. Babbage’s difference engine",
+        "C. Herman Hollerith machine",
+        "D. Napier’s bone"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "Notebook is an example of _________________ computer",
+      "options": [
+        "A. macro",
+        "B. mainframe",
+        "C. micro",
+        "D. mini"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "You accidentally erased a record in a sheet. Which command restores it immediately?",
+      "options": [
+        "A. Insert",
+        "B. Copy",
+        "C. Undo",
+        "D. Replace"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "_________________ is where a row and a column meet",
+      "options": [
+        "A. A cell",
+        "B. A block",
+        "C. A box",
+        "D. A prism"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "Which is an example of a function?",
+      "options": [
+        "A. =A1 + A2",
+        "B. =ADD(A1:A2)",
+        "C. =A3 + A4",
+        "D. =SUM(A1:A2)"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "In database, the maximum number of characters allowed in a field is known as field _________________",
+      "options": [
+        "A. format",
+        "B. name",
+        "C. size",
+        "D. caption"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "What is the symbol for exponentiation?",
+      "options": [
+        "A. >",
+        "B. <",
+        "C. ^",
+        "D. !"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "_________________ is a program capable of replicating itself and damaging computer systems",
+      "options": [
+        "A. Computer software",
+        "B. Computer virus",
+        "C. Computer hardware",
+        "D. Computer Trojan"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "The _________________ is found in the CPU of a computer",
+      "options": [
+        "A. hard disk",
+        "B. modem",
+        "C. motherboard",
+        "D. register"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "To find and load a previously saved file, select the _________________ command",
+      "options": [
+        "A. close",
+        "B. new",
+        "C. open",
+        "D. save"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "The process of _________________ is difficult without computers in transportation systems",
+      "options": [
+        "A. accommodation",
+        "B. loading",
+        "C. reservation",
+        "D. ticketing"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "Which of the following is not among the features of presentation packages?",
+      "options": [
+        "A. Animation",
+        "B. Insertion of range cell",
+        "C. Insertion of video and audio",
+        "D. Slide show"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

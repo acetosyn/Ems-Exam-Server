@@ -1,0 +1,141 @@
+/* ========= Modal Overlay ========= */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.45);
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* ========= Modal Box ========= */
+.modal-box {
+  width: 460px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 16px;
+  padding: 28px 30px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  animation: modalPop 0.25s ease;
+  border: 1px solid rgba(230, 230, 230, 0.7);
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========= Title ========= */
+.modal-title {
+  font-size: 22px;
+  margin-bottom: 18px;
+  font-weight: 600;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ========= Form Group ========= */
+.form-group {
+  margin: 18px 0 25px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* ========= Modern Select ========= */
+#subjectDropdown {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border-radius: 10px;
+  background: #f7f9fc;
+  border: 1.5px solid #ccd4dd;
+  outline: none;
+  transition: 0.25s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 2.5L7 8L13 2.5' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-position: calc(100% - 12px) center;
+  background-repeat: no-repeat;
+}
+
+#subjectDropdown:hover {
+  border-color: #98b4ff;
+  background: #f4f7ff;
+}
+
+#subjectDropdown:focus {
+  border-color: #2667ff;
+  box-shadow: 0 0 0 3px rgba(38, 103, 255, 0.15);
+  background: #fff;
+}
+
+/* ========= Modal Buttons Row ========= */
+.modal-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ========= Buttons ========= */
+.btn-primary,
+.btn-secondary {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+/* Primary */
+.btn-primary {
+  background: #2667ff;
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1453e6;
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  background: #9fbaff;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary */
+.btn-secondary {
+  background: #e4e6eb;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #d6d8dd;
+  transform: translateY(-2px);
+}

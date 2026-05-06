@@ -1,0 +1,310 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Government",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The process of depriving persons of the right of voting is called",
+      "options": ["A. dismissal", "B. disenfranchisement", "C. enfranchisement", "D. disqualification"],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Universal suffrage means",
+      "options": ["A. giving voting right to women above 21", "B. property ownership", "C. adult participation in politics", "D. the right of qualified adults to vote"],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "question": "Citizens legally qualified to vote for parliamentary candidates form",
+      "options": ["A. a ward", "B. political parties", "C. the electorates", "D. the electoral umpire"],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Adult male suffrage means",
+      "options": ["A. all adults can vote", "B. all adult males can vote", "C. all men who pay tax can vote", "D. all adult males who pay tax can vote"],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "In a true democracy, franchise can be limited by",
+      "options": ["A. sex", "B. education", "C. wealth", "D. age"],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "The right that enables citizens to express their electoral preferences is",
+      "options": ["A. franchise", "B. referendum", "C. suffrage", "D. coat-tails"],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "The first franchise in the history of the democratic process is",
+      "options": ["A. male franchise", "B. universal franchise", "C. female franchise", "D. property franchise"],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "A constituency",
+      "options": ["A. is the same as legislature", "B. consists of party executives", "C. is part of campaign process", "D. is an area where inhabitants send representatives to parliament"],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "An electoral district is",
+      "options": ["A. a polling unit", "B. a constituency", "C. a subdivision of a state", "D. an electoral umpire"],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "When the electorate vote for representatives who vote on their behalf, it is",
+      "options": ["A. an unfair election", "B. a rigged election", "C. an indirect election", "D. a primary election"],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "Which electoral umpire conducted elections in the Second Republic?",
+      "options": ["A. Independent Electoral Commission", "B. National Electoral Commission", "C. Federal Electoral Commission", "D. State Independent Electoral Commission"],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "Elections in the Fourth Republic are conducted by",
+      "options": ["A. INEC", "B. FEDECO", "C. NEC", "D. SIEC"],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "The chairman of the electoral umpire in Nigeria stays in office for",
+      "options": ["A. 5 years", "B. 4 years", "C. 10 years", "D. 8 years"],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "An election conducted to fill a vacant legislative seat is called",
+      "options": ["A. general election", "B. plebiscite", "C. run-off election", "D. bye election"],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Laws guiding electoral activities in Nigeria are found in the",
+      "options": ["A. electoral act", "B. constitution", "C. edict", "D. decree"],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "A special election organized to decide on a political issue is",
+      "options": ["A. bye-election", "B. primary election", "C. general election", "D. plebiscite"],
+      "correctOption": "D"
+    },
+    {
+      "id": 17,
+      "question": "Primary elections are conducted by",
+      "options": ["A. electoral umpire", "B. electoral commission", "C. political parties", "D. electoral system"],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Which electoral umpire ushered in the Third Republic?",
+      "options": ["A. NEC", "B. INEC", "C. FEDECO", "D. SIEC"],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "The process of removing an elected official by the electorate is",
+      "options": ["A. impeachment", "B. removal", "C. recall", "D. referendum"],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Impeachment of the executive head is the responsibility of the",
+      "options": ["A. senate president", "B. legislature", "C. upper house", "D. supreme court"],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Gerrymandering means",
+      "options": ["A. the second ballot system", "B. option A4", "C. manipulation of constituency boundaries", "D. tyranny of the majority"],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "Free and fair elections do not accommodate",
+      "options": ["A. partial electoral administration", "B. obedience to rules", "C. freedom of choice", "D. equality of votes"],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "A non-party election occurs when",
+      "options": ["A. voters have no parties", "B. there are no party symbols", "C. only party candidates contest", "D. all candidates run as independents"],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Delineation of constituencies is a major duty of the",
+      "options": ["A. national assembly", "B. electoral commission", "C. political parties", "D. boundary commission"],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "The method used to determine possible electoral outcomes is",
+      "options": ["A. referendum", "B. plebiscite", "C. press review", "D. opinion poll"],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is the least democratic selection process?",
+      "options": ["A. proportional representation", "B. absolute majority", "C. indirect election", "D. simple plurality system"],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "An electoral system governs",
+      "options": ["A. conduct of elections", "B. how people vote", "C. appointment of judges", "D. appointment of ministers"],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is NOT a method of election?",
+      "options": ["A. second ballot", "B. bye-election", "C. primary election", "D. co-option"],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "The major advantage of secret ballot is",
+      "options": ["A. it is faster", "B. it prevents rigging", "C. it ensures anonymity", "D. it extends franchise"],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "In simple plurality system, the winner receives",
+      "options": ["A. highest votes among candidates", "B. more votes than all others combined", "C. overwhelming majority", "D. more than half of all votes"],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Under proportional representation, elections are won based on",
+      "options": ["A. simple majority", "B. absolute majority", "C. two-thirds majority", "D. votes relative to other parties"],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "question": "The second ballot requires that a successful candidate must obtain",
+      "options": ["A. 40% votes", "B. simple majority", "C. absolute majority", "D. 50% votes"],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "An electoral system that apportions seats relative to voting strength is",
+      "options": ["A. proportional representation", "B. absolute majority system", "C. simple majority system", "D. simple plurality system"],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "Option A4 was introduced during",
+      "options": ["A. Abacha administration", "B. Babangida administration", "C. Buhari administration", "D. Obasanjo administration"],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "The highest administrative head of the civil service is the",
+      "options": ["A. permanent secretary", "B. minister", "C. commissioner", "D. director"],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Which of these officers is a grade 17 civil servant?",
+      "options": ["A. deputy director", "B. assistant director", "C. director", "D. minister"],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "A fresh university graduate enters civil service at what grade?",
+      "options": ["A. Grade 10", "B. Grade 9", "C. Grade 7", "D. Grade 8"],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "These are problems of the Nigerian civil service except",
+      "options": ["A. budget planning", "B. corruption", "C. political instability", "D. poor condition of service"],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Ombudsman can also be referred to as",
+      "options": ["A. Nigerian Tribune", "B. Public Complaint Commission", "C. Civil Service Commission", "D. Code of Conduct Tribunal"],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "The civil service belongs to which arm of government?",
+      "options": ["A. Executive", "B. Legislature", "C. Judiciary", "D. National Assembly"],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "The political head of a ministry is the",
+      "options": ["A. permanent secretary", "B. director general", "C. secretary to the government", "D. minister"],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "Which of these is NOT a ministry in Nigeria?",
+      "options": ["A. Ministry of Education", "B. Ministry of Health", "C. Ministry of External Affairs", "D. Ministry of Higher Education"],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "The class that oversees implementation of government policies is the",
+      "options": ["A. executive", "B. administrative", "C. clerical", "D. technical"],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "The civil service embraces all workers in",
+      "options": ["A. public and private companies", "B. public corporations", "C. government ministries", "D. all private corporations"],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "Which of these agencies recruits civil servants?",
+      "options": ["A. Office of the Head of Service", "B. Federal Character Commission", "C. Civil Service Commission", "D. Code of Conduct Bureau"],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Which of these cadres makes policies of the state?",
+      "options": ["A. Executive", "B. Administrative", "C. Professional", "D. Clerical"],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "Retirement age of civil servants in Nigeria is",
+      "options": ["A. 65", "B. 70", "C. 60", "D. 50"],
+      "correctOption": "C"
+    },
+    {
+      "id": 48,
+      "question": "Which ministry oversees Nigeria’s relationship with other countries?",
+      "options": ["A. Interior", "B. Presidency", "C. Defence", "D. External Affairs"],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "Nigeria became a republic in",
+      "options": ["A. 1960", "B. 1954", "C. 1979", "D. 1963"],
+      "correctOption": "D"
+    },
+    {
+      "id": 50,
+      "question": "Nigeria was colonized by which of these countries?",
+      "options": ["A. England", "B. Scotland", "C. France", "D. United Kingdom"],
+      "correctOption": "D"
+    }
+  ]
+}

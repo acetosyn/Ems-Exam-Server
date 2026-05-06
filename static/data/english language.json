@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "English",
+  "exam_title": "ENGLISH LANGUAGE INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following sentences is grammatically correct?",
+      "options": ["She don’t like mangoes.", "She doesn’t likes mangoes.", "She doesn’t like mangoes.", "She don’t likes mangoes."],
+      "answer": "She doesn’t like mangoes."
+    },
+    {
+      "id": 2,
+      "question": "Choose the correct passive form: They will finish the project tomorrow.",
+      "options": ["The project finishes tomorrow.", "The project will be finished tomorrow.", "The project is finished tomorrow.", "The project was finished tomorrow."],
+      "answer": "The project will be finished tomorrow."
+    },
+    {
+      "id": 3,
+      "question": "Identify the adverb in this sentence: He quickly ran to the shop.",
+      "options": ["He", "quickly", "ran", "shop"],
+      "answer": "quickly"
+    },
+    {
+      "id": 4,
+      "question": "Which of the following is an example of a complex sentence?",
+      "options": ["She came, she saw, she conquered.", "She likes tea and coffee.", "She went to bed because she was tired.", "She runs fast."],
+      "answer": "She went to bed because she was tired."
+    },
+    {
+      "id": 5,
+      "question": "Which of these is a correct question tag? He is a teacher, ___?",
+      "options": ["isn’t he?", "is he?", "wasn’t he?", "doesn’t he?"],
+      "answer": "isn’t he?"
+    },
+    {
+      "id": 6,
+      "question": "Which word is a synonym for 'ephemeral' in the context of describing something short-lived?",
+      "options": ["Permanent", "Transient", "Eternal", "Enduring"],
+      "answer": "Transient"
+    },
+    {
+      "id": 7,
+      "question": "Identify the word that best serves as a synonym for 'obstreperous' when describing a noisy student.",
+      "options": ["Quiet", "Boisterous", "Submissive", "Respectful"],
+      "answer": "Boisterous"
+    },
+    {
+      "id": 8,
+      "question": "In the sentence, 'Her decision was prudent,' which word could replace 'prudent' without changing the meaning?",
+      "options": ["Reckless", "Cautious", "Hasty", "Impulsive"],
+      "answer": "Cautious"
+    },
+    {
+      "id": 9,
+      "question": "Which word is an antonym for 'verbose' when describing someone’s speech?",
+      "options": ["Wordy", "Concise", "Talkative", "Expressive"],
+      "answer": "Concise"
+    },
+    {
+      "id": 10,
+      "question": "In the sentence, 'The room was squalid,' which word could be an antonym for 'squalid'?",
+      "options": ["Filthy", "Clean", "Dingy", "Unhygienic"],
+      "answer": "Clean"
+    },
+    {
+      "id": 11,
+      "question": "What figure of speech is present in the statement: 'The more you learn, the less you know'?",
+      "options": ["Paradox", "Alliteration", "Assonance", "Onomatopoeia"],
+      "answer": "Paradox"
+    },
+    {
+      "id": 12,
+      "question": "Identify the figure of speech in the sentence: 'The wind whispered secrets through the trees.'",
+      "options": ["Simile", "Metaphor", "Personification", "Hyperbole"],
+      "answer": "Personification"
+    },
+    {
+      "id": 13,
+      "question": "Which word has a different vowel sound?",
+      "options": ["Cat", "Bat", "Car", "Hat"],
+      "answer": "Car"
+    },
+    {
+      "id": 14,
+      "question": "The primary stress in the word photograph falls on:",
+      "options": ["First syllable", "Second syllable", "Third syllable", "None"],
+      "answer": "First syllable"
+    },
+    {
+      "id": 15,
+      "question": "In phonetics, the sound /θ/ as in think is classified as:",
+      "options": ["Voiced dental fricative", "Voiceless dental fricative", "Voiceless alveolar stop", "Voiced bilabial stop"],
+      "answer": "Voiceless dental fricative"
+    },
+    {
+      "id": 16,
+      "question": "Which word contains a diphthong?",
+      "options": ["Sit", "Cat", "Boy", "Run"],
+      "answer": "Boy"
+    },
+    {
+      "id": 17,
+      "question": "Which minimal pair distinguishes /p/ and /b/?",
+      "options": ["Pat – Bat", "Cat – Cut", "Sit – Seat", "Fun – Fan"],
+      "answer": "Pat – Bat"
+    },
+    {
+      "id": 18,
+      "question": "The word 'fast' in 'He runs fast' is functioning as a:",
+      "options": ["noun", "adjective", "adverb", "verb"],
+      "answer": "adverb"
+    },
+    {
+      "id": 19,
+      "question": "What is skimming used for?",
+      "options": ["Reading every detail", "Reading to locate specific information", "Reading quickly to get the general idea", "Reading aloud for pronunciation"],
+      "answer": "Reading quickly to get the general idea"
+    },
+    {
+      "id": 20,
+      "question": "When a reader makes guesses based on prior knowledge, it is called:",
+      "options": ["summarizing", "predicting", "paraphrasing", "quoting"],
+      "answer": "predicting"
+    },
+    {
+      "id": 21,
+      "question": "Which of these helps improve comprehension?",
+      "options": ["Memorization of words only", "Ignoring context clues", "Using background knowledge", "Skipping difficult passages"],
+      "answer": "Using background knowledge"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following best defines scanning in reading?",
+      "options": ["Reading for enjoyment", "Reading for general meaning", "Reading to find specific information", "Reading aloud"],
+      "answer": "Reading to find specific information"
+    },
+    {
+      "id": 23,
+      "question": "A topic sentence in a paragraph usually:",
+      "options": ["Gives supporting details", "States the main idea", "Concludes the paragraph", "Quotes another source"],
+      "answer": "States the main idea"
+    },
+    {
+      "id": 24,
+      "question": "Which of these is NOT a type of essay?",
+      "options": ["Narrative", "Expository", "Descriptive", "Dictation"],
+      "answer": "Dictation"
+    },
+    {
+      "id": 25,
+      "question": "Which sentence has correct punctuation?",
+      "options": ["“Are you coming today”? she asked.", "“Are you coming today?” she asked.", "“Are you coming today, she asked?”", "“Are you coming today, she asked."],
+      "answer": "“Are you coming today?” she asked."
+    },
+    {
+      "id": 26,
+      "question": "Which of these is an example of formative assessment?",
+      "options": ["End-of-term exam", "National standardized test", "Teacher’s feedback on an essay draft", "Final year project"],
+      "answer": "Teacher’s feedback on an essay draft"
+    },
+    {
+      "id": 27,
+      "question": "A formal letter must include:",
+      "options": ["Slang expressions", "Date and address", "Short text abbreviations", "Emoji"],
+      "answer": "Date and address"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is an example of a thesis statement?",
+      "options": ["What is climate change?", "Climate change is the greatest challenge of our time because it affects health, food, and environment.", "Climate change is real.", "Climate change is discussed everywhere."],
+      "answer": "Climate change is the greatest challenge of our time because it affects health, food, and environment."
+    },
+    {
+      "id": 29,
+      "question": "Which of the following improves listening skills?",
+      "options": ["Interrupting often", "Maintaining eye contact", "Talking more than listening", "Ignoring the speaker"],
+      "answer": "Maintaining eye contact"
+    },
+    {
+      "id": 30,
+      "question": "Which is an example of a communicative speaking activity?",
+      "options": ["Silent reading", "Grammar drills", "Role play", "Copying notes"],
+      "answer": "Role play"
+    },
+    {
+      "id": 31,
+      "question": "Active listening involves:",
+      "options": ["Responding appropriately", "Avoiding feedback", "Daydreaming", "Writing silently"],
+      "answer": "Responding appropriately"
+    },
+    {
+      "id": 32,
+      "question": "Which utterance is polite?",
+      "options": ["Give me the book.", "Hand over that book.", "Could you please give me the book?", "I want the book now."],
+      "answer": "Could you please give me the book?"
+    },
+    {
+      "id": 33,
+      "question": "The intonation in a yes/no question usually:",
+      "options": ["falls", "rises", "stays flat", "alternates"],
+      "answer": "rises"
+    },
+    {
+      "id": 34,
+      "question": "Who is the author of Macbeth?",
+      "options": ["Charles Dickens", "William Shakespeare", "Jane Austen", "George Orwell"],
+      "answer": "William Shakespeare"
+    },
+    {
+      "id": 35,
+      "question": "The line 'The sun smiled at us' is an example of:",
+      "options": ["Metaphor", "Simile", "Personification", "Irony"],
+      "answer": "Personification"
+    },
+    {
+      "id": 36,
+      "question": "A short story is different from a novel mainly because:",
+      "options": ["It has more characters", "It is shorter in length", "It uses difficult words", "It is always true"],
+      "answer": "It is shorter in length"
+    },
+    {
+      "id": 37,
+      "question": "The central idea of a literary work is called:",
+      "options": ["Plot", "Setting", "Theme", "Character"],
+      "answer": "Theme"
+    },
+    {
+      "id": 38,
+      "question": "Which is an example of dramatic irony?",
+      "options": ["The reader knows the killer, but the characters don’t.", "A man slips on a banana peel.", "A speech using 'like' or 'as.'", "An exaggerated statement."],
+      "answer": "The reader knows the killer, but the characters don’t."
+    },
+    {
+      "id": 39,
+      "question": "Which method emphasizes communication over grammar rules?",
+      "options": ["Grammar Translation Method", "Audio-lingual Method", "Communicative Language Teaching", "Silent Method"],
+      "answer": "Communicative Language Teaching"
+    },
+    {
+      "id": 40,
+      "question": "Which teaching aid is most effective for teaching pronunciation?",
+      "options": ["Interactive board", "Phonetic guide", "Phonetic chart", "Dictionary"],
+      "answer": "Phonetic chart"
+    }
+  ]
+}

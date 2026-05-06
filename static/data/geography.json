@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Geography",
+  "exam_title": "GEOGRAPHY INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The process of wearing away rock material by wind, water, or ice is known as:",
+      "options": ["Sedimentation", "Deposition", "Erosion", "Weathering"],
+      "answer": "Erosion"
+    },
+    {
+      "id": 2,
+      "question": "Which type of volcano is characterized by low, broad slopes and fluid lava flows, like Mauna Loa?",
+      "options": ["Caldera", "Shield volcano", "Cinder cone", "Stratovolcano"],
+      "answer": "Shield volcano"
+    },
+    {
+      "id": 3,
+      "question": "The Richter scale measures earthquake intensity. A magnitude 7 quake is how many times stronger than a magnitude 5 quake in terms of energy release?",
+      "options": ["1,000 times", "31.6 times", "100 times", "10 times"],
+      "answer": "100 times"
+    },
+    {
+      "id": 4,
+      "question": "Karst topography is primarily formed by the dissolution of:",
+      "options": ["Granite", "Sandstone", "Basalt", "Limestone"],
+      "answer": "Limestone"
+    },
+    {
+      "id": 5,
+      "question": "The process by which rivers deepen their valleys through vertical erosion is called:",
+      "options": ["Braiding", "Downcutting", "Meandering", "Lateral erosion"],
+      "answer": "Downcutting"
+    },
+    {
+      "id": 6,
+      "question": "The Köppen classification ‘Af’ represents a climate that is:",
+      "options": ["Polar tundra", "Hot, humid tropical rainforest", "Cold, arid desert", "Temperate, with dry winters"],
+      "answer": "Hot, humid tropical rainforest"
+    },
+    {
+      "id": 7,
+      "question": "The Coriolis effect, which influences wind and ocean currents, is caused by:",
+      "options": ["Gravitational pull", "Earth’s rotation", "Atmospheric pressure differences", "Solar radiation"],
+      "answer": "Earth’s rotation"
+    },
+    {
+      "id": 8,
+      "question": "Which atmospheric layer contains the ozone layer, critical for UV radiation absorption?",
+      "options": ["Stratosphere", "Troposphere", "Thermosphere", "Mesosphere"],
+      "answer": "Stratosphere"
+    },
+    {
+      "id": 9,
+      "question": "El Niño is characterized by:",
+      "options": ["Increased Atlantic hurricane activity", "Warming of Pacific Ocean surface waters", "Cooling of Pacific Ocean surface waters", "Persistent drought in the Sahel"],
+      "answer": "Warming of Pacific Ocean surface waters"
+    },
+    {
+      "id": 10,
+      "question": "The Intertropical Convergence Zone (ITCZ) is associated with:",
+      "options": ["Heavy rainfall and low pressure", "Polar fronts", "High-pressure systems", "Trade wind divergence"],
+      "answer": "Heavy rainfall and low pressure"
+    },
+    {
+      "id": 11,
+      "question": "The biome with the highest biodiversity is:",
+      "options": ["Tundra", "Tropical rainforest", "Desert", "Grassland"],
+      "answer": "Tropical rainforest"
+    },
+    {
+      "id": 12,
+      "question": "Podzolization, a soil-forming process, is most common in:",
+      "options": ["Arid regions", "Tropical savannas", "Coastal marshes", "Coniferous forest regions"],
+      "answer": "Coniferous forest regions"
+    },
+    {
+      "id": 13,
+      "question": "The term ‘ecotone’ refers to:",
+      "options": ["A transition zone between two biomes", "A type of soil horizon", "A conservation strategy", "A stable ecosystem"],
+      "answer": "A transition zone between two biomes"
+    },
+    {
+      "id": 14,
+      "question": "Which factor primarily determines the distribution of vegetation in a biome?",
+      "options": ["Climate (temperature and precipitation)", "Soil pH", "Altitude only", "Human activity"],
+      "answer": "Climate (temperature and precipitation)"
+    },
+    {
+      "id": 15,
+      "question": "The process of desertification is most directly caused by:",
+      "options": ["Glacial retreat", "Overgrazing and deforestation", "Tectonic uplift", "Volcanic activity"],
+      "answer": "Overgrazing and deforestation"
+    },
+    {
+      "id": 16,
+      "question": "The demographic transition model stage with high birth rates and declining death rates is:",
+      "options": ["Stage 4", "Stage 1", "Stage 2", "Stage 3"],
+      "answer": "Stage 2"
+    },
+    {
+      "id": 17,
+      "question": "Ravenstein’s laws of migration emphasize that most migrants move:",
+      "options": ["Randomly", "To rural areas", "Short distances", "Long distances"],
+      "answer": "Short distances"
+    },
+    {
+      "id": 18,
+      "question": "The dependency ratio measures the proportion of:",
+      "options": ["Working-age population to total population", "Immigrants to native-born", "Urban to rural population", "Non-working age (young and old) to working-age population"],
+      "answer": "Non-working age (young and old) to working-age population"
+    },
+    {
+      "id": 19,
+      "question": "A megacity is defined as a city with a population exceeding:",
+      "options": ["20 million", "10 million", "5 million", "1 million"],
+      "answer": "10 million"
+    },
+    {
+      "id": 20,
+      "question": "Push factors for migration include:",
+      "options": ["Job opportunities", "Better healthcare", "Educational access", "Political instability"],
+      "answer": "Political instability"
+    },
+    {
+      "id": 21,
+      "question": "The von Thünen model explains:",
+      "options": ["Agricultural land use around a central market", "Industrial location based on transportation costs", "Urban sprawl patterns", "Global trade flows"],
+      "answer": "Agricultural land use around a central market"
+    },
+    {
+      "id": 22,
+      "question": "Which sector of the economy includes activities like mining and agriculture?",
+      "options": ["Secondary", "Quaternary", "Primary", "Tertiary"],
+      "answer": "Primary"
+    },
+    {
+      "id": 23,
+      "question": "Urbanization is highest in:",
+      "options": ["Antarctica", "North America", "South Asia", "Sub-Saharan Africa"],
+      "answer": "North America"
+    },
+    {
+      "id": 24,
+      "question": "The rank-size rule predicts that the population of a city is:",
+      "options": ["Independent of rank", "Equal to its rank", "Proportional to its GDP", "Inversely proportional to its rank in the urban hierarchy"],
+      "answer": "Inversely proportional to its rank in the urban hierarchy"
+    },
+    {
+      "id": 25,
+      "question": "The multiplier effect in economic geography refers to:",
+      "options": ["Inflation caused by trade", "Increased economic activity from initial investment", "Migration reducing local economies", "Decline in jobs due to automation"],
+      "answer": "Increased economic activity from initial investment"
+    },
+    {
+      "id": 26,
+      "question": "A nation-state is characterized by:",
+      "options": ["Cultural homogeneity and political sovereignty", "No defined borders", "Multiple ethnic groups under one government", "Economic dominance globally"],
+      "answer": "Cultural homogeneity and political sovereignty"
+    },
+    {
+      "id": 27,
+      "question": "The term ‘gerrymandering’ refers to:",
+      "options": ["Dividing urban areas into zones", "Redrawing electoral boundaries for political advantage", "Allocating resources by region", "Establishing trade zones"],
+      "answer": "Redrawing electoral boundaries for political advantage"
+    },
+    {
+      "id": 28,
+      "question": "Cultural diffusion is best exemplified by:",
+      "options": ["Preservation of local languages", "Regional climate variations", "Isolation of indigenous groups", "Spread of fast-food chains globally"],
+      "answer": "Spread of fast-food chains globally"
+    },
+    {
+      "id": 29,
+      "question": "Centrifugal forces in a state promote:",
+      "options": ["Economic growth", "National unity", "Cultural assimilation", "Division and fragmentation"],
+      "answer": "Division and fragmentation"
+    },
+    {
+      "id": 30,
+      "question": "The Human Development Index (HDI) measures:",
+      "options": ["Population density", "Urbanization rate", "Life expectancy, education, and per capita income", "GDP per capita only"],
+      "answer": "Life expectancy, education, and per capita income"
+    },
+    {
+      "id": 31,
+      "question": "A map projection that preserves area but distorts shape is:",
+      "options": ["Equal-area (e.g., Mollweide)", "Robinson", "Azimuthal equidistant", "Mercator"],
+      "answer": "Equal-area (e.g., Mollweide)"
+    },
+    {
+      "id": 32,
+      "question": "The scale 1:100,000 means:",
+      "options": ["1 cm equals 10,000 km", "1 km equals 100 km", "1 cm on the map equals 100,000 cm (1 km) in reality", "1 cm equals 100 cm"],
+      "answer": "1 cm on the map equals 100,000 cm (1 km) in reality"
+    },
+    {
+      "id": 33,
+      "question": "In GIS, a raster data model represents spatial data as:",
+      "options": ["A grid of cells with values", "3D topographic models", "Attribute tables only", "Vector points and lines"],
+      "answer": "A grid of cells with values"
+    },
+    {
+      "id": 34,
+      "question": "The prime meridian is located at:",
+      "options": ["0° longitude", "180° longitude", "90° latitude", "0° latitude"],
+      "answer": "0° longitude"
+    },
+    {
+      "id": 35,
+      "question": "A choropleth map displays data using:",
+      "options": ["Lines for elevation", "Dots representing quantities", "Symbols for landmarks", "Varying colors or shading for areas"],
+      "answer": "Varying colors or shading for areas"
+    },
+    {
+      "id": 36,
+      "question": "The Kyoto Protocol aimed to reduce emissions of:",
+      "options": ["Ozone-depleting substances", "Heavy metals", "Carbon dioxide and other greenhouse gases", "Sulfur dioxide only"],
+      "answer": "Carbon dioxide and other greenhouse gases"
+    },
+    {
+      "id": 37,
+      "question": "The term ‘carrying capacity’ refers to:",
+      "options": ["Total arable land in a region", "Urban infrastructure limits", "Maximum population an environment can sustainably support", "Water availability per capita"],
+      "answer": "Maximum population an environment can sustainably support"
+    },
+    {
+      "id": 38,
+      "question": "Deforestation contributes to climate change by:",
+      "options": ["Releasing stored carbon and reducing CO₂ uptake", "Cooling the atmosphere", "Increasing soil fertility", "Increasing CO₂ absorption"],
+      "answer": "Releasing stored carbon and reducing CO₂ uptake"
+    },
+    {
+      "id": 39,
+      "question": "The main source of acid rain is emissions of:",
+      "options": ["Methane", "Chlorofluorocarbons", "Carbon monoxide", "Sulfur dioxide and nitrogen oxides"],
+      "answer": "Sulfur dioxide and nitrogen oxides"
+    },
+    {
+      "id": 40,
+      "question": "Sustainable development emphasizes:",
+      "options": ["Short-term resource exploitation", "Urban expansion only", "Balancing economic, social, and environmental needs", "Economic growth without environmental consideration"],
+      "answer": "Balancing economic, social, and environmental needs"
+    }
+  ]
+}

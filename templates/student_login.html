@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - EMIS Exam Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_login.css') }}">
+
+    <!-- Font Awesome for Icons (optional but recommended) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <!-- ==============================
+         TITLE CARD
+    =============================== -->
+    <div class="title-card">
+        <h1>Welcome to your Student Login Page</h1>
+        <p>Please enter your admission number and first name to access your exam portal.</p>
+    </div>
+
+    <!-- ==============================
+         LOGIN CARD
+    =============================== -->
+    <div class="login-card">
+
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo" class="logo">
+            <h2 class="school-name">EMIS - Student Login</h2>
+            <p class="login-subtitle">Access your exam portal</p>
+        </div>
+
+        {% if error %}
+        <div class="error-banner">
+            ❌ {{ error }}
+        </div>
+        {% endif %}
+
+        <form id="studentLoginForm" method="POST" class="login-form">
+
+            <div class="form-field">
+                <label for="first_name">First Name</label>
+                <div class="username-wrapper">
+                    <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        required
+                        placeholder="Enter your first name"
+                        value="{{ first_name or '' }}"
+                    >
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="admission_number">Admission Number</label>
+                <div class="password-wrapper">
+                    <input
+                        type="text"
+                        id="admission_number"
+                        name="admission_number"
+                        required
+                        placeholder="e.g. std148"
+                        value="{{ admission_number or '' }}"
+                    >
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">
+                <span class="btn-text">Login</span>
+                <div class="loading-spinner hidden"></div>
+            </button>
+        </form>
+
+        <p class="footer-text">Powered by EMIS - Epitome Model Islamic Schools</p>
+
+    </div> <!-- /.login-card -->
+
+</div> <!-- /.login-page -->
+
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-box">
+        <div class="loading-spinner big"></div>
+        <p>Signing you in...</p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/student_login.js') }}"></script>
+
+</body>
+</html>

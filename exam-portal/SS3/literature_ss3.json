@@ -1,0 +1,532 @@
+{
+    "subject": "Literature-in-English",
+    "class": "SS3",
+    "session": "2025/2026",
+    "time_allowed_minutes": 120,
+    "questions": [
+        {
+            "id": 1,
+            "isInstruction": true,
+            "question": "SECTION 1:\nGENERAL KNOWLEDGE OF LITERATURE AND LITERARY APPRECIATION\nChoose the option (A–D) that best answers each question.",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 2,
+            "question": "The dominant theme of an epic is",
+            "options": [
+                "A. cowardice",
+                "B. heroism",
+                "C. sorrow",
+                "D. victory"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 3,
+            "question": "“The cat attempted to kill the mouse by stepping on my mouse” is an example of",
+            "options": [
+                "A. chiasmus",
+                "B. pun",
+                "C. rhyme",
+                "D. zeugma"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 4,
+            "question": "In a literary work, the speaker’s attitude towards the subject is inferred from the",
+            "options": [
+                "A. plot",
+                "B. rhythm",
+                "C. setting",
+                "D. tone"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 5,
+            "question": "The repetition of vowel sounds in poetry is",
+            "options": [
+                "A. alliteration",
+                "B. assonance",
+                "C. onomatopoeia",
+                "D. pun"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "question": "The part of the theatre in front of the curtain is the",
+            "options": [
+                "A. backstage",
+                "B. balcony",
+                "C. centre stage",
+                "D. proscenium"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 7,
+            "question": "“When the king was murdered, the wind rose with great violence” exemplifies",
+            "options": [
+                "A. hyperbole",
+                "B. pathetic fallacy",
+                "C. synecdoche",
+                "D. transferred epithet"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 8,
+            "isInstruction": true,
+            "question": "Read the extract below and answer Questions 9–12:",
+            "options": [],
+            "diagram": null,
+            "passage": "Amponsah’s residence\nKwaku: Adwoa, A-dwo-aa! Where are you that you aren’t answering, Adwoa? {pants for breath}\nAdwoa: Right here; just a minute and I’ll be with you! {muttering to herself} I wonder why the man doesn’t drop dead"
+        },
+        {
+            "id": 9,
+            "question": "Amponsah’s residence is the",
+            "options": [
+                "A. curtain raiser",
+                "B. dramatic monologue",
+                "C. interlude",
+                "D. setting"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 10,
+            "question": "Kwaku and Adwoa are ______ in the extract",
+            "options": [
+                "A. actors",
+                "B. characters",
+                "C. directors",
+                "D. props"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 11,
+            "question": "“I wonder why the man doesn’t drop dead” exemplifies a/an",
+            "options": [
+                "A. aside",
+                "B. dialogue",
+                "C. ode",
+                "D. soliloquy"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 12,
+            "question": "“Muttering to herself” is a",
+            "options": [
+                "A. curtain call",
+                "B. dress rehearsal",
+                "C. musical interlude",
+                "D. stage direction"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 13,
+            "question": "A character who serves as a contrast to another is a",
+            "options": [
+                "A. antagonist",
+                "B. clown",
+                "C. foil",
+                "D. protagonist"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 14,
+            "question": "“The weather is not unpleasant” illustrates",
+            "options": [
+                "A. limerick",
+                "B. litotes",
+                "C. paradox",
+                "D. parody"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 15,
+            "question": "A collection of literary works which are widely accepted is considered a",
+            "options": [
+                "A. canon",
+                "B. compilation",
+                "C. database",
+                "D. period"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 16,
+            "isInstruction": true,
+            "question": "Read the extract below and answer Questions 17–19:",
+            "options": [],
+            "diagram": null,
+            "passage": "I walk into a room\nJust as cool as you please,\nThe fellows stand or\nFall down on their knees"
+        },
+        {
+            "id": 17,
+            "question": "The speaker",
+            "options": [
+                "A. adores men",
+                "B. disrespects men",
+                "C. exhibits impunity",
+                "D. exudes self confidence"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 18,
+            "question": "“Just as cool as you please” illustrates",
+            "options": [
+                "A. exaggeration",
+                "B. metaphor",
+                "C. personification",
+                "D. simile"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 19,
+            "question": "“The fellows stand or fall down on their knees” exemplifies",
+            "options": [
+                "A. apostrophe",
+                "B. contrast",
+                "C. metonymy",
+                "D. parallelism"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 20,
+            "question": "Chapter is to prose as ______ is to poetry",
+            "options": [
+                "A. act",
+                "B. line",
+                "C. scene",
+                "D. stanza"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 21,
+            "isInstruction": true,
+            "question": "Read the extract below and answer Questions 22–23:",
+            "options": [],
+            "diagram": null,
+            "passage": "Oh Peter, why?\nWhy have you left so soon?\nYou should have waited,\nFor, we love you"
+        },
+        {
+            "id": 22,
+            "question": "The lines exemplify",
+            "options": [
+                "A. apostrophe",
+                "B. ballad",
+                "C. epistle",
+                "D. panegyric"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 23,
+            "question": "The extract evokes the feeling of",
+            "options": [
+                "A. excitement",
+                "B. hope",
+                "C. inspiration",
+                "D. sorrow"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 24,
+            "question": "“The Sea Eats the Land at Home” illustrates",
+            "options": [
+                "A. chiasmus",
+                "B. epithet",
+                "C. fallacy",
+                "D. personification"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 25,
+            "isInstruction": true,
+            "question": "UNSEEN PROSE — Read the passage and answer Questions 26–30:",
+            "options": [],
+            "diagram": null,
+            "passage": "Our lives are miserable, laborious and short. We are born, we are given just as much food as will keep the breath in our bodies and those of us who are capable of it are forced to work to the last atom of our strength; and the very instant our usefulness has come to an end, we are slaughtered with hideous cruelty.\nNo animal in England is free. The life of an animal is misery and slavery.\nWhy then do we continue in these miserable conditions?\nBecause nearly the whole of the produce of our labour is stolen from us by human beings.\nThis, comrades, is the answer to all our problems. Man is the only real enemy that we have.\nRemove man from the scene and the root cause of hunger and overwork is abolished forever."
+        },
+        {
+            "id": 26,
+            "question": "The tone shows that the narrator is",
+            "options": [
+                "A. abusive",
+                "B. angry",
+                "C. moralistic",
+                "D. guilty"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 27,
+            "question": "“To work to the last atom of our strength” illustrates",
+            "options": [
+                "A. antithesis",
+                "B. hyperbole",
+                "C. irony",
+                "D. metonymy"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "question": "“Why then do we continue in these miserable conditions?” is a",
+            "options": [
+                "A. adage",
+                "B. inference question",
+                "C. rhetorical question",
+                "D. sarcasm"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 29,
+            "question": "The narrator’s speaking voice is",
+            "options": [
+                "A. colloquial",
+                "B. comical",
+                "C. didactic",
+                "D. metaphoric"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 30,
+            "question": "“Remove man from the scene…” evokes the feeling of",
+            "options": [
+                "A. expectancy",
+                "B. fear",
+                "C. hopelessness",
+                "D. spite"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 31,
+            "isInstruction": true,
+            "question": "UNSEEN POETRY — Read the poem and answer Questions 32–36:",
+            "options": [],
+            "diagram": null,
+            "passage": "I know not, my Alberta,\nWhen again on your brightness of smile\nMy eyes will rest awhile,\n\nNor when again of your softness of voice\nMy ears will drink by eager choice\n\nWhen again into the silver moonshine\nYou early tonight or late venture\nAs is your wont in weather fine\n\nAwake in bed astute as lovers are\nI’ll, dreaming, hold and fondle the delusions\nOf your velvety texture’s mirage"
+        },
+        {
+            "id": 32,
+            "question": "The poem is best described as",
+            "options": [
+                "A. a dirge",
+                "B. an epic",
+                "C. a lyric",
+                "D. an ode"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 33,
+            "question": "The intense emotion is one of",
+            "options": [
+                "A. anger",
+                "B. desire",
+                "C. devotion",
+                "D. gratitude"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 34,
+            "question": "“My eyes will rest… My ears will drink…” illustrates",
+            "options": [
+                "A. alliteration",
+                "B. metaphor",
+                "C. parallelism",
+                "D. simile"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 35,
+            "question": "The poem is dominated by images associated with",
+            "options": [
+                "A. hearing",
+                "B. sight",
+                "C. smell",
+                "D. taste"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 36,
+            "question": "“I’ll… hold and fondle the delusions” is ______ in tone",
+            "options": [
+                "A. didactic",
+                "B. dramatic",
+                "C. pedantic",
+                "D. pessimistic"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 37,
+            "isInstruction": true,
+            "question": "ANTONY AND CLEOPATRA — PASSAGE (Answer Questions 38–42):",
+            "options": [],
+            "diagram": null,
+            "passage": "If you apply yourself to our intents,\nWhich towards you are gentle, you shall find\nA benefit in this change; but if you seek\nTo lay on me a cruelty by taking\nAntony’s course, you shall bereave yourself\nOf my good purposes, and put your children\nTo destruction which I’ll guard them from.\nIf thereon you rely I’ll take my leave.\n(Act V, Scene 2)"
+        },
+        {
+            "id": 38,
+            "question": "Who is the speaker?",
+            "options": [
+                "A. Pompey",
+                "B. Julius Caesar",
+                "C. Antony",
+                "D. Octavius"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 39,
+            "question": "Who is the speaker referring to?",
+            "options": [
+                "A. Mardian",
+                "B. Fulvia",
+                "C. Cleopatra",
+                "D. Octavia"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 40,
+            "question": "Did the addressee accept to rely?",
+            "options": [
+                "A. Yes",
+                "B. No",
+                "C. I didn’t read the text",
+                "D. I wasn’t there"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "question": "Another word for ‘apply’ in line 1 is",
+            "options": [
+                "A. accept",
+                "B. refuse",
+                "C. rub",
+                "D. wash"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 42,
+            "question": "What caused this action by the speaker?",
+            "options": [
+                "A. Heartbreak",
+                "B. Betrayal",
+                "C. She is an enemy",
+                "D. He derives joy in it"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "isInstruction": true,
+            "question": "ANTONY AND CLEOPATRA — GENERAL KNOWLEDGE (Answer Questions 44–50):",
+            "options": [],
+            "diagram": null
+        },
+        {
+            "id": 44,
+            "question": "Who is NOT among Cleopatra’s attendants?",
+            "options": [
+                "A. Iras",
+                "B. Alexas",
+                "C. Charmian",
+                "D. Fulvia"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 45,
+            "question": "Who comes to Rome secretly without entourage?",
+            "options": [
+                "A. Iras",
+                "B. Fulvia",
+                "C. Octavia",
+                "D. Cleopatra"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 46,
+            "question": "Who does the person want to see?",
+            "options": [
+                "A. Her father",
+                "B. Her brother",
+                "C. Her husband",
+                "D. Her uncle"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 47,
+            "question": "Why does she come secretly?",
+            "options": [
+                "A. To fight",
+                "B. Beg pardon for Antony",
+                "C. Get married",
+                "D. Spy on Rome"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "question": "Who complains that Antony wastes time ‘in revel’?",
+            "options": [
+                "A. Pompey",
+                "B. Enobarbus",
+                "C. Caesar",
+                "D. Menas"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 49,
+            "question": "Who is the speaker of ‘Noble friends…’?",
+            "options": [
+                "A. Antony",
+                "B. Lepidus",
+                "C. Caesar",
+                "D. Agrippa"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 50,
+            "question": "What brought them together?",
+            "options": [
+                "A. Wedding",
+                "B. War",
+                "C. Celebration",
+                "D. Gamble"
+            ],
+            "correctOption": "B"
+        }
+    ]
+}

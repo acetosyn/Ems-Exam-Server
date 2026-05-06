@@ -1,0 +1,465 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Chemistry",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "Which of the following atoms contains the highest number of electrons in the outermost shell?",
+      "diagram": null,
+      "options": ["A. <sup>8</sup>O", "B. <sup>10</sup>Ne", "C. <sup>15</sup>P", "D. K"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 2,
+      "question": "The electronic configuration of an element represented as <sup>9</sup><sub>19</sub>X is",
+      "diagram": null,
+      "options": [
+        "A. 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>5</sup>",
+        "B. 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>2</sup> 3p<sup>3</sup>",
+        "C. 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup>",
+        "D. 1s<sup>2</sup> 2s<sup>2</sup> 2p"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 3,
+      "question": "A calcium atom ionizes by",
+      "diagram": null,
+      "options": ["A. gaining two electrons", "B. losing two electrons", "C. sharing two electrons", "D. gaining two protons"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "question": "Which of the following properties increases down a group in the periodic table?",
+      "diagram": null,
+      "options": ["A. Atomic radius", "B. Electronegativity", "C. Electron affinity", "D. Ionization energy"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 5,
+      "question": "Which of the following halogens is the most reactive?",
+      "diagram": null,
+      "options": ["A. F<sub>2</sub>", "B. Cl<sub>2</sub>", "C. I<sub>2</sub>", "D. Br<sub>2</sub>"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 6,
+      "question": "Equal volumes of CO<sub>2</sub> and CO at STP have the same",
+      "diagram": null,
+      "options": ["A. mass", "B. density", "C. rate of diffusion", "D. number of molecules"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 7,
+      "question": "Gas molecules are said to be perfectly elastic because",
+      "diagram": null,
+      "options": [
+        "A. they collide without loss of energy",
+        "B. they move about in straight lines",
+        "C. the distance between them is negligible",
+        "D. the volume they occupy is negligible"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "question": "The gas evolved when dilute H<sub>2</sub>SO<sub>4</sub> reacts with Na<sub>2</sub>CO<sub>3</sub> is",
+      "diagram": null,
+      "options": ["A. hydrogen", "B. oxygen", "C. carbon(IV) oxide", "D. sulphur(IV) oxide"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 9,
+      "question": "Which of the following acids is an acid salt?",
+      "diagram": null,
+      "options": ["A. (NH<sub>4</sub>)<sub>2</sub>CO<sub>3</sub>", "B. CH<sub>3</sub>COONa", "C. KHSO<sub>4</sub>", "D. MgSO<sub>4</sub>.7H<sub>2</sub>O"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "question": "Which of the following compounds dissolves in water to give an alkaline solution?",
+      "diagram": null,
+      "options": ["A. Ammonium chloride", "B. Sodium chloride", "C. Sulphur(IV) oxide", "D. Potassium oxide"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "question": "A positive electrode is called the",
+      "diagram": null,
+      "options": ["A. anode", "B. cathode", "C. anion", "D. cation"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "question": "P<sub>total</sub> = P<sub>1</sub> + P<sub>2</sub> + P<sub>3</sub> + … + P<sub>n</sub> is an expression of",
+      "diagram": null,
+      "options": ["A. Graham’s law", "B. Gay-Lussac’s law", "C. Boyle’s law", "D. Dalton’s law"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 13,
+      "question": "A negative electrode is called the",
+      "diagram": null,
+      "options": ["A. anode", "B. cathode", "C. cation", "D. anion"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 14,
+      "question": "What is the oxidation number of nitrogen in Al(NO<sub>3</sub>)<sub>3</sub>?",
+      "diagram": null,
+      "options": ["A. +1", "B. +3", "C. +5", "D. +6"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "question": "Which ion will be discharged at the cathode during electrolysis of a solution containing H<sup>+</sup>, Cu<sup>2+</sup>, OH<sup>-</sup> and Cl<sup>-</sup>?",
+      "diagram": null,
+      "options": ["A. H<sup>+</sup>", "B. Cu<sup>2+</sup>", "C. OH<sup>-</sup>", "D. Cl<sup>-</sup>"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 16,
+      "question": "In the electrolysis of CuSO<sub>4</sub>(aq) using copper electrodes, the reaction at the anode is",
+      "diagram": null,
+      "options": [
+        "A. discharge of SO<sub>4</sub><sup>2-</sup>",
+        "B. discharge of OH<sup>-</sup>",
+        "C. dissolution of copper electrode",
+        "D. evolution of oxygen"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 17,
+      "question": "The reaction AlCl<sub>3</sub> + 3H<sub>2</sub>O → Al(OH)<sub>3</sub> + 3HCl involves",
+      "diagram": null,
+      "options": ["A. dehydration", "B. hydrolysis", "C. double decomposition", "D. neutralization"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "question": "The main difference between primary and secondary cells is that",
+      "diagram": null,
+      "options": [
+        "A. primary cells are electrolytic",
+        "B. primary cells cannot be recharged",
+        "C. both contain no electrolytes",
+        "D. all of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 19,
+      "question": "The mass of copper deposited by 4.0 moles of electrons in Cu<sup>2+</sup> + 2e<sup>-</sup> → Cu is",
+      "diagram": null,
+      "options": ["A. 32 g", "B. 64 g", "C. 128 g", "D. 256 g"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "question": "Hardness of water can be removed by adding",
+      "diagram": null,
+      "options": ["A. C<sub>2</sub>H<sub>2</sub>", "B. CuSO<sub>4</sub>", "C. Na<sub>2</sub>CO<sub>3</sub>", "D. Alum"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "question": "An element that exists in two or more forms in the same physical state exhibits",
+      "diagram": null,
+      "options": ["A. isotopy", "B. structural isomerism", "C. allotropy", "D. variable valency"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "question": "What is the mass number of an element having 15 protons and 20 neutrons?",
+      "diagram": null,
+      "options": ["A. 15", "B. 30", "C. 35", "D. 40"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "question": "NaHCO<sub>3</sub> can be distinguished from Na<sub>2</sub>CO<sub>3</sub> by the action of",
+      "diagram": null,
+      "options": ["A. dilute HCl", "B. CO<sub>2</sub>", "C. NH<sub>3</sub>", "D. heat"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 24,
+      "question": "Which electronic configuration represents a noble gas?",
+      "diagram": null,
+      "options": ["A. 2, 8, 8, 2", "B. 2, 8, 2", "C. 2, 8", "D. 2, 6"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 25,
+      "question": "Diamond is hard because its carbon atoms are held together by",
+      "diagram": null,
+      "options": [
+        "A. delocalized electrons",
+        "B. strong electrostatic forces",
+        "C. van der Waals forces",
+        "D. strong directional covalent bonds"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 26,
+      "question": "What is the basicity of H<sub>2</sub>SO<sub>4</sub>?",
+      "diagram": null,
+      "options": ["A. 2", "B. 4", "C. 6", "D. 8"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "Boyle’s law can be expressed mathematically as",
+      "diagram": null,
+      "options": ["A. V ∝ 1/P", "B. V/T = constant", "C. V ∝ T", "D. P ∝ T"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 28,
+      "question": "Which of the following oxides does not react with water?",
+      "diagram": null,
+      "options": ["A. Na<sub>2</sub>O", "B. CuO", "C. NO<sub>2</sub>", "D. CO<sub>2</sub>"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 29,
+      "question": "A positive ion is called a",
+      "diagram": null,
+      "options": ["A. cation", "B. anion", "C. anode", "D. cathode"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 30,
+      "question": "An acid produces which ion in aqueous solution?",
+      "diagram": null,
+      "options": ["A. salts", "B. oxygen", "C. hydronium ions", "D. hydrogen gas"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "question": "A sodium atom and sodium ion have the same",
+      "diagram": null,
+      "options": ["A. number of neutrons", "B. number of electrons", "C. number of charges", "D. chemical properties"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 32,
+      "question": "A common feature of reactions at the anode is that",
+      "diagram": null,
+      "options": ["A. electrons are consumed", "B. oxidation occurs", "C. ions are reduced", "D. the electrode is dissolved"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "question": "Which ion migrates to the cathode during electrolysis?",
+      "diagram": null,
+      "options": ["A. Zinc ion", "B. Chloride ion", "C. Sulphide ion", "D. Sulphate ion"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "question": "A negative value of ΔH indicates that a reaction is",
+      "diagram": null,
+      "options": ["A. slow", "B. exothermic", "C. endothermic", "D. not feasible"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 35,
+      "question": "What is the value of −14°C on the Kelvin scale?",
+      "diagram": null,
+      "options": ["A. 259 K", "B. 287 K", "C. 265 K", "D. 214 K"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 36,
+      "question": "A major consequence of global warming is",
+      "diagram": null,
+      "options": ["A. air pollution", "B. flooding", "C. increased humidity", "D. low rainfall"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 37,
+      "question": "Which of the following metals exists as a liquid at room temperature?",
+      "diagram": null,
+      "options": ["A. Copper", "B. Gold", "C. Mercury", "D. Silver"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 38,
+      "question": "Which statement about electrolysis of CuSO<sub>4</sub> using copper cathode and platinum anode is NOT correct?",
+      "diagram": null,
+      "options": [
+        "A. Copper is deposited at the cathode",
+        "B. Oxygen is liberated at the anode",
+        "C. It is used for purification of copper",
+        "D. The solution becomes acidic"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 39,
+      "question": "Which of the following is NOT a normal salt?",
+      "diagram": null,
+      "options": ["A. Al(NO<sub>3</sub>)<sub>3</sub>", "B. FeSO<sub>4</sub>", "C. Mg(OH)<sub>2</sub>", "D. NaCl"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 40,
+      "question": "The separation of petroleum fractions depends on differences in their",
+      "diagram": null,
+      "options": ["A. melting points", "B. molar masses", "C. solubilities", "D. boiling points"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "question": "When heat is absorbed during a chemical reaction, the reaction is said to be",
+      "diagram": null,
+      "options": ["A. adiabatic", "B. endothermic", "C. exothermic", "D. isothermic"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 42,
+      "question": "Which of the following elements is diatomic?",
+      "diagram": null,
+      "options": ["A. Sodium", "B. Oxygen", "C. Aluminium", "D. Fluorine"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "question": "The oxidation number of sulphur in H<sub>2</sub>SO<sub>4</sub> is",
+      "diagram": null,
+      "options": ["A. 2", "B. 5", "C. 7", "D. 6"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "question": "Which of the following is an alkali?",
+      "diagram": null,
+      "options": ["A. CuO", "B. Cu(OH)<sub>2</sub>", "C. NaOH", "D. All of the above"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 45,
+      "question": "What is the oxidation number of chromium in K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>?",
+      "diagram": null,
+      "options": ["A. 7", "B. 6", "C. 8", "D. 5"],
+      "correctOption": "B"
+    },
+
+
+
+{
+  "id": 46,
+  "question": "Which of the following substances will turn blue litmus paper red?",
+  "diagram": null,
+  "options": [
+    "A. Sodium hydroxide",
+    "B. Potassium oxide",
+    "C. Hydrochloric acid",
+    "D. Ammonia solution"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 47,
+  "question": "Which of the following methods is best for separating a mixture of iodine and sand?",
+  "diagram": null,
+  "options": [
+    "A. Filtration",
+    "B. Crystallization",
+    "C. Sublimation",
+    "D. Evaporation"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 48,
+  "question": "Which of the following factors does NOT affect the rate of a chemical reaction?",
+  "diagram": null,
+  "options": [
+    "A. Temperature",
+    "B. Concentration",
+    "C. Surface area",
+    "D. Colour of reactants"
+  ],
+  "correctOption": "D"
+},
+{
+  "id": 49,
+  "question": "The type of reaction in which heat is released to the surroundings is known as",
+  "diagram": null,
+  "options": [
+    "A. endothermic reaction",
+    "B. exothermic reaction",
+    "C. reversible reaction",
+    "D. neutralization reaction"
+  ],
+  "correctOption": "B"
+},
+{
+  "id": 50,
+  "question": "Which of the following laboratory apparatus is used for measuring the volume of liquids accurately?",
+  "diagram": null,
+  "options": [
+    "A. Beaker",
+    "B. Measuring cylinder",
+    "C. Conical flask",
+    "D. Test tube"
+  ],
+  "correctOption": "B"
+}
+
+  ]
+}

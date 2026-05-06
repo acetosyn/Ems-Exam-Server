@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Accounts",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 60,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Recurrent expenditure of government is paid from",
+      "options": [
+        "A. consolidated revenue fund",
+        "B. contingencies fund",
+        "C. reserves fund",
+        "D. development fund"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "A quality of accounting information is that it should be",
+      "options": [
+        "A. depreciable",
+        "B. sizeable",
+        "C. appreciable",
+        "D. verifiable"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "question": "An item recorded on the credit side of trading, profit and loss account is",
+      "options": [
+        "A. discount allowed",
+        "B. discount received",
+        "C. salaries and wages",
+        "D. rent and rates"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "An item that would be apportioned in proportion to purchases of each department is",
+      "options": [
+        "A. bad debt",
+        "B. carriage outwards",
+        "C. discount received",
+        "D. discount allowed"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "The document which contains monies allocated in public sector is",
+      "options": [
+        "A. budget",
+        "B. voucher",
+        "C. cashbook",
+        "D. warrant"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following items is an example of an intangible asset?",
+      "options": [
+        "A. Debtors",
+        "B. Furniture",
+        "C. Copyright",
+        "D. Cash"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is not an advantage of departmental account?",
+      "options": [
+        "A. Easy formulation of departmental policies due to trading activities",
+        "B. Easy determination of each department’s profit/loss",
+        "C. Errors cannot be easily detected",
+        "D. progress of each department can be easily monitored"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "The following are terminologies in contract account except",
+      "options": [
+        "A. certificate of contract",
+        "B. distribution expenses",
+        "C. mobilization fees",
+        "D. retention fees"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Which of the following is a feature of receipt and payment account?",
+      "options": [
+        "A. All revenue items are credited",
+        "B. Capital items are not recorded",
+        "C. Expenses are debited",
+        "D. Capital items are recorded"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "The assets acquired for long term use in business is ....asset",
+      "options": [
+        "A. current",
+        "B. fixed",
+        "C. intangible",
+        "D. liquid"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "The system of payment in business whereby a seller retains the ownership of goods before final payment is",
+      "options": [
+        "A. cash",
+        "B. deferred payment",
+        "C. hire purchase",
+        "D. lease"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "Goods used by a proprietor for personal purpose is debited to ....account",
+      "options": [
+        "A. capital",
+        "B. cash",
+        "C. drawings",
+        "D. goodwill"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "Patent right is an example of ......asset",
+      "options": [
+        "A. current",
+        "B. intangible",
+        "C. tangible",
+        "D. liquid"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The document which serves as an evidence of disbursement of government fund is",
+      "options": [
+        "A. bill",
+        "B. invoice",
+        "C. local purchase order",
+        "D. payment voucher"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "The document used to acknowledge public revenue is",
+      "options": [
+        "A. payment voucher",
+        "B. receipt voucher",
+        "C. vote book",
+        "D. treasury card"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "The sum appropriated for individual items in a government budget is",
+      "options": [
+        "A. deposit",
+        "B. grant",
+        "C. loan",
+        "D. vote"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 17,
+      "question": "Goods on which production is not completed at the time of preparing the final accounts are called",
+      "options": [
+        "A. finished goods",
+        "B. inventory",
+        "C. overhead",
+        "D. work-in-progress"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "An income and expenditure account is prepared based on the same principle as",
+      "options": [
+        "A. balance sheet",
+        "B. incomplete records",
+        "C. profit and loss account",
+        "D. trading account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "The accounting term used to describe the process of moving funds from one head to another is called",
+      "options": [
+        "A. accounting",
+        "B. balance sheet",
+        "C. turnover",
+        "D. virement"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is an intangible asset?",
+      "options": [
+        "A. Bill receivable",
+        "B. Cash in hand",
+        "C. Goodwill",
+        "D. Stock"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "What is the amount to be shared on equity basis?",
+      "options": [
+        "A. N23,500,000",
+        "B. N22,500,000",
+        "C. N21,500,000",
+        "D. N20,500,000"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "The amount received by Z local government based on population basis is",
+      "options": [
+        "A. N500,000",
+        "B. N350,000",
+        "C. N167,489",
+        "D. N159,574"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "The amount received by V local government based on equity and population is",
+      "options": [
+        "A. N12,765,957",
+        "B. N8,000,000",
+        "C. N7,690,489",
+        "D. N7,555,000"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "A fund set aside out of profit and other surplus to strengthen the financial position of a business is",
+      "options": [
+        "A. capital",
+        "B. debenture",
+        "C. premium",
+        "D. reserves"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "The objective of accounting information is to enable users",
+      "options": [
+        "A. analyze stock",
+        "B. control stock",
+        "C. make decision",
+        "D. value stock"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is a source of local government revenue?",
+      "options": [
+        "A. Sales of Armed Forces emblems",
+        "B. Sales of shares",
+        "C. Sales of debenture bonds",
+        "D. Tenement rate"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "A debenture holder is remunerated with",
+      "options": [
+        "A. dividend",
+        "B. interest",
+        "C. premium",
+        "D. profit"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "What is department A’s gross profit?",
+      "options": [
+        "A. N30,100",
+        "B. N25,100",
+        "C. N10,100",
+        "D. N9,100"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Electricity bill paid by department B is",
+      "options": [
+        "A. N5,000",
+        "B. N1,000",
+        "C. N4,000",
+        "D. N2,000"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 30,
+      "question": "The public sector commonly use the cash basis while private sectors use",
+      "options": [
+        "A. cash basis",
+        "B. accrual basis",
+        "C. modified basis",
+        "D. commitment basis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "The Chief Accountant Officer of the Federation is",
+      "options": [
+        "A. Accountant –General",
+        "B. Minister of Finance",
+        "C. Auditor-General",
+        "D. Governor of Central Bank of Nigeria"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "What is the total amount paid by the buyer in an hire purchase agreement?",
+      "options": [
+        "A. Cash price of the asset",
+        "B. Hire charges only",
+        "C. Cash price plus interest and other charges",
+        "D. Deposit only"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "Retention money serves as a .....with the contractee",
+      "options": [
+        "A. security",
+        "B. balance",
+        "C. loss",
+        "D. profit"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "A contract is generally of ......duration",
+      "options": [
+        "A. small",
+        "B. very small",
+        "C. average",
+        "D. long"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 35,
+      "question": "Departments are located in",
+      "options": [
+        "A. same place",
+        "B. another city",
+        "C. outside state",
+        "D. foreign country"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "When goods are transferred from one department to other department they are called",
+      "options": [
+        "A. inter-departmental transfer",
+        "B. outer-departmental transfer",
+        "C. not a transfer",
+        "D. regular transfer"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "The business policies and the administration of a business which is wholly controlled by the head office, this type of branch is",
+      "options": [
+        "A. independent  branch",
+        "B. dependent branch",
+        "C. local branch",
+        "D. foreign branch"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "Branches not keeping full system of accounting are",
+      "options": [
+        "A. dependent branch",
+        "B. independent branch",
+        "C. local branch",
+        "D. foreign branch"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Under branch account, debtors system, closing balance of assets are recorded in",
+      "options": [
+        "A. credit side",
+        "B. debit side",
+        "C. first credit side and debit side",
+        "D. first debit side and credit side"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "Hire purchase system is governed by",
+      "options": [
+        "A. Hire Purchase Act, 1972",
+        "B. Sale of Goods Act",
+        "C. Instalment Act",
+        "D. Properties Registration Act"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "The act of buying an asset without having to make full payment in the immediate future is known as",
+      "options": [
+        "A. finance lease",
+        "B. operating lease",
+        "C. sale and leaseback",
+        "D. hire purchase"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "The price at which the goods can be purchased by the hirer for ready cash is known as",
+      "options": [
+        "A. hire purchase price",
+        "B. instalment price",
+        "C. cash price",
+        "D. down payment"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "An offer of a contract can be terminated by",
+      "options": [
+        "A. I and III only",
+        "B. II only",
+        "C. III only",
+        "D. I and II only"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "question": "The expenses applicable to a particular contract is debited to",
+      "options": [
+        "A. personal account of customer",
+        "B. stores account",
+        "C. profit and loss account",
+        "D. retention money account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "Which of the following is the basis for apportioning rent among department?",
+      "options": [
+        "A. Direct labour",
+        "B. Turnover",
+        "C. Sales",
+        "D. Floor area"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 46,
+      "question": "The initial sum payable by the hire purchase buyer at the inception of the hire purchase transaction is",
+      "options": [
+        "A. lease amount",
+        "B. cash price",
+        "C. finance charge",
+        "D. deposit"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "question": "In the nature of hire purchase transaction, what the buyer buys in  the arrangement of hire purchase is usually",
+      "options": [
+        "A. fixed asset",
+        "B. intangible asset",
+        "C. current asset",
+        "D. fictitious assets"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "The taking of goods away from customers who fail to keep up with hire purchase payment is",
+      "options": [
+        "A. readmission",
+        "B. repossession",
+        "C. reallocation",
+        "D. reapportionment"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "The primary purpose of data processing is",
+      "options": [
+        "A. to collect data",
+        "B. to store data",
+        "C. to generate information for decision making",
+        "D. to secure data"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "Data processing involves",
+      "options": [
+        "A. data collection, storage and retrieval",
+        "B. data collection, processing and output",
+        "C. data analysis, interpretation and presentation",
+        "D. all of the above"
+      ],
+      "correctOption": "D"
+    }
+  ],
+  "class_category": "SS3"
+}

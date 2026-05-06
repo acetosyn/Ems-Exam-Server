@@ -1,0 +1,657 @@
+{
+  "subject": "Financial Accounting",
+  "class": "SS3",
+  "session": "2019/2020",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Departmental account facilitates …",
+      "options": [
+        "A. comparison of trading result",
+        "B. intelligent planning and control",
+        "C. evaluating departmental performance",
+        "D. all of the above"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Which of the following companies is most likely to use a departmental accounting system?",
+      "options": [
+        "A. A small company",
+        "B. A mid-sized company with only one product line",
+        "C. A company that does not keep track of its financial records on a computer",
+        "D. A large company with many segments and divisions"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "The purpose of preparing a departmental profit and loss account for a firm is …",
+      "options": [
+        "A. to show the relative financial performance of different sections of the firm",
+        "B. to estimate the firm’s future cash requirements",
+        "C. to ensure that all likely bad debts are provided for",
+        "D. to ensure that discount allowed does not exceed discount received"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "In a departmental accounting system, net profit is calculated for each department.",
+      "options": [
+        "A. True",
+        "B. False",
+        "C. Not true, not false",
+        "D. All of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "Which allocation method should be used for rent expenses?",
+      "options": [
+        "A. Sales",
+        "B. Purchases",
+        "C. Floor space",
+        "D. Number of workers"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "Which allocation method should be used for canteen expenses?",
+      "options": [
+        "A. Sales",
+        "B. Purchases",
+        "C. Floor space",
+        "D. Number of workers"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "Departments are located in …",
+      "options": [
+        "A. same place",
+        "B. another city",
+        "C. outside state",
+        "D. foreign country"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "When goods are transferred from one department to another, they are called …",
+      "options": [
+        "A. inter-department transfer",
+        "B. outer-departmental transfer",
+        "C. not a transfer",
+        "D. regular transfer"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Goods supplied by the head office to dependent branches are at …",
+      "options": [
+        "A. cost price",
+        "B. invoice price",
+        "C. market price",
+        "D. cost or invoice price"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "A branch which keeps complete records of all accounting transactions is called …",
+      "options": [
+        "A. a foreign branch",
+        "B. a local branch",
+        "C. an independent branch",
+        "D. a departmental branch"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "A dependent branch can make …",
+      "options": [
+        "A. only cash sales",
+        "B. only credit sales",
+        "C. both cash and credit sales",
+        "D. none of the above"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "The act of buying an asset without making full payment immediately is known as …",
+      "options": [
+        "A. hire purchase",
+        "B. finance lease",
+        "C. operating lease",
+        "D. sale and lease back"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Hire purchase system is governed by …",
+      "options": [
+        "A. Hire Purchase Act",
+        "B. Sale of Goods Act",
+        "C. Installment Act",
+        "D. Properties Registration Act"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "The price at which goods can be purchased by the hirer for ready cash is known as …",
+      "options": [
+        "A. hire purchase price",
+        "B. installment price",
+        "C. cash price",
+        "D. down payment"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "The difference between hire purchase price and cash price is called …",
+      "options": [
+        "A. hire charges / total interest",
+        "B. cost of the asset",
+        "C. installment price",
+        "D. cash price"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "Cash price equals …",
+      "options": [
+        "A. hire purchase price minus total interest",
+        "B. down payment in cash",
+        "C. down payment plus interest",
+        "D. none of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "The amount paid at the time of hire purchase agreement is known as …",
+      "options": [
+        "A. installment",
+        "B. down payment",
+        "C. cash price",
+        "D. hire purchase price"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "Under installment payment system, ownership of goods …",
+      "options": [
+        "A. is transferred at the time of agreement",
+        "B. is transferred at the time of last installment",
+        "C. is not transferred",
+        "D. none of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "The person who obtains possession of goods under a hire purchase agreement is called …",
+      "options": [
+        "A. purchaser",
+        "B. vendor",
+        "C. hirer",
+        "D. none of the above"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "Patents and trademarks are examples of …",
+      "options": [
+        "A. current assets",
+        "B. fixed assets",
+        "C. intangible assets",
+        "D. investment"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "…… is the objective of the public sector.",
+      "options": [
+        "A. To maximize return on capital",
+        "B. To maximize shareholders’ return",
+        "C. To fulfill shareholders’ needs",
+        "D. To provide public goods and services"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "The main financing source of the public sector is …",
+      "options": [
+        "A. taxation",
+        "B. sales",
+        "C. bank loans",
+        "D. shares"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Recurrent expenditure of government is paid from …",
+      "options": [
+        "A. reserve fund",
+        "B. consolidated revenue fund",
+        "C. development fund",
+        "D. contingencies fund"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "The document evidencing a disbursement of government fund is known as …",
+      "options": [
+        "A. bill",
+        "B. invoice",
+        "C. payment voucher",
+        "D. till book"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "The authority of the Accountant-General to disburse government fund is called …",
+      "options": [
+        "A. voucher",
+        "B. warrant",
+        "C. estimate",
+        "D. provision"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "The public sector commonly uses the cash basis while the private sector uses …",
+      "options": [
+        "A. cash basis",
+        "B. modified basis",
+        "C. accrual basis",
+        "D. commitment basis"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "The Chief Accounting Officer of the Federation is the …",
+      "options": [
+        "A. Minister of Finance",
+        "B. Accountant-General",
+        "C. Auditor-General",
+        "D. Governor of Central Bank of Nigeria"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "The amount voted for individual items on a government budget is called …",
+      "options": [
+        "A. a deposit",
+        "B. a loan",
+        "C. a vote",
+        "D. an investment"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "A financial plan of action expressed in monetary terms is known as …",
+      "options": [
+        "A. imprest",
+        "B. budget",
+        "C. warrant",
+        "D. consolidated fund"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "The name given to a budget in public sector accounting is …",
+      "options": [
+        "A. actual amount to be spent",
+        "B. amount needed",
+        "C. estimate",
+        "D. government fund"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Which of the following is the basis of accounting in the civil service?",
+      "options": [
+        "A. Accrual",
+        "B. Cash",
+        "C. Income",
+        "D. Expenditure"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "The financial year of a company is known as …",
+      "options": [
+        "A. accounting basis",
+        "B. accounting period",
+        "C. accounting term",
+        "D. accounting method"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "In computing, ALU stands for …",
+      "options": [
+        "A. Arithmetic and Logic Unit",
+        "B. Accounting Logic Unit",
+        "C. Access Logic Unit",
+        "D. Additional Logic Unit"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "Elimination of faults in a computer program is called …",
+      "options": [
+        "A. debugging",
+        "B. dump",
+        "C. console",
+        "D. loop"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "The collection and organization of data is …",
+      "options": [
+        "A. accounting process",
+        "B. central process",
+        "C. data manipulation",
+        "D. data processing"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "Hardware in data processing refers to …",
+      "options": [
+        "A. physical components of the computer",
+        "B. entry and storage of information",
+        "C. programs run on the computer",
+        "D. Microsoft disk operating system"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "The medium of inputting data into the computer is through the use of the …",
+      "options": [
+        "A. keyboard",
+        "B. hardware",
+        "C. software",
+        "D. monitor"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 38,
+      "diagram": "/static/uploads/diagrams/2019/accounts_ss3/diagram_38.PNG",
+      "question": "What is the selling expense for department A?",
+      "options": [
+        "A. ₦300",
+        "B. ₦360",
+        "C. ₦305",
+        "D. ₦306"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 39,
+      "diagram": "/static/uploads/diagrams/2019/accounts_ss3/diagram_38.PNG",
+      "question": "What is the selling expense for department B?",
+      "options": [
+        "A. ₦306",
+        "B. ₦603",
+        "C. ₦350",
+        "D. ₦360"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 40,
+      "diagram": "/static/uploads/diagrams/2019/accounts_ss3/diagram_38.PNG",
+      "question": "What is the net sales of departments A and B?",
+      "options": [
+        "A. ₦10,300",
+        "B. ₦10,403",
+        "C. ₦10,340",
+        "D. ₦10,304"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "A branch is a unit of business organization not located within the same premises as the head office.",
+      "options": [
+        "A. True",
+        "B. False"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "In branch accounting, another name for invoice price is …",
+      "options": [
+        "A. transfer price",
+        "B. cash price",
+        "C. dividend",
+        "D. finance charge"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "A branch whose accounting records are wholly or majorly maintained by the head office is called …",
+      "options": [
+        "A. foreign branch",
+        "B. national branch",
+        "C. dependent branch",
+        "D. independent branch"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "Goods supplied to department branches by the head office may be at:\nI. invoice price\nII. cost price\nIII. mark-up price",
+      "options": [
+        "A. III only",
+        "B. I and II only",
+        "C. II only",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "When head office maintains all books of accounts, goods sent to branch is credited to …",
+      "options": [
+        "A. branch stock account",
+        "B. goods sent to branch account",
+        "C. branch stock adjustment account",
+        "D. head office current account"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "Where goods are invoiced to a branch at cost plus, branch stock adjustment account is used to determine …",
+      "options": [
+        "A. cost price",
+        "B. selling price",
+        "C. branch expenses",
+        "D. branch profit"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "When the head office maintains all books of accounts, goods sent to branch is credited to …",
+      "options": [
+        "A. goods sent to branch account",
+        "B. branch stock account",
+        "C. branch stock adjustment account",
+        "D. head office current account"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Rent owed by a department is treated in the balance sheet as …",
+      "options": [
+        "A. asset of the business",
+        "B. asset of the department",
+        "C. liability of the business",
+        "D. liability of the place"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "In departmental accounts, administrative expenses are recorded in the …",
+      "options": [
+        "A. trading account",
+        "B. balance sheet",
+        "C. profit and loss account",
+        "D. profit and loss appropriation account"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "The cost of carriage outward is classified as …",
+      "options": [
+        "A. a finance expense",
+        "B. a trading expense",
+        "C. a selling and distributive expense",
+        "D. an administrative income"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

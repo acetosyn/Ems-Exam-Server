@@ -1,0 +1,619 @@
+{
+  "subject": "Civic Education",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Civil rights in a country are enjoyed by ______.",
+      "options": [
+        "A. refugees",
+        "B. aliens",
+        "C. citizens",
+        "D. prisoners"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Which of the following is not a fundamental human right?",
+      "options": [
+        "A. Freedom to life",
+        "B. Right to vote",
+        "C. Freedom of movement",
+        "D. Freedom of religion"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "A citizen’s freedom of movement may be restrained if he ______.",
+      "options": [
+        "A. has refused to salute the head of state",
+        "B. criticizes the government",
+        "C. refuses to vote at elections",
+        "D. has been convicted by the court"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "Fundamental human rights can be grouped into ______ categories.",
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "The right to own property and lawful businesses is categorized under ______ rights.",
+      "options": [
+        "A. social",
+        "B. legal",
+        "C. political",
+        "D. economic"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "Human rights violations lead to ______.",
+      "options": [
+        "A. cooperation",
+        "B. injustice",
+        "C. political development",
+        "D. political participation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "Crisis in the society can best be resolved through ______.",
+      "options": [
+        "A. amnesty",
+        "B. dialogue",
+        "C. litigation",
+        "D. condemnation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "______ rights are called third generation rights.",
+      "options": [
+        "A. Social",
+        "B. Economic",
+        "C. Civil and political",
+        "D. Environmental"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "The statutory responsibility of the military is to defend the territorial border against ______ aggression.",
+      "options": [
+        "A. external",
+        "B. continental",
+        "C. foreign",
+        "D. internal"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "In a presidential system, the power to exercise administrative functions rests with the ______.",
+      "options": [
+        "A. judiciary",
+        "B. electorates",
+        "C. legislature",
+        "D. executive"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "The following but one are the oldest written books that talked about people’s rights and responsibilities before UDHR.",
+      "options": [
+        "A. Socrates’ theories",
+        "B. Quran",
+        "C. Confucian Analects",
+        "D. Bible"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "Public service of any nation belongs to which arm of government?",
+      "options": [
+        "A. Executive",
+        "B. Judiciary",
+        "C. Legislature",
+        "D. Public service commission"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "The political culture of a people can be acquired through ______.",
+      "options": [
+        "A. political socialization",
+        "B. political mobilization",
+        "C. political apathy",
+        "D. political participation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "The following factors threaten the existence of human rights except ______.",
+      "options": [
+        "A. weapons of mass destruction",
+        "B. poverty",
+        "C. global warming",
+        "D. election"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "Which category of rights falls within the first generation?",
+      "options": [
+        "A. Economic and social rights",
+        "B. Environmental rights",
+        "C. Cultural rights",
+        "D. Civil and political rights"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "Eleanor Roosevelt headed the committee that drafted which document?",
+      "options": [
+        "A. Nigerian Constitution",
+        "B. African Union Charter",
+        "C. Universal Declaration of Human Rights",
+        "D. American Constitution"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "Fundamental human rights are contained in ______ of the Constitution of the Federal Republic of Nigeria.",
+      "options": [
+        "A. Chapter 4, Sections 22–25",
+        "B. 1960 Chapter",
+        "C. Chapter 4, Sections 33–45",
+        "D. Chapter 5, Sections 33–45"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "Which international organization was established in 1945?",
+      "options": [
+        "A. ECOWAS",
+        "B. European Union",
+        "C. United Nations",
+        "D. African Union"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "After World War I, ______ was created to unite the people of the world.",
+      "options": [
+        "A. European Union",
+        "B. Commonwealth of Nations",
+        "C. United Nations",
+        "D. League of Nations"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "Which of the following is not a characteristic of the rule of law?",
+      "options": [
+        "A. Adherence to human rights principles",
+        "B. Equality before the law",
+        "C. Undue punishment before the law",
+        "D. Universality of the law"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "Which of the following is an example of orderliness in society?",
+      "options": [
+        "A. Lateness",
+        "B. Looseness",
+        "C. Decorum",
+        "D. Anarchy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "The following are examples of civil society organizations except ______.",
+      "options": [
+        "A. Nigerian Television Authority",
+        "B. Nigerian Labour Congress",
+        "C. Community-based organization",
+        "D. Sports supporters clubs"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Working together towards achieving a common goal is known as ______.",
+      "options": [
+        "A. cooperation",
+        "B. honesty",
+        "C. justice",
+        "D. integrity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "The quality of being honest and having strong moral principles is ______.",
+      "options": [
+        "A. commitment",
+        "B. loyalty",
+        "C. integrity",
+        "D. justice"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "The right to life belongs to ______.",
+      "options": [
+        "A. environmental right",
+        "B. social right",
+        "C. civil right",
+        "D. economic right"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "The symbol used in differentiating political parties is ______.",
+      "options": [
+        "A. logo",
+        "B. banner",
+        "C. badge",
+        "D. crest"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "The Universal Declaration of Human Rights was ratified in the year ______.",
+      "options": [
+        "A. 1914",
+        "B. 1960",
+        "C. 1963",
+        "D. 1948"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "A limitation on fundamental human rights is ______.",
+      "options": [
+        "A. ceremony",
+        "B. national festival",
+        "C. lockdown",
+        "D. public holiday"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "Which of the following is a unifying factor in Nigeria?",
+      "options": [
+        "A. Coup d’etat",
+        "B. National sports festivals",
+        "C. National census",
+        "D. International diplomacy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "Involvement of citizens in the electoral process of a nation is known as ______.",
+      "options": [
+        "A. economic development",
+        "B. nation building",
+        "C. national conference",
+        "D. popular participation"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Which of these societal values is most expected of every public office holder?",
+      "options": [
+        "A. Excellence",
+        "B. Accountability",
+        "C. Hospitality",
+        "D. Diplomacy"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_32.PNG",
+      "question": "The phrase “the music has changed” refers to the fact that ______.",
+      "options": [
+        "A. checks and balances are no longer effective",
+        "B. public servants are to show partisanship",
+        "C. there was corruption in the public service sector",
+        "D. activities of the judiciary should be checkmated"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_32.PNG",
+      "question": "The first statement in the dialogue affirms that Aminu was ______.",
+      "options": [
+        "A. supportive of constituted authority",
+        "B. jealous of Chief Jeunkoku’s wealth",
+        "C. aiding and abetting corruption",
+        "D. discouraging injustice in the land"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_32.PNG",
+      "question": "A way that Chief Jeunkoku can evade sanctions is if there is ______.",
+      "options": [
+        "A. presence of checks and balances",
+        "B. operational principle of rule of law",
+        "C. supremacy of the constitution",
+        "D. a weak and compromised judiciary"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Which of the following is not a feature of civil society?",
+      "options": [
+        "A. Protection of societal interest",
+        "B. Voluntary membership",
+        "C. Respect for constituted authority",
+        "D. Soliciting for political patronage"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "The right to vie for public office falls under ______ rights.",
+      "options": [
+        "A. economic",
+        "B. political",
+        "C. social",
+        "D. religious"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "Supervisory councillors at the local government level are part of the ______.",
+      "options": [
+        "A. civil servants",
+        "B. executive organs",
+        "C. legislative organs",
+        "D. political organs"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "Politically enlightened people may feel discouraged due to political ______.",
+      "options": [
+        "A. selfishness",
+        "B. contentment",
+        "C. participation",
+        "D. marginalization"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Political participation is facilitated by the following except ______.",
+      "options": [
+        "A. engaging in moral upliftment",
+        "B. fostering political stability",
+        "C. enhancement of dividends of democracy",
+        "D. influencing government policies"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "A system of government where ultimate power resides with the people is ______.",
+      "options": [
+        "A. plutocracy",
+        "B. aristocracy",
+        "C. theocracy",
+        "D. democracy"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Political apathy can be caused by ______.",
+      "options": [
+        "A. fulfilled political promises",
+        "B. good governance",
+        "C. political thuggery",
+        "D. transparent electoral process"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "The Nigerian constitutions from 1979 to 1999 have all been ______.",
+      "options": [
+        "A. written and rigid",
+        "B. written and flexible",
+        "C. unwritten and rigid",
+        "D. unwritten and flexible"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "Which of the following is a human rights advocacy organization?",
+      "options": [
+        "A. Human Rights Media",
+        "B. Human Rights Watch",
+        "C. Human Rights Station",
+        "D. Human Rights Declaration"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "Prevention of global warming falls under ______ rights.",
+      "options": [
+        "A. civil",
+        "B. religious",
+        "C. environmental",
+        "D. social"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "The Nigerian Police Force is an example of ______.",
+      "options": [
+        "A. judiciary",
+        "B. public servant",
+        "C. law maker",
+        "D. none of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_46.PNG",
+      "question": "From the dialogue, Mr. Katoun has demonstrated ______.",
+      "options": [
+        "A. survival mode",
+        "B. intolerance",
+        "C. apathy",
+        "D. hard work"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_46.PNG",
+      "question": "Mr. Gamba is involved in an essential community service as ______.",
+      "options": [
+        "A. a social mobilizer",
+        "B. a political analyst",
+        "C. an election observer",
+        "D. a party official"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_46.PNG",
+      "question": "Mr. Katoun’s behaviour can be traced to the following factors except ______.",
+      "options": [
+        "A. inadequate security at polling booths",
+        "B. poor technology",
+        "C. unfulfilled manifestoes",
+        "D. endemic corruption"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_46.PNG",
+      "question": "Gubernatorial election in a state is a ______ election.",
+      "options": [
+        "A. presidential",
+        "B. chairmanship",
+        "C. governorship",
+        "D. house of assembly"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "diagram": "/static/uploads/diagrams/2021/civic_ss3/diagram_46.PNG",
+      "question": "How can one encourage Mr. Katoun to participate in elections?",
+      "options": [
+        "A. Bribe him",
+        "B. Excommunicate him",
+        "C. Provide good leadership",
+        "D. Help him harvest yams on election day"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

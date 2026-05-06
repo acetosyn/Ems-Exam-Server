@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Government",
+  "exam_title": "GOVERNMENT INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The principle of separation of powers, as outlined in the U.S. Constitution, was primarily influenced by the writings of:",
+      "options": ["John Locke", "Montesquieu", "Thomas Hobbes", "Jean-Jacques Rousseau"],
+      "answer": "Montesquieu"
+    },
+    {
+      "id": 2,
+      "question": "The Federalist Papers were written to:",
+      "options": ["Advocate for the ratification of the Constitution", "Oppose the Bill of Rights", "Support the Articles of Confederation", "Critique the Declaration of Independence"],
+      "answer": "Advocate for the ratification of the Constitution"
+    },
+    {
+      "id": 3,
+      "question": "Under the Great Compromise at the Constitutional Convention, the number of representatives in the House of Representatives is based on:",
+      "options": ["Equal per state", "Population size", "Geographic area", "Economic output"],
+      "answer": "Population size"
+    },
+    {
+      "id": 4,
+      "question": "The Supremacy Clause in Article VI establishes that:",
+      "options": ["Federal law is the supreme law of the land", "States have veto power over federal laws", "The president can override Congress", "The judiciary is subordinate to the executive"],
+      "answer": "Federal law is the supreme law of the land"
+    },
+    {
+      "id": 5,
+      "question": "The Anti-Federalists' primary concern with the Constitution was the lack of:",
+      "options": ["A strong central government", "Protections for individual rights", "State representation", "Economic regulations"],
+      "answer": "Protections for individual rights"
+    },
+    {
+      "id": 6,
+      "question": "A bill becomes law after passing both houses of Congress and:",
+      "options": ["Receiving the president's veto override", "Being signed by the president or not vetoed within 10 days", "Automatic enactment after 30 days", "Approval by the Supreme Court"],
+      "answer": "Being signed by the president or not vetoed within 10 days"
+    },
+    {
+      "id": 7,
+      "question": "The filibuster in the Senate can be ended by:",
+      "options": ["A simple majority vote", "A three-fifths cloture vote", "Unanimous consent", "Presidential intervention"],
+      "answer": "A three-fifths cloture vote"
+    },
+    {
+      "id": 8,
+      "question": "Gerrymandering refers to the manipulation of:",
+      "options": ["Electoral college votes", "Congressional district boundaries for partisan advantage", "Campaign finance limits", "Voter ID requirements"],
+      "answer": "Congressional district boundaries for partisan advantage"
+    },
+    {
+      "id": 9,
+      "question": "The power of the purse, which allows Congress to control federal spending, is derived from:",
+      "options": ["Article I, Section 9", "The Commerce Clause", "The Necessary and Proper Clause", "The 14th Amendment"],
+      "answer": "Article I, Section 9"
+    },
+    {
+      "id": 10,
+      "question": "Standing committees in Congress primarily handle:",
+      "options": ["Long-term investigations", "Routine legislative oversight and bill review", "Impeachment proceedings", "Confirmation of appointments"],
+      "answer": "Routine legislative oversight and bill review"
+    },
+    {
+      "id": 11,
+      "question": "The War Powers Resolution of 1973 requires the president to:",
+      "options": ["Consult Congress before introducing troops into hostilities", "Seek congressional approval for all military actions", "Report to Congress within 48 hours of committing forces", "Limit deployments to 60 days without declaration"],
+      "answer": "Report to Congress within 48 hours of committing forces"
+    },
+    {
+      "id": 12,
+      "question": "Logrolling in Congress involves:",
+      "options": ["Delaying votes on unpopular bills", "Mutual support for each other's legislative priorities", "Public shaming of opponents", "Bipartisan compromise on budgets"],
+      "answer": "Mutual support for each other's legislative priorities"
+    },
+    {
+      "id": 13,
+      "question": "The president's veto can be overridden by:",
+      "options": ["A simple majority in both houses of Congress", "A two-thirds vote in both houses of Congress", "A Supreme Court ruling", "A national referendum"],
+      "answer": "A two-thirds vote in both houses of Congress"
+    },
+    {
+      "id": 14,
+      "question": "Executive orders derive their authority from:",
+      "options": ["Article II of the Constitution", "Congressional delegation", "Judicial precedent", "State governors' approval"],
+      "answer": "Article II of the Constitution"
+    },
+    {
+      "id": 15,
+      "question": "The Cabinet secretaries are appointed by the president and confirmed by:",
+      "options": ["The House of Representatives", "The Senate", "The Supreme Court", "A joint congressional committee"],
+      "answer": "The Senate"
+    },
+    {
+      "id": 16,
+      "question": "The Bully Pulpit refers to the president's use of:",
+      "options": ["Media and public opinion to advance agenda", "Military threats against adversaries", "Judicial appointments for leverage", "Veto power exclusively"],
+      "answer": "Media and public opinion to advance agenda"
+    },
+    {
+      "id": 17,
+      "question": "Impoundment of funds by the president was limited by the:",
+      "options": ["Budget and Impoundment Control Act of 1974", "War Powers Resolution", "National Emergencies Act", "Line Item Veto Act"],
+      "answer": "Budget and Impoundment Control Act of 1974"
+    },
+    {
+      "id": 18,
+      "question": "The role of the vice president in the Senate is to:",
+      "options": ["Vote on all legislation", "Preside and vote only to break ties", "Chair committees", "Introduce bills"],
+      "answer": "Preside and vote only to break ties"
+    },
+    {
+      "id": 19,
+      "question": "Judicial review was established by the Supreme Court in:",
+      "options": ["Marbury v. Madison (1803)", "McCulloch v. Maryland (1819)", "Gibbons v. Ogden (1824)", "Dred Scott v. Sandford (1857)"],
+      "answer": "Marbury v. Madison (1803)"
+    },
+    {
+      "id": 20,
+      "question": "The doctrine of stare decisis means:",
+      "options": ["Courts follow precedents set by prior decisions", "Judges must recuse themselves in conflicts", "Appeals go directly to the Supreme Court", "Federal courts have original jurisdiction"],
+      "answer": "Courts follow precedents set by prior decisions"
+    },
+    {
+      "id": 21,
+      "question": "Original jurisdiction of the Supreme Court applies to cases involving:",
+      "options": ["Ambassadors or states as parties", "Constitutional questions only", "Appeals from lower federal courts", "Criminal trials"],
+      "answer": "Ambassadors or states as parties"
+    },
+    {
+      "id": 22,
+      "question": "The writ of habeas corpus can be suspended by:",
+      "options": ["Congress in cases of rebellion or invasion", "The president unilaterally", "State governors", "The judiciary"],
+      "answer": "Congress in cases of rebellion or invasion"
+    },
+    {
+      "id": 23,
+      "question": "Strict constructionism in judicial interpretation emphasizes:",
+      "options": ["Original intent of the Constitution", "Broad societal changes", "Legislative history", "International law"],
+      "answer": "Original intent of the Constitution"
+    },
+    {
+      "id": 24,
+      "question": "The 10th Amendment reserves powers not delegated to the federal government to:",
+      "options": ["The states or the people", "Local municipalities", "The president", "Foreign allies"],
+      "answer": "The states or the people"
+    },
+    {
+      "id": 25,
+      "question": "Cooperative federalism is characterized by:",
+      "options": ["Shared responsibilities between federal and state governments (e.g., grants-in-aid)", "Strict state sovereignty", "Federal preemption in all areas", "Dual sovereignty without overlap"],
+      "answer": "Shared responsibilities between federal and state governments (e.g., grants-in-aid)"
+    },
+    {
+      "id": 26,
+      "question": "In a unitary system of government, power is:",
+      "options": ["Concentrated at the national level", "Divided equally between national and regional levels", "Held primarily by regional governments", "Decentralized through confederation"],
+      "answer": "Concentrated at the national level"
+    },
+    {
+      "id": 27,
+      "question": "The full faith and credit clause requires states to:",
+      "options": ["Honor public acts, records, and judicial proceedings of other states", "Share tax revenues equally", "Align voting laws", "Extradite criminals only"],
+      "answer": "Honor public acts, records, and judicial proceedings of other states"
+    },
+    {
+      "id": 28,
+      "question": "The First Amendment protects freedom of speech but allows restrictions for:",
+      "options": ["Clear and present danger (Schenck v. United States)", "All political expression", "Symbolic speech only", "Prior restraint always"],
+      "answer": "Clear and present danger (Schenck v. United States)"
+    },
+    {
+      "id": 29,
+      "question": "The Equal Protection Clause of the 14th Amendment was used in Brown v. Board of Education to end:",
+      "options": ["Segregated public schools", "Women's suffrage", "Poll taxes", "Gerrymandering"],
+      "answer": "Segregated public schools"
+    },
+    {
+      "id": 30,
+      "question": "Suspect classifications under strict scrutiny include:",
+      "options": ["Race and national origin", "Age and gender", "Economic status", "Political affiliation"],
+      "answer": "Race and national origin"
+    },
+    {
+      "id": 31,
+      "question": "The right to privacy, implied in the Bill of Rights, was affirmed in:",
+      "options": ["Griswold v. Connecticut (contraception)", "Roe v. Wade (abortion, later overturned)", "Miranda v. Arizona (rights of accused)", "Gideon v. Wainwright (counsel)"],
+      "answer": "Griswold v. Connecticut (contraception)"
+    },
+    {
+      "id": 32,
+      "question": "Affirmative action programs must meet:",
+      "options": ["Strict scrutiny to remedy past discrimination", "Rational basis review", "Intermediate scrutiny", "No judicial review"],
+      "answer": "Strict scrutiny to remedy past discrimination"
+    },
+    {
+      "id": 33,
+      "question": "The Voting Rights Act of 1965 targeted:",
+      "options": ["Literacy tests and poll taxes in discriminatory jurisdictions", "Felon disenfranchisement nationwide", "Campaign finance in elections", "Voter ID requirements"],
+      "answer": "Literacy tests and poll taxes in discriminatory jurisdictions"
+    },
+    {
+      "id": 34,
+      "question": "The Electoral College allocates electors based on:",
+      "options": ["Congressional representation (senators + representatives)", "Popular vote percentage", "State legislatures", "National convention votes"],
+      "answer": "Congressional representation (senators + representatives)"
+    },
+    {
+      "id": 35,
+      "question": "Soft money in campaigns refers to:",
+      "options": ["Unlimited contributions to political parties for party-building activities", "Direct candidate contributions", "PAC hard money", "Foreign donations"],
+      "answer": "Unlimited contributions to political parties for party-building activities"
+    },
+    {
+      "id": 36,
+      "question": "Interest groups primarily influence policy through:",
+      "options": ["Lobbying, litigation, and mobilization", "Running candidates", "Controlling media", "Judicial appointments"],
+      "answer": "Lobbying, litigation, and mobilization"
+    },
+    {
+      "id": 37,
+      "question": "The spoils system was replaced by the:",
+      "options": ["Pendleton Civil Service Act (merit-based appointments)", "Hatch Act", "Ethics in Government Act", "Federal Election Campaign Act"],
+      "answer": "Pendleton Civil Service Act (merit-based appointments)"
+    },
+    {
+      "id": 38,
+      "question": "Public opinion polls measure attitudes but are limited by:",
+      "options": ["Sampling errors and question wording", "Always reflecting true voter intent", "Legal mandates", "Media bias only"],
+      "answer": "Sampling errors and question wording"
+    },
+    {
+      "id": 39,
+      "question": "Fiscal federalism involves:",
+      "options": ["Federal grants to states for specific purposes (categorical grants)", "State control over national budgets", "International aid", "Local tax reforms"],
+      "answer": "Federal grants to states for specific purposes (categorical grants)"
+    },
+    {
+      "id": 40,
+      "question": "The iron triangle in public policy consists of:",
+      "options": ["Congressional committees, bureaucratic agencies, and interest groups", "President, Congress, and Supreme Court", "Voters, parties, and media", "States, localities, and federal executive"],
+      "answer": "Congressional committees, bureaucratic agencies, and interest groups"
+    }
+  ]
+}

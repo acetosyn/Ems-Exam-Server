@@ -1,0 +1,1085 @@
+/* ============================================================
+   EMIS — ADMIN RESULTS PAGE (2025/2026 Premium Blue Theme)
+   Matches uploads.css aesthetics
+   ============================================================ */
+
+:root {
+  --primary: #2a4d77;
+  --primary-dark: #1f3b5c;
+  --primary-light: #e8f1fb;
+
+  --accent: #e11d48;
+
+  --card-bg: #ffffff;
+  --card-bg-soft: rgba(255, 255, 255, 0.65);
+
+  --text-dark: #0f172a;
+  --text-soft: #475569;
+
+  --border-soft: rgba(0,0,0,0.06);
+
+  --radius: 14px;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 6px 28px rgba(0,0,0,0.12);
+
+  --gradient-soft: linear-gradient(135deg, #eef6ff, #f6faff);
+}
+
+/* ============================================================
+   GLOBAL + PAGE WRAPPER
+   ============================================================ */
+
+.results-wrapper {
+  padding: 1.6rem;
+  background: var(--primary-light);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+}
+
+.fade-in {
+  animation: fadeIn .45s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.glass-card {
+  background: var(--card-bg-soft);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-soft);
+}
+
+/* ============================================================
+   HEADER PANEL
+   ============================================================ */
+
+.header-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hp-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: .3rem;
+}
+
+.hp-sub {
+  font-size: .95rem;
+  color: var(--text-soft);
+}
+
+.hp-badge {
+  padding: .55rem 1rem;
+  border-radius: 12px;
+  background: var(--gradient-soft);
+  border-left: 4px solid var(--accent);
+  color: var(--primary-dark);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================================
+   FILTER PANEL
+   ============================================================ */
+
+.filter-panel {
+  margin-bottom: 1.4rem;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.filter-group label {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: block;
+  margin-bottom: .25rem;
+}
+
+.filter-input {
+  width: 100%;
+  padding: .55rem .8rem;
+  border-radius: 10px;
+  background: #f1f6ff;
+  border: 1px solid #d4e2f7;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  box-shadow: var(--shadow-sm);
+  transition: .25s ease;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 0 3px rgba(50,90,140,0.25);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f6ff;
+  border-radius: 10px;
+  padding: .45rem .75rem;
+  border: 1px solid #d4e2f7;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-box i {
+  margin-right: .6rem;
+  color: var(--primary-dark);
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  outline: none;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+/* ============================================================
+   ANALYTICS PANEL
+   ============================================================ */
+
+.analytics-panel {
+  margin-bottom: 1.4rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.analytics-item {
+  background: #f7faff;
+  border: 1px solid #d9e5f7;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.analytics-item h3 {
+  font-size: .9rem;
+  color: var(--primary-dark);
+  margin-bottom: .25rem;
+  font-weight: 700;
+}
+
+.analytics-item p {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+/* ============================================================
+   TOOLBAR PANEL
+   ============================================================ */
+
+.toolbar-panel {
+  margin-bottom: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toolbar-right, 
+.toolbar-left {
+  display: flex;
+  gap: .7rem;
+}
+
+.btn-light,
+.btn-danger,
+.btn-secondary {
+  padding: .55rem 1rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .25s ease;
+  border: none;
+}
+
+.btn-light {
+  background: #f1f6ff;
+  border: 1px solid #d4e2f7;
+  color: var(--primary-dark);
+}
+
+.btn-light:hover {
+  background: #e6f0ff;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-danger:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   RESULTS TABLE PANEL
+   ============================================================ */
+
+.results-table-panel {
+  margin-bottom: 1.4rem;
+}
+
+.table-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e3ecfa;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.results-table th {
+  background: #f1f6ff;
+  padding: .7rem;
+  font-size: .8rem;
+  color: var(--primary-dark);
+  font-weight: 800;
+  border-bottom: 1px solid #e3ecfa;
+  text-align: left;
+}
+
+.results-table td {
+  padding: .7rem;
+  font-size: .84rem;
+  border-bottom: 1px solid #eef2f6;
+  color: var(--text-dark);
+}
+
+.results-table tr:hover td {
+  background: #f9fbff;
+}
+
+.table-placeholder {
+  text-align: center;
+  padding: 1.5rem;
+  color: #64748b;
+  font-size: .9rem;
+}
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+
+.pagination {
+  padding: 1rem .3rem;
+  text-align: center;
+}
+
+/* ============================================================
+   MODALS (Delete Confirmation)
+   ============================================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+}
+
+.modal-card {
+  background: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 360px;
+  padding: 1.4rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: fadeIn .25s ease;
+}
+
+.modal-card h3 {
+  font-weight: 800;
+  margin-bottom: .4rem;
+  color: var(--primary-dark);
+}
+
+.modal-card p {
+  font-size: .85rem;
+  color: var(--text-soft);
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   OVERLAY BEHIND MODAL
+============================================================ */
+.summary-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+    display: none;
+    transition: opacity 0.25s ease;
+}
+
+/* ============================================================
+   MODAL (VIEW SUMMARY)
+============================================================ */
+.show-summary {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 70% !important;
+    max-width: 850px;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+
+    background: #ffffff !important;
+    padding: 3rem 3.4rem !important;
+    border-radius: 22px !important;
+
+    box-shadow: 0 25px 60px rgba(0,0,0,0.38);
+    z-index: 9999 !important;
+
+    font-family: "Inter", sans-serif !important;
+
+    animation: fadeInSummary .28s ease;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeInSummary {
+    from { opacity: 0; transform: translate(-50%, -46%); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* ============================================================
+   Close Button
+============================================================ */
+.summary-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #555;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.summary-close-btn:hover {
+    color: #000;
+}
+
+/* ============================================================
+   Summary Header (Logo + Title)
+============================================================ */
+.summary-header {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-bottom: 1.8rem;
+}
+
+.summary-logo {
+    width: 90px;
+    height: auto;
+    object-fit: contain;
+}
+
+.summary-header-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #111;
+    margin: 0;
+}
+
+/* ============================================================
+   Summary Sections
+============================================================ */
+.summary-section {
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+}
+
+.summary-section p {
+    margin: 0.45rem 0;
+    font-size: 1.04rem;
+    line-height: 1.55;
+}
+
+.summary-section p strong {
+    color: #000;
+    font-weight: 700;
+}
+
+/* Divider */
+.summary-divider,
+.print-summary hr {
+    margin: 1.4rem 0;
+    height: 1px;
+    background: #e4e4e7;
+    border: none;
+}
+
+.print-summary {
+    display: none;
+}
+
+/* ============================================================
+   FIXED PRINT MODE — NO BLANK FIRST PAGE, NO EXTRA PAGES
+============================================================ */
+@media print {
+
+    /* Hide all content BUT keep layout so Chrome doesn't add blank pages */
+    body * {
+        visibility: hidden !important;
+    }
+
+    /* Show the summary content ONLY */
+    #adminPrintSummary,
+    #adminPrintSummary * {
+        visibility: visible !important;
+    }
+
+    /* Ensure summary prints from top of page cleanly */
+    #adminPrintSummary {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        padding: 2.5rem !important;
+        width: 100% !important;
+        background: #ffffff !important;
+        box-shadow: none !important;
+    }
+
+    /* Hide close button */
+    .summary-close-btn {
+        display: none !important;
+    }
+
+    @page {
+        margin: 1.4cm;
+    }
+}
+
+/* ============================================================
+   PASS / FAIL BADGES — OVERRIDDEN & SCOPED FOR RESULTS TABLE
+============================================================ */
+.results-table-panel .status-pass {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #dcfce7 !important;
+    color: #166534 !important;
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+    border: 1px solid #86efac !important;
+    font-weight: 800 !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap !important;
+}
+
+.results-table-panel .status-fail {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #fee2e2 !important;
+    color: #b91c1c !important;
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+    border: 1px solid #fecaca !important;
+    font-weight: 800 !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap !important;
+}
+
+
+
+/* ============================================================
+   SUMMARY CLOSE BUTTON (X)
+============================================================ */
+.summary-close-btn {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #666;
+    cursor: pointer;
+    transition: 0.25s ease;
+    user-select: none;
+}
+
+.summary-close-btn:hover {
+    color: #000;
+    transform: scale(1.15);
+}
+
+.summary-close-btn:active {
+    transform: scale(0.95);
+}
+
+
+
+/* ============================================================
+   CLEAR FILTER BUTTON
+============================================================ */
+.clear-filters-wrapper {
+    text-align: right;
+    margin-bottom: 0.5rem;
+}
+
+.btn-clear-filters {
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    color: #92400e;
+    font-size: 0.8rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.btn-clear-filters:hover {
+    background: #fde68a;
+    transform: translateY(-2px);
+}
+
+
+
+/* ============================================================
+   PREMIUM BADGE SCORE STYLING — SCOPED & OVERRIDDEN
+============================================================ */
+.results-table-panel .score-badges {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* Percentage Badge (Blue) */
+.results-table-panel .badge-percent {
+    background: #1e3a8a !important;
+    color: #fff !important;
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+}
+
+/* Separator Dot */
+.results-table-panel .badge-separator {
+    color: #334155 !important;
+    font-size: 1rem !important;
+    font-weight: 900 !important;
+    opacity: 0.6 !important;
+}
+
+/* Raw Score Badge (Grey Soft) */
+.results-table-panel .badge-raw {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    border: 1px solid #e2e8f0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+}
+
+
+/* ============================================================================
+   EMIS NOTIFICATIONS — NAVY BLUE + GOLD PREMIUM THEME (2025)
+   Luxury UI · High Contrast · Extremely Readable · Beautiful Animations
+============================================================================ */
+
+/* ------------------------------------------------------------
+   ROW holding the two cards
+------------------------------------------------------------- */
+.emis-notifications-row {
+  width: 100%;
+  display: flex;
+  gap: 18px;
+  margin-bottom: 1.8rem;
+  padding-right: 6px;
+  align-items: stretch; /* same height */
+}
+
+/* ------------------------------------------------------------
+   OUTER CARD (Flexible width, NOT height)
+------------------------------------------------------------- */
+.emis-notif-card {
+  flex: 1;
+  min-width: 340px;
+  background: #f3f4f6; /* porcelain light */
+  border-radius: 14px;
+  padding: 16px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔥 Exam Activity card — wider, NOT longer */
+#examNotifCard {
+  flex: 1.35;
+}
+
+/* ------------------------------------------------------------
+   HEADER — Bold, Premium, Slightly Larger
+------------------------------------------------------------- */
+.emis-notif-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.emis-notif-header h3 {
+  font-size: 1.08rem;
+  font-weight: 900;
+  color: #f80606;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emis-notif-header h3 i {
+  color: #fbbf24;      /* gold accent */
+  font-size: 1.1rem;
+}
+
+/* ------------------------------------------------------------
+   LIST AREA (fixed height so cards stay same length)
+------------------------------------------------------------- */
+.emis-notif-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.emis-notif-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.emis-notif-list::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.25);
+  border-radius: 8px;
+}
+
+/* ------------------------------------------------------------
+   EMPTY STATE — Cleaner, Bigger, Better Spacing
+------------------------------------------------------------- */
+.emis-notif-empty {
+  text-align: center;
+  padding: 18px 12px;
+  font-size: 0.88rem;
+  color: #94a3b8;
+  line-height: 1.55;
+}
+
+.emis-notif-empty i {
+  opacity: 0.55;
+  font-size: 1.2rem;
+  color: #fbbf24;
+  margin-bottom: 6px;
+}
+
+.emis-notif-empty p {
+  font-weight: 800;
+  margin: 6px 0 2px;
+}
+
+.emis-notif-empty span {
+  font-size: 0.78rem;
+}
+
+/* ------------------------------------------------------------
+   NOTIFICATION ITEM
+------------------------------------------------------------- */
+.emis-notif-item {
+  display: flex;
+  gap: 14px;
+  padding: 12px 14px;
+  background: #172a46;
+  border-radius: 12px;
+  border-left: 3px solid transparent;
+  margin-bottom: 10px;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+/* Hover */
+.emis-notif-item:hover {
+  transform: translateY(-2px);
+  background: #1e3356;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.28);
+}
+
+/* ------------------------------------------------------------
+   ICON BUBBLE — GOLD
+------------------------------------------------------------- */
+.notif-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(251,191,36,0.22);
+  color: #fbbf24;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   TEXT — Larger, Cleaner, Breathable
+------------------------------------------------------------- */
+.notif-main {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.45;
+}
+
+.notif-main strong {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.notif-sub {
+  font-size: 0.82rem;
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.notif-meta {
+  margin-top: 3px;
+  font-size: 0.72rem;
+  color: #cbd5e1;
+}
+
+/* ------------------------------------------------------------
+   NEW ITEM ANIMATION — GOLD SLIDE IN
+------------------------------------------------------------- */
+.emis-notif-item.is-new {
+  border-left-color: #fbbf24;
+  background: #1e3356;
+  animation: notifSlideIn 0.32s ease-out;
+}
+
+@keyframes notifSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+/* ============================================================================
+   PULSE / BREATHING GLOW — NEW EXAM ACTIVITY
+   Subtle · Premium · Attention-Grabbing (Not Aggressive)
+============================================================================ */
+
+/* Soft breathing glow for NEW exam notifications */
+#examNotifCard .emis-notif-item.is-new {
+  position: relative;
+  animation: examBreathGlow 2.8s ease-in-out infinite;
+}
+
+/* Outer glow ring */
+#examNotifCard .emis-notif-item.is-new::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: radial-gradient(
+    circle,
+    rgba(251,191,36,0.35) 0%,
+    rgba(251,191,36,0.18) 35%,
+    transparent 70%
+  );
+  opacity: 0;
+  animation: examGlowPulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Breathing animation (card) */
+@keyframes examBreathGlow {
+  0% {
+    box-shadow:
+      0 0 0 rgba(251,191,36,0.0),
+      0 4px 14px rgba(0,0,0,0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 14px rgba(251,191,36,0.45),
+      0 6px 20px rgba(0,0,0,0.35);
+  }
+  100% {
+    box-shadow:
+      0 0 0 rgba(251,191,36,0.0),
+      0 4px 14px rgba(0,0,0,0.25);
+  }
+}
+
+/* Glow ring pulse */
+@keyframes examGlowPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+/* ============================================================================
+   CINEMATIC ATTENTION ANIMATION — NEW EXAM SUBMISSION
+   Zoom In → Glow → Breathe → Return (x5)
+============================================================================ */
+
+/* Trigger cinematic motion 5 times */
+#examNotifCard .emis-notif-item.is-new {
+  position: relative;
+  z-index: 5;
+
+  animation-name: examCinematicPush;
+  animation-duration: 1.8s;
+  animation-timing-function: cubic-bezier(.16,.84,.44,1);
+  animation-iteration-count: 5;
+}
+
+/* Soft glow overlay (syncs with motion) */
+#examNotifCard .emis-notif-item.is-new::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 16px;
+  background: radial-gradient(
+    circle,
+    rgba(251,191,36,0.45) 0%,
+    rgba(251,191,36,0.25) 35%,
+    transparent 70%
+  );
+  pointer-events: none;
+
+  animation-name: examGlowCinematic;
+  animation-duration: 1.8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 5;
+}
+
+/* ------------------------------------------------------------
+   MAIN CINEMATIC MOTION (Push → Hold → Return)
+------------------------------------------------------------- */
+@keyframes examCinematicPush {
+  0% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
+  }
+
+  35% {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow:
+      0 0 18px rgba(251,191,36,0.55),
+      0 14px 34px rgba(0,0,0,0.45);
+  }
+
+  60% {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow:
+      0 0 22px rgba(251,191,36,0.65),
+      0 16px 40px rgba(0,0,0,0.5);
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
+  }
+}
+
+/* ------------------------------------------------------------
+   GLOW TIMING (SYNCED WITH MOTION)
+------------------------------------------------------------- */
+@keyframes examGlowCinematic {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  40% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+
+  70% {
+    opacity: 0.65;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+
+
+
+/* ============================================================
+   TOAST NOTIFICATIONS — ADMIN RESULTS
+============================================================ */
+
+.toast {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  min-width: 260px;
+  max-width: 360px;
+
+  padding: 14px 18px;
+  border-radius: 14px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  color: #fff;
+  background: #0f172a;
+
+  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  opacity: 0;
+  transform: translateY(-12px) scale(0.95);
+  transition: all 0.35s ease;
+
+  z-index: 999999; /* 🔥 ABOVE MODALS */
+  pointer-events: none;
+}
+
+/* SHOW STATE */
+.toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* TYPES */
+.toast-success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.toast-info {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+}
+
+.toast-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+
+
+/* ============================================================
+   DELETE BUTTON LOADING SPINNER
+============================================================ */
+#confirmDeleteBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Spinner circle */
+#confirmDeleteBtn .btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Hide helper */
+.hidden {
+  display: none !important;
+}
+
+/* Rotation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Disabled visual */
+#confirmDeleteBtn.loading {
+  opacity: 0.85;
+  pointer-events: none;
+}

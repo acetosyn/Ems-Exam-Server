@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}EMIS Exam Portal{% endblock %}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0f2b46',
+            'primary-dark': '#081a2b',
+            accent: '#e11d48',
+            orange: '#f97316',
+            'bg-soft': '#f8fafc',
+            'text-dark': '#0f172a',
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Base CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin1.css') }}">
+  {% block styles %}{% endblock %}
+</head>
+
+<body class="font-inter bg-bg-soft text-text-dark min-h-screen">
+
+  <!-- ================= HEADER ================= -->
+  <header class="top-header fixed top-0 left-0 right-0 z-50 bg-primary text-white shadow-md flex items-center justify-between px-8 py-3">
+    
+ <!-- Left Branding -->
+<a href="{% if session.get('user_type') == 'teacher' %}
+            {{ url_for('admin_bp.admin_teachers') }}
+          {% else %}
+            {{ url_for('admin_bp.admin_dashboard') }}
+          {% endif %}"
+   class="flex items-center gap-3 group transition-all duration-200">
+  
+  <img src="{{ url_for('static', filename='images/logo.jpg') }}"
+       alt="EMIS Logo"
+       class="h-10 w-10 rounded-md shadow-md group-hover:scale-105 transition-transform duration-200">
+
+  <h1 class="text-xl font-poppins font-bold tracking-wide group-hover:text-accent transition-colors duration-200">
+    EMIS CBT SERVER
+  </h1>
+</a>
+
+
+<!-- ================= NAVIGATION ================= -->
+<nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+  <!-- Home -->
+
+<!-- Home -->
+<a href="{% if session.get('user_type') == 'teacher' %}
+            {{ url_for('admin_bp.admin_teachers') }}
+          {% elif session.get('user_type') == 'admin' %}
+            {{ url_for('admin_bp.admin_dashboard') }}
+          {% else %}
+            {{ url_for('home') }}
+          {% endif %}"
+   class="hover:text-accent transition-colors duration-200">
+  Home
+</a>
+
+
+<!-- Modules Dropdown -->
+<div class="relative">
+  <button id="modulesBtn" class="flex items-center gap-1 hover:text-accent transition">
+    Modules <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
+  </button>
+
+  <div id="modulesMenu" class="dropdown-menu absolute hidden left-0 mt-2 min-w-[200px] bg-white shadow-lg rounded-md overflow-hidden">
+    {% if session.get('user_type') == 'admin' %}
+      <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+        <i class="fa-solid fa-shield-halved text-accent"></i>
+        <span>Admin ({{ session.get('username') }})</span>
+      </a>
+      <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-400 cursor-not-allowed">
+        <i class="fa-solid fa-chalkboard-user"></i> Teacher
+      </a>
+      <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-400 cursor-not-allowed">
+        <i class="fa-solid fa-user-graduate"></i> Student
+      </a>
+
+    {% elif session.get('user_type') == 'teacher' %}
+      <a href="{{ url_for('admin_bp.admin_teachers') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+        <i class="fa-solid fa-chalkboard-user text-green-600"></i>
+        <span>Teacher ({{ session.get('teacher_id') }})</span>
+      </a>
+      <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-400 cursor-not-allowed">
+        <i class="fa-solid fa-shield-halved"></i> Admin
+      </a>
+      <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-400 cursor-not-allowed">
+        <i class="fa-solid fa-user-graduate"></i> Student
+      </a>
+    {% else %}
+      <a href="{{ url_for('admin_bp.admin_login') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+        <i class="fa-solid fa-right-to-bracket text-blue-600"></i> Login
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Support -->
+<a href="{{ url_for('admin_bp.admin_support') }}" class="hover:text-accent transition">Support</a>
+
+</nav>
+
+<!-- ================= RIGHT ACTIONS ================= -->
+<div class="flex items-center gap-5">
+  <!-- Notifications Dropdown -->
+  <div class="relative">
+    <button id="notifBtn" class="relative hover:text-accent transition">
+      <i class="fa-solid fa-bell text-lg"></i>
+      <span class="absolute -top-1 -right-2 bg-accent text-white text-xs rounded-full px-1.5 py-0.5">3</span>
+    </button>
+
+    <div class="dropdown-menu absolute hidden right-0 mt-3 w-64">
+      <h3 class="font-semibold px-4 py-2 border-b text-primary-dark">Notifications</h3>
+      <ul class="text-sm divide-y divide-gray-100">
+        <li class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
+          <i class="fa-solid fa-upload text-accent"></i>
+          <span>New question set uploaded</span>
+        </li>
+        <li class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
+          <i class="fa-solid fa-user-graduate text-green-600"></i>
+          <span>Student login detected</span>
+        </li>
+        <li class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
+          <i class="fa-solid fa-check text-orange"></i>
+          <span>Exam server active</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" title="Toggle Theme" class="hover:text-accent transition text-lg">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <!-- User Icon -->
+      <img src="{{ url_for('static', filename='images/user.png') }}" alt="User" class="h-9 w-9 rounded-full border border-white/30 bg-white/10 p-1">
+    </div>
+  </header>
+
+<!-- ================= DESKTOP TOGGLE BUTTON ================= -->
+<button id="sidebarToggle"
+  class="hidden md:flex fixed top-[85px] left-[10px] z-[1050] bg-[#344a61] text-white p-2.5 rounded-md shadow-md hover:bg-accent transition">
+  <i class="fa-solid fa-bars"></i>
+</button>
+
+<!-- ================= SIDEBAR ================= -->
+<aside id="sidebar"
+  class="sidebar fixed top-[72px] left-0 h-[calc(100vh-72px)] w-56 bg-[#344a61] text-white transition-all duration-300 shadow-lg z-[1000]">
+
+  <div class="sidebar-header flex items-center justify-between px-4 py-3 border-b border-white/10">
+    <div class="flex flex-col">
+      <span class="sidebar-title text-base font-semibold tracking-wide">
+        {% if session.get('user_type') == 'teacher' %}
+          Teacher Panel
+        {% else %}
+          Admin Panel
+        {% endif %}
+      </span>
+      <span class="sidebar-role text-xs opacity-80 mt-1">
+        {{ session.get('user_type', 'admin') }}
+      </span>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <ul class="sidebar-menu text-[0.92rem] font-medium py-3 space-y-1">
+    <li><a href="{{ url_for('admin_bp.admin_dashboard') }}"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a></li>
+    <li><a href="{{ url_for('admin_bp.admin_teachers') }}"><i class="fa-solid fa-user-tie"></i><span>Teachers</span></a></li>
+  
+
+    <li><a href="{{ url_for('admin_bp.admin_ids') }}"><i class="fa-solid fa-id-card"></i><span>IDs</span></a></li>
+    <li><a href="{{ url_for('admin_bp.admin_past_questions') }}"><i class="fa-solid fa-clock-rotate-left"></i><span>Past Questions</span></a></li>
+    <li><a href="{{ url_for('admin_bp.admin_mock_exam') }}"><i class="fa-solid fa-pen-to-square"></i><span>Mock Exam</span></a></li>
+
+   <li><a href="{{ url_for('admin_bp.admin_results') }}">
+    <i class="fa-solid fa-chart-line"></i>
+    <span>Results</span>
+</a></li>
+
+
+    <li><a href="{{ url_for('admin_bp.admin_third_party') }}"><i class="fa-solid fa-network-wired"></i><span>Third Party</span></a></li>
+    <li><a href="{{ url_for('admin_bp.admin_activities') }}"><i class="fa-solid fa-list-check"></i><span>Activities</span></a></li>
+    <li><a href="{{ url_for('admin_bp.admin_settings') }}"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+    <li><a href="{{ url_for('admin_bp.admin_support') }}"><i class="fa-solid fa-headset"></i><span>Support</span></a></li>
+  </ul>
+
+  <div class="border-t border-white/20 mt-4 pt-3 px-3">
+  <a href="{{ url_for('admin_bp.logout') }}" class="btn-logout flex items-center justify-center gap-2 py-2.5 text-sm bg-accent hover:bg-accent/90 rounded-md transition-all duration-200 shadow-md">
+    <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
+</a>
+
+  </div>
+</aside>
+
+<!-- ================= MOBILE TOGGLE BUTTON ================= -->
+<button id="mobileSidebarBtn"
+  class="md:hidden fixed top-[85px] left-[10px] z-[2100] bg-primary text-white p-2.5 rounded-md shadow-lg hover:bg-accent transition">
+  <i class="fa-solid fa-bars"></i>
+</button>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="main-content md:ml-56 p-6 transition-all duration-300">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="text-center text-sm text-gray-400 py-6 border-t mt-12">
+  &copy; 2025 EMIS — Developed by Epiconsult Tech Division.
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/privileges.js') }}"></script>
+<script src="{{ url_for('static', filename='js/page-routes.js') }}"></script>
+
+
+
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

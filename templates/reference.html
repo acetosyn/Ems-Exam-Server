@@ -1,0 +1,746 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - EMIS Exam Portal{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin1.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin2.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/doc_upload.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/search_hist.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_credentials.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_results.css') }}">
+{% endblock %}
+
+{% block header_actions %}
+<!-- ______________________ HEADER ACTIONS ______________________ -->
+<div class="flex items-center gap-3 md:gap-6">
+    <button id="cmdBtn" class="relative text-gray-600 hover:text-navy" aria-label="Command Palette (Ctrl/⌘+K)" title="Command Palette (Ctrl/⌘+K)">⌘K</button>
+    <button id="themeToggleHeader" class="relative text-gray-600 hover:text-navy" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">🌗</button>
+    <button id="notifBtnHeader" class="relative text-gray-600 hover:text-navy" aria-label="Notifications">
+        🔔
+        <span id="notifCountHeader" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full hidden">0</span>
+    </button>
+    <a href="{{ url_for('logout') }}" class="btn-logout" title="Logout">Logout</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- ______________________ ADMIN SHELL ______________________ -->
+<div class="admin-shell min-h-screen bg-admin bg-frost" data-theme="light">
+
+    <!-- ______________________ SIDEBAR ______________________ -->
+    ...  <!-- (your sidebar remains exactly as-is) -->
+<!-- Sidebar (collapsible) -->
+<aside id="adminSidebar" class="sidebar">
+  <div class="sidebar-head">
+    <div class="brand nav-item" data-panel="#panel-dashboard" style="cursor: pointer;">
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS" class="brand-logo" />
+      <div class="brand-text">
+        <div class="brand-title">EMIS Admin</div>
+        <div class="brand-sub">Epitome Model Islamic Schools</div>
+      </div>
+    </div>
+    <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav" role="navigation" aria-label="Admin Navigation">
+    <!-- Dashboard -->
+    <button class="nav-item is-active" data-panel="#panel-dashboard">
+      <span class="nav-ico">🏠</span>
+      <span class="nav-label">Dashboard</span>
+    </button>
+
+    <!-- Uploads -->
+    <button class="nav-item" data-panel="#panel-uploads">
+      <span class="nav-ico">📂</span>
+      <span class="nav-label">Uploads</span>
+    </button>
+
+    <!-- Exams (collapsible group) -->
+    <div class="nav-group" data-group="exams">
+      <button class="nav-item nav-parent" data-submenu="#menu-exams">
+        <span class="nav-ico">🧪</span>
+        <span class="nav-label">Exams</span>
+        <span class="nav-caret">▸</span>
+      </button>
+      <div id="menu-exams" class="nav-sub">
+        <button class="nav-subitem" data-panel="#panel-push"><span>Push to Exam</span></button>
+        <button class="nav-subitem" data-panel="#panel-link"><span>Generate Link</span></button>
+        <button id="generateCredsBtnSidebar" class="btn-secondary">🔑 Generate Credentials</button>
+        <button class="nav-subitem" data-panel="#panel-manage"><span>Manage Credentials</span></button>
+        <button class="nav-subitem" data-panel="#panel-results"><span>Results</span></button>
+      </div>
+    </div>
+
+    <!-- Candidates -->
+    <button class="nav-item" data-panel="#panel-candidates">
+      <span class="nav-ico">👥</span>
+      <span class="nav-label">Candidates</span>
+    </button>
+
+    <!-- Notifications -->
+    <button class="nav-item" data-panel="#panel-notifications">
+      <span class="nav-ico">🔔</span>
+      <span class="nav-label">Notifications</span>
+    </button>
+
+    <!-- Activity -->
+    <button class="nav-item" data-panel="#panel-activity">
+      <span class="nav-ico">🕒</span>
+      <span class="nav-label">Activity</span>
+    </button>
+
+    <!-- System Status -->
+    <button class="nav-item" data-panel="#panel-status">
+      <span class="nav-ico">⚙️</span>
+      <span class="nav-label">System Status</span>
+    </button>
+
+    <!-- Quick Tools -->
+    <button class="nav-item" data-panel="#panel-tools">
+      <span class="nav-ico">⚡</span>
+      <span class="nav-label">Quick Tools</span>
+    </button>
+
+    <!-- Settings -->
+    <button class="nav-item" data-panel="#panel-settings">
+      <span class="nav-ico">🛠️</span>
+      <span class="nav-label">Settings</span>
+    </button>
+
+    <!-- Help -->
+    <button class="nav-item" data-panel="#panel-help">
+      <span class="nav-ico">❓</span>
+      <span class="nav-label">Help</span>
+    </button>
+
+    <!-- Candidate Login (opens new tab via JS) -->
+    <button class="nav-item" data-action="open-candidate-login">
+      <span class="nav-ico">🔗</span>
+      <span class="nav-label">Candidate Login</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-foot">
+    <button id="themeToggle" class="sidebar-foot-btn" title="Toggle theme">🌗 Theme</button>
+    <a href="{{ url_for('logout') }}" class="sidebar-foot-btn" title="Logout">🚪 Logout</a>
+  </div>
+</aside>
+
+    <!-- ______________________ MAIN CONTENT ______________________ -->
+    <section class="content-area">
+
+        <!-- ______________________ TOPBAR ______________________ -->
+        ...  <!-- (your topbar remains exactly as-is) -->
+
+          <!-- Top Bar (inside content for richer controls) -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1 class="page-title">Admin Dashboard</h1>
+                <div class="breadcrumbs" id="breadcrumbs">Home / Dashboard</div>
+            </div>
+            <div class="topbar-right">
+                <div class="search-wrap">
+                    <span class="search-ico">🔎</span>
+                    <input id="globalSearch" type="search" class="search-input" placeholder="Search candidates, documents, exams…" />
+                </div>
+                <button id="cmdBtnTop" class="topbar-btn" title="Command Palette (⌘/Ctrl+K)">⌘K</button>
+                <button id="notifBtn" class="topbar-btn" title="Notifications">🔔 <span id="notifCount" class="badge hidden">0</span></button>
+                <div class="profile-menu">
+                    <button id="profileBtn" class="profile-btn" aria-haspopup="true" aria-expanded="false">👤 {{ session.username }}</button>
+                    <div id="profileMenu" class="profile-dropdown hidden">
+                        <button class="profile-item" data-panel="#panel-settings">Settings</button>
+                        <a class="profile-item" href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--_____________________ ROUTE CONTAINER______________________ -->
+        <div id="routeContainer" class="route-container">
+
+
+            <!-- DASHBOARD -->
+
+<section id="panel-dashboard" class="route is-active" data-route="dashboard">
+  <!-- Stats -->
+  <div class="grid-cols responsive-4">
+    <div class="stat-card gradient-blue">
+      <div class="stat-ico">👥</div>
+      <p class="stat-label">Total Candidates</p>
+      <h2 id="statTotalStudents" class="stat-value">0</h2>
+    </div>
+    <div class="stat-card gradient-green">
+      <div class="stat-ico">📝</div>
+      <p class="stat-label">Active Exams</p>
+      <h2 id="statActiveExams" class="stat-value">0</h2>
+    </div>
+    <div class="stat-card gradient-amber">
+      <div class="stat-ico">⏳</div>
+      <p class="stat-label">Pending Results</p>
+      <h2 id="statPending" class="stat-value">0</h2>
+    </div>
+    <div class="stat-card gradient-red">
+      <div class="stat-ico">📊</div>
+      <p class="stat-label">Average Score</p>
+      <h2 id="statAvg" class="stat-value">--</h2>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="grid-cols responsive-3 mt-6">
+    <div class="card tall">
+      <h3 class="card-title">🚀 Quick Actions</h3>
+      <div class="quick-actions">
+        <button class="action-card primary" data-action="open-candidate-login">
+          <span>🔗</span> Open Candidate Login
+        </button>
+        <button id="generateCredsBtnQuick" class="action-card primary">
+          <span>🔑</span> Generate Credentials
+        </button>
+        <button class="action-card primary" data-action="open-upload" data-panel="#panel-uploads">
+          <span>📂</span> Upload Document
+        </button>
+
+        <button class="action-card secondary" data-panel="#panel-push">
+          <span>📦</span> Push to Exam
+        </button>
+        <button class="action-card tertiary" id="viewCredsBtn" data-panel="#panel-dashboard-results">
+        <span>➕</span> View Credentials
+        </button>
+        <button class="action-card secondary" id="viewResultsBtn" data-panel="#panel-dashboard-results">
+        <span>📊</span> View Results
+        </button>
+
+      </div>
+    </div>
+
+<!-- Notifications -->
+<div class="card notifications-card">
+  <h3 class="card-title">🔔 Live Notifications</h3>
+  <div id="notificationsPanel" class="list-auto">
+    <p class="muted">No notifications yet</p>
+  </div>
+</div>
+
+<!-- Activity -->
+<div class="card activity-card">
+  <h3 class="card-title">🕒 Recent Activity</h3>
+  <div id="recentActivity" class="timeline">
+    <p class="muted">No activity logged</p>
+  </div>
+</div>
+
+<!-- System Status -->
+<div class="card status-card mt-6">
+  <h3 class="card-title">⚙️ System Status</h3>
+  <ul class="status-grid">
+    <li><span>Database</span><span class="badge-success">Online</span></li>
+    <li><span>Exam Server</span><span class="badge-success">Running</span></li>
+    <li><span>Storage</span><span class="badge-warning">80% Used</span></li>
+  </ul>
+</div>
+
+
+</section>
+
+<!-- RESULTS & CREDENTIALS (Dashboard Extension) -->
+<section id="panel-dashboard-results" class="route" data-route="dashboard-results">
+  <!-- Credentials Card -->
+  <div class="card">
+    <div class="flex justify-between items-center mb-3">
+      <h2 class="panel-title">📑 Credentials</h2>
+      <div class="flex gap-2">
+        <button id="viewCredsBtn" class="btn-secondary">View</button>
+        <button id="refreshCredsBtn" class="btn-secondary">Refresh</button>
+        <button id="exportCredsBtn" class="btn-export">Download CSV</button>
+        <button id="clearCredsBtn" class="btn-clear">Clear Table</button>
+      </div>
+    </div>
+    <div id="credentialsWrapper" class="data-wrapper">
+      <p class="muted">No credentials data yet.</p>
+    </div>
+  </div>
+
+  <!-- Results Card -->
+  <div class="card mt-6">
+    <div class="flex justify-between items-center mb-3">
+      <h2 class="panel-title">📊 Exam Results</h2>
+      <div class="flex gap-2">
+        <button id="viewResultsBtn" class="btn-secondary">View Results</button>
+        <button id="refreshResultsBtn" class="btn-secondary">Refresh</button>
+        <button id="exportResultsBtn" class="btn-export">Download CSV</button>
+        <button id="clearResultsBtn" class="btn-clear">Clear Table</button>
+      </div>
+    </div>
+    <div id="resultsWrapper" class="data-wrapper">
+      <p class="muted">No results yet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Fullscreen Modal for Credentials -->
+<div id="credentialsModal" class="results-modal hidden">
+  <div class="results-content">
+    <div class="flex justify-between items-center mb-3">
+      <h2>📑 Credentials Overview</h2>
+      <div class="flex gap-2">
+        <button id="refreshCredsModal" class="btn-secondary">Refresh</button>
+        <button id="exportCredsModal" class="btn-export">Download CSV</button>
+        <button id="closeCredsModal" class="btn-danger">Close</button>
+      </div>
+    </div>
+    <div id="credsModalBody" class="overflow-auto max-h-[70vh]"></div>
+  </div>
+</div>
+
+<!-- Fullscreen Modal for Results -->
+<div id="resultsModal" class="results-modal hidden">
+  <div class="results-content">
+    <div class="flex justify-between items-center mb-3">
+      <h2>📊 Exam Results Overview</h2>
+      <div class="flex gap-2">
+        <button id="refreshResultsModal" class="btn-secondary">Refresh</button>
+        <button id="exportResultsModal" class="btn-export">Download CSV</button>
+        <button id="closeResultsModal" class="btn-danger">Close</button>
+      </div>
+    </div>
+    <div id="resultsModalBody" class="overflow-auto max-h-[70vh]"></div>
+  </div>
+</div>
+
+
+
+<!-- UPLOADS -->
+<section id="panel-uploads" class="route" data-route="uploads">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+
+    <!-- Upload Card -->
+    <div class="card upload-card">
+      <h2 class="panel-title">Upload Document</h2>
+      <p class="panel-subtitle">Accepted: .pdf, .doc, .docx, .xls, .xlsx</p>
+
+      <!-- Drop Upload Box -->
+      <div class="drop_box" role="group" aria-label="Document upload">
+        <header>
+          <h4>Drag & Drop or Select File</h4>
+        </header>
+        <p class="text-sm">Files Supported: PDF, DOC, DOCX, XLS, XLSX</p>
+
+        <input type="file" hidden accept=".doc,.docx,.pdf,.xls,.xlsx" id="fileID" />
+
+        <div class="flex gap-2 mt-2">
+          <button class="btn" type="button" id="chooseFileBtn">Choose File</button>
+          <button class="btn-secondary hidden" type="button" id="clearFileBtn">Clear</button>
+        </div>
+
+        <div id="fileChosen" class="mt-3 text-sm text-navy font-semibold hidden"></div>
+
+        <!-- Progress Bar -->
+        <div id="uploadProgress" class="progress hidden mt-3">
+          <div class="progress-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Card -->
+    <div class="card upload-preview">
+      <h2 class="panel-title">Upload Preview</h2>
+      <div id="uploadSummary" class="mt-3">
+        <div class="card border rounded-lg p-4 bg-white shadow-sm hidden" id="filePreviewCard">
+          <div class="flex items-center gap-3">
+            <span id="fileIcon" class="text-2xl">📄</span>
+            <div>
+              <p id="previewFileName" class="font-medium text-navy"></p>
+              <p id="previewFileType" class="text-xs text-gray-500"></p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <iframe id="previewFrame" class="w-full h-48 border rounded hidden" title="File preview"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Action -->
+      <div class="mt-4 flex justify-center">
+        <button class="btn-primary" type="button" id="uploadBtn">⬆ Upload File</button>
+      </div>
+      <div id="uploadStatus" class="mt-2 text-sm text-gray-600"></div>
+    </div>
+  </div>
+
+  <!-- Document History -->
+  <div class="doc-history mt-8">
+    <div class="modern-card">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-navy">Document History</h3>
+        <div class="doc-history-controls flex gap-2">
+          <input id="docSearch" type="text" class="form-input search-box" placeholder="🔍 Search documents..." />
+          <button id="clearHistoryBtn" class="modern-btn modern-btn-secondary">Clear</button>
+        </div>
+      </div>
+
+      <div id="docList" class="doc-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Example Document Card -->
+        <div class="doc-card">
+          <div class="doc-card-header">
+            <span class="doc-badge pdf">PDF</span>
+            <button class="doc-menu">⋮</button>
+          </div>
+          <h4 class="doc-title">Sample_File.pdf</h4>
+          <p class="doc-meta">275 KB • Sep 30, 2025</p>
+          <div class="doc-preview">Preview</div>
+          <div class="doc-actions">
+            <button class="modern-btn modern-btn-primary">Open</button>
+            <button class="modern-btn modern-btn-secondary">Copy Link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+            <!-- PUSH TO EXAM -->
+            <section id="panel-push" class="route" data-route="push">
+                <div class="card">
+                    <h2 class="panel-title">PUSH to Exam</h2>
+                    <p class="panel-subtitle">Convert the selected or uploaded document into a JSON payload.</p>
+                    <div class="grid-cols responsive-2">
+                        <div>
+                            <label class="form-label">Active Document</label>
+                            <select id="activeDocSelect" class="form-input"></select>
+                        </div>
+                        <div class="flex items-end">
+                            <button id="pushToExamBtn" class="btn-primary w-full accent-hover">PUSH to Exam</button>
+                        </div>
+                    </div>
+
+                    <div id="jsonPreviewWrap" class="json-preview hidden mt-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-navy font-semibold">Generated JSON</h4>
+                            <div class="flex gap-2">
+                                <button id="copyJsonBtn" class="btn-secondary">Copy</button>
+                                <button id="downloadJsonBtn" class="btn-secondary">Download JSON</button>
+                            </div>
+                        </div>
+                        <textarea id="jsonPreview" class="code-area" rows="10" readonly></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GENERATE LINK -->
+            <section id="panel-link" class="route" data-route="link">
+                <div class="card">
+                    <h2 class="panel-title">Generate Candidate Link</h2>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div>
+                            <label class="form-label">Candidate Login Link</label>
+                            <div class="flex gap-2">
+                                <input id="candidateLink" type="text" class="form-input flex-1" placeholder="No link generated" />
+                                <button id="generateLinkBtn" class="btn-primary">Generate</button>
+                                <button id="copyLinkBtn" class="btn-secondary">Copy</button>
+                                <button id="openLinkBtn" class="btn-secondary" data-action="open-candidate-login">Open</button>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="autoLinkBtn" class="btn-secondary">Auto-generate &amp; Save</button>
+                            <button id="regenLinkBtn" class="btn-secondary">Regenerate</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+           <!-- GENERATE CREDENTIALS -->
+<section id="panel-credentials" class="route" data-route="credentials">
+  <div class="card cred-panel">
+    <h2 class="panel-title">🔑 Generate Credentials</h2>
+
+    <form id="credentialForm" class="space-y-4">
+
+      <!-- Input fields -->
+      <div class="grid-cols responsive-3 form-grid">
+        <div class="form-card">
+          <label class="form-label">Number of Students</label>
+          <input id="studentCount" type="number" class="form-input" min="1" value="10" />
+        </div>
+        <div class="form-card">
+          <label class="form-label">Username Prefix</label>
+          <input id="usernamePrefix" type="text" class="form-input" value="candidate" />
+        </div>
+        <div class="form-card">
+          <label class="form-label">Password Length</label>
+          <input id="passwordLength" type="number" class="form-input" min="6" max="20" value="8" />
+        </div>
+      </div>
+
+      <!-- Presets -->
+      <div class="flex flex-wrap gap-2">
+        <button type="button" class="preset-btn" data-preset="small">Preset: 10</button>
+        <button type="button" class="preset-btn" data-preset="medium">Preset: 50</button>
+        <button type="button" class="preset-btn" data-preset="large">Preset: 100</button>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="flex gap-2 flex-wrap">
+        <button id="autoCredsBtn" type="button" class="modern-btn primary">Generate</button>
+        <button id="generateAllBtn" type="button" class="modern-btn secondary">Generate + Link</button>
+        <button id="clearCredsBtn" type="button" class="modern-btn secondary">Clear</button>
+        <button id="downloadCredsBtn" type="button" class="modern-btn secondary">Download</button>
+        <button id="printCredsBtn" type="button" class="modern-btn secondary">Print</button>
+      </div>
+
+      <!-- Bulk bar -->
+      <div id="bulkBar" class="hidden bulk-bar">
+        <div class="text-sm text-navy"><span id="bulkCount">0</span> selected</div>
+        <div class="flex gap-2">
+          <button type="button" class="modern-btn secondary" id="bulkCopy">Copy</button>
+          <button type="button" class="modern-btn secondary" id="bulkDelete">Delete</button>
+          <button type="button" class="modern-btn secondary" id="bulkExport">Export</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="mt-4">
+        <div class="flex items-center justify-between mb-2">
+          <div>Total Students: <span id="totalStudents">0</span></div>
+          <input id="searchCredentials" class="form-input w-48" placeholder="Search usernames..." />
+        </div>
+        <div id="credentialsSection" class="hidden overflow-auto max-h-72 creds-table-wrap">
+          <table id="credentialsTable" class="w-full table-auto text-sm modern-table"></table>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+            <!-- MANAGE CREDENTIALS -->
+            <section id="panel-manage" class="route" data-route="manage">
+                <div class="card">
+                    <h2 class="panel-title">Manage Credentials</h2>
+                    <p class="text-sm text-gray-600">You can download, print or clear stored credentials.</p>
+                    <div class="mt-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>Stored credentials: <span id="totalStudentsC">0</span></div>
+                            <div class="flex gap-2">
+                                <button id="downloadCredsBtnC" class="btn-secondary">Download</button>
+                                <button id="clearCredsBtnC" class="btn-secondary">Clear</button>
+                            </div>
+                        </div>
+                        <div id="credentialsSectionC" class="hidden overflow-auto max-h-72">
+                            <table id="credentialsTableC" class="w-full table-auto text-sm"></table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RESULTS -->
+            <section id="panel-results" class="route" data-route="results">
+                <div class="card">
+                    <h2 class="panel-title">Results</h2>
+                    <div class="flex items-center justify-between mb-2">
+                        <input id="searchResults" class="form-input w-48" placeholder="Search results name..." />
+                        <div class="flex gap-2">
+                            <button id="downloadResultsBtn" class="btn-secondary">Download</button>
+                            <button id="printResultsBtn" class="btn-secondary">Print</button>
+                        </div>
+                    </div>
+                    <div class="overflow-auto max-h-64">
+                        <table id="resultsTable" class="w-full table-auto text-sm"></table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CANDIDATES (placeholder for future) -->
+            <section id="panel-candidates" class="route" data-route="candidates">
+                <div class="card">
+                    <h2 class="panel-title">Candidates</h2>
+                    <p class="muted">Search, filter and manage candidate records (upcoming module).</p>
+                </div>
+            </section>
+
+            <!-- NOTIFICATIONS -->
+            <section id="panel-notifications" class="route" data-route="notifications">
+                <div class="card">
+                    <h2 class="panel-title">Notifications</h2>
+                    <div id="notificationsPanelFull" class="list-auto">
+                        <p class="muted">No notifications yet</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACTIVITY -->
+            <section id="panel-activity" class="route" data-route="activity">
+                <div class="card">
+                    <h2 class="panel-title">Recent Activity</h2>
+                    <div id="recentActivityFull" class="timeline">
+                        <p class="muted">No activity logged</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATUS -->
+            <section id="panel-status" class="route" data-route="status">
+                <div class="card">
+                    <h2 class="panel-title">System Status</h2>
+                    <ul class="status-grid">
+                        <li><span>Database</span><span class="badge-success">Online</span></li>
+                        <li><span>Exam Server</span><span class="badge-success">Running</span></li>
+                        <li><span>Storage</span><span class="badge-warning">80% Used</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- QUICK TOOLS -->
+            <section id="panel-tools" class="route" data-route="tools">
+                <div class="card">
+                    <h2 class="panel-title">Quick Tools</h2>
+                    <div class="actions-row">
+                        <button class="btn-secondary" data-action="notify-director">Notify Director</button>
+                        <button class="btn-secondary" data-action="send-admit-mails">Send Admit Emails</button>
+                        <button class="btn-secondary" data-action="send-reject-mails">Send Reject Emails</button>
+                        <button class="btn-secondary" data-action="open-candidate-login">Open Candidate Login</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SETTINGS -->
+            <section id="panel-settings" class="route" data-route="settings">
+                <div class="card">
+                    <h2 class="panel-title">Settings</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Theme Switch -->
+                        <div class="pref">
+                            <label class="form-label">Theme</label>
+                            <div class="flex gap-2">
+                                <button class="btn-secondary" data-theme="light">Light</button>
+                                <button class="btn-secondary" data-theme="dark">Dark</button>
+                            </div>
+                        </div>
+
+                        <!-- Notification Preferences -->
+                        <div class="pref">
+                            <label class="form-label">Notifications</label>
+                            <div class="flex flex-col gap-2">
+                                <label class="inline-flex items-center gap-2">
+                                    <input type="checkbox" class="form-checkbox" checked />
+                                    Email Alerts
+                                </label>
+                                <label class="inline-flex items-center gap-2">
+                                    <input type="checkbox" class="form-checkbox" />
+                                    SMS Alerts
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Account Management -->
+                        <div class="pref">
+                            <label class="form-label">Account</label>
+                            <div class="flex gap-2">
+                                <button class="btn-secondary">Change Password</button>
+                                <button class="btn-danger">Deactivate</button>
+                            </div>
+                        </div>
+
+                        <!-- Language -->
+                        <div class="pref">
+                            <label class="form-label">Language</label>
+                            <select class="form-input">
+                                <option>English</option>
+                                <option>French</option>
+                                <option>Arabic</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div><!-- End of .route-container -->
+
+<!-- Credential Modal -->
+<div id="cred-modal" class="cred-overlay hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div class="cred-container bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-lg p-6 relative animate-fadeIn">
+
+    <!-- Close button -->
+    <button id="closeCredModal"
+      class="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-red-500 hover:text-white transition duration-300 shadow-sm">
+      ✕
+    </button>
+
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h3 class="text-2xl font-semibold text-navy bg-gradient-to-r from-blue-700 to-indigo-600 text-transparent bg-clip-text">
+        Generate Credentials
+      </h3>
+      <p class="text-sm text-gray-600 mt-1">Quickly create secure candidate login credentials.</p>
+    </div>
+
+    <!-- Quick buttons -->
+    <div class="grid grid-cols-3 gap-3 mb-5">
+      <button class="quick-gen-btn">1</button>
+      <button class="quick-gen-btn">2</button>
+      <button class="quick-gen-btn">3</button>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider mb-4">
+      <span>or</span>
+    </div>
+
+    <!-- Custom count -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Generate multiple credentials</label>
+      <input id="credCount" type="number" min="4" max="50" value="4"
+             class="cred-input" />
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-between items-center mb-4">
+      <button id="downloadCSVBtn" class="btn-csv hidden">⬇ Save CSV</button>
+      <button id="generateNowBtn" class="btn-generate">⚙️ Generate</button>
+    </div>
+
+    <!-- Info -->
+    <div id="credInstruction"
+         class="text-sm text-red-600 font-medium animate-pulse hidden mb-2 text-center">
+      ⚠️ Handle carefully! These are candidate login credentials.
+    </div>
+
+    <!-- Results -->
+    <div id="credResults" class="space-y-4 mt-4 max-h-[300px] overflow-y-auto pr-1"></div>
+
+    <!-- Footer -->
+    <div id="credSummary" class="text-center text-xs text-gray-500 mt-3 hidden"></div>
+  </div>
+</div>
+
+
+    </section><!-- End of .content-area -->
+</div><!-- End of .admin-layout -->
+
+
+{% endblock %}
+
+{% block scripts %}
+<!-- ______________________ SCRIPTS ______________________ -->
+<script>
+  // Inject dynamic Flask URL for candidate login
+  window.USER_LOGIN_URL = "{{ url_for('user_login') }}";
+</script>
+
+<script src="{{ url_for('static', filename='js/admin1.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin2.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin-routes.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin_exam_collapse.js') }}"></script>
+<script src="{{ url_for('static', filename='js/search_hist.js') }}"></script>
+<script src="{{ url_for('static', filename='js/user_credentials.js') }}"></script>
+<script src="{{ url_for('static', filename='js/doc_upload.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard_results.js') }}"></script>
+{% endblock %}

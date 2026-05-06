@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Government",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Political socialization is associated with",
+      "options": [
+        "A. government in exile",
+        "B. transmission of political values to young ones",
+        "C. devolution of power",
+        "D. man-made law"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Government as an academic field of study refers to",
+      "options": [
+        "A. study of political institutions",
+        "B. crowns of government",
+        "C. international organizations",
+        "D. all of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "question": "To contest an election in Nigeria, the candidate must be a member of",
+      "options": [
+        "A. civil society",
+        "B. political party",
+        "C. pressure group",
+        "D. trade union"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": ".......deals with the study of political institutions and ideas of political thinkers",
+      "options": [
+        "A. Political party",
+        "B. Social groups",
+        "C. Government as an academic field",
+        "D. Periodic election"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "The ability to influence one’s decision through the use of force is known as",
+      "options": [
+        "A. authority",
+        "B. power",
+        "C. de-jure",
+        "D. de-facto"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "The process by which all citizens participate in governance is called",
+      "options": [
+        "A. democracy",
+        "B. indirect democracy",
+        "C. direct democracy",
+        "D. political culture"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "The origin of feudalism in medieval Europe was between .... to .... centuries",
+      "options": [
+        "A. 1530–1590",
+        "B. 11th–13th",
+        "C. 1960–2024",
+        "D. 1986–1991"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Government as a process or art of governing means",
+      "options": [
+        "A. voting for APC",
+        "B. activities of pressure groups and political parties",
+        "C. activities for making and enforcing laws in a state",
+        "D. acting on election day"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "All the following are features of a democratic system of government except",
+      "options": [
+        "A. constitution",
+        "B. periodic election",
+        "C. rule of law",
+        "D. protest"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "What are the circumstances that lead to limitation of sovereign countries?",
+      "options": [
+        "A. Authority",
+        "B. Military intervention",
+        "C. Charisma leaders",
+        "D. Geographical locations"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "The Latin word LEGITIMUS means",
+      "options": [
+        "A. legal",
+        "B. periodic election",
+        "C. accountability",
+        "D. leadership"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "The political way of life which is developed by the society is known as",
+      "options": [
+        "A. agent of socialization",
+        "B. communalism",
+        "C. political culture",
+        "D. political socialization"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "Communalism ensures that everyone within the society is provided",
+      "options": [
+        "A. a means of transportation",
+        "B. a land to farm",
+        "C. a chieftaincy title",
+        "D. formal education"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Production and distribution of goods and services are controlled by the state in",
+      "options": [
+        "A. capitalism",
+        "B. mixed economy",
+        "C. communalism",
+        "D. socialism"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Which of these is an example of power?",
+      "options": [
+        "A. Cleaning your room",
+        "B. Going to war",
+        "C. Coordinating a business meeting",
+        "D. Taking an examination"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "In a capitalist state, the society is divided into the",
+      "options": [
+        "A. teachers and students",
+        "B. government and workers",
+        "C. rich and poor",
+        "D. diligent and lazy people"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "A government is considered legitimate if it comes to power through",
+      "options": [
+        "A. protest",
+        "B. force means",
+        "C. constitutional means",
+        "D. lobbying for power"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Negative social influence breeds ........ citizens in the country",
+      "options": [
+        "A. responsible",
+        "B. irresponsible",
+        "C. diligent",
+        "D. obedient"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "These are factors that promote values except",
+      "options": [
+        "A. fairness",
+        "B. tolerance",
+        "C. reveal secret",
+        "D. consistency"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Obedience to the law of a state is part of one’s",
+      "options": [
+        "A. right",
+        "B. business",
+        "C. duties",
+        "D. privilege"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "A ........ is a group of people who have strong sense of unity and common historical background",
+      "options": [
+        "A. nation",
+        "B. state",
+        "C. area",
+        "D. language"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following is not a legitimate government?",
+      "options": [
+        "A. Military",
+        "B. Democracy",
+        "C. Monarchy",
+        "D. Republican"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "The following are functions of political institutions except",
+      "options": [
+        "A. taking decisions about production of goods and services",
+        "B. making rules and regulations",
+        "C. establishing institutions for the community",
+        "D. causing conflicts in the community"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Which of the following is not a prevailing social problem in Nigeria?",
+      "options": [
+        "A. Cattle rustling",
+        "B. Kidnapping",
+        "C. Child trafficking",
+        "D. Social interaction"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "The idea of sovereignty originated from team bonding in ..... year",
+      "options": [
+        "A. 3015–1859",
+        "B. 1984–2024",
+        "C. 1530–1590",
+        "D. 1999–2025"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Educating citizens on democratic process is .......... socialization",
+      "options": [
+        "A. cultural",
+        "B. economic",
+        "C. political",
+        "D. religious"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "A system in which people actively contribute to the welfare of their community can be referred to as",
+      "options": [
+        "A. communism",
+        "B. communalism",
+        "C. socialism",
+        "D. capitalism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "Government as a subject refers to the study of",
+      "options": [
+        "A. the institutions of the state",
+        "B. territorial location",
+        "C. nation",
+        "D. political leaders"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "The absence and non-existence of government in a state is called",
+      "options": [
+        "A. confusion",
+        "B. democracy",
+        "C. coup d’etat",
+        "D. anarchy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 30,
+      "question": "Which one of the following is not a characteristic of capitalism?",
+      "options": [
+        "A. Competitive markets",
+        "B. Private property",
+        "C. Free exchange",
+        "D. Extensive government planning"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "In a fascist regime, the head of state is",
+      "options": [
+        "A. the royal father",
+        "B. the prime minister",
+        "C. the elected monarch",
+        "D. supreme and above the law"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "question": "What is political socialization?",
+      "options": [
+        "A. The means by which we inherit our political culture",
+        "B. The means by which we decide party membership",
+        "C. The means by which governments are formed",
+        "D. The means by which one agrees or disagrees with people"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Totalitarianism implies the control of government by",
+      "options": [
+        "A. coalition parties",
+        "B. parties in succession",
+        "C. a few elite",
+        "D. dictator"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "The form of government most often accompanying fascism is",
+      "options": [
+        "A. dictatorship",
+        "B. communism",
+        "C. constitutional monarchy",
+        "D. democracy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "One of the following is a major advocate for communalism as a social, political and economic system",
+      "options": [
+        "A. Karl Marx",
+        "B. Prof. A.V. Dicey",
+        "C. Julius Nyerere",
+        "D. Ahmed Tinubu"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "...........refers to citizens exhibiting an extreme unyielding pride in their country",
+      "options": [
+        "A. Nationalism",
+        "B. Xenophobia",
+        "C. Fascism",
+        "D. Authoritarianism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Civil rights in a country are enjoyed by",
+      "options": [
+        "A. citizens",
+        "B. aliens",
+        "C. prisoners",
+        "D. refugees"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Which of the following best describes feudalism?",
+      "options": [
+        "A. Government of the feudals",
+        "B. Mass ownership of property",
+        "C. Few workers administer society",
+        "D. State ownership of capital"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "A common language is one of the attributes of a",
+      "options": [
+        "A. government",
+        "B. nation",
+        "C. society",
+        "D. state"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "Multi-party system is a basic characteristic of ........ government",
+      "options": [
+        "A. democracy",
+        "B. communalism",
+        "C. military",
+        "D. fascism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "The process by which all citizens participate in governance is known as",
+      "options": [
+        "A. political culture",
+        "B. democracy",
+        "C. direct democracy",
+        "D. indirect democracy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "How can a president act as a chief policy maker?",
+      "options": [
+        "A. By meeting another head of state",
+        "B. By endorsing a political candidate",
+        "C. By exercising veto power",
+        "D. By declaring a state of emergency"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "Conflict can be resolved through",
+      "options": [
+        "A. mediation",
+        "B. coercion",
+        "C. disagreement",
+        "D. litigation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "One of the following is not a cause of social instability",
+      "options": [
+        "A. Tribalism",
+        "B. Greed and inefficiency",
+        "C. Promoting justice",
+        "D. Selfishness"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "A politically aware and active society is said to have a",
+      "options": [
+        "A. subjective culture",
+        "B. evaluative culture",
+        "C. participatory culture",
+        "D. not-my-business culture"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Sovereignty implies all the following except",
+      "options": [
+        "A. enforcement of law",
+        "B. supremacy of political parties",
+        "C. political independence",
+        "D. authority in state"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "Which of the following is an accurate definition of a totalitarian government?",
+      "options": [
+        "A. A government that holds total control over its citizens",
+        "B. A government that allows basic freedoms",
+        "C. A government that allows citizen participation",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "What is the biggest challenge to democracy?",
+      "options": [
+        "A. Food arrangement",
+        "B. Strengthening of democracy",
+        "C. Higher education system",
+        "D. None of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "Economic growth can be enhanced by ........ at work place",
+      "options": [
+        "A. Nepotism",
+        "B. Efficiency",
+        "C. Corruption",
+        "D. Tribalism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "Popular sovereignty is located in the",
+      "options": [
+        "A. military",
+        "B. police",
+        "C. electorate",
+        "D. opinion leaders"
+      ],
+      "correctOption": "C"
+    }
+  ]
+}

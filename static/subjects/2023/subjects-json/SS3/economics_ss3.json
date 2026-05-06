@@ -1,0 +1,610 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Economics",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Pre-industrialization stage of the demographic transition theory is characterized by",
+      "diagram": null,
+      "options": [
+        "A. high mortality and high mortality",
+        "B. high mortality and low mortality",
+        "C. high fertility and low mortality",
+        "D. low mortality and low fertility"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "The breaking down of the population of a country into males and females is known as",
+      "diagram": null,
+      "options": [
+        "A. sex distribution",
+        "B. occupational distribution",
+        "C. geographical distribution",
+        "D. age distribution"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "When there is an increase in dependency ratio, there will be a/an",
+      "diagram": null,
+      "options": [
+        "A. increase in working population",
+        "B. increase in employment opportunities",
+        "C. decrease in gross domestic product",
+        "D. increase in real income"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "The following are determinants of the industrialization stage except",
+      "diagram": null,
+      "options": [
+        "A. poverty",
+        "B. high income",
+        "C. better diet",
+        "D. improved medical services"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "The total number of people per square kilometer of land is known as",
+      "diagram": null,
+      "options": [
+        "A. over population",
+        "B. under population",
+        "C. population structure",
+        "D. population density"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Limestone is deposited in the following states except",
+      "diagram": null,
+      "options": [
+        "A. Ogun",
+        "B. Edo",
+        "C. Kwara",
+        "D. Cross River"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "The coefficient of unity elastic demand is",
+      "diagram": null,
+      "options": [
+        "A. = 1",
+        "B. > 1",
+        "C. < 1",
+        "D. > 0 < 1"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "One of the following is not an example of negative checks according to the Malthusian theory of population",
+      "diagram": null,
+      "options": [
+        "A. Hunger",
+        "B. Epidemic",
+        "C. Diseases",
+        "D. Poverty"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "If the population growth is not checked, all living things will double themselves every ______ year according to Malthus.",
+      "diagram": null,
+      "options": [
+        "A. 10",
+        "B. 15",
+        "C. 25",
+        "D. 30"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "According to the Malthusian theory, government should reduce population by denying citizens access to",
+      "diagram": null,
+      "options": [
+        "A. food",
+        "B. school",
+        "C. water",
+        "D. marriage"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Given that income increases from 100 to 125, what is the percentage change in income?",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_11.PNG",
+      "options": [
+        "A. 25%",
+        "B. 80%",
+        "C. 30%",
+        "D. 40%"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "Given that quantity demanded increases from 200 to 300, calculate the percentage change in quantity demanded?",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_11.PNG",
+      "options": [
+        "A. 30%",
+        "B. 60%",
+        "C. 50%",
+        "D. 80%"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "If income rises from 100 to 125 and quantity demanded rises from 200 to 300, the coefficient of income elasticity of demand is",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_11.PNG",
+      "options": [
+        "A. 0.8",
+        "B. 1.5",
+        "C. 2",
+        "D. 2.5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "What type of elasticity of demand is the result?",
+      "diagram": null,
+      "options": [
+        "A. Inelastic",
+        "B. Zero elastic",
+        "C. Elastic",
+        "D. Unity elastic"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "A good with a positive and elastic income elasticity of demand as in the data above is a",
+      "diagram": null,
+      "options": [
+        "A. Normal good",
+        "B. Inferior good",
+        "C. Negative good",
+        "D. Capital good"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "One of the following is a correct formula for price elasticity of demand",
+      "diagram": null,
+      "options": [
+        "A. P × Q",
+        "B. MUx/Px = MUy/Py",
+        "C. (% change in Qd) / (% change in P)",
+        "D. (TC − TC) / (P − Q)"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "Natural population growth rate is calculated as",
+      "diagram": null,
+      "options": [
+        "A. death rate − birth rate",
+        "B. birth rate − death rate",
+        "C. birth rate − death rate + Imm − Em",
+        "D. death rate − birth rate + Emm − Imm"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "When the population growth is equal to the resources, the country is said to be",
+      "diagram": null,
+      "options": [
+        "A. over populated",
+        "B. under populated",
+        "C. optimally populated",
+        "D. ageing populated"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "The head count of the nationals of a country is known as",
+      "diagram": null,
+      "options": [
+        "A. population census",
+        "B. population density",
+        "C. population structure",
+        "D. population distribution"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Percentage population increase is calculated as",
+      "diagram": null,
+      "options": [
+        "A. birth rate − death rate",
+        "B. death rate − birth rate",
+        "C. (New population − old population) / (old population) × 100",
+        "D. (Old population − new population) / (new population) × 100"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "One of the following is not an economic good",
+      "diagram": null,
+      "options": [
+        "A. Bread",
+        "B. Fish",
+        "C. Air",
+        "D. Water"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "When total utility reaches its maximum point, marginal utility",
+      "diagram": null,
+      "options": [
+        "A. equals zero",
+        "B. begins to fall",
+        "C. begins to rise",
+        "D. becomes negative"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "The point where total utility is maximized is called",
+      "diagram": null,
+      "options": [
+        "A. utility satisfaction",
+        "B. saturation",
+        "C. disutility",
+        "D. slumpflation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "A market situation where there is only one buyer for a product is called",
+      "diagram": null,
+      "options": [
+        "A. monopsony",
+        "B. monopoly",
+        "C. oligopoly",
+        "D. duopoly"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "All commercial banks in Nigeria are compelled by law to deposit a percentage of their total cash with the central bank. The percentage is",
+      "diagram": null,
+      "options": [
+        "A. 25",
+        "B. 30",
+        "C. 20",
+        "D. 50"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "When the demand for a commodity increases while supply remains constant, there will be",
+      "diagram": null,
+      "options": [
+        "A. a decrease in equilibrium price and quantity",
+        "B. an increase in equilibrium price and quantity",
+        "C. a decrease in equilibrium price and an increase in equilibrium quantity",
+        "D. an increase in equilibrium price and a decrease in equilibrium quantity"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "The quantity theory of money was re-modified by",
+      "diagram": null,
+      "options": [
+        "A. David Ricardo",
+        "B. Prof. C. Robbins",
+        "C. Prof. Irving Fisher",
+        "D. Adam Smith"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "When demand for money increases while its supply remains constant, there will be a",
+      "diagram": null,
+      "options": [
+        "A. decrease in equilibrium price",
+        "B. increase in equilibrium price",
+        "C. increase in interest rate",
+        "D. decrease in interest rate"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "Which of the following age groups in Nigeria is an independent population?",
+      "diagram": null,
+      "options": [
+        "A. 0–17 years",
+        "B. 18–60 years",
+        "C. 60–70 years",
+        "D. 80 years and above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "The breaking down of the population of a country into jobs they do is known as",
+      "diagram": null,
+      "options": [
+        "A. geographical distribution",
+        "B. occupational distribution",
+        "C. age distribution",
+        "D. sex distribution"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "Using the cost table shown in the diagram, what is the total cost of producing the 2nd unit of output?",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_31.PNG",
+      "options": [
+        "A. ₦3",
+        "B. ₦6",
+        "C. ₦14",
+        "D. ₦18"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Using the same cost table, the average cost of producing the 3rd unit of output is",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_31.PNG",
+      "options": [
+        "A. ₦8",
+        "B. ₦5",
+        "C. ₦7",
+        "D. ₦6"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "Using the same cost table, what is the total cost of producing the 4th unit of output?",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_31.PNG",
+      "options": [
+        "A. ₦25",
+        "B. ₦26",
+        "C. ₦28",
+        "D. ₦22"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "Using the same cost table, what is the average cost of producing the 5th unit of output?",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_31.PNG",
+      "options": [
+        "A. ₦8",
+        "B. ₦7",
+        "C. ₦6",
+        "D. ₦5"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 35,
+      "question": "Using the same cost table, what is the marginal cost of producing the 2nd unit of output?",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_31.PNG",
+      "options": [
+        "A. ₦3",
+        "B. ₦6",
+        "C. ₦2",
+        "D. ₦5"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "The major determinant of population explosion in Nigeria is",
+      "diagram": null,
+      "options": [
+        "A. unemployment",
+        "B. full employment",
+        "C. early marriage",
+        "D. improved medical services"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "The following are factors which engineered the growth of the Asian Tigers except",
+      "diagram": null,
+      "options": [
+        "A. compulsory female education",
+        "B. delayed marriages",
+        "C. only two children per couple",
+        "D. improved medical services"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "When an increase in the price of meat leads to an increase in demand for fish, meat and fish are said to be goods with ______ demand.",
+      "diagram": null,
+      "options": [
+        "A. competitive",
+        "B. complementary",
+        "C. composite",
+        "D. derived"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "When the coefficient of elasticity is greater than one but less than infinity, the demand is said to be",
+      "diagram": null,
+      "options": [
+        "A. unitary elastic",
+        "B. elastic",
+        "C. inelastic",
+        "D. perfectly elastic"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "In a price control policy where the price is fixed below equilibrium, the gap between the demand and supply curves represents",
+      "diagram": null,
+      "options": [
+        "A. excess demand",
+        "B. excess supply",
+        "C. activities of black marketers",
+        "D. the equilibrium price"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "Given the data: 15, 13, 11, 9, 8, 7, 6, 2. The mean of the data above is",
+      "diagram": null,
+      "options": [
+        "A. 8.9",
+        "B. 9.5",
+        "C. 5.8",
+        "D. 9.8"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Using the demand and supply functions shown in the diagram, the equilibrium price is",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_42.PNG",
+      "options": [
+        "A. ₦6",
+        "B. ₦8",
+        "C. ₦3",
+        "D. ₦4"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "Using those same functions, the equilibrium quantity bought and sold is",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_42.PNG",
+      "options": [
+        "A. 10 units",
+        "B. 20 units",
+        "C. 24 units",
+        "D. 12 units"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "question": "If the price of the commodity is fixed at ₦6, what is the magnitude of excess supply?",
+      "diagram": "/static/uploads/diagrams/2023/economics/diagram_42.PNG",
+      "options": [
+        "A. 12 units",
+        "B. 14 units",
+        "C. 24 units",
+        "D. 4 units"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "A declining population with an increase in number of old people is regarded as",
+      "diagram": null,
+      "options": [
+        "A. population density",
+        "B. population structure",
+        "C. population census",
+        "D. static population"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 46,
+      "question": "One of the following countries is not a member of the Asian Tigers",
+      "diagram": null,
+      "options": [
+        "A. Singapore",
+        "B. Japan",
+        "C. Taiwan",
+        "D. Ghana"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "question": "One of the following is not a function of commercial banks",
+      "diagram": null,
+      "options": [
+        "A. Agent of payments",
+        "B. Issuance of currency",
+        "C. Issuance of traveller’s cheques",
+        "D. Acceptance of deposit"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Buying and selling of securities between the central bank and commercial banks is known as",
+      "diagram": null,
+      "options": [
+        "A. bank rate",
+        "B. open market operation",
+        "C. special directive",
+        "D. moral suasion"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "The highest financial institution in Nigeria is the",
+      "diagram": null,
+      "options": [
+        "A. mortgage bank",
+        "B. development bank",
+        "C. central bank",
+        "D. merchant bank"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "The Central Bank of Nigeria issues currencies while the commercial banks",
+      "diagram": null,
+      "options": [
+        "A. print money",
+        "B. create money",
+        "C. control the circulation of money",
+        "D. regulate the stock and velocity of circulation of money"
+      ],
+      "correctOption": "B"
+    }
+  ]
+}

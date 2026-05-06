@@ -1,0 +1,662 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Civic Education",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "The principle of rule of law emphasizes",
+      "diagram": null,
+      "options": [
+        "A. equal number of children to be born",
+        "B. equal votes for all contestants",
+        "C. equality of all leaders",
+        "D. equality of all citizens before the law"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 2,
+      "question": "A representative government can be formed through",
+      "diagram": null,
+      "options": [
+        "A. appointment",
+        "B. selection",
+        "C. election",
+        "D. nomination"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 3,
+      "question": "The rights of every person as enshrined in and protected by the constitution are known as",
+      "diagram": null,
+      "options": [
+        "A. natural rights",
+        "B. popular rights",
+        "C. fundamental rights",
+        "D. fundamental human rights"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 4,
+      "question": "Government based on the consent of the people is known as",
+      "diagram": null,
+      "options": [
+        "A. Democracy",
+        "B. Plutocracy",
+        "C. Gerontocracy",
+        "D. Theocracy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 5,
+      "question": "The major principles of rule of law include the following except",
+      "diagram": null,
+      "options": [
+        "A. equality before the law",
+        "B. supremacy of the president",
+        "C. impartiality",
+        "D. respect for fundamental human rights"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 6,
+      "question": "One major way of ensuring maximum liberty for citizens is",
+      "diagram": null,
+      "options": [
+        "A. provision of social amenities",
+        "B. provision of free education",
+        "C. entrenchment of fundamental human rights in the constitution",
+        "D. none of the above"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "question": "The laws of the land are enshrined in Nigeria’s",
+      "diagram": null,
+      "options": [
+        "A. constitution",
+        "B. court of law",
+        "C. sharia laws",
+        "D. bye-laws"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "question": "Which of the following is NOT a tier of government in Nigeria?",
+      "diagram": null,
+      "options": [
+        "A. Unitary government",
+        "B. State government",
+        "C. Federal government",
+        "D. Local government"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "question": "The National Assembly of Nigeria consists of how many senators?",
+      "diagram": null,
+      "options": [
+        "A. 109 senators",
+        "B. 209 senators",
+        "C. 360 senators",
+        "D. 199 senators"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 10,
+      "question": "Which of the following is NOT a component of the Armed Forces?",
+      "diagram": null,
+      "options": [
+        "A. Police",
+        "B. Navy",
+        "C. Air Force",
+        "D. Army"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "question": "The lower chamber of the House of Representatives consists of",
+      "diagram": null,
+      "options": [
+        "A. 360 members",
+        "B. 260 members",
+        "C. 109 members",
+        "D. 209 members"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "question": "Electorate refers to",
+      "diagram": null,
+      "options": [
+        "A. suffrage",
+        "B. the electoral process",
+        "C. the electoral commission",
+        "D. voters"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 13,
+      "question": "The idea of majority rule means that",
+      "diagram": null,
+      "options": [
+        "A. everyone must be forced to speak on politics",
+        "B. the minority must have their way accepted",
+        "C. decisions reflect the views of the majority",
+        "D. the minority must be kept away"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 14,
+      "question": "One way a leader protects the interest of followers is through",
+      "diagram": null,
+      "options": [
+        "A. election rigging",
+        "B. electioneering campaigns",
+        "C. provision of infrastructure",
+        "D. voting during elections"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "question": "Groups can actualize the UDHR in the following ways except",
+      "diagram": null,
+      "options": [
+        "A. formation of strong civil society",
+        "B. enlightenment on fundamental human rights",
+        "C. peaceful demonstrations",
+        "D. fighting the government to take over power"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "question": "The full meaning of UDHR is",
+      "diagram": null,
+      "options": [
+        "A. United Declaration of Human Rights",
+        "B. Universal Declaration of Human Rights",
+        "C. Unity Declaration of Human Rights",
+        "D. University Declaration of Human Rights"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 17,
+      "question": "Freedom from slavery and slave trade under the UDHR is",
+      "diagram": null,
+      "options": [
+        "A. allowed",
+        "B. prohibited",
+        "C. problematic",
+        "D. optional"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "question": "Who prepared the preliminary text of the UDHR?",
+      "diagram": null,
+      "options": [
+        "A. Nine-member drafting committee",
+        "B. Ten-member drafting committee",
+        "C. Eight-member drafting committee",
+        "D. Eleven-member drafting committee"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "How many times did member states vote on every word and clause of the UDHR text?",
+      "diagram": null,
+      "options": [
+        "A. 1,400 times",
+        "B. 1,000 times",
+        "C. 2,000 times",
+        "D. 140 times"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 20,
+      "question": "The seven core rights outlined in the UDHR represent",
+      "diagram": null,
+      "options": [
+        "A. principles of the African Union",
+        "B. a summary of all human rights",
+        "C. views of the United States",
+        "D. guidelines for personal satisfaction"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "Since 1948, human rights issues have undergone all the following except",
+      "diagram": null,
+      "options": [
+        "A. inclusion in national constitutions",
+        "B. yardstick for good governance",
+        "C. tool for autocratic rule",
+        "D. classification into types"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "question": "Which role is expected of a good citizen in promoting human rights?",
+      "diagram": null,
+      "options": [
+        "A. Payment of taxes",
+        "B. Preventing police arrests",
+        "C. Refusal to support human rights",
+        "D. Refusal to be informed"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "question": "Law enforcement agencies responsible for maintaining law and order exclude",
+      "diagram": null,
+      "options": [
+        "A. Police",
+        "B. EFCC",
+        "C. FRSC",
+        "D. NTA"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 24,
+      "question": "Democracy originated from the",
+      "diagram": null,
+      "options": [
+        "A. Greeks",
+        "B. Indians",
+        "C. Americans",
+        "D. Nigerians"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "question": "Which of the following is NOT a characteristic of representative democracy?",
+      "diagram": null,
+      "options": [
+        "A. Periodic elections",
+        "B. Free and fair elections",
+        "C. Respect for rule of law",
+        "D. One-party system"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 26,
+      "question": "Individuals can promote the UDHR in all the following ways except",
+      "diagram": null,
+      "options": [
+        "A. teaching others their rights",
+        "B. supporting human rights abuse",
+        "C. organizing human rights groups",
+        "D. studying human rights articles"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 27,
+      "question": "Which of the following is NOT a basic human right?",
+      "diagram": null,
+      "options": [
+        "A. Right to commit suicide",
+        "B. Right to fair hearing",
+        "C. Right to personal liberty",
+        "D. Right to life"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 28,
+      "question": "Which of the following is NOT among the seven core freedoms of the UDHR?",
+      "diagram": null,
+      "options": [
+        "A. Freedom from fear",
+        "B. Freedom from discrimination",
+        "C. Freedom from want",
+        "D. Freedom from poverty"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 29,
+      "question": "How many core freedoms are contained in the UDHR?",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 7",
+        "C. 9",
+        "D. 8"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 30,
+      "question": "International Human Rights Day is celebrated every",
+      "diagram": null,
+      "options": [
+        "A. 10th December",
+        "B. 20th December",
+        "C. 15th December",
+        "D. 12th December"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "question": "The committee that led the drafting of the UDHR was headed by",
+      "diagram": null,
+      "options": [
+        "A. Franklin Roosevelt",
+        "B. Eleanor Roosevelt",
+        "C. Nelson Mandela",
+        "D. Jimmy Carter"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "question": "One major reason for establishing the United Nations Organization is to",
+      "diagram": null,
+      "options": [
+        "A. unify all nations",
+        "B. fight enemies of nations",
+        "C. develop poor countries",
+        "D. achieve world peace and freedom"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 33,
+      "question": "The UDHR was adopted in",
+      "diagram": null,
+      "options": [
+        "A. 1945",
+        "B. 1946",
+        "C. 1948",
+        "D. 1939"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "question": "The doctrine of rule of law was propounded by",
+      "diagram": null,
+      "options": [
+        "A. A.V. Dicey",
+        "B. Abraham Lincoln",
+        "C. Wole Soyinka",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "question": "Who is referred to as the father of democracy?",
+      "diagram": null,
+      "options": [
+        "A. Abraham Lincoln",
+        "B. Nelson Mandela",
+        "C. Olusegun Obasanjo",
+        "D. Abraham Salihu"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 36,
+      "question": "Which of the following is NOT a function of the legislature?",
+      "diagram": null,
+      "options": [
+        "A. Law making",
+        "B. Representation",
+        "C. Enforcement of laws",
+        "D. Oversight functions"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "question": "Federalism in Nigeria was NOT adopted to promote",
+      "diagram": null,
+      "options": [
+        "A. uniform cultural practices",
+        "B. national unity",
+        "C. rapid development",
+        "D. effective local participation"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 38,
+      "question": "Which arm of government executes and implements laws?",
+      "diagram": null,
+      "options": [
+        "A. Executive",
+        "B. Judiciary",
+        "C. Legislature",
+        "D. None"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 39,
+      "question": "Which of the following is NOT true of democracy?",
+      "diagram": null,
+      "options": [
+        "A. Periodic elections",
+        "B. Multi-party system",
+        "C. Voters register",
+        "D. Vote buying"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 40,
+      "question": "Which group does NOT protect human rights?",
+      "diagram": null,
+      "options": [
+        "A. Legal Aid Council",
+        "B. NAPTIP",
+        "C. NADECO",
+        "D. NDLEA"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "question": "Which of the following is NOT an electronic medium?",
+      "diagram": null,
+      "options": [
+        "A. Radio",
+        "B. Facebook",
+        "C. Television",
+        "D. Newspaper"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "question": "Citizenship by birth cannot be",
+      "diagram": null,
+      "options": [
+        "A. registered",
+        "B. withdrawn",
+        "C. processed",
+        "D. temporary"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "question": "Empowered youths are able to",
+      "diagram": null,
+      "options": [
+        "A. become responsible adults",
+        "B. acquire physical energy",
+        "C. seize government property",
+        "D. become exceedingly wealthy"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "question": "Values as the quality of being useful exclude",
+      "diagram": null,
+      "options": [
+        "A. community values",
+        "B. group values",
+        "C. personal values",
+        "D. general values"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "question": "Which arm of government interprets laws?",
+      "diagram": null,
+      "options": [
+        "A. Legislature",
+        "B. Executive",
+        "C. Judiciary",
+        "D. National Assembly"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "question": "Democracy promotes national development when there is",
+      "diagram": null,
+      "options": [
+        "A. good governance",
+        "B. promotion of culture",
+        "C. immunity for leaders",
+        "D. party registration"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 47,
+      "question": "In a representative democracy, elections must be",
+      "diagram": null,
+      "options": [
+        "A. periodic and general",
+        "B. free and fair",
+        "C. majority and minority based",
+        "D. none of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 48,
+      "question": "The doctrine of rule of law literally means",
+      "diagram": null,
+      "options": [
+        "A. supremacy of law",
+        "B. fundamental nature of law",
+        "C. origin of law",
+        "D. all of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 49,
+      "question": "Who was the Senate President of Nigeria?",
+      "diagram": null,
+      "options": [
+        "A. Bukola Saraki",
+        "B. Abubakar Bukola Saraki",
+        "C. Yakubu Dogara",
+        "D. Ali Ndume"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 50,
+      "question": "Whose portrait appears on the ₦500 naira note?",
+      "diagram": null,
+      "options": [
+        "A. Dr. Nnamdi Azikiwe",
+        "B. Obafemi Awolowo",
+        "C. Tafawa Balewa",
+        "D. Goodluck Jonathan"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

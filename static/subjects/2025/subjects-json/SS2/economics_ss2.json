@@ -1,0 +1,614 @@
+{
+  "subject": "Economics",
+  "class": "SS2",
+  "session": "2025/2026",
+  "questions": [
+    {
+      "id": 1,
+      "question": "15, 13, 11, 9, 8, 7, 6, 2. The median of the above data is",
+      "diagram": null,
+      "options": [
+        "A. 9",
+        "B. 8",
+        "C. 8.5",
+        "D. 7.5"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "The average of a series of values is known as",
+      "diagram": null,
+      "options": [
+        "A. mean",
+        "B. median",
+        "C. mode",
+        "D. range"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "25, 30, 40, 60, 60, 80, 80, 25, 30, 60, 80, 25. The mode of the above data is",
+      "diagram": null,
+      "options": [
+        "A. over",
+        "B. under",
+        "C. optimum",
+        "D. density"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "The difference between the highest and lowest number in a given set of data is regarded as",
+      "diagram": null,
+      "options": [
+        "A. 60",
+        "B. 80",
+        "C. 40",
+        "D. bimodel"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "14, 18, 24, 16, 30, 12, 20, 10. What is the mean of the data above?",
+      "diagram": null,
+      "options": [
+        "A. 15",
+        "B. 19",
+        "C. 20",
+        "D. 18"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Calculate the range of the following data: 20, 10, 15, 80, 40",
+      "diagram": null,
+      "options": [
+        "A. 60",
+        "B. 70",
+        "C. 40",
+        "D. 90"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "The arithmetic mean of the absolute deviation is known as",
+      "diagram": null,
+      "options": [
+        "A. variance",
+        "B. mean deviation",
+        "C. standard deviation",
+        "D. quartile deviation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Calculate the mean deviation of the following data: 4, 5, 6, 8, 10, 3",
+      "diagram": null,
+      "options": [
+        "A. 4",
+        "B. 6",
+        "C. 2",
+        "D. 3"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "3, 5, 8, 6, 9. What is the variance of the above data?",
+      "diagram": null,
+      "options": [
+        "A. 4",
+        "B. 8",
+        "C. 10",
+        "D. 12"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "9, 3, 6, 5, 8, 5. Calculate the standard deviation of the above data",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 4",
+        "C. 2",
+        "D. 9"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is NOT an example of explicit cost in production?",
+      "diagram": null,
+      "options": [
+        "A. Payments on raw materials",
+        "B. Payments on worker’s salaries",
+        "C. Payments on advertisement",
+        "D. Payment for owner's night sleeplessness"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "The average cost is best calculated as",
+      "diagram": null,
+      "options": [
+        "A. P × Q",
+        "B. TC / Q",
+        "C. FC + VC",
+        "D. (∆TC) / (∆Q)"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following costs comprises two costs of production?",
+      "diagram": null,
+      "options": [
+        "A. Total",
+        "B. Average",
+        "C. Marginal",
+        "D. Fixed"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "Marginal cost is best calculated as",
+      "diagram": null,
+      "options": [
+        "A. ATC / Q",
+        "B. ATC / ∆Q",
+        "C. TC / Q",
+        "D. AC × Q"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 15,
+      "question": "Use the table provided to answer: What is the fixed cost of producing the 3rd unit of output?",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_15.PNG",
+      "options": [
+        "A. N140",
+        "B. N160",
+        "C. N80",
+        "D. N100"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "Calculate the total variable cost of producing the third unit of output.",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_15.PNG",
+      "options": [
+        "A. N64",
+        "B. N80",
+        "C. N40",
+        "D. N60"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "What is the total cost of producing the second unit of output?",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_15.PNG",
+      "options": [
+        "A. N40",
+        "B. N64",
+        "C. N100",
+        "D. N120"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Calculate the average variable cost of producing the first unit.",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_15.PNG",
+      "options": [
+        "A. N40",
+        "B. N160",
+        "C. N20",
+        "D. N0"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "What is the average cost of producing the 3rd unit of output?",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_15.PNG",
+      "options": [
+        "A. N140",
+        "B. N160",
+        "C. N100",
+        "D. N82"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Calculate the marginal cost of producing the 6th unit of output.",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_15.PNG",
+      "options": [
+        "A. N7",
+        "B. N8",
+        "C. N9",
+        "D. N10"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "Which formula is correct for utility maximization according to the cardinal economists?",
+      "diagram": null,
+      "options": [
+        "A. MR × Q",
+        "B. MUX/PX = MUY/PY",
+        "C. MUX/PY = MUY/PX",
+        "D. ∆TU / ∆Q"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "The profit is calculated as",
+      "diagram": null,
+      "options": [
+        "A. P × Q",
+        "B. AC × AR",
+        "C. TR - TC",
+        "D. TC / Q"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "Qd = 20 – 2P and Qs = 6P – 12. What is the equilibrium price?",
+      "diagram": null,
+      "options": [
+        "A. N6",
+        "B. N8",
+        "C. N3",
+        "D. N4"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Calculate the equilibrium quantity.",
+      "diagram": null,
+      "options": [
+        "A. 10 units",
+        "B. 12 units",
+        "C. 24 units",
+        "D. 8 units"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "If the price is fixed at N6, what is the magnitude of the excess supply?",
+      "diagram": null,
+      "options": [
+        "A. 20 units",
+        "B. 12 units",
+        "C. 14 units",
+        "D. 25 units"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "An act of fixing prices for essential commodities is known as",
+      "diagram": null,
+      "options": [
+        "A. maximum price",
+        "B. minimum price",
+        "C. price legislation",
+        "D. price floor"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "The lowest price level at which a commodity cannot be sold is called",
+      "diagram": null,
+      "options": [
+        "A. minimum price",
+        "B. maximum price",
+        "C. price control",
+        "D. price legislation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "If minimum price is fixed by government, the gap between demand and supply represents",
+      "diagram": null,
+      "options": [
+        "A. shortages",
+        "B. equilibrium",
+        "C. excess supply to be consumed by government",
+        "D. black market activities"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "In maximum price control, the gap between demand and supply represents",
+      "diagram": null,
+      "options": [
+        "A. black market activities",
+        "B. shortages",
+        "C. surpluses",
+        "D. satisfaction"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "The demand for an economist teacher is an example of ______ demand.",
+      "diagram": null,
+      "options": [
+        "A. competitive",
+        "B. complementary",
+        "C. composite",
+        "D. derived"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "According to cardinalists, utility can be",
+      "diagram": null,
+      "options": [
+        "A. measured",
+        "B. ranked",
+        "C. scaled",
+        "D. preferred"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "Satisfaction derived from consuming a commodity is called",
+      "diagram": null,
+      "options": [
+        "A. revenue",
+        "B. utility",
+        "C. cost",
+        "D. utics"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "The standard unit of measuring utility is called",
+      "diagram": null,
+      "options": [
+        "A. units",
+        "B. utics",
+        "C. metres",
+        "D. minutes"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "The ability of a commodity to satisfy wants at a given time is known as",
+      "diagram": null,
+      "options": [
+        "A. place utility",
+        "B. time utility",
+        "C. form utility",
+        "D. period utility"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Movement of goods from Lagos to Abuja to satisfy wants is",
+      "diagram": null,
+      "options": [
+        "A. place utility",
+        "B. time utility",
+        "C. form utility",
+        "D. transport utility"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "Changing cocoa to Bournvita is an example of ______ utility.",
+      "diagram": null,
+      "options": [
+        "A. satisfaction",
+        "B. time",
+        "C. place",
+        "D. form"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "question": "Where total utility is at maximum, marginal utility is",
+      "diagram": null,
+      "options": [
+        "A. = 0",
+        "B. < 1",
+        "C. > 1",
+        "D. = infinity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "When total utility begins to fall, marginal utility is",
+      "diagram": null,
+      "options": [
+        "A. negative",
+        "B. positive",
+        "C. equals zero",
+        "D. greater than 1"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "The maximum point of total utility is called ______ point.",
+      "diagram": null,
+      "options": [
+        "A. disutility",
+        "B. maximum",
+        "C. saturation",
+        "D. satisfaction"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "The difference between budgeted amount and actual amount paid is called",
+      "diagram": null,
+      "options": [
+        "A. saturation",
+        "B. stagflation",
+        "C. consumer’s surplus",
+        "D. utility maximization"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "The supernormal demand curve is caused by",
+      "diagram": null,
+      "options": [
+        "A. articles of ostentation",
+        "B. articles of necessity",
+        "C. articles of stagflation",
+        "D. rare commodities"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Another name for fixed cost is",
+      "diagram": null,
+      "options": [
+        "A. total cost",
+        "B. variable cost",
+        "C. overhead cost",
+        "D. implicit cost"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "Payment made directly on purchased resources is known as ______ cost.",
+      "diagram": null,
+      "options": [
+        "A. explicit",
+        "B. implicit",
+        "C. overhead",
+        "D. incremental"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "The cost of resources supplied by business owners is called ______ cost.",
+      "diagram": null,
+      "options": [
+        "A. marginal",
+        "B. fixed",
+        "C. implicit",
+        "D. explicit"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "Which of the following is NOT an implicit cost?",
+      "diagram": null,
+      "options": [
+        "A. owner's managerial skills",
+        "B. owner's occupied building",
+        "C. owner's salary",
+        "D. staff salaries"
+      ],
+      "correctOption": "D"
+    },
+
+
+    {
+      "id": 46,
+      "question": "Calculate the upper quartile of the data: 0, 2, 1, 3, 4, 6, 7, 9, 10, 8, 5.",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_46.PNG",
+      "options": [
+        "A. 9",
+        "B. 6",
+        "C. 8",
+        "D. 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "What is the quartile range of the data?",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_46.PNG",
+      "options": [
+        "A. 6",
+        "B. 5",
+        "C. 3",
+        "D. 8"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "What is the lower quartile of the data?",
+      "diagram": "/static/uploads/diagrams/economics_ss2/diagram_46.PNG",
+      "options": [
+        "A. 6",
+        "B. 3",
+        "C. 9",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+
+    
+
+    {
+      "id": 49,
+      "question": "One of the following is NOT a factor affecting demand for a commodity:",
+      "diagram": null,
+      "options": [
+        "A. Price of a commodity",
+        "B. Change in taste",
+        "C. Level of technology",
+        "D. Advertisement"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "The following are determinants of change in demand EXCEPT:",
+      "diagram": null,
+      "options": [
+        "A. price of a commodity",
+        "B. price of other commodities",
+        "C. consumer income",
+        "D. government policy"
+      ],
+      "correctOption": "A"
+    }
+  ]
+}

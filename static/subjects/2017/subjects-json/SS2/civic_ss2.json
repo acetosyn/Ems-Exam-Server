@@ -1,0 +1,662 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Civic Education",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "The rights of everybody as enshrined in and protected by the constitution are known as",
+      "diagram": null,
+      "options": [
+        "A. natural rights",
+        "B. fundamental rights",
+        "C. fundamental human rights",
+        "D. artificial rights"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "question": "Involvement and active participation of citizens in political activities is called",
+      "diagram": null,
+      "options": [
+        "A. election",
+        "B. campaign",
+        "C. popular organization",
+        "D. popular participation"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 3,
+      "question": "Popular participation can also be referred to as",
+      "diagram": null,
+      "options": [
+        "A. participation by the rich",
+        "B. participation by the nobles",
+        "C. mass participation",
+        "D. elitist participation"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 4,
+      "question": "One of the reasons for non-participation in politics is",
+      "diagram": null,
+      "options": [
+        "A. illiteracy",
+        "B. good governance",
+        "C. political rights",
+        "D. none of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 5,
+      "question": "The following are forms of political participation except",
+      "diagram": null,
+      "options": [
+        "A. voting during elections",
+        "B. contesting elections",
+        "C. rigging elections",
+        "D. supporting candidates"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 6,
+      "question": "Which of the following does NOT encourage political participation?",
+      "diagram": null,
+      "options": [
+        "A. economic benefits",
+        "B. education",
+        "C. poverty",
+        "D. ethnic origin"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "question": "Electorate refers to",
+      "diagram": null,
+      "options": [
+        "A. voters",
+        "B. suffrage",
+        "C. electoral process",
+        "D. electoral commission"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "question": "One of the benefits of political participation is",
+      "diagram": null,
+      "options": [
+        "A. feeling of satisfaction",
+        "B. military intervention",
+        "C. rigging of elections",
+        "D. feeling of frustration"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "question": "Popular organizations are formed through the following except",
+      "diagram": null,
+      "options": [
+        "A. convening meetings",
+        "B. passing motions",
+        "C. letter of withdrawal",
+        "D. court affidavit"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "question": "Fundamental human rights are inalienable because they",
+      "diagram": null,
+      "options": [
+        "A. can be taken away",
+        "B. cannot be enforced",
+        "C. cannot be taken away",
+        "D. none of the above"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 11,
+      "question": "The following are limitations of human rights except",
+      "diagram": null,
+      "options": [
+        "A. emergency situations",
+        "B. illiteracy and ignorance",
+        "C. popular participation",
+        "D. overzealous security operations"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 12,
+      "question": "NDLEA stands for",
+      "diagram": null,
+      "options": [
+        "A. Nigeria Drugs Legislation Enforcement Agency",
+        "B. National Drug Law Enforcement Agency",
+        "C. Nigeria Agency for Foods and Drugs Administration",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 13,
+      "question": "The following are drug law enforcement agencies except",
+      "diagram": null,
+      "options": [
+        "A. Police",
+        "B. NDLEA",
+        "C. NAFDAC",
+        "D. EFCC"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 14,
+      "question": "The following are effects of drug abuse except",
+      "diagram": null,
+      "options": [
+        "A. prostitution",
+        "B. poverty",
+        "C. enhanced motivation",
+        "D. low self-esteem"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "question": "Which of the following is a sign of drug abuse?",
+      "diagram": null,
+      "options": [
+        "A. unusual use of perfume",
+        "B. deviant behaviour",
+        "C. poor academic performance",
+        "D. all of the above"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "question": "Which of the following is NOT a way of abusing drugs?",
+      "diagram": null,
+      "options": [
+        "A. misuse of prescription drugs",
+        "B. self-medication",
+        "C. taking drugs as prescribed by a doctor",
+        "D. performance-enhancing drugs"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 17,
+      "question": "Which of the following is NOT a group of drugs?",
+      "diagram": null,
+      "options": [
+        "A. inhalants",
+        "B. cannabis",
+        "C. alcohol",
+        "D. cancer"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 18,
+      "question": "A substance taken into the body that alters its function is known as a",
+      "diagram": null,
+      "options": [
+        "A. drug",
+        "B. medicine",
+        "C. test",
+        "D. self-medication"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "In Nigeria, citizenship confers rights and",
+      "diagram": null,
+      "options": [
+        "A. money",
+        "B. duties",
+        "C. tax",
+        "D. none of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 20,
+      "question": "Which of the following does NOT occur during emergency periods?",
+      "diagram": null,
+      "options": [
+        "A. imposition of curfew",
+        "B. investment movement",
+        "C. breakdown of law and order",
+        "D. people fleeing homes"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "NAFDAC stands for",
+      "diagram": null,
+      "options": [
+        "A. National Agency for Foods and Drugs Administration and Control",
+        "B. National Agency for Foods and Development Control",
+        "C. National Agency for Foods and Drugs Administration Control",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 22,
+      "question": "The origin of human rights can be traced to",
+      "diagram": null,
+      "options": [
+        "A. Magma Carta",
+        "B. Magna Carta",
+        "C. UDHR",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 23,
+      "question": "The UDHR states that slavery and slave trade should be",
+      "diagram": null,
+      "options": [
+        "A. prohibited",
+        "B. problematic",
+        "C. promulgated",
+        "D. permitted"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "question": "Cultism in Nigeria is most prevalent in",
+      "diagram": null,
+      "options": [
+        "A. post-secondary institutions",
+        "B. secondary schools",
+        "C. primary schools",
+        "D. informal schools"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "question": "Under drug laws, those who manufacture or traffic drugs are",
+      "diagram": null,
+      "options": [
+        "A. sentenced to 20 years imprisonment",
+        "B. sentenced to life imprisonment",
+        "C. sentenced to 14 years imprisonment",
+        "D. none of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "question": "UDHR means",
+      "diagram": null,
+      "options": [
+        "A. Universal Declaration of Human Rights",
+        "B. Universal Decentralization Human Rights",
+        "C. United Nations Declaration of Human Rights",
+        "D. University Declaration of Human Rights"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "Which of the following is NOT a healthy club to join?",
+      "diagram": null,
+      "options": [
+        "A. Rotary Club",
+        "B. Mafia Club",
+        "C. Human Rights Club",
+        "D. Charity Organization"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "question": "An organization whose activities are known only to members is a",
+      "diagram": null,
+      "options": [
+        "A. secret cult",
+        "B. secret group",
+        "C. secret ballot",
+        "D. secret club"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 29,
+      "question": "Which of the following is NOT a basic human right?",
+      "diagram": null,
+      "options": [
+        "A. right to die",
+        "B. right to fair hearing",
+        "C. right to personal liberty",
+        "D. right to life"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 30,
+      "question": "Possession of drug paraphernalia is a sign of",
+      "diagram": null,
+      "options": [
+        "A. drug abuse",
+        "B. cocoa use",
+        "C. chewing gum",
+        "D. none of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "question": "Which of the following is NOT often abused?",
+      "diagram": null,
+      "options": [
+        "A. tea",
+        "B. snuff",
+        "C. coffee",
+        "D. cigarettes"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 32,
+      "question": "Drugs taken mainly for pleasure are called",
+      "diagram": null,
+      "options": [
+        "A. hard drugs",
+        "B. soft drugs",
+        "C. recreational drugs",
+        "D. performance-enhancing drugs"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 33,
+      "question": "Which of the following is a cause of drug abuse?",
+      "diagram": null,
+      "options": [
+        "A. social instability",
+        "B. societal instability",
+        "C. financial instability",
+        "D. marriage instability"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 34,
+      "question": "NDLEA handles matters relating to",
+      "diagram": null,
+      "options": [
+        "A. hard drugs",
+        "B. medicines and bottled water",
+        "C. cosmetics and bottled water",
+        "D. medical devices only"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "question": "Which agency does NOT maintain law and order?",
+      "diagram": null,
+      "options": [
+        "A. Police",
+        "B. EFCC",
+        "C. NNPC",
+        "D. FRSC"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "question": "The highest court in Nigeria is the",
+      "diagram": null,
+      "options": [
+        "A. Court of Appeal",
+        "B. Federal High Court",
+        "C. Supreme Court",
+        "D. Customary Court"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "question": "The document often referred to as the Charter is the",
+      "diagram": null,
+      "options": [
+        "A. Magna Carta",
+        "B. Carta Magna",
+        "C. Magna Conto",
+        "D. None"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 38,
+      "question": "Putting the welfare of others above self-interest is known as",
+      "diagram": null,
+      "options": [
+        "A. self act",
+        "B. selfishness",
+        "C. selflessness",
+        "D. service to people"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 39,
+      "question": "Doing business independently without working for others is",
+      "diagram": null,
+      "options": [
+        "A. self-employment",
+        "B. one’s employment",
+        "C. family business",
+        "D. civil service"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "question": "Which of the following is NOT an importance of communication skills?",
+      "diagram": null,
+      "options": [
+        "A. fast message delivery",
+        "B. saving time and labour",
+        "C. global village creation",
+        "D. transportation of people"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "question": "Which of the following does NOT enhance self-employment?",
+      "diagram": null,
+      "options": [
+        "A. creativity",
+        "B. commitment",
+        "C. hard work",
+        "D. laziness"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "question": "Training that prepares individuals to become good citizens is called",
+      "diagram": null,
+      "options": [
+        "A. citizenship training",
+        "B. citizenship practice",
+        "C. citizens education",
+        "D. citizenship education"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 43,
+      "question": "The opposite of popular participation is",
+      "diagram": null,
+      "options": [
+        "A. political parties",
+        "B. political apathy",
+        "C. political slogan",
+        "D. political involvement"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 44,
+      "question": "Which of the following is NOT a negative method of political competition?",
+      "diagram": null,
+      "options": [
+        "A. training thugs",
+        "B. misuse of electronic media",
+        "C. formation of party wings",
+        "D. propaganda"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 45,
+      "question": "Which of the following is NOT a consequence of poverty?",
+      "diagram": null,
+      "options": [
+        "A. disease and death",
+        "B. poor standard of living",
+        "C. low self-esteem",
+        "D. disciplined behaviour"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 46,
+      "question": "Guaranteed employment is NOT promoted by",
+      "diagram": null,
+      "options": [
+        "A. free education",
+        "B. infrastructural facilities",
+        "C. free provision of goods and services",
+        "D. free medical care"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "question": "Fundamental human rights are classified into the following except",
+      "diagram": null,
+      "options": [
+        "A. political",
+        "B. social",
+        "C. religion",
+        "D. economic"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "question": "All the following are effects of drug abuse except",
+      "diagram": null,
+      "options": [
+        "A. heart and lung diseases",
+        "B. irregular heartbeat",
+        "C. hepatitis B",
+        "D. obesity"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 49,
+      "question": "Capitalism is a system in which the means of production are owned by",
+      "diagram": null,
+      "options": [
+        "A. individuals",
+        "B. families",
+        "C. government only",
+        "D. none of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "question": "During war, the following are usually declared",
+      "diagram": null,
+      "options": [
+        "A. dawn-to-dawn curfew",
+        "B. curfew and state of emergency",
+        "C. state of confusion",
+        "D. none of the above"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

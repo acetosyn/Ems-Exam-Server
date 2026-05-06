@@ -1,0 +1,608 @@
+{
+    "subject": "Mathematics",
+    "class": "SS3",
+    "session": "2021/2022",
+    "time_allowed_minutes": 120,
+    "questions": [
+        {
+            "id": 1,
+            "diagram": null,
+            "question": "Evaluate the determinant of the matrix M = \\(\\begin{pmatrix}2 & -4 & -4 \\\\ 1 & 8 & 2 \\\\ 1 & 1 & -2\\end{pmatrix}\\).",
+            "options": [
+                "A. -24",
+                "B. -8",
+                "C. 48",
+                "D. 42"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 2,
+            "diagram": null,
+            "question": "Express 0.001025 in standard form.",
+            "options": [
+                "A. 1.025 \u00d7 10<sup>-3</sup>",
+                "B. 1.025 \u00d7 10<sup>-1</sup>",
+                "C. 1.025 \u00d7 10<sup>-2</sup>",
+                "D. 1.025 \u00d7 10<sup>-5</sup>"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 3,
+            "diagram": null,
+            "question": "If B = \\(\\begin{pmatrix}2 & 1 & 0 \\\\ 3 & 0 & -2 \\\\ 1 & -1 & 3\\end{pmatrix}\\), find B<sup>T</sup>.",
+            "options": [
+                "A. \\(\\begin{pmatrix}2 & 3 & 1 \\\\ 1 & 0 & -1 \\\\ 0 & 2 & 3\\end{pmatrix}\\)",
+                "B. \\(\\begin{pmatrix}2 & 1 & 0 \\\\ 3 & 0 & -2 \\\\ 1 & -1 & 3\\end{pmatrix}\\)",
+                "C. \\(\\begin{pmatrix}2 & 3 & 1 \\\\ 1 & 0 & -1 \\\\ 0 & -2 & 3\\end{pmatrix}\\)",
+                "D. \\(\\begin{pmatrix}2 & 1 & 0 \\\\ 3 & 0 & -1 \\\\ 1 & -2 & 3\\end{pmatrix}\\)"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 4,
+            "diagram": null,
+            "question": "Simplify (0.027)<sup>1/3</sup> \u00d7 (0.09)<sup>-3/2</sup>.",
+            "options": [
+                "A. (3/10)<sup>2</sup>",
+                "B. (3/10)<sup>-2</sup>",
+                "C. (3/10)<sup>-2</sup>",
+                "D. (3/10)<sup>4</sup>"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 5,
+            "diagram": null,
+            "question": "If \u03be = {a, b, c, d, e}, P = {a, b, d} and Q = {b, d, e}, find (P \u2229 Q)<sup>1</sup>.",
+            "options": [
+                "A. {a, c, e}",
+                "B. {a, b, c}",
+                "C. {b, d}",
+                "D. {c, e}"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 6,
+            "diagram": "/static/uploads/diagrams/2021/mathematics_ss3/diagram_6.PNG",
+            "question": "Which of the following represents the shaded region in the Venn diagram?",
+            "options": [
+                "A. M \u2229 N",
+                "B. M \u222a N",
+                "C. M<sup>1</sup> \u222a N",
+                "D. M<sup>1</sup> \u2229 N"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 7,
+            "diagram": null,
+            "question": "Correct 4164.086 to 2 significant figures.",
+            "options": [
+                "A. 4100",
+                "B. 4200",
+                "C. 4160",
+                "D. 4170"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 8,
+            "diagram": null,
+            "question": "If log<sub>10</sub>3 = 0.477, find log<sub>10</sub>27 correct to 2 significant figures.",
+            "options": [
+                "A. 0.95",
+                "B. 1.4",
+                "C. 1.3",
+                "D. 0.48"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 9,
+            "diagram": null,
+            "question": "Given that (x \u2212 2) is a factor of 8x<sup>2</sup> \u2212 19x + 6, find another factor.",
+            "options": [
+                "A. 8x \u2212 3",
+                "B. 4x \u2212 3",
+                "C. 8x + 3",
+                "D. 4x + 3"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 10,
+            "diagram": null,
+            "question": "Given that d = \u221a(ab/c \u2212 c<sup>2</sup>b), make b the subject of the formula.",
+            "options": [
+                "A. b = cd<sup>2</sup>/(a + c<sup>3</sup>)",
+                "B. b = cd<sup>2</sup>/(a \u2212 c<sup>2</sup>)",
+                "C. b = cd<sup>2</sup>/(a \u2212 c<sup>3</sup>)",
+                "D. b = cd<sup>2</sup>/(a + c<sup>2</sup>)"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 11,
+            "diagram": null,
+            "question": "If 2a + 3b = 5 and 2a + b = 1, find the values of a and b.",
+            "options": [
+                "A. a = \u22121/2, b = 2",
+                "B. a = 1/2, b = 2",
+                "C. a = \u22121/2, b = \u22122",
+                "D. a = 1/2, b = \u22122"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 12,
+            "diagram": null,
+            "question": "Given that x \u221d 1/y<sup>2</sup>, if x = 4 when y = 3, find x when y = 2.",
+            "options": [
+                "A. 4",
+                "B. 9",
+                "C. 12",
+                "D. 16"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 13,
+            "diagram": null,
+            "question": "Form an equation with roots \u22122 and 1/3.",
+            "options": [
+                "A. 3x<sup>2</sup> \u2212 5x + 2 = 0",
+                "B. 3x<sup>2</sup> + 5x + 2 = 0",
+                "C. 3x<sup>2</sup> \u2212 5x \u2212 2 = 0",
+                "D. 3x<sup>2</sup> + 5x \u2212 2 = 0"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 14,
+            "diagram": null,
+            "question": "A rhombus has side 10 cm and one of its diagonals is 12 cm. Find the area of the rhombus.",
+            "options": [
+                "A. 120 cm<sup>2</sup>",
+                "B. 108 cm<sup>2</sup>",
+                "C. 96 cm<sup>2</sup>",
+                "D. 84 cm<sup>2</sup>"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 15,
+            "diagram": "/static/uploads/diagrams/2021/mathematics_ss3/diagram_15.PNG",
+            "question": "In the parallelogram PQRS, PQ = 16 cm, QS = 9 cm and \u2220PQS = 90\u00b0. Find the perimeter of the parallelogram.",
+            "options": [
+                "A. 50 cm",
+                "B. 64 cm",
+                "C. 68 cm",
+                "D. 72 cm"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 16,
+            "diagram": null,
+            "question": "How many sides have a regular polygon with interior angles of 160\u00b0?",
+            "options": [
+                "A. 18",
+                "B. 16",
+                "C. 20",
+                "D. 15"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 17,
+            "diagram": null,
+            "question": "Which of the following quadrilaterals has/have diagonals intersecting at right angles?\nI. Square\nII. Rhombus\nIII. Kite",
+            "options": [
+                "A. I and II only",
+                "B. All of them",
+                "C. I and III only",
+                "D. None of them"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 18,
+            "diagram": null,
+            "question": "If the determinant of a matrix is zero, the matrix is called a ______.",
+            "options": [
+                "A. singular matrix",
+                "B. diagonal matrix",
+                "C. unit matrix",
+                "D. symmetric matrix"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 19,
+            "diagram": null,
+            "question": "A and B are sets such that n(A) = 26, n(B) = 19 and n(A \u2229 B) = 11. Find n(A \u222a B).",
+            "options": [
+                "A. 30",
+                "B. 37",
+                "C. 45",
+                "D. 34"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 20,
+            "diagram": null,
+            "question": "How many years will \u20a6100,000.00 amount to \u20a6180,000.00 at 5% simple interest per annum?",
+            "options": [
+                "A. 4",
+                "B. 16",
+                "C. 20",
+                "D. 50"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 21,
+            "diagram": "/static/uploads/diagrams/2021/mathematics_ss3/diagram_21.PNG",
+            "question": "The bar chart in the figure shows how a family spends its income. How much does the family spend on food?",
+            "options": [
+                "A. \u20a63,000",
+                "B. \u20a64,000",
+                "C. \u20a65,000",
+                "D. \u20a68,000"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 22,
+            "diagram": null,
+            "question": "The bearing of P from Q is 124\u00b0. What is the bearing of Q from P?",
+            "options": [
+                "A. 304\u00b0",
+                "B. 326\u00b0",
+                "C. 56\u00b0",
+                "D. 124\u00b0"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 23,
+            "diagram": null,
+            "question": "A satellite is 800 km above a point A on the ground and its angle of elevation from another point B on the ground is 30\u00b0. How far is A from B (to 2 S.F.)?",
+            "options": [
+                "A. 460 km",
+                "B. 690 km",
+                "C. 800 km",
+                "D. 1400 km"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 24,
+            "diagram": null,
+            "question": "The mean of five numbers is 6. If the numbers are 1, 6, x, 8, 7. What is the mode?",
+            "options": [
+                "A. 1",
+                "B. 8",
+                "C. 5",
+                "D. 7"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 25,
+            "diagram": null,
+            "question": "Which of the following is not a measure of dispersion?",
+            "options": [
+                "A. Median",
+                "B. Mean deviation",
+                "C. Standard deviation",
+                "D. Variance"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 26,
+            "diagram": null,
+            "question": "The standard deviation of the ages of 10 students is 1.2. What is the variance?",
+            "options": [
+                "A. 3.46",
+                "B. 3.16",
+                "C. 1.44",
+                "D. 2.80"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 27,
+            "diagram": null,
+            "question": "Sin 240\u00b0 is equal to ______.",
+            "options": [
+                "A. -1/2",
+                "B. -\u221a3/2",
+                "C. \u221a3/2",
+                "D. 1/2"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "diagram": "/static/uploads/diagrams/2021/mathematics_ss3/diagram_28.PNG",
+            "question": "In the figure below, PT is a tangent to the circle at T. If \u2220ABT = 35\u00b0 and \u2220CTP = 42\u00b0, find \u2220ATC.",
+            "options": [
+                "A. 77\u00b0",
+                "B. 103\u00b0",
+                "C. 138\u00b0",
+                "D. 145\u00b0"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 29,
+            "diagram": null,
+            "question": "Two places X and Y lie on the same line of longitude, 30\u00b0W, but on different lines of latitude, 50\u00b0N and 40\u00b0S respectively. Find the distance between X and Y along their common line of longitude.",
+            "options": [
+                "A. 30,000 km",
+                "B. 10,000 km",
+                "C. 6,000 km",
+                "D. 5,000 km"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 30,
+            "diagram": null,
+            "question": "If the radius of a parallel of latitude is 4,500 km, find the latitude correct to the nearest degree.",
+            "options": [
+                "A. 45\u00b0 East or West",
+                "B. 45\u00b0 North or East",
+                "C. 50\u00b0 North or South",
+                "D. 45\u00b0 North or South"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 31,
+            "diagram": null,
+            "question": "If cos\u03b1 = <sup>3</sup>/<sub>5</sub> and 0\u00b0 < \u03b1 < 90\u00b0, evaluate 3cos\u03b1 \u2212 2sin\u03b1.",
+            "options": [
+                "A. <sup>1</sup>/<sub>5</sub>",
+                "B. <sup>2</sup>/<sub>5</sub>",
+                "C. <sup>1</sup>/<sub>2</sub>",
+                "D. <sup>3</sup>/<sub>5</sub>"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 32,
+            "diagram": null,
+            "question": "The bearings of Y and Z from X are 061\u00b0 and 110\u00b0 respectively. Calculate |YZ| if |YX| = 3 cm and |XZ| = 5 cm.",
+            "options": [
+                "A. 3.7 cm",
+                "B. 4.0 cm",
+                "C. 4.1 cm",
+                "D. 3.8 cm"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 33,
+            "diagram": null,
+            "question": "If the curved surface area of a hemisphere is 7,700 cm<sup>2</sup>, find its diameter.",
+            "options": [
+                "A. 70.0 cm",
+                "B. 17.5 cm",
+                "C. 35.0 cm",
+                "D. 87.7 cm"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 34,
+            "diagram": "/static/uploads/diagrams/2021/mathematics_ss3/diagram_34.PNG",
+            "question": "In the figure below, find m, if m = <sup>1</sup>/<sub>2</sub>(x + y + z).",
+            "options": [
+                "A. 45\u00b0",
+                "B. 60\u00b0",
+                "C. 90\u00b0",
+                "D. 120\u00b0"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 35,
+            "diagram": null,
+            "question": "The first term of an arithmetic progression is 8. If the tenth term is double the second term, the common difference is",
+            "options": [
+                "A. <sup>4</sup>/<sub>3</sub>",
+                "B. 1",
+                "C. <sup>8</sup>/<sub>7</sub>",
+                "D. <sup>1</sup>/<sub>2</sub>"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 36,
+            "diagram": null,
+            "question": "If the roots of the quadratic equation x<sup>2</sup> \u2212 5x + k = 0 are equal, find the value of k.",
+            "options": [
+                "A. <sup>25</sup>/<sub>4</sub>",
+                "B. <sup>5</sup>/<sub>2</sub>",
+                "C. 10",
+                "D. 15"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 37,
+            "diagram": null,
+            "question": "A die and a coin are thrown simultaneously. What is the probability of getting an even number and a tail?",
+            "options": [
+                "A. <sup>1</sup>/<sub>2</sub>",
+                "B. <sup>1</sup>/<sub>3</sub>",
+                "C. <sup>1</sup>/<sub>4</sub>",
+                "D. <sup>2</sup>/<sub>3</sub>"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 38,
+            "diagram": null,
+            "question": "Two coins are tossed. Find the probability of getting at least one head.",
+            "options": [
+                "A. <sup>3</sup>/<sub>4</sub>",
+                "B. <sup>1</sup>/<sub>4</sub>",
+                "C. <sup>1</sup>/<sub>2</sub>",
+                "D. <sup>1</sup>/<sub>8</sub>"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 39,
+            "diagram": null,
+            "question": "Find the equation of the straight line passing through (1, 2) and having gradient <sup>1</sup>/<sub>3</sub>.",
+            "options": [
+                "A. 3y + x = 5",
+                "B. 3y \u2212 x = 5",
+                "C. x \u2212 3y = 5",
+                "D. y = 3x + 5"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 40,
+            "diagram": null,
+            "question": "Calculate the perimeter of a sector of a circle of radius 21 cm and angle 150\u00b0.",
+            "options": [
+                "A. 63 cm",
+                "B. 75 cm",
+                "C. 82 cm",
+                "D. 97 cm"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 41,
+            "diagram": null,
+            "question": "Three numbers are in the ratio 6 : 7 : 8. If their sum is 420, find the largest number.",
+            "options": [
+                "A. 120",
+                "B. 140",
+                "C. 160",
+                "D. 180"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 42,
+            "diagram": null,
+            "question": "Calculate the compound interest on \u20a6120,000 at 16% per annum for 3 years.",
+            "options": [
+                "A. \u20a646,080.00",
+                "B. \u20a665,920.00",
+                "C. \u20a667,307.52",
+                "D. \u20a668,000.00"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 43,
+            "diagram": null,
+            "question": "If e = \u201cABCD is a square\u201d, f = \u201cABCD is a rhombus\u201d and h = \u201cABCD is a rectangle\u201d, express e \u2227 f \u21d4 h in words.",
+            "options": [
+                "A. ABCD is a square if and only if it is a rhombus or a rectangle.",
+                "B. ABCD is a square if and only if it is a rhombus and a rectangle.",
+                "C. ABCD is a rectangle if and only if it is a square and a rhombus.",
+                "D. ABCD is a rhombus if and only if it is a rectangle and a square."
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 44,
+            "diagram": null,
+            "question": "In a geometric progression, the third term is 72 and the seventh term is <sup>8</sup>/<sub>9</sub>. Find the first term.",
+            "options": [
+                "A. 648",
+                "B. 216",
+                "C. 81",
+                "D. 24"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 45,
+            "diagram": null,
+            "question": "If the determinant of the matrix \\(\\begin{pmatrix}5 & -2 \\\\ -4 & x\\end{pmatrix}\\) is 7, find the value of x.",
+            "options": [
+                "A. 5",
+                "B. 3",
+                "C. <sup>1</sup>/<sub>5</sub>",
+                "D. \u2212<sup>1</sup>/<sub>5</sub>"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "diagram": null,
+            "question": "Find 41 \u2295 29 (mod 8).",
+            "options": [
+                "A. 4",
+                "B. 5",
+                "C. 6",
+                "D. 8"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 47,
+            "diagram": "/static/uploads/diagrams/2021/mathematics_ss3/diagram_47.PNG",
+            "question": "In the above trapezium STQR, diagonal is 12 cm. Find SQ.",
+            "options": [
+                "A. 8 cm",
+                "B. 9 cm",
+                "C. 12 cm",
+                "D. 16 cm"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 48,
+            "diagram": null,
+            "question": "Simplify: \\(\\frac{5}{2a-3} - \\frac{3}{a+4} + 1\\).",
+            "options": [
+                "A. \\(\\frac{2a<sup>2</sup> + 4a + 17}{(2a-3)(a+4)}\\)",
+                "B. \\(\\frac{2a<sup>2</sup> + 11a + 17}{(2a-3)(a+4)}\\)",
+                "C. \\(\\frac{2a<sup>2</sup> + 4a - 17}{(2a-3)(a+4)}\\)",
+                "D. \\(\\frac{2a<sup>2</sup> - 4a + 17}{(2a-3)(a+4)}\\)"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 49,
+            "diagram": null,
+            "question": "Given that log<sub>10</sub>2 = 0.3010, evaluate log<sub>10</sub>50.",
+            "options": [
+                "A. 1.6990",
+                "B. 1.3010",
+                "C. 0.6990",
+                "D. 2.3010"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 50,
+            "diagram": "/static/uploads/diagrams/2021/mathematics_ss3/diagram_50.PNG",
+            "question": "Find the median from the table shown.",
+            "options": [
+                "A. 2.5",
+                "B. 13.6",
+                "C. 12.5",
+                "D. 7.5"
+            ],
+            "correctOption": "C"
+        }
+    ]
+}

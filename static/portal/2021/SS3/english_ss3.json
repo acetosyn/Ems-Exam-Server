@@ -1,0 +1,968 @@
+{
+    "subject": "English Language",
+    "class": "SS3",
+    "session": "2021/2022",
+    "time_allowed_minutes": 60,
+    "questions": [
+        {
+            "id": 1,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "Many youths migrate to <span class=\"focus-word\">urban</span> areas as there are not enough jobs in ______ areas.",
+            "options": [
+                "A. bush",
+                "B. local",
+                "C. rural",
+                "D. underdeveloped"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 2,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "It is surprising that Ngozi is <span class=\"focus-word\">nonchalant</span> about her studies, while her younger brother Obinna is ______.",
+            "options": [
+                "A. smart",
+                "B. serious",
+                "C. brave",
+                "D. intelligent"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 3,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "The politician gave an <span class=\"focus-word\">equivocal</span> answer rather than a ______ one.",
+            "options": [
+                "A. pleasing",
+                "B. clear",
+                "C. carefree",
+                "D. confusing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 4,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "The drug <span class=\"focus-word\">exacerbated</span> his illness rather than ______ it.",
+            "options": [
+                "A. cure",
+                "B. lessen",
+                "C. aggravate",
+                "D. solve"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 5,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "I prefer <span class=\"focus-word\">extroverts</span> to ______.",
+            "options": [
+                "A. bullies",
+                "B. rascals",
+                "C. extremists",
+                "D. introverts"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 6,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "Cooperation <span class=\"focus-word\">facilitates</span> an action rather than ______ it.",
+            "options": [
+                "A. retards",
+                "B. quickens",
+                "C. stops",
+                "D. hastens"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 7,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "As a result of a family <span class=\"focus-word\">feud</span>, Bisi and Ayo could not cultivate good ______.",
+            "options": [
+                "A. relationship",
+                "B. companionship",
+                "C. acquaintanceship",
+                "D. friendship"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 8,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "It is no use being in a <span class=\"focus-word\">fret</span>, try to ______.",
+            "options": [
+                "A. play",
+                "B. dance",
+                "C. relax",
+                "D. laugh"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 9,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "Joy needs talking to, not ______.",
+            "options": [
+                "A. flogging",
+                "B. pampering",
+                "C. scolding",
+                "D. laughing at"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 10,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_1.PNG",
+            "question": "Ema keeps to herself and does not ______ much.",
+            "options": [
+                "A. laugh",
+                "B. care",
+                "C. quarrel",
+                "D. socialize"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 11,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "The principal expressed his ______ at the unruly behaviour of the students.",
+            "options": [
+                "A. indignity",
+                "B. indiscretion",
+                "C. indignation",
+                "D. indiscipline"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 12,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "The magistrate ______ the accused to one year imprisonment.",
+            "options": [
+                "A. sentenced",
+                "B. pronounced",
+                "C. condemned",
+                "D. charged"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 13,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "I hate discussing with Fred. He is always ______.",
+            "options": [
+                "A. notorious",
+                "B. giddy",
+                "C. gibberish",
+                "D. juxtaposing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 14,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "The lecturer condemned his ideas as ______.",
+            "options": [
+                "A. unsoothing",
+                "B. unpleasing",
+                "C. unrewarding",
+                "D. nebulous"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 15,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "With determination, we shall ______ the problem.",
+            "options": [
+                "A. surmount",
+                "B. subsume",
+                "C. surprise",
+                "D. surcharge"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 16,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "Bimbo ran ______ her old friend.",
+            "options": [
+                "A. upon",
+                "B. into",
+                "C. across",
+                "D. unto"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 17,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "The young lady is such a ______ beauty to behold.",
+            "options": [
+                "A. ravenous",
+                "B. ravishing",
+                "C. ravaging",
+                "D. raging"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 18,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "After his election, the government took over the ______ of power.",
+            "options": [
+                "A. realms",
+                "B. reigns",
+                "C. reins",
+                "D. rains"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 19,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "The visit of the president to the players boosted their ______.",
+            "options": [
+                "A. morale",
+                "B. performance",
+                "C. action",
+                "D. play"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 20,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_11.PNG",
+            "question": "It is time we ______ the intruders from our school.",
+            "options": [
+                "A. drove away",
+                "B. drive away",
+                "C. shall drive away",
+                "D. should drive away"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 21,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "She put up an <span class=\"focus-word\">appearance</span> despite all oppositions. This means ______.",
+            "options": [
+                "A. she came and was opposed",
+                "B. she came with opposition",
+                "C. she came even though forces opposed it",
+                "D. in spite of putting up appearance, there were oppositions"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 22,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "Our arrival took her <span class=\"focus-word\">unaware</span>. This means that she was ______.",
+            "options": [
+                "A. prepared for our arrival",
+                "B. unprepared for our arrival",
+                "C. shocked at our arrival",
+                "D. pleased at our arrival"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 23,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "Jona was advised to stop <span class=\"focus-word\">crying over spilt milk</span>. This means that Jona was advised to stop ______.",
+            "options": [
+                "A. worrying over what has no remedy",
+                "B. weeping because of the wasted milk",
+                "C. crying as a result of spoilt milk",
+                "D. worrying over milk that poured away"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 24,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "The plan to give the villages a borehole did not <span class=\"focus-word\">materialize</span>. This means the plan ______.",
+            "options": [
+                "A. was not successful",
+                "B. did not include materials",
+                "C. did not please the villagers",
+                "D. was not well carried out"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 25,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "Mother advised us not to <span class=\"focus-word\">fish in troubled waters</span>. This means that we should ______.",
+            "options": [
+                "A. not fish in polluted waters",
+                "B. not go fishing when it is raining",
+                "C. not fish while there is trouble",
+                "D. stay away from trouble"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 26,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "Those who live in <span class=\"focus-word\">glass houses</span> should not throw stones. This means that Mr. Ojo ______.",
+            "options": [
+                "A. should not throw stones at glass houses",
+                "B. should not accuse others of offences he is equally guilty of",
+                "C. should not throw stones from his glass house",
+                "D. was reminded that stones could damage his glass house"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 27,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "I received a <span class=\"focus-word\">priceless</span> gift from my father at my last birthday. This means that I received ______.",
+            "options": [
+                "A. highly valued gift",
+                "B. worthless gift",
+                "C. valueless gift",
+                "D. gift without any price on it"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 28,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "The Super Eagles supporters were in <span class=\"focus-word\">full cry</span> at Nigeria\u2019s World Cup match. This means that ______.",
+            "options": [
+                "A. they were crying",
+                "B. they were fully enjoying themselves",
+                "C. they shouted with enthusiasm",
+                "D. tears streamed down their cheeks"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 29,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "The quarrel between the two friends turned out to be a <span class=\"focus-word\">storm in a teacup</span>. This means that the quarrel ______.",
+            "options": [
+                "A. is over an unimportant issue",
+                "B. increased their anger",
+                "C. is over a dirty teapot",
+                "D. was inflamed by people present"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 30,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_21.PNG",
+            "question": "After the investigation, many of the workers were given the <span class=\"focus-word\">marching orders</span>. This means that the workers ______.",
+            "options": [
+                "A. were given orders to march",
+                "B. received fresh instructions",
+                "C. were dismissed",
+                "D. were ordered to do a march past"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 31,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "Nnenna was sweating <span class=\"focus-word\">profusely</span> as she entered the examination hall.",
+            "options": [
+                "A. excessively",
+                "B. recklessly",
+                "C. apologetically",
+                "D. greatly"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 32,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "Emmanuel is <span class=\"focus-word\">genuinely</span> interested in Jane.",
+            "options": [
+                "A. stubbornly",
+                "B. questionably",
+                "C. probably",
+                "D. truly"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 33,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "She was cautioned not to <span class=\"focus-word\">deviate</span> from the main issue.",
+            "options": [
+                "A. run away",
+                "B. derail",
+                "C. stand out",
+                "D. attack"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 34,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "The congregation was reminded that life is <span class=\"focus-word\">ephemeral</span>.",
+            "options": [
+                "A. transient",
+                "B. sweet",
+                "C. fulfilling",
+                "D. glorious"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 35,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "Ada <span class=\"focus-word\">rarely</span> disobeys her seniors.",
+            "options": [
+                "A. often",
+                "B. seldom",
+                "C. frequently",
+                "D. stubbornly"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 36,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "The use of <span class=\"focus-word\">vernacular</span> was prohibited during English classes.",
+            "options": [
+                "A. mother tongue",
+                "B. foreign language",
+                "C. second language",
+                "D. strange language"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 37,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "The teacher\u2019s <span class=\"focus-word\">nefarious</span> activities led to his dismissal.",
+            "options": [
+                "A. mischievous",
+                "B. unprecedented",
+                "C. wicked",
+                "D. planless"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 38,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "It was a <span class=\"focus-word\">tortuous</span> way of negotiating peace.",
+            "options": [
+                "A. an argumentative way",
+                "B. a frustrating way",
+                "C. a disappointing way",
+                "D. a complicated and difficult way"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 39,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "The reporter refused to <span class=\"focus-word\">divulge</span> the source of his information.",
+            "options": [
+                "A. share",
+                "B. disclose",
+                "C. discuss",
+                "D. write"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 40,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_31.PNG",
+            "question": "She is a <span class=\"focus-word\">garrulous</span> young woman.",
+            "options": [
+                "A. beautiful",
+                "B. happy",
+                "C. chic",
+                "D. talkative"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 41,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "You have not done the work ______.",
+            "options": [
+                "A. isn\u2019t it?",
+                "B. do you?",
+                "C. have you?",
+                "D. is it?"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 42,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "I searched for it in all the ______ of the room.",
+            "options": [
+                "A. nooks and corner",
+                "B. nooks and crannies",
+                "C. nooks and corners",
+                "D. corners and crannies"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "He arrived just ______ time to catch the plane.",
+            "options": [
+                "A. on",
+                "B. at",
+                "C. in",
+                "D. after"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 44,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "It is high time you ______ me the bully.",
+            "options": [
+                "A. show",
+                "B. showed",
+                "C. will show",
+                "D. are showing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 45,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "The principal with some teachers ______ in the hall.",
+            "options": [
+                "A. are",
+                "B. is",
+                "C. were",
+                "D. have been"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Bola is one of the girls who ______ the classroom every morning.",
+            "options": [
+                "A. would sweep",
+                "B. sweeps",
+                "C. sweep",
+                "D. has swept"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 47,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "With the scolding, she retired ______ her shell.",
+            "options": [
+                "A. unto",
+                "B. into",
+                "C. from",
+                "D. under"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Once bitten, twice ______.",
+            "options": [
+                "A. embarrassed",
+                "B. furious",
+                "C. stubborn",
+                "D. shy"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 49,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "He stood ______ the rain for two hours.",
+            "options": [
+                "A. in",
+                "B. under",
+                "C. outside",
+                "D. inside"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 50,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Ugochukwu is good ______ Mathematics.",
+            "options": [
+                "A. on",
+                "B. in",
+                "C. at",
+                "D. upon"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 51,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Kunle is a chip ______ the old block.",
+            "options": [
+                "A. of",
+                "B. off",
+                "C. on",
+                "D. at"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 52,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "We live in a ______ building.",
+            "options": [
+                "A. two-stories",
+                "B. two-story",
+                "C. two-storey",
+                "D. two-storied"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 53,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "That artist is really good ______ his hands.",
+            "options": [
+                "A. with",
+                "B. on",
+                "C. at",
+                "D. in"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 54,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "The plane will touch ______ in ten minutes time.",
+            "options": [
+                "A. in",
+                "B. up",
+                "C. under",
+                "D. down"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 55,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "She was operated ______ at the Catholic hospital.",
+            "options": [
+                "A. for",
+                "B. in",
+                "C. on",
+                "D. into"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 56,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "The accused was ______ to two years jail term.",
+            "options": [
+                "A. sentenced",
+                "B. condemned",
+                "C. punished",
+                "D. put"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 57,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Abubakar is taller than ______.",
+            "options": [
+                "A. her",
+                "B. she",
+                "C. them",
+                "D. him"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 58,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "In ______ account was the money deposited?",
+            "options": [
+                "A. who\u2019s",
+                "B. whom",
+                "C. whose",
+                "D. whom\u2019s"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 59,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Ifeoma passed her examinations ______.",
+            "options": [
+                "A. in flying colours",
+                "B. under flying colours",
+                "C. into flying colours",
+                "D. with flying colours"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 60,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Yusuf and Kunle went fishing today, ______?",
+            "options": [
+                "A. isn\u2019t it?",
+                "B. didn\u2019t they?",
+                "C. haven\u2019t they?",
+                "D. hadn\u2019t they?"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 61,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Neither Idiat nor Kafayat ______ here.",
+            "options": [
+                "A. is",
+                "B. are",
+                "C. has been",
+                "D. have been"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 62,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "I am tired of ______ unending complaints.",
+            "options": [
+                "A. there",
+                "B. there are",
+                "C. their",
+                "D. they\u2019re"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 63,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "The two boys were abusing ______.",
+            "options": [
+                "A. one another",
+                "B. themselves",
+                "C. each other",
+                "D. theirselves"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 64,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "I\u2019m ______ sincerely, Emeka.",
+            "options": [
+                "A. your\u2019s",
+                "B. yours\u2019",
+                "C. your",
+                "D. yours"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 65,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "The secret is between ______.",
+            "options": [
+                "A. you and me",
+                "B. you and I",
+                "C. me and you",
+                "D. I and you"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 66,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "He turned ______ my peace offer.",
+            "options": [
+                "A. off",
+                "B. down",
+                "C. out",
+                "D. in"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 67,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "Give me the biro ______ mine.",
+            "options": [
+                "A. its",
+                "B. it\u2019s",
+                "C. its\u2019",
+                "D. it"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 68,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "______ his apology, he was punished.",
+            "options": [
+                "A. However",
+                "B. As a result of",
+                "C. Despite",
+                "D. Notwithstanding"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 69,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "The price of ready-made dresses ______ gone up.",
+            "options": [
+                "A. have",
+                "B. has",
+                "C. are",
+                "D. were"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 70,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_41.PNG",
+            "question": "I prefer oranges ______ bananas.",
+            "options": [
+                "A. to",
+                "B. than",
+                "C. more to",
+                "D. more than"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 71,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "The Stock Exchange deals with the buying and ______ of long-term financial assets.",
+            "options": [
+                "A. trading",
+                "B. selling",
+                "C. disposing",
+                "D. purchasing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 72,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "Long-term financial assets are known as ______.",
+            "options": [
+                "A. securities",
+                "B. bonds",
+                "C. currencies",
+                "D. dividends"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 73,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "The buying and selling of long-term assets involves ______.",
+            "options": [
+                "A. bonds",
+                "B. profits",
+                "C. deals",
+                "D. shares"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 74,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "An agent who buys and sells securities on behalf of clients is called a ______.",
+            "options": [
+                "A. stockman",
+                "B. sharesman",
+                "C. stockbroker",
+                "D. exchange man"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 75,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "On every transaction, the agent charges ______.",
+            "options": [
+                "A. interest",
+                "B. commission",
+                "C. money",
+                "D. profit"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 76,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "A person who buys the shares of a company becomes a ______.",
+            "options": [
+                "A. shareholder",
+                "B. manager",
+                "C. director",
+                "D. co-owner"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 77,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "Every year, a company usually ______ a profit.",
+            "options": [
+                "A. makes",
+                "B. announces",
+                "C. declares",
+                "D. gives"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 78,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "Profits shared among shareholders are known as ______.",
+            "options": [
+                "A. gains",
+                "B. dividends",
+                "C. interest",
+                "D. bonuses"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 79,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "A person who buys shares hoping to sell later is called a ______.",
+            "options": [
+                "A. client",
+                "B. buyer",
+                "C. speculator",
+                "D. investor"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 80,
+            "diagram": "/static/uploads/diagrams/2021/english_ss3/diagram_71.PNG",
+            "question": "This is risky because the company may declare ______.",
+            "options": [
+                "A. liquidation",
+                "B. shortage",
+                "C. loss",
+                "D. bankruptcy"
+            ],
+            "correctOption": "C"
+        }
+    ]
+}

@@ -1,0 +1,611 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Computer Science",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following are the two common input devices?",
+      "diagram": null,
+      "options": [
+        "A. Keyboard and mouse",
+        "B. Camera and printer",
+        "C. Keyboard and camera",
+        "D. Mouse and printer"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "The volatile storage medium of data in the computer is the",
+      "diagram": null,
+      "options": [
+        "A. DVD",
+        "B. ROM",
+        "C. RAM",
+        "D. Flash drive"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Which of these is not a hardware component of the computer?",
+      "diagram": null,
+      "options": [
+        "A. MS word",
+        "B. Magnetic tape",
+        "C. Monitor",
+        "D. Mouse"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "The set of programs in the computer designed to perform specific tasks is called",
+      "diagram": null,
+      "options": [
+        "A. System",
+        "B. Application",
+        "C. Program",
+        "D. Game"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "The output of data processing on the monitor is often referred to as",
+      "diagram": null,
+      "options": [
+        "A. Hardcopy",
+        "B. Monitor copy",
+        "C. Softcopy",
+        "D. Viewing copy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "The microchip that is inserted to connect the user to the telephone provider is called",
+      "diagram": null,
+      "options": [
+        "A. Subscriber identity module",
+        "B. Subscriber interchange module",
+        "C. System identity module",
+        "D. Subscriber international module"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "The acronym NIN stands for",
+      "diagram": null,
+      "options": [
+        "A. News Identity Number",
+        "B. Nigeria Identification Number",
+        "C. National Identification Number",
+        "D. National Information Number"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "Part of an electronic device used in controlling another device from a distance is often called",
+      "diagram": null,
+      "options": [
+        "A. Remote controller",
+        "B. Distance monitor",
+        "C. Minute sensing",
+        "D. Operator"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "The device used to point to an icon on the computer monitor is called",
+      "diagram": null,
+      "options": [
+        "A. Screen",
+        "B. Bullet",
+        "C. Mouse",
+        "D. Cursor"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "......is the most important factor to consider when choosing a micro-computer for a company",
+      "diagram": null,
+      "options": [
+        "A. Colour",
+        "B. Price",
+        "C. Shape",
+        "D. Speed"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following logic statements can be represented on the truth table?",
+      "diagram": null,
+      "options": [
+        "A. AND, BUT and OR",
+        "B. ADD, NOT and NOR",
+        "C. AND, OR and NOT",
+        "D. NAND, NOT and SUM"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "The capacity of storage device in computer is measured in these units except",
+      "diagram": null,
+      "options": [
+        "A. Bit",
+        "B. Nibble",
+        "C. Byte",
+        "D. Octal"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "Pick out the odd one",
+      "diagram": null,
+      "options": [
+        "A. Floppy disk",
+        "B. Data disk",
+        "C. Compact disk",
+        "D. DVD"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The device used for the exchange of information over long distances is called",
+      "diagram": null,
+      "options": [
+        "A. Telephone",
+        "B. Computer",
+        "C. Satellite",
+        "D. Radio wave"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Who among the following is considered the father of modern computer?",
+      "diagram": null,
+      "options": [
+        "A. Bill Gates",
+        "B. Philip Emeagwali",
+        "C. Charles Babbage",
+        "D. Joe Bidden"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "A collection of programs that perform a specific task is called .....software",
+      "diagram": null,
+      "options": [
+        "A. Application",
+        "B. Executor",
+        "C. Utility",
+        "D. Storage"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Which of these is a secondary storage device?",
+      "diagram": null,
+      "options": [
+        "A. Hardcopy",
+        "B. Printer",
+        "C. RAM",
+        "D. ROM"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "The computer operates on the basis of electrical states known as",
+      "diagram": null,
+      "options": [
+        "A. 1 and 2",
+        "B. NOT and OR",
+        "C. On and OFF",
+        "D. Truth and False"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "The Boolean expression X = A.B + Ā.B is the output of the ....gate",
+      "diagram": null,
+      "options": [
+        "A. NOR",
+        "B. XOR",
+        "C. OR",
+        "D. NAND"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "The largest category of computer criminals comprises the",
+      "diagram": null,
+      "options": [
+        "A. Users",
+        "B. Attackers",
+        "C. Hackers",
+        "D. Programmers"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "Convert 1.58MB to byte",
+      "diagram": null,
+      "options": [
+        "A. 1617.92KB",
+        "B. 1716.92KB",
+        "C. 1167.92KB",
+        "D. 1671.92KB"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "The smallest unit of information that can be stored in a computer is the",
+      "diagram": null,
+      "options": [
+        "A. Nibble",
+        "B. Byte",
+        "C. Bit",
+        "D. Word"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "One of these is not equipment used in information technology?",
+      "diagram": null,
+      "options": [
+        "A. Computer",
+        "B. GSM",
+        "C. Metal gong",
+        "D. Satellite"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": ".......is a set of instructions for a computer to perform defined tasks",
+      "diagram": null,
+      "options": [
+        "A. Hardware",
+        "B. Compiler",
+        "C. Program",
+        "D. Software"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "The storage medium, RAM is volatile. This statement means",
+      "diagram": null,
+      "options": [
+        "A. RAM is a permanent storage",
+        "B. RAM is random access memory",
+        "C. RAM is highly inflammable",
+        "D. RAM loses its contents when power is off"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "Which of these is odd?",
+      "diagram": null,
+      "options": [
+        "A. Floppy disk",
+        "B. Compact disk",
+        "C. Data disk",
+        "D. Digital volatile disk"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "Half a byte of data makes a",
+      "diagram": null,
+      "options": [
+        "A. Bit",
+        "B. Nibble",
+        "C. Byte",
+        "D. Kilobyte"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "question": "The logic gate represented above is that of",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_28.PNG",
+      "options": [
+        "A. AND gate",
+        "B. NAND gate",
+        "C. NOR gate",
+        "D. OR gate"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "The output Q is represented by the Boolean equation",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_28.PNG",
+      "options": [
+        "A. M.N̅",
+        "B. M̅.N",
+        "C. M.N",
+        "D. M + N"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "The digital logic gate often referred to as a digital inverter is the ..... gate",
+      "diagram": null,
+      "options": [
+        "A. NOR",
+        "B. NOT",
+        "C. OR",
+        "D. AND"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "If A = 1, B = 0 in an AND gate, the output C is",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 0",
+        "C. Both A & B",
+        "D. Neither A nor B"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "The output X of the logic circuit below is",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diaggram_32.PNG",
+      "options": [
+        "A. 1",
+        "B. 0",
+        "C. Both",
+        "D. None"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Using the truth table above, determine the Boolean expression for R.",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_33.PNG",
+      "options": [
+        "A. R = P ^ Q",
+        "B. R = P.Q",
+        "C. R = P.Q + P.Ǭ",
+        "D. R = P     Q"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Determine the Boolean equation for R from the truth table.",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_34.PNG",
+      "options": [
+        "A. R = P ^ Q",
+        "B. R = P.Q",
+        "C. R = P + Q",
+        "D. R = P     Q"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Determine the Boolean equation for R from the truth table.",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_35.PNG",
+      "options": [
+        "A. R = P ^ Q",
+        "B. R = P.Q",
+        "C. R = P + Q",
+        "D. R = P     Q"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "Determine the Boolean equation for R from the truth table.",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_36.PNG",
+      "options": [
+        "A. R = P.Q",
+        "B. R = P̅.Q",
+        "C. R = P + Q",
+        "D. R = P     Q"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Determine the Boolean expression for R.",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_37.PNG",
+      "options": [
+        "A. R = P ^ Q",
+        "B. R = P.Q",
+        "C. R = P + Q",
+        "D. R = P     Q"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "The output of an OR gate with input P and Q is 1. Which of the following statements is incorrect?",
+      "diagram": null,
+      "options": [
+        "A. Either P is 1 or Q is 0",
+        "B. Either P is 0 or Q is 1",
+        "C. Both P and Q are 1",
+        "D. Both P and Q are 0"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "Determine the output Y of the logic circuit below",
+      "diagram": "/static/uploads/diagrams/computer_ss2/diagram_39.PNG",
+      "options": [
+        "A. 1",
+        "B. 0",
+        "C. Both",
+        "D. None"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "Which of the following is classed as the universal gate?",
+      "diagram": null,
+      "options": [
+        "A. AND gate",
+        "B. NAND gate",
+        "C. XOR gate",
+        "D. OR gate"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "......system is a program that manages and controls the activities of the computer hardware device",
+      "diagram": null,
+      "options": [
+        "A. Computer",
+        "B. Hardware",
+        "C. Network",
+        "D. Operating"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "Arithmetic and logical operations are performed in the .....component of the computer",
+      "diagram": null,
+      "options": [
+        "A. CPU",
+        "B. Input",
+        "C. Output",
+        "D. Memory"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "Which of the following holds the ROM, RAM and CPU?",
+      "diagram": null,
+      "options": [
+        "A. Clip board",
+        "B. Hard disk",
+        "C. Central board",
+        "D. Mother board"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "question": "The part of the computer often referred to as the brain is called",
+      "diagram": null,
+      "options": [
+        "A. PC",
+        "B. CPU",
+        "C. UPS",
+        "D. VDU"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "A kilobyte of data is composed of .......bytes",
+      "diagram": null,
+      "options": [
+        "A. 1000",
+        "B. 1024",
+        "C. 1204",
+        "D. 1402"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "The following statement is true about the secondary memory",
+      "diagram": null,
+      "options": [
+        "A. It holds data that can be directly accessed",
+        "B. It is volatile",
+        "C. It is non-volatile",
+        "D. It is the main memory"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "The electronic device that makes decisions based on the different combination of its digital input signals is called",
+      "diagram": null,
+      "options": [
+        "A. Computer",
+        "B. Input device",
+        "C. Output device",
+        "D. Logic gate"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "question": "The Boolean expression X = A + B is used to represent the output of the ....gate",
+      "diagram": null,
+      "options": [
+        "A. AND",
+        "B. XOR",
+        "C. NOT",
+        "D. OR"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "Which of the following is not among the classification of computer by size?",
+      "diagram": null,
+      "options": [
+        "A. Mainframe",
+        "B. Macro computer",
+        "C. Minicomputer",
+        "D. Supercomputer"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "The first generation of computers were built with",
+      "diagram": null,
+      "options": [
+        "A. Bulbs",
+        "B. Integrated circuit",
+        "C. Vacuum tubes",
+        "D. Iron"
+      ],
+      "correctOption": "C"
+    }
+  ]
+}

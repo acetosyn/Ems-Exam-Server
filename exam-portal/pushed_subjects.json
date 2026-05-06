@@ -1,0 +1,14 @@
+{
+    "SS1": [
+        "biology_ss1.json",
+        "civic_ss1.json"
+    ],
+    "SS2": [
+        "accounts_ss2.json",
+        "chemistry_ss2.json",
+        "computer_science_ss2.json"
+    ],
+    "SS3": [
+        "literature_ss3.json"
+    ]
+}

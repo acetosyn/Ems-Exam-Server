@@ -1,0 +1,608 @@
+{
+    "subject": "Mathematics",
+    "class": "SS1",
+    "session": "2016/2017",
+    "time_allowed_minutes": 150,
+    "questions": [
+        {
+            "id": 1,
+            "question": "An arc of length 22cm subtends an angle of 270\u00b0 at the centre of a circle. If \u03c0 = 22/7, the radius of the circle is __________.",
+            "diagram": null,
+            "options": [
+                "A. 92/3",
+                "B. 42/3",
+                "C. 6",
+                "D. 91/3"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 2,
+            "question": "A triangle has two of its angles as 45\u00b0. Which of the following is/are true? It is: I. an equilateral triangle II. an isosceles triangle III. a right-angled triangle.",
+            "diagram": null,
+            "options": [
+                "A. I only",
+                "B. II and III only",
+                "C. II only",
+                "D. I and III only"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 3,
+            "question": "An arc of a circle with radius 14cm subtends an angle of 135\u00b0 at the centre. Calculate the length of the arc (Take \u03c0 = 22/7).",
+            "diagram": null,
+            "options": [
+                "A. 33cm",
+                "B. 30cm",
+                "C. 03cm",
+                "D. 32cm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 4,
+            "question": "Given that 5<sup>2y</sup> = 1, find the value of y.",
+            "diagram": null,
+            "options": [
+                "A. 1/2",
+                "B. 1/5",
+                "C. 2/1",
+                "D. 0"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 5,
+            "question": "A sector of 80\u00b0 is removed from a circle of radius 12cm. What area of the circle is left? (Use \u03c0 = 22/7).",
+            "diagram": null,
+            "options": [
+                "A. 350cm\u00b2",
+                "B. 235cm\u00b2",
+                "C. 352cm\u00b2",
+                "D. 532cm\u00b2"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 6,
+            "question": "Calculate the perimeter of a sector of a circle of radius 7cm, the angle of the sector being 108\u00b0 (Take \u03c0 = 22/7).",
+            "diagram": null,
+            "options": [
+                "A. 30cm",
+                "B. 27.2cm",
+                "C. 22cm",
+                "D. 72cm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 7,
+            "question": "If S = 3<sup>y</sup> and T = 3<sup>y+3</sup>, what is the value of S/T?",
+            "diagram": null,
+            "options": [
+                "A. 27",
+                "B. 1/27",
+                "C. 3<sup>2y</sup> \u2212 3",
+                "D. 3<sup>2y</sup> + 3"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 8,
+            "question": "Two angles are said to be complementary if their sum is __________.",
+            "diagram": null,
+            "options": [
+                "A. 180\u00b0",
+                "B. 90\u00b0",
+                "C. 60\u00b0",
+                "D. 360\u00b0"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 9,
+            "question": "The angle subtended by a sector of a circle is 70\u00b0. If the perimeter of the sector is 105cm, calculate the radius.",
+            "diagram": null,
+            "options": [
+                "A. 32.6cm",
+                "B. 23.6cm",
+                "C. 63.2cm",
+                "D. 36.2cm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 10,
+            "question": "Calculate the perimeter of a segment which subtends an angle of 90\u00b0 at the centre of a circle of radius 3.5cm.",
+            "diagram": null,
+            "options": [
+                "A. 45cm",
+                "B. 10.45cm",
+                "C. 10cm",
+                "D. 45.10cm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 11,
+            "question": "A sector of a circle radius 21cm subtends an angle of 70\u00b0 at the centre. Calculate the area of the sector.",
+            "diagram": null,
+            "options": [
+                "A. 629.5cm\u00b2",
+                "B. 952.6cm\u00b2",
+                "C. 562.9cm\u00b2",
+                "D. 269.5cm\u00b2"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 12,
+            "question": "To bisect a line means __________.",
+            "diagram": null,
+            "options": [
+                "A. to construct a line",
+                "B. to construct a perpendicular line",
+                "C. to divide the line into two equal parts",
+                "D. to draw a circle to the line"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 13,
+            "question": "The angle which is one-quarter of its supplement is __________.",
+            "diagram": null,
+            "options": [
+                "A. 36\u00b0",
+                "B. 120\u00b0",
+                "C. 45\u00b0",
+                "D. 210\u00b0"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 14,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_14.PNG",
+            "question": "Which of the diagrams gives correct method for constructing an angle of 150\u00b0 at the point P?",
+            "options": [
+                "A. I only",
+                "B. II only",
+                "C. III only",
+                "D. II and III only"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 15,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_14.PNG",
+            "question": "Which of the diagrams gives a correct method fstructing an angle of 120\u00b0 at the point P?",
+            "options": [
+                "A. I only",
+                "B. III only",
+                "C. I and II only",
+                "D. I and III only"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 16,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_14.PNG",
+            "question": "Which of the diagrams gives a correct method for constructing an angle of 45\u00b0 at P?",
+            "options": [
+                "A. I only",
+                "B. II only",
+                "C. II and III only",
+                "D. I and II only"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 17,
+            "question": "Evaluate correct to two decimal places: 50 + 1/50 + 3/500 + 25/5000.",
+            "diagram": null,
+            "options": [
+                "A. 50.03",
+                "B. 50.02",
+                "C. 50.20",
+                "D. 50.30"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 18,
+            "question": "Mararaba market is held every five days. Today is Wednesday and the next market day will be Saturday. When was the last market day?",
+            "diagram": null,
+            "options": [
+                "A. Monday",
+                "B. Tuesday",
+                "C. Wednesday",
+                "D. Saturday"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 19,
+            "question": "A right angle bisected is equal to __________.",
+            "diagram": null,
+            "options": [
+                "A. 45\u00b0",
+                "B. 15\u00b0",
+                "C. 60\u00b0",
+                "D. 30\u00b0"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 20,
+            "question": "A segment of a circle whose radius is 7cm subtends an angle of 135\u00b0 at the centre. Calculate the area of the segment to two decimal places.",
+            "diagram": null,
+            "options": [
+                "A. 43.40cm\u00b2",
+                "B. 44.34cm\u00b2",
+                "C. 40.43cm\u00b2",
+                "D. 34.44cm\u00b2"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 21,
+            "question": "If the total surface area of a cube is 290cm\u00b2, calculate the edge.",
+            "diagram": null,
+            "options": [
+                "A. 9.56cm",
+                "B. 56.9cm",
+                "C. 65.3cm",
+                "D. 6.95cm"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 22,
+            "question": "Calculate the surface area of a cube whose edge is 5cm.",
+            "diagram": null,
+            "options": [
+                "A. 15cm\u00b2",
+                "B. 50cm\u00b2",
+                "C. 150cm\u00b2",
+                "D. 105cm\u00b2"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 23,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_23.PNG",
+            "question": "The diagram shown above is an example of the construction of __________.",
+            "options": [
+                "A. the perpendicular from a given point to a given line",
+                "B. the perpendicular bisector of a given line",
+                "C. the perpendicular to a line from a given point and the line",
+                "D. a given angle"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 24,
+            "question": "The smallest number by which 180 can be multiplied to obtain a perfect square is __________.",
+            "diagram": null,
+            "options": [
+                "A. 90",
+                "B. 180",
+                "C. 360",
+                "D. 540"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 25,
+            "question": "Given that 11<sup>y</sup> = 121, find the value of y.",
+            "diagram": null,
+            "options": [
+                "A. 9",
+                "B. 10",
+                "C. 6",
+                "D. 3"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 26,
+            "question": "Calculate the volume of a cube whose edge is 5.5cm.",
+            "diagram": null,
+            "options": [
+                "A. 38.166cm\u00b3",
+                "B. 661.38cm\u00b3",
+                "C. 168.36cm\u00b3",
+                "D. 166.38cm\u00b3"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 27,
+            "question": "Find the volume of a cylinder if the radius is 4cm and height is 25cm. (Take \u03c0 = 22/7).",
+            "diagram": null,
+            "options": [
+                "A. 1427.51cm\u00b3",
+                "B. 4215.11cm\u00b3",
+                "C. 5211.47cm\u00b3",
+                "D. 1257.14cm\u00b3"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 28,
+            "question": "A point X is equidistant from two fixed points P and Q. The locus of X is the __________.",
+            "diagram": null,
+            "options": [
+                "A. perpendicular bisector of line PQ",
+                "B. perpendicular to the line PQ",
+                "C. parallel line to PQ on either side of line",
+                "D. none of the above"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 29,
+            "question": "Which of the following specified sets of data is not necessarily sufficient for the construction of a triangle?",
+            "diagram": null,
+            "options": [
+                "A. Three angles",
+                "B. Two sides and a right angle",
+                "C. Two sides",
+                "D. Two angles"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 30,
+            "question": "Find the area of a semi-circle whose radius is 7cm. Take \u03c0 = 22/7.",
+            "diagram": null,
+            "options": [
+                "A. 77cm\u00b2",
+                "B. 70cm\u00b2",
+                "C. 07cm\u00b2",
+                "D. 7.7cm\u00b2"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 31,
+            "question": "The area of a rectangle is 154cm\u00b2, its width is 11cm. Find its length.",
+            "diagram": null,
+            "options": [
+                "A. 41cm",
+                "B. 14cm",
+                "C. 4.1cm",
+                "D. 1.4cm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 32,
+            "question": "Find the value of \u2074\u221a16 \u00d7 \u00b3\u221a125 \u00d7 \u00b3\u221a27.",
+            "diagram": null,
+            "options": [
+                "A. 60",
+                "B. 15",
+                "C. 10",
+                "D. 30"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 33,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_33.PNG",
+            "question": "Use the figure above to answer Questions 33\u201335. The acute angle formed by joining T to Z is __________.",
+            "options": [
+                "A. 30\u00b0",
+                "B. 45\u00b0",
+                "C. 60\u00b0",
+                "D. 75\u00b0"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 34,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_33.PNG",
+            "question": "If R and Q are joined to Z, angle RZQ is __________.",
+            "options": [
+                "A. 120\u00b0",
+                "B. 105\u00b0",
+                "C. 90\u00b0",
+                "D. 75\u00b0"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 35,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_33.PNG",
+            "question": "The obtuse angle formed by joining R to Z is __________.",
+            "options": [
+                "A. 165\u00b0",
+                "B. 150\u00b0",
+                "C. 135\u00b0",
+                "D. 120\u00b0"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 36,
+            "question": "Find the volume of a cuboid if the height z = 5cm, breadth y = 11cm and length x = 12cm.",
+            "diagram": null,
+            "options": [
+                "A. 60cm\u00b3",
+                "B. 66cm\u00b3",
+                "C. 660cm\u00b3",
+                "D. 606cm\u00b3"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 37,
+            "question": "Calculate the volume of a cone with 15cm diameter and 25cm height.",
+            "diagram": null,
+            "options": [
+                "A. 473.21cm\u00b3",
+                "B. 713.21cm\u00b3",
+                "C. 2114.73cm\u00b3",
+                "D. 1473.21cm\u00b3"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 38,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_38.PNG",
+            "question": "Calculate the area of the shaded segment of the circle shown (Take \u03c0 = 22/7).",
+            "options": [
+                "A. 45.12cm\u00b2",
+                "B. 10.45cm\u00b2",
+                "C. 15.40cm\u00b2",
+                "D. 14.05cm\u00b2"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 39,
+            "question": "Make y the subject of the relation v = x + yt.",
+            "diagram": null,
+            "options": [
+                "A. (x \u2212 v)/t",
+                "B. (v \u2212 x)/t",
+                "C. v/x \u2212 t",
+                "D. (v + x)/t"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 40,
+            "question": "An arc subtends an angle of 72\u00b0 at the circumference of a circle of radius 5cm. Calculate the length of the arc in terms of \u03c0.",
+            "diagram": null,
+            "options": [
+                "A. 6\u03c0",
+                "B. 4\u03c0",
+                "C. 2\u03c0",
+                "D. 5\u03c0"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "question": "Two triangles have the same area if __________.",
+            "diagram": null,
+            "options": [
+                "A. the three sides of one are equal to the three angles of the other",
+                "B. the three sides of one are equal to the three sides of the other",
+                "C. they lie between the same parallels",
+                "D. they are similar"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 42,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_42.PNG",
+            "question": "The area of the trapezium PQRS shown is __________.",
+            "options": [
+                "A. 72cm\u00b2",
+                "B. 36\u221a3cm\u00b2",
+                "C. 36cm\u00b2",
+                "D. 18\u221a3cm\u00b2"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 43,
+            "diagram": "static/uploads/diagrams/2017/maths_ss1/diagram_43.PNG",
+            "question": "In the triangle shown, which of the following lines is indicated?",
+            "options": [
+                "A. the perpendicular bisector of QR",
+                "B. the perpendicular bisector of PR",
+                "C. the angular bisector of \u2220PQR",
+                "D. the angular bisector of \u2220PRQ"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 44,
+            "question": "A sector of a circle of radius 14cm which subtends an angle of 120\u00b0 at the centre is bent to form a cone. The base radius of the cone is __________.",
+            "diagram": null,
+            "options": [
+                "A. 3 1/2cm",
+                "B. 42/3cm",
+                "C. 9 1/3cm",
+                "D. 14cm"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 45,
+            "question": "The area of the curved surface of the cone in Question 44 is __________.",
+            "diagram": null,
+            "options": [
+                "A. (196/3)\u03c0cm\u00b2",
+                "B. (92/3)\u03c0cm\u00b2",
+                "C. 196\u03c0cm\u00b2",
+                "D. (196/9)\u03c0cm\u00b2"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 46,
+            "question": "If log<sub>10</sub> y = 4, what is y?",
+            "diagram": null,
+            "options": [
+                "A. 1,000",
+                "B. 10,000",
+                "C. 100",
+                "D. 100,000"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 47,
+            "question": "What is the value of 9<sup>5</sup> (mod 8)?",
+            "diagram": null,
+            "options": [
+                "A. 1",
+                "B. 0",
+                "C. 2",
+                "D. 5"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 48,
+            "question": "A cone of height 12cm has a volume of 616cm\u00b3. If \u03c0 = 22/7, the radius of the cone is __________.",
+            "diagram": null,
+            "options": [
+                "A. 3.5cm",
+                "B. 7cm",
+                "C. 10.5cm",
+                "D. 14cm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 49,
+            "question": "The surface area of a sphere of radius 3.5cm is __________. (Take \u03c0 = 22/7).",
+            "diagram": null,
+            "options": [
+                "A. 616cm\u00b2",
+                "B. 308cm\u00b2",
+                "C. 179 2/3cm\u00b2",
+                "D. 154cm\u00b2"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 50,
+            "question": "Calculate the height h of a cylinder if the volume is 308cm\u00b3 and the radius is 7cm. (Take \u03c0 = 22/7).",
+            "diagram": null,
+            "options": [
+                "A. 2cm",
+                "B. 4cm",
+                "C. 6cm",
+                "D. 10cm"
+            ],
+            "correctOption": "A"
+        }
+    ]
+}

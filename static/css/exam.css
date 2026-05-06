@@ -1,0 +1,288 @@
+:root {
+  --bg: linear-gradient(135deg, #0f172a, #1e3a8a, #1e40af);
+  --card: rgba(255, 255, 255, 0.97);
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #0f172a;
+  --text-dim: #475569;
+  --accent: #1e3a8a;
+  --accent-light: #2563eb;
+  --success: #16a34a;
+  --amber: #f59e0b;
+  --danger: #dc2626;
+  --radius: 16px;
+  --shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 14px 36px rgba(30, 58, 138, 0.35);
+}
+
+/* ==============================
+   Universal Buttons (Dynamic)
+================================ */
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-success {
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all .3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1e40af, #2563eb, #3b82f6);
+  color: #fff;
+  background-size: 200% auto;
+}
+.btn-primary:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #ede9fe, #c7d2fe);
+  color: #4338ca;
+}
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(67, 56, 202, 0.25);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: #fff;
+}
+.btn-success {
+  background: linear-gradient(135deg, #16a34a, #22c55e, #4ade80);
+  color: #fff;
+}
+
+/* ==============================
+   Instructions Modal
+================================ */
+#instructionsModal {
+  animation: fadeIn 0.6s ease forwards;
+  backdrop-filter: blur(6px);
+}
+
+#instructionsModal .bg-white {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.7s ease;
+  transform-origin: bottom;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header & Footer pinned */
+#instructionsModal .modal-header,
+#instructionsModal .modal-footer {
+  flex-shrink: 0;
+}
+
+/* Scrollable body */
+#instructionsModal .modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Floating modern close button */
+#instructionsModal a[aria-label="Close"] {
+  font-size: 1.2rem;
+  background: #f1f5f9;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all .3s ease;
+}
+#instructionsModal a[aria-label="Close"]:hover {
+  background: #dc2626;
+  color: #fff;
+  transform: rotate(90deg) scale(1.05);
+}
+
+/* Titles */
+#instructionsModal h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #1e3a8a, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#instructionsModal h3 {
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  position: sticky;
+  top: 0;
+  background: var(--card);
+  padding: 6px 0;
+  z-index: 2;
+}
+
+/* Instruction lists */
+#instructionsModal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+#instructionsModal ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border-left: 4px solid var(--accent);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: listFadeIn 0.6s forwards;
+}
+#instructionsModal ul li:nth-child(1) { animation-delay: 0.2s; }
+#instructionsModal ul li:nth-child(2) { animation-delay: 0.4s; }
+#instructionsModal ul li:nth-child(3) { animation-delay: 0.6s; }
+#instructionsModal ul li:nth-child(4) { animation-delay: 0.8s; }
+#instructionsModal ul li:nth-child(5) { animation-delay: 1s; }
+#instructionsModal ul li:nth-child(6) { animation-delay: 1.2s; }
+#instructionsModal ul li:nth-child(7) { animation-delay: 1.4s; }
+#instructionsModal ul li:nth-child(8) { animation-delay: 1.6s; }
+
+#instructionsModal ul li:hover {
+  transform: translateX(6px) scale(1.01);
+  background: linear-gradient(90deg, #f0f7ff, #e0ecff);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Anti-cheat list red */
+#instructionsModal .text-red-700 li {
+  border-left: 4px solid var(--danger);
+  background: #fee2e2;
+}
+#instructionsModal .text-red-700 li:hover {
+  background: #fecaca;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+/* Keyboard shortcuts */
+#instructionsModal kbd {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1e293b;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+#instructionsModal kbd:hover {
+  background: #e2e8f0;
+  transform: scale(1.05);
+}
+
+/* ==============================
+   Exam Interface
+================================ */
+#examInterface {
+  animation: fadeIn 1s ease;
+}
+#examInterface .w-80 {
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+#progressBar {
+  background: linear-gradient(90deg, #1e3a8a, #2563eb, #3b82f6);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+#prevBtn, #nextBtn, #flagBtn {
+  border-radius: 12px;
+  transition: all .3s ease;
+}
+#prevBtn:hover:not(:disabled),
+#nextBtn:hover:not(:disabled),
+#flagBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ==============================
+   Summary Modal
+================================ */
+#summaryModal .bg-white {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.7s ease;
+}
+
+/* ==============================
+   Loading Spinner
+================================ */
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid var(--accent-light);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ==============================
+   Animations
+================================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes listFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==============================
+   Mobile Responsiveness
+================================ */
+@media (max-width: 768px) {
+  #examInterface {
+    flex-direction: column;
+  }
+  #examInterface .w-80 {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  #questionContent {
+    padding: 1rem;
+  }
+  .modal-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}

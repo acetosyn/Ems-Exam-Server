@@ -1,0 +1,995 @@
+/* ============================================================
+   EXAM PORTAL — exam_gen.css (2025 Premium Modern Redesign)
+   ============================================================ */
+
+:root{
+  --bg: linear-gradient(180deg,#f7f9fc,#eef2ff);
+  --card-bg: #ffffff;
+  --glass: rgba(255,255,255,0.8);
+  --glass-strong: rgba(255,255,255,0.95);
+
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #1e3a8a;
+  --accent2: #2563eb;
+  --danger: #dc2626;
+  --success: #16a34a;
+
+  --navy-dark: #0e1b33;
+
+  --radius: 16px;
+  --r-sm: 10px;
+
+  --shadow-sm: 0 4px 14px rgba(0,0,0,.06);
+  --shadow-md: 0 10px 28px rgba(0,0,0,.08);
+  --shadow-lg: 0 18px 48px rgba(0,0,0,.12);
+
+  --font-sans: "Inter", "Segoe UI", system-ui, Arial;
+}
+
+/* ============================================================
+   MAIN LAYOUT
+   ============================================================ */
+
+.exam-shell{
+  min-height: calc(100vh - 80px);
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  gap:22px;
+  padding:22px;
+  background:var(--bg);
+  font-family:var(--font-sans);
+}
+
+@media(max-width:990px){
+  .exam-shell{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+.exam-sidebar{
+  background:var(--glass-strong);
+  backdrop-filter:blur(10px);
+  border-radius:var(--radius);
+  padding:16px;
+  border:1px solid rgba(0,0,0,.05);
+  box-shadow:var(--shadow-sm);
+  position:sticky;
+  top:20px;
+  height:fit-content;
+}
+
+/* ============================================================
+   PROGRESS CARDS
+   ============================================================ */
+
+.progress-overview{
+  padding:8px 6px 14px;
+}
+
+.counts{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+}
+
+.count-block{
+  flex:1;
+  background:var(--glass);
+  padding:14px 6px;
+  border-radius:var(--r-sm);
+  text-align:center;
+  border:1px solid rgba(0,0,0,.05);
+  box-shadow:var(--shadow-sm);
+}
+
+.count-num{
+  font-size:1.3rem;
+  font-weight:800;
+  color:var(--accent2);
+}
+
+.count-block span{
+  font-size:0.78rem;
+  color:var(--muted);
+  margin-top:3px;
+  display:block;
+}
+
+/* Progress bar */
+.progress-line{
+  width:100%;
+  height:8px;
+  margin-top:10px;
+  border-radius:999px;
+  background:#e2e8f0;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width .3s ease;
+}
+
+.progress-text{
+  margin-top:8px;
+  font-size:0.85rem;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* ============================================================
+   QUESTION NAV GRID — compact
+   ============================================================ */
+
+#questionGridWrap{
+  max-height:360px;
+  overflow-y:auto;
+  margin-top:16px;
+  padding-right:6px;
+}
+
+.question-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(28px,1fr));
+  gap:6px;
+}
+
+.question-nav-btn{
+  background:#edf1f5;
+  border:none;
+  border-radius:8px;
+  font-size:0.7rem;
+  padding:6px 0;
+  cursor:pointer;
+  transition:.15s ease;
+  font-weight:600;
+}
+
+.question-nav-btn:hover{
+  background:#d9e0ea;
+  transform:translateY(-2px);
+}
+
+.question-nav-btn.active{
+  background:var(--accent2);
+  color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(37,99,235,.22);
+}
+
+.question-nav-btn.answered{
+  background:var(--success);
+  color:#fff;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-success,
+.btn-ghost{
+  padding:10px 18px;
+  border-radius:var(--r-sm);
+  cursor:pointer;
+  border:none;
+  font-weight:700;
+  transition:.18s;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* Primary */
+.btn-primary{
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#fff;
+  box-shadow:0 6px 24px rgba(37,99,235,.22);
+}
+.btn-primary:hover{ transform:translateY(-2px); }
+
+/* Secondary */
+.btn-secondary{
+  background:#eef2ff;
+  color:var(--accent2);
+  border:1px solid rgba(37,99,235,.12);
+}
+.btn-secondary:hover{ background:#e0e7ff; }
+
+/* Danger */
+.btn-danger{
+  background:linear-gradient(90deg,#ef4444,#dc2626);
+  color:#fff;
+}
+.btn-danger:hover{
+  transform:translateY(-2px);
+}
+
+/* Ghost */
+.btn-ghost{
+  background:transparent;
+  border:1px solid rgba(0,0,0,.08);
+  color:var(--muted);
+}
+.btn-ghost:hover{ background:#f1f5f9; }
+
+/* ============================================================
+   TOP BAR — SUBJECT + TIMER
+   ============================================================ */
+
+.exam-topbar{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 20px;
+
+  /* ⭐ NEW — slightly darker translucent background */
+  background: rgba(14, 27, 51, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  backdrop-filter: blur(6px);
+}
+
+
+/* Subject card */
+.exam-topbar-subject{
+  background:#fff;
+  padding:10px 16px;
+  border-radius:var(--r-sm);
+  font-size:1rem;
+  font-weight:800;
+  color:var(--accent2);
+  box-shadow:var(--shadow-sm);
+  border:1px solid rgba(0,0,0,.06);
+}
+
+
+
+/* ============================================================
+   QUESTION PANEL
+   ============================================================ */
+
+.exam-main{
+  padding-right:40px;
+}
+
+.question-header{
+  margin-bottom:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.q-h2{
+  margin:0;
+  font-size:1.7rem;
+  font-weight:900;
+  color:#0e1b33;
+}
+
+/* ============================================================
+   QUESTION CARD — BIGGER, CLEANER, PREMIUM
+   ============================================================ */
+
+.question-card{
+  background:#fff;
+  border-radius:var(--radius);
+  padding:30px 34px;
+  border:1px solid rgba(0,0,0,.05);
+  box-shadow:var(--shadow-md);
+  max-width:1000px;
+  min-height:380px;
+}
+
+/* Question text */
+#questionContent h3{
+  font-size:1.35rem;
+  font-weight:800;
+  margin-bottom:18px;
+  line-height:1.45;
+}
+
+/* Option buttons */
+.option-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f4f6fa;
+  border:1px solid #d9dee8;
+  padding:12px 16px;
+  border-radius:var(--r-sm);
+  cursor:pointer;
+  margin-bottom:12px;
+  transition:.18s ease;
+}
+
+.option-btn:hover{
+  background:#eef2f8;
+  transform:translateY(-2px);
+}
+
+.option-letter{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:#e2e5eb;
+  font-weight:800;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.option-btn.selected{
+  background:#e8fcf0;
+  border-color:var(--success);
+}
+
+.option-btn.selected .option-letter{
+  background:var(--success);
+  color:white;
+}
+
+/* ============================================================
+   PREVIOUS & NEXT BUTTONS — opposite sides
+   ============================================================ */
+
+.question-foot{
+  display:flex;
+  justify-content:space-between;
+  margin-top:26px;
+}
+
+#prevBtn{
+  margin-right:auto;
+}
+
+#nextBtn{
+  margin-left:auto;
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+
+.hidden{ display:none !important; }
+.small{ font-size:0.85rem; }
+.w-full{ width:100%; }
+
+/* Scrollbar */
+#questionGridWrap::-webkit-scrollbar{ width:6px; }
+#questionGridWrap::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
+  border-radius:6px;
+}
+
+
+/* ============================================================
+   INSTRUCTIONS MODAL — MODERN EXAM UI (START EXAM)
+   Safe • Centered • Non-intrusive
+============================================================ */
+
+/* Fullscreen overlay safety */
+#instructionsModal {
+  position: fixed !important;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Main modal card */
+#instructionsModal .modern-instr-card {
+  max-width: 720px;
+  width: 92%;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ================= HEADER ================= */
+
+#instructionsModal .instr-head {
+  padding: 22px 26px;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+}
+
+#instructionsModal .instr-head h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+#instructionsModal .instr-head .subtitle {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+/* Duration badge */
+#instructionsModal .exam-duration-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+}
+
+/* ================= BODY ================= */
+
+#instructionsModal .instructions-body {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 18px 22px 6px;
+}
+
+/* Scrollbar (subtle) */
+#instructionsModal .instructions-body::-webkit-scrollbar {
+  width: 8px;
+}
+#instructionsModal .instructions-body::-webkit-scrollbar-thumb {
+  background: rgba(30,58,138,0.25);
+  border-radius: 10px;
+}
+#instructionsModal .instructions-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Grid layout */
+#instructionsModal .instructions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+/* Instruction card */
+#instructionsModal .instruction-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#instructionsModal .instruction-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+}
+
+/* Danger rule */
+#instructionsModal .instruction-card.danger {
+  background: linear-gradient(180deg, #fee2e2, #fff5f5);
+  border-color: #fca5a5;
+}
+
+/* Icon */
+#instructionsModal .instr-icon {
+  font-size: 1.25rem;
+  color: #2563eb;
+  flex-shrink: 0;
+}
+#instructionsModal .instruction-card.danger .instr-icon {
+  color: #dc2626;
+}
+
+/* Text */
+#instructionsModal .instruction-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1e293b;
+  line-height: 1.45;
+}
+
+/* ================= FOOTER ================= */
+
+#instructionsModal .modal-foot {
+  padding: 18px 22px;
+  border-top: 1px solid rgba(15,23,42,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Buttons */
+#instructionsModal .btn-primary,
+#instructionsModal .btn-secondary {
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  border-radius: 10px;
+}
+
+/* ================= CLOSE BUTTON ================= */
+
+#instructionsModal .modern-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#instructionsModal .modern-close:hover {
+  background: #dc2626;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(220,38,38,0.3);
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 640px) {
+  #instructionsModal .modern-instr-card {
+    width: 95%;
+  }
+
+  #instructionsModal .instruction-card {
+    padding: 12px;
+  }
+
+  #instructionsModal .instruction-card p {
+    font-size: 0.9rem;
+  }
+
+  #instructionsModal .exam-duration-badge {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+  }
+}
+
+
+
+/* ============================================================
+   INSTRUCTIONS MODAL — VERY SUBTLE LIFT (FINAL)
+============================================================ */
+
+#instructionsModal {
+  align-items: center;      /* keep true center */
+}
+
+#instructionsModal .modern-instr-card {
+  transform: translateY(-20px); /* gentle but noticeable lift */
+}
+
+
+/* ============================================================
+   TOPBAR RIGHT GROUP (Clock + Hourglass + Timer + Profile)
+   ============================================================ */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  
+  /* ⭐ reduce spacing between the three */
+  gap: 22px;
+
+  /* ⭐ PUSH FURTHER RIGHT */
+  margin-left: 340px !important;
+  margin-right: auto !important;
+
+  position: relative;
+  z-index: 5;
+}
+
+
+/* ============================================================
+   ANALOG CLOCK — FIX LEFT FLASH + RESERVE SPACE CORRECTLY
+============================================================ */
+.analog-clock-wrapper {
+  opacity: 0;                     /* invisible */
+  pointer-events: none;
+  width: 82px;
+  height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ⭐ lock it in final right-side position even before exam starts */
+  position: relative;
+  left: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.exam-started .analog-clock-wrapper {
+  opacity: 1 !important;         /* fade in smoothly */
+}
+
+.analog-clock-wrapper iframe {
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+
+
+/* ============================================================
+   HOURGLASS CARD — FIX LEFT FLASH 100%
+============================================================ */
+.hourglass-card {
+  opacity: 0;
+  pointer-events: none;
+
+  background: #0e1b33;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ⭐ lock in the correct spot BEFORE exam starts */
+  position: relative;
+  left: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.exam-started .hourglass-card {
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+
+
+/* ============================================================
+   PURE CSS HOURGLASS
+============================================================ */
+.hourglass {
+  width: 36px;
+  height: 60px;
+  position: relative;
+  animation: hg-flip 10s ease-in-out infinite;
+  padding: 0 4px;
+  border-top: 3px solid #663300;
+  border-bottom: 3px solid #663300;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hg-top, .hg-bottom {
+  width: 100%;
+  height: 28px;
+  background: #ddeeff;
+  box-shadow: inset 0 0 8px #bbccdd;
+  overflow: hidden;
+  position: relative;
+}
+
+.hg-top { border-radius: 0 0 50% 50%; }
+.hg-bottom { border-radius: 50% 50% 0 0; }
+
+.hg-top:before, .hg-bottom:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 28px;
+  background: #ffcc66;
+  border-radius: 50%;
+}
+
+.hg-top:before { animation: hg-top-fill 10s linear infinite; transform: translateY(50%); }
+.hg-top:after  { content:""; position:absolute; left:45%; width:10%; height:100%; background:#ffcc66; animation:hg-top-drip 10s linear infinite; }
+.hg-bottom:before { animation: hg-bottom-fill 10s linear infinite; transform:translateY(100%); }
+.hg-bottom:after  { content:""; position:absolute; background:#ffcc66; width:10%; height:100%; left:45%; animation:hg-bottom-drip 10s linear infinite; }
+
+
+/* ============================================================
+   TIMER CARD
+============================================================ */
+.exam-topbar-timer {
+  background: var(--navy-dark);
+  color: #fff;
+  padding: 12px 22px;
+  font-size: 1.42rem;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(14,27,51,.28);
+  display: flex;
+  align-items: center;
+  gap: 10px;                      /* ⭐ slightly tighter */
+  font-weight: 850;
+  letter-spacing: 0.75px;
+  border: 2px solid rgba(255,255,255,.15);
+  width: 150px;
+  justify-content: center;
+
+  /* ⭐ lock position BEFORE exam starts */
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.exam-started .exam-topbar-timer {
+  opacity: 1 !important;
+}
+
+.exam-topbar-timer i { font-size: 1.42rem; color: #ff5252; }
+
+#timerDisplay {
+  width: 85px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-family: "Roboto Mono", monospace;
+}
+
+
+/* ============================================================
+   USERNAME CARD
+============================================================ */
+.exam-topbar-student {
+  background: #ffffff;
+  padding: 10px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  /* no flashing needed */
+}
+
+.exam-topbar-student i {
+  color: #2563eb;
+  font-size: 1rem;
+}
+
+
+
+/* Make all modal buttons show pointer cursor */
+.modal-foot button,
+.modal-head .close-x,
+.btn-success,
+.btn-secondary,
+.btn-danger,
+.btn-primary,
+.btn-ghost,
+.flag-btn,
+#startExamBtn {
+    cursor: pointer !important;
+}
+
+
+
+/* ============================================================
+   HOURGLASS KEYFRAMES
+============================================================ */
+@keyframes hg-flip {
+  0%, 45% { transform: rotate(0); }
+  50%, 95% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes hg-top-fill {
+  0% { transform: translateY(50%); }
+  50% { transform: translateY(100%); }
+  51% { transform: translateY(-100%); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes hg-bottom-fill {
+  0% { transform: translateY(100%); }
+  50% { transform: translateY(50%); }
+  51% { transform: translateY(-50%); }
+  100% { transform: translateY(-100%); }
+}
+
+@keyframes hg-top-drip {
+  0%, 50% { transform: translateY(100%); width:10%; left:45%; }
+  55% { transform: translateY(0); width:10%; }
+  100% { transform: translateY(0); width:0; left:50%; }
+}
+
+@keyframes hg-bottom-drip {
+  0% { transform: translateY(-100%); width:10%; left:45%; }
+  5% { transform: translateY(0); }
+  45%,100% { transform: translateY(0); width:0; left:50%; }
+}
+
+
+
+
+.question-diagram {
+  text-align: center;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.diagram-img {
+  max-width: 260px;        /* reduce width */
+  max-height: 220px;       /* prevents extremely tall images */
+  width: auto;
+  height: auto;
+  object-fit: contain;     /* ensures image scales nicely */
+  
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px;
+  background: white;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+
+
+
+.focus-word {
+  font-style: italic;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-weight: 600;
+  color: #0f172a; /* dark blue for readability */
+}
+
+
+
+.passage-block {
+  background: #f1f5f9; /* soft grey-blue */
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #2563eb; /* blue-600 highlight */
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #1e293b; /* deep slate */
+  white-space: pre-line; /* preserves newlines */
+}
+
+
+
+.passage-text {
+    white-space: pre-line;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+.passage-text .gap {
+    display: inline-block;
+    border-bottom: 2px solid #1e3a8a;
+    min-width: 120px;   /* length of the blank */
+    height: 1.2em;
+    margin: 0 6px;
+    text-align: center;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+
+
+
+/* --------------------------------------------------
+   FLAG BUTTON STATES
+-------------------------------------------------- */
+.flag-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: #334155;
+  transition: all 0.25s ease;
+}
+
+.flag-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.flag-btn.flagged {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.45);
+}
+
+
+
+/* ============================================================
+   EXAM FLASH — SAFE (NO FOCUS, NO CLICK)
+============================================================ */
+.exam-flash {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+
+  padding: 14px 22px;
+  border-radius: 14px;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  z-index: 99999;
+  pointer-events: none; /* 🔒 CRITICAL */
+}
+
+.exam-flash.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.exam-flash-success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+}
+
+.exam-flash-info {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  color: #fff;
+}
+
+
+
+/* ======================================================
+   SIDEBAR HINT BUTTON — RED ALERT STYLE (NON-INTERACTIVE)
+====================================================== */
+.btn-hint {
+  background: linear-gradient(135deg, #dc2626, #b91c1c); /* rich red */
+  border: 1px solid rgba(220,38,38,0.6);
+
+  color: #ffffff;              /* ✅ clear white text */
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+
+  text-align: center;
+  line-height: 1.35;
+
+  cursor: default;
+  user-select: none;
+
+  box-shadow:
+    0 4px 10px rgba(220,38,38,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* Fully non-interactive */
+.btn-hint:disabled {
+  pointer-events: none;
+  opacity: 1; /* ❗ stay bold, not faded */
+}

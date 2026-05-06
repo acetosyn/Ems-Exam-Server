@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Student + Exam Metadata -->
+   <meta name="student-name" content="{{ student.full_name }}">
+  <meta name="student-admission" content="{{ student.admission_number }}">
+  <meta name="student-class" content="{{ student.class_category }}">
+  <meta name="exam-subject" content="{{ subject }}">
+  <meta name="exam-year" content="{{ year }}">
+
+
+  <!-- Basic Document Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EMIS Exam Portal | Exam</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Core Exam Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_gen.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_spec.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/hour-glass.css') }}">
+
+  <!-- Optional: student header styling -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/students.css') }}" />
+</head>
+
+
+<body class="students-body exam-body">
+
+  <!-- ======================================================
+      STUDENT HEADER (Same as students.html)
+  ======================================================= -->
+  <header class="student-header">
+    <div class="header-left">
+      <i class="fa-solid fa-graduation-cap header-logo"></i>
+      <span class="portal-title">EMIS Exam Portal</span>
+    </div>
+
+    <div class="header-right">
+      <span id="liveClock" class="live-clock"></span>
+
+      <a href="{{ url_for('user_bp.logout') }}" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+
+      <button class="icon-btn" id="themeToggle">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <img src="{{ url_for('static', filename='images/student.jpg') }}"
+           class="student-avatar" />
+    </div>
+  </header>
+
+
+<div class="exam-topbar">
+
+    <!-- SUBJECT TITLE -->
+    <div id="examSubjectTitle" class="exam-topbar-subject hidden"></div>
+
+    <!-- RIGHT GROUP -->
+    <div class="topbar-right">
+
+        <!-- Analog Clock -->
+        <div class="analog-clock-wrapper">
+          <iframe src="https://free.timeanddate.com/clock/ia6cyb81/n125/szw80/szh80/hoc222/hbw6/cf100/hnce1ead6/hcw2/hcd88/fan2/fas20/fdi70/mqc000/mqs3/mql13/mqw4/mqd94/mhc000/mhs3/mhl13/mhw4/mhd94/mmc000/mml5/mmw1/mmd94/hwm2/hhs2/hhb18/hms2/hml80/hmb18/hmr7/hscf09/hss1/hsl90/hsr5" frameborder="0" width="80" height="80">
+
+          </iframe>
+
+        </div>
+
+        <!-- Hourglass Animation -->
+<div class="hourglass-card">
+    <div class="hourglass">
+        <div class="hg-top"></div>
+        <div class="hg-bottom"></div>
+    </div>
+</div>
+
+
+        <!-- Timer -->
+        <div id="examTimer"
+             class="exam-topbar-timer {% if not exam_started %}hidden{% endif %}">
+            <i class="fa-solid fa-clock"></i>
+            <span id="timerDisplay">00:00</span>
+        </div>
+
+        <!-- Username -->
+        <div class="exam-topbar-student {% if not exam_started %}hidden{% endif %}">
+            <i class="fa-solid fa-user"></i>
+            <span>{{ student.full_name }}</span>
+        </div>
+
+        <!-- Fullscreen -->
+        <button id="fullscreenBtn"
+                class="exam-topbar-fullscreen {% if not exam_started %}hidden{% endif %}">
+            <i class="fa-solid fa-expand"></i>
+        </button>
+
+    </div>
+</div>
+
+
+
+
+  <!-- ======================================================
+      FULLSCREEN EXAM INSTRUCTIONS MODAL
+  ======================================================= -->
+  <div id="instructionsModal" class="modal-backdrop {% if exam_started %}hidden{% endif %}">
+    <div class="modal-card modern-instr-card">
+
+      <button onclick="window.location.href='{{ url_for('student_portal_bp.student_portal') }}'"
+              class="modern-close">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <header class="modal-head instr-head">
+        <div>
+          <h2><i class="fas fa-clipboard-list"></i> Exam Instructions</h2>
+          <p class="subtitle">Read carefully before starting</p>
+        </div>
+
+        <div class="exam-duration-badge">
+          <i class="fas fa-clock"></i>
+          {{ exam_duration|default(60) }} minutes
+        </div>
+      </header>
+
+      <div class="instructions-grid">
+
+        <div class="instruction-card">
+          <i class="fas fa-book-open instr-icon"></i>
+          <p>This exam contains<b> MCQ multiple-choice questions</b>.</p>
+        </div>
+
+        <div class="instruction-card danger">
+          <i class="fas fa-stop-circle instr-icon"></i>
+          <p>Opening a new tab or leaving the page may end your exam.</p>
+        </div>
+
+        <div class="instruction-card">
+          <i class="fas fa-check-double instr-icon"></i>
+          <p>You can only answer each question once.</p>
+        </div>
+
+        <div class="instruction-card">
+          <i class="fas fa-list-ol instr-icon"></i>
+          <p>Select the most appropriate option A–D.</p>
+        </div>
+
+        <div class="instruction-card">
+          <i class="fas fa-flag instr-icon"></i>
+          <p>You may flag questions to review later.</p>
+        </div>
+
+        <div class="instruction-card">
+          <i class="fas fa-exclamation-triangle instr-icon"></i>
+          <p>Exam must be completed in one sitting.</p>
+        </div>
+
+        <div class="instruction-card success">
+          <i class="fas fa-paper-plane instr-icon"></i>
+          <p>Please ensure you submit after finishing.</p>
+        </div>
+
+      </div>
+
+      <footer class="modal-foot">
+        <a href="{{ url_for('student_portal_bp.student_portal') }}" class="btn-secondary">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
+
+        <button id="startExamBtn" class="btn-primary">
+          <i class="fa-solid fa-rocket"></i> Start Exam
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+
+
+  <!-- ======================================================
+      MAIN EXAM INTERFACE
+  ======================================================= -->
+  <div id="examInterface" class="{% if not exam_started %}hidden{% endif %} exam-shell">
+
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="exam-sidebar">
+
+      <div class="sidebar-section">
+        <div class="progress-overview">
+
+          <div class="counts">
+            <div class="count-block">
+              <div id="answeredCount" class="count-num">0</div>
+              <span>Answered</span>
+            </div>
+
+            <div class="count-block">
+              <div id="flaggedCount" class="count-num">0</div>
+              <span>Flagged</span>
+            </div>
+
+            <div class="count-block">
+              <div id="remainingCount" class="count-num">0</div>
+              <span>Remaining</span>
+            </div>
+          </div>
+
+          <div class="progress-line">
+            <div id="progressBar" class="progress-fill"></div>
+          </div>
+
+          <div id="progressText" class="progress-text">0% Complete</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h4 class="nav-title">Question Navigation</h4>
+
+        <div id="questionGridWrap">
+          <div id="questionGrid" class="question-grid"></div>
+        </div>
+<button onclick="showSummary()" class="btn-secondary small w-full">
+  Review Summary
+</button>
+
+<button
+  class="btn-hint small w-full"
+  type="button"
+  disabled
+  aria-disabled="true"
+>
+  Scroll to last question to submit exam
+</button>
+
+
+      <div class="sidebar-footer">
+        <p class="muted small">Use ← → keys to navigate</p>
+      </div>
+
+    </aside>
+
+
+
+<!-- MAIN EXAM INTERFACE -->
+<main class="exam-main">
+
+  <div class="question-header">
+    <div>
+      <h2 class="q-h2">
+        Question <span id="currentQuestionNumber">1</span>
+        <small>/ <span id="totalQuestions">0</span></small>
+      </h2>
+    </div>
+
+    <button id="flagBtn" class="flag-btn" onclick="toggleFlag()">
+      <i class="fa-solid fa-flag"></i>
+      <span id="flagText">Flag</span>
+    </button>
+  </div>
+
+  <section class="question-stage">
+    <div id="questionSlider" class="question-slider">
+
+      <article class="question-card">
+        <div class="question-body">
+
+          <!-- ✅ SECTION INSTRUCTION CARD (JS fills this) -->
+          <div id="sectionInstructionBox" class="section-instruction-card hidden"></div>
+
+          <!-- ✅ PASSAGE BLOCK (JS fills this for Literature/English) -->
+          <div id="passageBlock" class="passage-block" style="display:none;"></div>
+
+          <!-- QUESTION CONTENT (JS injects question text, diagram, options wrapper) -->
+          <div id="questionContent" class="question-text"></div>
+
+          <!-- ANSWER OPTIONS (legacy list, not used by new engine but harmless) -->
+          <ul id="answerList" class="answers-list"></ul>
+
+        </div>
+
+        <div class="question-foot">
+          <button id="prevBtn" class="btn-ghost" disabled onclick="previousQuestion()">
+            ← Previous
+          </button>
+          <button id="nextBtn" class="btn-primary" onclick="nextQuestion()">
+            Next →
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+</div>
+
+  <!-- ======================================================
+      SUMMARY MODAL
+  ======================================================= -->
+  <div id="summaryModal" class="modal-backdrop hidden">
+    <div class="modal-card small">
+
+      <div class="modal-head">
+        <h2>Exam Summary</h2>
+        <button onclick="closeSummary()" class="close-x">✕</button>
+      </div>
+
+      <div id="summaryContent" class="modal-body"></div>
+
+      <div class="modal-foot">
+        <button onclick="closeSummary()" class="btn-secondary">Continue</button>
+        <button onclick="submitExam()" class="btn-success">Submit Exam</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- ======================================================
+      END EXAM CONFIRMATION
+  ======================================================= -->
+  <div id="endExamModal" class="modal-backdrop hidden">
+    <div class="modal-card small">
+
+      <div class="modal-head">
+        <h2>Confirm End Exam</h2>
+        <button onclick="closeEndExam()" class="close-x">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p id="endExamMessage"></p>
+      </div>
+
+      <div class="modal-foot">
+        <button onclick="closeEndExam()" class="btn-secondary">No, Continue</button>
+        <button onclick="submitExam(false)" class="btn-danger">
+          Yes, End Exam
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- ======================================================
+      LOADING OVERLAY
+  ======================================================= -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <span>Loading exam...</span>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       JAVASCRIPT FILES
+  ======================================================= -->
+  <script src="{{ url_for('static', filename='js/exam-core.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/exam-realtime.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/exam-features.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/shuffle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/hour-glass.js') }}"></script>
+</body>
+</html>

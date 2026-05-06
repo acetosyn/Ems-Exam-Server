@@ -1,0 +1,1068 @@
+{
+    "subject": "English Language",
+    "class": "SS3",
+    "session": "2025/2026",
+    "time_allowed_minutes": 60,
+    "questions": [
+        {
+            "id": 1,
+            "isInstruction": true,
+            "question": "SECTION 1:\nChoose the option (A\u2013D) that is most nearly OPPOSITE in meaning to the underlined word or group of words.",
+            "options": []
+        },
+        {
+            "id": 2,
+            "question": "Many youths migrate to <span class=\"focus-word\">urban</span> areas as there are not enough jobs in ______ areas.",
+            "options": [
+                "A. bush",
+                "B. local",
+                "C. rural",
+                "D. underdeveloped"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 3,
+            "question": "Ngozi is <span class=\"focus-word\">nonchalant</span> about her studies, while her brother is ______.",
+            "options": [
+                "A. smart",
+                "B. serious",
+                "C. brave",
+                "D. intelligent"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 4,
+            "question": "The politician gave an <span class=\"focus-word\">equivocal</span> answer rather than a ______ one.",
+            "options": [
+                "A. pleasing",
+                "B. clear",
+                "C. carefree",
+                "D. confusing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 5,
+            "question": "The drug <span class=\"focus-word\">exacerbated</span> his illness instead of ______ it.",
+            "options": [
+                "A. curing",
+                "B. lessening",
+                "C. aggravating",
+                "D. solving"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "question": "I prefer <span class=\"focus-word\">extroverts</span> to ______.",
+            "options": [
+                "A. bullies",
+                "B. rascals",
+                "C. extremists",
+                "D. introverts"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 7,
+            "question": "Cooperation <span class=\"focus-word\">facilitates</span> action rather than ______ it.",
+            "options": [
+                "A. retarding",
+                "B. hastening",
+                "C. stopping",
+                "D. improving"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 8,
+            "question": "Because of a family <span class=\"focus-word\">feud</span>, they could not build good ______.",
+            "options": [
+                "A. friendship",
+                "B. companionship",
+                "C. acquaintanceship",
+                "D. hostility"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 9,
+            "question": "There is no use being in a <span class=\"focus-word\">fret</span>; try to ______.",
+            "options": [
+                "A. play",
+                "B. dance",
+                "C. relax",
+                "D. laugh"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 10,
+            "question": "Joy needs talking to, not ______.",
+            "options": [
+                "A. flogging",
+                "B. pampering",
+                "C. scolding",
+                "D. mocking"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 11,
+            "question": "Ema keeps to herself and does not <span class=\"focus-word\">socialize</span> much.",
+            "options": [
+                "A. laugh",
+                "B. care",
+                "C. quarrel",
+                "D. interact"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 12,
+            "isInstruction": true,
+            "question": "SECTION 2:\nChoose the option (A\u2013D) that best completes each sentence.",
+            "options": []
+        },
+        {
+            "id": 13,
+            "question": "The principal expressed his <span class=\"focus-word\">indignation</span> at the students\u2019 behaviour.",
+            "options": [
+                "A. dignity",
+                "B. anger",
+                "C. indiscipline",
+                "D. pride"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 14,
+            "question": "The magistrate ______ the accused to one year imprisonment.",
+            "options": [
+                "A. sentenced",
+                "B. charged",
+                "C. blamed",
+                "D. accused"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 15,
+            "question": "Fred\u2019s speech was completely ______.",
+            "options": [
+                "A. clear",
+                "B. logical",
+                "C. gibberish",
+                "D. fluent"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 16,
+            "question": "The lecturer described his ideas as <span class=\"focus-word\">nebulous</span>.",
+            "options": [
+                "A. clear",
+                "B. vague",
+                "C. brilliant",
+                "D. detailed"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 17,
+            "question": "With determination, we shall ______ the problem.",
+            "options": [
+                "A. surrender",
+                "B. surmount",
+                "C. abandon",
+                "D. delay"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 18,
+            "question": "Bimbo ran ______ her old friend at the market.",
+            "options": [
+                "A. into",
+                "B. on",
+                "C. upon",
+                "D. over"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 19,
+            "question": "She is a ______ beauty.",
+            "options": [
+                "A. ravaging",
+                "B. ravenous",
+                "C. ravishing",
+                "D. raging"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 20,
+            "question": "After the election, the government took over the ______ of power.",
+            "options": [
+                "A. rains",
+                "B. reigns",
+                "C. reins",
+                "D. realms"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 21,
+            "question": "The visit boosted the team\u2019s ______.",
+            "options": [
+                "A. morale",
+                "B. morale\u2019s",
+                "C. action",
+                "D. play"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 22,
+            "question": "It is time we ______ the intruders away.",
+            "options": [
+                "A. drive",
+                "B. drove",
+                "C. driven",
+                "D. driving"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 23,
+            "isInstruction": true,
+            "question": "SECTION 3:\nChoose the interpretation that best explains each sentence.",
+            "options": []
+        },
+        {
+            "id": 24,
+            "question": "She put up an appearance despite opposition. This means she:",
+            "options": [
+                "A. appeared reluctantly",
+                "B. came despite resistance",
+                "C. was opposed by all",
+                "D. resisted others"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 25,
+            "question": "Our arrival took her unaware. This means she was:",
+            "options": [
+                "A. shocked",
+                "B. pleased",
+                "C. unprepared",
+                "D. frightened"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 26,
+            "question": "Stop crying over spilt milk. This means:",
+            "options": [
+                "A. cry less",
+                "B. regret what cannot be changed",
+                "C. clean the mess",
+                "D. be careful"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 27,
+            "question": "The plan did not materialize. This means it:",
+            "options": [
+                "A. succeeded",
+                "B. failed",
+                "C. delayed",
+                "D. improved"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "question": "Do not fish in troubled waters. This means:",
+            "options": [
+                "A. avoid danger",
+                "B. avoid rivers",
+                "C. avoid rain",
+                "D. avoid fishing"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 29,
+            "question": "People in glass houses should not throw stones. This means:",
+            "options": [
+                "A. be careful",
+                "B. avoid hypocrisy",
+                "C. protect houses",
+                "D. avoid stones"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 30,
+            "question": "He received a priceless gift. This means it was:",
+            "options": [
+                "A. cheap",
+                "B. expensive",
+                "C. highly valued",
+                "D. useless"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 31,
+            "question": "Supporters were in full cry. This means they:",
+            "options": [
+                "A. cried loudly",
+                "B. shouted enthusiastically",
+                "C. protested",
+                "D. complained"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 32,
+            "question": "The quarrel was a storm in a teacup. This means it:",
+            "options": [
+                "A. was serious",
+                "B. was insignificant",
+                "C. lasted long",
+                "D. caused trouble"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 33,
+            "question": "They were given marching orders. This means they were:",
+            "options": [
+                "A. trained",
+                "B. promoted",
+                "C. dismissed",
+                "D. instructed"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 34,
+            "isInstruction": true,
+            "question": "SECTION 4:\nChoose the word nearest in meaning to the underlined word.",
+            "options": []
+        },
+        {
+            "id": 35,
+            "question": "She was sweating <span class=\"focus-word\">profusely</span>.",
+            "options": [
+                "A. heavily",
+                "B. slowly",
+                "C. lightly",
+                "D. gently"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 36,
+            "question": "He was <span class=\"focus-word\">genuinely</span> interested.",
+            "options": [
+                "A. truly",
+                "B. probably",
+                "C. slightly",
+                "D. doubtfully"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 37,
+            "question": "She refused to <span class=\"focus-word\">deviate</span>.",
+            "options": [
+                "A. follow",
+                "B. turn aside",
+                "C. remain",
+                "D. stop"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 38,
+            "question": "Life is <span class=\"focus-word\">ephemeral</span>.",
+            "options": [
+                "A. short-lived",
+                "B. joyful",
+                "C. beautiful",
+                "D. eternal"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 39,
+            "question": "Ada rarely <span class=\"focus-word\">disobeys</span>.",
+            "options": [
+                "A. often",
+                "B. frequently",
+                "C. seldom",
+                "D. always"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 40,
+            "question": "The use of <span class=\"focus-word\">vernacular</span> was banned.",
+            "options": [
+                "A. slang",
+                "B. mother tongue",
+                "C. foreign language",
+                "D. accent"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "question": "His <span class=\"focus-word\">nefarious</span> acts were exposed.",
+            "options": [
+                "A. wicked",
+                "B. harmless",
+                "C. kind",
+                "D. generous"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 42,
+            "question": "It was a <span class=\"focus-word\">tortuous</span> process.",
+            "options": [
+                "A. easy",
+                "B. complicated",
+                "C. simple",
+                "D. short"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "She refused to <span class=\"focus-word\">divulge</span> the secret.",
+            "options": [
+                "A. hide",
+                "B. reveal",
+                "C. invent",
+                "D. forget"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 44,
+            "question": "She is <span class=\"focus-word\">garrulous</span>.",
+            "options": [
+                "A. silent",
+                "B. talkative",
+                "C. shy",
+                "D. rude"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 45,
+            "isInstruction": true,
+            "question": "SECTION 5:\nChoose the option (A\u2013D) that best completes each sentence.",
+            "options": []
+        },
+        {
+            "id": 46,
+            "question": "You have finished the work, ______?",
+            "options": [
+                "A. isn\u2019t it",
+                "B. don\u2019t you",
+                "C. haven\u2019t you",
+                "D. didn\u2019t you"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 47,
+            "question": "I searched every ______ of the room.",
+            "options": [
+                "A. corner",
+                "B. nook and cranny",
+                "C. edge",
+                "D. side"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "question": "He arrived just ______ time.",
+            "options": [
+                "A. in",
+                "B. on",
+                "C. at",
+                "D. with"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 49,
+            "question": "It is high time you ______ him.",
+            "options": [
+                "A. help",
+                "B. helped",
+                "C. will help",
+                "D. are helping"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 50,
+            "question": "The principal, with the teachers, ______ present.",
+            "options": [
+                "A. are",
+                "B. is",
+                "C. were",
+                "D. have"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 51,
+            "isInstruction": true,
+            "question": "SECTION 6:\nChoose the correct option based on sound, stress and pronunciation.",
+            "options": []
+        },
+        {
+            "id": 52,
+            "question": "Which word has a silent letter?",
+            "options": [
+                "A. know",
+                "B. see",
+                "C. go",
+                "D. do"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 53,
+            "question": "Which of the following is a diphthong?",
+            "options": [
+                "A. /i:/",
+                "B. /e/",
+                "C. /ai/",
+                "D. /u:/"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 54,
+            "question": "The stressed syllable in \u2018important\u2019 is:",
+            "options": [
+                "A. im-",
+                "B. por-",
+                "C. -tant",
+                "D. -port"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 55,
+            "question": "Which word has the same vowel sound as \u2018bird\u2019?",
+            "options": [
+                "A. bed",
+                "B. burn",
+                "C. bad",
+                "D. bid"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 56,
+            "question": "Which word has a different consonant sound?",
+            "options": [
+                "A. think",
+                "B. thick",
+                "C. this",
+                "D. thank"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 57,
+            "question": "The word \u2018honest\u2019 begins with a:",
+            "options": [
+                "A. vowel sound",
+                "B. consonant sound",
+                "C. diphthong",
+                "D. triphthong"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 58,
+            "question": "Which word has stress on the first syllable?",
+            "options": [
+                "A. record (noun)",
+                "B. record (verb)",
+                "C. maintain",
+                "D. reduce"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 59,
+            "question": "Which word ends with a voiced sound?",
+            "options": [
+                "A. cap",
+                "B. bat",
+                "C. sit",
+                "D. bus"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 60,
+            "question": "Which sound is voiced?",
+            "options": [
+                "A. /p/",
+                "B. /t/",
+                "C. /b/",
+                "D. /s/"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 61,
+            "isInstruction": true,
+            "question": "SECTION 7:\nChoose the correct option.",
+            "options": []
+        },
+        {
+            "id": 62,
+            "question": "The plural of \u2018analysis\u2019 is:",
+            "options": [
+                "A. analysis",
+                "B. analysises",
+                "C. analyses",
+                "D. analysi"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 63,
+            "question": "Which word is correctly spelt?",
+            "options": [
+                "A. accomodation",
+                "B. accommodation",
+                "C. acommodation",
+                "D. accomodation"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 64,
+            "question": "Which is an abstract noun?",
+            "options": [
+                "A. honesty",
+                "B. chair",
+                "C. table",
+                "D. book"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 65,
+            "question": "The synonym of \u2018begin\u2019 is:",
+            "options": [
+                "A. stop",
+                "B. end",
+                "C. start",
+                "D. finish"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 66,
+            "question": "Which sentence is correct?",
+            "options": [
+                "A. He don\u2019t know",
+                "B. He doesn\u2019t know",
+                "C. He don\u2019t knows",
+                "D. He doesn\u2019t knows"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 67,
+            "question": "The antonym of \u2018scarce\u2019 is:",
+            "options": [
+                "A. few",
+                "B. rare",
+                "C. abundant",
+                "D. limited"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 68,
+            "question": "Which word is an adjective?",
+            "options": [
+                "A. beauty",
+                "B. beautiful",
+                "C. beautify",
+                "D. beautifully"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 69,
+            "question": "The plural of \u2018criterion\u2019 is:",
+            "options": [
+                "A. criterions",
+                "B. criteria",
+                "C. criterias",
+                "D. criterion"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 70,
+            "question": "Choose the correct spelling.",
+            "options": [
+                "A. embarass",
+                "B. embarrass",
+                "C. embaras",
+                "D. embarras"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 71,
+            "question": "Which of the following is a collective noun?",
+            "options": [
+                "A. team",
+                "B. boy",
+                "C. man",
+                "D. girl"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 72,
+            "question": "Which word begins with a vowel sound?",
+            "options": [
+                "A. university",
+                "B. honest",
+                "C. union",
+                "D. useful"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 73,
+            "question": "The synonym of \u2018assist\u2019 is:",
+            "options": [
+                "A. prevent",
+                "B. help",
+                "C. stop",
+                "D. delay"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 74,
+            "question": "Which word has a long vowel sound?",
+            "options": [
+                "A. sit",
+                "B. beat",
+                "C. hat",
+                "D. cut"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 75,
+            "question": "Which word contains a nasal sound?",
+            "options": [
+                "A. bat",
+                "B. man",
+                "C. sit",
+                "D. cup"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 76,
+            "question": "Which word has the same consonant sound as \u2018church\u2019?",
+            "options": [
+                "A. ship",
+                "B. judge",
+                "C. vision",
+                "D. measure"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 77,
+            "question": "Which word contains a glide?",
+            "options": [
+                "A. yes",
+                "B. bus",
+                "C. pen",
+                "D. cup"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 78,
+            "question": "Which word has a final consonant cluster?",
+            "options": [
+                "A. desk",
+                "B. tea",
+                "C. go",
+                "D. pie"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 79,
+            "question": "Which word has stress on the second syllable?",
+            "options": [
+                "A. record (noun)",
+                "B. export (verb)",
+                "C. import (noun)",
+                "D. conduct (noun)"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 80,
+            "question": "Which of the following is a plosive sound?",
+            "options": [
+                "A. /f/",
+                "B. /s/",
+                "C. /b/",
+                "D. /m/"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 81,
+            "question": "Which sentence is in the passive voice?",
+            "options": [
+                "A. The boy broke the window",
+                "B. The window was broken by the boy",
+                "C. The boy is breaking the window",
+                "D. The boy breaks windows"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 82,
+            "question": "The antonym of \u2018expand\u2019 is:",
+            "options": [
+                "A. grow",
+                "B. enlarge",
+                "C. widen",
+                "D. shrink"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 83,
+            "question": "Which word is an adverb?",
+            "options": [
+                "A. quick",
+                "B. quickly",
+                "C. quicker",
+                "D. quickest"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 84,
+            "question": "The plural of \u2018phenomenon\u2019 is:",
+            "options": [
+                "A. phenomenons",
+                "B. phenomenas",
+                "C. phenomena",
+                "D. phenomenon"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 85,
+            "question": "Which sentence is grammatically correct?",
+            "options": [
+                "A. She don\u2019t like rice",
+                "B. She doesn\u2019t like rice",
+                "C. She don\u2019t likes rice",
+                "D. She doesn\u2019t likes rice"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 86,
+            "question": "Which word has a different vowel sound?",
+            "options": [
+                "A. pull",
+                "B. full",
+                "C. fool",
+                "D. bull"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 87,
+            "question": "The synonym of \u2018abandon\u2019 is:",
+            "options": [
+                "A. keep",
+                "B. leave",
+                "C. hold",
+                "D. protect"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 88,
+            "question": "Which word has the same vowel sound as \u2018gate\u2019?",
+            "options": [
+                "A. get",
+                "B. late",
+                "C. sit",
+                "D. cut"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 89,
+            "question": "Which word is correctly spelt?",
+            "options": [
+                "A. recieve",
+                "B. receive",
+                "C. receeve",
+                "D. receve"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 90,
+            "question": "The plural of \u2018datum\u2019 is:",
+            "options": [
+                "A. datums",
+                "B. data",
+                "C. datum",
+                "D. datas"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 91,
+            "question": "Which word is a conjunction?",
+            "options": [
+                "A. and",
+                "B. run",
+                "C. quickly",
+                "D. table"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 92,
+            "question": "The synonym of \u2018rapid\u2019 is:",
+            "options": [
+                "A. slow",
+                "B. quick",
+                "C. calm",
+                "D. late"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 93,
+            "question": "Which word is a pronoun?",
+            "options": [
+                "A. she",
+                "B. girl",
+                "C. beauty",
+                "D. book"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 94,
+            "question": "The antonym of \u2018victory\u2019 is:",
+            "options": [
+                "A. win",
+                "B. success",
+                "C. defeat",
+                "D. honour"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 95,
+            "isInstruction": true,
+            "question": "END OF PAPER",
+            "options": []
+        },
+        {
+            "id": 96,
+            "question": "\u2014",
+            "options": [
+                "A. \u2014",
+                "B. \u2014",
+                "C. \u2014",
+                "D. \u2014"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 97,
+            "question": "\u2014",
+            "options": [
+                "A. \u2014",
+                "B. \u2014",
+                "C. \u2014",
+                "D. \u2014"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 98,
+            "question": "\u2014",
+            "options": [
+                "A. \u2014",
+                "B. \u2014",
+                "C. \u2014",
+                "D. \u2014"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 99,
+            "question": "\u2014",
+            "options": [
+                "A. \u2014",
+                "B. \u2014",
+                "C. \u2014",
+                "D. \u2014"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 100,
+            "question": "\u2014",
+            "options": [
+                "A. \u2014",
+                "B. \u2014",
+                "C. \u2014",
+                "D. \u2014"
+            ],
+            "correctOption": "A"
+        }
+    ]
+}

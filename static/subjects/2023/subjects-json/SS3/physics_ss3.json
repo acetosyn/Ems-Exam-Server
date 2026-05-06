@@ -1,0 +1,613 @@
+{
+  "subject": "Physics",
+  "class": "SS3",
+  "session": "2023/2024",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "The derived unit of pressure can be expressed as",
+      "options": [
+        "A. kgm s⁻²",
+        "B. kgm⁻¹s⁻²",
+        "C. kgm⁻²s⁻²",
+        "D. kgm⁻¹s²"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "question": "An object of mass 5.0kg moves with a velocity of 10ms⁻¹. Calculate its momentum",
+      "options": [
+        "A. 50.0kgms⁻¹",
+        "B. 15.0kgms⁻¹",
+        "C. 2.0kgms⁻¹",
+        "D. 0.5kgms⁻¹"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 3,
+      "question": "Which device is used to determine the relative density of an acid?",
+      "options": [
+        "A. Manometer",
+        "B. Hydrometer",
+        "C. Hypsometer",
+        "D. Hygrometer"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "question": "A block of wood of density 0.6gcm⁻³ weighing 3.06N floats freely in a liquid of density 0.9gcm⁻³. Calculate the volume immersed. {g=10ms⁻²}",
+      "options": [
+        "A. 510cm³",
+        "B. 340cm³",
+        "C. 254cm³",
+        "D. 170cm³"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 5,
+      "question": "A metal ball of weight W falls in glycerin of viscosity V with upthrust U at terminal velocity. Then",
+      "options": [
+        "A. W > U + V",
+        "B. W = U + V",
+        "C. W + U - V",
+        "D. W < U + V"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 6,
+      "question": "Which substance is most volatile at room temperature?",
+      "options": [
+        "A. Water",
+        "B. Diesel",
+        "C. Petrol",
+        "D. Kerosene"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "question": "Movement of fluid up or down a narrow tube is",
+      "options": [
+        "A. osmosis",
+        "B. brownian motion",
+        "C. capillarity",
+        "D. diffusion"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 8,
+      "question": "A bird flies 10ms⁻¹ for 3s, 15ms⁻¹ for 3s, and 20ms⁻¹ for 4s. Calculate its average speed.",
+      "options": [
+        "A. 4.5ms⁻¹",
+        "B. 15.0ms⁻¹",
+        "C. 15.5ms⁻¹",
+        "D. 51.7ms⁻¹"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 9,
+      "question": "Which statement about velocity–time graphs is NOT a characteristic of accelerated motion?",
+      "options": [
+        "A. The velocity remains constant with time",
+        "B. The velocity increases uniformly with time",
+        "C. The velocity decreases uniformly with time",
+        "D. The velocity changes non-uniformly with time"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 10,
+      "question": "The time of flight for a projectile is",
+      "options": [
+        "A. Usinθ/g",
+        "B. Usinθ/2g",
+        "C. 2Usinθ/g",
+        "D. Usin2θ/g"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 11,
+      "question": "An object dropped from a tower takes 3s to reach the ground. Calculate the height. (g=10ms⁻²)",
+      "options": [
+        "A. 20m",
+        "B. 40m",
+        "C. 80m",
+        "D. 160m"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 12,
+      "question": "When a body is slightly tilted and its C.G rises, its equilibrium is",
+      "options": [
+        "A. Unstable",
+        "B. Stable",
+        "C. Neutral",
+        "D. Indeterminate"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 13,
+      "question": "A simple pendulum makes 50 oscillations per minute. Its period is",
+      "options": [
+        "A. 0.04s",
+        "B. 0.83s",
+        "C. 1.20s",
+        "D. 50.0s"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "question": "The tendency of a stationary body to remain at rest is called",
+      "options": [
+        "A. friction",
+        "B. impulse",
+        "C. inertia",
+        "D. momentum"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "question": "A force of 15N acts on a 250g mass. Calculate acceleration.",
+      "options": [
+        "A. 0.06ms⁻²",
+        "B. 3.75ms⁻²",
+        "C. 16.67ms⁻²",
+        "D. 60.00ms⁻²"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 16,
+      "question": "A girl stands on a scale in a lift. If reading is less than her weight, the lift is moving",
+      "options": [
+        "A. upward with uniform speed",
+        "B. upward with acceleration",
+        "C. downward with uniform speed",
+        "D. downward with acceleration"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 17,
+      "question": "The SI unit of heat is",
+      "options": [
+        "A. Joule",
+        "B. Kelvin",
+        "C. Watt",
+        "D. Ampere"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 18,
+      "question": "A body is pulled 500m by a 20N force with power 0.4kW. Find time.",
+      "options": [
+        "A. 250.0s",
+        "B. 25.0s",
+        "C. 2.5s",
+        "D. 0.5s"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "A metal sheet of area 100cm² is heated through 70°C. Linear expansivity = 0.00017K⁻¹. New area?",
+      "options": [
+        "A. 100.06cm²",
+        "B. 100.12cm²",
+        "C. 100.24cm²",
+        "D. 100.36cm²"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 20,
+      "question": "Which is a renewable source of energy?",
+      "options": [
+        "A. Sun",
+        "B. Petroleum",
+        "C. Coal",
+        "D. Uranium"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 21,
+      "question": "In sea breeze formation, wind blows from",
+      "options": [
+        "A. sky to land",
+        "B. sea to sky",
+        "C. land to sea",
+        "D. sea to land"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 22,
+      "question": "Water falls 50m. Calculate temperature rise. (c=4200J/kgK)",
+      "options": [
+        "A. 0.119°C",
+        "B. 0.840°C",
+        "C. 1.190°C",
+        "D. 8.400°C"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "question": "A gas at 500Nm⁻² and -13°C is heated to 247°C at constant volume. New pressure?",
+      "options": [
+        "A. 25Nm⁻²",
+        "B. 50Nm⁻²",
+        "C. 500Nm⁻²",
+        "D. 1000Nm⁻²"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 24,
+      "question": "Which statement is correct?",
+      "options": [
+        "A. Density of liquid decreases on expansion",
+        "B. Densities of liquids increase when heated",
+        "C. Real expansivity is less than apparent",
+        "D. Liquid changes to solid when heated"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "question": "Gas pressure increases when",
+      "options": [
+        "A. container is heated",
+        "B. molecules move faster",
+        "C. volume is doubled",
+        "D. kinetic energy decreases"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "question": "Which factor decreases the rate of evaporation?",
+      "options": [
+        "A. Increased pressure",
+        "B. Lowering boiling point",
+        "C. Decrease in humidity",
+        "D. Wind"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "An object 2.5cm tall is placed 20cm from a convex mirror of focal length 10cm. Height of image?",
+      "options": [
+        "A. 2.5cm",
+        "B. 3.0cm",
+        "C. 5.0cm",
+        "D. 25.0cm"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 28,
+      "question": "Absolute refractive index of a medium is",
+      "options": [
+        "A. C + V",
+        "B. C/V",
+        "C. V/C",
+        "D. C – V"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 29,
+      "question": "An object is placed 10cm from a converging lens of focal length 15cm. Magnification?",
+      "options": [
+        "A. 3.0",
+        "B. 1.5",
+        "C. 0.6",
+        "D. 0.3"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "question": "Which optical instrument does NOT use plane mirrors?",
+      "options": [
+        "A. Kaleidoscope",
+        "B. Simple microscope",
+        "C. Sextant",
+        "D. Simple periscope"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 31,
+      "question": "A magnified and virtual image of a near object is produced by",
+      "options": [
+        "A. prism binoculars",
+        "B. astronomical telescope",
+        "C. periscope",
+        "D. simple microscope"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 32,
+      "question": "Wavelength of a note one octave lower than 256Hz, speed = 352ms⁻¹",
+      "options": [
+        "A. 0.69m",
+        "B. 1.38m",
+        "C. 2.75m",
+        "D. 5.5m"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 33,
+      "question": "Which property is an advantage of a lead-acid accumulator?",
+      "options": [
+        "A. Low internal resistance",
+        "B. Rechargeable",
+        "C. Higher e.m.f",
+        "D. Shorter lifespan"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "question": "A 12Ω resistor dissipates 8kJ in 20s. Current?",
+      "options": [
+        "A. 5.8A",
+        "B. 6.9A",
+        "C. 30.0A",
+        "D. 33.3A"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "question": "Most appropriate fuse for a 1.06kW, 220V kettle?",
+      "options": [
+        "A. 3A",
+        "B. 4A",
+        "C. 5A",
+        "D. 6A"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "question": "A 2V cell with internal resistance 0.5Ω supplies 0.4A. External resistance?",
+      "options": [
+        "A. 5.0Ω",
+        "B. 4.5Ω",
+        "C. 4.0Ω",
+        "D. 1.0Ω"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 37,
+      "question": "Work done in transferring 10C across 220V?",
+      "options": [
+        "A. 22J",
+        "B. 210J",
+        "C. 230J",
+        "D. 2200J"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 38,
+      "question": "In a mass spectrometer an ion with charge q, mass m, radius r, field B has speed",
+      "options": [
+        "A. mr/qB",
+        "B. mq/qr",
+        "C. Bqr/m",
+        "D. mq/Br"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 39,
+      "diagram": "static/uploads/diagrams/2023/physics/diagram_39.PNG",
+      "question": "Calculate the total charge in the circuit.",
+      "options": [
+        "A. 80μC",
+        "B. 35μC",
+        "C. 20μC",
+        "D. 16μC"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "diagram": "static/uploads/diagrams/2023/physics/diagram_39.PNG",
+      "question": "Calculate the potential difference across the capacitor in parallel.",
+      "options": [
+        "A. 10V",
+        "B. 8V",
+        "C. 6.7V",
+        "D. 2V"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 41,
+      "diagram": "static/uploads/diagrams/2023/physics/diagram_41.PNG",
+      "question": "Determine the magnitude of the resultant force.",
+      "options": [
+        "A. 53.0N",
+        "B. 21.0N",
+        "C. 7.0N",
+        "D. 5.0N"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 42,
+      "diagram": "static/uploads/diagrams/2023/physics/diagram_41.PNG",
+      "question": "A heating coil rated 100W boils off 0.5kg of water. Time taken?",
+      "options": [
+        "A. 1.15×10⁹s",
+        "B. 1.15×10⁷s",
+        "C. 1.15×10⁵s",
+        "D. 1.15×10³s"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 43,
+      "question": "Using electrolysis, 2g of metal is deposited with 0.5A in 3hrs. Mass deposited with 1.5A in 1hr?",
+      "options": [
+        "A. 3.0g",
+        "B. 2.0g",
+        "C. 0.5g",
+        "D. 1.0g"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "question": "Mass of copper deposited when 10A flows for 10³s (ECE = 3.3×10⁻⁷ kg/C)?",
+      "options": [
+        "A. 6.6×10⁻³kg",
+        "B. 3.3×10⁻³kg",
+        "C. 6.6×10⁻⁵kg",
+        "D. 3.3×10⁻⁵kg"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 45,
+      "question": "A device that converts mechanical energy to electrical energy is",
+      "options": [
+        "A. dynamo",
+        "B. electric motor",
+        "C. transformer",
+        "D. induction coil"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "question": "Energy stored when an elastic material is stretched is",
+      "options": [
+        "A. kinetic",
+        "B. potential",
+        "C. thermal",
+        "D. electrical"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 47,
+      "question": "Which pair consists of vectors?",
+      "options": [
+        "A. Speed & displacement",
+        "B. Mass & force",
+        "C. Displacement & acceleration",
+        "D. Momentum & volume"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "question": "Alcohol 21g (density 0.7g/cm³) is mixed with 10g water. Density of mixture?",
+      "options": [
+        "A. 0.775g/cm³",
+        "B. 0.780g/cm³",
+        "C. 0.875g/cm³",
+        "D. 0.088g/cm³"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 49,
+      "question": "The superposition of waves to produce maximum or zero effect is",
+      "options": [
+        "A. reflection",
+        "B. refraction",
+        "C. interference",
+        "D. diffraction"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 50,
+      "question": "The quality of a note depends on its",
+      "options": [
+        "A. frequency",
+        "B. pitch",
+        "C. overtones",
+        "D. amplitude"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

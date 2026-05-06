@@ -1,0 +1,658 @@
+{
+  "subject": "Literature-in-English",
+  "class": "SS2",
+  "session": "2016/2017",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "A bitter remark intended to wound the feelings is __________.",
+      "diagram": null,
+      "options": [
+        "A. satire",
+        "B. allusion",
+        "C. sarcasm",
+        "D. ambiguity"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "question": "“She waited for him for a thousand years” illustrates __________.",
+      "diagram": null,
+      "options": [
+        "A. euphemism",
+        "B. hyperbole",
+        "C. assonance",
+        "D. ellipsis"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 3,
+      "question": "A literary device which expresses meaning in its direct opposite is __________.",
+      "diagram": null,
+      "options": [
+        "A. metaphor",
+        "B. irony",
+        "C. parody",
+        "D. paradox"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "question": "Pick the odd item out.",
+      "diagram": null,
+      "options": [
+        "A. Verse",
+        "B. Stanza",
+        "C. Rhythm",
+        "D. Dialogue"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 5,
+      "question": "In drama, denouement is the same as __________.",
+      "diagram": null,
+      "options": [
+        "A. resolution",
+        "B. climax",
+        "C. anti-climax",
+        "D. conflict"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 6,
+      "question": "“Forty hands descended on the devilish head” illustrates __________.",
+      "diagram": null,
+      "options": [
+        "A. synecdoche",
+        "B. irony",
+        "C. paradox",
+        "D. hyperbole"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 7,
+      "question": "Pick the odd item.",
+      "diagram": null,
+      "options": [
+        "A. Sonnet",
+        "B. Epic",
+        "C. Adhesion",
+        "D. Ode"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 8,
+      "question": "A deliberate violation of the rules of versification constitutes __________.",
+      "diagram": null,
+      "options": [
+        "A. imperfect rhyme",
+        "B. poetic license",
+        "C. verbal irony",
+        "D. comic relief"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 9,
+      "question": "A praise poem is __________.",
+      "diagram": null,
+      "options": [
+        "A. a dirge",
+        "B. an epic",
+        "C. an ode",
+        "D. a ballad"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "question": "Lines of regular recurrence in a poem constitute __________.",
+      "diagram": null,
+      "options": [
+        "A. alliteration",
+        "B. refrain",
+        "C. assonance",
+        "D. theme"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 11,
+      "question": "An individual who plays a part in a literary work is a __________.",
+      "diagram": null,
+      "options": [
+        "A. villain",
+        "B. character",
+        "C. narrator",
+        "D. clown"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 12,
+      "question": "A regular group of lines in poetry is called a __________.",
+      "diagram": null,
+      "options": [
+        "A. stanza",
+        "B. rhythm",
+        "C. metre",
+        "D. verse"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "question": "“A black beautiful brilliant bride” is an example of __________.",
+      "diagram": null,
+      "options": [
+        "A. alliteration",
+        "B. assonance",
+        "C. onomatopoeia",
+        "D. pun"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "question": "A short speech at the end of a play is the __________.",
+      "diagram": null,
+      "options": [
+        "A. epilogue",
+        "B. prologue",
+        "C. monologue",
+        "D. dialogue"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 15,
+      "question": "Poetry differs from prose by its use of __________.",
+      "diagram": null,
+      "options": [
+        "A. song",
+        "B. condensed language",
+        "C. rhythm",
+        "D. flat character"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 16,
+      "question": "A piece of writing about oneself is an __________.",
+      "diagram": null,
+      "options": [
+        "A. autobiography",
+        "B. biography",
+        "C. mimeography",
+        "D. autography"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 17,
+      "question": "A short poem expressing intense emotion and usually sung is a __________.",
+      "diagram": null,
+      "options": [
+        "A. ode",
+        "B. pastoral",
+        "C. lyric",
+        "D. elegy"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 18,
+      "question": "Pick the odd item.",
+      "diagram": null,
+      "options": [
+        "A. Actors",
+        "B. Dialogue",
+        "C. Stage",
+        "D. Chapters"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 19,
+      "question": "A play is watched by an __________.",
+      "diagram": null,
+      "options": [
+        "A. congregation",
+        "B. group",
+        "C. audience",
+        "D. entourage"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "question": "Pick the odd item.",
+      "diagram": null,
+      "options": [
+        "A. The Gods Are Not to Blame",
+        "B. The Concubine",
+        "C. Things Fall Apart",
+        "D. The African Child"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 21,
+      "question": "A literary work that ridicules ideas or follies is __________.",
+      "diagram": null,
+      "options": [
+        "A. satire",
+        "B. elegy",
+        "C. masque",
+        "D. lullaby"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 22,
+      "question": "“The wretched beggar cleaned his nails with dry saliva” illustrates __________.",
+      "diagram": null,
+      "options": [
+        "A. anti-climax",
+        "B. oxymoron",
+        "C. anecdote",
+        "D. antithesis"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "question": "“I am so famished, I can devour a whole cow” illustrates __________.",
+      "diagram": null,
+      "options": [
+        "A. hyperbole",
+        "B. metaphor",
+        "C. irony",
+        "D. sarcasm"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "question": "A stanza of four lines is a __________.",
+      "diagram": null,
+      "options": [
+        "A. quatrain",
+        "B. sestet",
+        "C. elegy",
+        "D. octave"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "question": "“The lawyer addresses the bench” illustrates __________.",
+      "diagram": null,
+      "options": [
+        "A. metonymy",
+        "B. alliteration",
+        "C. oxymoron",
+        "D. simile"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 26,
+      "question": "The concluding part of a play where conflict is resolved is the __________.",
+      "diagram": null,
+      "options": [
+        "A. resolution",
+        "B. end",
+        "C. enjambment",
+        "D. climax"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "Pick the odd item.",
+      "diagram": null,
+      "options": [
+        "A. Ode",
+        "B. Elegy",
+        "C. Simile",
+        "D. Sonnet"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 28,
+      "question": "A writer’s choice of words is known as __________.",
+      "diagram": null,
+      "options": [
+        "A. diction",
+        "B. mood",
+        "C. tone",
+        "D. setting"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 29,
+      "question": "A piece of writing that teaches morals is __________.",
+      "diagram": null,
+      "options": [
+        "A. serious",
+        "B. didactic",
+        "C. analytical",
+        "D. playful"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 30,
+      "question": "A piece of writing at the beginning of a work is the __________.",
+      "diagram": null,
+      "options": [
+        "A. prologue",
+        "B. monologue",
+        "C. epilogue",
+        "D. dialogue"
+      ],
+      "correctOption": "A"
+    },
+
+{
+  "id": 31,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_31.PNG",
+  "question": "“The cutter blade blurred into life” appeals to the sense of __________.",
+  "options": [
+    "A. Hearing",
+    "B. Touch",
+    "C. Taste",
+    "D. Sight"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 32,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_31.PNG",
+  "question": "“The air was actually burning gas” is an example of __________.",
+  "options": [
+    "A. personification",
+    "B. euphemism",
+    "C. paradox",
+    "D. metaphor"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 33,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_31.PNG",
+  "question": "The diction conveys a feeling of __________.",
+  "options": [
+    "A. hope",
+    "B. helplessness",
+    "C. indifference",
+    "D. anger"
+  ],
+  "correctOption": "B"
+},
+
+{
+  "id": 34,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_31.PNG",
+  "question": "“Like a fly that dared not alight” is a/an __________.",
+  "options": [
+    "A. simile",
+    "B. hyperbole",
+    "C. alliteration",
+    "D. irony"
+  ],
+  "correctOption": "A"
+},
+
+{
+  "id": 35,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_31.PNG",
+  "question": "The setting of the extract is __________.",
+  "options": [
+    "A. dawn",
+    "B. midday",
+    "C. night",
+    "D. evening"
+  ],
+  "correctOption": "B"
+},
+    {
+  "id": 36,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_35.PNG",
+  "question": "The theme of the poem is best described as the __________.",
+  "options": [
+    "A. love of war",
+    "B. glory of war",
+    "C. excitement of war",
+    "D. reality of war"
+  ],
+  "correctOption": "D"
+},
+
+{
+  "id": 37,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_35.PNG",
+  "question": "Each stanza has four lines which is known as a __________.",
+  "options": [
+    "A. quatrain",
+    "B. octave",
+    "C. tercet",
+    "D. quintet"
+  ],
+  "correctOption": "A"
+},
+
+{
+  "id": 38,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_35.PNG",
+  "question": "The rhyme scheme in the first stanza is __________.",
+  "options": [
+    "A. AABB",
+    "B. ABAB",
+    "C. ABAA",
+    "D. AABC"
+  ],
+  "correctOption": "A"
+},
+
+{
+  "id": 39,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_35.PNG",
+  "question": "The two contrasting moods in the poem are __________.",
+  "options": [
+    "A. sadness and hope",
+    "B. bravery and cowardice",
+    "C. excitement and disappointment",
+    "D. calmness and anxiety"
+  ],
+  "correctOption": "C"
+},
+
+{
+  "id": 40,
+  "diagram": "static/uploads/diagrams/2017/literature_ss1/diagram_35.PNG",
+  "question": "The mood raised in line I is that of __________.",
+  "options": [
+    "A. elation",
+    "B. pessimism",
+    "C. anxiety",
+    "D. indifference"
+  ],
+  "correctOption": "A"
+},
+
+    {
+      "id": 41,
+      "question": "A literary device which creates a mental picture is known as __________.",
+      "diagram": null,
+      "options": [
+        "A. imagery",
+        "B. picture",
+        "C. mime",
+        "D. flashback"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 42,
+      "question": "In a literary work, a clown normally __________.",
+      "diagram": null,
+      "options": [
+        "A. creates laughter",
+        "B. starts the action",
+        "C. turns the action",
+        "D. ends the play"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "question": "The use of mild expression for unpleasant incidents is __________.",
+      "diagram": null,
+      "options": [
+        "A. euphemism",
+        "B. metaphor",
+        "C. synecdoche",
+        "D. paradox"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "question": "“You are the salt of my life” is an example of __________.",
+      "diagram": null,
+      "options": [
+        "A. metaphor",
+        "B. simile",
+        "C. amour",
+        "D. synecdoche"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 45,
+      "question": "The use of sounds to suggest meaning is known as __________.",
+      "diagram": null,
+      "options": [
+        "A. exaggeration",
+        "B. onomatopoeia",
+        "C. pun",
+        "D. spasm"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "question": "A sonnet may be divided into a sestet and an __________.",
+      "diagram": null,
+      "options": [
+        "A. tercet",
+        "B. quatrain",
+        "C. octave",
+        "D. couplet"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "question": "“All fingers are not equal” illustrates __________.",
+      "diagram": null,
+      "options": [
+        "A. synecdoche",
+        "B. soliloquy",
+        "C. oxymoron",
+        "D. personification"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 48,
+      "question": "An elegy is a poem of __________.",
+      "diagram": null,
+      "options": [
+        "A. praise",
+        "B. sorrow",
+        "C. elation",
+        "D. joy"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 49,
+      "question": "Pick the odd item.",
+      "diagram": null,
+      "options": [
+        "A. exposition",
+        "B. drama",
+        "C. poetry",
+        "D. prose"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "question": "A poem of fourteen lines is a __________.",
+      "diagram": null,
+      "options": [
+        "A. quintet",
+        "B. tercet",
+        "C. euphemism",
+        "D. sonnet"
+      ],
+      "correctOption": "D"
+    }
+
+  ]
+}

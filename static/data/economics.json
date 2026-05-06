@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Economics",
+  "exam_title": "ECONOMICS INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following is NOT a characteristic of a perfectly competitive market?",
+      "options": ["Large number of buyers and sellers", "Free entry and exit", "Homogeneous product", "Price discrimination"],
+      "answer": "Price discrimination"
+    },
+    {
+      "id": 2,
+      "question": "The law of diminishing marginal utility states that:",
+      "options": ["Total utility decreases as consumption increases", "Marginal utility increases with each additional unit consumed", "Marginal utility decreases as consumption increases", "Price and quantity demanded are directly related"],
+      "answer": "Marginal utility decreases as consumption increases"
+    },
+    {
+      "id": 3,
+      "question": "If the demand for a good is perfectly inelastic, then:",
+      "options": ["A price increase will reduce demand to zero", "Price elasticity of demand = 0", "Price elasticity of demand = 1", "Total revenue decreases when price rises"],
+      "answer": "Price elasticity of demand = 0"
+    },
+    {
+      "id": 4,
+      "question": "Which of these curves is always downward-sloping?",
+      "options": ["Marginal cost curve", "Average cost curve", "Demand curve for a normal good", "Supply curve"],
+      "answer": "Demand curve for a normal good"
+    },
+    {
+      "id": 5,
+      "question": "Price ceiling leads to:",
+      "options": ["Surplus", "Shortage", "Equilibrium", "Inflation"],
+      "answer": "Shortage"
+    },
+    {
+      "id": 6,
+      "question": "In monopolistic competition, firms differentiate their products mainly through:",
+      "options": ["Government regulation", "Advertising and branding", "Price control", "Collective bargaining"],
+      "answer": "Advertising and branding"
+    },
+    {
+      "id": 7,
+      "question": "The opportunity cost of a choice is:",
+      "options": ["The money spent on that choice", "The value of the next best alternative forgone", "The sunk cost incurred", "The total cost of production"],
+      "answer": "The value of the next best alternative forgone"
+    },
+    {
+      "id": 8,
+      "question": "Which factor will shift the supply curve to the right?",
+      "options": ["Higher input costs", "Technological improvement", "Increase in taxes", "Increase in price of related goods"],
+      "answer": "Technological improvement"
+    },
+    {
+      "id": 9,
+      "question": "Giffen goods violate:",
+      "options": ["The law of demand", "The law of supply", "The law of diminishing marginal utility", "The principle of opportunity cost"],
+      "answer": "The law of demand"
+    },
+    {
+      "id": 10,
+      "question": "Which of the following market structures has the highest degree of price control?",
+      "options": ["Perfect competition", "Monopolistic competition", "Oligopoly", "Monopoly"],
+      "answer": "Monopoly"
+    },
+    {
+      "id": 11,
+      "question": "GDP at factor cost is derived from GDP at market prices by:",
+      "options": ["Adding subsidies and subtracting indirect taxes", "Adding indirect taxes and subtracting subsidies", "Adding depreciation", "Adding imports and subtracting exports"],
+      "answer": "Adding subsidies and subtracting indirect taxes"
+    },
+    {
+      "id": 12,
+      "question": "The Phillips curve shows the relationship between:",
+      "options": ["Inflation and unemployment", "Wages and productivity", "Government expenditure and taxation", "Imports and exports"],
+      "answer": "Inflation and unemployment"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is NOT a component of aggregate demand?",
+      "options": ["Consumption expenditure", "Investment expenditure", "Government spending", "Money supply"],
+      "answer": "Money supply"
+    },
+    {
+      "id": 14,
+      "question": "Stagflation refers to a situation of:",
+      "options": ["High inflation with high growth", "Low inflation with low growth", "High inflation with low growth and high unemployment", "Low inflation with high growth"],
+      "answer": "High inflation with low growth and high unemployment"
+    },
+    {
+      "id": 15,
+      "question": "Which policy tool directly affects the money supply in the economy?",
+      "options": ["Government subsidies", "Open market operations", "Price control", "Fiscal deficit"],
+      "answer": "Open market operations"
+    },
+    {
+      "id": 16,
+      "question": "When an economy is at full employment, an increase in aggregate demand leads to:",
+      "options": ["Higher output without inflation", "Higher unemployment", "Inflationary pressure", "Decrease in GDP"],
+      "answer": "Inflationary pressure"
+    },
+    {
+      "id": 17,
+      "question": "Cost-push inflation is caused by:",
+      "options": ["Increase in aggregate demand", "Increase in production costs", "Increase in money supply", "Decrease in taxes"],
+      "answer": "Increase in production costs"
+    },
+    {
+      "id": 18,
+      "question": "Which measure is used to compare the standard of living across countries?",
+      "options": ["Nominal GDP", "GDP Deflator", "Purchasing Power Parity (PPP) GDP per capita", "Consumer Price Index"],
+      "answer": "Purchasing Power Parity (PPP) GDP per capita"
+    },
+    {
+      "id": 19,
+      "question": "Fiscal policy refers to the use of:",
+      "options": ["Money supply and interest rates", "Government spending and taxation", "Foreign exchange rates", "Wage and price controls"],
+      "answer": "Government spending and taxation"
+    },
+    {
+      "id": 20,
+      "question": "A country is experiencing balance of payments deficit. Which of the following will help?",
+      "options": ["Reducing interest rates", "Devaluation of currency", "Increasing imports", "Expansionary fiscal policy"],
+      "answer": "Devaluation of currency"
+    },
+    {
+      "id": 21,
+      "question": "Comparative advantage is the basis for:",
+      "options": ["Import substitution", "Protectionism", "International trade", "Price controls"],
+      "answer": "International trade"
+    },
+    {
+      "id": 22,
+      "question": "Dumping in international trade refers to:",
+      "options": ["Selling goods at a price below domestic cost in a foreign market", "Disposing of excess inventory domestically", "Importing goods without paying tariffs", "Reducing exports to protect domestic consumers"],
+      "answer": "Selling goods at a price below domestic cost in a foreign market"
+    },
+    {
+      "id": 23,
+      "question": "Terms of trade improve when:",
+      "options": ["Export prices rise relative to import prices", "Import prices rise relative to export prices", "Both export and import prices fall", "Exchange rate depreciates"],
+      "answer": "Export prices rise relative to import prices"
+    },
+    {
+      "id": 24,
+      "question": "Foreign Direct Investment (FDI) is characterized by:",
+      "options": ["Short-term capital flow", "Speculative investment", "Long-term control over enterprises", "Purchase of foreign bonds"],
+      "answer": "Long-term control over enterprises"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following is NOT a Sustainable Development Goal (SDG)?",
+      "options": ["Zero Hunger", "Quality Education", "Population Control", "Climate Action"],
+      "answer": "Population Control"
+    },
+    {
+      "id": 26,
+      "question": "The Human Development Index (HDI) does NOT include:",
+      "options": ["Life expectancy", "Education level", "Per capita income", "Inflation rate"],
+      "answer": "Inflation rate"
+    },
+    {
+      "id": 27,
+      "question": "Microfinance primarily aims to:",
+      "options": ["Support large corporations", "Provide small loans to low-income individuals", "Control inflation", "Reduce government debt"],
+      "answer": "Provide small loans to low-income individuals"
+    },
+    {
+      "id": 28,
+      "question": "Which international organization monitors global trade rules?",
+      "options": ["IMF", "WTO", "World Bank", "OECD"],
+      "answer": "WTO"
+    },
+    {
+      "id": 29,
+      "question": "Import substitution industrialization (ISI) policy focuses on:",
+      "options": ["Promoting exports", "Reducing dependency on imports", "Liberalizing trade", "Encouraging foreign investment"],
+      "answer": "Reducing dependency on imports"
+    },
+    {
+      "id": 30,
+      "question": "Which of the following is a capital-intensive industry?",
+      "options": ["Handicrafts", "Textile weaving", "Automobile manufacturing", "Agriculture"],
+      "answer": "Automobile manufacturing"
+    },
+    {
+      "id": 31,
+      "question": "Behavioral economics integrates:",
+      "options": ["Psychology with economic decision-making", "Sociology with production theory", "Physics with econometrics", "Mathematics with marketing"],
+      "answer": "Psychology with economic decision-making"
+    },
+    {
+      "id": 32,
+      "question": "Which of these is an example of a public good?",
+      "options": ["Street lighting", "Cable television", "Restaurant meal", "Private tutoring"],
+      "answer": "Street lighting"
+    },
+    {
+      "id": 33,
+      "question": "Negative externalities can be corrected through:",
+      "options": ["Subsidies", "Pigouvian taxes", "Price ceiling", "Trade liberalization"],
+      "answer": "Pigouvian taxes"
+    },
+    {
+      "id": 34,
+      "question": "Which is NOT an example of a leading economic indicator?",
+      "options": ["Stock market trends", "Building permits", "Unemployment rate", "Consumer expectations"],
+      "answer": "Unemployment rate"
+    },
+    {
+      "id": 35,
+      "question": "Cryptocurrency is considered:",
+      "options": ["Fiat money", "Commodity money", "Digital asset using blockchain technology", "Central bank-issued currency"],
+      "answer": "Digital asset using blockchain technology"
+    },
+    {
+      "id": 36,
+      "question": "The “invisible hand” concept was introduced by:",
+      "options": ["John Maynard Keynes", "Adam Smith", "David Ricardo", "Karl Marx"],
+      "answer": "Adam Smith"
+    },
+    {
+      "id": 37,
+      "question": "Which of these is NOT a function of money?",
+      "options": ["Medium of exchange", "Store of value", "Unit of account", "Source of economic growth"],
+      "answer": "Source of economic growth"
+    },
+    {
+      "id": 38,
+      "question": "Which measure best reflects income inequality?",
+      "options": ["Gini coefficient", "CPI", "GDP growth rate", "Terms of trade"],
+      "answer": "Gini coefficient"
+    },
+    {
+      "id": 39,
+      "question": "An increase in marginal propensity to consume (MPC) leads to:",
+      "options": ["Lower multiplier effect", "Higher multiplier effect", "Lower aggregate demand", "Lower consumption expenditure"],
+      "answer": "Higher multiplier effect"
+    },
+    {
+      "id": 40,
+      "question": "Shadow economy refers to:",
+      "options": ["Underground or unrecorded economic activities", "Investment in shadow banking sector", "Night-time economic activity", "Tax-free government bonds"],
+      "answer": "Underground or unrecorded economic activities"
+    }
+  ]
+}

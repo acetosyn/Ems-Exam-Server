@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Civic Education",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Youth empowerment can be enhanced through",
+      "options": [
+        "A. imposition of taxes",
+        "B. political lobbying",
+        "C. granting of business",
+        "D. provision of startup capital"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "......is the state of being very happy and satisfied with whatever one has",
+      "options": [
+        "A. Satisfaction",
+        "B. Contentment",
+        "C. Selflessness",
+        "D. Justice"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "Human Immunodeficiency Virus (HIV) mainly leads to",
+      "options": [
+        "A. immune repletion",
+        "B. immune deficiency",
+        "C. virus deficiency",
+        "D. virus repletion"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "The type of values upheld by friends and gang members is known as",
+      "options": [
+        "A. group values",
+        "B. community values",
+        "C. individual values",
+        "D. positive values"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Which of the following is a good value trait?",
+      "options": [
+        "A. Stealing",
+        "B. Justice",
+        "C. Kidnapping",
+        "D. Envy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "The strong factor of African Nationalism is",
+      "options": [
+        "A. to promote ethnicity",
+        "B. to train criminals",
+        "C. to eradicate colonialism",
+        "D. to encourage disunity"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "Blood transfusion implies",
+      "options": [
+        "A. the transfer of blood by mosquitoes",
+        "B. intake of food to increase blood flow",
+        "C. taking blood from one individual to another",
+        "D. screening of blood"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "One of the vital skills needed for youth empowerment is",
+      "options": [
+        "A. transversal skills",
+        "B. cross-curricular skills",
+        "C. manipulative skills",
+        "D. non-cognitive skills"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "An aspect of human trafficking involves",
+      "options": [
+        "A. liberation of victims",
+        "B. counseling of victims",
+        "C. empowerment of victims",
+        "D. recruitment of victims"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": ".........is an example of negative value except",
+      "options": [
+        "A. Honesty",
+        "B. Indecency",
+        "C. Dishonesty",
+        "D. Lies"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "One of the positive opportunities to defend oneself is",
+      "options": [
+        "A. enhances cooperation",
+        "B. promote conflict",
+        "C. accept standard",
+        "D. all of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "............is not among the symptoms of HIV/AIDS",
+      "options": [
+        "A. Constant rashes on the body",
+        "B. Loss of weight",
+        "C. Experiences severe diseases",
+        "D. Constant fever"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "The World AIDS Day is marked on",
+      "options": [
+        "A. March 29",
+        "B. October 1",
+        "C. December 1",
+        "D. none of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "NYSC simply stands for",
+      "options": [
+        "A. Nigeria Youth Selfless Service Corps",
+        "B. Niger Youth Service Corps",
+        "C. National Youth Service Corps",
+        "D. Natural Youth Service Corps"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "What is the name of the drugs used by HIV patients to boost their immune system?",
+      "options": [
+        "A. Anti-bodies pills",
+        "B. Antiretroviral drugs",
+        "C. Body supplement",
+        "D. Immune booster"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Which of the following cannot be identified as drug abuse?",
+      "options": [
+        "A. Consumption of the right dosage of prescribed drugs",
+        "B. Trafficking of hard substances",
+        "C. Consumption of high dosage of legal drugs",
+        "D. Taking drugs without authorization"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Laws made by God could be called",
+      "options": [
+        "A. constitutional law",
+        "B. divine law",
+        "C. natural law",
+        "D. heavenly law"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "Socially, HIV/AIDS can be caused through",
+      "options": [
+        "A. physiological and attitudinal agents",
+        "B. tears and saliva",
+        "C. fighting and bacteria",
+        "D. intestinal and outdoor exposure"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "The ability to protect the rights of the minority, weak and poor is referred to as",
+      "options": [
+        "A. action",
+        "B. defend oneself",
+        "C. orderliness",
+        "D. all of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "The acceptable behaviour of a child begins from the",
+      "options": [
+        "A. family",
+        "B. media",
+        "C. peer",
+        "D. school"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "An attitude that promotes interpersonal relationship is",
+      "options": [
+        "A. patience",
+        "B. indifference",
+        "C. intolerance",
+        "D. spite"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Manifestation of values in a community is enhanced through .......... of its members",
+      "options": [
+        "A. conflicting behaviour",
+        "B. self-loathing",
+        "C. self-esteem",
+        "D. expensive lifestyle"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "The ability to make personal sacrifice in getting a task accomplished is",
+      "options": [
+        "A. commitment",
+        "B. consistency",
+        "C. contentment",
+        "D. faith"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "The primary purpose of traffic rules and regulations is to",
+      "options": [
+        "A. ascertain vehicle road worthiness",
+        "B. checkmate reckless driving",
+        "C. ensure safety",
+        "D. generate revenue for government"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "Failure in performing our duties and obligations can lead to ..... in the society",
+      "options": [
+        "A. cooperation",
+        "B. orderliness",
+        "C. development",
+        "D. deficiency"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "An individual who values his needs above communal interest is",
+      "options": [
+        "A. selfish",
+        "B. wicked",
+        "C. callous",
+        "D. selfless"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Opportunity to defend oneself promotes",
+      "options": [
+        "A. societal conflict",
+        "B. causes HIV/AIDS",
+        "C. cheating",
+        "D. peace"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 28,
+      "question": "The acronym PLWHA means",
+      "options": [
+        "A. People Living With HIV/AIDS",
+        "B. People Lives Withers With HIV/AIDS",
+        "C. People Left the World Having AIDS",
+        "D. Persons Left the World With HIV/AIDS"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "Which of the following is not a national symbol?",
+      "options": [
+        "A. National flag",
+        "B. Voters card",
+        "C. National currency",
+        "D. Coat of arms"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "The main significance of nationalism to the development of a country is to",
+      "options": [
+        "A. foster a sense of selflessness towards the nation",
+        "B. promote international relations",
+        "C. serve as an agent of socialization",
+        "D. ensure upbringing of strict leaders"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Which of the following is not a youth employment skill?",
+      "options": [
+        "A. Leadership skills",
+        "B. Communication skills",
+        "C. Self-reliance skills",
+        "D. Investigation skills"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "question": "The United Nations General Assembly signed the Universal Declaration of Human Rights on",
+      "options": [
+        "A. May 29, 1999",
+        "B. December 10, 1948",
+        "C. 1st October 1960",
+        "D. December 10, 1968"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Stigmatization simply means",
+      "options": [
+        "A. loving someone with HIV/AIDS",
+        "B. negative treatment of someone with the virus",
+        "C. demoralization",
+        "D. hugging"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Skin infection, loss of appetite and frequent sweating at night are symptoms of",
+      "options": [
+        "A. high fever",
+        "B. tuberculosis",
+        "C. HIV/AIDS",
+        "D. pneumonia"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "One of the following is not a good means of providing youth empowerment",
+      "options": [
+        "A. Provision of soft loans",
+        "B. Entrepreneurial programs",
+        "C. Money laundering",
+        "D. Educative lectures"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": ".........is not an example of a virus",
+      "options": [
+        "A. Killers virus",
+        "B. Coronavirus",
+        "C. Lassa fever virus",
+        "D. Ebola virus"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Which of the following is a duty of citizens?",
+      "options": [
+        "A. Provision of social amenities",
+        "B. Maintenance of law and order",
+        "C. Dedication to nation building",
+        "D. Protection of lives and property"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "Friendliness towards visitors is an exhibition of",
+      "options": [
+        "A. empathy",
+        "B. hospitality",
+        "C. kindness",
+        "D. sympathy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Which of the following values promotes a stable home?",
+      "options": [
+        "A. Faithfulness",
+        "B. Power",
+        "C. Relevance",
+        "D. Wealth"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "..............refers to ideas and standards which the society esteems, upholds and passes from generation to generation",
+      "options": [
+        "A. General value",
+        "B. Values",
+        "C. Societal value",
+        "D. Manifestation of law"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "One of these is not among the factors that promote good values",
+      "options": [
+        "A. Tolerance",
+        "B. Fairness",
+        "C. Integrity",
+        "D. Altitude"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "The National Youth Service Corps was established in",
+      "options": [
+        "A. 1960",
+        "B. 1973",
+        "C. 2025",
+        "D. 1985"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "Which of the following is not among the range?",
+      "options": [
+        "A. Life coping skills",
+        "B. Intellectual skills",
+        "C. Manipulative skills",
+        "D. Provision of job"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "question": "..........are laws drafted and written by man",
+      "options": [
+        "A. National law",
+        "B. Human law",
+        "C. Natural law",
+        "D. Regional law"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "Which of the following is good for citizenship education?",
+      "options": [
+        "A. Encouraging citizens to hate one another",
+        "B. To train citizens to live a responsible life",
+        "C. To promote inter-ethnic crises",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Youth empowerment could also mean",
+      "options": [
+        "A. neglecting the youth",
+        "B. giving youth food to eat",
+        "C. providing support for an independent life",
+        "D. providing the youth with palliative"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "AIDS stands for",
+      "options": [
+        "A. Acquired Immune Deficiency Syndrome",
+        "B. Acquired Immune Deadly Sickness",
+        "C. Action Immune-defence Soldiers",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "What year did the federal government establish the National Directorate of Employment?",
+      "options": [
+        "A. 2023",
+        "B. 1987",
+        "C. 1999",
+        "D. 1986"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "Which of the following is not a right of individuals except",
+      "options": [
+        "A. Right to freedom of association",
+        "B. Right to fair hearing",
+        "C. Right to feeding and accommodation",
+        "D. Right to life"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "Hoisting the national flag in offices and public places portrays ..... to one’s country",
+      "options": [
+        "A. dedication",
+        "B. nationalism",
+        "C. patriotism",
+        "D. political participation"
+      ],
+      "correctOption": "C"
+    }
+  ]
+}

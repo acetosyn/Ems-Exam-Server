@@ -1,0 +1,563 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Mathematics",
+  "exam_title": "1ST TERM EXAMINATION",
+  "instructions": "Do not start until you are told to do so",
+  "time_allowed_minutes": null,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Find the sum to infinity of a Geometric progression whose first term is  and common ratio is",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "The 21st term of an Arithmetic progression is 36. Find its first term if its common difference is 6",
+      "options": [
+        "A. -84",
+        "B. -48",
+        "C. 57",
+        "D. 96"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Find the sum of the first 20 terms of the Arithmetic progression 2, 4, 6, 8, - - -",
+      "options": [
+        "A. 220",
+        "B. 340",
+        "C. 420",
+        "D. 320"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Solve the equation;    -    =",
+      "options": [
+        "A. -",
+        "B. -",
+        "C. -",
+        "D. "
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Express 0.00037 in standard form",
+      "options": [
+        "A. 3.7 x 10^-4",
+        "B. 3.7 x 10^-5",
+        "C. 3.7 x 10^-7",
+        "D. 3.7 x 10^-8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Evaluate: log1000.0001",
+      "options": [
+        "A. 2",
+        "B. -1",
+        "C. -2",
+        "D. 1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "Factorize: 16n^2 – 16n + 4",
+      "options": [
+        "A. 4[(4n – 1)(4n – 1)]",
+        "B. 4[(4n – 1)(4n + 1)]",
+        "C. 4[(2n + 1)(2n – 1)]",
+        "D. 4[(2n – 1)(2n – 1)]"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "Find the value of x and y if x +  3y = 2x + y and 8 – y = x + y",
+      "options": [
+        "A. x = -4, y = -2",
+        "B. x = -2, y = 0 4",
+        "C. x = 4, y = 2",
+        "D. x = -4, y = 2"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "In a G.P, 2 is the common ratio, if the 5th term is greater than the first term by 45, find the 5th term",
+      "options": [
+        "A. 48",
+        "B. 46",
+        "C. 42",
+        "D. 40"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Find the sum to infinity of the G.P 1  +  ½ + ¼ + - -",
+      "options": [
+        "A. -2",
+        "B. -4",
+        "C. 4",
+        "D. 2"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "If 3p – q = 6 and 2p + 3q = 4, find the value of p",
+      "options": [
+        "A. -2",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "A bag which weight is 60.5kg is recorded to be 62.5kg. calculate the percentage error",
+      "options": [
+        "A. 3.3%",
+        "B. 3.6%",
+        "C. 3.5%",
+        "D. 3.0%"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Express the number 0.006457 to three significant figures",
+      "options": [
+        "A. 0.0065",
+        "B. 0.00646",
+        "C. 0.00645",
+        "D. 0.0070"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "Given that 3x + 7y = 1 and x – 7y = 19 then x + y = -",
+      "options": [
+        "A. -5",
+        "B. -2",
+        "C. 3",
+        "D. 5"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Find the sum to infinity of a G.P 1, , - - -",
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "What is the common difference of the following A.P, 3¼ , 5½ , 7¼ , 10, 12¼ - - -",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "If 2t^2 – t – 1 = 0, the product of the equation is",
+      "options": [
+        "A. 2t^2",
+        "B. -t^2",
+        "C. -3t^2",
+        "D. -2t^2"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "Express 1965 correct to 3 significant figure",
+      "options": [
+        "A. 2000",
+        "B. 1970",
+        "C. 1980",
+        "D. 1960"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "If the 3rd term of a Geometry progression (G.P) is 18 and the 6th term is 486. Find the 1st",
+      "options": [
+        "A. 5",
+        "B. 4",
+        "C. 3",
+        "D. 8"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "If (x + 6) is a factor of the expression x^2 + 4x – 12. Find the other factor",
+      "options": [
+        "A. (x – 2)",
+        "B. (x + 4)",
+        "C. (x + 2)",
+        "D. (x – 6)"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "Find the sum of the roots of the quadratic equation; a^2 – 5a + 6 = 0",
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. -5",
+        "D. -6"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Correct 0.03945 to two significant figures",
+      "options": [
+        "A. 0.04",
+        "B. 0.039",
+        "C. 0.045",
+        "D. 0.030"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "A rope of length 25m was measured by a student to be 24.4m. find the percentage error",
+      "options": [
+        "A. 4.4",
+        "B. 1.4",
+        "C. 2.4",
+        "D. 3.4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "If 2^3x = 16^(3/4), find the value of x",
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "A sequence is given by 5, 10, 15, 20, - - - if the nth term is 60, find n",
+      "options": [
+        "A. 10",
+        "B. 11",
+        "C. 12",
+        "D. 13"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Find the value of x which   is undefined",
+      "options": [
+        "A. 3 or 4",
+        "B. -3 or -4",
+        "C. 3 or -4",
+        "D. -3 or 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "Simplify: ",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Simplify:     +",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "A",
+      "diagram": "/uploads/diagrams/mathematics/diagram_28.PNG"
+    },
+    {
+      "id": 29,
+      "question": "Using logarithm table, evaluate 0.082  x 6.51",
+      "options": [
+        "A. Ῑ.7295",
+        "B. 2.7295",
+        "C. Ῑ.6295",
+        "D. 2.6295"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "Evaluate: 0.7685 x 0.03415",
+      "options": [
+        "A. Ῑ.4191",
+        "B. 2.4291",
+        "C. 2.3191",
+        "D. 2.4191"
+      ],
+      "correctOption": "D",
+      "diagram": "/uploads/diagrams/mathematics/diagram_30.PNG"
+    },
+    {
+      "id": 31,
+      "question": "Evaluate the value of       0.3612 using tables",
+      "options": [
+        "A. 0.7232",
+        "B. 0.7122",
+        "C. 0.7022",
+        "D. 0.7133"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "The greater of the two root of the equation: (2x – 5)(3x + 10) = 0 is",
+      "options": [
+        "A. -50",
+        "B. -10",
+        "C. 2½",
+        "D. 5"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "One of the roots of the equation (n – 13)^2 = 9 is 10. The other root is",
+      "options": [
+        "A. 4",
+        "B. 16",
+        "C. 22",
+        "D. 68"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Express 4081.0392 to 2 significant figures",
+      "options": [
+        "A. 4080",
+        "B. 4100",
+        "C. 4000",
+        "D. 4081"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "If x + 2y = 0 and 4x – 3y = 11. Find the value of x + y",
+      "options": [
+        "A. -3",
+        "B. -1",
+        "C. 0",
+        "D. 1"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "18, -12, 8, ......is a geometric progression whose common ratio is",
+      "options": [
+        "A. -",
+        "B. -",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "The product of two number is 40 and their sum is 13, find the numbers",
+      "options": [
+        "A. 2 and 20",
+        "B. 2 and 8",
+        "C. 5 and 8",
+        "D. 4 and 8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "The difference between the present ages of two sisters is 6 and their product is 135.  What is the sum of their ages?",
+      "options": [
+        "A. 21",
+        "B. 22",
+        "C. 24",
+        "D. 27"
+      ],
+      "correctOption": "A",
+      "diagram": "/uploads/diagrams/mathematics/diagram_38.PNG"
+    },
+    {
+      "id": 39,
+      "question": "If a = 2/3 and b = -6, evaluate the following expression ab –",
+      "options": [
+        "A. 8",
+        "B. 9",
+        "C. 4",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "If x^2 – 10x = 24, the x = 12 or x =",
+      "options": [
+        "A. -3",
+        "B. -2",
+        "C. 2",
+        "D. 3"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "Find the value of x such that the expression, +   -   + 1 equals zero",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. -",
+        "D. -"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "For what values of x is the expression     undefined",
+      "options": [
+        "A. -  or 3",
+        "B. -  or -3",
+        "C. or -3",
+        "D. or 3"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "Find the 9th term of an A.P 18, 12, 6, 0, -6, - - -",
+      "options": [
+        "A. -54",
+        "B. -30",
+        "C. 30",
+        "D. 42"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "The first term of an A.P is 3 and the fifth term is 9, find the number of term in the progression, if the sum is 81",
+      "options": [
+        "A. 12",
+        "B. 27",
+        "C. 4",
+        "D. 9"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "Find the sum to infinity of the series 5 + 4 + 3 + 2 + - -",
+      "options": [
+        "A. 24",
+        "B. 25",
+        "C. 30",
+        "D. 21"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Using tables, evaluate the following 0.0824 x 6.51",
+      "options": [
+        "A. 0.5364",
+        "B. 0.5464",
+        "C. 0.6354",
+        "D. 0.4364"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "Evaluate the following using bar notation 5  .   7 -  2  .   3",
+      "options": [
+        "A. 3.4",
+        "B. 3.4",
+        "C. 2.4",
+        "D. 4.4"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "A is a point (5, 3) and B is (-4, -2) find the column vector AB",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "If P = , q = , r =  , find p + q",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Using the information of questions 49, calculate p + r",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "class_category": "SS2"
+}

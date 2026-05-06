@@ -1,0 +1,201 @@
+/* exam_spec.css
+   Exam-specific look: animated slide, option styles, question-grid visual.
+*/
+
+/* Slider mechanics: we keep one visible card and animate translation when JS toggles classes */
+.question-slider{ height:auto; min-height: 320px; display:flex; align-items:flex-start; }
+.question-slider .question-card{
+  width:100%;
+  will-change: transform, opacity;
+  transition: transform .45s cubic-bezier(.2,.9,.25,1), opacity .35s ease;
+  transform: translateX(0);
+  opacity:1;
+}
+
+/* When JS adds .slide-out-left or .slide-in-right classes we animate */
+.question-card.slide-out-left{ transform: translateX(-120%); opacity:0; }
+.question-card.slide-in-right{ transform: translateX(120%); opacity:0; }
+.question-card.slide-in-active{ transform: translateX(0); opacity:1; }
+
+/* Larger question typography */
+.question-text .q-title, .question-text h3 { font-size:1.25rem; font-weight:800; margin:0 0 12px 0; color:var(--text); line-height:1.4; }
+.question-text p { margin:0; color:var(--muted); }
+
+/* Answers: vertical, large tappable targets */
+.answers-list li{
+  list-style:none;
+}
+.answers-list .option{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid rgba(15,23,42,0.04);
+  background:linear-gradient(180deg,#fff,#fbfdff);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .18s ease, border-color .18s ease;
+  align-items:center;
+}
+.answers-list .option:hover{ transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,0.06); }
+.answers-list .option input{ display:none; }
+
+/* the little A/B/C/D badge */
+.opt-bullet{
+  min-width:40px;
+  height:40px;
+  border-radius:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:0.95rem;
+  color:var(--accent-2);
+  border:2px solid rgba(37,99,235,0.12);
+  background: linear-gradient(180deg,#fff,#f7fbff);
+  flex-shrink:0;
+  box-shadow: 0 6px 12px rgba(37,99,235,0.04);
+}
+
+/* option text */
+.opt-text{ font-size:1.03rem; line-height:1.45; color:var(--text); font-weight:600; }
+
+/* selected state (radio chosen) */
+.answers-list .option.selected{
+  border-color: rgba(37,99,235,0.15);
+  box-shadow: 0 18px 48px rgba(37,99,235,0.08);
+  background: linear-gradient(90deg,#f0f7ff,#eef6ff);
+}
+.answers-list .option.selected .opt-bullet{
+  color:#fff;
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  border: none;
+  box-shadow: 0 8px 28px rgba(37,99,235,0.14);
+}
+
+/* flag icon inside options (if you want per-option flag) */
+.option .opt-flag{ margin-left:auto; opacity:0.85; }
+
+/* keyboard focus state (accessibility) */
+.question-card:focus{ outline: 4px solid rgba(37,99,235,0.08); outline-offset:6px; }
+
+/* Question navigation grid - compact numbered small cards */
+.question-grid {
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:8px;
+  margin-top:8px;
+}
+@media (max-width:420px){
+  .question-grid{ grid-template-columns: repeat(4, 1fr); }
+}
+.question-grid .q-num{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  border-radius:8px;
+  font-weight:800;
+  font-size:0.95rem;
+  cursor:pointer;
+  border:1px solid rgba(15,23,42,0.04);
+  background: linear-gradient(180deg,#ffffff,#fbfdff);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.03);
+  position:relative;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+
+/* small tick / status indicator */
+.question-grid .q-num .status{
+  position:absolute;
+  left:6px;
+  top:6px;
+  width:16px;
+  height:16px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:4px;
+  font-size:11px;
+  font-weight:900;
+  transform: translateZ(0);
+}
+
+/* unanswered */
+.question-grid .q-num.unanswered .status{ background: transparent; }
+
+/* answered -> show green tick */
+.question-grid .q-num.answered .status{
+  background: var(--success);
+  color:#fff;
+  box-shadow: 0 4px 10px rgba(16,185,129,0.12);
+}
+
+/* flagged -> show amber flag */
+.question-grid .q-num.flagged .status{
+  background: #f59e0b;
+  color:#fff;
+  box-shadow: 0 4px 10px rgba(245,158,11,0.12);
+}
+
+/* current question highlight */
+.question-grid .q-num.current{
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:#fff;
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(37,99,235,0.15);
+}
+
+/* compact number text inside card */
+.question-grid .q-num span.num { z-index:1; }
+
+/* hover micro interaction */
+.question-grid .q-num:hover{ transform: translateY(-4px); }
+
+/* spacing for the nav-action-row */
+.nav-action-row{ display:flex; gap:8px; justify-content:space-between; margin-top:12px; }
+
+/* Flag button */
+.flag-btn{
+  background:transparent;
+  border:1px solid rgba(15,23,42,0.06);
+  padding:8px 10px;
+  border-radius:10px;
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  cursor:pointer;
+  color:var(--muted);
+}
+.flag-btn.active{
+  color:#f59e0b;
+  border-color: rgba(245,158,11,0.12);
+  box-shadow: 0 10px 30px rgba(245,158,11,0.06);
+}
+
+/* Review summary modal: list with small cards */
+#summaryContent .summary-list{ display:grid; gap:8px; max-height:420px; overflow:auto; padding-right:6px; }
+.summary-item{ display:flex; justify-content:space-between; gap:10px; align-items:center; padding:10px 12px; border-radius:8px; border:1px solid rgba(15,23,42,0.03); background:#fff; }
+.summary-item .meta{ color:var(--muted); font-weight:700; }
+
+/* small decorative improvements */
+.modal-card .close-x{ background:transparent; border:none; font-size:18px; cursor:pointer; color:var(--muted); }
+
+/* Responsive tweaks: move sidebar on top for mobile */
+@media (max-width:980px){
+  .exam-shell{ grid-template-columns: 1fr; gap:18px; }
+  .exam-sidebar{ order:2; position:relative; top:0; }
+  .exam-main{ order:1; }
+}
+
+/* Tiny accessibility focus for cards */
+.q-num:focus{ outline:3px solid rgba(37,99,235,0.12); outline-offset:3px; border-radius:8px; }
+
+/* subtle transitions for counts */
+.count-num{ transition: transform .2s ease; }
+.count-num.updated{ transform: scale(1.06); }
+
+/* smaller text adjustments for answers */
+.opt-text { color: #0b1220; }
+
+/* ensure buttons match user_portal look a bit more */
+.btn-primary{ letter-spacing:0.4px; }

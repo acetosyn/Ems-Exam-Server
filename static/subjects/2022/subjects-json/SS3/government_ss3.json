@@ -1,0 +1,659 @@
+{
+  "subject": "Government",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Which of the following countries belonged to the Casablanca group?",
+      "options": [
+        "A. Tunisia",
+        "B. Nigeria",
+        "C. Liberia",
+        "D. Mali"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "The Commonwealth of Nations is made up of …",
+      "options": [
+        "A. French and English speaking African countries",
+        "B. France and some of her colonies",
+        "C. Britain and some of her colonies",
+        "D. African and Asian countries formerly under Britain"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "Herbert Macaulay was the first president of …",
+      "options": [
+        "A. NEPU",
+        "B. NYM",
+        "C. UMBC",
+        "D. NCNC"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "The head of the first military government in Nigeria was …",
+      "options": [
+        "A. General Johnson Aguiyi-Ironsi",
+        "B. General Yakubu Gowon",
+        "C. General T. Y. Danjuma",
+        "D. General Murtala Muhammed"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "Who was the architect of British rule in Nigeria?",
+      "options": [
+        "A. Hugh Clifford",
+        "B. Frederick Lugard",
+        "C. Arthur Richards",
+        "D. Oliver Lyttleton"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "When did Nigeria adopt the 19-state structure?",
+      "options": [
+        "A. 1976",
+        "B. 1967",
+        "C. 1991",
+        "D. 1987"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "Which traditional political system was republican?",
+      "options": [
+        "A. Hausa/Fulani",
+        "B. Igbo",
+        "C. Yoruba",
+        "D. Igala"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "A special election organized to decide on a political issue is known as …",
+      "options": [
+        "A. By-election",
+        "B. General election",
+        "C. Plebiscite",
+        "D. Opinion poll"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Socialism is associated with …",
+      "options": [
+        "A. Aristotle",
+        "B. Plato",
+        "C. Socrates",
+        "D. Karl Marx"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "The body that selects the head of government following a general election is the …",
+      "options": [
+        "A. Electoral college",
+        "B. Senate",
+        "C. Supreme court",
+        "D. Electoral committee"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "Which of the following is not necessarily a characteristic feature of a state?",
+      "options": [
+        "A. An army",
+        "B. A government",
+        "C. A territory",
+        "D. A system of laws"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "Which of the following pairs are members of ECOWAS?",
+      "options": [
+        "A. Nigeria and Cameroon",
+        "B. Liberia and Congo",
+        "C. Senegal and Zaire",
+        "D. Cape Verde and Burkina Faso"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Nigeria asserted neutrality through the platform of …",
+      "options": [
+        "A. Non-aligned movement",
+        "B. Pan-African movement",
+        "C. Negritude movement",
+        "D. Nationalist movement"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "The set of policies guiding a country’s interaction with others is called …",
+      "options": [
+        "A. National policy",
+        "B. Socio-economic policy",
+        "C. Constructive engagement",
+        "D. Foreign policy"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "The consciousness of a common identity of a people is called …",
+      "options": [
+        "A. Integration",
+        "B. Nationalism",
+        "C. Indoctrination",
+        "D. Emancipation"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "The executive checks the excesses of the legislature through …",
+      "options": [
+        "A. Assent to bills",
+        "B. Ratification of treaties",
+        "C. Use of veto power",
+        "D. Issuance of order"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "The head of state in Nigeria’s First Republic was …",
+      "options": [
+        "A. An executive president",
+        "B. A nominal president",
+        "C. A party leader",
+        "D. A nominee of the whole country"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "Abolition of civil liberty is an attribute of …",
+      "options": [
+        "A. Presidential government",
+        "B. Parliamentary government",
+        "C. Republican government",
+        "D. Military government"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "A major feature of a fascist government is that …",
+      "options": [
+        "A. The state defines the rights of individuals",
+        "B. Political power is decentralized",
+        "C. Sovereignty is identified with landed property",
+        "D. It gives room for opposition"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "The Secretary-General of the OAU holds office for … years",
+      "options": [
+        "A. Eight",
+        "B. Six",
+        "C. Five",
+        "D. Seven"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "Commonwealth nations are represented by …",
+      "options": [
+        "A. Chargé d’affaires",
+        "B. High commissioners",
+        "C. Ambassadors",
+        "D. Attachés"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "Nigeria was suspended from the Commonwealth in 1995 due to … reasons",
+      "options": [
+        "A. Economic",
+        "B. Legal",
+        "C. Political",
+        "D. Socio-cultural"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Which international organization is Nigeria a founding member of?",
+      "options": [
+        "A. UNO",
+        "B. ECOWAS",
+        "C. The Commonwealth",
+        "D. NATO"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "A guiding principle of Nigeria’s foreign policy is …",
+      "options": [
+        "A. Decolonization of African states",
+        "B. Total opposition to the cold war",
+        "C. Posting only career diplomats",
+        "D. Interference in African affairs"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "The main representative body of the United Nations is the …",
+      "options": [
+        "A. Security Council",
+        "B. International Court of Justice",
+        "C. Economic and Social Council",
+        "D. General Assembly"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "The Provisional Ruling Council was the highest body during the regime of …",
+      "options": [
+        "A. Murtala Muhammed",
+        "B. Muhammadu Buhari",
+        "C. Ibrahim Babangida",
+        "D. Sani Abacha"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "A major source of revenue of local government after 1976 is …",
+      "options": [
+        "A. Joint state-local government account",
+        "B. Internally generated revenue",
+        "C. Grants and loans",
+        "D. Federation account"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "Nigeria became a federation of 36 states during the era of …",
+      "options": [
+        "A. Yakubu Gowon",
+        "B. Sani Abacha",
+        "C. Abdulsalami Abubakar",
+        "D. Ibrahim Babangida"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "A public corporation is managed by …",
+      "options": [
+        "A. Board of directors",
+        "B. A minister",
+        "C. A general manager",
+        "D. Board of governors"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "Who headed the committee that recommended Abuja as federal capital?",
+      "options": [
+        "A. Justice Afe Babalola",
+        "B. Justice Buba Ardo",
+        "C. Justice Akinola Aguda",
+        "D. Justice Udo Udoma"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "The highest policy making body under Gowon was the …",
+      "options": [
+        "A. Supreme Military Council",
+        "B. Provisional Ruling Council",
+        "C. Armed Forces Ruling Council",
+        "D. Federal Executive Council"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "The Economic Commission for Africa is an agency of …",
+      "options": [
+        "A. OAU",
+        "B. UNO",
+        "C. ECOWAS",
+        "D. EEC"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "Which state had a governor impeached during the Second Republic?",
+      "options": [
+        "A. Kaduna",
+        "B. Bendel",
+        "C. Lagos",
+        "D. Borno"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "The motion for self-government in 1953 was moved by …",
+      "options": [
+        "A. NPC",
+        "B. NCNC",
+        "C. NEPU",
+        "D. Action Group"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Which had a central administration in pre-colonial Nigeria?",
+      "options": [
+        "A. Tiv",
+        "B. Yoruba",
+        "C. Igbo",
+        "D. Ibibio"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "In international relations, countries have the right to …",
+      "options": [
+        "A. Export crude oil",
+        "B. Create more states",
+        "C. Diplomatic immunity of envoys",
+        "D. Own a police force"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "The first Non-Aligned Movement conference was held in …",
+      "options": [
+        "A. Belgrade",
+        "B. Havana",
+        "C. Harare",
+        "D. London"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "The primary objective of the United Nations is …",
+      "options": [
+        "A. Ending colonialism",
+        "B. Ending World War II",
+        "C. World federation",
+        "D. World peace and security"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Nigeria broke diplomatic ties with France over …",
+      "options": [
+        "A. Algerian war",
+        "B. Atomic tests in Sahara",
+        "C. Congo policy",
+        "D. Togolese politics"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "Traditional rulers were restricted to ceremonial roles by reforms of …",
+      "options": [
+        "A. 1976",
+        "B. 1966",
+        "C. 1960",
+        "D. 1963"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Which constitution recognized local government as the third tier?",
+      "options": [
+        "A. 1946",
+        "B. 1963",
+        "C. 1979",
+        "D. 1960"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "OPEC had how many founding members?",
+      "options": [
+        "A. 13",
+        "B. 5",
+        "C. 7",
+        "D. 15"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "The last African country to gain independence was …",
+      "options": [
+        "A. Namibia",
+        "B. Zambia",
+        "C. Angola",
+        "D. South Sudan"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "The function of the Council of State in Nigeria is …",
+      "options": [
+        "A. Advisory",
+        "B. Investigative",
+        "C. Legislative",
+        "D. Judicial"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "Local government represents …",
+      "options": [
+        "A. Concentration of power",
+        "B. Separation of power",
+        "C. Devolution of power",
+        "D. Delegation of power"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "The UN agency responsible for children’s welfare is …",
+      "options": [
+        "A. WHO",
+        "B. UNESCO",
+        "C. UNICEF",
+        "D. UNDP"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "The most powerful organ of the UN is the …",
+      "options": [
+        "A. General Assembly",
+        "B. Security Council",
+        "C. International Court of Justice",
+        "D. World Bank"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Which country has veto power in the UN Security Council?",
+      "options": [
+        "A. Italy",
+        "B. Germany",
+        "C. Canada",
+        "D. China"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "The UN organ with full representation is the …",
+      "options": [
+        "A. Security Council",
+        "B. Trusteeship Council",
+        "C. International Court of Justice",
+        "D. General Assembly"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "The United Nations Organization was formed in …",
+      "options": [
+        "A. San Francisco",
+        "B. New York",
+        "C. Geneva",
+        "D. Hague"
+      ],
+      "correctOption": "A"
+    }
+
+  ]
+}

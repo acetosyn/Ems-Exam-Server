@@ -1,0 +1,1110 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "English Language",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 60,
+  "questions": [
+    {
+      "id": 1,
+      "question": "What should have been a source of motivation for him proved a terrible source of",
+      "options": [
+        "A. discouragement",
+        "B. uncertainty",
+        "C. failure",
+        "D. disturbance"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "The government has been spending more money on preventive rather than on …..medicine",
+      "options": [
+        "A. traditional",
+        "B. diagnostic",
+        "C. modern",
+        "D. curative"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "question": "Too many theories will not help us, we need to be",
+      "options": [
+        "A. practical",
+        "B. bookish",
+        "C. hypothetical",
+        "D. shrewd"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Nobody expects him to have ….for his children but he certainly bestows too much affection on them.",
+      "options": [
+        "A. love",
+        "B. concern",
+        "C. intimacy",
+        "D. hatred"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Emmanuel complained that while his colleagues were elevated he was",
+      "options": [
+        "A. downgraded",
+        "B. suspended",
+        "C. dismissal",
+        "D. promoted"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "In many ways my parents are very conservative but there are times when they surprise me with their …. ideas on family planning",
+      "options": [
+        "A. orthodox",
+        "B. critical",
+        "C. modern",
+        "D. liberal"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "The rather insignificant effort he made yielded ….results",
+      "options": [
+        "A. tremendous",
+        "B. absolute",
+        "C. unimaginable",
+        "D. exorbitant"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "At the end of the crisis, the leaders declared that there was neither victor nor",
+      "options": [
+        "A. winner",
+        "B. vanquished",
+        "C. vanguard",
+        "D. oppressor"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Bala was vocal in protesting against high-handedness of the police unlike Sani who was",
+      "options": [
+        "A. shouting",
+        "B. arguing",
+        "C. mute",
+        "D. sober"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "The government has …..an embargo on further recruitment of staff but lifted that of appointment",
+      "options": [
+        "A. forwarded",
+        "B. given",
+        "C. moved",
+        "D. placed"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "The play was so interesting that the …..clapped for quite a long time at the end",
+      "options": [
+        "A. watchers",
+        "B. congregation",
+        "C. people",
+        "D. audience"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "Many people reacted to the brutal murder of the popular journalist with strong",
+      "options": [
+        "A. condemnation",
+        "B. demonstration",
+        "C. accusation",
+        "D. mobilization"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "After his defeat in the war, the General ….his army and went into retirement.",
+      "options": [
+        "A. fired",
+        "B. retired",
+        "C. executed",
+        "D. disbanded"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "The notorious robber was finally ……by the police after a three-month search.",
+      "options": [
+        "A. arrested",
+        "B. surrounded",
+        "C. located",
+        "D. overwhelmed"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "The earthquake that struck Mali …………the city.",
+      "options": [
+        "A. troubled",
+        "B. confused",
+        "C. demolished",
+        "D. devastated"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "He was …..to have escaped unhurt from the collapsed building.",
+      "options": [
+        "A. fortunate",
+        "B. agile",
+        "C. energetic",
+        "D. brilliant"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "The local government election was cancelled because of widespread …….during voting.",
+      "options": [
+        "A. offences",
+        "B. accusations",
+        "C. fighting",
+        "D. irregularities"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Many students had good results in the examination but Abel’s performance was",
+      "options": [
+        "A. best",
+        "B. fair",
+        "C. unacceptable",
+        "D. woeful"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "We returned home late in the night because our car had a …….",
+      "options": [
+        "A. break off",
+        "B. break through",
+        "C. break out",
+        "D. break down"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "question": "Cosmetics are sometimes used to cover the ……of nature.",
+      "options": [
+        "A. defaults",
+        "B. difficulties",
+        "C. deficits",
+        "D. defects"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 21,
+      "question": "Kunle is very pessimistic about our chances of success.",
+      "options": [
+        "A. sad",
+        "B. worried",
+        "C. concerned",
+        "D. unconvinced"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "The execution of the projects has been hampered by lack of funds.",
+      "options": [
+        "A. revoked",
+        "B. forbidden",
+        "C. accelerated",
+        "D. hindered"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "The boss has an aversion for smoking.",
+      "options": [
+        "A. a desire",
+        "B. a habit",
+        "C. an inclination",
+        "D. a distaste"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "The government has earmarked a large sum of money for the construction of feeder roads.",
+      "options": [
+        "A. invested",
+        "B. expanded",
+        "C. accumulated",
+        "D. set aside"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "The champion was admitted for his doggedness.",
+      "options": [
+        "A. tenacity",
+        "B. vigour",
+        "C. success",
+        "D. humility"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "He was kept in solitary confinement.",
+      "options": [
+        "A. harsh",
+        "B. inimical",
+        "C. quite",
+        "D. lonely"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "Chinua Achebe is a renowned novelist.",
+      "options": [
+        "A. famous",
+        "B. wonderful",
+        "C. fascinating",
+        "D. trustworthy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "The task before us is enormous.",
+      "options": [
+        "A. serious",
+        "B. great",
+        "C. heavy",
+        "D. awkward"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "The outcome of the matter has vindicated my earlier stand.",
+      "options": [
+        "A. invalidated",
+        "B. negated",
+        "C. justified",
+        "D. nullified"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "As soon as Abbas realized that he has made a mistake, he did everything to rectify it.",
+      "options": [
+        "A. destroy",
+        "B. erase",
+        "C. eradicate",
+        "D. correct"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "The student’s plans amount to building castles in the air. This means that the student’s plans are",
+      "options": [
+        "A. beautiful",
+        "B. practicable",
+        "C. interesting",
+        "D. unrealisable"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "question": "Femi passed his examinations with flying colours. This means that Femi",
+      "options": [
+        "A. did very well",
+        "B. wore cloth of different colours",
+        "C. was helped to pass the examinations",
+        "D. cheated to pass the examinations"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "The peace meeting nipped the crisis in the bud. This means that",
+      "options": [
+        "A. the peace meeting was deadlocked",
+        "B. members disagreed on who should receive the flower pot",
+        "C. the crisis escalated despite the peace meeting",
+        "D. the crisis was averted"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "Since I found out his hypocritical nature, I have been keeping him at arm’s length. This means that I",
+      "options": [
+        "A. avoid being familiar with him",
+        "B. ignore his advice",
+        "C. report him to the authorities",
+        "D. stop visiting him"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "The driver smelt a rat when the policeman asked him to stop. This means that the driver was",
+      "options": [
+        "A. careful",
+        "B. reckless",
+        "C. offensive",
+        "D. suspicious"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "The amount he donated was small. He said it was his widow’s mite. This means that",
+      "options": [
+        "A. it was all he could honestly afford",
+        "B. he was a widow",
+        "C. he was miserly",
+        "D. he could have given more"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "From the way Mercy behaves, it is obvious she is a greenhorn. This means that Mercy is",
+      "options": [
+        "A. cautious",
+        "B. arrogant",
+        "C. uncivilised",
+        "D. inexperienced"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "The friendship between Segun and Shehu has turned sour. This means that Segun and Shehu are",
+      "options": [
+        "A. getting to understand each other",
+        "B. better friends now",
+        "C. still friends",
+        "D. no longer friends"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "The debating team was warned to make convincing points and not to play to the gallery. This means that the team should not",
+      "options": [
+        "A. be over-confident",
+        "B. underrate the opponent",
+        "C. be selfish",
+        "D. attempt to win cheap popularity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "The workers suspect that the boss has a skeleton in his cupboard. This means that the boss",
+      "options": [
+        "A. is not liked by the workers",
+        "B. has a skeleton hidden in his room",
+        "C. is a very wicked man",
+        "D. has an ugly secret"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 41,
+      "question": "Learning the regions of the body and --41—of the organs within these regions can help you better understand the human –42--.",
+      "options": [
+        "A. location",
+        "B. placement",
+        "C. formulation",
+        "D. citing"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Learning the regions of the body and location of the organs within these regions can help you better understand the human –42--.",
+      "options": [
+        "A. psychology",
+        "B. physiognomy",
+        "C. psychiatry",
+        "D. anatomy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "Learning the regions of the body and location of the organs within these regions can help you better understand the human anatomy and place them within the different –43—of the body.",
+      "options": [
+        "A. regions",
+        "B. cases",
+        "C. applications",
+        "D. houses"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "It is important to remember that each organ –44--, the organs and –45—thereof, and even the –46—parts of the body, such as –47--, all play an important role throughout the human body.",
+      "options": [
+        "A. size",
+        "B. foam",
+        "C. chart",
+        "D. system"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 45,
+      "question": "It is important to remember that each organ –44--, the organs and –45—thereof, and even the –46—parts of the body, such as –47--, all play an important role throughout the human body.",
+      "options": [
+        "A. components",
+        "B. bones",
+        "C. skeleton",
+        "D. fingers"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 46,
+      "question": "It is important to remember that each organ –44--, the organs and –45—thereof, and even the –46—parts of the body, such as –47--, all play an important role throughout the human body.",
+      "options": [
+        "A. compositional",
+        "B. temperamental",
+        "C. gregarious",
+        "D. tiniest"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "It is important to remember that each organ –44--, the organs and –45—thereof, and even the –46—parts of the body, such as –47--, all play an important role throughout the human body.",
+      "options": [
+        "A. cells",
+        "B. blood",
+        "C. water",
+        "D. saliva"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "Learning the anatomy of the –48—body is important of learning how to take –49—of yourself and maintain a –50—plan for the care of your body and its important –51—organs.",
+      "options": [
+        "A. accidental",
+        "B. human",
+        "C. impaired",
+        "D. tormented"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "Learning the anatomy of the human body is important of learning how to take –49—of yourself and maintain a –50—plan for the care of your body and its important –51—organs.",
+      "options": [
+        "A. round",
+        "B. either",
+        "C. care",
+        "D. both"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "Learning the anatomy of the human body is important of learning how to take care of yourself and maintain a –50—plan for the care of your body and its important –51—organs.",
+      "options": [
+        "A. faulty",
+        "B. temporal",
+        "C. permanent",
+        "D. healthy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 51,
+      "question": "Learning the anatomy of the human body is important of learning how to take care of yourself and maintain a healthy plan for the care of your body and its important –51—organs.",
+      "options": [
+        "A. internal",
+        "B. exterior",
+        "C. anterior",
+        "D. diagrammatic"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 52,
+      "question": "I made a visit to the University Teaching Hospital the other day. At the –52—department, where accident –53—are treated, the doctors were battling to save the life of a man who had just been knocked down in a road accident.",
+      "options": [
+        "A. casualty",
+        "B. mortuary",
+        "C. psychiatry",
+        "D. anatomy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 53,
+      "question": "I made a visit to the University Teaching Hospital the other day. At the casualty department, where accident –53—are treated, the doctors were battling to save the life of a man who had just been knocked down in a road accident.",
+      "options": [
+        "A. convicts",
+        "B. culprits",
+        "C. motorists",
+        "D. victims"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 54,
+      "question": "I made a visit to the University Teaching Hospital the other day. At the casualty department, where accident victims are treated, the doctors were battling to save the life of a man who had just been knocked down in a road accident.  They –54—the injured man thoroughly with the aid of several -55—instruments such as the –56—used in measuring body temperature and the –57—used in listening to the sound of the heart and the lungs.",
+      "options": [
+        "A. examined",
+        "B. inspected",
+        "C. tested",
+        "D. consulted"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 55,
+      "question": "I made a visit to the University Teaching Hospital the other day. At the casualty department, where accident victims are treated, the doctors were battling to save the life of a man who had just been knocked down in a road accident.  They examined the injured man thoroughly with the aid of several -55—instruments such as the –56—used in measuring body temperature and the –57—used in listening to the sound of the heart and the lungs.",
+      "options": [
+        "A. clinical",
+        "B. biological",
+        "C. pathological",
+        "D. laboratory"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 56,
+      "question": "I made a visit to the University Teaching Hospital the other day. At the casualty department, where accident victims are treated, the doctors were battling to save the life of a man who had just been knocked down in a road accident.  They examined the injured man thoroughly with the aid of several clinical instruments such as the –56—used in measuring body temperature and the –57—used in listening to the sound of the heart and the lungs.",
+      "options": [
+        "A. thermometer",
+        "B. speedometer",
+        "C. barometer",
+        "D. ammeter"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 57,
+      "question": "I made a visit to the University Teaching Hospital the other day. At the casualty department, where accident victims are treated, the doctors were battling to save the life of a man who had just been knocked down in a road accident.  They examined the injured man thoroughly with the aid of several clinical instruments such as the thermometer used in measuring body temperature and the –57—used in listening to the sound of the heart and the lungs.",
+      "options": [
+        "A. telescope",
+        "B. horoscope",
+        "C. microscope",
+        "D. stethoscope"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 58,
+      "question": "By using –58--, several internal parts of the patient’s body were filmed.",
+      "options": [
+        "A. x-ray",
+        "B. xylophone",
+        "C. heat rays",
+        "D. sun rays"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 59,
+      "question": "Anti-tetanus and pain-killing injections were given. It is bleeding was stopped. The nurse –59—his wounds and he was carried on a stretcher to the special unit—60—where those under intensive care are kept.",
+      "options": [
+        "A. bathed",
+        "B. plastered",
+        "C. rinsed",
+        "D. dressed"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 60,
+      "question": "Anti-tetanus and pain-killing injections were given. It is bleeding was stopped. The nurse plastered his wounds and he was carried on a stretcher to the special unit—60—where those under intensive care are kept.",
+      "options": [
+        "A. house",
+        "B. cell",
+        "C. room",
+        "D. ward"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 61,
+      "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. eight",
+        "B. ate",
+        "C. art",
+        "D. hat"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 62,
+      "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. wear",
+        "B. girl",
+        "C. walk",
+        "D. dough"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 63,
+      "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. book",
+        "B. cough",
+        "C. who",
+        "D. curve"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 64,
+      "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. back",
+        "B. plank",
+        "C. crawl",
+        "D. heater"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 65,
+      "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. quay",
+        "B. leopard",
+        "C. shone",
+        "D. pity"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 66,
+      "question": "Choose the word that has the same consonant sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. further",
+        "B. fatter",
+        "C. hunter",
+        "D. murder"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 67,
+      "question": "Choose the word that has the same consonant sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. ritual",
+        "B. stomach",
+        "C. character",
+        "D. champagne"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 68,
+      "question": "Choose the word that has the same consonant sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. that",
+        "B. those",
+        "C. though",
+        "D. think"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 69,
+      "question": "Choose the word that has the same consonant sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. cart",
+        "B. bark",
+        "C. river",
+        "D. hurl"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 70,
+      "question": "Choose the word that has the same consonant sound as the one represented by the letter(s) underlined",
+      "options": [
+        "A. sick",
+        "B. voice",
+        "C. zeal",
+        "D. shop"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 71,
+      "question": "From the words lettered A-D, choose the one that has the correct main stress",
+      "options": [
+        "A. dramatizaTION",
+        "B. draMAtization",
+        "C. dramatiZAtion",
+        "D. DRAmatization"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 72,
+      "question": "From the words lettered A-D, choose the one that has the correct main stress",
+      "options": [
+        "A. operatioNAL",
+        "B. operaTIOnal",
+        "C. opeRAtional",
+        "D. OPErational"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 73,
+      "question": "From the words lettered A-D, choose the one that has the correct main stress",
+      "options": [
+        "A. capitaLIsm",
+        "B. capiTAlism",
+        "C. caPItalism",
+        "D. CApitalism"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 74,
+      "question": "From the words lettered A-D, choose the one that has the correct main stress",
+      "options": [
+        "A. irREversible",
+        "B. irreverSIble",
+        "C. IRreversible",
+        "D. irreVERsible"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 75,
+      "question": "From the words lettered A-D, choose the one that has the correct main stress",
+      "options": [
+        "A. catholiciSM",
+        "B. cathoLIcism",
+        "C. CAtholicism",
+        "D. caTHOlicism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 76,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /e /",
+      "options": [
+        "A. key",
+        "B. wanted",
+        "C. eke",
+        "D. leopard"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 77,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /ɪ /",
+      "options": [
+        "A. sit",
+        "B. heel",
+        "C. high",
+        "D. bite"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 78,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /h/",
+      "options": [
+        "A. heir",
+        "B. how",
+        "C. hour",
+        "D. honour"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 79,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /t/",
+      "options": [
+        "A. listen",
+        "B. carried",
+        "C. walked",
+        "D. action"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 80,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /aɪ /",
+      "options": [
+        "A. cake",
+        "B. mail",
+        "C. mark",
+        "D. bye"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 81,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /k/",
+      "options": [
+        "A. champion",
+        "B. chief",
+        "C. champ",
+        "D. chorus"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 82,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /æ /",
+      "options": [
+        "A. market",
+        "B. branch",
+        "C. plant",
+        "D. mango"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 83,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /d/",
+      "options": [
+        "A. rounded",
+        "B. handsome",
+        "C. adjust",
+        "D. passed"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 84,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /Ʒ: /",
+      "options": [
+        "A. judge",
+        "B. surface",
+        "C. month",
+        "D. surprise"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 85,
+      "question": "Choose the word that contain the sound represented by the given phonetic symbol /b/",
+      "options": [
+        "A. doubt",
+        "B. debt",
+        "C. amber",
+        "D. comb"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 86,
+      "question": "Kemi is a SLOW writer",
+      "options": [
+        "A. Is Chris a slow writer?",
+        "B. Is Kemi a slow hunter?",
+        "C. Is Andy a slow writer?",
+        "D. Is Kemi a lazy writer?"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 87,
+      "question": "The farmer is IN the garden",
+      "options": [
+        "A. Who is in the garden?",
+        "B. Who is outside the garden?",
+        "C. Who is in the field?",
+        "D. Who is in the forest?"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 88,
+      "question": "Chinwe is usually HOSPITABLE to strangers",
+      "options": [
+        "A. Is Chinwe usually hospitable to foes?",
+        "B. Is Ada usually hospitable to strangers?",
+        "C. Is Chinwe seldom hospitable to strangers?",
+        "D. Is Chinwe usually hostile to strangers?"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 89,
+      "question": "HE asked John to come today",
+      "options": [
+        "A. Did he ask Dad to come today?",
+        "B. Did she ask John to come today?",
+        "C. Did he ask John to come next week?",
+        "D. Did he order John to come today?"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 90,
+      "question": "My UNCLE is never angry",
+      "options": [
+        "A. Is your uncle always angry?",
+        "B. Is your uncle never happy?",
+        "C. Is your friend’s uncle never angry?",
+        "D. Is your father never angry?"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 91,
+      "question": "Choose the word that rhymes with the given word Letter",
+      "options": [
+        "A. gather",
+        "B. wetter",
+        "C. either",
+        "D. ladder"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 92,
+      "question": "Choose the word that rhymes with the given word Head",
+      "options": [
+        "A. heard",
+        "B. herd",
+        "C. heed",
+        "D. shed"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 93,
+      "question": "Choose the word that rhymes with the given word Diction",
+      "options": [
+        "A. dictionary",
+        "B. mixture",
+        "C. fusion",
+        "D. fiction"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 94,
+      "question": "Choose the word that rhymes with the given word Mountain",
+      "options": [
+        "A. fountain",
+        "B. country",
+        "C. bounty",
+        "D. contain"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 95,
+      "question": "Choose the word that rhymes with the given word Table",
+      "options": [
+        "A. status",
+        "B. tablet",
+        "C. cater",
+        "D. label"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 96,
+      "question": "Identify the word with the different stress pattern in each of the following options lettered a to D",
+      "options": [
+        "A. tenure",
+        "B. digress",
+        "C. invite",
+        "D. express"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 97,
+      "question": "Identify the word with the different stress pattern in each of the following options lettered a to D",
+      "options": [
+        "A. colleagues",
+        "B. success",
+        "C. challenge",
+        "D. vomit"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 98,
+      "question": "Identify the word with the different stress pattern in each of the following options lettered a to D",
+      "options": [
+        "A. crusade",
+        "B. respite",
+        "C. response",
+        "D. despite"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 99,
+      "question": "Identify the word with the different stress pattern in each of the following options lettered a to D",
+      "options": [
+        "A. simply",
+        "B. opponent",
+        "C. sacrifice",
+        "D. prevalent"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 100,
+      "question": "Identify the word with the different stress pattern in each of the following options lettered a to D",
+      "options": [
+        "A. recession",
+        "B. important",
+        "C. magazine",
+        "D. component"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "class_category": "SS2"
+}

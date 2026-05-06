@@ -1,0 +1,194 @@
+{
+  "subject": "English Language",
+  "class": "SS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 60,
+  "questions": [
+
+    {
+      "id": 1,
+      "isInstruction": true,
+      "question": "SECTION 1:\nChoose the option (A–D) that is most nearly OPPOSITE in meaning to the underlined word and correctly fills the gap.",
+      "options": [],
+      "diagram": null
+    },
+
+    {
+      "id": 2,
+      "question": "It was a very <span class=\"focus-word\">harmonious</span> meeting without one __________ note.",
+      "options": ["A. divergent", "B. adverse", "C. discordant", "D. strident"],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "The man was accused of <span class=\"focus-word\">premeditated</span> murder but he pleaded that it was __________.",
+      "options": ["A. determined", "B. accidental", "C. planned", "D. contrived"],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "We nearly lost the trend of his argument because of its complexity but the __________ of his language helped.",
+      "options": ["A. simplicity", "B. correctness", "C. openness", "D. naively"],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Uche achieved <span class=\"focus-word\">ultimate</span> success after overcoming many __________ difficulties.",
+      "options": ["A. grave", "B. challenging", "C. first", "D. initial"],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "I should know what to do under normal circumstances but this is a very __________ situation.",
+      "options": ["A. different", "B. unlikely", "C. unusual", "D. improbable"],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "Bola is quite <span class=\"focus-word\">extravagant</span> whereas his wife is __________.",
+      "options": ["A. considerate", "B. ordinary", "C. wasteful", "D. thrifty"],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "This is quite surprising that you cannot differentiate between the authentic and the __________ receipt.",
+      "options": ["A. false", "B. fake", "C. wrong", "D. illegal"],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Many people objected to the demolition of the toll gates whose __________ cost millions of dollars.",
+      "options": ["A. construction", "B. formation", "C. maintenance", "D. design"],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "To some people the custom is <span class=\"focus-word\">repugnant</span> but to others it is __________.",
+      "options": ["A. captivating", "B. delight", "C. popular", "D. acceptable"],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "While the armed robber remained <span class=\"focus-word\">unruffled</span>, his wife became __________.",
+      "options": ["A. defiant", "B. rude", "C. agitated", "D. energetic"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 12,
+      "isInstruction": true,
+      "question": "SECTION 2:\nChoose the word that best completes each sentence.",
+      "options": [],
+      "diagram": null
+    },
+
+    { "id": 13, "question": "Many people were seriously injured in the __________ accident.", "options": ["A. ghastly", "B. fatal", "C. reckless", "D. dangerous"], "correctOption": "A" },
+    { "id": 14, "question": "The president granted the condemned prisoner a __________.", "options": ["A. reprieve", "B. remission", "C. bail", "D. chance"], "correctOption": "A" },
+    { "id": 15, "question": "It was difficult for the doctor to __________ the patient’s ailment.", "options": ["A. discover", "B. decide", "C. divine", "D. diagnose"], "correctOption": "D" },
+    { "id": 16, "question": "They wished her __________ of the season.", "options": ["A. compliments", "B. compliment", "C. complement", "D. complements"], "correctOption": "A" },
+    { "id": 17, "question": "Chief Oko detests publicity because he __________ it.", "options": ["A. lacks", "B. cherishes", "C. detests", "D. understands"], "correctOption": "C" },
+    { "id": 18, "question": "A befitting __________ was paid to the memory of the departed scholar.", "options": ["A. tribute", "B. reward", "C. contribution", "D. praise"], "correctOption": "A" },
+    { "id": 19, "question": "This land is dry; we have to __________ the plants.", "options": ["A. wet", "B. sprinkle", "C. shower", "D. water"], "correctOption": "D" },
+    { "id": 20, "question": "You will just __________ trouble for yourself.", "options": ["A. invite", "B. increase", "C. create", "D. produce"], "correctOption": "A" },
+
+    {
+      "id": 21,
+      "isInstruction": true,
+      "question": "SECTION 3:\nChoose the interpretation that best explains each sentence.",
+      "options": [],
+      "diagram": null
+    },
+
+    { "id": 22, "question": "Joe made a clean breast of his offence. This means he:", "options": ["A. ran away", "B. made friends", "C. told the whole truth", "D. pleaded innocence"], "correctOption": "C" },
+    { "id": 23, "question": "She was a shadow of her former self. This means she:", "options": ["A. looked like a shadow", "B. was withdrawn", "C. changed a little", "D. was thin and weak"], "correctOption": "D" },
+    { "id": 24, "question": "I have a soft spot for her. This means I:", "options": ["A. dislike her", "B. am fond of her", "C. fear her", "D. control her"], "correctOption": "B" },
+
+    {
+      "id": 25,
+      "isInstruction": true,
+      "question": "SECTION 4:\nChoose the word nearest in meaning to the underlined word.",
+      "options": [],
+      "diagram": null
+    },
+
+    { "id": 26, "question": "She <span class=\"focus-word\">stifled</span> a cry of astonishment.", "options": ["A. suppressed", "B. shouted", "C. forced", "D. hid"], "correctOption": "A" },
+    { "id": 27, "question": "That rock is a <span class=\"focus-word\">potential</span> danger.", "options": ["A. possible", "B. unexpected", "C. obvious", "D. serious"], "correctOption": "A" },
+    { "id": 28, "question": "His contribution remains <span class=\"focus-word\">unrivalled</span>.", "options": ["A. unbroken", "B. unparalleled", "C. undisputed", "D. unknown"], "correctOption": "B" },
+
+    {
+      "id": 29,
+      "isInstruction": true,
+      "question": "SECTION 5:\nChoose the option that best completes each sentence.",
+      "options": [],
+      "diagram": null
+    },
+
+    { "id": 30, "question": "The policy took __________ last year.", "options": ["A. out", "B. off", "C. of", "D. up"], "correctOption": "B" },
+    { "id": 31, "question": "I will look out __________ you.", "options": ["A. for", "B. at", "C. to", "D. on"], "correctOption": "A" },
+
+    {
+      "id": 32,
+      "isInstruction": true,
+      "question": "SECTION 6:\nChoose the most appropriate option to fill each numbered gap in the passage.",
+      "options": [],
+      "diagram": null
+    },
+
+    {
+      "id": 33,
+      "passage": "The problem of unemployment is very great. The 79 ___ of labour is greater than jobs provided.",
+      "question": "79.",
+      "options": ["A. circulation", "B. distribution", "C. stock", "D. supply"],
+      "correctOption": "D"
+    },
+
+
+{
+  "id": 56,
+  "isInstruction": true,
+  "question": "SECTION 6:\nChoose the most suitable word to fill each numbered gap in the passages.",
+  "options": [],
+  "diagram": null
+},
+
+{
+  "id": 57,
+  "passage": "PASSAGE A:\nThe problem of unemployment is very great in many African countries. The ___79___ of labour is always far greater than the number of ___80___ provided. Consequently, there are armies of job seekers roaming the streets. It is the responsibility of the government to create jobs and organize ___81___ programmes in order to achieve greater employment. ___82___ can be sunk into those ___83___, which can absorb more ___84___. A man with a regular job will be able to feed himself and save a little in the bank which will earn him some ___85___. The government could raise money through a rational economic ___86___, whereby undue consumption of luxury and foreign goods is discouraged. The country’s ___87___ structure can also be planned so that nationals are encouraged to work harder for adequate incentives. The government can also protect ___88___ industries.",
+  "question": "79.",
+  "options": ["A. circulation", "B. distribution", "C. stock", "D. supply"],
+  "correctOption": "D"
+},
+
+{ "id": 58, "question": "80.", "options": ["A. work", "B. jobs", "C. careers", "D. activities"], "correctOption": "B" },
+{ "id": 59, "question": "81.", "options": ["A. impact", "B. crash", "C. turnover", "D. remedial"], "correctOption": "D" },
+{ "id": 60, "question": "82.", "options": ["A. capital", "B. salaries", "C. reserves", "D. income"], "correctOption": "A" },
+{ "id": 61, "question": "83.", "options": ["A. plans", "B. arrangements", "C. projects", "D. concepts"], "correctOption": "C" },
+{ "id": 62, "question": "84.", "options": ["A. effort", "B. officers", "C. labourers", "D. workers"], "correctOption": "D" },
+{ "id": 63, "question": "85.", "options": ["A. increment", "B. interest", "C. credit", "D. surplus"], "correctOption": "B" },
+{ "id": 64, "question": "86.", "options": ["A. objective", "B. goal", "C. policy", "D. solution"], "correctOption": "C" },
+{ "id": 65, "question": "87.", "options": ["A. salary", "B. tariff", "C. insurance", "D. family"], "correctOption": "D" },
+{ "id": 66, "question": "88.", "options": ["A. poor", "B. infant", "C. competing", "D. complementary"], "correctOption": "B" },
+
+{
+  "id": 67,
+  "passage": "PASSAGE B:\nSally and Jake had to share the same house because of accommodation difficulties. After some time, they found themselves compatible and fell in love. They then decided to ___89___ to cement their relationship. Sally ___90___ her boyfriend to her parents, who approved of their getting ___91___. Jake in turn took his ___92___ to his parents. They too gave their blessing to the relationship and the ___93___ day was fixed. Both families then set about preparing for the great day. There was a large attendance and the ___94___ priest advised the ___95___ to remain ___96___ to each other all their lives and never ___97___. A grand ___98___ was held during which friends and relatives showered ___99___ on them. The newly-weds then left on their ___100___.",
+  "question": "89.",
+  "options": ["A. cooperate", "B. unite", "C. join", "D. marry"],
+  "correctOption": "D"
+},
+
+{ "id": 68, "question": "90.", "options": ["A. introduced", "B. disclosed", "C. revealed", "D. invited"], "correctOption": "A" },
+{ "id": 69, "question": "91.", "options": ["A. connected", "B. engaged", "C. admitted", "D. accepted"], "correctOption": "B" },
+{ "id": 70, "question": "92.", "options": ["A. companion", "B. finance", "C. partner", "D. colleague"], "correctOption": "C" },
+{ "id": 71, "question": "93.", "options": ["A. unification", "B. blessing", "C. marriage", "D. wedding"], "correctOption": "D" },
+{ "id": 72, "question": "94.", "options": ["A. presiding", "B. praying", "C. officiating", "D. celebrating"], "correctOption": "C" },
+{ "id": 73, "question": "95.", "options": ["A. lovers", "B. friends", "C. couple", "D. two"], "correctOption": "C" },
+{ "id": 74, "question": "96.", "options": ["A. withdrawn", "B. close", "C. loving", "D. faithful"], "correctOption": "D" },
+{ "id": 75, "question": "97.", "options": ["A. collapse", "B. divide", "C. diverse", "D. break"], "correctOption": "D" },
+{ "id": 76, "question": "98.", "options": ["A. celebration", "B. reception", "C. party", "D. get-together"], "correctOption": "B" },
+{ "id": 77, "question": "99.", "options": ["A. gifts", "B. prizes", "C. valuables", "D. offerings"], "correctOption": "A" },
+{ "id": 78, "question": "100.", "options": ["A. holiday", "B. retreat", "C. leave", "D. honeymoon"], "correctOption": "D" }
+
+    
+  ]
+}

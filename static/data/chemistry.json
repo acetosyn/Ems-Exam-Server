@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Chemistry",
+  "exam_title": "CHEMISTRY INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The quantum number that specifies the orientation of an orbital in space is:",
+      "options": ["Principal (n)", "Azimuthal (l)", "Magnetic (m_l)", "Spin (m_s)"],
+      "answer": "Magnetic (m_l)"
+    },
+    {
+      "id": 2,
+      "question": "According to Hund's rule, electrons in degenerate orbitals:",
+      "options": ["Pair up immediately", "Occupy orbitals singly with parallel spins before pairing", "Have opposite spins in the same orbital", "Fill from higher to lower energy"],
+      "answer": "Occupy orbitals singly with parallel spins before pairing"
+    },
+    {
+      "id": 3,
+      "question": "The element with the highest first ionization energy in the periodic table is:",
+      "options": ["Helium", "Neon", "Fluorine", "Argon"],
+      "answer": "Helium"
+    },
+    {
+      "id": 4,
+      "question": "In the Aufbau principle, the order of filling orbitals is:",
+      "options": ["1s, 2s, 2p, 3s, 3p, 4s, 3d...", "1s, 2s, 2p, 3s, 3d, 4s, 4p...", "1s, 2p, 2s, 3s, 3p, 4s, 3d...", "1s, 2s, 3s, 2p, 3p, 4s, 3d..."],
+      "answer": "1s, 2s, 2p, 3s, 3p, 4s, 3d..."
+    },
+    {
+      "id": 5,
+      "question": "The electron affinity trend down a group in the periodic table is:",
+      "options": ["Increases", "Decreases", "Remains constant", "Fluctuates irregularly"],
+      "answer": "Decreases"
+    },
+    {
+      "id": 6,
+      "question": "Which quantum mechanical model best explains the stability of atoms with half-filled or fully filled subshells?",
+      "options": ["Bohr model", "Exchange energy and symmetry in molecular orbital theory", "Rutherford model", "Thomson plum pudding model"],
+      "answer": "Exchange energy and symmetry in molecular orbital theory"
+    },
+    {
+      "id": 7,
+      "question": "The atomic radius of transition metals generally:",
+      "options": ["Increases across the period", "Decreases across the period", "Remains constant", "Increases down the group only"],
+      "answer": "Decreases across the period"
+    },
+    {
+      "id": 8,
+      "question": "Isotopes of an element differ in:",
+      "options": ["Atomic number", "Number of protons", "Number of neutrons", "Electron configuration"],
+      "answer": "Number of neutrons"
+    },
+    {
+      "id": 9,
+      "question": "In VSEPR theory, the bond angle in SF₆ is:",
+      "options": ["90°", "109.5°", "120°", "180° (octahedral)"],
+      "answer": "90°"
+    },
+    {
+      "id": 10,
+      "question": "The hybridization of the carbon atom in CH₃⁺ is:",
+      "options": ["sp³", "sp²", "sp", "sp³d"],
+      "answer": "sp²"
+    },
+    {
+      "id": 11,
+      "question": "Fajans' rules predict that the ionic character increases with:",
+      "options": ["Smaller cation and larger anion", "Larger cation and smaller anion", "High charge on both ions", "Low polarizing power"],
+      "answer": "Larger cation and smaller anion"
+    },
+    {
+      "id": 12,
+      "question": "The bond order in O₂ molecule is:",
+      "options": ["1", "2", "3", "1.5"],
+      "answer": "2"
+    },
+    {
+      "id": 13,
+      "question": "Which molecule exhibits hydrogen bonding?",
+      "options": ["CH₄", "NH₃", "CCl₄", "CO₂"],
+      "answer": "NH₃"
+    },
+    {
+      "id": 14,
+      "question": "In coordinate bonding, the shared pair of electrons comes from:",
+      "options": ["Both atoms equally", "One atom only", "Neither atom", "Valence shell overlap"],
+      "answer": "One atom only"
+    },
+    {
+      "id": 15,
+      "question": "The lattice energy of an ionic compound is highest for:",
+      "options": ["Small ions with high charges", "Large ions with low charges", "Only cations small", "Only anions small"],
+      "answer": "Small ions with high charges"
+    },
+    {
+      "id": 16,
+      "question": "The van der Waals equation corrects for:",
+      "options": ["Ideal gas assumptions of point masses and no interactions", "Volume of molecules and intermolecular forces", "Temperature dependence only", "Pressure-volume work"],
+      "answer": "Volume of molecules and intermolecular forces"
+    },
+    {
+      "id": 17,
+      "question": "Raoult's law applies to:",
+      "options": ["Ideal solutions where vapor pressure is proportional to mole fraction", "Non-ideal solutions", "Pure solvents only", "Gases in solution"],
+      "answer": "Ideal solutions where vapor pressure is proportional to mole fraction"
+    },
+    {
+      "id": 18,
+      "question": "The elevation in boiling point is a colligative property dependent on:",
+      "options": ["Number of solute particles", "Nature of solute", "Temperature", "Pressure"],
+      "answer": "Number of solute particles"
+    },
+    {
+      "id": 19,
+      "question": "In critical solution temperature, for upper consolute temperature systems like phenol-water:",
+      "options": ["Miscibility increases with temperature", "Miscibility decreases with temperature", "No effect", "Only for lower consolute"],
+      "answer": "Miscibility increases with temperature"
+    },
+    {
+      "id": 20,
+      "question": "Henry's law constant increases with:",
+      "options": ["Increase in temperature for gases", "Decrease in pressure", "Increase in solubility", "Decrease in temperature"],
+      "answer": "Increase in temperature for gases"
+    },
+    {
+      "id": 21,
+      "question": "For a spontaneous process at constant T and P, ΔG must be:",
+      "options": ["Positive", "Negative", "Zero", "Greater than ΔH"],
+      "answer": "Negative"
+    },
+    {
+      "id": 22,
+      "question": "The rate law for a reaction is rate = k [A]² [B]. If [A] is doubled and [B] halved, the rate becomes:",
+      "options": ["Same", "Doubled", "Quadrupled", "Halved"],
+      "answer": "Doubled"
+    },
+    {
+      "id": 23,
+      "question": "Activation energy is related to rate constant by Arrhenius equation: k = A e^(-Ea/RT). To increase k, Ea should:",
+      "options": ["Increase", "Decrease", "Remain same", "Depend on A only"],
+      "answer": "Decrease"
+    },
+    {
+      "id": 24,
+      "question": "In an endothermic reaction, the enthalpy change ΔH is:",
+      "options": ["Positive", "Negative", "Zero", "Equal to ΔS"],
+      "answer": "Positive"
+    },
+    {
+      "id": 25,
+      "question": "Hess's law allows calculation of ΔH for a reaction from:",
+      "options": ["Standard enthalpies of formation", "Bond energies only", "Entropy values", "Free energy"],
+      "answer": "Standard enthalpies of formation"
+    },
+    {
+      "id": 26,
+      "question": "For the reaction N₂ + 3H₂ ⇌ 2NH₃, Kc = [NH₃]² / ([N₂][H₂]³). If volume doubles, Kc:",
+      "options": ["Doubles", "Halves", "Remains same", "Quadruples"],
+      "answer": "Remains same"
+    },
+    {
+      "id": 27,
+      "question": "The pH of a 0.1 M solution of a weak acid with Ka = 10⁻⁵ is approximately:",
+      "options": ["1", "3", "5", "7"],
+      "answer": "3"
+    },
+    {
+      "id": 28,
+      "question": "Buffer capacity is maximum when:",
+      "options": ["[Acid] = [Salt]", "[Acid] >> [Salt]", "[Salt] >> [Acid]", "pH = 0"],
+      "answer": "[Acid] = [Salt]"
+    },
+    {
+      "id": 29,
+      "question": "In electrolysis of NaCl solution, the product at cathode is:",
+      "options": ["Cl₂", "Na", "H₂", "O₂"],
+      "answer": "H₂"
+    },
+    {
+      "id": 30,
+      "question": "The standard electrode potential of a half-cell indicates:",
+      "options": ["Tendency to gain electrons (reduction)", "Tendency to lose electrons (oxidation)", "Neutral", "Depends on concentration"],
+      "answer": "Tendency to gain electrons (reduction)"
+    },
+    {
+      "id": 31,
+      "question": "Le Chatelier's principle predicts that for endothermic reaction, increasing temperature shifts equilibrium:",
+      "options": ["Left", "Right", "No shift", "Depends on pressure"],
+      "answer": "Right"
+    },
+    {
+      "id": 32,
+      "question": "The common ion effect suppresses:",
+      "options": ["Dissociation of weak electrolytes", "Ionization of strong electrolytes", "Solubility of sparingly soluble salts", "Both A and C"],
+      "answer": "Both A and C"
+    },
+    {
+      "id": 33,
+      "question": "The reaction of alkene with KMnO₄ (cold, dilute) gives:",
+      "options": ["Carboxylic acid", "Diol", "Aldehyde", "Ketone only"],
+      "answer": "Diol"
+    },
+    {
+      "id": 34,
+      "question": "In SN1 reaction, the rate depends on:",
+      "options": ["Both substrate and nucleophile", "Substrate only (carbocation intermediate)", "Nucleophile only", "Solvent only"],
+      "answer": "Substrate only (carbocation intermediate)"
+    },
+    {
+      "id": 35,
+      "question": "The hybridization in ethyne (C₂H₂) is:",
+      "options": ["sp³", "sp²", "sp", "sp³d"],
+      "answer": "sp"
+    },
+    {
+      "id": 36,
+      "question": "Lanthanide contraction refers to:",
+      "options": ["Decrease in atomic size from La to Lu due to poor shielding of 4f electrons", "Increase in size down the group", "Expansion in actinides", "No effect on size"],
+      "answer": "Decrease in atomic size from La to Lu due to poor shielding of 4f electrons"
+    },
+    {
+      "id": 37,
+      "question": "The test for unsaturation in organic compounds uses:",
+      "options": ["Br₂ water (decolorization)", "Fehling's solution", "Tollens' reagent", "Iodoform test"],
+      "answer": "Br₂ water (decolorization)"
+    },
+    {
+      "id": 38,
+      "question": "In coordination compounds, the isomerism due to ligand arrangement around metal is:",
+      "options": ["Structural", "Geometrical (cis-trans)", "Optical", "Ionization"],
+      "answer": "Geometrical (cis-trans)"
+    },
+    {
+      "id": 39,
+      "question": "The functional group in alcohols that reacts with Lucas reagent to give turbidity is:",
+      "options": ["-OH (tertiary fastest)", "-COOH", "-CHO", "-NH₂"],
+      "answer": "-OH (tertiary fastest)"
+    },
+    {
+      "id": 40,
+      "question": "The ore of aluminum, bauxite, is purified by:",
+      "options": ["Froth flotation", "Bayer's process (precipitation as Al(OH)₃)", "Roasting", "Smelting"],
+      "answer": "Bayer's process (precipitation as Al(OH)₃)"
+    }
+  ]
+}

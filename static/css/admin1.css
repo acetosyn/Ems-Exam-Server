@@ -1,0 +1,692 @@
+/* ==========================================================
+   EMIS CBT ADMIN CORE STYLE — admin1.css
+   ----------------------------------------------------------
+   Scope: Root tokens, header, sidebar, layout, buttons,
+          tables, uploads, panels, animations, dark mode,
+          responsiveness.
+   Built for: admin.html (Parts 1–3)
+   Author: Epiconsult Tech Division — 2025
+========================================================== */
+
+
+/* ==========================================================
+   == 0. ROOT TOKENS & RESET
+========================================================== */
+:root {
+  --primary: #0f2b46;
+  --primary-dark: #081a2b;
+  --primary-glow: #183b63;
+  --accent: #e11d48;
+  --accent-light: #f43f5e;
+  --bg-soft: #f8fafc;
+  --bg-white: #ffffff;
+  --text-dark: #0f172a;
+  --text-light: #ffffff;
+  --radius: 12px;
+  --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.12);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.18);
+  --transition: all .3s ease;
+  --sidebar-width: 160px;       /* reduced from 190px */
+  --sidebar-collapsed: 60px;    /* slightly smaller collapsed version */
+  --header-height: 72px;
+  --glass: rgba(255,255,255,0.15);
+  --blur: blur(12px);
+  --border: #e5e7eb;
+  --border-soft: #f1f5f9;
+}
+
+/* Reset */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-soft);
+  color: var(--text-dark);
+  font-family: Inter, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Utility text */
+.text-primary { color: var(--primary); }
+.text-primary-dark { color: var(--primary-dark); }
+.bg-bg-soft { background: var(--bg-soft); }
+
+
+
+/* ==========================================================
+   == 1. ADMIN SHELL & HEADER EXTENSION
+========================================================== */
+.admin-shell {
+  min-height: 100vh;
+  display: block;
+  background: var(--bg-soft);
+}
+
+.top-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-height);
+  display: flex; align-items: center; gap: 1.2rem;
+  background: linear-gradient(145deg, var(--primary-dark), var(--primary), #193a64);
+  padding: 0 1.5rem;
+  z-index: 1100;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: var(--blur);
+}
+
+.brand-logo { height: 40px; border-radius: 8px; }
+.brand-title {
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 800; color: #fff; font-size: 1.3rem;
+  letter-spacing: 0.2px;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 1rem;
+}
+.header-actions button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: var(--transition);
+}
+.header-actions button:hover {
+  color: var(--accent-light);
+  transform: scale(1.1);
+}
+
+/* ==========================================================
+   == 2. SIDEBAR (Unified — Desktop + Mobile + Overlay)
+   ----------------------------------------------------------
+   Features:
+   • Smooth collapse on desktop
+   • Slide-in overlay on mobile
+   • Fixes dropdown stacking and blur issue
+   • Clean transition between viewports
+========================================================== */
+.sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  height: calc(100vh - var(--header-height));
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, #344a61 0%, #2b3f54 100%);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+  overflow-y: auto;
+  transition: width 0.25s ease, transform 0.35s ease-in-out, opacity 0.25s ease;
+  z-index: 1000;
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+}
+
+/* --- Collapsed (Desktop) --- */
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed);
+}
+.sidebar.collapsed .sidebar-title,
+.sidebar.collapsed .sidebar-menu a span,
+.sidebar.collapsed .btn-logout span {
+  display: none;
+}
+.sidebar.collapsed .sidebar-menu a {
+  justify-content: center;
+  padding: 0.7rem 0;
+}
+.sidebar.collapsed .sidebar-menu i {
+  font-size: 1.2rem;
+}
+
+/* --- Sidebar Header --- */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-header .flex-col {
+  margin-left: 2.1rem;
+}
+.sidebar-header button {
+  color: #fff;
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.sidebar-header button:hover {
+  color: var(--accent);
+}
+
+/* --- Menu Links --- */
+.sidebar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 1rem 0.5rem;
+}
+.sidebar-menu li {
+  position: relative;
+}
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  color: #f1f5f9;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+.sidebar-menu a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(3px);
+}
+.sidebar-menu a.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* --- Icons --- */
+.sidebar i {
+  width: 22px;
+  text-align: center;
+  font-size: 1rem;
+  color: #f1f5f9;
+  transition: color 0.3s ease;
+}
+
+/* --- Logout Button --- */
+.sidebar .btn-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 1rem auto;
+  width: calc(100% - 1.2rem);
+  background: #e11d48;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.55rem 0;
+  font-weight: 700;
+  font-size: 0.88rem;
+  transition: var(--transition);
+}
+.sidebar .btn-logout:hover {
+  background: #be123c;
+  transform: scale(1.03);
+}
+
+/* ==========================================================
+   == FIXED MOBILE SIDEBAR VISIBILITY & OVERLAY BEHAVIOR (v3.2 Stable)
+========================================================== */
+@media (max-width: 768px) {
+  /* Sidebar Base */
+  .sidebar {
+    position: fixed !important;
+    top: var(--header-height);
+    left: 0;
+    width: 14rem;
+    height: calc(100vh - var(--header-height));
+    background: linear-gradient(180deg, #344a61 0%, #2b3f54 100%);
+    box-shadow: 6px 0 16px rgba(0, 0, 0, 0.25);
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      transform 0.35s ease-in-out,
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
+    z-index: 2300 !important; /* above overlay, below header */
+  }
+
+  /* Sidebar Open State */
+  .sidebar.open {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Keep main content stationary when sidebar opens */
+  .main-content {
+    margin-left: 0 !important;
+    transition: none !important;
+  }
+
+  /* Overlay — Dim Background When Sidebar Is Active */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2200 !important; /* under sidebar */
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  body.sidebar-open .sidebar-overlay {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Toggle button stays visible above everything */
+  #mobileSidebarBtn {
+    position: fixed;
+    top: calc(var(--header-height) + 0.7rem);
+    left: 0.7rem;
+    z-index: 2400 !important;
+    transition: transform 0.3s ease;
+  }
+
+  #mobileSidebarBtn:hover {
+    transform: scale(1.08);
+  }
+}
+
+/* ==========================================================
+   == 2.2 SIDEBAR TOGGLE BUTTONS
+========================================================== */
+#sidebarToggle,
+#mobileSidebarBtn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2300;
+}
+#sidebarToggle:hover,
+#mobileSidebarBtn:hover {
+  transform: scale(1.08);
+}
+
+/* Keep toggle visible when collapsed */
+.sidebar.collapsed + #sidebarToggle {
+  left: 0.6rem !important;
+}
+
+
+/* ==========================================================
+   == 3. MAIN CONTENT & LAYOUT
+========================================================== */
+.main-content {
+  margin-top: var(--header-height);
+  margin-left: var(--sidebar-width);
+  padding: 2rem;
+  min-height: calc(100vh - var(--header-height));
+  transition: var(--transition);
+}
+.sidebar.collapsed ~ .main-content {
+  margin-left: var(--sidebar-collapsed);
+}
+
+
+
+/* ==========================================================
+   == 4. DASHBOARD ELEMENTS & STAT CARDS
+========================================================== */
+.card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.2rem 1.5rem;
+  transition: var(--transition);
+}
+.card:hover { box-shadow: var(--shadow-md); }
+
+.stat-card {
+  color: #fff;
+  border-radius: 16px;
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+}
+.stat-card:hover { transform: translateY(-2px); }
+
+.stat-card .bg-white\/20 {
+  background: rgba(255,255,255,0.2);
+}
+
+
+
+/* ==========================================================
+   == 5. BUTTON SYSTEM
+========================================================== */
+.btn-primary, .btn-secondary, .btn-accent,
+.btn-orange, .btn-green, .btn-gray, .btn-danger {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  gap: 0.4rem;
+  border: none; border-radius: 12px;
+  padding: 0.55rem 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition);
+}
+
+.btn-primary { background: #3b82f6; color: #fff; }
+.btn-primary:hover { background: #2563eb; box-shadow: 0 8px 24px rgba(37,99,235,.25); }
+
+.btn-secondary { background: #eef2f7; color: var(--primary-dark); border: 1px solid var(--border); }
+.btn-secondary:hover { background: #e5e9f0; }
+
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover { background: #bf123d; }
+
+.btn-orange { background: #f59e0b; color: #fff; }
+.btn-orange:hover { background: #d97706; }
+
+.btn-green { background: #10b981; color: #fff; }
+.btn-green:hover { background: #059669; }
+
+.btn-gray { background: #e5e7eb; color: var(--primary-dark); }
+.btn-gray:hover { background: #d1d5db; }
+
+.btn-danger { background: #ef4444; color: #fff; }
+.btn-danger:hover { background: #dc2626; }
+
+
+
+/* ==========================================================
+   == 6. FORMS & INPUTS
+========================================================== */
+.form-label {
+  display: block;
+  font-weight: 700;
+  font-size: .9rem;
+  margin-bottom: .35rem;
+  color: var(--primary-dark);
+}
+.form-input, select.form-input, textarea.form-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .65rem .8rem;
+  font-size: .95rem;
+  transition: var(--transition);
+  color: var(--text-dark);
+  outline: none;
+}
+.form-input:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 4px rgba(59,130,246,.15);
+}
+.form-input::placeholder { color: #9ca3af; }
+
+
+
+/* ==========================================================
+   == 7. TABLES
+========================================================== */
+table { border-collapse: collapse; width: 100%; }
+table th, table td {
+  padding: 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+table thead th {
+  font-size: .78rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+tbody tr:hover { background: #fafafa; }
+
+
+
+/* ==========================================================
+   == 8. UPLOAD WIDGETS
+========================================================== */
+.drop_box {
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 1.2rem;
+  background: #fff;
+  text-align: center;
+  transition: var(--transition);
+}
+.drop_box:hover {
+  border-color: #60a5fa;
+  background: #f8fbff;
+}
+.progress {
+  width: 100%;
+  height: 10px;
+  background: #eef2f7;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width .3s ease;
+}
+
+
+
+/* ==========================================================
+   == 9. NOTIFICATIONS & ALERT PANELS
+========================================================== */
+#activityList, #errorLogList {
+  background: #fbfdff;
+  border: 1px solid var(--border);
+}
+#clearLogsBtn, #exportLogsBtn { min-width: 140px; }
+
+
+
+/* ==========================================================
+   == 10. SYSTEM STATUS / BADGES
+========================================================== */
+.badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: .75rem; font-weight: 800;
+}
+.badge-success { background: #16a34a; color: #fff; }
+.badge-warning { background: #f59e0b; color: #fff; }
+.badge-danger { background: #ef4444; color: #fff; }
+
+
+
+/* ==========================================================
+   == 11. UNIQUE ID / MOCK / THIRD-PARTY / SUPPORT
+========================================================== */
+#idOutputArea, #mockExamList, #thirdPartyList, #supportForm .form-input {
+  background: #fbfbfe;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+#supportStatus { color: #6b7280; }
+
+
+
+/* ==========================================================
+   == 12. FOOTER
+========================================================== */
+footer {
+  background: var(--primary-dark);
+  color: #cbd5e1;
+  text-align: center;
+  padding: 1rem;
+}
+footer p { line-height: 1.5; margin: 0; }
+
+
+
+/* ==========================================================
+   == 13. ANIMATIONS
+========================================================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn .5s ease both; }
+
+
+/* ==========================================================
+   == HEADER MODULES & NOTIFICATIONS DROPDOWN (FINAL)
+========================================================== */
+/* ==========================================================
+   == Header Dropdown Fix (Modules + Notifications)
+========================================================== */
+.dropdown-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 200px;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text-dark);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow-y: auto;
+  max-height: 280px;
+}
+
+.dropdown-menu a {
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.dropdown-menu a:hover {
+  background: #f3f4f6;
+}
+
+.animate-dropdown {
+  animation: dropdownFade 0.25s ease forwards;
+}
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ==========================================================
+   == HEADER DROPDOWN FIX — OVERLAY PRIORITY
+   Ensures Modules / Notifications dropdown always appear
+   above sidebar and overlay on all devices.
+========================================================== */
+.top-header,
+.top-header * {
+  position: relative;
+  z-index: 3000;
+}
+
+/* Force dropdown menus to be visible above all layers */
+.dropdown-menu {
+  z-index: 3200 !important;
+}
+
+/* Optional: smoother dropdown fade-in animation */
+.dropdown-menu.animate-dropdown {
+  animation: dropdownFade 0.25s ease forwards;
+}
+
+
+/* ==========================================================
+   == 14. DARK MODE
+========================================================== */
+body.dark {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+body.dark .sidebar { background: #1f2937; }
+body.dark .card, body.dark .drop_box {
+  background: #0b1220;
+  border-color: rgba(255,255,255,0.08);
+}
+body.dark .form-input {
+  background: #0b1220;
+  border-color: rgba(255,255,255,0.1);
+  color: #e5e7eb;
+}
+body.dark .btn-secondary { background: #111827; color: #e5e7eb; }
+body.dark footer { background: #1e293b; color: #cbd5e1; }
+
+
+
+/* ==========================================================
+   == 15. RESPONSIVE BREAKPOINTS
+========================================================== */
+@media (max-width: 1280px) {
+  .main-content { padding: 1.8rem 1.4rem; }
+}
+
+@media (max-width: 1024px) {
+  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-cols-6 { grid-template-columns: repeat(3, 1fr); }
+}
+
+
+
+@media (max-width: 480px) {
+  .brand-title { display: none; }
+  .btn-primary, .btn-secondary, .btn-accent,
+  .btn-orange, .btn-green, .btn-gray, .btn-danger {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+
+
+/* ==========================================================
+   MODULES DROPDOWN — ACTIVE ROLE GLOW EFFECT
+   ----------------------------------------------------------
+   Gives a soft animated glow behind the active user role
+   shown in the Modules dropdown menu.
+========================================================== */
+.dropdown-menu a {
+  position: relative;
+  transition: all 0.25s ease;
+  border-left: 3px solid transparent;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f9fafb;
+  transform: translateX(3px);
+}
+
+/* ADMIN glow (accent red) */
+.dropdown-menu a[href*="admin_dashboard"] {
+  border-left-color: transparent;
+}
+.dropdown-menu a[href*="admin_dashboard"].active-role {
+  background: radial-gradient(circle at left, rgba(225, 29, 72, 0.08) 0%, transparent 70%);
+  border-left-color: #e11d48;
+  box-shadow: inset 3px 0 0 #e11d48;
+}
+
+/* TEACHER glow (green) */
+.dropdown-menu a[href*="admin_teachers"].active-role {
+  background: radial-gradient(circle at left, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  border-left-color: #10b981;
+  box-shadow: inset 3px 0 0 #10b981;
+}
+
+/* Optional subtle fade animation */
+@keyframes roleGlowPulse {
+  0% { box-shadow: inset 3px 0 8px rgba(0,0,0,0.05); }
+  50% { box-shadow: inset 3px 0 14px rgba(0,0,0,0.1); }
+  100% { box-shadow: inset 3px 0 8px rgba(0,0,0,0.05); }
+}
+.active-role {
+  animation: roleGlowPulse 2.5s infinite ease-in-out;
+}
+

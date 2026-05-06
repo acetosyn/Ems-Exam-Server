@@ -1,0 +1,659 @@
+{
+  "subject": "Chemistry",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "The oxidation number of sulphur in Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> is",
+      "options": [
+        "A. +2",
+        "B. +3",
+        "C. +4",
+        "D. +6"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Which of the following oxides of nitrogen has oxidation number of +1?",
+      "options": [
+        "A. KNO<sub>3</sub>",
+        "B. N<sub>2</sub>O",
+        "C. N<sub>2</sub>O<sub>3</sub>",
+        "D. NO"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "What product is formed at the cathode during the electrolysis of concentrated sodium chloride solution using carbon electrodes?",
+      "options": [
+        "A. Chlorine",
+        "B. Hydrogen",
+        "C. Oxygen",
+        "D. Sodium"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "What happens at the cathode during electrolysis?",
+      "options": [
+        "A. Anion is oxidized",
+        "B. Anion loses electrons",
+        "C. Cation is oxidized",
+        "D. Cation is discharged"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "Calculate the quantity of electricity passed when 0.4 A flows for 1 hour 20 minutes through an electrolytic cell.",
+      "options": [
+        "A. 4800 C",
+        "B. 3340 C",
+        "C. 1920 C",
+        "D. 32 C"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "Salts that contain water of crystallization are said to be …",
+      "options": [
+        "A. anhydrous",
+        "B. deliquescent",
+        "C. efflorescent",
+        "D. hydrated"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "The colour of phenolphthalein indicator in dilute HNO<sub>3</sub>(aq) is …",
+      "options": [
+        "A. colourless",
+        "B. orange",
+        "C. pink",
+        "D. purple"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "Which of the following hydrohalic acids is the weakest?",
+      "options": [
+        "A. HBr",
+        "B. HCl",
+        "C. HF",
+        "D. HI"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Alums are classified as …",
+      "options": [
+        "A. simple salts",
+        "B. acid salts",
+        "C. anhydrous salts",
+        "D. double salts"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "Which of the following oxides is basic?",
+      "options": [
+        "A. NO<sub>2</sub>",
+        "B. Al<sub>2</sub>O<sub>3</sub>",
+        "C. SO<sub>2</sub>",
+        "D. CaO"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "How many electrons are present in <sup>9</sup><sub>4</sub>Be<sup>2+</sup>?",
+      "options": [
+        "A. 2",
+        "B. 4",
+        "C. 5",
+        "D. 6"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "An atom of an element X gains two electrons. The symbol of the ion formed is …",
+      "options": [
+        "A. X<sup>+</sup>",
+        "B. X<sup>2+</sup>",
+        "C. X<sup>2−</sup>",
+        "D. X<sup>−</sup>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "How many electrons does <sup>31</sup><sub>15</sub>P<sup>3−</sup> contain?",
+      "options": [
+        "A. 12",
+        "B. 15",
+        "C. 16",
+        "D. 18"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "What is the mass number of an element having 20 neutrons, 15 protons and 15 electrons?",
+      "options": [
+        "A. 15",
+        "B. 30",
+        "C. 35",
+        "D. 50"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "The mass spectrometer can be used to measure the mass of …",
+      "options": [
+        "A. an atom",
+        "B. an electron",
+        "C. a proton",
+        "D. a neutron"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "The use of diamond in abrasives is due to its …",
+      "options": [
+        "A. high melting point",
+        "B. hardness",
+        "C. octahedral shape",
+        "D. durability"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "Which of the following oxides is formed as a result of incomplete combustion of carbon?",
+      "options": [
+        "A. CO<sub>2</sub>",
+        "B. NO",
+        "C. CO",
+        "D. NO<sub>2</sub>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "The liquid product of the destructive distillation of coal is …",
+      "options": [
+        "A. kerosene",
+        "B. ammoniacal liquor",
+        "C. ethanol",
+        "D. paraffin oil"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "Producer gas is a mixture of carbon(II) oxide and …",
+      "options": [
+        "A. oxygen",
+        "B. chlorine",
+        "C. hydrogen",
+        "D. nitrogen"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "Which of the following is used as black pigment in paints?",
+      "options": [
+        "A. Diamond",
+        "B. Coke",
+        "C. Graphite",
+        "D. Coal"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "Elements are arranged in the periodic table according to …",
+      "options": [
+        "A. atomic mass",
+        "B. atomic volume",
+        "C. size",
+        "D. atomic number"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "The most reactive halogen is …",
+      "options": [
+        "A. F",
+        "B. Cl",
+        "C. Br",
+        "D. I"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Elements in the same period have the same …",
+      "options": [
+        "A. number of shells",
+        "B. valence electrons",
+        "C. nucleon number",
+        "D. size"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "How many electrons are in the outermost shell of Group 7 elements?",
+      "options": [
+        "A. 0",
+        "B. 7",
+        "C. 8",
+        "D. 10"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "Which of the following is correct about the trend of ionization energy in the periodic table?",
+      "options": [
+        "A. Decreases across a period",
+        "B. Increases down a group",
+        "C. Increases across a period",
+        "D. Unchanged down a group"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "In the energy profile diagram for a chemical reaction, the apex of the curve represents …",
+      "options": [
+        "A. activation energy",
+        "B. heat of reaction",
+        "C. products",
+        "D. activated complex"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "In the reaction 2S(s) + 3O<sub>2</sub>(g) → 2SO<sub>3</sub>(g), the effect of increase in pressure is …",
+      "options": [
+        "A. to encourage backward reaction",
+        "B. to encourage forward reaction",
+        "C. to remove energy barrier",
+        "D. to stabilize the system"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "A reaction in which heat is given out to the surroundings is …",
+      "options": [
+        "A. endothermic",
+        "B. catalytic",
+        "C. reversible",
+        "D. exothermic"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "The minimum amount of energy required before a chemical reaction can occur is called …",
+      "options": [
+        "A. effective energy",
+        "B. activated complex",
+        "C. reaction energy",
+        "D. activation energy"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "The following factors affect chemical reaction except …",
+      "options": [
+        "A. surface area",
+        "B. catalyst",
+        "C. nature of reactants",
+        "D. activation energy"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "A solution of sodium hydroxide containing 24.0 g in 1000 cm<sup>3</sup> of solution has a concentration of [NaOH = 40 g dm<sup>−3</sup>].",
+      "options": [
+        "A. 0.04 mol dm<sup>−3</sup>",
+        "B. 0.60 mol dm<sup>−3</sup>",
+        "C. 0.96 mol dm<sup>−3</sup>",
+        "D. 0.15 mol dm<sup>−3</sup>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "Determine the mass of sulphur(IV) oxide obtained when 91.0 g of oxygen reacts completely with sulphur. [S = 32; O = 16]",
+      "options": [
+        "A. 123 g",
+        "B. 139 g",
+        "C. 155 g",
+        "D. 182 g"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "Consider the reaction: C<sub>2</sub>H<sub>4</sub> + 3O<sub>2</sub> → 2CO<sub>2</sub> + 2H<sub>2</sub>O. What volume of oxygen at STP is required to burn 14 g of ethene?",
+      "options": [
+        "A. 67.2 dm<sup>3</sup>",
+        "B. 33.6 dm<sup>3</sup>",
+        "C. 11.2 dm<sup>3</sup>",
+        "D. 3.73 dm<sup>3</sup>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "If the value of ΔH for a reaction is negative, it means the reaction is …",
+      "options": [
+        "A. slow",
+        "B. exothermic",
+        "C. spontaneous",
+        "D. fast"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "The rate of chemical reaction of solids is not affected by …",
+      "options": [
+        "A. catalyst",
+        "B. pressure",
+        "C. particle size",
+        "D. temperature"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "Alkanes react with halogens mainly by …",
+      "options": [
+        "A. oxidation",
+        "B. polymerization",
+        "C. addition",
+        "D. substitution"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "Haber process is used in the production of …",
+      "options": [
+        "A. nitrogen",
+        "B. ammonia",
+        "C. oxygen",
+        "D. carbon(II) oxide"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "Ethene is produced from ethanol by …",
+      "options": [
+        "A. decomposition",
+        "B. hydrolysis",
+        "C. ozonolysis",
+        "D. dehydration"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Which of the following organic compounds is unsaturated?",
+      "options": [
+        "A. C<sub>2</sub>H<sub>6</sub>",
+        "B. C<sub>3</sub>H<sub>8</sub>",
+        "C. C<sub>2</sub>H<sub>4</sub>",
+        "D. C<sub>4</sub>H<sub>10</sub>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "The type of isomerism exhibited by cis and trans isomers is …",
+      "options": [
+        "A. positional",
+        "B. geometrical",
+        "C. functional",
+        "D. optical"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Alkaline hydrolysis of esters is termed …",
+      "options": [
+        "A. hydrogenation",
+        "B. saponification",
+        "C. neutralization",
+        "D. decarboxylation"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "Hydrogenation of oil produces …",
+      "options": [
+        "A. margarine",
+        "B. fats",
+        "C. soaps",
+        "D. detergents"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "HCO<sub>2</sub>H is …",
+      "options": [
+        "A. methanoic acid",
+        "B. ethanoic acid",
+        "C. propanoic acid",
+        "D. butanoic acid"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "The hydrophilic end of soap is …",
+      "options": [
+        "A. water loving",
+        "B. water hating",
+        "C. soluble in organic solvents",
+        "D. insoluble in water"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "The reaction between ethanol and ethanoic acid produces …",
+      "options": [
+        "A. CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub>",
+        "B. C<sub>2</sub>H<sub>5</sub>COOCH<sub>3</sub>",
+        "C. CH<sub>2</sub>COOC<sub>2</sub>H<sub>5</sub>",
+        "D. CH<sub>3</sub>COOHC<sub>2</sub>H<sub>5</sub>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "During the production of soap, brine is added in order to …",
+      "options": [
+        "A. cook the soap",
+        "B. salt out",
+        "C. evaporate impurities",
+        "D. coalesce impurities"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "All except one is not correct.",
+      "options": [
+        "A. Fat is solid at room temperature",
+        "B. Oil is liquid at room temperature",
+        "C. All enzymes are proteins",
+        "D. Fat is liquid at room temperature"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "In the production of margarine, activated charcoal is used in order to …",
+      "options": [
+        "A. remove impurities",
+        "B. remove odour and colour",
+        "C. hydrogenate",
+        "D. soften the margarine"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "The following are true about alkanoic acids except …",
+      "options": [
+        "A. they are weak acids",
+        "B. they ionize partially",
+        "C. they can undergo oxidation",
+        "D. they do not ionize"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "The alkanol obtained from the production of soap is …",
+      "options": [
+        "A. dihydric",
+        "B. monohydric",
+        "C. trihydric",
+        "D. tertiary"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

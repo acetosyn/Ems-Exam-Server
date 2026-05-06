@@ -1,0 +1,412 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Chemistry",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 135,
+  "class_category": "SS1",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "The shape of CH<sub>4</sub> is",
+      "diagram": null,
+      "options": ["A. linear", "B. planar", "C. pyramidal", "D. tetrahedral"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 2,
+      "question": "The two elements <sup>11</sup>X and <sup>19</sup>Y are in the same group because they have the same",
+      "diagram": null,
+      "options": ["A. valence electrons", "B. ionization energy", "C. number of shells", "D. atomic size"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 3,
+      "question": "An atom A has 17 electrons and 18 neutrons. Which of the following representations of the atom is correct?",
+      "diagram": null,
+      "options": ["A. <sup>17</sup><sub>18</sub>A", "B. <sup>18</sup><sub>17</sub>A", "C. <sup>35</sup><sub>18</sub>A", "D. <sup>35</sup><sub>17</sub>A"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 4,
+      "question": "NH<sub>4</sub><sup>+</sup> is formed from NH<sub>3</sub> and H<sup>+</sup> by",
+      "diagram": null,
+      "options": ["A. covalent bonding", "B. dative bonding", "C. ionic bonding", "D. hydrogen bonding"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "question": "The oxidation number of sulphur in Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> is",
+      "diagram": null,
+      "options": ["A. +2", "B. +3", "C. +5", "D. +6"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 6,
+      "question": "The mass of 800 cm<sup>3</sup> of a gas at STP is 1.0 g. What is the molar mass of the gas? [Molar volume = 22.4 dm<sup>3</sup> mol<sup>-1</sup>]",
+      "diagram": null,
+      "options": ["A. 18.0 g mol<sup>-1</sup>", "B. 22.4 g mol<sup>-1</sup>", "C. 28.0 g mol<sup>-1</sup>", "D. 36.0 g mol<sup>-1</sup>"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "question": "The following setup can be used to demonstrate",
+      "diagram": "/static/uploads/diagrams/2017/chemistry_ss1/diagram_7.PNG",
+      "options": ["A. diffusion", "B. dissolution", "C. evaporation", "D. sublimation"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "question": "Which of the following relationships correctly expresses Boyle’s law?",
+      "diagram": null,
+      "options": ["A. P ∝ V at constant T", "B. V ∝ T at constant P", "C. P ∝ 1/V at constant T", "D. V ∝ 1/T at constant P"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 9,
+      "question": "The pressure of a boiling liquid increases when the",
+      "diagram": null,
+      "options": ["A. liquid becomes saturated with salt", "B. volume of the liquid increases", "C. temperature decreases", "D. temperature increases"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 10,
+      "question": "How many moles of C<sub>2</sub>H<sub>4</sub> would be burnt to produce 0.1 mol of H<sub>2</sub>O?",
+      "diagram": null,
+      "options": ["A. 0.05 mol", "B. 0.10 mol", "C. 0.20 mol", "D. 0.90 mol"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "question": "The molecule which has linear shape is",
+      "diagram": null,
+      "options": ["A. CH<sub>4</sub>", "B. NH<sub>3</sub>", "C. H<sub>2</sub>S", "D. CO<sub>2</sub>"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 12,
+      "question": "The formula of the compound formed between a trivalent metal M and a divalent non-metal Y is",
+      "diagram": null,
+      "options": ["A. M<sub>2</sub>Y<sub>3</sub>", "B. M<sub>3</sub>Y<sub>2</sub>", "C. MY", "D. M<sub>3</sub>Y"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "question": "An atom of element X gains two electrons. The symbol of the ion formed is",
+      "diagram": null,
+      "options": ["A. X<sup>+</sup>", "B. X<sup>2+</sup>", "C. X<sup>2−</sup>", "D. X"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 14,
+      "question": "Which of the following statements is correct?",
+      "diagram": null,
+      "options": ["A. Atomic size decreases down the group", "B. Atomic size increases across a period", "C. Anions are smaller than atoms", "D. Cations are smaller than atoms"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 15,
+      "question": "Rare gases are stable because they",
+      "diagram": null,
+      "options": ["A. are chemically stable", "B. have equal protons and neutrons", "C. have more electrons than protons", "D. have octet structures"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "question": "Which bond type is responsible for the high boiling point of water?",
+      "diagram": null,
+      "options": ["A. Metallic bond", "B. Covalent bond", "C. Ionic bond", "D. Hydrogen bond"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 17,
+      "question": "The bonds present in crystalline ammonium chloride are",
+      "diagram": null,
+      "options": ["A. ionic, covalent and dative", "B. ionic, covalent and hydrogen", "C. covalent and dative", "D. ionic and dative"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 18,
+      "question": "Which of the following elements is diatomic?",
+      "diagram": null,
+      "options": ["A. Oxygen", "B. Sodium", "C. Iron", "D. Neon"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "Which gas law describes the relationship between volume and temperature?",
+      "diagram": null,
+      "options": ["A. Boyle’s law", "B. Charles’ law", "C. General gas law", "D. Avogadro’s law"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 20,
+      "question": "Which phenomenon leads to decrease in volume of liquid in an open container?",
+      "diagram": null,
+      "options": ["A. Brownian movement", "B. Diffusion", "C. Evaporation", "D. Sublimation"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "question": "The pressure exerted by a gas depends mainly on the",
+      "diagram": null,
+      "options": ["A. total volume", "B. speed of molecules", "C. mass of molecules", "D. frequency of collisions"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 22,
+      "question": "Which variable measures the average kinetic energy of gas molecules?",
+      "diagram": null,
+      "options": ["A. Density", "B. Pressure", "C. Temperature", "D. Volume"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "question": "Which of the following is a metalloid?",
+      "diagram": null,
+      "options": ["A. Sodium", "B. Magnesium", "C. Silicon", "D. Neon"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 24,
+      "question": "Molar volume of a gas at STP is",
+      "diagram": null,
+      "options": ["A. 22.4 cm<sup>3</sup>", "B. 22.4 dm<sup>3</sup>", "C. 22.4 m<sup>3</sup>", "D. 22.4 mm<sup>3</sup>"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "question": "How many isotopes does hydrogen have?",
+      "diagram": null,
+      "options": ["A. 2", "B. 3", "C. 4", "D. 5"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "question": "The number of atoms in one mole of a substance is called",
+      "diagram": null,
+      "options": ["A. mass number", "B. oxidation number", "C. atomic number", "D. Avogadro’s number"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 27,
+      "question": "Hypothesis can best be described as",
+      "diagram": null,
+      "options": ["A. a law", "B. a chemical observation", "C. a proposed explanation", "D. all of the above"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 28,
+      "question": "Neils Bohr predicted that the structure of the atom is",
+      "diagram": null,
+      "options": ["A. cylindrical", "B. ironical", "C. spherical", "D. rectangular"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 29,
+      "question": "The simplest formula that shows the ratio of atoms in a compound is the",
+      "diagram": null,
+      "options": ["A. none of the below", "B. molecular formula", "C. empirical formula", "D. almighty formula"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "question": "A chemical change is always accompanied by",
+      "diagram": null,
+      "options": ["A. heat", "B. temperature", "C. volume", "D. pressure"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "question": "Which of the following ions has a different electron configuration?",
+      "diagram": null,
+      "options": ["A. <sup>17</sup>Cl<sup>-</sup>", "B. <sup>8</sup>O<sup>2-</sup>", "C. <sup>12</sup>Mg<sup>2+</sup>", "D. <sup>13</sup>Al<sup>+</sup>"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 32,
+      "question": "What is the relative molecular mass of NH<sub>4</sub>Cl?",
+      "diagram": null,
+      "options": ["A. 53.5", "B. 55.3", "C. 35.5", "D. 5.35"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 33,
+      "question": "Which of the following gases has the lowest rate of diffusion?",
+      "diagram": null,
+      "options": ["A. Cl<sub>2</sub>", "B. H<sub>2</sub>", "C. He", "D. O<sub>2</sub>"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "question": "The volume occupied by 17 g of H<sub>2</sub>S at STP is",
+      "diagram": null,
+      "options": ["A. 11.2 dm<sup>3</sup>", "B. 17.0 dm<sup>3</sup>", "C. 34.0 dm<sup>3</sup>", "D. 44.8 dm<sup>3</sup>"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 35,
+      "question": "The amount in moles of magnesium that contains 1.20 × 10<sup>24</sup> particles is",
+      "diagram": null,
+      "options": ["A. 0.5 mole", "B. 2.0 mole", "C. 12.0 mole", "D. 24.0 mole"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "question": "The number of sulphur atoms in 3.2 g of SO<sub>4</sub> is",
+      "diagram": null,
+      "options": ["A. 3.01 × 10<sup>22</sup>", "B. 6.02 × 10<sup>22</sup>", "C. 6.02 × 10<sup>23</sup>", "D. 1.20 × 10<sup>24</sup>"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 37,
+      "question": "The formula of copper(I) dioxonitrate(III) is",
+      "diagram": null,
+      "options": ["A. CuNO<sub>2</sub>", "B. CuNO<sub>3</sub>", "C. Cu<sub>2</sub>NO<sub>3</sub>", "D. Cu(NO)<sub>3</sub>"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "question": "When a gas changes directly from gaseous state to solid state, the process is called",
+      "diagram": null,
+      "options": ["A. evaporation", "B. condensation", "C. liquefaction", "D. sublimation"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "question": "A compound contains 7.75% hydrogen, 37.21% carbon and 55.04% chlorine. The empirical formula is",
+      "diagram": null,
+      "options": ["A. C<sub>3</sub>H<sub>3</sub>Cl", "B. C<sub>2</sub>H<sub>5</sub>Cl", "C. C<sub>3</sub>H<sub>8</sub>Cl", "D. C<sub>5</sub>H<sub>2</sub>Cl"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 40,
+      "question": "The initial volume of a gas at 300 K is 220 cm<sup>3</sup>. What is the temperature when the volume becomes 250 cm<sup>3</sup>?",
+      "diagram": null,
+      "options": ["A. 183 K", "B. 264 K", "C. 300 K", "D. 341 K"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "question": "Which of the following letters represents the shells of an atom?",
+      "diagram": null,
+      "options": ["A. A–E", "B. F–J", "C. K–O", "D. P–T"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 42,
+      "question": "Which of the following gases diffuses fastest?",
+      "diagram": null,
+      "options": ["A. SO<sub>2</sub>", "B. O<sub>2</sub>", "C. NH<sub>3</sub>", "D. H<sub>2</sub>"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 43,
+      "question": "The vapour pressure of a liquid depends on temperature and",
+      "diagram": null,
+      "options": ["A. density", "B. cohesive forces", "C. colour", "D. mass"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 44,
+      "question": "What mass of CaCO<sub>3</sub> is present in 0.25 mol?",
+      "diagram": null,
+      "options": ["A. 100 g", "B. 75 g", "C. 50 g", "D. 25 g"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "question": "The gas law that relates pressure, volume and temperature is",
+      "diagram": null,
+      "options": ["A. Boyle’s law", "B. Charles’ law", "C. Avogadro’s law", "D. General gas law"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 46,
+      "question": "The formula of ammonium ion is",
+      "diagram": null,
+      "options": ["A. NH<sub>3</sub>", "B. NH<sub>4</sub><sup>+</sup>", "C. NH<sub>2</sub>", "D. NH<sup>+</sup>"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 47,
+      "question": "The element with atomic number 8 is",
+      "diagram": null,
+      "options": ["A. Nitrogen", "B. Oxygen", "C. Fluorine", "D. Neon"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 48,
+      "question": "Which of the following is an example of a physical change?",
+      "diagram": null,
+      "options": ["A. Rusting of iron", "B. Burning of paper", "C. Melting of ice", "D. Digestion of food"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "question": "The SI unit of pressure is",
+      "diagram": null,
+      "options": ["A. atmosphere", "B. bar", "C. pascal", "D. torr"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 50,
+      "question": "Which of the following particles has no charge?",
+      "diagram": null,
+      "options": ["A. proton", "B. neutron", "C. electron", "D. ion"],
+      "correctOption": "B"
+    }
+
+  ]
+}

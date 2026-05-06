@@ -1,0 +1,557 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Biology",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "Which of the following is NOT true of Rhizopus or Mucor? It",
+      "diagram": null,
+      "options": [
+        "A. manufactures its own food",
+        "B. has non-septate hyphae",
+        "C. undergoes sexual and asexual reproduction",
+        "D. bears spores in sporangia"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 2,
+      "question": "Good quality food performs all the following functions except",
+      "diagram": null,
+      "options": [
+        "A. supplying energy",
+        "B. providing resistance against malaria",
+        "C. sustaining growth",
+        "D. maintaining health"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 3,
+      "question": "The type of nutrition shown by Spirogyra is",
+      "diagram": null,
+      "options": [
+        "A. symbiosis",
+        "B. holophytic",
+        "C. holozoic",
+        "D. chemosynthesis"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "question": "Hydra performs all the following functions except",
+      "diagram": null,
+      "options": [
+        "A. feeding",
+        "B. movement",
+        "C. photosynthesis",
+        "D. egestion"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 5,
+      "question": "The axial skeleton is made up of",
+      "diagram": null,
+      "options": [
+        "A. skull, vertebral column, ribs and sternum",
+        "B. limbs and limb girdles",
+        "C. lumbar and thoracic vertebrae",
+        "D. vertebral column and lumbar vertebrae"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 6,
+      "question": "Excessive bleeding from an injury may be due to lack of vitamin",
+      "diagram": null,
+      "options": ["A. A", "B. B", "C. D", "D. K"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 7,
+      "question": "The products of respiration are",
+      "diagram": null,
+      "options": [
+        "A. nitrogen and water",
+        "B. nitrogen and carbon dioxide",
+        "C. water and oxygen",
+        "D. carbon dioxide and water"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 8,
+      "question": "Which feature enables the tapeworm to live successfully in the human intestine?",
+      "diagram": null,
+      "options": [
+        "A. hooks and suckers",
+        "B. long neck",
+        "C. absence of segmentation",
+        "D. possession of flame cells"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 9,
+      "question": "Members of the phylum Mollusca possess",
+      "diagram": null,
+      "options": [
+        "A. jointed appendages",
+        "B. star-shaped bodies",
+        "C. backbones",
+        "D. soft, unsegmented bodies"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 10,
+      "question": "Which statement is NOT true of the light stage of photosynthesis?",
+      "diagram": null,
+      "options": [
+        "A. chlorophyll absorbs sunlight",
+        "B. water splits into hydrogen and hydroxyl ions",
+        "C. carbon dioxide is reduced",
+        "D. ATP is formed"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 11,
+      "question": "A plant that reproduces vegetatively by leaves is",
+      "diagram": null,
+      "options": [
+        "A. hibiscus",
+        "B. bryophyllum",
+        "C. crotalaria",
+        "D. spirogyra"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 12,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_13.PNG",
+      "question": "The part of the mammalian skeleton illustrated in the diagram is the",
+      "options": [
+        "A. atlas vertebra",
+        "B. axis vertebra",
+        "C. cervical vertebra",
+        "D. thoracic vertebra"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 13,
+        "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_13.PNG",
+      "question": "The function of the part labeled I is to",
+      "options": [
+        "A. support spinal cord",
+        "B. provide muscle attachment",
+        "C. carry spinal cord",
+        "D. articulate with adjacent vertebrae"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 14,
+      "question": "Which organism is an endoparasite?",
+      "diagram": null,
+      "options": ["A. Tapeworm", "B. Flea", "C. Tick", "D. Aphid"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 15,
+      "question": "Muscles act in opposite directions in order to",
+      "diagram": null,
+      "options": [
+        "A. cause movement",
+        "B. prevent dislocation",
+        "C. prevent fatigue",
+        "D. regulate activities"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "question": "An association where one organism benefits and the other is harmed is",
+      "diagram": null,
+      "options": ["A. saprophytism", "B. commensalism", "C. mutualism", "D. parasitism"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 17,
+      "question": "Which relationship does NOT involve two organisms?",
+      "diagram": null,
+      "options": ["A. commensalism", "B. saprophytism", "C. symbiosis", "D. parasitism"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_18.PNG",
+      "question": "The correct sequence for testing a leaf for starch is",
+      "options": [
+        "A. I, II, III, IV",
+        "B. I, III, II, IV",
+        "C. II, III, I, IV",
+        "D. III, I, II, IV"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 19,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_18.PNG",
+      "question": "The best time to pluck a leaf for starch test is",
+      "options": [
+        "A. after exposure to sunlight",
+        "B. three hours after sunset",
+        "C. before sunrise",
+        "D. six hours after sunset"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 20,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_18.PNG",
+      "question": "Which is NOT an asexual method of reproduction?",
+      "options": ["A. layering", "B. leaf", "C. conjugation", "D. cutting"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "question": "Biuret test indicates the presence of",
+      "diagram": null,
+      "options": ["A. vitamins", "B. fats", "C. proteins", "D. starch"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "question": "A positive iodine test gives a",
+      "diagram": null,
+      "options": ["A. brown", "B. red", "C. yellow", "D. blue-black"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 23,
+      "question": "Muscles are attached to bones by",
+      "diagram": null,
+      "options": ["A. tendons", "B. ligaments", "C. cartilage", "D. nerves"],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "question": "Herbivores cannot eat meat because they lack",
+      "diagram": null,
+      "options": [
+        "A. incisors",
+        "B. canines",
+        "C. premolars",
+        "D. molars"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "question": "An obese person should avoid meals rich in",
+      "diagram": null,
+      "options": [
+        "A. margarine and butter",
+        "B. rice and beans",
+        "C. fruits",
+        "D. vegetables"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 26,
+      "question": "Protein is required in the diet mainly for",
+      "diagram": null,
+      "options": [
+        "A. growth and repair",
+        "B. digestion",
+        "C. enzyme regulation",
+        "D. energy production"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "Which structure does NOT function as support?",
+      "diagram": null,
+      "options": [
+        "A. cuticle in arthropods",
+        "B. scales in birds",
+        "C. cartilage in mammals",
+        "D. body fluid in earthworm"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_28.PNG",
+      "question": "To form a ball-and-socket joint, structure I fits into the",
+      "options": [
+        "A. blade",
+        "B. glenoid cavity",
+        "C. olecranon fossa",
+        "D. patella"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 29,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_28.PNG",
+      "question": "The structure labeled II is the",
+      "options": ["A. shaft", "B. deltoid ridge", "C. trochanter", "D. trochlea"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "question": "Which skeletal part does NOT protect organs?",
+      "diagram": null,
+      "options": ["A. ribs", "B. carpals", "C. skull", "D. pelvis"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 31,
+      "question": "The sacral vertebrae are located in the",
+      "diagram": null,
+      "options": ["A. chest", "B. lower abdomen", "C. neck", "D. tail"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "question": "The longest bone in the human body is the",
+      "diagram": null,
+      "options": ["A. humerus", "B. femur", "C. scapula", "D. tibia"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 33,
+      "question": "Weak and crooked bones in a child indicate deficiency of",
+      "diagram": null,
+      "options": [
+        "A. sodium and iron",
+        "B. iron and manganese",
+        "C. calcium and phosphorus",
+        "D. magnesium and sulphur"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "question": "Conjugation does NOT occur in",
+      "diagram": null,
+      "options": ["A. mucor", "B. hydra", "C. rhizopus", "D. spirogyra"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 35,
+      "question": "A brick-red precipitate with Benedict’s solution indicates",
+      "diagram": null,
+      "options": [
+        "A. reducing sugar",
+        "B. sucrose",
+        "C. amino acid",
+        "D. fatty acid"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 36,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_36.PNG",
+      "question": "Which vertebrae are found immediately next to the skull?",
+      "options": ["A. lumbar", "B. thoracic", "C. caudal", "D. cervical"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 37,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_36.PNG",
+      "question": "Which vertebrae articulate with ribs?",
+      "options": ["A. lumbar", "B. thoracic", "C. caudal", "D. cervical"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "diagram": "/static/uploads/diagrams/2017/biology_ss1/diagram_36.PNG",
+      "question": "Which vertebrae enhance posture?",
+      "options": ["A. cervical", "B. caudal", "C. thoracic", "D. lumbar"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "question": "Which is NOT a skeletal material?",
+      "diagram": null,
+      "options": ["A. chitin", "B. cartilage", "C. bone", "D. muscle"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 40,
+      "question": "Which organisms use kidneys for excretion?",
+      "diagram": null,
+      "options": [
+        "A. fishes, amphibians, birds and man",
+        "B. fishes, annelids and insects",
+        "C. fishes, reptiles and tapeworms",
+        "D. fishes and protozoans"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 41,
+      "question": "The inorganic components of bone include",
+      "diagram": null,
+      "options": [
+        "A. magnesium, sodium and calcium",
+        "B. magnesium, phosphorus and calcium",
+        "C. sodium, phosphorus and calcium",
+        "D. potassium, magnesium and calcium"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 42,
+      "question": "During sexual reproduction in Paramecium, the zygote divides how many times to form eight nuclei?",
+      "diagram": null,
+      "options": ["A. 1", "B. 2", "C. 3", "D. 4"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 43,
+      "question": "Cassava is best propagated by",
+      "diagram": null,
+      "options": ["A. budding", "B. fragmentation", "C. root cutting", "D. stem cutting"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "question": "A purple colour with Biuret test indicates",
+      "diagram": null,
+      "options": ["A. carbohydrate", "B. fat", "C. protein", "D. sugar"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 45,
+      "question": "The raw materials for photosynthesis are",
+      "diagram": null,
+      "options": [
+        "A. oxygen and water",
+        "B. oxygen and carbon dioxide",
+        "C. oxygen and chlorophyll",
+        "D. carbon dioxide and water"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 46,
+      "question": "Which process involves the movement of water from the soil into plant roots?",
+      "diagram": null,
+      "options": [
+        "A. transpiration",
+        "B. diffusion",
+        "C. osmosis",
+        "D. respiration"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "question": "The main function of xylem tissue is to",
+      "diagram": null,
+      "options": [
+        "A. transport manufactured food",
+        "B. transport water and mineral salts",
+        "C. support photosynthesis",
+        "D. store starch"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 48,
+      "question": "Which of the following is a characteristic of living organisms?",
+      "diagram": null,
+      "options": [
+        "A. rusting",
+        "B. reproduction",
+        "C. evaporation",
+        "D. condensation"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 49,
+      "question": "Which of the following can be used for vegetative propagation?",
+      "diagram": null,
+      "options": [
+        "A. ginger stem",
+        "B. ram leaf",
+        "C. plantain roots",
+        "D. sweet potato tuber"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "question": "Which of the following is NOT an organ?",
+      "diagram": null,
+      "options": ["A. hair", "B. tongue", "C. heart", "D. rhizome"],
+      "correctOption": "A"
+    }
+
+  ]
+}

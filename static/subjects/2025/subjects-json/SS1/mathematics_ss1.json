@@ -1,0 +1,563 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Mathematics",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 60,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Simplify: 53 x 50 / 25",
+      "options": [
+        "A. 5",
+        "B. 3",
+        "C. 1",
+        "D. 0"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Use antilogarithm table, find the number whose logarithm is 2.008?",
+      "options": [
+        "A. 102.1",
+        "B. 101.9",
+        "C. 101.2",
+        "D. 1021"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "A set that contains no element is called",
+      "options": [
+        "A. unit set",
+        "B. infinite set",
+        "C. empty set",
+        "D. finite set"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Solve for x if 2x+1 = 1",
+      "options": [
+        "A. x = 1",
+        "B. x = -2",
+        "C. x = 2",
+        "D. x = -1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Simplify: 8^(2/3) x 27^(-1/3) / 64^(1/3)",
+      "options": [
+        "A. -3",
+        "B. 1/9",
+        "C. 1/3",
+        "D. 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "What is the characteristic of the logarithm of the number 45318?",
+      "options": [
+        "A. 3",
+        "B. 4",
+        "C. 5",
+        "D. 2"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "Simplify 2m1 x 5m3 in indices",
+      "options": [
+        "A. 10m2",
+        "B. 2m3",
+        "C. 10m4",
+        "D. 10m2"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "Find the value of 1^3 in modulo 4",
+      "options": [
+        "A. 1(mod4)",
+        "B. 0(mod4)",
+        "C. 2(mod4)",
+        "D. 3(mod4)"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "Determine 3^16 (mod5)",
+      "options": [
+        "A. 3(mod5)",
+        "B. 0(mod5)",
+        "C. 2(mod5)",
+        "D. 4(mod5)"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "Express m8 / m5 its simple form",
+      "options": [
+        "A. m3",
+        "B. m2",
+        "C. m4",
+        "D. m5"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "Simplify the indices expression: 10^5 x 10^(-3)",
+      "options": [
+        "A. 10^2",
+        "B. 10^(-2)",
+        "C. 10^1",
+        "D. 10^3"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "If U = {1, 2, 3, 4, 5}, A ={1, 3} and B = {3, 4}. Find (A^c ∩ B^c)",
+      "options": [
+        "A. {1,3,4}",
+        "B. {1,2,4,5}",
+        "C. {2,5}",
+        "D. {1,2,5}"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "50 students were asked what they did last night. 16 said they read a book, 41 said they watched television. If 7 said they did neither. How many did both?",
+      "options": [
+        "A. n(B∩T) = 17",
+        "B. n(B∩T) = 14",
+        "C. n(B∩T) = 18",
+        "D. n(B∩T) = 15"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Simplify: 36t8 / 12t6",
+      "options": [
+        "A. 3t2",
+        "B. 6t2",
+        "C. 9t3",
+        "D. 2t4"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Simply: (-4U2V)^3",
+      "options": [
+        "A. 54U6V3",
+        "B. -64U6V3",
+        "C. -12U6V3",
+        "D. 64U3V5"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Solve the expression: 3^x x 9^(1+x) = 27^(x-1), find x",
+      "options": [
+        "A. x = 1",
+        "B. x = 1/2",
+        "C. x = -1",
+        "D. x = -1/4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "Subtract the following in base five: 4235 - 2445",
+      "options": [
+        "A. 1245",
+        "B. 2325",
+        "C. 12235",
+        "D. 1235"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Convert 25^10 to a number in base 6",
+      "options": [
+        "A. 146",
+        "B. 426",
+        "C. 416",
+        "D. 406"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "Simplify: 0.125^(1/3)",
+      "options": [
+        "A. 0.25",
+        "B. 0.5",
+        "C. 0.75",
+        "D. 1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "Solve the equation: 2r^(3/2) = 54",
+      "options": [
+        "A. 9",
+        "B. 8",
+        "C. 6",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "Given that N = {0, 1, 2, 3, 5, 7, 11, 13, 15}, A = {0, 1, 3, 5} B = {11, 13, 15}. Find A^c",
+      "options": [
+        "A. {0, 1, 2, 3, 5, 7}",
+        "B. {0, 1, 3, 5}",
+        "C. {2, 7, 11, 13, 15}",
+        "D. {0, 1, 2, 3}"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "Add: 1 0 12 + 1 1 12",
+      "options": [
+        "A. 10012",
+        "B. 11002",
+        "C. 11012",
+        "D. 10112"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "Solve the equation: 5x + 3 / 25 - 2x - 3",
+      "options": [
+        "A. 4",
+        "B. 5",
+        "C. 3",
+        "D. 7"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Simplify: log3(81)",
+      "options": [
+        "A. 4",
+        "B. 9",
+        "C. 3",
+        "D. 12"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "Find the logarithm of 164.7",
+      "options": [
+        "A. 2.149",
+        "B. 2.2166",
+        "C. 2.3173",
+        "D. 2.5651"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "If A = {11, 12, 13, 14} and B = {w, x, y, z}, find A ∩ B",
+      "options": [
+        "A. A∩B = 11 or w",
+        "B. A∩B =",
+        "C. A∩B = 12 or x",
+        "D. A∩B = y or 13"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Given that A = {1, 2, 3, 4, 5, 6} and B = {x:x is a prime number less than 10}, find A ∩ B",
+      "options": [
+        "A. {1, 3, 5}",
+        "B. {2, 3, 4}",
+        "C. {2, 3, 5}",
+        "D. {1, 4, 5}"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Given that n(F) = 40, n(H) = 23, n(F∪H) = 6. Find n(F∩H) = x",
+      "options": [
+        "A. x = 8",
+        "B. x = 9",
+        "C. x = 5",
+        "D. x = 7"
+      ],
+      "correctOption": "B",
+      "diagram": "/uploads/diagrams/mathematics/diagram_28.PNG"
+    },
+    {
+      "id": 29,
+      "question": "Multiply 2435 x 145 in base five",
+      "options": [
+        "A. 11125",
+        "B. 10125",
+        "C. 101125",
+        "D. 101135"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "If 5^(P-3) = 8 x 5^(-2), find the value of P",
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "B",
+      "diagram": "/uploads/diagrams/mathematics/diagram_30.PNG"
+    },
+    {
+      "id": 31,
+      "question": "Evaluate: 1^8",
+      "options": [
+        "A. 0(mod4)",
+        "B. 2(mod4)",
+        "C. 3(mod4)",
+        "D. 1(mod4)"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "question": "The value of 2^3",
+      "options": [
+        "A. 1(mod4)",
+        "B. 3(mod4)",
+        "C. 2(mod4)",
+        "D. 0(mod4)"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "Solve 2^16 in modulo 4",
+      "options": [
+        "A. 1(mod4)",
+        "B. 2(mod4)",
+        "C. 3(mod4)",
+        "D. 0(mod4)"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "1^25 in modulo4 using the number cycle",
+      "options": [
+        "A. 0(mod4)",
+        "B. 3(mod4)",
+        "C. 2(mod4)",
+        "D. 1(mod4)"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 35,
+      "question": "Subtract 0^3",
+      "options": [
+        "A. 0(mod4)",
+        "B. 1(mod4)",
+        "C. 2(mod4)",
+        "D. 3(mod4)"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Evaluate: 2a^(-1/2) = 14",
+      "options": [
+        "A. a = 49",
+        "B. a = 7",
+        "C. a = 2",
+        "D. a = 1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "Evaluate: log9(3.43)",
+      "options": [
+        "A. 4.811",
+        "B. 5.811",
+        "C. 5.911",
+        "D. 0.911"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "Add the number in base 3: 2113 + 123",
+      "options": [
+        "A. 1123",
+        "B. 1213",
+        "C. 1223",
+        "D. 2123"
+      ],
+      "correctOption": "B",
+      "diagram": "/uploads/diagrams/mathematics/diagram_38.PNG"
+    },
+    {
+      "id": 39,
+      "question": "Consider the Venn diagram, write down the element of AB",
+      "options": [
+        "A. {b, d}",
+        "B. {a, b, e}",
+        "C. {a, e}",
+        "D. {e}"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "Write down the element of AB^c",
+      "options": [
+        "A. {b, c, d, f}",
+        "B. {b, d, e}",
+        "C. {i, o, u}",
+        "D. {a, b, c, d, e, f}"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "What are the elements of A^c∩B?",
+      "options": [
+        "A. {b, c, d, f}",
+        "B. {i, o, u}",
+        "C. {a, e}",
+        "D. {b, f}"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Write down the elements of (AB)^c",
+      "options": [
+        "A. {i, o, u}",
+        "B. {b, f}",
+        "C. {b, f, i, o}",
+        "D. {g, h}"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "Simplify: 2^0",
+      "options": [
+        "A. 0",
+        "B. -1",
+        "C. 1",
+        "D. -2"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 44,
+      "question": "If 30 is divided by the sum of 3 and z, the result is 5. Find z",
+      "options": [
+        "A. 10",
+        "B. 4",
+        "C. 3",
+        "D. 5"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "Simplify: 5x - 3y + 6y - 4x",
+      "options": [
+        "A. 11x - 7y",
+        "B. x + 3y",
+        "C. x - 3y",
+        "D. x + 2y"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Evaluate 2x - 3y when x = 3 and y = 5",
+      "options": [
+        "A. -2",
+        "B. 4",
+        "C. 2",
+        "D. 1"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "question": "Find the value of x in the equation X^(1/2) = 2",
+      "options": [
+        "A. 2",
+        "B. 8",
+        "C. 16",
+        "D. 4"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "question": "Simplify: 30^26 / 5^6",
+      "options": [
+        "A. 546",
+        "B. 246",
+        "C. 346",
+        "D. 636"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "What is the number of element in set M = {v, w, x, y, z}?",
+      "options": [
+        "A. n(M) = 4",
+        "B. n(M) = 3",
+        "C. n(M) = 5",
+        "D. n(M) = 6"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "Given that 13x = 1210. Find the value of x",
+      "options": [
+        "A. x = 9",
+        "B. x = 8",
+        "C. x = 7",
+        "D. x = 2"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "class_category": "SS1"
+}

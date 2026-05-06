@@ -1,0 +1,650 @@
+{
+  "subject": "Chemistry",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Hardness in water can be removed by adding ______.",
+      "options": [
+        "A. copper(II) tetraoxosulphate(VI)",
+        "B. sodium trioxocarbonate(IV)",
+        "C. sodium chloride",
+        "D. alum"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "If 20 cm<sup>3</sup> of distilled water is added to 80 cm<sup>3</sup> of 0.50 mol dm<sup>-3</sup> hydrochloric acid, the new concentration of the acid will be ______.",
+      "options": [
+        "A. 0.10 mol dm<sup>-3</sup>",
+        "B. 0.20 mol dm<sup>-3</sup>",
+        "C. 0.40 mol dm<sup>-3</sup>",
+        "D. 2.0 mol dm<sup>-3</sup>"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "A solution of sodium hydroxide containing 6.0 g in 250 cm<sup>3</sup> of solution has a concentration of ______. [NaOH = 40 g mol<sup>-1</sup>]",
+      "options": [
+        "A. 0.04 mol dm<sup>-3</sup>",
+        "B. 0.60 mol dm<sup>-3</sup>",
+        "C. 0.96 mol dm<sup>-3</sup>",
+        "D. 0.16 mol dm<sup>-3</sup>"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "Which of the following is not an acid anhydride?",
+      "options": [
+        "A. P<sub>2</sub>O<sub>5</sub>",
+        "B. NO<sub>2</sub>",
+        "C. SO<sub>2</sub>",
+        "D. CO"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "A salt that absorbs moisture from the atmosphere without forming a solution is said to be ______.",
+      "options": [
+        "A. hygroscopic",
+        "B. deliquescent",
+        "C. efflorescent",
+        "D. insoluble"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "The activation energy of a reaction can be altered by ______.",
+      "options": [
+        "A. adding a reducing agent",
+        "B. increasing pressure",
+        "C. using a catalyst",
+        "D. changing the temperature"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "What is the reducing agent in the reaction below?\n2Fe<sup>3+</sup>(aq) + H<sub>2</sub>S(g) → 2Fe<sup>2+</sup>(aq) + 2H<sup>+</sup>(aq) + S(s)",
+      "options": [
+        "A. S",
+        "B. Fe<sup>3+</sup>",
+        "C. Fe<sup>2+</sup>",
+        "D. H<sub>2</sub>S"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 8,
+      "diagram": "/static/uploads/diagrams/2021/chemistry_ss3/diagram_8.PNG",
+      "question": "Which of the letters indicate elements which exist as monoatomic gases?",
+      "options": [
+        "A. B and G",
+        "B. A and E",
+        "C. C and F",
+        "D. D and E"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "diagram": "/static/uploads/diagrams/2021/chemistry_ss3/diagram_8.PNG",
+      "question": "Which of the letters represents an alkaline earth metal?",
+      "options": [
+        "A. A",
+        "B. B",
+        "C. C",
+        "D. D"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "diagram": "/static/uploads/diagrams/2021/chemistry_ss3/diagram_8.PNG",
+      "question": "Which of the following pairs of letters denotes elements containing the same number of valence electrons?",
+      "options": [
+        "A. A, C and D",
+        "B. E and F",
+        "C. A and E",
+        "D. D and G"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "diagram": "/static/uploads/diagrams/2021/chemistry_ss3/diagram_8.PNG",
+      "question": "Which of the elements exist as diatomic molecules in gaseous state?",
+      "options": [
+        "A. E",
+        "B. F",
+        "C. G",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "If one mole of sodium contains 6.02 × 10<sup>23</sup> atoms, how many atoms does 0.6 g of sodium contain? [Na = 23]",
+      "options": [
+        "A. 1.56 × 10<sup>23</sup>",
+        "B. 1.56 × 10<sup>22</sup>",
+        "C. 3.6 × 10<sup>23</sup>",
+        "D. 3.6 × 10<sup>22</sup>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Which of the following scientists discovered the neutron?",
+      "options": [
+        "A. E. Rutherford",
+        "B. J. J. Thomson",
+        "C. J. Chadwick",
+        "D. R. A. Millikan"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "How many protons does <sup>40</sup><sub>20</sub>Ca contain?",
+      "options": [
+        "A. 20",
+        "B. 30",
+        "C. 40",
+        "D. 60"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "If 100 atoms of element X contain 70 atoms of <sup>9</sup>X and 30 atoms of <sup>11</sup>X, calculate the relative atomic mass of X.",
+      "options": [
+        "A. 9.6",
+        "B. 10.6",
+        "C. 11.6",
+        "D. 20.0"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "The separation of petroleum fractions depends on the difference in their ______.",
+      "options": [
+        "A. boiling points",
+        "B. molar masses",
+        "C. melting points",
+        "D. solubilities"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "Which of the following substances is the anode of the dry Leclanché cell?",
+      "options": [
+        "A. Carbon rod",
+        "B. Muslin bag",
+        "C. The seal",
+        "D. Zinc container"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "How many orbitals are associated with the p-sub energy level?",
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 5",
+        "D. 7"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "Which of the following elements has the electronic configuration 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>1</sup>?",
+      "options": [
+        "A. Na",
+        "B. Al",
+        "C. N",
+        "D. S"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "Which of the following ions is isoelectronic with neon?",
+      "options": [
+        "A. Cl<sup>-</sup>",
+        "B. F<sup>-</sup>",
+        "C. K<sup>+</sup>",
+        "D. Li<sup>+</sup>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "Which of the following electronic configurations correctly represents an element in period 3?",
+      "options": [
+        "A. 2, 4",
+        "B. 2, 8",
+        "C. 2, 8, 6",
+        "D. 2, 8, 8, 1"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "The number of particles in one mole of a chemical compound is the ______.",
+      "options": [
+        "A. atomic number",
+        "B. Avogadro’s number",
+        "C. mass number",
+        "D. oxidation number"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "What is the mass of sodium trioxocarbonate(IV) produced from the complete decomposition of 33.6 g of sodium hydrogen trioxocarbonate(IV)?",
+      "options": [
+        "A. 10.6 g",
+        "B. 16.8 g",
+        "C. 21.2 g",
+        "D. 42.4 g"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "How many moles of carbon(IV) oxide will be produced from 32 g of methane? [C=12, H=1, O=16]",
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 8"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "Which of the following reactions will be affected by change in pressure at equilibrium?",
+      "options": [
+        "A. X(g) + Y(g) ⇌ Z(g) + W(g)",
+        "B. X(g) + 2Y(g) ⇌ Z(g) + W(g)",
+        "C. 2X(g) ⇌ W(g) + Z(g)",
+        "D. X(g) + 2Y(g) ⇌ Z(s) + W(g)"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "If 60 cm<sup>3</sup> of gas is heated from 27°C to 50°C at constant pressure, what is the new volume?",
+      "options": [
+        "A. 32.4 cm<sup>3</sup>",
+        "B. 55.7 cm<sup>3</sup>",
+        "C. 64.6 cm<sup>3</sup>",
+        "D. 111.1 cm<sup>3</sup>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "Which of the following acid-base pairs will produce a solution with pH less than 7 at the end point?",
+      "options": [
+        "A. HNO<sub>3</sub> and NaOH",
+        "B. H<sub>2</sub>SO<sub>4</sub> and KOH",
+        "C. HCl and Mg(OH)<sub>2</sub>",
+        "D. HNO<sub>3</sub> and KOH"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "The mass of 800 cm<sup>3</sup> of a gas at STP is 1.0 g. What is its molar mass? [Vm = 22,400 cm<sup>3</sup>]",
+      "options": [
+        "A. 10.0 g mol<sup>-1</sup>",
+        "B. 22.4 g mol<sup>-1</sup>",
+        "C. 28.0 g mol<sup>-1</sup>",
+        "D. 36.0 g mol<sup>-1</sup>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "Arrange the following elements in order of increasing electron affinity.",
+      "options": [
+        "A. Br, Cl, I, F",
+        "B. I, Cl, Br, F",
+        "C. I, Br, Cl, F",
+        "D. Cl, I, Br, F"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "Which compound contains the highest percentage of nitrogen?",
+      "options": [
+        "A. NH<sub>3</sub>",
+        "B. NH<sub>4</sub>Cl",
+        "C. NH<sub>4</sub>NO<sub>3</sub>",
+        "D. (NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Water molecules are held together by ______.",
+      "options": [
+        "A. covalent bond",
+        "B. hydrogen bond",
+        "C. ionic bond",
+        "D. van der Waals force"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "Calculate the quantity of electricity used when 0.4 A flows for 1 hour 20 minutes.",
+      "options": [
+        "A. 48,000 C",
+        "B. 3,840 C",
+        "C. 1,920 C",
+        "D. 32 C"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "What is the main type of reaction alkanes undergo?",
+      "options": [
+        "A. Addition",
+        "B. Condensation",
+        "C. Esterification",
+        "D. Substitution"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "What is the value of -14°C on the Kelvin temperature scale?",
+      "options": [
+        "A. 259 K",
+        "B. 2590 K",
+        "C. 287 K",
+        "D. 2870 K"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Which expression correctly represents the ideal gas equation?",
+      "options": [
+        "A. PV = K",
+        "B. V = KT",
+        "C. PV = nRT",
+        "D. R = K/P"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "How many molecules are present in 14 g of nitrogen gas? [N = 14, N<sub>A</sub> = 6.02 × 10<sup>23</sup>]",
+      "options": [
+        "A. 6.02 × 10<sup>23</sup>",
+        "B. 3.01 × 10<sup>23</sup>",
+        "C. 8.43 × 10<sup>24</sup>",
+        "D. 1.20 × 10<sup>24</sup>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "The number of particles in one mole of a chemical compound is called ______.",
+      "options": [
+        "A. atomic number",
+        "B. Avogadro’s number",
+        "C. mass number",
+        "D. oxidation number"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "An element Q forms a compound QCl<sub>2</sub>. To which group does Q belong?",
+      "options": [
+        "A. I",
+        "B. II",
+        "C. III",
+        "D. IV"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Which arrangement is in increasing order of ionization energy?",
+      "options": [
+        "A. Al, Si, P, S",
+        "B. Si, Al, S, P",
+        "C. S, P, Si, Al",
+        "D. P, Si, S, Al"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "What is the percentage by mass of calcium in CaCO<sub>3</sub>? [Ca = 40, C = 12, O = 16]",
+      "options": [
+        "A. 28.0%",
+        "B. 31.6%",
+        "C. 40.0%",
+        "D. 44.5%"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Which of the following compounds is not a double salt?",
+      "options": [
+        "A. Zn(OH)NO<sub>3</sub>",
+        "B. KAl(SO<sub>4</sub>)<sub>2</sub>",
+        "C. KCr(SO<sub>4</sub>)<sub>2</sub>",
+        "D. (NH<sub>4</sub>)<sub>2</sub>Fe(SO<sub>4</sub>)<sub>2</sub>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "The major product of the Solvay process is ______.",
+      "options": [
+        "A. NaOH",
+        "B. Na<sub>2</sub>CO<sub>3</sub>",
+        "C. NH<sub>3</sub>",
+        "D. H<sub>2</sub>SO<sub>4</sub>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "The separation of petroleum fractions depends on differences in their ______.",
+      "options": [
+        "A. boiling points",
+        "B. molar masses",
+        "C. melting points",
+        "D. solubilities"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "What is the molecular formula of a compound with empirical formula CH<sub>2</sub>O and vapour density 90?",
+      "options": [
+        "A. C<sub>4</sub>H<sub>8</sub>O<sub>2</sub>",
+        "B. C<sub>4</sub>H<sub>8</sub>O<sub>3</sub>",
+        "C. C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>",
+        "D. C<sub>6</sub>H<sub>10</sub>O<sub>5</sub>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "A consequence of global warming is ______.",
+      "options": [
+        "A. air pollution",
+        "B. flooding",
+        "C. increased humidity",
+        "D. low rainfall"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 46,
+      "diagram": "/static/uploads/diagrams/2021/chemistry_ss3/diagram_46.PNG",
+      "question": "Which of the following alloys does not contain copper?\nI. Brass\nII. Bronze\nIII. Steel",
+      "options": [
+        "A. I only",
+        "B. II only",
+        "C. III only",
+        "D. II and III only"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "Which apparatus can be used to measure accurately a specific volume of liquid?",
+      "options": [
+        "A. Beaker",
+        "B. Conical flask",
+        "C. Measuring cylinder",
+        "D. Pipette"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Which of the following oxides is basic?",
+      "options": [
+        "A. NO<sub>2</sub>",
+        "B. Al<sub>2</sub>O<sub>3</sub>",
+        "C. SO<sub>2</sub>",
+        "D. CaO"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "What is the change in oxidation number of manganese in the reaction?\nMnO<sub>4</sub><sup>-</sup> → Mn<sup>2+</sup>",
+      "options": [
+        "A. +3 to +2",
+        "B. +4 to +2",
+        "C. +5 to +2",
+        "D. +7 to +2"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "An organic compound contains 40.0% carbon, 6.7% hydrogen and 53.3% oxygen. What is the empirical formula?",
+      "options": [
+        "A. C<sub>2</sub>HO",
+        "B. CHO",
+        "C. CH<sub>2</sub>O",
+        "D. CHO<sub>2</sub>"
+      ],
+      "correctOption": "C"
+    }
+
+  ]
+}

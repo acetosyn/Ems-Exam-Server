@@ -1,0 +1,610 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Economics",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following is the best definition of Economics?",
+      "diagram": null,
+      "options": [
+        "A. The study of government policies",
+        "B. The study of individual financial decisions",
+        "C. The study of how societies allocate scarce resources to satisfy unlimited wants",
+        "D. The study of how money is made and spent"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "Who among the following economist defined economics as an “enquiry into the nature and causes of wealth of nations”?",
+      "diagram": null,
+      "options": [
+        "A. H. J. Daven Port",
+        "B. John Stuart Mill",
+        "C. Adam Smith",
+        "D. A. I. Pigeons"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "The branch of economics that deals with smaller units of the economy is known as",
+      "diagram": null,
+      "options": [
+        "A. Macro-economics",
+        "B. Pure and applied economics",
+        "C. Micro economics",
+        "D. Aggregate economics"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Scarcity in economics refers to",
+      "diagram": null,
+      "options": [
+        "A. The lacks of money to buy goods",
+        "B. A situation where people do not want to work",
+        "C. The limited nature of society resources",
+        "D. A situation where there are not enough goods for everyone"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "Economics is considered a social science because",
+      "diagram": null,
+      "options": [
+        "A. It is taught in universities",
+        "B. It employs systematic method of inquiry and analysis",
+        "C. Uses complex mathematical equations",
+        "D. Deals with human behaviour"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "The term “wants” in economics is best defined as",
+      "diagram": null,
+      "options": [
+        "A. Necessities for survival",
+        "B. Goods that are freely available",
+        "C. Services provided by the government",
+        "D. Desires that can be satisfied by consuming goods and services"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "The concept of opportunity cost is best described as",
+      "diagram": null,
+      "options": [
+        "A. The monetary cost of a choice",
+        "B. The cost of all available alternatives",
+        "C. The total cost of production",
+        "D. The value of the next best alternative forgone when a choice is made"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "The scale of preference is a list of",
+      "diagram": null,
+      "options": [
+        "A. All the goods and services available in an economy",
+        "B. A consumer’s wants arranged in order of importance",
+        "C. The prices of different commodities",
+        "D. The resources available to a country"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "The study of economics helps individuals and societies to",
+      "diagram": null,
+      "options": [
+        "A. Eliminate scarcity",
+        "B. Make rational decisions about resource allocation",
+        "C. Increase their income without effort",
+        "D. Control all aspects of production"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is not a basic tool of economics analysis?",
+      "diagram": null,
+      "options": [
+        "A. Graphs",
+        "B. Charts",
+        "C. Tables",
+        "D. Novels"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "A frequency distribution is used to",
+      "diagram": null,
+      "options": [
+        "A. Calculate the average income",
+        "B. Show the relationship between two variables",
+        "C. Organize and summarize data",
+        "D. Predict future economic trends"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "In economics, a graph is primarily used to",
+      "diagram": null,
+      "options": [
+        "A. Store large amounts of data",
+        "B. Conduct surveys",
+        "C. Write economic theories",
+        "D. Visually represent relationship between economic variables"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "A table in economics is used to",
+      "diagram": null,
+      "options": [
+        "A. Provide a visual representation of data",
+        "B. Analyse complex economic models",
+        "C. Generate random numbers",
+        "D. Present data in a structured and organized manner"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "The primary purpose of data collection in economics is to",
+      "diagram": null,
+      "options": [
+        "A. Confuse students",
+        "B. Entertain economists",
+        "C. Create fictional scenarios",
+        "D. Provide evidence for economic theories and policies"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "A histogram is a graphical representation of data that shows",
+      "diagram": null,
+      "options": [
+        "A. The relationship between two variables",
+        "B. The distribution of a continuous variable",
+        "C. The proportion of different categories",
+        "D. Trends overtime"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Which of the following is a measure of central tendency?",
+      "diagram": null,
+      "options": [
+        "A. Range",
+        "B. Standard deviation",
+        "C. Mean",
+        "D. Variance"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "Calculate the mean of the following data 8, 7, 6, 9, 8, 9",
+      "diagram": null,
+      "options": [
+        "A. 7.8",
+        "B. 7.9",
+        "C. 7.3",
+        "D. 6.8"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Production in economics refers to",
+      "diagram": null,
+      "options": [
+        "A. The process of selling goods and services",
+        "B. The process of creating goods and services to satisfy human wants",
+        "C. The process of consuming goods and services",
+        "D. The process of distributing income"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "Which of the following is not a factor of production?",
+      "diagram": null,
+      "options": [
+        "A. Land",
+        "B. Labour",
+        "C. Capital",
+        "D. Money"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "question": "The primary goal of production is to",
+      "diagram": null,
+      "options": [
+        "A. Maximize profits",
+        "B. Satisfy human wants",
+        "C. Minimize costs",
+        "D. Create employment"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "What is the mode of the following data 6, 6, 2, 3, 4, 6, 2, 3, 9?",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 9",
+        "C. 3",
+        "D. 6"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "What does ‘land’ as a factor of production refers to?",
+      "diagram": null,
+      "options": [
+        "A. Agriculture fields",
+        "B. Urban real estate",
+        "C. The physical spaces of factory",
+        "D. All natural resources used in production"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "Entrepreneur as a factor of production involves",
+      "diagram": null,
+      "options": [
+        "A. Providing raw materials",
+        "B. Organizing and combining other factors of production",
+        "C. Manual labour",
+        "D. Lending money for production"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Which of the following is an example of capital as a factor of production?",
+      "diagram": null,
+      "options": [
+        "A. A worker’s skills",
+        "B. Crude oil",
+        "C. A government subsidy",
+        "D. A factory building"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "The primary goal of a firm in the theory of production is to",
+      "diagram": null,
+      "options": [
+        "A. Maximize profit",
+        "B. Maximize social welfare",
+        "C. Minimize environmental impact",
+        "D. Maximize employee satisfaction"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "Find the median of: 45, 60, 35, 80, 50, 70, 40",
+      "diagram": null,
+      "options": [
+        "A. 50",
+        "B. 40",
+        "C. 70",
+        "D. 45"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "The number of cars sold each day for 14 days is 5, 7, 3, 5, 8, 5, 6, 7, 5, 4, 9, 5, 6, 7. Determine the mode",
+      "diagram": null,
+      "options": [
+        "A. 9",
+        "B. 5",
+        "C. 6",
+        "D. 7"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "A company’s stock prices over 10 days were 120, 125, 118, 130, 125, 122, 128, 125, 132, 120. Calculate the range",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 10",
+        "C. 8",
+        "D. 15"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "A bar chart used when the data given are made up of only one item or component is",
+      "diagram": null,
+      "options": [
+        "A. Component bar chart",
+        "B. Simple bar chart",
+        "C. Multiple bar chart",
+        "D. Histogram"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "Calculate the geometric mean of the following data 4, 2, 8",
+      "diagram": null,
+      "options": [
+        "A. 3",
+        "B. 4",
+        "C. 9",
+        "D. 18"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Calculate the harmonic mean of the following set of data 4, 6, 8",
+      "diagram": null,
+      "options": [
+        "A. 8.4",
+        "B. 5.4",
+        "C. 6.3",
+        "D. 2.4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "Which of the following is a determinant of the volume of production?",
+      "diagram": null,
+      "options": [
+        "A. Amount of capital",
+        "B. What to produce",
+        "C. Taste of consumer",
+        "D. Taxation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "The transformation of basic raw materials to final forms acceptable to consumers is",
+      "diagram": null,
+      "options": [
+        "A. Tertiary production",
+        "B. Final production",
+        "C. Secondary production",
+        "D. Primary production"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Goods and services that satisfy the consumer’s immediate needs are",
+      "diagram": null,
+      "options": [
+        "A. Capital goods",
+        "B. Producer goods",
+        "C. Consumer goods",
+        "D. Durable goods"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Goods used up in one use are called",
+      "diagram": null,
+      "options": [
+        "A. Consumer goods",
+        "B. Durable goods",
+        "C. Non-durable goods",
+        "D. Producer goods"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Goods desired not for direct use but for the assistance they give in further production are called",
+      "diagram": null,
+      "options": [
+        "A. Consumer goods",
+        "B. Producer goods",
+        "C. Durable goods",
+        "D. Non-durable goods"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "The type of production in which an individual produces goods and services for family consumption is",
+      "diagram": null,
+      "options": [
+        "A. Direct production",
+        "B. Large production",
+        "C. Scale of production",
+        "D. Indirect production"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "The reward to capital as a factor of production is",
+      "diagram": null,
+      "options": [
+        "A. Rent",
+        "B. Wage",
+        "C. Interest",
+        "D. Commission"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "The action of EMIS to forgo road repair to provide more facilities for boarders denotes",
+      "diagram": null,
+      "options": [
+        "A. Sound economic decision",
+        "B. Charity economic decisions",
+        "C. Scale of preference",
+        "D. Opportunity cost"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "Goods which have to be paid for are known as",
+      "diagram": null,
+      "options": [
+        "A. Physical goods",
+        "B. Economic goods",
+        "C. Free goods",
+        "D. Intangible goods"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "What is the mean of the distribution? X: 2,3,4,5; F: 2,5,3,1",
+      "diagram": null,
+      "options": [
+        "A. 2.2",
+        "B. 2.5",
+        "C. 3.2",
+        "D. 4.5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "What is the median of the distribution?",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 4",
+        "C. 3",
+        "D. 2"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "Calculate the mode of the distribution",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 3",
+        "C. 1",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "Calculate the range of the distribution",
+      "diagram": null,
+      "options": [
+        "A. 3",
+        "B. 1",
+        "C. 2",
+        "D. 5"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "Labour can be efficient when there are",
+      "diagram": null,
+      "options": [
+        "A. Adequate tools to work with",
+        "B. High level of employment",
+        "C. Limited vacancies",
+        "D. Government restrictions"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 46,
+      "question": "What is the angle sector for cassava (value 3) in a pie chart for 2,5,3,11,9?",
+      "diagram": null,
+      "options": [
+        "A. 108°",
+        "B. 180°",
+        "C. 360°",
+        "D. 60°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "The pie chart shows the distribution of 4320 students who graduated from four departments in a university. How many students graduated from the science departments?",
+      "diagram": "/static/uploads/diagrams/economics_ss1/diagram_47.PNG",
+      "options": [
+        "A. 840",
+        "B. 864",
+        "C. 920",
+        "D. 960"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "The difference between bar charts and histograms is that the former",
+      "diagram": null,
+      "options": [
+        "A. Are line graphs while the latter are rectangular",
+        "B. Has bars separate from each other while the latter has bars adjoined",
+        "C. Has bars adjoined while the latter has separate bars",
+        "D. Are separate bars divided into sections while the latter are line graphs"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "From the histogram above, how many candidates scored more than 12?",
+      "diagram": "/static/uploads/diagrams/economics_ss1/diagram_49.PNG",
+      "options": [
+        "A. 10",
+        "B. 42",
+        "C. 52",
+        "D. 55"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "How many candidates scored below 12?",
+      "diagram": "/static/uploads/diagrams/economics_ss1/diagram_49.PNG",
+      "options": [
+        "A. 10",
+        "B. 12",
+        "C. 14",
+        "D. 16"
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

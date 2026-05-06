@@ -1,0 +1,45 @@
+/* ===================== TIMER UI ===================== */
+.exam-timer-ui {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #1e293b; /* Tailwind slate-800 — elegant dark */
+  padding: 0.4rem 1rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: transform 0.25s ease;
+}
+
+.exam-timer-ui:hover {
+  transform: scale(1.05);
+}
+
+.timer-icon {
+  font-size: 1.8rem;
+  color: #38bdf8; /* Tailwind sky-400 */
+}
+
+.timer-digits {
+  font-size: 1.8rem;
+  font-family: 'Digital-7', 'Courier New', monospace;
+  letter-spacing: 1px;
+  min-width: 70px;
+  text-align: center;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 640px) {
+  .exam-timer-ui {
+    font-size: 1.4rem;
+    padding: 0.3rem 0.8rem;
+  }
+  .timer-digits {
+    font-size: 1.6rem;
+  }
+  .timer-icon {
+    font-size: 1.6rem;
+  }
+}

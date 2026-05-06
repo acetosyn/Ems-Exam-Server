@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Exam - EMIS Exam Portal{% endblock %}
+
+{% block styles %}
+<!-- Subject injected dynamically -->
+<meta name="exam-subject" content="{{ subject|default('exam') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_gen.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_spec.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hour-glass.css') }}">
+{% endblock %}
+
+
+{% block header_actions %}
+<div class="flex items-center w-full justify-center space-x-6">
+
+  <!-- Subject Title -->
+  <div id="examSubjectTitle" 
+       class="font-extrabold text-2xl uppercase tracking-wide text-center hidden">
+    <!-- Filled dynamically from exam-core.js -->
+  </div>
+
+  <!-- Countdown Timer -->
+  <div id="examTimer" class="exam-timer-ui {% if not exam_started %}hidden{% endif %}">
+    <i class="fas fa-clock timer-icon"></i>
+    <span id="timerDisplay" class="timer-digits">20:00</span>
+  </div>
+
+  <!-- Fullscreen Toggle -->
+  <button id="fullscreenBtn" class="icon-btn {% if not exam_started %}hidden{% endif %}" title="Toggle fullscreen">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" />
+    </svg>
+  </button>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- Instructions Modal -->
+<div id="instructionsModal" class="modal-backdrop {% if exam_started %}hidden{% endif %}">
+  <div class="modal-card modern-instr-card">
+    <!-- Floating Close Button -->
+    <button onclick="window.location.href='{{ url_for('user_portal') }}'" class="modern-close" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <header class="modal-head instr-head">
+      <h2 class="text-xl font-bold">
+        <i class="fas fa-clipboard-list"></i> Exam Instructions
+        <div class="subtitle">Read carefully before starting</div>
+      </h2>
+      <div class="exam-duration-badge">
+        <i class="fas fa-clock"></i> 60 minutes
+      </div>
+    </header>
+
+    <!-- Instruction Grid -->
+<div class="instructions-grid">
+  <div class="instruction-card">
+    <i class="fas fa-book-open instr-icon"></i>
+    <p>This exam contains <b>40 multiple-choice questions (MCQs)</b>.</p>
+  </div>
+
+
+  <div class="instruction-card danger">
+    <i class="fas fa-stop-circle instr-icon"></i>
+    <p>Opening a <b>new browser tab</b> or <b>leaving this page</b> will result in <b>disqualification</b>.</p>
+  </div>
+
+  <div class="instruction-card">
+    <i class="fas fa-check-double instr-icon"></i>
+    <p>You can only <b>answer a question once.</b> Check carefully before answering.</p>
+  </div>
+
+
+
+  <div class="instruction-card">
+    <i class="fas fa-list-ol instr-icon"></i>
+    <p>Each question has options <b>A–D</b>. Select the most appropriate answer.</p>
+  </div>
+  <div class="instruction-card">
+    <i class="fas fa-hourglass-half instr-icon"></i>
+    <p>You have <b>60 minutes</b> to complete all questions.</p>
+  </div>
+  <div class="instruction-card">
+    <i class="fas fa-exchange-alt instr-icon"></i>
+    <p>Navigate using <b>Previous</b> / <b>Next</b> buttons or the question grid.</p>
+  </div>
+  <div class="instruction-card">
+    <i class="fas fa-flag instr-icon"></i>
+    <p>You may <b>flag questions</b> to review them before submission.</p>
+  </div>
+  <div class="instruction-card">
+    <i class="fas fa-exclamation-triangle instr-icon"></i>
+    <p>Once started, you must finish in one sitting.</p>
+  </div>
+  <div class="instruction-card success">
+    <i class="fas fa-paper-plane instr-icon"></i>
+    <p>
+      After completing all questions, ensure you <b>submit your exam.</b>
+    </p>
+  </div>
+</div>
+
+
+
+    <footer class="modal-foot">
+      <a href="{{ url_for('user_portal') }}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+      <button id="startExamBtn" class="btn-primary"><i class="fas fa-rocket"></i> Start Exam</button>
+    </footer>
+  </div>
+</div>
+
+
+<!-- End Exam Confirmation Modal -->
+<div id="endExamModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+  <div class="modal-card small">
+    <div class="modal-head">
+      <h2>Confirm End Exam</h2>
+      <button onclick="closeEndExam()" class="close-x" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <p id="endExamMessage" class="mb-4 text-gray-700"></p>
+    </div>
+    <div class="modal-foot">
+      <button onclick="closeEndExam()" class="btn-secondary">No, Continue Exam</button>
+      <button onclick="submitExam(false)" class="btn-danger">Yes, End Exam</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Main -->
+<div id="examInterface" class="{% if not exam_started %}hidden{% endif %} exam-shell">
+
+  <!-- Left sidebar -->
+  <aside class="exam-sidebar" role="navigation" aria-label="Exam navigation">
+    <div class="sidebar-top">
+      <div class="progress-overview">
+        <div class="counts">
+          <div class="count-block">
+            <div id="answeredCount" class="count-num">0</div>
+            <div class="count-label">Answered</div>
+          </div>
+          <div class="count-block">
+            <div id="flaggedCount" class="count-num">0</div>
+            <div class="count-label">Flagged</div>
+          </div>
+          <div class="count-block">
+            <div id="remainingCount" class="count-num">0</div>
+            <div class="count-label">Remaining</div>
+          </div>
+        </div>
+
+        <div class="progress-line" aria-hidden="true">
+          <div id="progressBar" class="progress-fill" style="width:0%"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Complete</div>
+      </div>
+    </div>
+
+    <div class="sidebar-middle">
+      <h4 class="nav-title">Question Navigation</h4>
+
+      <div id="questionGridWrap">
+        <div id="questionGrid" class="question-grid" aria-label="Question navigation"></div>
+      </div>
+
+      <div class="nav-action-row">
+        <button onclick="showSummary()" class="btn-secondary small w-full">Review Summary</button>
+        <button onclick="endExam()" class="btn-danger small w-full">End Exam</button>
+      </div>
+    </div>
+
+    <div class="sidebar-bottom muted small muted-note">
+      <div>Tip: use <kbd>←</kbd> and <kbd>→</kbd> for navigation</div>
+    </div>
+  </aside>
+
+  <!-- Main question area -->
+  <main class="exam-main" role="main">
+    <div class="question-header">
+      <div>
+        <h2 class="q-h2">Question <span id="currentQuestionNumber">1</span> <small> / <span id="totalQuestions">0</span></small></h2>
+        <p class="muted">Choose the correct answer</p>
+      </div>
+
+      <div class="question-controls">
+        <button id="flagBtn" onclick="toggleFlag()" class="flag-btn" title="Flag question (F)">
+          <svg id="flagIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h14l-3 4 3 4H4z"/></svg>
+          <span id="flagText">Flag</span>
+        </button>
+      </div>
+    </div>
+
+    <section class="question-stage" aria-live="polite">
+      <div id="questionSlider" class="question-slider">
+        <article class="question-card" id="questionCard" tabindex="0">
+          <div class="question-body">
+            <div id="questionContent" class="question-text" aria-atomic="true"></div>
+            <ul id="answerList" class="answers-list" role="list"></ul>
+          </div>
+
+          <div class="question-foot">
+            <div class="nav-left">
+              <button id="prevBtn" onclick="previousQuestion()" disabled class="btn-ghost">← Previous</button>
+            </div>
+            <div class="nav-center muted">Press <kbd>F</kbd> to flag</div>
+            <div class="nav-right">
+              <button id="nextBtn" onclick="nextQuestion()" class="btn-primary">Next →</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Summary Modal -->
+<div id="summaryModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+  <div class="modal-card small">
+    <div class="modal-head">
+      <h2>Exam Summary</h2>
+      <button onclick="closeSummary()" class="close-x" aria-label="Close">✕</button>
+    </div>
+    <div id="summaryContent" class="modal-body"></div>
+    <div class="modal-foot">
+      <button onclick="closeSummary()" class="btn-secondary">Continue Exam</button>
+      <button onclick="submitExam()" class="btn-success">Submit Exam</button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay hidden" aria-hidden="true">
+  <div class="loader-card">
+    <div class="spinner" aria-hidden="true"></div>
+    <span>Loading exam...</span>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/exam-core.js') }}"></script>
+<script src="{{ url_for('static', filename='js/shuffle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/exam-features.js') }}"></script>
+<script src="{{ url_for('static', filename='js/exam-realtime.js') }}"></script>
+<script src="{{ url_for('static', filename='js/hour-glass.js') }}"></script>
+<script>console.log("✅ updated exam.html loaded")</script>
+{% endblock %}

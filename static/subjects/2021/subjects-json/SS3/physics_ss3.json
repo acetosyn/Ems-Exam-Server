@@ -1,0 +1,659 @@
+{
+  "subject": "Physics",
+  "class": "SS3",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Which of the following set of S.I units is fundamental only?",
+      "options": [
+        "A. A, mol, m<sup>2</sup>",
+        "B. cd, mol, K",
+        "C. N, cd, m s<sup>-1</sup>",
+        "D. N, cd, m s<sup>-2</sup>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Which of the following bodies exhibits translational and rotational motions simultaneously?",
+      "options": [
+        "A. Bee hovering over a flower",
+        "B. Book sliding down an inclined table",
+        "C. Cylinder rolling down an inclined plane",
+        "D. Stone thrown vertically upwards"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "Which of the following statements is not correct about velocity?",
+      "options": [
+        "A. It is a vector quantity",
+        "B. It is uniform round a circular path",
+        "C. It is speed measured in a given direction",
+        "D. It is measured in metre per second"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 4,
+      "diagram": "/static/uploads/diagrams/2021/physics_ss3/diagram_4.PNG",
+      "question": "Calculate the total distance covered during the motion represented in the velocity–time graph shown.",
+      "options": [
+        "A. 25 m",
+        "B. 65 m",
+        "C. 30 m",
+        "D. 50 m"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "Two vectors 10 N West and 15 N East act from the same point. Calculate their resultant.",
+      "options": [
+        "A. 18 N West",
+        "B. 150 N East",
+        "C. 15 N West",
+        "D. 25 N West"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "An object weighs 0.25 N in air and 0.21 N when fully immersed in water. Calculate the relative density of the object.",
+      "options": [
+        "A. 0.04",
+        "B. 0.46",
+        "C. 0.84",
+        "D. 1.19"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "A particle vibrates with simple harmonic motion. If its acceleration in m s<sup>-2</sup> is 25 times its displacement in metres, find the period of the motion in terms of π.",
+      "options": [
+        "A. 0.40π",
+        "B. 0.08π",
+        "C. 0.12π",
+        "D. 0.20π"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "An engine raises 120 kg of water through a height of 40 m in 25 s. Calculate the power of the engine. [g = 10 m s<sup>-2</sup>]",
+      "options": [
+        "A. 0.75 kW",
+        "B. 0.83 kW",
+        "C. 1.81 kW",
+        "D. 1.92 kW"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Which of the following waves requires air for transmission?",
+      "options": [
+        "A. Infrared",
+        "B. Light",
+        "C. Sound",
+        "D. Water"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "Which of the following devices is used for storing electrostatic charges only?",
+      "options": [
+        "A. Capacitor",
+        "B. Electrophorus",
+        "C. Proof plane",
+        "D. Electroscope"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "A rifle of mass 3 kg fires a bullet of mass 1.96 × 10<sup>-2</sup> kg with a velocity of 155 m s<sup>-1</sup>. Determine the magnitude of the recoil velocity.",
+      "options": [
+        "A. 1.01 m s<sup>-1</sup>",
+        "B. 0.05 m s<sup>-1</sup>",
+        "C. 0.65 m s<sup>-1</sup>",
+        "D. 2.37 m s<sup>-1</sup>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "A rail of length 15.05 m increases to 15.10 m when heated from 20°C to 41°C. Calculate its linear expansivity.",
+      "options": [
+        "A. 1.50 × 10<sup>-4</sup> K<sup>-1</sup>",
+        "B. 1.58 × 10<sup>-4</sup> K<sup>-1</sup>",
+        "C. 1.80 × 10<sup>-4</sup> K<sup>-1</sup>",
+        "D. 3.20 × 10<sup>-4</sup> K<sup>-1</sup>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Condensation of water vapour is directly responsible for the following phenomena except …",
+      "options": [
+        "A. Cloud",
+        "B. Dew",
+        "C. Mist",
+        "D. Rain"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "The amount of heat generated in a 2 Ω resistor by a current of 5 A flowing for 40 s is used to evaporate 2 g of a liquid at its boiling point. Determine the specific latent heat of the liquid.",
+      "options": [
+        "A. 200 J g<sup>-1</sup>",
+        "B. 1000 J g<sup>-1</sup>",
+        "C. 998 J g<sup>-1</sup>",
+        "D. 500 J g<sup>-1</sup>"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "A wave of wavelength 1000 m is transmitted from a broadcasting station. Calculate its frequency. [c = 3 × 10<sup>8</sup> m s<sup>-1</sup>]",
+      "options": [
+        "A. 3.0 × 10<sup>-5</sup> Hz",
+        "B. 3.0 × 10<sup>5</sup> Hz",
+        "C. 3.3 × 10<sup>5</sup> Hz",
+        "D. 3.5 × 10<sup>-5</sup> Hz"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "The image formed by a converging lens is upright and magnified 5 times. Calculate its distance if the focal length of the lens is 20 cm.",
+      "options": [
+        "A. 24 cm",
+        "B. 16 cm",
+        "C. 20 cm",
+        "D. 100 cm"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "Which part of the human eye performs the same function as the diaphragm of a camera?",
+      "options": [
+        "A. Cornea",
+        "B. Iris",
+        "C. Pupil",
+        "D. Retina"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "diagram": "/static/uploads/diagrams/2021/physics_ss3/diagram_18.PNG",
+      "question": "In which of the following fields is repulsion not experienced?",
+      "options": [
+        "A. Electric field only",
+        "B. Electrostatic field only",
+        "C. Electrostatic and gravitational fields",
+        "D. Magnetic field only"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "A boy stands X m away from a well and hears an echo 3 s later. Determine X. [Speed of sound = 330 m s<sup>-1</sup>]",
+      "options": [
+        "A. 110 m",
+        "B. 495 m",
+        "C. 990 m",
+        "D. 333 m"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "The root mean square value of current in a circuit is 12 A. Determine the instantaneous current when the phase angle is 45°.",
+      "options": [
+        "A. 16.97 A",
+        "B. 12.00 A",
+        "C. 4.79 A",
+        "D. 2.45 A"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "The quantity of motion of a body is its …",
+      "options": [
+        "A. acceleration",
+        "B. displacement",
+        "C. momentum",
+        "D. velocity"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "The depolarizing agent in a Leclanché cell is …",
+      "options": [
+        "A. carbon rod",
+        "B. ammonium chloride",
+        "C. manganese (IV) oxide",
+        "D. zinc plate"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "The earpiece of a telephone handset converts energy from …",
+      "options": [
+        "A. electrical to sound",
+        "B. sound to electrical",
+        "C. radio wave to sound",
+        "D. sound to radio wave"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "A charged parallel plate capacitor is disconnected from the battery. If the plates are moved farther apart, the …",
+      "options": [
+        "A. capacitance increases",
+        "B. capacitance decreases",
+        "C. charge increases",
+        "D. charge decreases"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "What factors determine the frequency of a note emitted by a vibrating string?",
+      "options": [
+        "A. Amplitude, force constant and length",
+        "B. Amplitude, force constant and tension",
+        "C. Mass per unit length, tension and length",
+        "D. Force constant, tension and length"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "An inductor of inductance 0.5 H and resistance 50 Ω is connected to an AC source of frequency 60 Hz. Calculate the impedance.",
+      "options": [
+        "A. 50 Ω",
+        "B. 150 Ω",
+        "C. 195 Ω",
+        "D. 1950 Ω"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "An AC generator can be converted to a DC motor by replacing …",
+      "options": [
+        "A. slip ring with split ring and connecting a battery",
+        "B. split ring with slip ring and connecting a battery",
+        "C. AC source with DC source",
+        "D. DC source with AC source"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "A luminous object is one that …",
+      "options": [
+        "A. gives off dim light in the dark",
+        "B. gives out light of its own",
+        "C. reflects light only",
+        "D. glows only in the presence of light"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "Which of the following units is not fundamental?",
+      "options": [
+        "A. metre",
+        "B. kilogram",
+        "C. joule",
+        "D. candela"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "The vacuum between the double walls of a thermos flask reduces heat loss through …",
+      "options": [
+        "A. conduction and radiation",
+        "B. convection and conduction",
+        "C. radiation only",
+        "D. conduction only"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Which equation shows the relationship between linear expansivity α and cubic expansivity γ?",
+      "options": [
+        "A. γ = α",
+        "B. γ = 1 − α",
+        "C. γ = 2α",
+        "D. γ = 3α"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "A body is pulled 500 m by a force of 20 N. If the power developed is 0.4 kW, calculate the time taken.",
+      "options": [
+        "A. 0.2 s",
+        "B. 2.5 s",
+        "C. 25.0 s",
+        "D. 250.0 s"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "A metal of mass 200 g at 100°C is placed in 100 g of water at 25°C. If the final temperature is 30°C, calculate the specific heat capacity of the metal.",
+      "options": [
+        "A. 150 J kg<sup>-1</sup> K<sup>-1</sup>",
+        "B. 300 J kg<sup>-1</sup> K<sup>-1</sup>",
+        "C. 320 J kg<sup>-1</sup> K<sup>-1</sup>",
+        "D. 1960 J kg<sup>-1</sup> K<sup>-1</sup>"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "Which statement about the image formed by a plane mirror is not correct?",
+      "options": [
+        "A. It is laterally inverted",
+        "B. It has unit magnification",
+        "C. It is formed by actual intersection of rays",
+        "D. Its distance equals object distance"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "The image formed by a convex mirror is always …",
+      "options": [
+        "A. real, erect and diminished",
+        "B. real, inverted and diminished",
+        "C. virtual, inverted and diminished",
+        "D. virtual, erect and diminished"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "A ray undergoes minimum deviation of 40° in an equilateral glass prism. Calculate its refractive index.",
+      "options": [
+        "A. 1.48",
+        "B. 1.50",
+        "C. 1.53",
+        "D. 1.67"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "An object is placed 20 cm in front of a converging lens of focal length 15 cm. Calculate the image distance.",
+      "options": [
+        "A. 1.3 cm",
+        "B. 8.6 cm",
+        "C. 35 cm",
+        "D. 60 cm"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "The unit of capacitance is …",
+      "options": [
+        "A. farad",
+        "B. coulomb",
+        "C. henry",
+        "D. ohm"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 39,
+      "diagram": "/static/uploads/diagrams/2021/physics_ss3/diagram_39.PNG",
+      "question": "Calculate the total charge in the circuit shown.",
+      "options": [
+        "A. 80 μC",
+        "B. 35 μC",
+        "C. 20 μC",
+        "D. 16 μC"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 40,
+      "diagram": "/static/uploads/diagrams/2021/physics_ss3/diagram_39.PNG",
+      "question": "Calculate the potential difference across the capacitor in parallel.",
+      "options": [
+        "A. 10 V",
+        "B. 8 V",
+        "C. 6.7 V",
+        "D. 2 V"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Presbyopia is a defect of the eye caused by …",
+      "options": [
+        "A. weak ciliary muscles",
+        "B. short eyeball",
+        "C. loss of elasticity of the lens",
+        "D. long eyeball"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 42,
+      "diagram": "/static/uploads/diagrams/2021/physics_ss3/diagram_42.PNG",
+      "question": "The electric potential at point P is given by the expression",
+      "options": [
+        "A. Q / (4π εε₀ r)",
+        "B. Q / (4π εε₀ (R + r))",
+        "C. Q / (4π εε₀ (R − r))",
+        "D. Q / (4π εε₀ R)"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "diagram": "/static/uploads/diagrams/2021/physics_ss3/diagram_42.PNG",
+      "question": "The magnitude of the electric field intensity at point P is given by",
+      "options": [
+        "A. Q / (4π εε₀ r<sup>2</sup>)",
+        "B. Q / (4π εε₀ (R + r)<sup>2</sup>)",
+        "C. Q / (4π εε₀ (R − r)<sup>2</sup>)",
+        "D. Q / (4π εε₀ R<sup>2</sup>)"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "A cell of emf 1.5 V is connected in series with a 3 Ω resistor. A voltmeter across the cell reads 0.9 V. Calculate the internal resistance.",
+      "options": [
+        "A. 2 Ω",
+        "B. 3 Ω",
+        "C. 5 Ω",
+        "D. 6 Ω"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "If the direction of current in a straight wire is reversed, the magnetic field …",
+      "options": [
+        "A. remains the same",
+        "B. becomes parallel",
+        "C. ceases to exist",
+        "D. is oppositely directed"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "An inductor of 1.0 H is connected in series with a capacitor of 2 μF. Calculate the resonant frequency.",
+      "options": [
+        "A. 112.5 Hz",
+        "B. 225.0 Hz",
+        "C. 353.5 Hz",
+        "D. 707.2 Hz"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "The main difference between X-rays and gamma rays lies in their …",
+      "options": [
+        "A. ionizing ability",
+        "B. absorption rate",
+        "C. mode of production",
+        "D. mode of propagation"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "The region around a magnet in which magnetic force can be experienced is called …",
+      "options": [
+        "A. declination",
+        "B. flux density",
+        "C. field",
+        "D. flux"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "A 15 μF capacitor is connected to a 240 V, 50 Hz AC source. Calculate the reactance of the capacitor. [π = 3.142]",
+      "options": [
+        "A. 16 Ω",
+        "B. 68 Ω",
+        "C. 106 Ω",
+        "D. 212 Ω"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "Two identical charges 20 cm apart repel each other with a force of 1.0 N. Calculate the value of each charge.",
+      "options": [
+        "A. 2.1 μC",
+        "B. 3.6 μC",
+        "C. 4.0 μC",
+        "D. 4.4 μC"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

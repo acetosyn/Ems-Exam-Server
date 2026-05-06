@@ -1,0 +1,558 @@
+{
+    "subject": "Government",
+    "class": "SS2",
+    "session": "2016/2017",
+    "time_allowed_minutes": 120,
+    "questions": [
+        {
+            "id": 1,
+            "question": "The body responsible for the privatization of public enterprises in Nigeria is called __________.",
+            "options": [
+                "A. Code of Conduct Bureau",
+                "B. Civil Service Commission",
+                "C. Bureau for Public Enterprises",
+                "D. Privatization Bureau"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 2,
+            "question": "Before colonial rule, Yoruba traditional ruler (Oba) was appointed by __________.",
+            "options": [
+                "A. Oduduwa",
+                "B. Ogboni",
+                "C. Oyo-mesi",
+                "D. Priest"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 3,
+            "question": "The ratification of the appointment of an Emir in the pre-colonial Fulani society was done by the __________.",
+            "options": [
+                "A. Galadima",
+                "B. Caliph of Sokoto",
+                "C. Waziri",
+                "D. Alkali"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 4,
+            "question": "The policy that makes public corporations more efficient and profit oriented is called __________.",
+            "options": [
+                "A. assimilation",
+                "B. commercialization",
+                "C. deregulation",
+                "D. privatization"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 5,
+            "question": "Anonymity of civil service means that civil servants must __________.",
+            "options": [
+                "A. serve any government impartially",
+                "B. be politically neutral",
+                "C. not receive praise or blame for policies",
+                "D. have job security"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 6,
+            "question": "Under the present local government system in Nigeria, local councils get the bulk of their finances from the __________.",
+            "options": [
+                "A. federal government",
+                "B. state government",
+                "C. rates",
+                "D. self-help scheme"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 7,
+            "question": "Bye-laws are usually made and enforced by the __________.",
+            "options": [
+                "A. state government",
+                "B. trade unions",
+                "C. local government",
+                "D. federal government"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 8,
+            "question": "The process of depriving persons of the right of voting is called __________.",
+            "options": [
+                "A. enfranchisement",
+                "B. disqualification",
+                "C. dismissal",
+                "D. disenfranchisement"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 9,
+            "question": "The Chief of Army staff in the Yoruba pre-colonial political system was called __________.",
+            "options": [
+                "A. Oyo-mesi",
+                "B. Alaafin",
+                "C. Are-ona Kakanfo",
+                "D. Ogboni"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 10,
+            "question": "Local government reforms were carried out by the federal military government in __________.",
+            "options": [
+                "A. 1970",
+                "B. 1976",
+                "C. 1979",
+                "D. 1967"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 11,
+            "question": "The third tier of government is called the __________.",
+            "options": [
+                "A. executive",
+                "B. legislature",
+                "C. local government",
+                "D. judiciary"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 12,
+            "question": "Taxation was a feature of __________ pre-colonial administration.",
+            "options": [
+                "A. Igbo",
+                "B. Yoruba",
+                "C. Hausa",
+                "D. Tiv"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 13,
+            "question": "The following ethnic groups had a centralized political system except the __________.",
+            "options": [
+                "A. Hausa",
+                "B. Yoruba",
+                "C. Benin",
+                "D. Igbos"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 14,
+            "question": "Checks and balances were major features of the __________ pre-colonial political system.",
+            "options": [
+                "A. Hausa",
+                "B. Igbo",
+                "C. Yoruba",
+                "D. Fulani"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 15,
+            "question": "Rates are generally collected in Nigeria by the __________.",
+            "options": [
+                "A. state ministry of finance",
+                "B. traditional council",
+                "C. local government",
+                "D. presidential officials"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 16,
+            "question": "Which pre-colonial system could be described as democratic, republican and decentralized?",
+            "options": [
+                "A. Hausa/Fulani",
+                "B. Yoruba",
+                "C. Benin",
+                "D. Igbo"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 17,
+            "question": "The Yoruba traditional government system was __________.",
+            "options": [
+                "A. egalitarian",
+                "B. republican",
+                "C. democratic",
+                "D. monarchical"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 18,
+            "question": "During the pre-colonial period in Eastern Nigeria, autocratic rule was made difficult by the __________.",
+            "options": [
+                "A. secret societies",
+                "B. fear of dethronement",
+                "C. absence of centralized authority",
+                "D. pressure groups"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 19,
+            "question": "The Aba women riot of 1929 was caused by the attempt to introduce __________.",
+            "options": [
+                "A. indirect rule",
+                "B. direct taxes",
+                "C. forced labour",
+                "D. warrant chiefs"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 20,
+            "question": "One of the advantages of privatization is that it __________.",
+            "options": [
+                "A. relieves government of liquidity problems",
+                "B. empowers the poor",
+                "C. makes public corporations effective",
+                "D. empowers the rich"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 21,
+            "question": "The most important aspect of the 1976 local government reforms was the __________.",
+            "options": [
+                "A. introduction of a uniform system",
+                "B. introduction of party politics",
+                "C. subordination to states",
+                "D. recognition as third tier"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 22,
+            "question": "Local governments were created mainly to __________.",
+            "options": [
+                "A. realize full employment",
+                "B. bring government nearer to the people",
+                "C. prevent state creation",
+                "D. encourage rivalry"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 23,
+            "question": "In the Oyo Empire, the Alaafin was __________.",
+            "options": [
+                "A. an absolute monarch",
+                "B. popularly elected",
+                "C. a constitutional monarch",
+                "D. worshipped as a deity"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 24,
+            "question": "The policy that liberalizes the economy and removes government control is __________.",
+            "options": [
+                "A. nationalization",
+                "B. deregulation",
+                "C. commercialization",
+                "D. privatization"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 25,
+            "question": "The local government is an example of __________.",
+            "options": [
+                "A. concentration of power",
+                "B. separation of power",
+                "C. devolution of power",
+                "D. delegation of power"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 26,
+            "question": "Which set of pre-colonial political systems does not match administratively?",
+            "options": [
+                "A. Igbo and Tiv",
+                "B. Benin and Igbo",
+                "C. Sokoto and Oyo",
+                "D. Benin and Sokoto"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 27,
+            "question": "Privatization and commercialization of public enterprises will entrench __________.",
+            "options": [
+                "A. socialism",
+                "B. capitalism",
+                "C. welfarism",
+                "D. fascism"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "question": "The policy of assimilation was adopted by __________.",
+            "options": [
+                "A. Britain",
+                "B. Spain",
+                "C. France",
+                "D. Italy"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 29,
+            "question": "The use of traditional rulers by the British to rule Nigerians was called __________.",
+            "options": [
+                "A. direct rule",
+                "B. assimilation",
+                "C. indirect rule",
+                "D. foreign rule"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 30,
+            "question": "The following were British colonies in West Africa except __________.",
+            "options": [
+                "A. Nigeria",
+                "B. Togo",
+                "C. Ghana",
+                "D. The Gambia"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 31,
+            "question": "Indirect rule was introduced in Nigeria because __________.",
+            "options": [
+                "A. rulers were powerful",
+                "B. few British administrators existed",
+                "C. native authorities were organized",
+                "D. to empower the people"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 32,
+            "question": "The crucial check on autocratic Oba in Yoruba system was __________.",
+            "options": [
+                "A. presenting suicide symbol",
+                "B. avoiding palace",
+                "C. exile",
+                "D. refusal of orders"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 33,
+            "question": "Privatization of public corporations implies __________.",
+            "options": [
+                "A. government divestment",
+                "B. public takeover",
+                "C. autonomy of corporations",
+                "D. commercialization"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 34,
+            "question": "In pre-colonial Yoruba society, the powers of the Oyo-mesi were checked by the __________.",
+            "options": [
+                "A. Baale",
+                "B. Ogboni",
+                "C. Are-ona Kakanfo",
+                "D. Bashorun"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 35,
+            "question": "Administration of the emirate capital was entrusted to the __________.",
+            "options": [
+                "A. Galadima",
+                "B. Waziri",
+                "C. Sarkin Fada",
+                "D. Sarkin Pawa"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 36,
+            "question": "Privatization of public corporations aims at making them more __________.",
+            "options": [
+                "A. available",
+                "B. reliable",
+                "C. efficient",
+                "D. controlled"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 37,
+            "question": "The duty of an Alkali was to __________.",
+            "options": [
+                "A. collect tax",
+                "B. judge cases",
+                "C. go to war",
+                "D. lead prayers"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 38,
+            "question": "The process of learning political norms and values is political __________.",
+            "options": [
+                "A. socialization",
+                "B. indoctrination",
+                "C. culture",
+                "D. participation"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 39,
+            "question": "There are __________ local governments in Nigeria.",
+            "options": [
+                "A. 747",
+                "B. 774",
+                "C. 474",
+                "D. 744"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 40,
+            "question": "The civil service cadre responsible for supervision of ministries is the __________.",
+            "options": [
+                "A. professional class",
+                "B. administrative class",
+                "C. executive class",
+                "D. clerical class"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "question": "The day-to-day operation of a public corporation is the responsibility of the __________.",
+            "options": [
+                "A. board of directors",
+                "B. union of workers",
+                "C. management",
+                "D. supervising ministry"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 42,
+            "question": "Local governments in Nigeria are divided into __________.",
+            "options": [
+                "A. constituencies",
+                "B. wards",
+                "C. senatorial districts",
+                "D. provinces"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "A system where private individuals control production is __________.",
+            "options": [
+                "A. communism",
+                "B. communalism",
+                "C. socialism",
+                "D. capitalism"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 44,
+            "question": "Which is not a demerit of privatization?",
+            "options": [
+                "A. exploitation",
+                "B. elimination of welfarism",
+                "C. efficiency",
+                "D. high cost of living"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 45,
+            "question": "The prime minister in Hausa/Fulani system was the __________.",
+            "options": [
+                "A. Madawaki",
+                "B. Waziri",
+                "C. Magaji",
+                "D. Dogari"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "question": "Zakat was a form of taxation in __________.",
+            "options": [
+                "A. Igbo system",
+                "B. Benin system",
+                "C. Yoruba system",
+                "D. Hausa/Fulani system"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 47,
+            "question": "Indirect rule failed totally in __________.",
+            "options": [
+                "A. Yoruba land",
+                "B. Hausa land",
+                "C. Igbo land",
+                "D. Sokoto Caliphate"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 48,
+            "question": "Which of the following is not a Nigerian nationalist?",
+            "options": [
+                "A. Casely Hayford",
+                "B. Herbert Macaulay",
+                "C. Ernest Ikoli",
+                "D. Aminu Kano"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 49,
+            "question": "One hundred percent success of indirect rule was achieved in __________.",
+            "options": [
+                "A. Hausa land",
+                "B. Igbo land",
+                "C. Tiv land",
+                "D. Yoruba land"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 50,
+            "question": "Partial success of indirect rule was achieved in __________.",
+            "options": [
+                "A. Yoruba land",
+                "B. Hausa land",
+                "C. Igbo land",
+                "D. Tiv land"
+            ],
+            "correctOption": "A"
+        }
+    ]
+}

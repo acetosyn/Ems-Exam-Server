@@ -1,0 +1,559 @@
+{
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "Chemistry",
+    "exam_title": "1st Term Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 60,
+    "questions": [
+        {
+            "id": 1,
+            "question": "The property of elements which increases down a group of the periodic table is",
+            "options": [
+                "(a)electronegativity",
+                "(b)electron affinity",
+                "(c)atomic radius",
+                "(d)ionization energy"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 2,
+            "question": "Which of the following conditions would lead to an increase in the rate of a chemical reaction?",
+            "options": [
+                "(a)Increase in temperature and decrease in the surface area of reactants",
+                "(b)Increase in both temperature and concentration of reactants",
+                "(c)Decrease in temperature and increase in concentration of reactants",
+                "(d)Decrease in temperature and increase in the surface area of reactants"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 3,
+            "question": "How many electrons are in the outermost shell of group 3 elements?",
+            "options": [
+                "(a)3",
+                "(b)7",
+                "(c)8",
+                "(d)10"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 4,
+            "question": "In the periodic table, each group has a common name. Which of the following is the name of 2A group?",
+            "options": [
+                "(a)Alkaline earth metal",
+                "(b)Alkali metals",
+                "(c)Noble gases",
+                "(d)Halogens"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 5,
+            "question": "Which of the following physical properties decreases across the period?",
+            "options": [
+                "(a)Ionization potential",
+                "(b)Electron affinity",
+                "(c)Electro negativity",
+                "(d)Atomic radius"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 6,
+            "question": "Elements in the same period have the same",
+            "options": [
+                "(a)number of shells",
+                "(b)valence electron",
+                "(c)nucleon number",
+                "(d)size"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 7,
+            "question": "In the reaction between 2S(s) + 3O2(g)          2SO3(g) The effect of increase in pressure on this system is",
+            "options": [
+                "(a)to encourage backward reaction",
+                "(b)to encourage forward reaction",
+                "(c)to remove the energy barrier",
+                "(d)to stabilize the system"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 8,
+            "question": "These factors affect equilibrium reaction except",
+            "options": [
+                "(a)pressure (for gaseous system)",
+                "(b)pressure (for solid system)",
+                "(c)temperature",
+                "(d)concentration"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 9,
+            "question": "In the decomposition of CaCO3(s)     CaO(s) +  CO2(g).  the reaction will attain dynamic equilibrium only?",
+            "options": [
+                "(a)when the reaction is catalyzed",
+                "(b)when the reaction is in open system",
+                "(c)when the reaction is heated",
+                "(d)when the reaction is in a closed system"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 10,
+            "question": "Two men balanced steadily in a sea saw game is an example of",
+            "options": [
+                "(a)mutual equilibrium",
+                "(b)homogenous equilibrium",
+                "(c)dynamic equilibrium",
+                "(d)static equilibrium"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 11,
+            "question": "Reaction in which heat is given out to the surrounding is",
+            "options": [
+                "(a)endothermic",
+                "(b)catalytic",
+                "(c)reversible",
+                "(d)exothermic"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 12,
+            "question": "Four elements P, Q, R and S have atomic numbers 4, 10, 12 and 14 respectively.  Which of these elements is a noble gas?",
+            "options": [
+                "(a)P",
+                "(b)Q",
+                "(c)R",
+                "(d)S"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 13,
+            "question": "Which of the following is correct about the trend of ionization energy in the periodic table?",
+            "options": [
+                "(a)Decreases across a period",
+                "(b)Increase down the group",
+                "(c)Increase across a period",
+                "(d)Unchanged down a group"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 14,
+            "question": "Consider the equilibrium reaction represented by the equation: 2SO2(g) + O2(g) = 2SO3(g)   \u2206 =  - 197moldm-1 at equilibrium. Increase in the total pressure of the system brings about",
+            "options": [
+                "(a)decrease in rate of the reaction of the system",
+                "(b)decrease in temperature of the system",
+                "(c)increase in temperature of SO3",
+                "(d)increase in concentration of SO2"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 15,
+            "question": "A solution of sodium hydroxide containing 5g in 1dm3 of solution has a concentration of",
+            "options": [
+                "(a)0.04mol/dm3",
+                "(b)0.60mol/dm3",
+                "(c)0.50mol/dm3",
+                "(d)0.125mol/dm3"
+            ],
+            "correctOption": "d"
+        },
+        {
+            "id": 16,
+            "question": "The expression n/kg of solvent is true for",
+            "options": [
+                "(a)molality",
+                "(b)morality",
+                "(c)molar volume",
+                "(d)concentration"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 17,
+            "question": "S.I unit of Avogadro\u2019s constant is",
+            "options": [
+                "(a)mol-1",
+                "(b)gmol-1",
+                "(c)N",
+                "(d)dm3"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 18,
+            "question": "The energy which accompanies the addition of an electron to an isolated gaseous atom is",
+            "options": [
+                "(a)atomization",
+                "(b)electro negativity",
+                "(c)electron affinity",
+                "(d)ionization"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 19,
+            "question": "What mass of anhydrous sodium trioxocarbonate (iv), Na2CO3, is present in 1dm3 of 0.5moldm-3?",
+            "options": [
+                "(a)53g",
+                "(b)5.3g",
+                "(c)531g",
+                "(d)106g"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 20,
+            "question": "Which of the following is solid at room temperature?",
+            "options": [
+                "(a)Bromine",
+                "(b)Chlorine",
+                "(c)Fluorine",
+                "(d)Iodine"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 21,
+            "question": "S-block elements of the periodic table are made up of group",
+            "options": [
+                "(a)1 and 2",
+                "(b)3 and 7",
+                "(c)4 and 2",
+                "(d)3 and 4"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 22,
+            "question": "Which property of a reversible reaction is affected by a catalyst?",
+            "options": [
+                "(a)Heat content",
+                "(b)Activation energy",
+                "(c)Free energy change",
+                "(d)Equilibrium position"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 23,
+            "question": "The periodic properties that increase across the periods is/are",
+            "options": [
+                "(a)atomic radii",
+                "(b)atomic radius",
+                "(c)ionic radii and electro negativity",
+                "(d)electron affinity and electro negativity"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 24,
+            "question": "Minimum amount of energy required before a chemical reaction could occur is called",
+            "options": [
+                "(a)effective energy",
+                "(b)activation complex",
+                "(c)reaction energy",
+                "(d)activation energy"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 25,
+            "question": "Catalyst",
+            "options": [
+                "(a)increase the energy barrier o reaction",
+                "(b)increase the equilibrium constant of reactant",
+                "(c)brings about energy barrier of reaction",
+                "(d)lowers the activation energy of reactions"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 26,
+            "question": "The unit of the rate of a chemical reaction is",
+            "options": [
+                "(a)moldm-3S-1",
+                "(b)moldm-3",
+                "(c)dm-3",
+                "(d)molS-1"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 27,
+            "question": "Given that the electronic configuration of an element X is 1s2  2s2  2p6  3s2  3p6, it can be deducted that X",
+            "options": [
+                "(a)belongs o group 0 in the periodic table",
+                "(b)belongs to period 4 in the periodic table",
+                "(c)contains 3 unpaired electrons in the ground state",
+                "(d)has atomic number 27"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 28,
+            "question": "The atomic radii of metals are usually",
+            "options": [
+                "(a)greater than their ionic radii",
+                "(b)equal to their ionic radii",
+                "(c)less than their ionic radii",
+                "(d)less than those of non-metals in the same period"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 29,
+            "question": "If the value of \u2206H is positive for a reaction, it means that the reaction is",
+            "options": [
+                "(a)exothermic",
+                "(b)endothermic",
+                "(c)spontaneous",
+                "(d)irreversible"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 30,
+            "question": "The following affect equilibrium position except",
+            "options": [
+                "(a)catalyst",
+                "(b)temperature",
+                "(c)pressure",
+                "(d)concentration"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 31,
+            "question": "Consider the following elements and their electronic configurations P: 1s2 Q: 1s2, 2s2, 2p6 R: 1s2, 2s2, 2p6, 3s2, 3p1 S: 1s2, 2s2, 2p2, 3s2, 3p2 Which of the following elements belong to the same group?",
+            "options": [
+                "(a)P and R",
+                "(b)P and Q",
+                "(c)R and S",
+                "(d)Q,R and S only"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 32,
+            "question": "Rare gases are stable because they",
+            "options": [
+                "(a)are chemically active",
+                "(b)contain equal number of protons and neutrons",
+                "(c)contain more electrons than protons",
+                "(d)have duplet/octet structures"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 33,
+            "question": "Which of the following elements is diatomic?",
+            "options": [
+                "(a)Iron",
+                "(b)Nitrogen",
+                "(c)Potassium",
+                "(d)Sodium"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 34,
+            "question": "Which of the following elements is a metalloid?",
+            "options": [
+                "(a)Carbon",
+                "(b)Oxygen",
+                "(c)Silicon",
+                "(d)Sodium"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 35,
+            "question": "Chemical equilibrium is attained when",
+            "options": [
+                "(a)all the reactants have been completely used up",
+                "(b)the reactions goes to completion",
+                "(c)the concentration of the reactants and products remains constant",
+                "(d)the concentration of reactants and products are equal"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 36,
+            "question": "The position of equilibrium in a reversible reaction is affected by",
+            "options": [
+                "(a)particle size of the reactant",
+                "(b)vigorous stirring of the reaction mixture",
+                "(c)presence of a catalyst",
+                "(d)change in concentration of the reactant"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 37,
+            "question": "In which of the following reactions is the position of equilibrium not affected by air increase in pressure",
+            "options": [
+                "(a)3Fe(s) + 4H2O(g)  = Fe3O4(s) + 4H2(g)",
+                "(b)2NO2(g) = N2O4(g)",
+                "(c)3H2(g) + N2(g) = 2NH3(g)",
+                "(d)2SO2(g) + O2(g) = 2SO3(g)"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 38,
+            "question": "Which of the following statements about endothermic reaction is correct?",
+            "options": [
+                "(a)Activation energy is high",
+                "(b)A catalyst is red",
+                "(c)It occurs reversibly",
+                "(d)Heat energy is absorbed"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 39,
+            "question": "The surface area of reactant particles can be increased by",
+            "options": [
+                "(a)breaking it down into powdered form",
+                "(b)increasing the temperature",
+                "(c)applying a catalyst",
+                "(d)increasing the concentration"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 40,
+            "question": "The rate of chemical reaction of solids are not affected by",
+            "options": [
+                "(a)catalyst",
+                "(b)pressure",
+                "(c)particle size",
+                "(d)temperature"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "question": "An exothermic reaction is one which involves",
+            "options": [
+                "(a)attainment of dynamic equilibrium",
+                "(b)loss of heat to the surrounding",
+                "(c)evolution of gas as it proceeds",
+                "(d)positive change in value of enthalpy"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 42,
+            "question": "If the value of \u2206H for a reaction is negative, it means that the reaction is",
+            "options": [
+                "(a)slow",
+                "(b)exothermic",
+                "(c)spontaneous",
+                "(d)irreversible"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "Which of the following elements can conveniently be placed in two groups in the periodic table?",
+            "options": [
+                "(a)Carbon",
+                "(b)Copper",
+                "(c)Hydrogen",
+                "(d)Oxygen"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 44,
+            "question": "Fluorine and chlorine belongs to the same group in the periodic table because both",
+            "options": [
+                "(a)are metals",
+                "(b)form cation",
+                "(c)are electron donors",
+                "(d)have the same number of valence electrons"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 45,
+            "question": "Consider the following reaction equation: C2H4   +  3O2           2CO2  +  2H2O.  The volume of oxygen at s.t.p that will be required to burn 14g of ethane is",
+            "options": [
+                "(a)67.2dm3",
+                "(b)33.6dm3",
+                "(c)11.2dm3",
+                "(d)3.73dm3"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "question": "These factors affect chemical reactions except",
+            "options": [
+                "(a)temperature",
+                "(b)catalyst",
+                "(c)concentration",
+                "(d)activation energy"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 47,
+            "question": "Determine the mass of sulphur(iv) oxide obtained when 91.0g of oxygen reacts completely with sulphur according to the S + O2          SO2",
+            "options": [
+                "(a)123g",
+                "(b)139g",
+                "(c)155g",
+                "(d)182g"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "question": "Elements are arranged in the periodic table according to their",
+            "options": [
+                "(a)atomic mass",
+                "(b)atomic volume",
+                "(c)size",
+                "(d)atomic number"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 49,
+            "question": "Which of the following arrangement shows increasing order of reactivity of the halogens?",
+            "options": [
+                "(a)F2   Cl2   Br2    I2",
+                "(b)I2    Br2   Cl2     F2",
+                "(c)F2   Cl2   Br2    I2",
+                "(d)I2  Br2   Cl2   F2"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 50,
+            "question": "In the energy profile diagram for chemical reaction, the apex of the curve represents",
+            "options": [
+                "(a)activation energy",
+                "(b)heat of reaction",
+                "(c)products",
+                "(d)activated complex"
+            ],
+            "correctOption": "D"
+        }
+    ]
+}

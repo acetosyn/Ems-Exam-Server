@@ -1,0 +1,48 @@
+/* ============================================================
+   SUBJECT CARDS (Mini + Compact)
+   ============================================================ */
+.subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); /* 🔥 smaller cards */
+  gap: .7rem;
+}
+
+.subject-card {
+  background: #fff;
+  padding: .55rem;                /* 🔥 very compact */
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.subject-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subject-name {
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: .8rem;               /* 🔥 smaller */
+}
+
+.subject-version-pill {
+  padding: .12rem .35rem;
+  background: #f1f5f9;
+  border-radius: 5px;
+  font-size: .65rem;
+}
+
+.subject-filename {
+  font-size: .72rem;
+  color: #334155;
+}
+
+.subject-meta {
+  font-size: .7rem;
+  color: #6b7280;
+}

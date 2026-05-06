@@ -1,0 +1,659 @@
+{
+  "subject": "Economics",
+  "class": "SS3",
+  "session": "2022/2023",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "The exceptional demand is one in which the ______________________",
+      "options": [
+        "A. supplier sells all that he takes to the market",
+        "B. consumers do not buy from the market",
+        "C. more commodities are demanded at higher prices",
+        "D. quantity demanded and price move in opposite direction"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "The introduction of division of labour in a firm will lead to ______________________",
+      "options": [
+        "A. a fall in output",
+        "B. a decline in efficiency",
+        "C. an increase in output",
+        "D. an increase in unit cost"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "Total cost is the addition of ______________________",
+      "options": [
+        "A. real cost and money cost",
+        "B. price and taxes",
+        "C. fixed cost and variable cost",
+        "D. average cost and marginal cost"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 4,
+      "diagram": "/static/uploads/diagrams/2022/economics_ss3/diagram_4.PNG",
+      "question": "The percentage change in supply is ______________________",
+      "options": [
+        "A. 20%",
+        "B. 40%",
+        "C. 50%",
+        "D. 60%"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 5,
+      "diagram": "/static/uploads/diagrams/2022/economics_ss3/diagram_4.PNG",
+      "question": "The percentage change in price is ______________________",
+      "options": [
+        "A. 40%",
+        "B. 20%",
+        "C. 30%",
+        "D. 80%"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 6,
+      "diagram": "/static/uploads/diagrams/2022/economics_ss3/diagram_4.PNG",
+      "question": "The co-efficient of elasticity of supply is ______________________",
+      "options": [
+        "A. > 1",
+        "B. < 1",
+        "C. = 1",
+        "D. > 0 < 1"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "Which stage of demographic transition theory is characterized by high mortality and fertility?",
+      "options": [
+        "A. Pre-transition",
+        "B. Transition",
+        "C. Post-transition",
+        "D. De-transition"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "The economic system in which production decisions are made by private individuals is called ______________________",
+      "options": [
+        "A. socialism",
+        "B. welfarism",
+        "C. capitalism",
+        "D. communalism"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "If government fixes the price of a commodity above equilibrium price, there will be ______________________",
+      "options": [
+        "A. excess demand",
+        "B. excess supply",
+        "C. increase in income",
+        "D. decrease in income"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "The instruments used in many countries to restrict import include ______________________",
+      "options": [
+        "A. high tariffs",
+        "B. price index",
+        "C. excise duties",
+        "D. subsidies"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "An arrangement of data in rows and columns is known as ______________________",
+      "options": [
+        "A. graph",
+        "B. bar chart",
+        "C. pie chart",
+        "D. table"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "In a capitalist economic system, economic activities are regulated by ______________________",
+      "options": [
+        "A. government",
+        "B. economic desperadoes",
+        "C. invisible hands",
+        "D. president"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Natural growth rate is ______________________",
+      "options": [
+        "A. birth rate less death rate",
+        "B. death rate less migration",
+        "C. death rate plus birth rate",
+        "D. birth rate plus migration"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "An excise tax is imposed on goods ______________________",
+      "options": [
+        "A. supplied into the country",
+        "B. manufactured locally",
+        "C. imported into the country",
+        "D. exported goods"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "Balance of payment problem can be corrected through ______________________",
+      "options": [
+        "A. increasing foreign reserve",
+        "B. increasing domestic borrowing",
+        "C. import promotion strategy",
+        "D. none of the above"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "The stability of the Nigerian economy depends mainly on the export price of ______________________",
+      "options": [
+        "A. groundnut",
+        "B. cotton",
+        "C. cocoa",
+        "D. mineral oil"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "When wage rate increases above equilibrium, there will be ______________________",
+      "options": [
+        "A. increase in demand for labour",
+        "B. decrease in demand for labour",
+        "C. increase in supply of labour",
+        "D. decrease in supply of labour"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "A market situation where there is only one buyer is called ______________________",
+      "options": [
+        "A. monopoly",
+        "B. duopoly",
+        "C. monopsony",
+        "D. oligopoly"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "The following are conditions for perfect market except ______________________",
+      "options": [
+        "A. homogeneous products",
+        "B. heterogeneous products",
+        "C. common ruling price",
+        "D. free entry and exit"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "A standard unit for measuring utility according to cardinalist economists is ______________________",
+      "options": [
+        "A. saturation",
+        "B. equilibrium",
+        "C. utils",
+        "D. disutility"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "The trade agreement between two countries is called ______________________",
+      "options": [
+        "A. multilateral trade",
+        "B. bilateral trade",
+        "C. unilateral trade",
+        "D. trilateral trade"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "Buying and selling of goods within a country is known as ______________________",
+      "options": [
+        "A. foreign trade",
+        "B. internal trade",
+        "C. unilateral trade",
+        "D. international trade"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Re-shipping of goods shipped to one country and then to another is called ______________________",
+      "options": [
+        "A. import trade",
+        "B. export trade",
+        "C. entrepot trade",
+        "D. invisible trade"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "An example of infant industry in Nigeria is ______________________",
+      "options": [
+        "A. automobile industry",
+        "B. mining industry",
+        "C. textile industry",
+        "D. rice producing industry"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "One of the following is not a product of strategic industries in Nigeria",
+      "options": [
+        "A. bomb",
+        "B. AK49",
+        "C. AK47",
+        "D. drone"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "According to ordinalist economists, utility can only be ______________________",
+      "options": [
+        "A. measured",
+        "B. ranked",
+        "C. tested",
+        "D. experimented"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "A perfect competitor is at equilibrium when ______________________",
+      "options": [
+        "A. P = AR = MR",
+        "B. P = MC = MR",
+        "C. P > MC > MR",
+        "D. P = TR > AR"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "In the short-run, a perfect competitor makes … profit",
+      "options": [
+        "A. normal",
+        "B. supernormal",
+        "C. excess",
+        "D. shortage"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "Elasticity greater than zero but less than one is ______________________",
+      "options": [
+        "A. elastic",
+        "B. inelastic",
+        "C. unitary elastic",
+        "D. perfectly elastic"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "When increase in price of commodity X leads to rise in demand for Y, they are … related",
+      "options": [
+        "A. competitively",
+        "B. complementarily",
+        "C. compositely",
+        "D. derivedly"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "The principle of comparative cost advantage was propounded by ______________________",
+      "options": [
+        "A. Adam Smith",
+        "B. David Ricardo",
+        "C. J. S. Mill",
+        "D. Thomas Malthus"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "The assumptions of comparative cost advantage include all except ______________________",
+      "options": [
+        "A. one country involved",
+        "B. two countries involved",
+        "C. no transport cost",
+        "D. fixed costs"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "The principle of absolute advantage was propounded by ______________________",
+      "options": [
+        "A. Adam Smith",
+        "B. Prof. C. Robbins",
+        "C. David Ricardo",
+        "D. J. S. Mill"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "An example of invisible goods is ______________________",
+      "options": [
+        "A. electronics",
+        "B. machinery",
+        "C. crude oil",
+        "D. banking"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Which age group is regarded as independent population in Nigeria?",
+      "options": [
+        "A. 0–17 years",
+        "B. 18–60 years",
+        "C. 60–70 years",
+        "D. 80 years and above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "When total utility reaches maximum, marginal utility ______________________",
+      "options": [
+        "A. equals zero",
+        "B. begins to fall",
+        "C. begins to rise",
+        "D. is negative"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "The point where total utility is maximized is called ______________________",
+      "options": [
+        "A. utilization point",
+        "B. saturation",
+        "C. equilibrium",
+        "D. disunity"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "One of the following is not an economic good",
+      "options": [
+        "A. bread",
+        "B. fish",
+        "C. air",
+        "D. water"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Means of reducing population include all except ______________________",
+      "options": [
+        "A. emigration",
+        "B. family planning",
+        "C. early marriage",
+        "D. immigration"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "The mode is ______________________",
+      "options": [
+        "A. the observation with highest frequency",
+        "B. the average of two middle numbers",
+        "C. the middle position",
+        "D. the difference of extreme values"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "If supply increases while demand remains constant, there will be ______________________",
+      "options": [
+        "A. increase in equilibrium price and quantity",
+        "B. decrease in equilibrium price and quantity",
+        "C. increase in price and decrease in quantity",
+        "D. decrease in price and increase in quantity"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "A merchant who buys goods from manufacturers is a ______________________",
+      "options": [
+        "A. producer",
+        "B. wholesaler",
+        "C. retailer",
+        "D. consumer"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "The process of distribution includes all except ______________________",
+      "options": [
+        "A. advertisement",
+        "B. hoarding",
+        "C. warehousing",
+        "D. transportation"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "A rational consumer maximizes utility when ______________________",
+      "options": [
+        "A. MUx/Px > MUy/Py",
+        "B. MUx/Px = MUy/Py",
+        "C. MUx − Px / Py",
+        "D. MUx/Px < MUy/Py"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "Factors affecting demand include all except ______________________",
+      "options": [
+        "A. income of consumers",
+        "B. government policy",
+        "C. price of a commodity",
+        "D. price of other commodities"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "If price is fixed below equilibrium, the gap represents ______________________",
+      "options": [
+        "A. equilibrium price",
+        "B. excess supply",
+        "C. black market activities",
+        "D. consumer surplus"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "What is the range of 10, 20, 50, 40?",
+      "options": [
+        "A. 20",
+        "B. 30",
+        "C. 40",
+        "D. 80"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "diagram": "/static/uploads/diagrams/2022/economics_ss3/diagram_48.PNG",
+      "question": "What is the lower quartile?",
+      "options": [
+        "A. 3",
+        "B. 6",
+        "C. 9",
+        "D. 4"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 49,
+      "diagram": "/static/uploads/diagrams/2022/economics_ss3/diagram_48.PNG",
+      "question": "Calculate the upper quartile",
+      "options": [
+        "A. 6",
+        "B. 4",
+        "C. 9",
+        "D. 12"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 50,
+      "diagram": "/static/uploads/diagrams/2022/economics_ss3/diagram_48.PNG",
+      "question": "The quartile range is ______________________",
+      "options": [
+        "A. 6",
+        "B. 4",
+        "C. 9",
+        "D. 2"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

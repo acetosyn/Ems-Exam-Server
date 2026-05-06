@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Civic Education",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of these heads of State established National Youth Service Corps?",
+      "options": [
+        "A. Aguiyi Ironsi",
+        "B. Ibrahim Babangida",
+        "C. Olusegun Obasanjo",
+        "D. Yakubu Gowon"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "Which of these agencies of government promotes national consciousness?",
+      "options": [
+        "A. Federal Ministry of Defence",
+        "B. National Communication Commission",
+        "C. National Orientation Agency",
+        "D. Maritime Agency of Nigeria"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Which of these is a unity school in Nigeria?",
+      "options": [
+        "A. Epitome Model Islam Schools",
+        "B. Witty Kids International School",
+        "C. Hygrade International School",
+        "D. University of Lagos"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "National Youth Service Corps was established in",
+      "options": [
+        "A. 1960",
+        "B. 1973",
+        "C. 1975",
+        "D. 1970"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Which of these events led to the establishment of NYSC?",
+      "options": [
+        "A. Nigeria civil war",
+        "B. Existence of different ethnic groups",
+        "C. Kano riot of 1953",
+        "D. A.G crisis of 1962"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "Universal declaration of Human Rights took place in",
+      "options": [
+        "A. 1945",
+        "B. 1940",
+        "C. 1948",
+        "D. 1960"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "UDHR was proclaimed in which of these cities?",
+      "options": [
+        "A. London",
+        "B. Paris",
+        "C. New York",
+        "D. Hague"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Nigeria became a sovereign state in",
+      "options": [
+        "A. 1963",
+        "B. 1960",
+        "C. 1979",
+        "D. 1954"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "Citizenship education helps to",
+      "options": [
+        "A. promote patriotic spirit",
+        "B. promote moral decadence",
+        "C. encourage ethnic bigotry",
+        "D. facilitate injustice"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Which of these cannot be learnt through citizenship education?",
+      "options": [
+        "A. Obedience",
+        "B. Hardwork",
+        "C. Community service",
+        "D. Impersonation"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "The current national anthem of Nigeria was introduced by which of these Heads of State?",
+      "options": [
+        "A. Ahmed Tinubu",
+        "B. Muhammad Buhari",
+        "C. Goodluck Jonathan",
+        "D. Umaru Yar’adua"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "Reciting national anthem helps to",
+      "options": [
+        "A. promote unity",
+        "B. reduce conflict",
+        "C. encourage economic development",
+        "D. validate impunity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Nigeria is found in which part of Africa?",
+      "options": [
+        "A. East",
+        "B. Central",
+        "C. West",
+        "D. South"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Nigeria gained her independence from which of these countries?",
+      "options": [
+        "A. England",
+        "B. United Kingdom",
+        "C. France",
+        "D. Scotland"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "The following are duties of citizens except",
+      "options": [
+        "A. payment of tax",
+        "B. respect to constituted authority",
+        "C. voting during election",
+        "D. impersonation"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "Capitalist democracy is promoted the most by which of these countries?",
+      "options": [
+        "A. Brazil",
+        "B. Nigeria",
+        "C. USA",
+        "D. United Kingdom"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "The following countries practice capitalist democracy except",
+      "options": [
+        "A. Nigeria",
+        "B. Ghana",
+        "C. Japan",
+        "D. Cuba"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Which of these countries is a socialist state?",
+      "options": [
+        "A. Japan",
+        "B. Australia",
+        "C. China",
+        "D. Canada"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "Under capitalist democracy, the price of goods and services is determined by",
+      "options": [
+        "A. the government",
+        "B. the society",
+        "C. interaction of demand and supply",
+        "D. the legislature"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "The main goal of capitalist democracy is to ensure",
+      "options": [
+        "A. even development",
+        "B. individual control of the economy",
+        "C. state control of the economy",
+        "D. planned economy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Government activities under capitalist democracy is propelled by",
+      "options": [
+        "A. democratic principles",
+        "B. theocratic principles",
+        "C. state ownership of the economy",
+        "D. feudalist principles"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "The senate in Nigeria is regarded as the",
+      "options": [
+        "A. lower chamber",
+        "B. upper chamber",
+        "C. national assembly",
+        "D. state assembly"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Which of these chambers in Nigeria has 360 members?",
+      "options": [
+        "A. Senate",
+        "B. State House of Assembly",
+        "C. House of Representatives",
+        "D. Supreme Court"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "Which of these ethnic groups is found in Southern Nigeria?",
+      "options": [
+        "A. Nupe",
+        "B. Angas",
+        "C. Birom",
+        "D. Efik"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "Which of these names is not native to Nigeria?",
+      "options": [
+        "A. Emeka",
+        "B. Adeleke",
+        "C. Labaran",
+        "D. Abdulrahman"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "One can become a citizen through the following process except",
+      "options": [
+        "A. naturalization",
+        "B. birth",
+        "C. marriage",
+        "D. identification"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "The following are positive societal values except",
+      "options": [
+        "A. theft",
+        "B. contentment",
+        "C. tolerance",
+        "D. obedience"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Nasarawa state is in which geo-political zone?",
+      "options": [
+        "A. North-West",
+        "B. North-East",
+        "C. Middlebelt",
+        "D. North-Central"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "The current minister of education in Nigeria is",
+      "options": [
+        "A. Tunji Alausa",
+        "B. David Umahi",
+        "C. Nyesom Nwaike",
+        "D. Musa Kwankwaso"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "First republic in Nigeria was witnessed in which of these years?",
+      "options": [
+        "A. 1979–1983",
+        "B. 1963–1966",
+        "C. 1992–1993",
+        "D. 1999–2003"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "Which of the following factors may stop a citizen from voting in an election?",
+      "options": [
+        "A. High cost of living",
+        "B. Non-registration",
+        "C. Unemployment",
+        "D. Political neutrality"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "The following factors contribute to societal decay except",
+      "options": [
+        "A. education",
+        "B. prostitution",
+        "C. cultism",
+        "D. drug abuse"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Human rights are the cornerstone of",
+      "options": [
+        "A. aristocracy",
+        "B. socialism",
+        "C. feudalism",
+        "D. democracy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "Building of good values in the society start from the",
+      "options": [
+        "A. mosque",
+        "B. school",
+        "C. family",
+        "D. church"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Political apathy may lead to",
+      "options": [
+        "A. entrenchment of rule of law",
+        "B. sustenance of democracy",
+        "C. bad governance",
+        "D. societal development"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "The act of law making in a democratic state is carried out by the",
+      "options": [
+        "A. executive",
+        "B. legislature",
+        "C. judiciary",
+        "D. civil service"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "Which of these arms of government executes the law of the state?",
+      "options": [
+        "A. The legislature",
+        "B. The judiciary",
+        "C. The parliament",
+        "D. The executive"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "In a democratic state, the right to vote and be voted for is given to",
+      "options": [
+        "A. party members",
+        "B. adult citizens",
+        "C. aliens",
+        "D. candidates"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Argungu fishing festival is a common practice in",
+      "options": [
+        "A. Kebbi state",
+        "B. Sokoto state",
+        "C. Niger state",
+        "D. Kaduna state"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "Which of these tribes is the dominant ethnic group in Bornu state?",
+      "options": [
+        "A. Hausa",
+        "B. Fulani",
+        "C. Angas",
+        "D. Kanuri"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 41,
+      "question": "New yam festival is celebrated mostly by which of these ethnic groups?",
+      "options": [
+        "A. Yoruba",
+        "B. Ibibio",
+        "C. Igala",
+        "D. Igbo"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "Communication skills can be expressed through",
+      "options": [
+        "A. name bearing",
+        "B. documentation",
+        "C. traditional marriage",
+        "D. inter-tribal marriage"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "How many senators are elected from a state in Nigeria?",
+      "options": [
+        "A. 4",
+        "B. 3",
+        "C. 5",
+        "D. 2"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "The head of an emirate in Nigeria is known as",
+      "options": [
+        "A. Igwe",
+        "B. Oba",
+        "C. Etsu",
+        "D. Emir"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 45,
+      "question": "Which of these systems of government advocates uneven distribution of wealth?",
+      "options": [
+        "A. Socialism",
+        "B. Capitalism",
+        "C. Communalism",
+        "D. Communism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Primary election is conducted by",
+      "options": [
+        "A. political parties",
+        "B. electoral umpire",
+        "C. electorate",
+        "D. electoral commission"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "The traditional ruler of Igala ethnic group in Nigeria is called",
+      "options": [
+        "A. Etsu",
+        "B. Emir",
+        "C. Oba",
+        "D. Attah"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "question": "A person born in Nigeria by Nigerian parents is a citizen of Nigeria by",
+      "options": [
+        "A. registration",
+        "B. recognition",
+        "C. birth",
+        "D. naturalization"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "The following are observed as public holidays in Nigeria except",
+      "options": [
+        "A. Teachers’ Day",
+        "B. Workers’ Day",
+        "C. Democracy Day",
+        "D. Independence Day"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Which of these is not a tribe in Nigeria?",
+      "options": [
+        "A. Igbo",
+        "B. Fulani",
+        "C. Efik",
+        "D. Zulu"
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

@@ -1,0 +1,560 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Accounts",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 60,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Who is the founder of principle of double entry?",
+      "options": [
+        "A. Edwin James",
+        "B. Frank Wood",
+        "C. Luca Paciolo",
+        "D. Robert Igben"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "When was Association of National Accountants of Nigeria(ANAN) established?",
+      "options": [
+        "A. 1993",
+        "B. 1983",
+        "C. 1979",
+        "D. 1995"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "The difference between two and three columns cashbook is",
+      "options": [
+        "A. bank",
+        "B. cash",
+        "C. folio",
+        "D. discount"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "The objective of accounting information is to enable users",
+      "options": [
+        "A. analyse stock",
+        "B. commit fraud",
+        "C. control stock",
+        "D. make decision"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "A quality of accounting information is that it should be",
+      "options": [
+        "A. sizeable",
+        "B. verifiable",
+        "C. appreciable",
+        "D. depreciable"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Goods taken over by the owner of the business for personal use is treated as",
+      "options": [
+        "A. allowance",
+        "B. sales",
+        "C. loan",
+        "D. drawings"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "When the buyer is undercharged, the seller forwards",
+      "options": [
+        "A. a credit note",
+        "B. a debit note",
+        "C. an invoice",
+        "D. a receipt"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Sales journal is used for recording",
+      "options": [
+        "A. cash sales",
+        "B. sales returns",
+        "C. credit sales",
+        "D. sales expenses"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "When the letter “C” is written in front of an entry in the folio column of a cashbook, it shows a",
+      "options": [
+        "A. double entry",
+        "B. contra entry",
+        "C. cash entry",
+        "D. journal entry"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "An item that can be purchased from a petty cash float is",
+      "options": [
+        "A. correction pen",
+        "B. laptop",
+        "C. raw materials",
+        "D. refrigerator"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "A user of accounting information who would be more interested in the liquidity of the firm is the",
+      "options": [
+        "A. customer",
+        "B. supplier",
+        "C. tax authority",
+        "D. employee"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "When was the Institute of Chartered Accountants of Nigerian established?",
+      "options": [
+        "A. 1982",
+        "B. 1980",
+        "C. 1962",
+        "D. 1965"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "The asset acquired for long term use in business is",
+      "options": [
+        "A. current",
+        "B. fixed",
+        "C. intangible",
+        "D. wasting"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The process of entering transaction from one book to another is",
+      "options": [
+        "A. reading",
+        "B. posting",
+        "C. numbering",
+        "D. listing"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "A subsidiary record is a book",
+      "options": [
+        "A. of subsidiary entries",
+        "B. of final entry",
+        "C. of original entry",
+        "D. containing the final account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "......provides the data used for book-keeping",
+      "options": [
+        "A. Source documents",
+        "B. Accounting",
+        "C. Subsidiary book",
+        "D. Ledger account"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "The practice of book-keeping can be dated as far back as",
+      "options": [
+        "A. 1494",
+        "B. 1492",
+        "C. 1491",
+        "D. 1394"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "The concept of double entry book keeping states that",
+      "options": [
+        "A. for every buyer there is a seller",
+        "B. one party gives value and another party receives value",
+        "C. purchases and sales are stated the same",
+        "D. for every debit entry there must be a corresponding credit entry"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "The number of accounting entries requires to record each financial transaction in the double entry accounting system are",
+      "options": [
+        "A. one",
+        "B. two",
+        "C. three",
+        "D. four"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "The error detecting tool in the double entry rule is known as",
+      "options": [
+        "A. the accounting equation",
+        "B. error equation",
+        "C. balance paid equation",
+        "D. the golden rule equation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "In cash book, the discount that will not appear or be recorded is",
+      "options": [
+        "A. discount allowed",
+        "B. cash discount",
+        "C. trade discount",
+        "D. discount received"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "The purchase of a photocopying machine for office use for N50,000 should be debited to .......account",
+      "options": [
+        "A. asset",
+        "B. bank",
+        "C. cash",
+        "D. sales"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following books of original entry is used to record all payments and receipts by cash or cheque?",
+      "options": [
+        "A. Cashbook",
+        "B. General journal",
+        "C. Invoice",
+        "D. Purchases daybook"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "A three column cashbook contains columns for",
+      "options": [
+        "A. discount, cash and bank",
+        "B. assets, cash and liabilities",
+        "C. assets, cash and returns",
+        "D. cash, bank and capital"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "Ronke sets aside N40,000 from her private funds for business purposes. The N40,000 is referred to as",
+      "options": [
+        "A. drawings",
+        "B. loan",
+        "C. capital",
+        "D. profit"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "How much is the balance carried down from the following information?",
+      "options": [
+        "A. N890",
+        "B. N790",
+        "C. N690",
+        "D. N590"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Which of the following is not an asset?",
+      "options": [
+        "A. Accrual",
+        "B. Debtor",
+        "C. Land",
+        "D. Motor van"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following in a classified form contains a permanent record of all transaction?",
+      "options": [
+        "A. Sales daybook",
+        "B. Journal",
+        "C. Cashbook",
+        "D. Ledger"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "External users of accounting information includes",
+      "options": [
+        "A. employees",
+        "B. bankers",
+        "C. management",
+        "D. directors"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "Which is not a member of the cashbook?",
+      "options": [
+        "A. One column",
+        "B. Three column",
+        "C. Five column",
+        "D. Two column"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "When cash is deposited into the bank out of the cash in hand, the entry is called",
+      "options": [
+        "A. contra entry",
+        "B. debit entry",
+        "C. credit entry",
+        "D. accounting entry"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "The three column cashbook represents how many accounts?",
+      "options": [
+        "A. three account",
+        "B. two account",
+        "C. one account",
+        "D. four account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Mrs. Aisha bought a vehicle for N100,000 paying by cheque, identify the two accounts involved",
+      "options": [
+        "A. vehicle and cheque account",
+        "B. vehicle and bank account",
+        "C. capital and bank account",
+        "D. bank and cash account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "The principle of double entry can be summarized thus",
+      "options": [
+        "A. Dr – owner and Cr- business",
+        "B. Dr – receiver and Cr – giver",
+        "C. Dr – income and Cr – gain",
+        "D. Cr – assets and Cr- liabilities"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "Withdrew cheque N10,000 for private use, identify the two account involved",
+      "options": [
+        "A. drawings and cheque account",
+        "B. private and drawings account",
+        "C. bank and drawings account",
+        "D. bank and private account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "All credit transactions must first be entered into",
+      "options": [
+        "A. daybook",
+        "B. cash book",
+        "C. ledger",
+        "D. sales book"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "question": "Mrs. Idi-Araba started a business with N400,000, identify the two accounts involved",
+      "options": [
+        "A. capital and loan account",
+        "B. Mrs. Idi-Araba and cash account",
+        "C. capital and cash account",
+        "D. bank and Mrs. Idi-Araba account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "The primary purpose of source document",
+      "options": [
+        "A. to record transactions in the ledger",
+        "B. to provide evidence of financial transactions",
+        "C. to prepare financial statement",
+        "D. to analyze financial performance"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Which of the following is an example of source document?",
+      "options": [
+        "A. Ledger account",
+        "B. Trial balance",
+        "C. Invoice",
+        "D. Balance sheet"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Which of the following is not a characteristic of a source document?",
+      "options": [
+        "A. Original document",
+        "B. Provides evidence of a transaction",
+        "C. Prepare after recording in the ledger",
+        "D. Support accounting records"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "Subsidiary books are also known as",
+      "options": [
+        "A. principal books",
+        "B. books of original entry",
+        "C. ledger accounts",
+        "D. financial statement"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "The fundamental principle of double entry accounting is",
+      "options": [
+        "A. every transaction affects only account",
+        "B. every transaction affects two accounts",
+        "C. assets = liabilities – capital",
+        "D. revenue = expenses"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "The purpose of debit and credit entries  in double entry accounting",
+      "options": [
+        "A. to record only increase in assets and decrease in liabilities",
+        "B. to record only decrease in assets and decrease in liabilities",
+        "C. to record increase and decrease in accounts",
+        "D. to prepare financial statement"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 44,
+      "question": "Petty cashbook records",
+      "options": [
+        "A. all cash transactions",
+        "B. small cash transactions",
+        "C. bank transactions",
+        "D. the preparation of financial statement"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "The purpose of subsidiary book is to",
+      "options": [
+        "A. record all financial transactions",
+        "B. classify and record transactions of a similar nature",
+        "C. prepare financial statements",
+        "D. analyze financial performance"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Example of subsidiary books include",
+      "options": [
+        "A. sales book, purchases book, cash book",
+        "B. ledger, journal, trial balance",
+        "C. balance sheet, income statement, cash flow statement",
+        "D. journal, ledger, financial statements"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "The accounting equation is",
+      "options": [
+        "A. Assets  =  Liability – Capital",
+        "B. Assets = Revenue  – Expenses",
+        "C. Assets = Capital – Liabilities",
+        "D. Assets = Liabilities + capital"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "question": "Accounting can be defined as",
+      "options": [
+        "A. the process of recording, classify and reporting financial information",
+        "B. the process of reporting tax return",
+        "C. the process of analyzing financial statement",
+        "D. the process of making investment decision"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "The primary goal or objective of accounting ethics is",
+      "options": [
+        "A. to maximize profit",
+        "B. to ensure accuracy and transparency in financial reporting",
+        "C. to minimize costs",
+        "D. to increase efficiency"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "The consequence of unethical behaviour in accounting is",
+      "options": [
+        "A. increase public trust",
+        "B. improve financial performance",
+        "C. damage to professional reputation and potential legal consequences",
+        "D. increase efficiency"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "class_category": "SS1"
+}

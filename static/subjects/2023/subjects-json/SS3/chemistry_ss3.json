@@ -1,0 +1,661 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Chemistry",
+  "exam_title": "1st Term Examination",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "When ethanol is heated with excess concentrated tetraoxosulphate(VI) acid the organic product formed is",
+      "diagram": null,
+      "options": [
+        "A. ethanol",
+        "B. ethanoic acid",
+        "C. ethene",
+        "D. ethane"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "question": "What type of reaction occurs between vegetable oil and plant ash extract?",
+      "diagram": null,
+      "options": [
+        "A. Displacement",
+        "B. Dehydration",
+        "C. Neutralization",
+        "D. Saponification"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 3,
+      "question": "Classification of alkanols is based on the",
+      "diagram": null,
+      "options": [
+        "A. number of carbon atoms present in the compound",
+        "B. molecular mass of the compound",
+        "C. molecular formula of the compound",
+        "D. number of alkyl groups bonded to the carbon having the hydroxyl group"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 4,
+      "question": "The alkanol obtained from the production of soap is",
+      "diagram": null,
+      "options": [
+        "A. dihydric alkanol",
+        "B. tertiary alkanol",
+        "C. trihydric alkanol",
+        "D. monohydric alkanol"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 5,
+      "question": "Which of the following compounds is a secondary alkanol?",
+      "diagram": null,
+      "options": [
+        "A. Ethanol",
+        "B. 2-methylbutan-2-ol",
+        "C. 3-methylpentan-2-ol",
+        "D. propan-1-ol"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 6,
+      "question": "An alkanol can be prepared by the reaction of an alkene with",
+      "diagram": null,
+      "options": [
+        "A. concentrated tetraoxosulphate(VI) acid",
+        "B. bromine in tetrachloroethane",
+        "C. aqueous potassium tetraoxomanganate(VII)",
+        "D. sodium hydroxide solution"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 7,
+      "question": "What is the IUPAC name of the compound whose structure is shown?",
+      "diagram": "/static/uploads/diagrams/2023/chemistry/diagram_7.PNG",
+      "options": [
+        "A. Ethylmethanoate",
+        "B. Ethanoic acid",
+        "C. Propan-2-ol",
+        "D. Propanoic acid"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 8,
+      "question": "Which of the following substances is a suitable solvent for perfumes?",
+      "diagram": null,
+      "options": [
+        "A. Benzene",
+        "B. Ethanol",
+        "C. Turpentine",
+        "D. Water"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 9,
+      "question": "On exposing palm wine to air for some days, it becomes sour owing to the conversion of",
+      "diagram": null,
+      "options": [
+        "A. glucose to ethanol",
+        "B. glucose to gluconic acid",
+        "C. ethanol to ethanoic acid",
+        "D. ethanol to ethanal"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "question": "Alkanols have unexpectedly high boiling points relative to their molar masses because of intermolecular",
+      "diagram": null,
+      "options": [
+        "A. hydrogen bonding",
+        "B. metallic bonding",
+        "C. covalent bonding",
+        "D. ionic bonding"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "question": "Which of the following compounds can be represented by the molecular formula C<sub>2</sub>H<sub>6</sub>O?",
+      "diagram": null,
+      "options": [
+        "A. Propanal",
+        "B. Ethanol",
+        "C. Methanoic acid",
+        "D. Glucose"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 12,
+      "question": "Which of the following types of alkanols undergo oxidation to produce alkanoic acids?",
+      "diagram": null,
+      "options": [
+        "A. I, II and III",
+        "B. I and II only",
+        "C. II only",
+        "D. I only"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 13,
+      "question": "The formula (CH<sub>3</sub>)<sub>3</sub>COH is that of a",
+      "diagram": null,
+      "options": [
+        "A. polyhydric alkanol",
+        "B. secondary alkanol",
+        "C. tertiary alkanol",
+        "D. trihydric alkanol"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 14,
+      "question": "Which of the following is a secondary alkanol?",
+      "diagram": null,
+      "options": [
+        "A. CH<sub>3</sub>(CH<sub>2</sub>)<sub>2</sub>OH",
+        "B. CH<sub>3</sub>CH=CHCH<sub>2</sub>OH",
+        "C. CH<sub>3</sub>(CH<sub>2</sub>)OH",
+        "D. CH(CH<sub>3</sub>)<sub>2</sub>OH"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 15,
+      "question": "Which of the following is/are properties of ethanol?",
+      "diagram": null,
+      "options": [
+        "A. IV only",
+        "B. I and II",
+        "C. III and IV",
+        "D. I, II and III"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 16,
+      "question": "The product of the reaction between ethanol and excess acidified K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is",
+      "diagram": null,
+      "options": [
+        "A. ethanal",
+        "B. ethyl ethanoate",
+        "C. ethanoic acid",
+        "D. ethanedioic acid"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 17,
+      "question": "Dehydration of ethanol produces",
+      "diagram": null,
+      "options": [
+        "A. ethanoic acid",
+        "B. propan-1,2,3-triol",
+        "C. ethene",
+        "D. ethanol"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 18,
+      "question": "When alkanols react with sodium, the gas evolved is",
+      "diagram": null,
+      "options": [
+        "A. hydrogen",
+        "B. oxygen",
+        "C. methane",
+        "D. ethyne"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "What is the major product formed when C<sub>2</sub>H<sub>5</sub>OH reacts with CH<sub>3</sub>COOH?",
+      "diagram": null,
+      "options": [
+        "A. C<sub>2</sub>H<sub>5</sub>COOH<sub>2</sub>",
+        "B. C<sub>2</sub>H<sub>5</sub>COCH<sub>3</sub>",
+        "C. CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub>",
+        "D. C<sub>3</sub>H<sub>7</sub>COOH"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "question": "What is the product of the reaction between ethanol and excess acidified KMnO<sub>4</sub> solution?",
+      "diagram": null,
+      "options": [
+        "A. CH<sub>2</sub>CH<sub>3</sub>",
+        "B. CH<sub>3</sub>COOH",
+        "C. CH<sub>3</sub>–CH<sub>3</sub>",
+        "D. CH<sub>3</sub>OCH<sub>3</sub>"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "Which of the following compounds is formed by the oxidation of ethanol?",
+      "diagram": null,
+      "options": [
+        "A. C<sub>2</sub>H<sub>4</sub>CO<sub>2</sub>H",
+        "B. C<sub>2</sub>H<sub>5</sub>CO<sub>2</sub>H",
+        "C. CH<sub>3</sub>OH",
+        "D. CH<sub>3</sub>CO<sub>2</sub>H"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 22,
+      "question": "The process by which alkanoic acids react reversibly with alkanols is known as",
+      "diagram": null,
+      "options": [
+        "A. saponification",
+        "B. esterification",
+        "C. carboxylation",
+        "D. halogenation"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 23,
+      "question": "The compound that makes palm wine taste sour after exposure to air for few days is",
+      "diagram": null,
+      "options": [
+        "A. ethanol",
+        "B. ethanoic acid",
+        "C. methanol",
+        "D. methanoic acid"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 24,
+      "question": "Which of the following compounds would react with ethanoic acid to produce a sweet-smelling liquid?",
+      "diagram": null,
+      "options": [
+        "A. Alkane",
+        "B. Alkanol",
+        "C. Alkanal",
+        "D. Alkyne"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 25,
+      "question": "A substance responsible for the sour taste of unripe oranges is",
+      "diagram": null,
+      "options": [
+        "A. alkene",
+        "B. alkanol",
+        "C. alkanoic acid",
+        "D. alkanoate"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 26,
+      "question": "The IUPAC name of HOOC–COOH is",
+      "diagram": null,
+      "options": [
+        "A. ethane-1,2-dioic acid",
+        "B. ethanoic acid",
+        "C. oxalic acid",
+        "D. propan-1,2-dioic acid"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "question": "The major product formed by the reaction between ethanoic acid and aqueous sodium hydroxide is",
+      "diagram": null,
+      "options": [
+        "A. soap",
+        "B. sodium ethanoate",
+        "C. sodium methoxide",
+        "D. water"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "question": "Which of the following formulas is that of a dicarboxylic acid?",
+      "diagram": null,
+      "options": [
+        "A. (CH<sub>3</sub>CH<sub>2</sub>)<sub>2</sub>CHCOOH",
+        "B. CH<sub>2</sub>(CH)<sub>2</sub>",
+        "C. CH<sub>3</sub>CH(OH)COOH",
+        "D. CH<sub>2</sub>(COOH)<sub>2</sub>"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 29,
+      "question": "The product of the reaction between propanoic acid and ethanol is",
+      "diagram": null,
+      "options": [
+        "A. propyl methanoate",
+        "B. ethyl ethanoate",
+        "C. methyl propanoate",
+        "D. ethyl propanoate"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 30,
+      "question": "The reaction between alkanoic acids and alkanols in the presence of mineral acid is known as",
+      "diagram": null,
+      "options": [
+        "A. saponification",
+        "B. hydrolysis",
+        "C. polymerization",
+        "D. esterification"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 31,
+      "question": "The products of the reaction between CH<sub>3</sub>CH<sub>2</sub>COOH and CH<sub>3</sub>OH are H<sub>2</sub>O and",
+      "diagram": null,
+      "options": [
+        "A. CH<sub>2</sub>CH<sub>2</sub>COOCH<sub>3</sub>",
+        "B. CH<sub>3</sub>CH<sub>2</sub>COOCH<sub>3</sub>",
+        "C. CH<sub>2</sub>CH<sub>2</sub>CH<sub>2</sub>COOH",
+        "D. CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>OH"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 32,
+      "question": "Which of the following compounds reacts with sodium hydroxide to form a salt?",
+      "diagram": null,
+      "options": [
+        "A. CH<sub>3</sub>CH<sub>2</sub>COOH",
+        "B. (CH<sub>3</sub>)<sub>3</sub>COH",
+        "C. CH<sub>3</sub>CH=CH<sub>2</sub>",
+        "D. C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 33,
+      "question": "Vinegar is an aqueous solution of",
+      "diagram": null,
+      "options": [
+        "A. hydrochloric acid",
+        "B. ethanedioic acid",
+        "C. ethanoic acid",
+        "D. hydrofluoric acid"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 34,
+      "question": "The hydrolysis of groundnut oil by potassium hydroxide is known as",
+      "diagram": null,
+      "options": [
+        "A. hydrogenation",
+        "B. saponification",
+        "C. esterification",
+        "D. neutralization"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 35,
+      "question": "Which of the following reactions would take place when concentrated sodium hydroxide solution is added to hot palm oil?",
+      "diagram": null,
+      "options": [
+        "A. Esterification",
+        "B. Neutralization",
+        "C. Polymerization",
+        "D. Saponification"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 36,
+      "question": "Fats and oils are used as raw materials in the following industries except",
+      "diagram": null,
+      "options": [
+        "A. paint industry",
+        "B. plastic industry",
+        "C. margarine industry",
+        "D. cosmetics industry"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 37,
+      "question": "Which of the following substances is trihydric?",
+      "diagram": null,
+      "options": [
+        "A. Ethanol",
+        "B. Glycol",
+        "C. Glycerol",
+        "D. Phenol"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 38,
+      "question": "An advantage of detergent over soap is that detergents",
+      "diagram": null,
+      "options": [
+        "A. are readily available",
+        "B. are in powdered form",
+        "C. are non-biodegradable",
+        "D. lather readily with water"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 39,
+      "question": "The IUPAC name of C<sub>2</sub>H<sub>5</sub>COOC<sub>2</sub>H<sub>5</sub> is",
+      "diagram": null,
+      "options": [
+        "A. ethyl ethanoate",
+        "B. ethyl propanoate",
+        "C. propyl ethanoate",
+        "D. propyl propanoate"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 40,
+      "question": "The reaction: vegetable oil  (H<sub>2</sub>/Ni catalyst, high temperature) → product is applied in the manufacture of",
+      "diagram": null,
+      "options": [
+        "A. drugs",
+        "B. margarine",
+        "C. paraffin",
+        "D. soapy detergent"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 41,
+      "question": "Detergents are better than soaps for laundry because",
+      "diagram": null,
+      "options": [
+        "A. detergents are synthetic while soaps are not",
+        "B. detergents are more soluble in water than soaps",
+        "C. scum is precipitated when soaps are used with hard water but not with detergents",
+        "D. soaps form soluble salts with ions causing hardness of water while detergents do not"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 42,
+      "question": "Esterification of propane-1,2,3-triol and unsaturated higher carboxylic acids will produce",
+      "diagram": null,
+      "options": [
+        "A. fats",
+        "B. soap",
+        "C. triglyceride",
+        "D. alkanols"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 43,
+      "question": "Which process takes place during the production of margarine from vegetable oils?",
+      "diagram": null,
+      "options": [
+        "A. Esterification",
+        "B. Hydrolysis",
+        "C. Hydrogenation",
+        "D. Saponification"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 44,
+      "question": "Locally produced soap using wood ash is usually soft because the wood ash contains a lot of",
+      "diagram": null,
+      "options": [
+        "A. sodium ions",
+        "B. potassium ions",
+        "C. lithium ions",
+        "D. calcium ions"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 45,
+      "question": "Which of the following statements about soapless detergents is correct? They—",
+      "diagram": null,
+      "options": [
+        "A. lather readily with hard water",
+        "B. increase the surface tension of water",
+        "C. cause hydrolysis of salts in water",
+        "D. form a curdy precipitate with soft water"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 46,
+      "question": "Which of the following is widely used in the manufacture of flavours and perfumes?",
+      "diagram": null,
+      "options": [
+        "A. Alkanoates",
+        "B. Alkanones",
+        "C. Alkanes",
+        "D. Complex sugars"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 47,
+      "question": "Which of the following substances gives banana flavour?",
+      "diagram": null,
+      "options": [
+        "A. methylbenzene",
+        "B. Butanol",
+        "C. Ethanol",
+        "D. Pentyl ethanoate"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 48,
+      "question": "Which of the following compounds is a soapless detergent?",
+      "diagram": null,
+      "options": [
+        "A. C<sub>12</sub>H<sub>25</sub>OSO<sub>3</sub>Na",
+        "B. C<sub>17</sub>H<sub>36</sub>COONa",
+        "C. C<sub>6</sub>H<sub>5</sub>OCH<sub>3</sub>",
+        "D. C<sub>4</sub>H<sub>9</sub>COOC<sub>2</sub>H<sub>5</sub>"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 49,
+      "question": "Alkanoates are produced from alkanols by",
+      "diagram": null,
+      "options": [
+        "A. fermentation",
+        "B. saponification",
+        "C. oxidation",
+        "D. esterification"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 50,
+      "question": "Fats are classified as",
+      "diagram": null,
+      "options": [
+        "A. hydrocarbons",
+        "B. alkanoates",
+        "C. alkanols",
+        "D. carbohydrates"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

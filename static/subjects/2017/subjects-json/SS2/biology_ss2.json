@@ -1,0 +1,662 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Biology",
+  "exam_title": "2nd Term Examination",
+  "session": "2016/2017",
+  "instructions": "Answer all questions.",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "Which of the following will cause wilting in plants?",
+      "diagram": null,
+      "options": [
+        "A. Humidity",
+        "B. Coldness",
+        "C. Adequate soil water",
+        "D. Excessive transpiration"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 2,
+      "question": "Which definition best describes excretion?",
+      "diagram": null,
+      "options": [
+        "A. liberation of energy from food",
+        "B. release of faeces from the body",
+        "C. breakdown of food molecules",
+        "D. removal of metabolic waste products"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 3,
+      "question": "Which instrument is used to measure the rate of water uptake in plants?",
+      "diagram": null,
+      "options": [
+        "A. Potometer",
+        "B. Hydrometer",
+        "C. Hygrometer",
+        "D. Aspirator"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 4,
+      "question": "Ecology is the study of",
+      "diagram": null,
+      "options": [
+        "A. properties of habitats",
+        "B. interrelationship between organisms and their environment",
+        "C. several species of plants and animals",
+        "D. interrelationship between plants and animals only"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "question": "Which scientists discovered the Rhesus factor in human blood?",
+      "diagram": null,
+      "options": [
+        "A. Hooke and Levine",
+        "B. Darwin and Landsteiner",
+        "C. Landsteiner and Levine",
+        "D. Hooke and Darwin"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 6,
+      "question": "An ecosystem refers to",
+      "diagram": null,
+      "options": [
+        "A. groups of green plants in a habitat",
+        "B. living members of a habitat",
+        "C. living organisms interacting with the physical environment",
+        "D. plants and animals living together"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 7,
+      "question": "In plants, respiration occurs in",
+      "diagram": null,
+      "options": [
+        "A. mesophyll cells only",
+        "B. roots only",
+        "C. stomata and lenticels only",
+        "D. all living cells"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 8,
+      "question": "Respiration supplies living cells with",
+      "diagram": null,
+      "options": [
+        "A. oxygen",
+        "B. sugars",
+        "C. energy",
+        "D. carbon dioxide"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 9,
+      "question": "An animal whose gut contains bones, seeds and insects is a",
+      "diagram": null,
+      "options": [
+        "A. carnivore",
+        "B. herbivore",
+        "C. insectivore",
+        "D. omnivore"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 10,
+      "question": "Which physical factor affects the distribution of plants in a pond?",
+      "diagram": null,
+      "options": [
+        "A. Light",
+        "B. Humidity",
+        "C. Wind",
+        "D. Temperature"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 11,
+      "question": "Which instrument is used to estimate plant population in a habitat?",
+      "diagram": null,
+      "options": [
+        "A. Pooter",
+        "B. Pitfall trap",
+        "C. Quadrat",
+        "D. Sweep net"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 12,
+      "question": "Which cycle involves precipitation and transpiration?",
+      "diagram": null,
+      "options": [
+        "A. Water cycle",
+        "B. Carbon cycle",
+        "C. Nitrogen cycle",
+        "D. Oxygen cycle"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 13,
+      "question": "Which process removes carbon from the atmosphere?",
+      "diagram": null,
+      "options": [
+        "A. Putrefaction",
+        "B. Photosynthesis",
+        "C. Volcanic eruption",
+        "D. Burning of fuels"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 14,
+      "question": "The opening and closing of stomata is controlled by",
+      "diagram": null,
+      "options": [
+        "A. turgidity and diffusion",
+        "B. turgidity and flaccidity",
+        "C. osmosis and diffusion",
+        "D. diffusion and flaccidity"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 15,
+      "question": "Paramecium excretes by diffusion because it has",
+      "diagram": null,
+      "options": [
+        "A. aquatic habitat",
+        "B. few internal organs",
+        "C. large surface area to volume ratio",
+        "D. a large nucleus"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 16,
+      "question": "Which is NOT a characteristic of mammalian lungs?",
+      "diagram": null,
+      "options": [
+        "A. large surface area",
+        "B. expandable lungs",
+        "C. moist surface",
+        "D. highly vascularized"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 17,
+      "question": "Transpiration is the",
+      "diagram": null,
+      "options": [
+        "A. loss of water vapour from leaf surfaces",
+        "B. loss of water from roots",
+        "C. absorption of water vapour",
+        "D. movement of water in plants"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 18,
+      "question": "A person with blood group O can receive blood from",
+      "diagram": null,
+      "options": [
+        "A. group O only",
+        "B. group A only",
+        "C. groups A and O",
+        "D. groups A, B and O"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 19,
+      "question": "Pulmonary circulation occurs between the heart and the",
+      "diagram": null,
+      "options": [
+        "A. brain",
+        "B. kidneys",
+        "C. liver",
+        "D. lungs"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 20,
+      "question": "Thunder and lightning benefit farmers by",
+      "diagram": null,
+      "options": [
+        "A. adding nitrates to the soil",
+        "B. aerating the soil",
+        "C. killing soil bacteria",
+        "D. adding rainwater"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 21,
+      "question": "A group of interacting organisms is called a",
+      "diagram": null,
+      "options": [
+        "A. community",
+        "B. habitat",
+        "C. ecosystem",
+        "D. population"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 22,
+      "question": "The zone of life on earth is the",
+      "diagram": null,
+      "options": [
+        "A. biosphere",
+        "B. lithosphere",
+        "C. habitat",
+        "D. ecosystem"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 23,
+      "question": "Which is NOT an abiotic component?",
+      "diagram": null,
+      "options": [
+        "A. bacteria",
+        "B. topography",
+        "C. water",
+        "D. wind"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 24,
+      "question": "Plants with breathing roots are found in",
+      "diagram": null,
+      "options": [
+        "A. tropical grassland",
+        "B. temperate grassland",
+        "C. salt water swamp",
+        "D. tropical rainforest"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 25,
+      "question": "Parasitic flatworms lack alimentary canals because",
+      "diagram": null,
+      "options": [
+        "A. they do not feed",
+        "B. they lack enzymes",
+        "C. they absorb digested food",
+        "D. they have suckers"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 26,
+      "question": "Ascaris lumbricoides is a",
+      "diagram": null,
+      "options": [
+        "A. flatworm",
+        "B. roundworm",
+        "C. arthropod",
+        "D. segmented worm"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 27,
+      "question": "Rhizobium in root nodules shows",
+      "diagram": null,
+      "options": [
+        "A. commensalism",
+        "B. epiphytism",
+        "C. mutualism",
+        "D. saprophytism"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 28,
+      "question": "Bacteria that convert nitrates to nitrogen gas are",
+      "diagram": null,
+      "options": [
+        "A. nitrifying bacteria",
+        "B. denitrifying bacteria",
+        "C. putrefying bacteria",
+        "D. saprophytic bacteria"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 29,
+      "question": "Producers in aquatic food chains are",
+      "diagram": null,
+      "options": [
+        "A. birds",
+        "B. phytoplankton",
+        "C. zooplankton",
+        "D. fishes"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 30,
+      "question": "The maximum population an area can support is",
+      "diagram": null,
+      "options": [
+        "A. population density",
+        "B. carrying capacity",
+        "C. population growth",
+        "D. maximum population"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 31,
+      "question": "Which is NOT a complex carbohydrate?",
+      "diagram": null,
+      "options": [
+        "A. glycogen",
+        "B. cellulose",
+        "C. starch",
+        "D. glucose"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 32,
+      "question": "Which factor increases transpiration rate?",
+      "diagram": null,
+      "options": [
+        "A. fewer stomata",
+        "B. high humidity",
+        "C. large leaf surface area",
+        "D. removal of leaves"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 33,
+      "question": "Food manufacture in plants is called",
+      "diagram": null,
+      "options": [
+        "A. chemosynthesis",
+        "B. photosynthesis",
+        "C. anabolism",
+        "D. catabolism"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 34,
+      "question": "Guard cells open by",
+      "diagram": null,
+      "options": [
+        "A. osmosis",
+        "B. diffusion",
+        "C. active transport",
+        "D. transpiration"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 35,
+      "question": "Gas exchange in adult toads occurs through",
+      "diagram": null,
+      "options": [
+        "A. gills only",
+        "B. lungs, skin and mouth",
+        "C. lungs only",
+        "D. skin only"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 36,
+      "question": "Insects respire through",
+      "diagram": null,
+      "options": [
+        "A. lungs",
+        "B. thorax",
+        "C. cuticle",
+        "D. spiracles"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 37,
+      "question": "Which is NOT true of the diaphragm?",
+      "diagram": null,
+      "options": [
+        "A. separates thorax and abdomen",
+        "B. is muscular",
+        "C. is epithelial",
+        "D. aids respiration"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 38,
+      "question": "A substance present in glomerular filtrate is",
+      "diagram": null,
+      "options": [
+        "A. glucose",
+        "B. fibrinogen",
+        "C. albumen",
+        "D. platelets"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 39,
+      "question": "Hypertonic urine formation occurs in the",
+      "diagram": null,
+      "options": [
+        "A. distal tubule",
+        "B. loop of Henle",
+        "C. Bowman’s capsule",
+        "D. proximal tubule"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 40,
+      "question": "Ultra-filtration occurs in the",
+      "diagram": null,
+      "options": [
+        "A. distal tubule",
+        "B. proximal tubule",
+        "C. collecting duct",
+        "D. Bowman’s capsule"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 41,
+      "question": "Mushrooms feed by",
+      "diagram": null,
+      "options": [
+        "A. extracellular digestion",
+        "B. absorbing digested food",
+        "C. symbiosis",
+        "D. photosynthesis"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 42,
+      "question": "Which plant is carnivorous?",
+      "diagram": null,
+      "options": [
+        "A. Mushroom",
+        "B. Sundew",
+        "C. Liverwort",
+        "D. Desmodium"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 43,
+      "question": "Feeding in animals is described as",
+      "diagram": null,
+      "options": [
+        "A. autotrophic",
+        "B. saprophytic",
+        "C. holozoic",
+        "D. autotrophic"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 44,
+      "question": "Which is NOT a role of bacteria in nitrogen cycle?",
+      "diagram": null,
+      "options": [
+        "A. nitrogen fixation",
+        "B. ammonia to nitrite conversion",
+        "C. nitrite to nitrate conversion",
+        "D. carbohydrate oxidation"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 45,
+      "question": "Which organ detoxifies harmful substances?",
+      "diagram": null,
+      "options": [
+        "A. kidney",
+        "B. lungs",
+        "C. liver",
+        "D. gall bladder"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "question": "Ultra-filtration in the kidney occurs in the",
+      "diagram": null,
+      "options": [
+        "A. Bowman’s capsule",
+        "B. distal convoluted tubule",
+        "C. proximal convoluted tubule",
+        "D. collecting duct"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 47,
+      "question": "Which is NOT an excretory product of plants?",
+      "diagram": null,
+      "options": [
+        "A. tannin",
+        "B. gum",
+        "C. alkaloid",
+        "D. sweat"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 48,
+      "question": "Which does NOT occur during inspiration?",
+      "diagram": null,
+      "options": [
+        "A. intercostal muscles contract",
+        "B. ribs move forward",
+        "C. thoracic cavity enlarges",
+        "D. diaphragm relaxes"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 49,
+      "question": "Stomata perform the same function as",
+      "diagram": null,
+      "options": [
+        "A. insect spiracles",
+        "B. toad trachea",
+        "C. human pharynx",
+        "D. fish scales"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 50,
+      "question": "Amoeba is organized at the",
+      "diagram": null,
+      "options": [
+        "A. tissue level",
+        "B. cell level",
+        "C. organ level",
+        "D. system level"
+      ],
+      "correctOption": "B"
+    }
+
+  ]
+}

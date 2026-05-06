@@ -1,0 +1,728 @@
+{
+    "subject": "Technical Drawing",
+    "class": "SS3",
+    "session": "2021/2022",
+    "time_allowed_minutes": 120,
+    "questions": [
+        {
+            "id": 1,
+            "diagram": null,
+            "question": "Technical graphics is the same thing as \u2026.",
+            "options": [
+                "A. technical modeling",
+                "B. technical drawing",
+                "C. isometric drawing",
+                "D. drawing graphics"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 2,
+            "diagram": null,
+            "question": "\u2026_________________is the creation of representation of physical object or location on plain paper.",
+            "options": [
+                "A. Building drawing",
+                "B. Civil drawing",
+                "C. Technical drawing",
+                "D. Line drawing"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 3,
+            "diagram": null,
+            "question": "These are types of projection except _________________",
+            "options": [
+                "A. oblique",
+                "B. perspective",
+                "C. axonometric",
+                "D. photometric"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 4,
+            "diagram": null,
+            "question": "Reference is used by engineers to show \u2026.",
+            "options": [
+                "A. elevation",
+                "B. projection of object",
+                "C. picture of object",
+                "D. 3D"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 5,
+            "diagram": null,
+            "question": "Polyhedron is a _________________figure.",
+            "options": [
+                "A. plane",
+                "B. solid",
+                "C. liquid",
+                "D. line drawing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "diagram": null,
+            "question": "\u2026_________________are the format of graphical representation in technical drawing.",
+            "options": [
+                "A. 4D and 2D",
+                "B. 1D and 2D",
+                "C. 3D and 2D",
+                "D. 3D and 6D"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 7,
+            "diagram": null,
+            "question": "The following are the principal planes except _________________",
+            "options": [
+                "A. H.P and V.P",
+                "B. H.P and D.P",
+                "C. H.P and H.D",
+                "D. V.P and A.P"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 8,
+            "diagram": null,
+            "question": "H.P and V.P intersect each other at _________________",
+            "options": [
+                "A. below plane",
+                "B. diagonal plane",
+                "C. reference point",
+                "D. right view"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 9,
+            "diagram": null,
+            "question": "Reference plane has _________________number of quadrants.",
+            "options": [
+                "A. 4",
+                "B. 3",
+                "C. 2",
+                "D. 6"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 10,
+            "diagram": null,
+            "question": "H.T stands for _________________",
+            "options": [
+                "A. horizontal time",
+                "B. horizontal track",
+                "C. horizontal trace",
+                "D. horizontal trim"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 11,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_11.PNG",
+            "question": "The line AB above is located on _________________",
+            "options": [
+                "A. back",
+                "B. vertical plane",
+                "C. horizontal plane",
+                "D. vertical trace"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 12,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_11.PNG",
+            "question": "The illustration above represents _________________",
+            "options": [
+                "A. modular line",
+                "B. line space",
+                "C. locus",
+                "D. auxiliary view"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 13,
+            "diagram": null,
+            "question": "Orthographic projection has the _________________type of projection.",
+            "options": [
+                "A. first and last angle",
+                "B. second and third angle",
+                "C. first and third angle",
+                "D. first and second quadrant"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 14,
+            "diagram": null,
+            "question": "Another term for reference line is called _________________",
+            "options": [
+                "A. x, y line",
+                "B. \u2013xy\u2013y",
+                "C. coordinate line",
+                "D. x and y axis"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 15,
+            "diagram": null,
+            "question": "In first angle projection, plan is drawn in _________________quadrant.",
+            "options": [
+                "A. 1st",
+                "B. 2nd",
+                "C. 3rd",
+                "D. 4th"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 16,
+            "diagram": null,
+            "question": "Object in the first quadrant appears _________________",
+            "options": [
+                "A. in front of H.P and under V.P",
+                "B. in front of H.P and above V.P",
+                "C. back of V.P and opposite H.P",
+                "D. none of the above"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 17,
+            "diagram": null,
+            "question": "An object suspended in space is _________________",
+            "options": [
+                "A. above H.P and back of V.P",
+                "B. front of V.P and above H.P",
+                "C. back of H.P and angled to V.P",
+                "D. below H.P and in front of V.P"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 18,
+            "diagram": null,
+            "question": "\u2026_________________is the line which when viewed appears to be the same length.",
+            "options": [
+                "A. True angle",
+                "B. True line",
+                "C. True length",
+                "D. Angle of inclination"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 19,
+            "diagram": null,
+            "question": "\u2026_________________angle of projection is commonly used in the U.S.",
+            "options": [
+                "A. First angle",
+                "B. Third angle",
+                "C. Fifth angle",
+                "D. Fourth angle"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 20,
+            "diagram": null,
+            "question": "In first angle projection, plan is projected _________________",
+            "options": [
+                "A. below the object",
+                "B. side of the object",
+                "C. above the object",
+                "D. on end view"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 21,
+            "diagram": null,
+            "question": "On the reference plane, elevation is drawn on _________________",
+            "options": [
+                "A. horizontal plane",
+                "B. vertical plane",
+                "C. diagonal plane",
+                "D. perpendicular plane"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 22,
+            "diagram": null,
+            "question": "End view is the _________________side of the object.",
+            "options": [
+                "A. front",
+                "B. top",
+                "C. shape",
+                "D. side"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 23,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+            "question": "The illustration above represents _________________",
+            "options": [
+                "A. reference plane",
+                "B. reference angle",
+                "C. reference line",
+                "D. plus sign"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 24,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+            "question": "The quadrant denoted M is _________________",
+            "options": [
+                "A. 4th",
+                "B. 3rd",
+                "C. 1st",
+                "D. 2nd"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 25,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+            "question": "The quadrant denoted N is _________________",
+            "options": [
+                "A. above H.P and below V.P",
+                "B. below V.P and above N.P",
+                "C. behind V.P and beside H.P",
+                "D. above V.P and behind H.P"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 26,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+            "question": "In first angle orthographic projection, the plane is drawn at _________________",
+            "options": [
+                "A. N",
+                "B. O",
+                "C. M",
+                "D. P"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 27,
+            "diagram": null,
+            "question": "In technical drawing projection, N image is drawn on _________________quadrant.",
+            "options": [
+                "A. N",
+                "B. O",
+                "C. M",
+                "D. P"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 28,
+            "diagram": null,
+            "question": "\u2026_________________is the point of intersection of a line with the vertical plane.",
+            "options": [
+                "A. Vertical trace",
+                "B. Horizontal trace",
+                "C. Reference trace",
+                "D. Vertical angle"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 29,
+            "diagram": null,
+            "question": "A line or object suspended in vacuum describes _________________",
+            "options": [
+                "A. line in space",
+                "B. projection",
+                "C. plane of reference",
+                "D. trace of line"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 30,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_30.PNG",
+            "question": "The angle \u03b8 represents _________________angle in the inclined plane.",
+            "options": [
+                "A. 45\u00b0",
+                "B. 90\u00b0",
+                "C. 60\u00b0",
+                "D. 30\u00b0"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 31,
+            "diagram": null,
+            "question": "\u2026_________________is a solid inclined at an angle to any principal plane.",
+            "options": [
+                "A. Inclined solid",
+                "B. Inclined plane",
+                "C. Timing radial",
+                "D. Principal orientation"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 32,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+            "question": "The square shape X represents _________________",
+            "options": [
+                "A. elevation",
+                "B. plan",
+                "C. end view",
+                "D. perspective"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 33,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+            "question": "The shape Y represents _________________",
+            "options": [
+                "A. end view",
+                "B. end plan",
+                "C. front view",
+                "D. true shape"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 34,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+            "question": "Z represents _________________",
+            "options": [
+                "A. plan",
+                "B. isometric",
+                "C. reference plane",
+                "D. square"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 35,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+            "question": "The illustration above represents _________________",
+            "options": [
+                "A. inclined solid",
+                "B. inclined plane",
+                "C. four cardinal points",
+                "D. plus sign"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 36,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+            "question": "The diagram above represents _________________projection.",
+            "options": [
+                "A. isometric",
+                "B. orthographic",
+                "C. oblique",
+                "D. axonometric"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 37,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+            "question": "The view in the direction of arrow K represents _________________",
+            "options": [
+                "A. plan",
+                "B. block",
+                "C. elevation",
+                "D. isometric"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 38,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+            "question": "The view in the direction of arrow P represents _________________",
+            "options": [
+                "A. front view",
+                "B. end view",
+                "C. plan",
+                "D. orthographic"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 39,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+            "question": "The view in the direction of arrow M represents _________________",
+            "options": [
+                "A. end view",
+                "B. front view",
+                "C. back view",
+                "D. plan"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 40,
+            "diagram": null,
+            "question": "An object drawn to scale 1:200 is always _________________than one drawn to scale 1:50.",
+            "options": [
+                "A. smaller",
+                "B. bigger",
+                "C. neater",
+                "D. narrower"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 41,
+            "diagram": null,
+            "question": "Thin lines are used for the following except _________________",
+            "options": [
+                "A. boundaries",
+                "B. construction",
+                "C. dimensioning",
+                "D. projection"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 42,
+            "diagram": null,
+            "question": "\u2026_________________is any part of the circumference of a circle.",
+            "options": [
+                "A. Arc",
+                "B. Radius",
+                "C. Tangent",
+                "D. Diameter"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 43,
+            "diagram": null,
+            "question": "To obtain the true length of a line, the observer steps _________________to the object.",
+            "options": [
+                "A. parallel",
+                "B. perpendicular",
+                "C. at an angle",
+                "D. above"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 44,
+            "diagram": null,
+            "question": "\u2026_________________is the line that separates the horizontal plane from the vertical plane.",
+            "options": [
+                "A. XY line",
+                "B. inclined line",
+                "C. base line",
+                "D. intersecting line"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 45,
+            "diagram": null,
+            "question": "\u2026_________________is a line that is oblique to the horizon.",
+            "options": [
+                "A. inclined line",
+                "B. oblique line",
+                "C. horizontal line",
+                "D. projection line"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "diagram": null,
+            "question": "\u2026_________________is an example of a solid object.",
+            "options": [
+                "A. triangle",
+                "B. square",
+                "C. prism",
+                "D. kite"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 47,
+            "diagram": null,
+            "question": "\u2026_________________is the angle used in orthographic drawing.",
+            "options": [
+                "A. 45\u00b0",
+                "B. 60\u00b0",
+                "C. 30\u00b0",
+                "D. 180\u00b0"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 48,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_48.PNG",
+            "question": "The view above represents _________________",
+            "options": [
+                "A. orthographic",
+                "B. isometric",
+                "C. oblique",
+                "D. axonometric"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 49,
+            "diagram": null,
+            "question": "The standard height of a building is _________________",
+            "options": [
+                "A. 4 m",
+                "B. 5 m",
+                "C. 3 m",
+                "D. 3.6 m"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 50,
+            "diagram": null,
+            "question": "\u2026_________________is the discipline of composing drafting that visually communicates how things are constructed or function.",
+            "options": [
+                "A. Drafting",
+                "B. Building drawing",
+                "C. Technical drawing",
+                "D. Mechanical drawing"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 51,
+            "diagram": null,
+            "question": "The standard height of a bedroom window is _________________",
+            "options": [
+                "A. 1200 \u00d7 1200",
+                "B. 1800 \u00d7 1500",
+                "C. 900 \u00d7 2100",
+                "D. 600 \u00d7 600"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 52,
+            "diagram": null,
+            "question": "The height of block is _________________",
+            "options": [
+                "A. 150 mm",
+                "B. 900 mm",
+                "C. 10 mm",
+                "D. 1200 mm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 53,
+            "diagram": null,
+            "question": "\u2026_________________is not a paper size.",
+            "options": [
+                "A. A0",
+                "B. A5",
+                "C. A4",
+                "D. A1"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 54,
+            "diagram": null,
+            "question": "Standard size of A3 paper is _________________",
+            "options": [
+                "A. 420 \u00d7 294",
+                "B. 960 \u00d7 300",
+                "C. 420 \u00d7 230",
+                "D. 294 \u00d7 200"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 55,
+            "diagram": null,
+            "question": "\u2026_________________is a curve traced by a point on the circumference of a circle rolling along a straight line.",
+            "options": [
+                "A. Cycloid",
+                "B. Epicycloid",
+                "C. Directrix",
+                "D. Involute"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 56,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_56.PNG",
+            "question": "The diagram above represents _________________",
+            "options": [
+                "A. window",
+                "B. door",
+                "C. block",
+                "D. lintel"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 57,
+            "diagram": null,
+            "question": "\u2026_________________is the standard height of a door.",
+            "options": [
+                "A. 2100",
+                "B. 2300",
+                "C. 2700",
+                "D. 1800"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 58,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_58.PNG",
+            "question": "The part labelled K is _________________",
+            "options": [
+                "A. stringer",
+                "B. riser",
+                "C. landing",
+                "D. step"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 59,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_58.PNG",
+            "question": "The part of stair labelled M is _________________",
+            "options": [
+                "A. staircase",
+                "B. block",
+                "C. riser",
+                "D. window"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 60,
+            "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_58.PNG",
+            "question": "The part labelled W is known as _________________",
+            "options": [
+                "A. lintel",
+                "B. landing",
+                "C. tread",
+                "D. going"
+            ],
+            "correctOption": "D"
+        }
+    ]
+}

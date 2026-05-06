@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Exam Result | EMIS Portal</title>
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <!-- Shared Student Styles (Header, Theme, Layout) -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/students.css') }}"/>
+
+    <!-- Result Styles -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/result.css') }}"/>
+
+</head>
+
+<body class="students-body result-body">
+
+<!-- ======================================================
+     STUDENT HEADER (Same as students.html & exam.html)
+====================================================== -->
+<header class="student-header">
+    <div class="header-left">
+        <i class="fa-solid fa-graduation-cap header-logo"></i>
+        <span class="portal-title">EMIS Student Portal</span>
+    </div>
+
+    <div class="header-right">
+        <span id="liveClock" class="live-clock"></span>
+
+          <a href="{{ url_for('user_bp.student_login') }}" class="logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+</a>
+
+        <button class="icon-btn" id="themeToggle">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <img src="{{ url_for('static', filename='images/student.jpg') }}"
+             class="student-avatar" />
+    </div>
+</header>
+
+
+<!-- ======================================================
+     MAIN RESULT WRAPPER
+====================================================== -->
+<main class="result-wrapper" data-subject="{{ result.subject }}">
+
+    <!-- TOP TITLE + ACTION BTNS AREA -->
+    <div class="result-topbar">
+        <h1 class="result-title">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            Exam Result
+        </h1>
+
+        <div class="result-topbar-actions">
+          <a href="{{ url_for('student_portal_bp.back_to_exam_dashboard') }}" 
+   class="btn-primary" id="backToDashboardBtn">
+    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+</a>
+
+            <!-- PDF & Share buttons are injected by result.js -->
+        </div>
+    </div>
+
+    <!-- Accent Bar -->
+    <div class="result-accent-bar"></div>
+
+
+    <!-- ======================================================
+         MAIN GRID (Profile | Result | Detailed Breakdown)
+    ======================================================= -->
+    <section class="result-main-grid">
+
+        <!-- LEFT COLUMN — STUDENT INFO -->
+        <aside class="result-col profile-col">
+            <div class="student-info-card">
+                <img src="{{ url_for('static', filename='images/student.jpg') }}"
+                     class="info-avatar"
+                     alt="Student Avatar"/>
+
+                <h2 id="studentName">Student Name</h2>
+                <p class="muted-small">Basic Information</p>
+
+                <div class="info-grid">
+                    <div>
+                        <span>Admission No.</span>
+                        <strong id="studentID">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Class</span>
+                        <strong id="studentClass">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Class Category</span>
+                        <strong id="studentCategory">--</strong>
+                    </div>
+
+                    <div>
+                        <span>System ID</span>
+                        <strong id="studentSysID">--</strong>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+
+        <!-- CENTER COLUMN — MAIN RESULT -->
+        <section class="result-col core-col">
+
+            <div class="core-result-card">
+
+                <!-- BADGE MOVED *INSIDE* THE CARD -->
+                <div id="resultBadgeSlot" class="result-badge-bar">
+                    <!-- JS inserts Platinum/Gold/Silver/Bronze badge here -->
+                </div>
+
+                <!-- SCORE RING -->
+                <div class="score-ring-card">
+                    <svg class="score-ring" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" class="score-bg"></circle>
+                        <circle id="progressCircle" cx="50" cy="50" r="40" class="score-progress"></circle>
+                    </svg>
+
+                    <div class="score-text">
+                        <div id="scoreDisplay">0%</div>
+
+                        <div class="fraction">
+                            <span id="correctAnswers" class="numerator">0</span>
+                            <span class="line">/</span>
+                            <span id="totalQuestions" class="denominator">0</span>
+                        </div>
+
+                        <span class="score-label">Score</span>
+                        <div id="passFail" class="passfail-text">—</div>
+                    </div>
+                </div>
+
+                <!-- BIG RAW SCORE DISPLAY -->
+                <div class="raw-score-box">
+                    <span id="rawScoreText">Score: 0 / 0</span>
+                </div>
+
+                <!-- QUICK STATS -->
+                <div class="stats-box-grid">
+
+                    <div class="stat-box">
+                        <span id="timeTaken">--:--</span>
+                        <small>Time Taken</small>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" data-stat="time"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <span id="incorrectAnswers">0</span>
+                        <small>Incorrect</small>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" data-stat="incorrect"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <span id="accuracyRate">0%</span>
+                        <small>Accuracy</small>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" data-stat="accuracy"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <span id="tabSwitches">0</span>
+                        <small>Tab Violations</small>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" data-stat="tabs"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SUBJECT + SUMMARY MESSAGE -->
+                <div class="subject-status-box">
+                    <h3 id="subjectName">Subject Name</h3>
+                    <p id="resultMessage" class="muted">
+                        Result summary will appear here.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT COLUMN — DETAILED BREAKDOWN -->
+        <aside class="result-col detail-col">
+            <div class="result-detail-card">
+                <h2 class="detail-header">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    Detailed Breakdown
+                </h2>
+
+                <div class="detail-grid">
+
+                    <div class="detail-item">
+                        <p>Answered: <strong id="answeredQuestions">0</strong></p>
+                        <p>Skipped: <strong id="skippedQuestions">0</strong></p>
+                        <p>Flagged: <strong id="flaggedQuestions">0</strong></p>
+                    </div>
+
+                    <div class="detail-item">
+                        <p>Avg Time / Question: <strong id="avgTimePerQuestion">0s</strong></p>
+                        <p>Completion Date: <strong id="completionDate">--</strong></p>
+                        <p>Exam Status: <strong id="examStatus">Completed</strong></p>
+                    </div>
+
+                </div>
+            </div>
+        </aside>
+
+    </section>
+
+<!-- =========================================================
+     HIDDEN SUMMARY BLOCK — ONLY USED FOR PDF PRINT
+========================================================= -->
+<div id="printSummary" class="print-summary">
+    <h2>Exam Result Summary</h2>
+
+    <p><strong>Student Name:</strong> <span id="p_studentName"></span></p>
+    <p><strong>Admission No:</strong> <span id="p_studentID"></span></p>
+    <p><strong>Class:</strong> <span id="p_studentClass"></span></p>
+    <p><strong>Category:</strong> <span id="p_studentCategory"></span></p>
+
+    <hr>
+
+    <p><strong>Subject:</strong> <span id="p_subject"></span></p>
+    <p><strong>Score:</strong> <span id="p_rawScore"></span></p>
+    <p><strong>Correct:</strong> <span id="p_correct"></span></p>
+    <p><strong>Total Questions:</strong> <span id="p_total"></span></p>
+    <p><strong>Accuracy:</strong> <span id="p_accuracy"></span></p>
+    <p><strong>Time Taken:</strong> <span id="p_time"></span></p>
+    <p><strong>Exam Status:</strong> <span id="p_status"></span></p>
+
+    <hr>
+
+    <p><strong>Completion Date:</strong> <span id="p_date"></span></p>
+
+    <br>
+    <p style="font-size: 0.8rem; color:#444;">Generated by EMIS Student Portal</p>
+</div>
+
+
+</main>
+
+
+<!-- ======================================================
+     RESULT DATA AVAILABLE FOR result.js
+====================================================== -->
+<script>
+    window.resultData = {{ result|tojson }};
+    window.studentData = {{ student|tojson }};
+</script>
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+<script src="{{ url_for('static', filename='js/students.js') }}"></script>
+<script src="{{ url_for('static', filename='js/student-exams.js') }}"></script>
+
+</body>
+</html>

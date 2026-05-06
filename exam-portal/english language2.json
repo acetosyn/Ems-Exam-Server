@@ -1,0 +1,889 @@
+{
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "English Language",
+    "exam_title": "1st Term Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 60,
+    "questions": [
+        {
+            "id": 1,
+            "question": "A guest should not make derogatory remarks about what he is offered by his host but \u2026\u2026.statement.",
+            "options": [
+                "A. candid",
+                "B. appealing",
+                "C. polite",
+                "D. complimentary"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 2,
+            "question": "The audience applauded the last speaker, but the first was\u2026",
+            "options": [
+                "A. booed",
+                "B. rejected",
+                "C. abused",
+                "D. scorned"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 3,
+            "question": "The commander said that raw recruits could not dislodge the enemies, he needed \u2026.men.",
+            "options": [
+                "A. skilled",
+                "B. political",
+                "C. learned",
+                "D. seasonal"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 4,
+            "question": "John gave a fictitious account of the incident but his son\u2019s account was\u2026",
+            "options": [
+                "A. probable",
+                "B. compelling",
+                "C. factual",
+                "D. necessary"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 5,
+            "question": "While the refuse dump smelled fetid, the orchard exuded a \u2026\u2026smell.",
+            "options": [
+                "A. fragrant",
+                "B. spicy",
+                "C. clean",
+                "D. dry"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 6,
+            "question": "Only some of the accused were acquitted, the rest were\u2026",
+            "options": [
+                "A. remanded",
+                "B. convicted",
+                "C. detained",
+                "D. interdicted"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 7,
+            "question": "The principal chastised Ben for his use of coarse language and advise him to emulate his sister\u2019s \u2026\u2026.behaviour",
+            "options": [
+                "A. pure",
+                "B. neat",
+                "C. refined",
+                "D. organized"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 8,
+            "question": "It would have been my pleasure to accept your invitation but I have to \u2026..it because of a previous engagement.",
+            "options": [
+                "A. jettison",
+                "B. defer",
+                "C. suspend",
+                "D. decline"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 9,
+            "question": "Older people are expected to be \u2026\u2026..where youths are green.",
+            "options": [
+                "A. experienced",
+                "B. cautious",
+                "C. equipped",
+                "D. considerate"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 10,
+            "question": "I accidentally stepped on my brother but he told Mummy I did it \u2026",
+            "options": [
+                "A. thoughtfully",
+                "B. intuitively",
+                "C. deliberately",
+                "D. annoyingly"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 11,
+            "question": "The runner was \u2026\u2026..at fifteen seconds at the end of the race.",
+            "options": [
+                "A. taped",
+                "B. timed",
+                "C. belled",
+                "D. flagged"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 12,
+            "question": "The appellate court has \u2026..the decision of the lower court.",
+            "options": [
+                "A. obstructed",
+                "B. nullified",
+                "C. neutralized",
+                "D. balanced"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 13,
+            "question": "The defeated boxer left the ring looking extremely",
+            "options": [
+                "A. dislocated",
+                "B. distorted",
+                "C. disserted",
+                "D. dejected"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 14,
+            "question": "There is an election \u2026\u2026.pending against the senator.",
+            "options": [
+                "A. application",
+                "B. appeal",
+                "C. petition",
+                "D. complaint"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 15,
+            "question": "The manager was not in when Addo called, so he left \u2026..card",
+            "options": [
+                "A. supplementary",
+                "B. complimentary",
+                "C. complementary",
+                "D. identification"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 16,
+            "question": "Coming from the kitchen was the sweet \u2026..of Mummy\u2019s soup.",
+            "options": [
+                "A. aroma",
+                "B. odour",
+                "C. fragrance",
+                "D. scent"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 17,
+            "question": "There is a need to raise teachers\u2019 salary in order to boost their \u2026\u2026.",
+            "options": [
+                "A. spirit",
+                "B. moral",
+                "C. soul",
+                "D. morale"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 18,
+            "question": "The librarian has not entered the new books in the",
+            "options": [
+                "A. catalogue",
+                "B. roster",
+                "C. list",
+                "D. directory"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 19,
+            "question": "The textbook is very costly, I cannot \u2026..to my students.",
+            "options": [
+                "A. commit",
+                "B. afford",
+                "C. endorse",
+                "D. recommend"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 20,
+            "question": "The weather is too hot; I need some water to \u2026\u2026my thirst.",
+            "options": [
+                "A. wet",
+                "B. quench",
+                "C. cool",
+                "D. soak"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 21,
+            "question": "My grandmother once told me that old habits die hard. This means that old habits are",
+            "options": [
+                "A. easily corrected",
+                "B. difficult to change",
+                "C. shortlived",
+                "D. forever changing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 22,
+            "question": "If you ask him to sing, he will do it at the drop of a hat. This means that he will sing",
+            "options": [
+                "A. joyfully",
+                "B. melodiously",
+                "C. immediately",
+                "D. sluggishly"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 23,
+            "question": "The man has lost a lot and he only keeps up appearances by driving a big car. This means that the man",
+            "options": [
+                "A. intends to work harder",
+                "B. pretends that all is well",
+                "C. wants everybody to see him",
+                "D. wants to please his people"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 24,
+            "question": "The game was tough but our team lost by whisker. This means that our team lost by",
+            "options": [
+                "A. default",
+                "B. a wide margin",
+                "C. not preparing",
+                "D. a narrow margin"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 25,
+            "question": "When the result was announced, it was discovered that Paul and Silas were neck and neck. This means that Paul and Silas",
+            "options": [
+                "A. had almost the same result",
+                "B. failed badly",
+                "C. had equal result",
+                "D. passed well"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 26,
+            "question": "The old woman\u2019s birthday was marked by her children with pomp. This means that the birthday was",
+            "options": [
+                "A. greatly celebrated",
+                "B. remembered fondly",
+                "C. widely advertised",
+                "D. filmed and played back"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 27,
+            "question": "When the man was accused of stealing the money, nobody raised an eyebrow. This means that nobody was",
+            "options": [
+                "A. sad",
+                "B. pleased",
+                "C. interested",
+                "D. surprised"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 28,
+            "question": "People do not often rely on men who allow their exalted position to go to their head. This means that people shun those who",
+            "options": [
+                "A. are highly placed",
+                "B. are conceited because of their position",
+                "C. are rude because of their position",
+                "D. do not do their work"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 29,
+            "question": "The manager hit the roof when he was presented with the estimate for the new project. This means that the manager",
+            "options": [
+                "A. mobilised the workers",
+                "B. became very angry",
+                "C. became suspicious",
+                "D. cancelled the project"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 30,
+            "question": "When he received the news that he had lost the election, he did not bat an eyelid. This means that he",
+            "options": [
+                "A. expected to lose the election",
+                "B. stood perfectly still",
+                "C. was shocked to have lost the election",
+                "D. showed no feelings"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 31,
+            "question": "The boy was reluctant to carry out the order of his senior.",
+            "options": [
+                "A. adamant",
+                "B. slow",
+                "C. sluggish",
+                "D. unwilling"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 32,
+            "question": "Dr. Azeez declined the offer to chair the meeting.",
+            "options": [
+                "A. rescinded",
+                "B. shunned",
+                "C. refused",
+                "D. avoided"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 33,
+            "question": "The match came to an abrupt end when the rain started.",
+            "options": [
+                "A. sharp",
+                "B. brisk",
+                "C. quick",
+                "D. sudden"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 34,
+            "question": "The boy came through the window as stealthily as he could.",
+            "options": [
+                "A. quietly",
+                "B. carefully",
+                "C. quickly",
+                "D. slowly"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 35,
+            "question": "John was satisfied with the result he got.",
+            "options": [
+                "A. positive",
+                "B. surprised",
+                "C. contented",
+                "D. appeased"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 36,
+            "question": "It is absurd that people find it difficult to be honest.",
+            "options": [
+                "A. strange",
+                "B. abnormal",
+                "C. alarming",
+                "D. interesting"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 37,
+            "question": "Even a mediocre student can pass that test.",
+            "options": [
+                "A. dull",
+                "B. fresh",
+                "C. average",
+                "D. lazy"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 38,
+            "question": "We called the carpenter to repair the broken door.",
+            "options": [
+                "A. restore",
+                "B. renovate",
+                "C. replace",
+                "D. mend"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 39,
+            "question": "Mrs. Janet gave the drunk a contemptuous look.",
+            "options": [
+                "A. happy",
+                "B. sorrowful",
+                "C. knowing",
+                "D. scornful"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 40,
+            "question": "The vice-chancellor\u2019s speech at the occasion was misconstrued.",
+            "options": [
+                "A. misrepresented",
+                "B. misquoted",
+                "C. misunderstood",
+                "D. misreported"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 41,
+            "question": "The soldiers lay \u2026\u2026\u2026.the town to arrest the terrorists.",
+            "options": [
+                "A. siege on",
+                "B. siege to",
+                "C. siege with",
+                "D. siege by"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 42,
+            "question": "Power has not been restored \u2026..many parts of the town.",
+            "options": [
+                "A. to",
+                "B. in",
+                "C. of",
+                "D. with"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "We got to the hall after the play \u2026\u2026.started.",
+            "options": [
+                "A. is",
+                "B. have",
+                "C. had",
+                "D. was"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 44,
+            "question": "The woman said the maid should \u2026\u2026.all the plates before going to bed.",
+            "options": [
+                "A. wash out",
+                "B. wash up",
+                "C. wash off",
+                "D. wash away"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 45,
+            "question": "John, should you mind lifting the box?",
+            "options": [
+                "A. Yes, I do",
+                "B. No, I wouldn\u2019t",
+                "C. Yes, I wouldn\u2019t",
+                "D. No, I don\u2019t"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 46,
+            "question": "It was a long poem, but Lawal learnt it",
+            "options": [
+                "A. from memory",
+                "B. to memory",
+                "C. by heart",
+                "D. to heart"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 47,
+            "question": "Let\u2019s begin all over again,",
+            "options": [
+                "A. may we",
+                "B. shall we",
+                "C. can we",
+                "D. must we"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "question": "Something must be wrong with the school driver, he is \u2026..today",
+            "options": [
+                "A. rather driving carelessly",
+                "B. carelessly driving rather",
+                "C. driving rather carelessly",
+                "D. rather carelessly driving"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 49,
+            "question": "What I admire about our football team is that they love",
+            "options": [
+                "A. themselves",
+                "B. one another",
+                "C. the other",
+                "D. ourselves"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 50,
+            "question": "This is the teacher \u2026..told me the answer.",
+            "options": [
+                "A. whom I said",
+                "B. who I said",
+                "C. who I said he",
+                "D. I said that he"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 51,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined corn",
+            "options": [
+                "A. won",
+                "B. lust",
+                "C. worn",
+                "D. thought"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 52,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined strict",
+            "options": [
+                "A. eat",
+                "B. like",
+                "C. accident",
+                "D. teacher"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 53,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined burn",
+            "options": [
+                "A. cousin",
+                "B. girl",
+                "C. wall",
+                "D. barn"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 54,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined job",
+            "options": [
+                "A. home",
+                "B. bomb",
+                "C. school",
+                "D. role"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 55,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined star",
+            "options": [
+                "A. chalk",
+                "B. for",
+                "C. father",
+                "D. again"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 56,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined pierce",
+            "options": [
+                "A. keel",
+                "B. beard",
+                "C. weigh",
+                "D. piece"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 57,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined type",
+            "options": [
+                "A. lady",
+                "B. tip",
+                "C. bike",
+                "D. toy"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 58,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined bitter",
+            "options": [
+                "A. clerk",
+                "B. fight",
+                "C. three",
+                "D. lemon"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 59,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined sure",
+            "options": [
+                "A. poor",
+                "B. there",
+                "C. were",
+                "D. grew"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 60,
+            "question": "Choose the word that has the same vowel sound as the one represented by the letter(s) underlined book",
+            "options": [
+                "A. but",
+                "B. cut",
+                "C. put",
+                "D. hut"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 61,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined has",
+            "options": [
+                "A. secure",
+                "B. fresh",
+                "C. zebra",
+                "D. must"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 62,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined long",
+            "options": [
+                "A. balm",
+                "B. walk",
+                "C. edible",
+                "D. chalk"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 63,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined trade",
+            "options": [
+                "A. stay",
+                "B. tirade",
+                "C. cradle",
+                "D. entreat"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 64,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined under",
+            "options": [
+                "A. hundred",
+                "B. handkerchief",
+                "C. handsome",
+                "D. shocked"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 65,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined marry",
+            "options": [
+                "A. stow",
+                "B. bow",
+                "C. own",
+                "D. time"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 66,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined many",
+            "options": [
+                "A. thank",
+                "B. sing",
+                "C. plant",
+                "D. bank"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 67,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined sacrifice",
+            "options": [
+                "A. maize",
+                "B. crib",
+                "C. prize",
+                "D. tribe"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 68,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined sheen",
+            "options": [
+                "A. school",
+                "B. preach",
+                "C. chin",
+                "D. attention"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 69,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined cause",
+            "options": [
+                "A. course",
+                "B. piece",
+                "C. rose",
+                "D. person"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 70,
+            "question": "Choose the word that has the same consonant sound(s) as the one represented by the letter(s) underlined theme",
+            "options": [
+                "A. thine",
+                "B. thirst",
+                "C. though",
+                "D. taught"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 71,
+            "question": "Choose the word that rhymes with the given word fleet",
+            "options": [
+                "A. mean",
+                "B. bleat",
+                "C. feed",
+                "D. knead"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 72,
+            "question": "Choose the word that rhymes with the given word burrow",
+            "options": [
+                "A. endow",
+                "B. token",
+                "C. furrow",
+                "D. drummer"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 73,
+            "question": "Choose the word that rhymes with the given word national",
+            "options": [
+                "A. practical",
+                "B. rational",
+                "C. marital",
+                "D. partial"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 74,
+            "question": "Choose the word that rhymes with the given word booked",
+            "options": [
+                "A. toothed",
+                "B. crooked",
+                "C. cooked",
+                "D. fooled"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 75,
+            "question": "Choose the word that rhymes with the given word oracle",
+            "options": [
+                "A. unlucky",
+                "B. pinnacle",
+                "C. quality",
+                "D. minuscule"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 76,
+            "question": "Choose the option that has the correct stress governmental",
+            "options": [
+                "A. GOV-ern-men-tal",
+                "B. gov-ERN-men-tal",
+                "C. gov-ern-MEN-tal",
+                "D. gov-ern-men-TAL"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 77,
+            "question": "Choose the option that has the correct stress receptionist",
+            "options": [
+                "A. RE-cep-tion-ist",
+                "B. re-CEP-tion-ist",
+                "C. re-cep-TION-ist",
+                "D. re-cep-tion-IST"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 78,
+            "question": "Choose the option that has the correct stress contributing",
+            "options": [
+                "A. CON-trib-ut-ing",
+                "B. con-TRIB-ut-ing",
+                "C. con-trib-UT-ing",
+                "D. con-trib-ut-ING"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 79,
+            "question": "Choose the option that has the correct stress preferable",
+            "options": [
+                "A. PREF-er-a-ble",
+                "B. pref-ER-a-ble",
+                "C. pref-er-A-ble",
+                "D. perf-er-a-BLE"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 80,
+            "question": "Choose the option that has the correct stress destination",
+            "options": [
+                "A. DES-ti-na-tion",
+                "B. des-TI-na-tion",
+                "C. des-tiNA-tion",
+                "D. des-ti-na-TION"
+            ],
+            "correctOption": "A"
+        }
+    ]
+}

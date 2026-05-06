@@ -1,0 +1,661 @@
+{% extends "base.html" %}
+
+{% block title %}EMIS CBT Admin — Exam Control Server{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin1.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin2.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- ============================================================
+     EMIS CBT ADMIN DASHBOARD — PART 1 (Base-Integrated)
+============================================================ -->
+<div class="admin-shell bg-bg-soft min-h-screen p-4 sm:p-6 md:p-8">
+
+  <!-- DASHBOARD HEADER -->
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+    <div>
+      <h2 class="text-3xl font-poppins font-bold text-primary-dark">Dashboard</h2>
+      <p class="text-gray-500">Monitor exam activity and system health in real time.</p>
+    </div>
+    <div class="flex flex-wrap gap-2 mt-3 sm:mt-0">
+      <button id="cmdBtnTop" class="btn-secondary flex items-center gap-2">
+        <i class="fa-solid fa-terminal"></i> Command Palette
+      </button>
+      <button id="refreshDashboard" class="btn-primary flex items-center gap-2">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- STATS CARDS -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div class="stat-card bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-xl p-5 shadow-md">
+      <div class="flex items-center gap-3">
+        <div class="bg-white/20 p-3 rounded-lg"><i class="fa-solid fa-user-graduate text-2xl"></i></div>
+        <div>
+          <p class="text-sm opacity-80">Registered Students</p>
+          <h2 id="statTotalStudents" class="text-2xl font-semibold">0</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card bg-gradient-to-r from-green-500 to-green-700 text-white rounded-xl p-5 shadow-md">
+      <div class="flex items-center gap-3">
+        <div class="bg-white/20 p-3 rounded-lg"><i class="fa-solid fa-chalkboard-user text-2xl"></i></div>
+        <div>
+          <p class="text-sm opacity-80">Teachers Active</p>
+          <h2 id="statTeachers" class="text-2xl font-semibold">0</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl p-5 shadow-md">
+      <div class="flex items-center gap-3">
+        <div class="bg-white/20 p-3 rounded-lg"><i class="fa-solid fa-hourglass-half text-2xl"></i></div>
+        <div>
+          <p class="text-sm opacity-80">Ongoing Exams</p>
+          <h2 id="statActiveExams" class="text-2xl font-semibold">0</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl p-5 shadow-md">
+      <div class="flex items-center gap-3">
+        <div class="bg-white/20 p-3 rounded-lg"><i class="fa-solid fa-chart-pie text-2xl"></i></div>
+        <div>
+          <p class="text-sm opacity-80">Average Score</p>
+          <h2 id="statAvg" class="text-2xl font-semibold">--</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <section class="card bg-white rounded-xl shadow-md p-6 mb-10 hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-primary-dark mb-4 flex items-center gap-2">
+      <i class="fa-solid fa-rocket text-accent"></i> Quick Actions
+    </h3>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <button class="btn-primary flex items-center justify-center gap-2" data-panel="#panel-teacher">
+        <i class="fa-solid fa-upload"></i> Upload Exam
+      </button>
+      <button class="btn-secondary flex items-center justify-center gap-2" data-panel="#panel-student">
+        <i class="fa-solid fa-users"></i> View Students
+      </button>
+      <button class="btn-accent flex items-center justify-center gap-2" data-panel="#panel-results">
+        <i class="fa-solid fa-chart-line"></i> View Results
+      </button>
+      <button class="btn-orange flex items-center justify-center gap-2" id="generateIDBtn">
+        <i class="fa-solid fa-barcode"></i> Generate ID
+      </button>
+      <button class="btn-green flex items-center justify-center gap-2" data-panel="#panel-past">
+        <i class="fa-solid fa-book"></i> Past Questions
+      </button>
+      <button class="btn-gray flex items-center justify-center gap-2" data-panel="#panel-thirdparty">
+        <i class="fa-solid fa-network-wired"></i> 3rd Party
+      </button>
+    </div>
+  </section>
+
+  <!-- TEACHER / STUDENT SNAPSHOT -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+    <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+      <h3 class="text-lg font-semibold mb-3 text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-chalkboard-user text-accent"></i> Teacher Uploads
+      </h3>
+      <p class="text-sm text-gray-600 mb-3">Track teacher activity on exam creation and uploads.</p>
+      <div id="teacherUploadsList" class="overflow-y-auto max-h-64 border rounded-md bg-bg-soft p-3">
+        <ul class="space-y-2 text-gray-700 text-sm">
+          <li>No uploads yet</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+      <h3 class="text-lg font-semibold mb-3 text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-user-graduate text-green-600"></i> Student Activity
+      </h3>
+      <p class="text-sm text-gray-600 mb-3">Live exam sessions and auto-marking updates.</p>
+      <div id="studentActivityList" class="overflow-y-auto max-h-64 border rounded-md bg-bg-soft p-3">
+        <ul class="space-y-2 text-gray-700 text-sm">
+          <li>No activity yet</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM STATUS -->
+  <section class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+    <h3 class="text-lg font-semibold mb-4 text-primary-dark flex items-center gap-2">
+      <i class="fa-solid fa-gear text-gray-600"></i> System Status
+    </h3>
+    <ul class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+      <li>Database — <span class="text-green-600 font-semibold">Online</span></li>
+      <li>Auto-Marking Server — <span class="text-green-600 font-semibold">Running</span></li>
+      <li>Storage Usage — <span class="text-yellow-500 font-semibold">70 % Used</span></li>
+    </ul>
+  </section>
+</div>
+
+
+
+<!-- ============================================================
+     PART 2 — TEACHER / STUDENT ZONES / UNIQUE ID / PAST / 3RD PARTY
+============================================================ -->
+
+<!-- ================= TEACHER ZONE ================= -->
+<section id="panel-teacher" class="route fade-in mt-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-chalkboard-user text-accent"></i> Teacher Zone
+      </h2>
+      <button id="refreshTeacherPanel" class="btn-secondary flex items-center gap-1">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+
+    <p class="text-gray-600 mb-6 leading-relaxed">
+      Teachers can upload exam question sets, results, or past exam files.
+      Uploaded items appear instantly in the CBT server for student access.
+    </p>
+
+    <!-- Upload Interface -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <label class="form-label">Upload Exam Questions (.csv, .json, .xlsx)</label>
+        <div id="teacherQuestionUpload" class="drop_box border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-accent transition">
+          <h4 class="font-semibold text-primary-dark">Drag & Drop or Select File</h4>
+          <p class="text-sm text-gray-500">Supported: CSV, JSON, XLSX</p>
+          <input type="file" id="teacherQuestionFile" hidden accept=".csv,.json,.xlsx" />
+          <div class="flex justify-center gap-2 mt-3 flex-wrap">
+            <button id="chooseTeacherFile" class="btn-primary flex items-center gap-1"><i class="fa-solid fa-folder-open"></i> Choose</button>
+            <button id="clearTeacherFile" class="btn-secondary hidden flex items-center gap-1"><i class="fa-solid fa-times"></i> Clear</button>
+          </div>
+          <div id="teacherFileName" class="hidden text-xs mt-2 text-primary font-semibold"></div>
+        </div>
+
+        <div id="uploadTeacherProgress" class="progress hidden mt-3 h-2 rounded bg-gray-200 overflow-hidden">
+          <div class="progress-bar bg-accent h-full w-0"></div>
+        </div>
+
+        <button id="uploadTeacherBtn" class="btn-accent mt-4 w-full flex items-center justify-center gap-2">
+          <i class="fa-solid fa-upload"></i> Upload Questions
+        </button>
+      </div>
+
+      <div>
+        <h4 class="form-label mb-2">Recently Uploaded Exams</h4>
+        <div id="teacherUploadsTable" class="overflow-y-auto max-h-64 border rounded-md p-3 bg-bg-soft">
+          <table class="w-full text-sm">
+            <thead class="text-gray-500 uppercase border-b">
+              <tr><th>Exam Title</th><th>Date</th><th>Size</th><th>Status</th></tr>
+            </thead>
+            <tbody id="teacherUploadList">
+              <tr><td colspan="4" class="text-center text-gray-400 py-3">No uploads yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Results -->
+    <div class="mt-10 border-t pt-6">
+      <h3 class="text-xl font-semibold text-primary mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-chart-line"></i> Upload Exam Results
+      </h3>
+      <p class="text-gray-600 mb-3">Upload graded results (CSV / Excel) for record keeping and PDF generation.</p>
+      <div class="flex flex-wrap gap-3">
+        <input type="file" id="teacherResultFile" accept=".csv,.xlsx" hidden>
+        <button id="chooseResultFile" class="btn-primary flex items-center gap-1"><i class="fa-solid fa-file-arrow-up"></i> Select</button>
+        <button id="uploadResultBtn" class="btn-accent flex items-center gap-1"><i class="fa-solid fa-upload"></i> Upload</button>
+      </div>
+      <div id="teacherResultStatus" class="text-sm text-gray-600 mt-3"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= STUDENT ZONE ================= -->
+<section id="panel-student" class="route fade-in mt-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-user-graduate text-green-600"></i> Student Zone
+      </h2>
+      <button id="refreshStudentPanel" class="btn-secondary flex items-center gap-1">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+
+    <p class="text-gray-600 mb-6">Monitor student exam sessions, auto-marking, and results in real time.</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2">
+        <h4 class="font-semibold text-primary mb-2">Active Exams</h4>
+        <div id="activeExamList" class="overflow-y-auto max-h-72 border rounded-md bg-bg-soft p-4">
+          <table class="w-full text-sm">
+            <thead class="uppercase text-gray-500 border-b">
+              <tr><th>Student</th><th>Exam</th><th>Status</th><th>Score</th></tr>
+            </thead>
+            <tbody id="studentExamTable">
+              <tr><td colspan="4" class="text-center text-gray-400 py-3">No ongoing exams</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-primary mb-2">Auto-Marking Summary</h4>
+        <div id="autoMarkSummary" class="rounded-lg bg-bg-soft border p-4 text-sm text-gray-700">
+          <p>Last Batch: <span id="lastAutoBatch" class="font-semibold">—</span></p>
+          <p>Processed: <span id="autoProcessed" class="font-semibold">0</span></p>
+          <p>Average Score: <span id="autoAverage" class="font-semibold">--</span></p>
+          <p class="text-xs mt-2 text-gray-500">Updates every 30 s</p>
+        </div>
+        <button id="forceMarking" class="btn-orange w-full mt-3 flex items-center justify-center gap-1">
+          <i class="fa-solid fa-bolt"></i> Force Auto-Mark
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t pt-6">
+      <h3 class="text-xl font-semibold text-primary mb-3 flex items-center gap-2">
+        <i class="fa-solid fa-file-pdf text-red-500"></i> Export Results to PDF
+      </h3>
+      <div class="flex flex-wrap gap-3">
+        <button id="generatePDFBtn" class="btn-green flex items-center gap-1"><i class="fa-solid fa-file-pdf"></i> Generate</button>
+        <button id="downloadAllPDF" class="btn-secondary flex items-center gap-1"><i class="fa-solid fa-download"></i> Download All</button>
+      </div>
+      <div id="pdfStatus" class="mt-2 text-sm text-gray-500"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= UNIQUE ID GENERATOR ================= -->
+<section id="panel-uniqueid" class="route fade-in mt-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <h2 class="text-2xl font-bold text-primary-dark mb-4 flex items-center gap-2">
+      <i class="fa-solid fa-hashtag text-accent"></i> Unique ID Generator
+    </h2>
+    <p class="text-gray-600 mb-6">Generate secure EMIS student IDs for exam authentication.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <label class="form-label">Prefix</label>
+        <input id="idPrefix" type="text" value="EMIS" class="form-input">
+      </div>
+      <div>
+        <label class="form-label">Digits</label>
+        <input id="idDigits" type="number" value="6" min="3" max="10" class="form-input">
+      </div>
+      <div class="flex items-end">
+        <button id="generateUniqueIDBtn" class="btn-primary w-full flex items-center justify-center gap-1">
+          <i class="fa-solid fa-key"></i> Generate
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <h4 class="font-semibold mb-2 text-primary-dark">Generated IDs</h4>
+      <div id="idOutputArea" class="border rounded-md bg-bg-soft p-4 text-sm max-h-60 overflow-y-auto">
+        <p class="text-gray-400">No IDs yet</p>
+      </div>
+      <div class="flex gap-3 mt-3">
+        <button id="copyIDBtn" class="btn-secondary flex items-center gap-1"><i class="fa-solid fa-copy"></i> Copy</button>
+        <button id="clearIDBtn" class="btn-secondary flex items-center gap-1"><i class="fa-solid fa-trash"></i> Clear</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= PAST QUESTIONS / MOCK EXAMS ================= -->
+<section id="panel-past" class="route fade-in mt-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-book-open text-orange-500"></i> Past Questions / Mock Exams
+      </h2>
+      <button id="refreshPastQPanel" class="btn-secondary flex items-center gap-1">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+
+    <p class="text-gray-600 mb-6">Manage and provide access to previous exams and mock tests for revision and practice.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <label class="form-label">Upload Past Question File</label>
+        <input type="file" id="pastQFile" hidden accept=".pdf,.doc,.docx,.xlsx">
+        <div class="flex flex-wrap gap-2">
+          <button id="choosePastQBtn" class="btn-primary flex items-center gap-1"><i class="fa-solid fa-file-arrow-up"></i> Select</button>
+          <button id="uploadPastQBtn" class="btn-accent flex items-center gap-1"><i class="fa-solid fa-upload"></i> Upload</button>
+        </div>
+        <p id="pastQStatus" class="text-sm mt-3 text-gray-500"></p>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-primary mb-2">Available Mock Exams</h4>
+        <div id="mockExamList" class="overflow-y-auto max-h-64 border rounded-md bg-bg-soft p-4">
+          <ul class="text-sm space-y-2">
+            <li>No mock exams yet</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t pt-6">
+      <h3 class="text-lg font-semibold mb-3 text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-brain text-green-600"></i> Create Mock Exam
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <label class="form-label">Select Subject</label>
+          <select id="mockSubject" class="form-input">
+            <option>Mathematics</option>
+            <option>English</option>
+            <option>Biology</option>
+            <option>Physics</option>
+            <option>Chemistry</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">No. of Questions</label>
+          <input id="mockCount" type="number" class="form-input" value="20" min="5" max="100">
+        </div>
+        <div class="flex items-end">
+          <button id="generateMockBtn" class="btn-green w-full flex items-center justify-center gap-1">
+            <i class="fa-solid fa-play"></i> Generate
+          </button>
+        </div>
+      </div>
+      <div id="mockOutput" class="mt-4 text-sm text-gray-500"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= THIRD-PARTY EXAMS INTEGRATION ================= -->
+<section id="panel-thirdparty" class="route fade-in mt-12 mb-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-network-wired text-blue-600"></i> Third-Party Exam Integration
+      </h2>
+      <button id="refreshThirdPartyPanel" class="btn-secondary flex items-center gap-1">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+
+    <p class="text-gray-600 mb-6">Integrate external exam platforms or standardized test APIs (WAEC, JAMB practice, etc.) with the EMIS CBT Server.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <label class="form-label">External API URL</label>
+        <input type="text" id="thirdPartyAPI" placeholder="https://example.com/api/exams" class="form-input">
+      </div>
+      <div>
+        <label class="form-label">API Token</label>
+        <input type="password" id="thirdPartyToken" class="form-input" placeholder="Enter access token">
+      </div>
+    </div>
+
+    <div class="mt-4 flex flex-wrap gap-3">
+      <button id="connectThirdPartyBtn" class="btn-primary flex items-center gap-1"><i class="fa-solid fa-plug"></i> Connect</button>
+      <button id="syncThirdPartyBtn" class="btn-accent flex items-center gap-1"><i class="fa-solid fa-arrows-rotate"></i> Sync Exams</button>
+      <button id="disconnectThirdPartyBtn" class="btn-danger flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Disconnect</button>
+    </div>
+
+    <div class="mt-6 border-t pt-6">
+      <h4 class="font-semibold mb-3 text-primary-dark">Connected Platforms</h4>
+      <div id="thirdPartyList" class="overflow-y-auto max-h-60 border rounded-md bg-bg-soft p-4 text-sm">
+        <p class="text-gray-400">No external integrations connected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ================= END OF PART 2 ================= -->
+
+
+<!-- ============================================================
+     PART 3 — NOTIFICATIONS / SETTINGS / CREDENTIALS / SUPPORT / FOOTER
+============================================================ -->
+
+<!-- ================= NOTIFICATIONS & ACTIVITY ================= -->
+<section id="panel-notifications" class="route fade-in mt-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-bell text-accent"></i> Notifications & Activity Logs
+      </h2>
+      <button id="refreshNotifPanel" class="btn-secondary flex items-center gap-1">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+
+    <p class="text-gray-600 mb-6">Real-time logs and activities generated by teachers, students, and the exam system.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h4 class="font-semibold text-primary mb-2 flex items-center gap-1">
+          <i class="fa-solid fa-list-check text-green-600"></i> Recent Activities
+        </h4>
+        <div id="activityList" class="overflow-y-auto max-h-80 border rounded-md bg-bg-soft p-4 text-sm">
+          <ul class="space-y-2">
+            <li>No activity recorded yet.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-primary mb-2 flex items-center gap-1">
+          <i class="fa-solid fa-triangle-exclamation text-red-500"></i> Error & System Alerts
+        </h4>
+        <div id="errorLogList" class="overflow-y-auto max-h-80 border rounded-md bg-bg-soft p-4 text-sm">
+          <ul class="space-y-2 text-red-500">
+            <li>No alerts.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <button id="exportLogsBtn" class="btn-primary flex items-center gap-1"><i class="fa-solid fa-download"></i> Export Logs</button>
+      <button id="clearLogsBtn" class="btn-danger flex items-center gap-1"><i class="fa-solid fa-trash"></i> Clear Logs</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SETTINGS & SYSTEM CONTROL ================= -->
+<section id="panel-settings" class="route fade-in mt-12 mb-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <h2 class="text-2xl font-bold text-primary-dark mb-6 flex items-center gap-2">
+      <i class="fa-solid fa-gear text-gray-600"></i> System Settings & Controls
+    </h2>
+    <p class="text-gray-600 mb-6">Configure the EMIS CBT Server and manage connected modules.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <!-- General Settings -->
+      <div>
+        <h4 class="font-semibold text-primary mb-2 flex items-center gap-1">
+          <i class="fa-solid fa-sliders"></i> General Configuration
+        </h4>
+        <form id="generalConfigForm" class="space-y-3">
+          <div>
+            <label class="form-label">Institution Name</label>
+            <input id="institutionName" type="text" placeholder="Epitome Model Islamic Schools" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Server Email</label>
+            <input id="serverEmail" type="email" placeholder="admin@emisportal.com" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Time Zone</label>
+            <select id="serverTimezone" class="form-input">
+              <option value="Africa/Lagos">Africa / Lagos</option>
+              <option value="UTC">UTC</option>
+              <option value="Africa/Accra">Africa / Accra</option>
+              <option value="Europe/London">Europe / London</option>
+            </select>
+          </div>
+          <button id="saveGeneralConfig" type="button" class="btn-primary w-full flex items-center justify-center gap-1 mt-4">
+            <i class="fa-solid fa-floppy-disk"></i> Save Settings
+          </button>
+        </form>
+      </div>
+
+      <!-- Server Controls -->
+      <div>
+        <h4 class="font-semibold text-primary mb-2 flex items-center gap-1">
+          <i class="fa-solid fa-server"></i> Server Controls
+        </h4>
+        <div class="space-y-3 text-sm text-gray-700">
+          <p>Manage background services for the CBT server.</p>
+          <div class="flex flex-wrap gap-3">
+            <button id="restartServerBtn" class="btn-orange flex items-center gap-1"><i class="fa-solid fa-rotate"></i> Restart</button>
+            <button id="backupDataBtn" class="btn-green flex items-center gap-1"><i class="fa-solid fa-database"></i> Backup</button>
+            <button id="clearCacheBtn" class="btn-gray flex items-center gap-1"><i class="fa-solid fa-broom"></i> Clear Cache</button>
+          </div>
+          <div id="serverControlStatus" class="mt-3 text-gray-500 text-sm"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Authentication Section -->
+    <div class="mt-12 border-t pt-8">
+      <h4 class="font-semibold text-primary mb-4 flex items-center gap-1">
+        <i class="fa-solid fa-shield-halved text-accent"></i> Authentication & Security
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <label class="form-label">Admin Username</label>
+          <input id="adminUser" type="text" class="form-input" placeholder="Admin" />
+        </div>
+        <div>
+          <label class="form-label">Password</label>
+          <input id="adminPass" type="password" class="form-input" placeholder="********" />
+        </div>
+        <div class="flex items-end">
+          <button id="updatePasswordBtn" class="btn-accent w-full flex items-center justify-center gap-1">
+            <i class="fa-solid fa-key"></i> Update Password
+          </button>
+        </div>
+      </div>
+      <p id="authMsg" class="text-xs text-gray-500 mt-3">Password updates take effect instantly across sessions.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= CREDENTIALS & RESULTS ================= -->
+<section id="panel-credentials" class="route fade-in mt-12 mb-12">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-id-card text-blue-600"></i> Credentials & Exam Results
+      </h2>
+      <div class="flex gap-3">
+        <button id="exportCredsBtn" class="btn-primary flex items-center gap-1"><i class="fa-solid fa-download"></i> Export</button>
+        <button id="clearCredsBtn" class="btn-danger flex items-center gap-1"><i class="fa-solid fa-trash"></i> Clear</button>
+      </div>
+    </div>
+
+    <p class="text-gray-600 mb-6">Generate login credentials, monitor exam scores, and download results.</p>
+
+    <div class="overflow-x-auto mb-10">
+      <table class="w-full text-sm border rounded-md">
+        <thead class="bg-bg-soft text-gray-600 uppercase text-xs border-b">
+          <tr>
+            <th class="p-2">Candidate ID</th>
+            <th class="p-2">Name</th>
+            <th class="p-2">Exam</th>
+            <th class="p-2">Score</th>
+            <th class="p-2">PDF</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTableBody">
+          <tr><td colspan="5" class="text-center text-gray-400 py-4">No results available.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      <button id="generateLoginCredsBtn" class="btn-accent flex items-center gap-1"><i class="fa-solid fa-user-lock"></i> Generate</button>
+      <button id="sendEmailCredsBtn" class="btn-green flex items-center gap-1"><i class="fa-solid fa-envelope"></i> Send Email</button>
+      <button id="revokeCredsBtn" class="btn-danger flex items-center gap-1"><i class="fa-solid fa-ban"></i> Revoke</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SUPPORT & FEEDBACK ================= -->
+<section id="panel-support" class="route fade-in mt-12 mb-20">
+  <div class="card bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-primary-dark flex items-center gap-2">
+        <i class="fa-solid fa-message text-accent"></i> Support & Feedback
+      </h2>
+      <button id="refreshSupportPanel" class="btn-secondary flex items-center gap-1">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+    </div>
+
+    <p class="text-gray-600 mb-6">Contact technical support or report issues with the EMIS CBT Server.</p>
+
+    <form id="supportForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="form-label">Your Name</label>
+        <input id="supportName" type="text" class="form-input" placeholder="Full Name" />
+      </div>
+      <div>
+        <label class="form-label">Email</label>
+        <input id="supportEmail" type="email" class="form-input" placeholder="you@example.com" />
+      </div>
+      <div class="md:col-span-2">
+        <label class="form-label">Message</label>
+        <textarea id="supportMessage" rows="5" class="form-input" placeholder="Describe your issue or suggestion..."></textarea>
+      </div>
+      <div class="md:col-span-2 flex justify-end">
+        <button id="sendSupportBtn" class="btn-primary flex items-center gap-1">
+          <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
+      </div>
+    </form>
+
+    <div id="supportStatus" class="text-sm text-gray-500 mt-4"></div>
+  </div>
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="text-center text-gray-500 text-sm py-8 border-t mt-16">
+  <p>
+    &copy; 2025 EMIS Exam Portal — Developed by <strong>Epiconsult Tech Division</strong>.<br>
+    Powered by <strong>Epitome Model Islamic Schools</strong>.
+  </p>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+  <!-- External JS Libraries — no inline code -->
+  <script src="{{ url_for('static', filename='js/admin_core.js') }}"></script>
+  <!-- <script src="{{ url_for('static', filename='js/toggle.js') }}"></script> -->
+  <script src="{{ url_for('static', filename='js/teacher_panel.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/student_panel.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/past_mock.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/third_party.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/credentials.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/support.js') }}"></script>
+{% endblock %}

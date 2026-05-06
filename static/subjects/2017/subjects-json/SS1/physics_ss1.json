@@ -1,0 +1,702 @@
+{
+  "subject": "Physics",
+  "class": "SS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "Which of the following combinations are fundamental quantities?",
+      "options": [
+        "A. Mass, speed, velocity",
+        "B. Time, distance, acceleration",
+        "C. Mass, length, time",
+        "D. Force, mass, velocity",
+        "E. Density, time, speed"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "Which of the following units are derived units?",
+      "options": [
+        "A. kg, m, s",
+        "B. A, mol, cd",
+        "C. K, m, kg",
+        "D. N, m, kg",
+        "E. N, m s⁻¹, J"
+      ],
+      "correctOption": "E"
+    },
+
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "The dimension of force is __________.",
+      "options": [
+        "A. MLT⁻²",
+        "B. LT⁻¹",
+        "C. LT⁻²",
+        "D. L²T⁻²",
+        "E. LT⁻³"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "The type of motion exhibited by a vibrating talking drum is __________.",
+      "options": [
+        "A. Random motion",
+        "B. Oscillatory motion",
+        "C. Rotational motion",
+        "D. Translational motion",
+        "E. Linear motion"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "Which instrument is used to measure the internal and external diameter of a rod?",
+      "options": [
+        "A. Beam balance",
+        "B. Metre rule",
+        "C. Thermometer",
+        "D. Vernier caliper",
+        "E. Micrometer screw gauge"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "An object of mass 50 kg moves at 5 m s⁻¹ round a circular path of radius 10 m. Calculate the centripetal force.",
+      "options": [
+        "A. 125 N",
+        "B. 200 N",
+        "C. 150 N",
+        "D. 100 N",
+        "E. 50 N"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "A train has an initial velocity of 44 m s⁻¹ and an acceleration of −4 m s⁻². Calculate its velocity after 10 seconds.",
+      "options": [
+        "A. 10 m s⁻¹",
+        "B. 4 m s⁻¹",
+        "C. 2 m s⁻¹",
+        "D. 1 m s⁻¹",
+        "E. 5 m s⁻¹"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "Which of the following are vectors?",
+      "options": [
+        "A. Power, velocity, speed",
+        "B. Electric field, velocity, displacement",
+        "C. Time, temperature, mass",
+        "D. Speed, distance, time",
+        "E. Velocity, time, mass"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 9,
+      "diagram": "static/uploads/diagrams/2017/physics_ss1/diagram_9.PNG",
+      "question": "Find the resultant of the vectors shown.",
+      "options": [
+        "A. 9 N",
+        "B. 6 N",
+        "C. 10 N",
+        "D. 15 N",
+        "E. 2 N"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "A mass of 50 kg has a velocity of 10 m s⁻¹. What is its kinetic energy?",
+      "options": [
+        "A. 125 J",
+        "B. 100 J",
+        "C. 50 J",
+        "D. 2500 J",
+        "E. 1500 J"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "The units of energy and power are respectively __________.",
+      "options": [
+        "A. kg and newton",
+        "B. Joule and kg",
+        "C. Kelvin and kg",
+        "D. Metre and kg",
+        "E. Joule and watt"
+      ],
+      "correctOption": "E"
+    },
+
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "A 70 kg man ascends a flight of stairs of height 4 m in 7 s. The power expended is __________.",
+      "options": [
+        "A. 400 W",
+        "B. 100 W",
+        "C. 40 W",
+        "D. 280 W"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "A wire of length 5 m is heated from 100 °C to 600 °C and increases in length by 20 mm. Find the linear expansivity.",
+      "options": [
+        "A. 4 × 10⁻⁵ K⁻¹",
+        "B. 4 × 10⁻⁴ K⁻¹",
+        "C. 8 × 10⁻⁵ K⁻¹",
+        "D. 8 × 10⁻⁴ K⁻¹",
+        "E. 2 × 10⁻⁵ K⁻¹"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 14,
+      "diagram": "static/uploads/diagrams/2017/physics_ss1/diagram_14.PNG",
+      "question": "Identify X and Y from the diagram shown.",
+      "options": [
+        "A. X is positive, Y is negative",
+        "B. X is negative, Y is positive",
+        "C. X and Y are both positive",
+        "D. X and Y are both negative",
+        "E. None of the above"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "Which of the following materials is not an insulator?",
+      "options": [
+        "A. Silver",
+        "B. Glass",
+        "C. Plastic",
+        "D. Rubber",
+        "E. Clay"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 16,
+      "diagram": "static/uploads/diagrams/2017/physics_ss1/diagram_16.PNG",
+      "question": "Which diagram correctly illustrates the shape of a brass and iron bimetallic strip after heating?",
+      "options": [
+        "A. Diagram A",
+        "B. Diagram B",
+        "C. Diagram C",
+        "D. Diagram D"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 17,
+      "diagram": "static/uploads/diagrams/2017/physics_ss1/diagram_17.PNG",
+      "question": "On the charged conductor shown, where would electric charges concentrate most?",
+      "options": [
+        "A. Point A",
+        "B. Point D",
+        "C. Point E",
+        "D. Point B",
+        "E. Point C"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "The SI units of current, resistance and potential difference are respectively __________.",
+      "options": [
+        "A. Ohm, kg, s",
+        "B. Ampere, ohm, volt",
+        "C. Metre, kg, s",
+        "D. Kelvin, kg, s",
+        "E. Second, ohm, volt"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "The value of acceleration due to gravity is greatest at the __________.",
+      "options": [
+        "A. Centre of the earth",
+        "B. Equator",
+        "C. Pole",
+        "D. North-East",
+        "E. South"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "The SI unit of linear expansivity is __________.",
+      "options": [
+        "A. Metre",
+        "B. Second",
+        "C. Per kilogram",
+        "D. Per kelvin",
+        "E. Joule"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "A force of 0.8 N stretches an elastic spring by 2 cm. Find the elastic constant.",
+      "options": [
+        "A. 20 N m⁻¹",
+        "B. 40 N m⁻¹",
+        "C. 60 N m⁻¹",
+        "D. 10 N m⁻¹",
+        "E. 5 N m⁻¹"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "A force of 24 N stretches an elastic material by 30 mm. What additional force will stretch it by 35 mm?",
+      "options": [
+        "A. 0.2 N",
+        "B. 0.1 N",
+        "C. 0.4 N",
+        "D. 0.33 N",
+        "E. 0.7 N"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "A spiral spring of natural length 1.5 m is extended by 0.005 m by a force of 0.8 N. What will be its length when the applied force is 3.2 N?",
+      "options": [
+        "A. 1.48 m",
+        "B. 1.50 m",
+        "C. 1.52 m",
+        "D. 1.55 m",
+        "E. 1.70 m"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "A spiral spring is compressed by 0.02 m. Calculate the energy stored if the force constant is 400 N m⁻¹.",
+      "options": [
+        "A. 0.08 J",
+        "B. 0.05 J",
+        "C. 0.20 J",
+        "D. 0.15 J",
+        "E. 0.001 J"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "The instrument used to measure temperature is __________.",
+      "options": [
+        "A. Bunsen burner",
+        "B. Barometer",
+        "C. Hydrometer",
+        "D. Metre rule",
+        "E. Thermometer"
+      ],
+      "correctOption": "E"
+    },
+
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "The heat generated when the palms are rubbed together is due to __________.",
+      "options": [
+        "A. Friction",
+        "B. Pressure",
+        "C. Pull",
+        "D. Reaction",
+        "E. Tension"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "A car starts from rest with an acceleration of 4 m s⁻². How long will it take to reach a velocity of 20 m s⁻¹?",
+      "options": [
+        "A. 4 s",
+        "B. 5 s",
+        "C. 16 s",
+        "D. 24 s",
+        "E. 80 s"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "Which of these devices is used to detect charges only?",
+      "options": [
+        "A. Capacitor",
+        "B. Electrophorus",
+        "C. Electroscope",
+        "D. Lightning conductor",
+        "E. Proof plane"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "A steel rod of length 18 m expands when its temperature rises from 25 °C to 165 °C. If the linear expansivity is 1.1 × 10⁻⁵ K⁻¹, find the increase in length.",
+      "options": [
+        "A. 0.0179 m",
+        "B. 0.0222 m",
+        "C. 0.0277 m",
+        "D. 0.0300 m",
+        "E. 0.0363 m"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "Which of the following has its middle quantity expressed by both magnitude and direction?",
+      "options": [
+        "A. Displacement, distance and speed",
+        "B. Density, volume and force",
+        "C. Displacement, mass and force",
+        "D. Work, force and time",
+        "E. Force, time and work"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Which of the following is not an evidence of the particle nature of matter?",
+      "options": [
+        "A. Diffusion",
+        "B. Brownian motion",
+        "C. Law of definite proportion",
+        "D. Temperature"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "Which of the following statements about matter is/are correct?",
+      "options": [
+        "A. I only",
+        "B. II only",
+        "C. I and II only",
+        "D. I, II and III only",
+        "E. I, II, III and IV"
+      ],
+      "correctOption": "E"
+    },
+
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "The phenomenon of Brownian motion shows that __________.",
+      "options": [
+        "A. Molecules can be seen moving as bright dots",
+        "B. Smoke particles behave like molecules",
+        "C. Molecules behave like smoke",
+        "D. Molecules move randomly at high speed"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "Diffusion of gases occurs because the molecules __________.",
+      "options": [
+        "A. Are different",
+        "B. Attract each other",
+        "C. Move randomly and continuously",
+        "D. Move faster at higher concentration"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Which of the following properties are correct for crystals?",
+      "options": [
+        "A. I only",
+        "B. II only",
+        "C. I and II only",
+        "D. I and III only",
+        "E. I, II and III"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "Which of the following is a correct expression for Hooke’s law?",
+      "options": [
+        "A. F = ke",
+        "B. F = ke²",
+        "C. K = fe",
+        "D. K = fe²",
+        "E. F = k / e"
+      ],
+      "correctOption": "A"
+    },
+
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "The ability of a material to return to its original shape after removal of force is known as __________.",
+      "options": [
+        "A. Diffusion",
+        "B. Elasticity",
+        "C. Capillarity",
+        "D. Osmosis",
+        "E. Friction"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "The increase in volume of 10 cm³ of mercury for a temperature rise of 100 °C is 0.132 cm³. Find the cubic expansivity.",
+      "options": [
+        "A. 1.82 × 10⁻⁵ K⁻¹",
+        "B. 1.82 × 10⁻⁴ K⁻¹",
+        "C. 1.82 × 10⁻³ K⁻¹",
+        "D. 1.87 × 10⁻⁵ K⁻¹",
+        "E. 1.87 × 10⁻⁴ K⁻¹"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 39,
+      "diagram": "static/uploads/diagrams/2017/physics_ss1/diagram_39.PNG",
+      "question": "Which of the graphs represents Hooke’s law?",
+      "options": [
+        "A. Graph E",
+        "B. Graph D",
+        "C. Graph A",
+        "D. Graph B",
+        "E. Graph C"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "The opposition to the flow of electric current is known as __________.",
+      "options": [
+        "A. Voltage",
+        "B. Resistance",
+        "C. E.M.F",
+        "D. Current",
+        "E. Temperature"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "Which of the following is not a mode of heat transfer?",
+      "options": [
+        "A. Conduction",
+        "B. Radiation",
+        "C. Convection",
+        "D. Diffusion"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "Which of these is not an application of heat transfer?",
+      "options": [
+        "A. Land and sea breeze",
+        "B. Vacuum flask",
+        "C. Boiling",
+        "D. Ventilation"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "Which of the following is not a method of charging a body?",
+      "options": [
+        "A. By induction",
+        "B. By contact",
+        "C. By friction",
+        "D. By smoking",
+        "E. None"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "The silvered wall of a vacuum flask prevents heat loss by __________.",
+      "options": [
+        "A. Conduction",
+        "B. Radiation",
+        "C. Convection",
+        "D. Evaporation",
+        "E. Friction"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "Objects projected into space fall back to the ground due to __________.",
+      "options": [
+        "A. Magnetic force",
+        "B. Electric force",
+        "C. Gravitational force",
+        "D. None of the above",
+        "E. All of the above"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "Which of the following is not an effect of heat?",
+      "options": [
+        "A. Expansion",
+        "B. Change of state",
+        "C. Change of temperature",
+        "D. Change of mass",
+        "E. None of the above"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "50 °C is equivalent to __________ in Kelvin.",
+      "options": [
+        "A. 273 K",
+        "B. 200 K",
+        "C. 323 K",
+        "D. 223 K",
+        "E. 100 K"
+      ],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "The standard unit of temperature is __________.",
+      "options": [
+        "A. Degree Celsius",
+        "B. Degree Fahrenheit",
+        "C. Ohm",
+        "D. Kelvin",
+        "E. Ampere"
+      ],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "Which of the following is not a property of a good thermometer liquid?",
+      "options": [
+        "A. High thermal conductivity",
+        "B. High boiling point",
+        "C. Low melting point",
+        "D. Opaqueness",
+        "E. Transparency"
+      ],
+      "correctOption": "E"
+    },
+
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "The SI unit of force is __________.",
+      "options": [
+        "A. Newton",
+        "B. Joule",
+        "C. Metre",
+        "D. Ampere",
+        "E. Kelvin"
+      ],
+      "correctOption": "A"
+    }
+
+  ]
+}

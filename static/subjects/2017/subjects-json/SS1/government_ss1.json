@@ -1,0 +1,317 @@
+{
+  "subject": "Government",
+  "class": "SS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 120,
+  "questions": [
+
+    {
+      "id": 1,
+      "question": "Legislative types include the following except __________.",
+      "options": ["A. state edicts", "B. bye laws", "C. parliamentary acts", "D. federal laws"],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Implementation of policies is usually a function of the __________.",
+      "options": ["A. legislature", "B. judiciary", "C. executive", "D. the police"],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Bicameral legislature implies __________.",
+      "options": ["A. a two way division", "B. more than two chambers", "C. one-chamber legislature", "D. two-chamber legislature"],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "Which of the following is not part of the judicial system in Nigeria?",
+      "options": ["A. international court of justice", "B. court of appeal", "C. high court", "D. supreme court"],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "The head of the Supreme Court of Nigeria is the __________.",
+      "options": ["A. attorney general of the federation", "B. chief justice of the federation", "C. minister of justice", "D. justice of supreme court"],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Law making appears as a shared responsibility between __________.",
+      "options": ["A. the three organs of government", "B. executive and judiciary", "C. judiciary and legislature only", "D. legislature and executive only"],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Social services include provision of infrastructures such as the following except __________.",
+      "options": ["A. water", "B. educational institutions", "C. crude oil", "D. electricity"],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "The two main types of executives are __________.",
+      "options": ["A. single and dual executive", "B. unitary and military executive", "C. professional and national", "D. presidential and cabinet"],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "A characteristic of a unitary system of government is that __________.",
+      "options": ["A. it has a rigid constitution", "B. it has a flexible constitution", "C. it has a traditional constitution", "D. none of the above"],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "The major exponent of federalism is __________.",
+      "options": ["A. Christopher Columbus", "B. K.C. Wheare", "C. David Easton", "D. William Wilberforce"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 11,
+      "question": "The following factors are favourable to federalism except __________.",
+      "options": ["A. political participation", "B. multi-ethnicity", "C. large territory", "D. security factor"],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "In a unitary system, power is usually centred on the __________ government.",
+      "options": ["A. central government", "B. single or central governor", "C. multiple government", "D. none of the above"],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "The following are factors necessary for the success of unitary government except __________.",
+      "options": ["A. size of the country", "B. common language", "C. loyalty to government", "D. multi-ethnicity"],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "A confederal system of government is __________.",
+      "options": ["A. a union of sovereign states", "B. a union of those speaking the same language", "C. a simple union", "D. none of the above"],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "A major proponent of the rule of law is __________.",
+      "options": ["A. John Locke", "B. Max Weber", "C. Professor A.V. Dicey", "D. Baron de Montesquieu"],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "A major difference between constitution and constitutionalism is that __________.",
+      "options": ["A. constitution is rules while constitutionalism is application", "B. the two concepts are the same", "C. constitution is a document while constitutionalism is people’s law", "D. constitutionalism is the document itself"],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Total commitment to the constitution of a country is __________.",
+      "options": ["A. patriotism", "B. rule of law", "C. delegated legislation", "D. constitutionalism"],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "One of the following exercises control over delegated legislation.",
+      "options": ["A. the legislature", "B. the police", "C. laws", "D. military"],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "A feature of representative democracy is __________.",
+      "options": ["A. idea of the church", "B. tyranny", "C. regular elections", "D. honesty"],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "A system of government in which authority is shared between the centre and components is called __________.",
+      "options": ["A. unitary system", "B. federal system", "C. feudal system", "D. monarchical system"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 21,
+      "question": "All the following are sources of the constitution except __________.",
+      "options": ["A. acts of parliament", "B. devolution of powers", "C. conventions", "D. customs"],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "A constitution is said to be flexible when its provisions are __________.",
+      "options": ["A. known by rulers", "B. mainly in one document", "C. scattered in books", "D. easy to amend"],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "The study of government offers an individual all the following except __________.",
+      "options": ["A. knowledge of rights and duties", "B. training in citizenship", "C. knowledge of government process", "D. training to become a judge"],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Which of the following is not a function of the police?",
+      "options": ["A. protecting public places", "B. arresting animals", "C. controlling traffic", "D. enacting laws"],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "One of the advantages of federalism is that __________.",
+      "options": ["A. every component can secede", "B. each state can develop at its pace", "C. citizens are taxed once", "D. all of the above"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 26,
+      "question": "The most important duty of a citizen is to __________.",
+      "options": ["A. obey traditional rulers", "B. discharge civic responsibilities", "C. go to work", "D. recite the anthem"],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Which of the following is not true of a federal system?",
+      "options": ["A. three tiers of government", "B. written and rigid constitution", "C. powers not constitutionally shared", "D. all of the above"],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "The primary function of the legislature is the __________.",
+      "options": ["A. monitoring judiciary", "B. making laws", "C. voting bills", "D. appointing president"],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "An agreed set of rules prescribing governance is called __________.",
+      "options": ["A. constitution", "B. manifesto", "C. charter", "D. hansard"],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "Ability to enforce obedience is known as __________.",
+      "options": ["A. legitimacy", "B. power", "C. force", "D. influence"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 31,
+      "question": "Democracy originated from __________.",
+      "options": ["A. Greece", "B. Britain", "C. Germany", "D. USA"],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "Constitution is important because it __________.",
+      "options": ["A. teaches morals", "B. prescribes rules for rulers", "C. causes conflict", "D. admonishes obedience"],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following cannot be found in a constitution?",
+      "options": ["A. fundamental rights", "B. party manifestoes", "C. organs of government", "D. duties of citizens"],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Which acts as a check on the executive in controlling finance?",
+      "options": ["A. judiciary", "B. civil service", "C. press", "D. legislature"],
+      "correctOption": "D"
+    },
+    {
+      "id": 35,
+      "question": "Delegated legislation is necessary because it __________.",
+      "options": ["A. promotes dictatorship", "B. prevents development", "C. is useful in emergencies", "D. empowers the president"],
+      "correctOption": "C"
+    },
+
+    {
+      "id": 36,
+      "question": "Ability of leaders to make and enforce decisions is called __________.",
+      "options": ["A. sovereignty", "B. legitimacy", "C. democratic process", "D. socialization"],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Presidential system allows the president to __________.",
+      "options": ["A. be member of legislature", "B. be part of judiciary", "C. select ministers outside legislature", "D. dismiss legislature"],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "Which is usually entrenched in a constitution?",
+      "options": ["A. land ownership", "B. fundamental human rights", "C. party registration", "D. property rules"],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Dual leadership is a characteristic of __________.",
+      "options": ["A. monarchical", "B. presidential", "C. republican", "D. parliamentary"],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "Federal state is expensive because __________.",
+      "options": ["A. leaders are rich", "B. departments are duplicated", "C. judges are paid highly", "D. army is costly"],
+      "correctOption": "B"
+    },
+
+    {
+      "id": 41,
+      "question": "Lowest class in feudal hierarchy is the __________.",
+      "options": ["A. nobles", "B. serfs", "C. lords", "D. manor"],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "Modern democracy includes all except __________.",
+      "options": ["A. unlimited freedom", "B. periodic elections", "C. equality before law", "D. universal suffrage"],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "Judicial independence means courts are independent of the __________.",
+      "options": ["A. civil service", "B. executive and legislature", "C. ministry of justice", "D. military"],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "A citizen expresses loyalty by __________.",
+      "options": ["A. sports", "B. party support", "C. singing anthem", "D. lobbying"],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "The first agent of political socialization is the __________.",
+      "options": ["A. school", "B. mass media", "C. community", "D. family"],
+      "correctOption": "D"
+    },
+
+    {
+      "id": 46,
+      "question": "A constitution with special amendment rules is __________.",
+      "options": ["A. written", "B. federal", "C. confederal", "D. rigid"],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "question": "One form of delegated legislation is __________.",
+      "options": ["A. bye laws", "B. statutory instruments", "C. provisional orders", "D. convention"],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Apart from making laws, legislature also __________.",
+      "options": ["A. implement decisions", "B. advise judiciary", "C. appoint civil servants", "D. check executive power"],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "A government is legitimate if it __________.",
+      "options": ["A. has people’s mandate", "B. is not oppressive", "C. provides services", "D. accepts criticism"],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Which is not a feature of democratic system?",
+      "options": ["A. limited franchise", "B. periodic elections", "C. rule of law", "D. official opposition"],
+      "correctOption": "A"
+    }
+
+  ]
+}

@@ -1,0 +1,559 @@
+{
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "Chemistry",
+    "exam_title": "1st Term Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 60,
+    "questions": [
+        {
+            "id": 1,
+            "question": "Which of the following best defines Chemistry?",
+            "options": [
+                "Study of plants and animals",
+                "Study of matter, its composition and changes",
+                "Study of the stars and planets",
+                "Study of numbers and symbols"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 2,
+            "question": "Which branch of Chemistry deals with carbon compounds?",
+            "options": [
+                "Organic chemistry",
+                "Inorganic chemistry",
+                "Analytical chemistry",
+                "Physical chemistry"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 3,
+            "question": "Which branch of Chemistry is concerned with energy changes in reactions?",
+            "options": [
+                "Analytical chemistry",
+                "Physical chemistry",
+                "Organic chemistry",
+                "Industrial chemistry"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 4,
+            "question": "Which of the following is not a career in Chemistry?",
+            "options": [
+                "Pharmacist",
+                "Chemical Engineer",
+                "Astronomer",
+                "Forensic Scientist"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 5,
+            "question": "Which of these is an importance of chemistry in everyday life?",
+            "options": [
+                "It has no effect on human health preservation",
+                "It helps in the production of drugs and food",
+                "It is only useful in laboratories",
+                "It is used only in space research"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "question": "Which of the following best defines a chemical industry?",
+            "options": [
+                "An industry that produces machines",
+                "An industry that transforms raw materials into useful chemical products",
+                "An industry that processes metal only",
+                "An industry that produces electricity"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 7,
+            "question": "Which of the following is not a division of the chemical industry?",
+            "options": [
+                "Heavy chemicals",
+                "Petrochemicals",
+                "Fine chemicals",
+                "Astronomy"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 8,
+            "question": "Which method can chemical industries adopt to reduce environmental problems?",
+            "options": [
+                "Open dumping of waste",
+                "Recycling and waste treatment",
+                "Burning plastics in open air",
+                "Overuse of pesticides"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 9,
+            "question": "Which of the following correctly defines matter?",
+            "options": [
+                "Anything that has mass and occupies space",
+                "Anything that produces light",
+                "Anything that can be seen",
+                "Anything without weight"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 10,
+            "question": "Which is not a characteristic of matter?",
+            "options": [
+                "Has mass",
+                "Occupies space",
+                "Composed of particles",
+                "Cannot change weight"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 11,
+            "question": "Which of these is a physical property of matter?",
+            "options": [
+                "Combustibility",
+                "Solubility",
+                "Reactivity with acid",
+                "Corrosion"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 12,
+            "question": "Which of the following is a chemical change?",
+            "options": [
+                "Melting of ice",
+                "Dissolving salt in water",
+                "Burning of wood",
+                "Evaporation of water"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 13,
+            "question": "Which of the following represents a radical ion?",
+            "options": [
+                "Na+",
+                "OH-",
+                "Cl",
+                "O2"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 14,
+            "question": "Which is an example of a mixture?",
+            "options": [
+                "Water",
+                "Sodium chloride",
+                "Air",
+                "Carbondioxide"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 15,
+            "question": "Which of the following is a correct component of an atom?",
+            "options": [
+                "Neutron only",
+                "Proton, neutron and electron",
+                "Proton only",
+                "Molecule and radical"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 16,
+            "question": "The atomic number of an element represents the number of",
+            "options": [
+                "neutrons",
+                "protons",
+                "electrons + Neutrons",
+                "nucleous"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 17,
+            "question": "The mass number of an atom is given as",
+            "options": [
+                "number of protons only",
+                "number of electrons only",
+                "number of protons + neutrons",
+                "number of neutrons + electrons"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 18,
+            "question": "The nucleus of an atom contains",
+            "options": [
+                "electrons only",
+                "protons and neutrons",
+                "neutrons and electrons",
+                "protons and electrons"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 19,
+            "question": "Which element has the electronic configuration 2, 8, 7?",
+            "options": [
+                "Oxygen",
+                "Sodium",
+                "Chlorine",
+                "Magnesium"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 20,
+            "question": "How many electrons are in the K-shell of an atom at maximum?",
+            "options": [
+                "2",
+                "4",
+                "6",
+                "8"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 21,
+            "question": "The atomic number of Neon is",
+            "options": [
+                "8",
+                "9",
+                "10",
+                "11"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 22,
+            "question": "Which of these elements is a noble gas?",
+            "options": [
+                "Argon",
+                "Flourine",
+                "Nitrogen",
+                "Potassium"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 23,
+            "question": "Which of these has an electronic configuration 2, 8, 2?",
+            "options": [
+                "Sodium",
+                "Calcium",
+                "Magnesium",
+                "Neon"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 24,
+            "question": "The first element in period 3 of the periodic table is",
+            "options": [
+                "sodium",
+                "lithium",
+                "potassium",
+                "aluminum"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 25,
+            "question": "The chemical formula for Aluminum oxide is",
+            "options": [
+                "AlO",
+                "Al2O3",
+                "AlO2",
+                "Al3O2"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 26,
+            "question": "The correct formula for Calcium chloride is",
+            "options": [
+                "CaCl",
+                "Ca2Cl",
+                "CaCl2",
+                "Ca2Cl2"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 27,
+            "question": "Which of the following equations is balanced?",
+            "options": [
+                "H2 + O2 \u2192 H2O",
+                "2H2 + O2 \u2192 2H2O",
+                "H2 + 2O2 \u2192 2H2O",
+                "H2 + O2 \u2192 2H2O"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 28,
+            "question": "Which of the following is a binary compound?",
+            "options": [
+                "H2SO4",
+                "NaCl",
+                "NaOH",
+                "CaCO3"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 29,
+            "question": "Which of the following represents the balanced equation for the reaction between Sodium and Chlorine?",
+            "options": [
+                "Na + Cl \u2192 NaCl",
+                "Na + Cl2 \u2192 NaCl",
+                "2Na + Cl2 \u2192 2NaCl",
+                "2Na + Cl \u2192 Na2Cl"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 30,
+            "question": "Isotopes are atoms of the same element with",
+            "options": [
+                "same number of protons but different number of neutrons",
+                "different number of protons and electrons",
+                "same mass number but different atomic number",
+                "same neutrons but different protons"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 31,
+            "question": "Which of these is an isotope of hydrogen?",
+            "options": [
+                "Protium",
+                "Deuterium",
+                "Tritium",
+                "All of the above"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 32,
+            "question": "Which of these pairs are isotopes?",
+            "options": [
+                "12C and 14C",
+                "12C and 12N",
+                "12C and 12O",
+                "12C and 16O"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 33,
+            "question": "Isotopes have the same",
+            "options": [
+                "mass number",
+                "atomic number",
+                "number of neutrons",
+                "physical properties only"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 34,
+            "question": "The RMM of H2O is",
+            "options": [
+                "16",
+                "17",
+                "18",
+                "20"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 35,
+            "question": "The RMM of CO2 is",
+            "options": [
+                "28",
+                "32",
+                "44",
+                "48"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 36,
+            "question": "The RMM of CaCO3 is",
+            "options": [
+                "80",
+                "32",
+                "100",
+                "120"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 37,
+            "question": "The RMM of NH3 is",
+            "options": [
+                "15",
+                "16",
+                "17",
+                "18"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 38,
+            "question": "The RMM of NaOH is",
+            "options": [
+                "38",
+                "39",
+                "40",
+                "41"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 39,
+            "question": "The RAM of chlorine is approximately 35.5 because",
+            "options": [
+                "it has isotopes Cl-35 and Cl-37 occurring naturally",
+                "it has exactly 35 protons",
+                "it has 37 neutrons",
+                "it is a radioactive element"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 40,
+            "question": "The RAM of oxygen is",
+            "options": [
+                "8",
+                "12",
+                "14",
+                "16"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 41,
+            "question": "The RAM of hydrogen is",
+            "options": [
+                "1",
+                "2",
+                "4",
+                "16"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 42,
+            "question": "The standard element used as a reference for RAM is",
+            "options": [
+                "oxygen -16",
+                "carbon -12",
+                "hydrogen-1",
+                "nitrogen-14"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 43,
+            "question": "The percentage composition of Carbon in CO2",
+            "options": [
+                "12%",
+                "27%",
+                "33%",
+                "44%"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 44,
+            "question": "The percentage composition of oxygen in H2O is",
+            "options": [
+                "22.2%",
+                "44.4%",
+                "66.6%",
+                "88.9%"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 45,
+            "question": "In NaCl [Na = 23, Cl = 35.5], the percentage composition of sodium is",
+            "options": [
+                "28.9%",
+                "39.3%",
+                "50.0%",
+                "60.7%"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "question": "In H2SO4 [H = 1, S = 32, O = 16], the percentage composition of sulphur is",
+            "options": [
+                "32.7%",
+                "33.3%",
+                "49.0%",
+                "50.0%"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 47,
+            "question": "The empirical formula is defined as",
+            "options": [
+                "actual number of atoms in a molecule",
+                "simplest whole-number ratio of atoms in a compound",
+                "structural arrangement of atoms in a molecule",
+                "the weighted average of isotopes"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 48,
+            "question": "Which separation method is used to obtain pure water from salt water?",
+            "options": [
+                "Filtration",
+                "Evaporation",
+                "Distillation",
+                "Chromatography"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 49,
+            "question": "Which method is used to separate iron filings from sand?",
+            "options": [
+                "Filtration",
+                "Magnetization",
+                "Decantation",
+                "Sublimation"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 50,
+            "question": "Which technique is used to separate immiscible liquids like oil and water?",
+            "options": [
+                "Filtration",
+                "Separating funnel",
+                "Chromatography",
+                "Magnetization"
+            ],
+            "correctOption": "B"
+        }
+    ]
+}

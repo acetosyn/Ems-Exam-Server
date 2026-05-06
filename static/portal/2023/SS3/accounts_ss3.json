@@ -1,0 +1,606 @@
+{
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "Financial Accounting",
+    "exam_title": "1st Term Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 120,
+    "class_category": "SS3",
+    "questions": [
+        {
+            "id": 1,
+            "question": "The partners to joint venture are called",
+            "diagram": null,
+            "options": [
+                "A. partners",
+                "B. principal and agent",
+                "C. bailer and bailee",
+                "D. co-venturer"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 2,
+            "question": "A joint venture business has a definite life",
+            "diagram": null,
+            "options": [
+                "A. True",
+                "B. False",
+                "C. Partly true",
+                "D. None of the above"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 3,
+            "question": "Co-ventures share the profit in the agreed ratio",
+            "diagram": null,
+            "options": [
+                "A. False",
+                "B. Partly true",
+                "C. True",
+                "D. None of the above"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 4,
+            "question": "Joint venture is a non-trading concern",
+            "diagram": null,
+            "options": [
+                "A. True",
+                "B. False",
+                "C. Partly true",
+                "D. None of the above"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 5,
+            "question": "The persons participating in a joint venture business are known as co-partners",
+            "diagram": null,
+            "options": [
+                "A. True",
+                "B. Partly true",
+                "C. False",
+                "D. None of the above"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 6,
+            "question": "The accounting concept of joint concern does not fully apply to a co-venture",
+            "diagram": null,
+            "options": [
+                "A. True",
+                "B. False",
+                "C. Partly true",
+                "D. None of the above"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 7,
+            "question": "The loss incurred on an incomplete contract is transferred to",
+            "diagram": null,
+            "options": [
+                "A. work in progress",
+                "B. depreciation",
+                "C. machinery",
+                "D. profit and loss account"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 8,
+            "question": "When the completion stage of the contract is more than half, the profit credited to profit and loss account will be",
+            "diagram": null,
+            "options": [
+                "A. Estimated profit \u00d7 (work completed)/(contract price)",
+                "B. 1/3 \u00d7 notional profit \u00d7 (cash received)/(work completed)",
+                "C. 2/3 \u00d7 notional profit \u00d7 (cash received)/(work completed)",
+                "D. total profit"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 9,
+            "question": "The expenses applicable to a particular contract is debited to",
+            "diagram": null,
+            "options": [
+                "A. personal account of customer",
+                "B. profit and loss account",
+                "C. stores account",
+                "D. retention money account"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 10,
+            "question": "Debenture is",
+            "diagram": null,
+            "options": [
+                "A. tangible asset",
+                "B. fixed asset",
+                "C. current asset",
+                "D. long-term liability"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 11,
+            "question": "A joint venture is similar to a",
+            "diagram": null,
+            "options": [
+                "A. partnership",
+                "B. co-operative society",
+                "C. trade association",
+                "D. cartel"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 12,
+            "question": "A special purpose entity is known as",
+            "diagram": null,
+            "options": [
+                "A. estate",
+                "B. joint venture",
+                "C. corporation",
+                "D. partnership"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 13,
+            "question": "Joint venture is subjected to",
+            "diagram": null,
+            "options": [
+                "A. one control",
+                "B. no control",
+                "C. joint control",
+                "D. maximum control"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 14,
+            "question": "The following will be on the debit side of the memorandum joint venture account except",
+            "diagram": null,
+            "options": [
+                "A. purchases",
+                "B. sales",
+                "C. wages",
+                "D. share of profit"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 15,
+            "question": "In the jointly controlled assets, assets cannot be jointly owned",
+            "diagram": null,
+            "options": [
+                "A. True",
+                "B. False"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 16,
+            "question": "Goodwill is",
+            "diagram": null,
+            "options": [
+                "A. a current asset",
+                "B. a current liability",
+                "C. an intangible asset",
+                "D. a fictitious asset"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 17,
+            "question": "Trademark and patent right are classified as",
+            "diagram": null,
+            "options": [
+                "A. wasting assets",
+                "B. fixed assets",
+                "C. current assets",
+                "D. intangible assets"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 18,
+            "question": "Contract costing is not used or applicable in one of the following industries",
+            "diagram": null,
+            "options": [
+                "A. automobile",
+                "B. ship building",
+                "C. civil construction",
+                "D. construction of bridges"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 19,
+            "question": "A contract is generally of ____ duration",
+            "diagram": null,
+            "options": [
+                "A. small",
+                "B. average",
+                "C. very small",
+                "D. long"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 20,
+            "question": "Retention money serves as a ____ with the contractee",
+            "diagram": null,
+            "options": [
+                "A. balance",
+                "B. security",
+                "C. loss",
+                "D. profit"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 21,
+            "question": "When cash ratio is ____ retention money is 13%",
+            "diagram": null,
+            "options": [
+                "A. 50%",
+                "B. 99%",
+                "C. 78%",
+                "D. 87%"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 22,
+            "question": "Sub-contract cost is always treated as ____ to the contract",
+            "diagram": null,
+            "options": [
+                "A. indirect charge",
+                "B. direct charge",
+                "C. income",
+                "D. revenue"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 23,
+            "question": "Departments are located in",
+            "diagram": null,
+            "options": [
+                "A. another city",
+                "B. outside city",
+                "C. foreign country",
+                "D. same place"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 24,
+            "question": "Departmental accounting facilitates",
+            "diagram": null,
+            "options": [
+                "A. comparison of trading results",
+                "B. intelligent planning and control",
+                "C. evaluating department performance",
+                "D. all of the above"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 25,
+            "question": "Indirect expenses are also called",
+            "diagram": null,
+            "options": [
+                "A. common expenses",
+                "B. prime cost",
+                "C. direct expenses",
+                "D. management expenses"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 26,
+            "question": "Expenses which can be apportioned to departments must be shown in the",
+            "diagram": null,
+            "options": [
+                "A. profit and loss account",
+                "B. balance sheet",
+                "C. trading account",
+                "D. profit and loss appropriation account"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 27,
+            "question": "When goods are transferred from one department to another, they are called",
+            "diagram": null,
+            "options": [
+                "A. outer-departmental transfer",
+                "B. not a transfer",
+                "C. inter-departmental transfer",
+                "D. regular transfer"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 28,
+            "question": "When goods are transferred department transferring goods should be",
+            "diagram": null,
+            "options": [
+                "A. debited",
+                "B. added",
+                "C. credited",
+                "D. subtracted"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 29,
+            "question": "When goods are transferred, receiving department should be",
+            "diagram": null,
+            "options": [
+                "A. debited",
+                "B. credited",
+                "C. added",
+                "D. subtracted"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 30,
+            "question": "In departmental accounts, expenses like direct fees and interest are transferred to",
+            "diagram": null,
+            "options": [
+                "A. balance sheet",
+                "B. general profit and loss account",
+                "C. trading account",
+                "D. profit and loss appropriation account"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 31,
+            "question": "Departmental accounting enables a business firm to maximize",
+            "diagram": null,
+            "options": [
+                "A. losses",
+                "B. profit",
+                "C. cash",
+                "D. assets"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 32,
+            "question": "Branch which does not maintain its own set of books is",
+            "diagram": null,
+            "options": [
+                "A. independent branch",
+                "B. foreign branch",
+                "C. dependent branch",
+                "D. local branch"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 33,
+            "question": "The business policies and administration of a branch are wholly controlled by head office",
+            "diagram": null,
+            "options": [
+                "A. independent branch",
+                "B. local branch",
+                "C. foreign branch",
+                "D. dependent branch"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 34,
+            "question": "Dependent branch makes",
+            "diagram": null,
+            "options": [
+                "A. only cash sales",
+                "B. only credit sales",
+                "C. cash and credit sales",
+                "D. instalment sales"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 35,
+            "question": "Under branch account debtors system, closing balances of assets are recorded in",
+            "diagram": null,
+            "options": [
+                "A. credit side",
+                "B. debit side",
+                "C. credit and debit side",
+                "D. first debit and credit side"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 36,
+            "question": "Under branch account debtors system, bad debts and discount allowed are",
+            "diagram": null,
+            "options": [
+                "A. shown in debit side",
+                "B. shown in credit side",
+                "C. shown in asset side",
+                "D. not shown"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 37,
+            "question": "Under branch account debtors system, credit sales is",
+            "diagram": null,
+            "options": [
+                "A. shown in credit side",
+                "B. shown in assets side",
+                "C. shown in debit side",
+                "D. not shown"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 38,
+            "question": "The difference between goods sent by head office and goods received by branch is called",
+            "diagram": null,
+            "options": [
+                "A. goods in warehouse",
+                "B. goods in production",
+                "C. goods in sales",
+                "D. goods in transit"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 39,
+            "question": "A contract offer that is written on paper, signed, sealed and delivered is known as",
+            "diagram": null,
+            "options": [
+                "A. formal contract",
+                "B. informal contract",
+                "C. non-formal contract",
+                "D. rigid contract"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 40,
+            "question": "An offer of a contract can be terminated by",
+            "diagram": null,
+            "options": [
+                "A. I and III only",
+                "B. I and II only",
+                "C. II only",
+                "D. III only"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 41,
+            "question": "The expenses applicable to a particular contract is debited to",
+            "diagram": "/static/uploads/diagrams/2023/diagram_41.PNG",
+            "options": [
+                "A. personal account of customer",
+                "B. stores account",
+                "C. profit and loss account",
+                "D. retention money account"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 42,
+            "question": "What is the selling expenses for A?",
+            "diagram": null,
+            "options": [
+                "A. N305",
+                "B. N306",
+                "C. N360",
+                "D. N300"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 43,
+            "question": "What is the selling expenses for B?",
+            "diagram": null,
+            "options": [
+                "A. N360",
+                "B. N350",
+                "C. N603",
+                "D. N306"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 44,
+            "question": "What is the net sales of departments A and B?",
+            "diagram": null,
+            "options": [
+                "A. N10,340",
+                "B. N10,300",
+                "C. N10,304",
+                "D. N10,403"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 45,
+            "question": "Which of the following is the basis for apportioning rent among departments?",
+            "diagram": null,
+            "options": [
+                "A. Direct labour",
+                "B. Floor area",
+                "C. Turnover",
+                "D. Sales"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 46,
+            "question": "A branch is a unit of business organization not located within the same premises as the head office",
+            "diagram": null,
+            "options": [
+                "A. True",
+                "B. False"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 47,
+            "question": "In branch accounting, another name for invoice price is",
+            "diagram": null,
+            "options": [
+                "A. cash price",
+                "B. dividend",
+                "C. transfer price",
+                "D. finance charge"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 48,
+            "question": "Rent owed by a department is treated in the balance sheet as",
+            "diagram": null,
+            "options": [
+                "A. liability of the business",
+                "B. liability of the place",
+                "C. asset of the business",
+                "D. asset of the department"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 49,
+            "question": "The cost of carriage outward is classified as",
+            "diagram": null,
+            "options": [
+                "A. a finance expense",
+                "B. a trading expense",
+                "C. an administrative expense",
+                "D. a selling and distribution expense"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 50,
+            "question": "A branch whose accounting records are wholly or majorly maintained by the head office is called",
+            "diagram": null,
+            "options": [
+                "A. foreign branch",
+                "B. dependent branch",
+                "C. independent branch",
+                "D. national branch"
+            ],
+            "correctOption": "B"
+        }
+    ]
+}

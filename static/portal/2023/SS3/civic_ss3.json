@@ -1,0 +1,612 @@
+{
+    "subject": "Civic Education",
+    "class": "SS3",
+    "session": "2023/2024",
+    "time_allowed_minutes": 120,
+    "questions": [
+        {
+            "id": 1,
+            "question": "Nationalism in Nigeria eventually led to",
+            "diagram": null,
+            "options": [
+                "A. national renaissance",
+                "B. creation of states",
+                "C. decolonization",
+                "D. the end of military rule"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 2,
+            "question": "Which of the following conditions gives rise to the denial of right to life?",
+            "diagram": null,
+            "options": [
+                "A. Homicide",
+                "B. Forgery",
+                "C. Protest",
+                "D. Burglary"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 3,
+            "question": "Activities that act to clog the wheel of societal progress can be described as",
+            "diagram": null,
+            "options": [
+                "A. family issues",
+                "B. cultural vices",
+                "C. religious issues",
+                "D. social vices"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 4,
+            "question": "The four most prominent nationalist leaders of Nigeria at independence were",
+            "diagram": null,
+            "options": [
+                "A. J.S. Tarka, S.L. Akintola, Aminu Kano and Ernest Ikoli",
+                "B. Nnamdi Azikiwe, K.O. Mbadiwe, Arthur Richards and Aminu Kano",
+                "C. Tafawa Balewa, Obafemi Awolowo, Nnamdi Azikiwe and Ahmadu Bello",
+                "D. Adesoji Aderemi, Shehu Shagari, Obafemi Awolowo and Nnamdi Azikiwe"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 5,
+            "question": "Responsible parenthood can complement the activities of government in several ways except by raising",
+            "diagram": null,
+            "options": [
+                "A. responsible citizens",
+                "B. citizens who oppose the government",
+                "C. responsible future leaders",
+                "D. entrepreneurs in the society"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "question": "One importance of constituted authority is that it leads to",
+            "diagram": null,
+            "options": [
+                "A. maintenance of law and order",
+                "B. concentration of power",
+                "C. immunity of elected leaders",
+                "D. arbitrary use of power"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 7,
+            "question": "Teaching children to be satisfied with what they have is a way of encouraging",
+            "diagram": null,
+            "options": [
+                "A. self-reliance",
+                "B. orderliness",
+                "C. contentment",
+                "D. selflessness"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 8,
+            "question": "Law and order can best be maintained in Nigeria through the",
+            "diagram": null,
+            "options": [
+                "A. making of decree by various security agencies",
+                "B. constitutional law enforcement and citizens\u2019 common welfare",
+                "C. prohibition of public protest, terrorism and militancy",
+                "D. use of modern security gadgets and DSS"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 9,
+            "question": "The Universal Declaration of Human Rights (UDHR) was adopted by the",
+            "diagram": null,
+            "options": [
+                "A. United Nations General Assembly",
+                "B. United Nations Security Council",
+                "C. United Nations San-Francisco Conference",
+                "D. United Nations Trusteeship Council"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 10,
+            "question": "Responsible parenting is the ability of parents to",
+            "diagram": null,
+            "options": [
+                "A. provide qualitative education for their children",
+                "B. establish profitable business for the family",
+                "C. meet basic and social needs of their children",
+                "D. ensure that rights of their children are safeguarded"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 11,
+            "question": "Assuming the offence committed by Amuka happened in a democratic society, the poultry farm workers would be",
+            "diagram": "/static/uploads/diagrams/2023/civic/diagram_11.PNG",
+            "options": [
+                "A. honoured for executing instant justice",
+                "B. punished for taking laws into their own hands",
+                "C. converted to security personnel",
+                "D. promoted for safeguarding the poultry farm"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 12,
+            "question": "In a democratic society, the farm workers are expected to",
+            "diagram": null,
+            "options": [
+                "A. hand Amuka over to the police",
+                "B. deny him the right to fair hearing",
+                "C. judge him after fair hearing",
+                "D. discharge him of the offence"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 13,
+            "question": "A community which does not associate with neighbouring communities would likely experience",
+            "diagram": null,
+            "options": [
+                "A. limited access to modern facilities",
+                "B. corruption among elected officials",
+                "C. retarded economic development",
+                "D. disregard for constitutional rights"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 14,
+            "question": "Which agency carries out inspection of vehicles for road worthiness in Nigeria?",
+            "diagram": null,
+            "options": [
+                "A. NSCDC",
+                "B. The Nigerian Police",
+                "C. Vehicle Inspection Office",
+                "D. Nigeria Customs Service"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 15,
+            "question": "The role of a responsible mother is to",
+            "diagram": null,
+            "options": [
+                "A. ensure good neighbourliness",
+                "B. report the husband when necessary",
+                "C. help motherless children",
+                "D. support the father in meeting family needs"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 16,
+            "question": "The human right that is applicable to all human beings without reference to their nationality is the right to",
+            "diagram": null,
+            "options": [
+                "A. life and dignity of human person",
+                "B. vote",
+                "C. acquire assets and landed property",
+                "D. work"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 17,
+            "question": "All regulatory road signs can be categorized into",
+            "diagram": null,
+            "options": [
+                "A. mandatory and mediative",
+                "B. punitive and prohibitive",
+                "C. prohibitive and mandatory",
+                "D. persuasive and informative"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 18,
+            "question": "A healthy inter-communal relationship is NOT associated with",
+            "diagram": null,
+            "options": [
+                "A. political development",
+                "B. economic progress",
+                "C. state of violence",
+                "D. societal security"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 19,
+            "question": "Cult activities are usually characterized by",
+            "diagram": null,
+            "options": [
+                "A. terrorist activities",
+                "B. despotic tendencies",
+                "C. violent disposition",
+                "D. martial bravery"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 20,
+            "question": "Which of the following cannot be termed drug abuse?",
+            "diagram": null,
+            "options": [
+                "A. Using prescribed drugs the wrong way",
+                "B. Drinking alcohol in excess",
+                "C. Frequent intake of soft drinks",
+                "D. The use of self-medication"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 21,
+            "question": "An interventionist programme between two warring groups can best be made successful through",
+            "diagram": null,
+            "options": [
+                "A. conciliation",
+                "B. cooperation",
+                "C. medication",
+                "D. counselling"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 22,
+            "question": "The blindfold on the symbol of Lady Justice indicates that laws must be applied",
+            "diagram": null,
+            "options": [
+                "A. with great caution",
+                "B. in favour of women",
+                "C. with a neutral mindset",
+                "D. by an anonymous judge"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 23,
+            "question": "Which of these cannot be responsible for the spread of HIV/AIDS?",
+            "diagram": null,
+            "options": [
+                "A. Unprotected sexual intercourse",
+                "B. Dining and drinking with people living with HIV/AIDS",
+                "C. Using unscreened blood transfusion",
+                "D. Sharing of unsterilized piercing instruments"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 24,
+            "question": "Studying hard in school is one of the preventive measures against",
+            "diagram": null,
+            "options": [
+                "A. unionism",
+                "B. cultism",
+                "C. bigotry",
+                "D. racism"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 25,
+            "question": "From the dialogue between Zainab and her mother, the problem of Zainab is that of",
+            "diagram": null,
+            "options": [
+                "A. stigmatization",
+                "B. ignorance",
+                "C. infection",
+                "D. pride"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 26,
+            "question": "A major challenge for civil societies in executing their mandate is",
+            "diagram": null,
+            "options": [
+                "A. poor funding of their programmes",
+                "B. questionable reputation of their members",
+                "C. composition of their leadership",
+                "D. their desire for political power"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 27,
+            "question": "The National Agency for the Prohibition of Trafficking in Persons (NAPTIP) was established in the year",
+            "diagram": null,
+            "options": [
+                "A. 2001",
+                "B. 2002",
+                "C. 2003",
+                "D. 2004"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 28,
+            "question": "The senate and house of representatives in Nigeria constitute the",
+            "diagram": null,
+            "options": [
+                "A. federal congress",
+                "B. national parliament",
+                "C. federal legislature",
+                "D. national assembly"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 29,
+            "question": "A primary ambition of individuals involved in human trafficking that cannot be achieved is",
+            "diagram": null,
+            "options": [
+                "A. unwanted pregnancy",
+                "B. physical and sexual abuse",
+                "C. financial freedom",
+                "D. depression and suicidal thought"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 30,
+            "question": "The approval of the government budget is the responsibility of the",
+            "diagram": null,
+            "options": [
+                "A. judiciary",
+                "B. legislature",
+                "C. ministers",
+                "D. executive"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 31,
+            "question": "The step taken by the councilor in the dialogue above is best described as",
+            "diagram": "/static/uploads/diagrams/2023/civic/diagram_31.PNG",
+            "options": [
+                "A. empowerment",
+                "B. selflessness",
+                "C. development",
+                "D. patriotism"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 32,
+            "question": "Shola in the dialogue above will likely end up being",
+            "diagram": null,
+            "options": [
+                "A. patriotic",
+                "B. hard working",
+                "C. contented",
+                "D. self-reliant"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 33,
+            "question": "Which of the following is a known cult group in Nigeria?",
+            "diagram": null,
+            "options": [
+                "A. Rangers",
+                "B. Pyrates",
+                "C. Flamingoes",
+                "D. Illuminatis"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 34,
+            "question": "The body in charge of controlling trafficking of drugs in Nigeria is the",
+            "diagram": null,
+            "options": [
+                "A. FRSC",
+                "B. NAFDAC",
+                "C. NDLEA",
+                "D. NIMR"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 35,
+            "question": "Which of the following makes the votes of the poor and the rich equal?",
+            "diagram": null,
+            "options": [
+                "A. Compulsory voting",
+                "B. Right to vote",
+                "C. Popular participation",
+                "D. Free and fair election"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 36,
+            "question": "The act of recruiting and trading of persons for the purpose of commercial exploitation is known as",
+            "diagram": null,
+            "options": [
+                "A. slave trade",
+                "B. human trafficking",
+                "C. human rights abuse",
+                "D. amnesty violations"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 37,
+            "question": "Which of these is a disadvantage to the application of the rule of law in a democratic society?",
+            "diagram": null,
+            "options": [
+                "A. Existence of free and fair election",
+                "B. Granting immunity to public office holders",
+                "C. Ensuring equal protection of citizens\u2019 rights",
+                "D. Promoting popular participation in politics"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 38,
+            "question": "The protection of citizens\u2019 rights can be best guaranteed when there is",
+            "diagram": "/static/uploads/diagrams/2023/civic/diagram_38.PNG",
+            "options": [
+                "A. II and V",
+                "B. III and VI",
+                "C. I and II",
+                "D. IV and V"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 39,
+            "question": "Constructive criticism of government policies and actions in a democratic state is best promoted by",
+            "diagram": null,
+            "options": [
+                "A. I and V",
+                "B. IV and VI",
+                "C. III and IV",
+                "D. V and VI"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 40,
+            "question": "Smooth transition of government in a democratic state is ensured when there is",
+            "diagram": null,
+            "options": [
+                "A. I and III",
+                "B. III and VI",
+                "C. III and IV",
+                "D. V and VI"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "questions": [
+                {
+                    "id": 41,
+                    "question": "The 1999 constitution could be described as rigid mainly because",
+                    "diagram": null,
+                    "options": [
+                        "A. its amendment requires two-third majority votes of the National Assembly",
+                        "B. its implementation requires the services of constitutional lawyers",
+                        "C. adherence to its provision is very difficult",
+                        "D. it requires presidential proclamation and judicial decision"
+                    ],
+                    "correctOption": "A"
+                },
+                {
+                    "id": 42,
+                    "question": "One major factor that hinders women from participating actively in politics is",
+                    "diagram": null,
+                    "options": [
+                        "A. their educational background",
+                        "B. lack of fund and financial power",
+                        "C. societal discrimination and belief system",
+                        "D. their religious background"
+                    ],
+                    "correctOption": "C"
+                },
+                {
+                    "id": 43,
+                    "question": "Under the 1999 Nigerian constitution, the judiciary exercises the greatest power of checks and balances over the",
+                    "diagram": null,
+                    "options": [
+                        "A. Executive and Legislative",
+                        "B. House of Representatives and Senate",
+                        "C. Local Government Councils and State Houses of Assembly",
+                        "D. States Legislatures and National Assembly"
+                    ],
+                    "correctOption": "A"
+                },
+                {
+                    "id": 44,
+                    "question": "The activities of the Economic and Financial Crimes Commission (EFCC) can help in promoting the following except",
+                    "diagram": null,
+                    "options": [
+                        "A. development",
+                        "B. democracy",
+                        "C. justice",
+                        "D. dictatorship"
+                    ],
+                    "correctOption": "D"
+                },
+                {
+                    "id": 45,
+                    "question": "Based on the cartoon in figure 2, it is evident that fuel scarcity is associated with the following except",
+                    "diagram": "/static/uploads/diagrams/2023/civic/diagram_45.PNG",
+                    "options": [
+                        "A. corruption in public corporation driven oil sector",
+                        "B. the inability of fuel marketers to supply fuel",
+                        "C. corruption in private corporation driven oil sector",
+                        "D. adequate importation of petrol by licensed marketers"
+                    ],
+                    "correctOption": "D"
+                },
+                {
+                    "id": 46,
+                    "question": "In figure 2, the statement \u201cgovernment has started the war on corruption\u201d is an indication that",
+                    "diagram": null,
+                    "options": [
+                        "A. taxi drivers are not happy with the new fuel price",
+                        "B. the patronage of taxi has reduced",
+                        "C. government is now tackling a major civic problem",
+                        "D. corruption has been eradicated in the oil sector"
+                    ],
+                    "correctOption": "C"
+                },
+                {
+                    "id": 47,
+                    "question": "The feeling of indifference people have towards participating in governance is termed",
+                    "diagram": null,
+                    "options": [
+                        "A. political discontentment",
+                        "B. apathy",
+                        "C. bad leadership",
+                        "D. selfishness"
+                    ],
+                    "correctOption": "B"
+                },
+                {
+                    "id": 48,
+                    "question": "Which of the following is a negative way of engaging in popular participation in a state?",
+                    "diagram": null,
+                    "options": [
+                        "A. Engaging in rallies and demonstrations",
+                        "B. Joining a political party of your choice",
+                        "C. Taking part in general elections",
+                        "D. Snatching ballot boxes during elections"
+                    ],
+                    "correctOption": "D"
+                },
+                {
+                    "id": 49,
+                    "question": "Representative democracy thrives on",
+                    "diagram": null,
+                    "options": [
+                        "A. educated electorates",
+                        "B. formation of political parties",
+                        "C. free and fair elections",
+                        "D. equal gender representation"
+                    ],
+                    "correctOption": "C"
+                },
+                {
+                    "id": 50,
+                    "question": "Which of the following is a major limitation to the operational effectiveness of the public service?",
+                    "diagram": null,
+                    "options": [
+                        "A. Change of government",
+                        "B. Corruption",
+                        "C. Nepotism",
+                        "D. Bureaucratic red-tapism"
+                    ],
+                    "correctOption": "D"
+                }
+            ]
+        }
+    ]
+}

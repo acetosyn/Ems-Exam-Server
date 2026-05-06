@@ -1,0 +1,250 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Technical Drawing",
+  "exam_title": "TECHNICAL DRAWING INTERVIEW QUESTIONS",
+  "instructions": "Attempt all questions from this section",
+  "time_allowed_minutes": 60,
+  "section": "SECTION A: MCQ",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The primary purpose of a T-square in technical drawing is to:",
+      "options": ["Draw circles and arcs", "Ensure horizontal lines and right angles", "Measure distances accurately", "Sharpen pencils"],
+      "answer": "Ensure horizontal lines and right angles"
+    },
+    {
+      "id": 2,
+      "question": "In standard drafting, the line weight for visible outlines is typically:",
+      "options": ["0.1 mm (thin)", "0.3-0.5 mm (medium)", "0.7 mm (thick)", "1.0 mm (extra thick)"],
+      "answer": "0.7 mm (thick)"
+    },
+    {
+      "id": 3,
+      "question": "The French curve is used for drawing:",
+      "options": ["Straight lines", "Irregular curves and ellipses", "Parallel lines", "Perpendicular bisectors"],
+      "answer": "Irregular curves and ellipses"
+    },
+    {
+      "id": 4,
+      "question": "Scale 1:50 means the drawing is:",
+      "options": ["50 times larger than the object", "Half the size of the object", "1/50th the size of the object", "Twice the size of the object"],
+      "answer": "1/50th the size of the object"
+    },
+    {
+      "id": 5,
+      "question": "The standard sheet size for A3 paper in ISO standards is:",
+      "options": ["210 mm × 297 mm", "297 mm × 420 mm", "420 mm × 594 mm", "841 mm × 1189 mm"],
+      "answer": "297 mm × 420 mm"
+    },
+    {
+      "id": 6,
+      "question": "To bisect an angle using a compass and straightedge, the first step is to:",
+      "options": ["Draw arcs from the vertex to intersect the sides", "Construct perpendicular lines", "Find the midpoint of the angle sides", "Draw a circle centered at the vertex"],
+      "answer": "Draw arcs from the vertex to intersect the sides"
+    },
+    {
+      "id": 7,
+      "question": "The construction of a regular hexagon inscribed in a circle requires:",
+      "options": ["Dividing the circle into 6 equal arcs using a compass", "Drawing tangents at 60° intervals", "Using a protractor for 120° angles", "Bisecting radii at 90°"],
+      "answer": "Dividing the circle into 6 equal arcs using a compass"
+    },
+    {
+      "id": 8,
+      "question": "In geometric construction, a parallelogram can be constructed by:",
+      "options": ["Drawing two pairs of parallel lines with equal opposite sides", "Constructing a rectangle and skewing it", "Using only perpendicular bisectors", "Inscribing it in a circle"],
+      "answer": "Drawing two pairs of parallel lines with equal opposite sides"
+    },
+    {
+      "id": 9,
+      "question": "The locus of points equidistant from two intersecting lines is:",
+      "options": ["The angle bisector", "A perpendicular line", "A circle's center", "An ellipse"],
+      "answer": "The angle bisector"
+    },
+    {
+      "id": 10,
+      "question": "To construct a tangent to a circle from an external point, you:",
+      "options": ["Draw a radius to the point of tangency perpendicular to the tangent", "Use equal chords from the external point", "Bisect the line from center to external point", "Draw concentric circles"],
+      "answer": "Bisect the line from center to external point"
+    },
+    {
+      "id": 11,
+      "question": "In first-angle projection, the front view is projected onto:",
+      "options": ["The plane behind the object", "The plane in front of the object", "The horizontal plane above", "The profile plane to the side"],
+      "answer": "The plane behind the object"
+    },
+    {
+      "id": 12,
+      "question": "The three principal views in multiview orthographic projection are:",
+      "options": ["Front, top, and right side", "Front, bottom, and left side", "Isometric, oblique, and perspective", "Plan, elevation, and section"],
+      "answer": "Front, top, and right side"
+    },
+    {
+      "id": 13,
+      "question": "Hidden lines in orthographic views are represented by:",
+      "options": ["Solid thick lines", "Dashed thin lines", "Center lines", "Phantom lines"],
+      "answer": "Dashed thin lines"
+    },
+    {
+      "id": 14,
+      "question": "For an object with a hole, the orthographic view will show the hole as:",
+      "options": ["A circle in the view perpendicular to the axis", "An ellipse in all views", "A rectangle in the front view", "Only in isometric projection"],
+      "answer": "A circle in the view perpendicular to the axis"
+    },
+    {
+      "id": 15,
+      "question": "The convention for a right-hand thread in sectional views is:",
+      "options": ["Cross-hatching at 45° sloping upward to the right", "No hatching for threads", "Solid shading", "Dashed lines"],
+      "answer": "Cross-hatching at 45° sloping upward to the right"
+    },
+    {
+      "id": 16,
+      "question": "In third-angle projection (used in the US), the top view is placed:",
+      "options": ["Below the front view", "Above the front view", "To the left of the front view", "Behind the front view"],
+      "answer": "Above the front view"
+    },
+    {
+      "id": 17,
+      "question": "The purpose of an auxiliary view is to show:",
+      "options": ["True shape of an inclined surface", "Exploded assemblies", "Isometric details", "Thread profiles"],
+      "answer": "True shape of an inclined surface"
+    },
+    {
+      "id": 18,
+      "question": "Center lines in orthographic drawings are drawn as:",
+      "options": ["Thin, alternating long and short dashes", "Thick continuous lines", "Dotted lines", "Wavy lines"],
+      "answer": "Thin, alternating long and short dashes"
+    },
+    {
+      "id": 19,
+      "question": "For a symmetrical object like a cylinder, the number of unique orthographic views needed is typically:",
+      "options": ["One (front view suffices)", "Two (front and side)", "Three (all principal)", "Six (all around)"],
+      "answer": "Two (front and side)"
+    },
+    {
+      "id": 20,
+      "question": "The projection of a circle in an orthographic view parallel to its plane appears as:",
+      "options": ["A circle", "An ellipse", "A line", "A parabola"],
+      "answer": "A circle"
+    },
+    {
+      "id": 21,
+      "question": "In isometric projection, all three axes are drawn at:",
+      "options": ["30° to the horizontal", "45° to the horizontal", "90° to each other", "120° to each other"],
+      "answer": "120° to each other"
+    },
+    {
+      "id": 22,
+      "question": "Oblique projection differs from isometric in that:",
+      "options": ["Only one face is true size, others foreshortened", "All faces are equally foreshortened", "It uses two vanishing points", "It requires perspective lines"],
+      "answer": "Only one face is true size, others foreshortened"
+    },
+    {
+      "id": 23,
+      "question": "In cavalier oblique projection, the receding lines are drawn at:",
+      "options": ["Full scale, 45° angle", "Half scale, 30° angle", "Full scale, 30° angle", "Half scale, 45° angle"],
+      "answer": "Full scale, 45° angle"
+    },
+    {
+      "id": 24,
+      "question": "The isometric circle for a hole on the top face is drawn using:",
+      "options": ["A 30-60° ellipse template", "A true circle", "A square with diagonals", "An arc of 90°"],
+      "answer": "A 30-60° ellipse template"
+    },
+    {
+      "id": 25,
+      "question": "Pictorial drawings are used primarily for:",
+      "options": ["Detailed manufacturing", "Visualization and presentation", "Precise measurements", "Geometric proofs"],
+      "answer": "Visualization and presentation"
+    },
+    {
+      "id": 26,
+      "question": "In a full section view, the cutting plane passes:",
+      "options": ["Through the entire object", "Only through a portion", "Along an axis without cutting", "Perpendicular to the view"],
+      "answer": "Through the entire object"
+    },
+    {
+      "id": 27,
+      "question": "Hatching lines in sectional views are spaced at:",
+      "options": ["45° to the line of the cut, 3-4 mm apart", "90° to the cut, 1 mm apart", "Parallel to the cut", "Random angles"],
+      "answer": "45° to the line of the cut, 3-4 mm apart"
+    },
+    {
+      "id": 28,
+      "question": "A removed section shows the section:",
+      "options": ["Offset to the side of the view", "In its actual position", "As a half-section", "In isometric form"],
+      "answer": "Offset to the side of the view"
+    },
+    {
+      "id": 29,
+      "question": "Auxiliary views eliminate the distortion of:",
+      "options": ["Inclined and oblique surfaces", "Cylindrical features", "Hidden details", "Threads"],
+      "answer": "Inclined and oblique surfaces"
+    },
+    {
+      "id": 30,
+      "question": "In half-section views, the uncut portion is separated by:",
+      "options": ["A center line", "A visible outline", "Hatching", "A break line"],
+      "answer": "A center line"
+    },
+    {
+      "id": 31,
+      "question": "Linear dimensions are placed:",
+      "options": ["On the arrowheads, outside the line", "Above the dimension line", "Below the dimension line", "Inside the object outline"],
+      "answer": "Above the dimension line"
+    },
+    {
+      "id": 32,
+      "question": "The tolerance for a dimension 50 ± 0.05 mm indicates:",
+      "options": ["Upper limit 50.05, lower 49.95", "Unilateral tolerance", "Bilateral tolerance", "No tolerance needed"],
+      "answer": "Upper limit 50.05, lower 49.95"
+    },
+    {
+      "id": 33,
+      "question": "Angular dimensions are measured from:",
+      "options": ["A datum line or surface", "The horizontal axis only", "Clockwise always", "Random reference"],
+      "answer": "A datum line or surface"
+    },
+    {
+      "id": 34,
+      "question": "GD&T (Geometric Dimensioning and Tolerancing) uses symbols for:",
+      "options": ["Form, orientation, location, and runout", "Only size tolerances", "Material properties", "Assembly instructions"],
+      "answer": "Form, orientation, location, and runout"
+    },
+    {
+      "id": 35,
+      "question": "The ASME Y14.5 standard governs:",
+      "options": ["Dimensioning and tolerancing practices", "Projection methods only", "Paper sizes", "Line types"],
+      "answer": "Dimensioning and tolerancing practices"
+    },
+    {
+      "id": 36,
+      "question": "In AutoCAD, the command to draw a circle is:",
+      "options": ["CIRCLE", "ARC", "LINE", "RECTANGLE"],
+      "answer": "CIRCLE"
+    },
+    {
+      "id": 37,
+      "question": "Parametric modeling in CAD allows:",
+      "options": ["Changes to dimensions that automatically update the model", "Freehand sketching", "2D raster images", "Manual scaling"],
+      "answer": "Changes to dimensions that automatically update the model"
+    },
+    {
+      "id": 38,
+      "question": "The file extension for a 3D CAD model in SolidWorks is typically:",
+      "options": [".SLDPRT", ".DWG", ".PDF", ".STL (for printing)"],
+      "answer": ".SLDPRT"
+    },
+    {
+      "id": 39,
+      "question": "Boolean operations in 3D modeling include:",
+      "options": ["Union, subtract, intersect", "Only rotation", "Scaling only", "2D extrusion"],
+      "answer": "Union, subtract, intersect"
+    },
+    {
+      "id": 40,
+      "question": "Revolved sections in CAD are created by:",
+      "options": ["Rotating a 2D profile around an axis", "Extruding linearly", "Sweeping along a path", "Lofting between profiles"],
+      "answer": "Rotating a 2D profile around an axis"
+    }
+  ]
+}
