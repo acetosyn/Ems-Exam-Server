@@ -1,221 +1,284 @@
-/* ============================================================================
-   EMIS ADMIN LIVE NOTIFICATIONS ENGINE (2025 · PREMIUM QUEUE VERSION)
-   - Polls server for login + exam activity every 7 seconds
-   - Dedupes repeated events (latest login / start / submit only)
-   - Supports high volume (hundreds+ of students)
-   - Triggers "is-new" class for slide-in / glow animations
-   - Uses dynamic icons for login / start / submit / timeout
-============================================================================ */
+/* static/js/admin_notifications.js */
 
 console.log(
-  "%c[admin_notifications.js] Live Notifications Queue Engine Ready",
+  "%c[admin_notifications.js] EMIS Live Notifications Engine Started",
   "color:#fbbf24;font-weight:bold;"
 );
 
-// DOM targets
 const loginList = document.getElementById("loginNotifList");
-const examList  = document.getElementById("examNotifList");
+const examList = document.getElementById("examNotifList");
 
-// How many items we *visually* keep
 const MAX_LOGIN_ITEMS = 30;
-const MAX_EXAM_ITEMS  = 40;
+const MAX_EXAM_ITEMS = 50;
 
-// To detect "new" items between polls
-let prevLoginKeys = new Set();
-let prevExamKeys  = new Set();
+let allNotifications = [];
+let seenKeys = new Set();
+let lastEventTime = 0;
+let pollTimer = null;
+let eventSource = null;
+let refreshCooldown = false;
 
-/* ----------------------------------------------------------------------------
-   Helpers: Empty placeholders
----------------------------------------------------------------------------- */
-function renderEmptyState(listElement, mode) {
-  if (!listElement) return;
-
-  const li = document.createElement("li");
-  li.className = "emis-notif-empty";
-
-  if (mode === "login") {
-    li.innerHTML = `
-      <i class="fa-solid fa-bell-slash"></i>
-      <p>No logins yet</p>
-      <span>Student login activity will appear here in real-time.</span>
-    `;
-  } else {
-    li.innerHTML = `
-      <i class="fa-solid fa-bell-slash"></i>
-      <p>No exam activity yet</p>
-      <span>Exam start and submission actions will show here in real-time.</span>
-    `;
-  }
-
-  listElement.innerHTML = "";
-  listElement.appendChild(li);
+function safeText(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-/* ----------------------------------------------------------------------------
-   Helper: Build a stable unique key per notification so we can dedupe
+function getPayload(notif) {
+  return notif && notif.payload ? notif.payload : {};
+}
 
-   - LOGIN        key: "login:ADM"
-   - EXAM START   key: "start:ADM:SUBJECT:YEAR"
-   - EXAM END     key: "end:ADM:SUBJECT:YEAR"
----------------------------------------------------------------------------- */
+function getAdmission(payload) {
+  return (
+    payload.admission_number ||
+    payload.admission_no ||
+    payload.admission ||
+    payload.student_id ||
+    "???"
+  );
+}
+
+function getStudentName(payload) {
+  return (
+    payload.student_name ||
+    payload.full_name ||
+    payload.student ||
+    "Unknown Student"
+  );
+}
+
+function getSubject(payload) {
+  return String(payload.subject || "").toUpperCase();
+}
+
+function getYear(payload) {
+  return payload.year || "";
+}
+
+function getClass(payload) {
+  return payload.class_category || payload.class_name || payload.class || "";
+}
+
 function getNotificationKey(notif) {
-  const payload = notif.payload || {};
-  const adm     = payload.admission_number || payload.admission || "???";
-  const subject = (payload.subject || "").toUpperCase();
-  const year    = payload.year || "";
+  const payload = getPayload(notif);
+  const adm = getAdmission(payload);
+  const subject = getSubject(payload);
+  const year = getYear(payload);
+  const type = notif.type || "notification";
+
+  if (notif.id) {
+    return notif.id;
+  }
+
+  return `${type}:${adm}:${subject}:${year}:${notif.timestamp || ""}`;
+}
+
+function getDedupeKey(notif) {
+  const payload = getPayload(notif);
+  const adm = getAdmission(payload);
+  const subject = getSubject(payload);
+  const year = getYear(payload);
 
   if (notif.type === "login") {
     return `login:${adm}`;
   }
-  if (notif.type === "exam_start") {
-    return `start:${adm}:${subject}:${year}`;
-  }
-  if (notif.type === "exam_end") {
-    return `end:${adm}:${subject}:${year}`;
-  }
-
-  // Fallback (should rarely be used)
-  return `${notif.type}:${adm}:${subject}:${year}:${notif.timestamp || ""}`;
-}
-
-/* ----------------------------------------------------------------------------
-   Helper: Decide icon based on notification type and status
----------------------------------------------------------------------------- */
-function getIconHTML(notif) {
-  if (notif.type === "login") {
-    return `<i class="fa-solid fa-user-check notif-icon"></i>`;
-  }
 
   if (notif.type === "exam_start") {
-    return `<i class="fa-solid fa-hourglass-start notif-icon"></i>`;
+    return `exam_start:${adm}:${subject}:${year}`;
   }
 
   if (notif.type === "exam_end") {
-    const status = (notif.payload && notif.payload.status) || "";
-    if (status === "timeout") {
-      return `<i class="fa-solid fa-hourglass-end notif-icon"></i>`;
-    }
-    return `<i class="fa-solid fa-flag-checkered notif-icon"></i>`;
+    return `exam_end:${adm}:${subject}:${year}`;
   }
 
-  // Default fallback
-  return `<i class="fa-solid fa-bell notif-icon"></i>`;
+  return getNotificationKey(notif);
 }
 
-/* ----------------------------------------------------------------------------
-   Create a notification list item from backend object
-   notif = { type, message, payload, timestamp, __key }
----------------------------------------------------------------------------- */
-function makeNotifItem(notif) {
+function getIconClass(type, payload) {
+  if (type === "login") return "fa-user-check";
+  if (type === "exam_start") return "fa-hourglass-start";
+
+  if (type === "exam_end") {
+    const status = String(payload.status || "").toLowerCase();
+    return status === "timeout" ? "fa-hourglass-end" : "fa-flag-checkered";
+  }
+
+  return "fa-bell";
+}
+
+function renderEmptyState(listElement, mode) {
+  if (!listElement) return;
+
+  listElement.innerHTML = `
+    <li class="emis-notif-empty">
+      <i class="fa-solid fa-bell-slash"></i>
+      <p>${mode === "login" ? "No logins yet" : "No exam activity yet"}</p>
+      <small>${mode === "login"
+        ? "Student login activity will appear here in real-time."
+        : "Exam start and submission actions will show here in real-time."}</small>
+    </li>
+  `;
+}
+
+function createNotifItem(notif, isNew = false) {
+  const payload = getPayload(notif);
+  const studentName = getStudentName(payload);
+  const adm = getAdmission(payload);
+  const subject = getSubject(payload);
+  const cls = getClass(payload);
+  const year = getYear(payload);
+  const iconClass = getIconClass(notif.type, payload);
+
   const li = document.createElement("li");
-  li.className = "emis-notif-item";
+  li.className = `emis-notif-item ${isNew ? "is-new" : ""}`;
 
-  const payload = notif.payload || {};
-  const studentName =
-    payload.student_name ||
-    payload.student ||
-    "Unknown Student";
+  let metaLine = [];
 
-  const actionText = notif.message || "";
-  const timestamp  = notif.timestamp || "";
-
-  const iconHTML = getIconHTML(notif);
+  if (adm && adm !== "???") metaLine.push(adm);
+  if (subject) metaLine.push(subject);
+  if (cls) metaLine.push(cls);
+  if (year) metaLine.push(year);
 
   li.innerHTML = `
-    ${iconHTML}
+    <div class="notif-icon">
+      <i class="fa-solid ${iconClass}"></i>
+    </div>
     <div class="notif-main">
-      <strong>${studentName}</strong>
-      <span class="notif-sub">${actionText}</span>
-      <span class="notif-meta">${timestamp}</span>
+      <strong>${safeText(studentName)}</strong>
+      <span class="notif-sub">${safeText(notif.message || "")}</span>
+      <span class="notif-meta">
+        ${safeText(metaLine.join(" • "))}${metaLine.length ? " • " : ""}${safeText(notif.timestamp || "")}
+      </span>
     </div>
   `;
+
+  if (isNew) {
+    setTimeout(() => li.classList.remove("is-new"), 2500);
+  }
 
   return li;
 }
 
-/* ----------------------------------------------------------------------------
-   Build deduped queues for login + exam from raw notifications array
-
-   - The backend queue is chronological (oldest → newest)
-   - We iterate in order and simply overwrite the map entry for a given key.
-   - This means the map stores ONLY the most recent event for each key.
----------------------------------------------------------------------------- */
-function buildQueues(rawList) {
+function buildQueues() {
   const loginMap = new Map();
-  const examMap  = new Map();
+  const examMap = new Map();
 
-  for (const notif of rawList) {
-    if (!notif || !notif.type) continue;
+  allNotifications.forEach((notif) => {
+    if (!notif || !notif.type) return;
 
-    const key = getNotificationKey(notif);
-    notif.__key = key;
+    const key = getDedupeKey(notif);
 
     if (notif.type === "login") {
       loginMap.set(key, notif);
-    } else if (notif.type === "exam_start" || notif.type === "exam_end") {
+    }
+
+    if (notif.type === "exam_start" || notif.type === "exam_end") {
       examMap.set(key, notif);
     }
-  }
+  });
 
-  let loginArray = Array.from(loginMap.values());
-  let examArray  = Array.from(examMap.values());
+  const sortLatest = (a, b) => {
+    const at = Number(a.created_at || 0);
+    const bt = Number(b.created_at || 0);
 
-  // Sort by timestamp DESC (newest first)
-  loginArray.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
-  examArray.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
+    if (at || bt) return bt - at;
 
-  // Hard cap visible items
-  loginArray = loginArray.slice(0, MAX_LOGIN_ITEMS);
-  examArray  = examArray.slice(0, MAX_EXAM_ITEMS);
+    return String(b.timestamp || "").localeCompare(String(a.timestamp || ""));
+  };
 
-  return { loginArray, examArray };
+  return {
+    loginArray: Array.from(loginMap.values()).sort(sortLatest).slice(0, MAX_LOGIN_ITEMS),
+    examArray: Array.from(examMap.values()).sort(sortLatest).slice(0, MAX_EXAM_ITEMS)
+  };
 }
 
-/* ----------------------------------------------------------------------------
-   Render a list (login or exam) with "new" animations
----------------------------------------------------------------------------- */
-function renderList(listEl, items, mode, prevKeySet) {
-  if (!listEl) return;
+function renderNotifications(newKeys = new Set()) {
+  const { loginArray, examArray } = buildQueues();
 
-  // If no items → show empty state
-  if (!items.length) {
-    renderEmptyState(listEl, mode);
+  if (!loginArray.length) {
+    renderEmptyState(loginList, "login");
+  } else if (loginList) {
+    loginList.innerHTML = "";
+    loginArray.forEach((notif) => {
+      const key = getNotificationKey(notif);
+      loginList.appendChild(createNotifItem(notif, newKeys.has(key)));
+    });
+  }
+
+  if (!examArray.length) {
+    renderEmptyState(examList, "exam");
+  } else if (examList) {
+    examList.innerHTML = "";
+    examArray.forEach((notif) => {
+      const key = getNotificationKey(notif);
+      examList.appendChild(createNotifItem(notif, newKeys.has(key)));
+    });
+  }
+}
+
+function triggerResultsRefresh(notif) {
+  if (!notif || notif.type !== "exam_end") return;
+
+  if (refreshCooldown) return;
+
+  refreshCooldown = true;
+
+  setTimeout(() => {
+    refreshCooldown = false;
+  }, 4000);
+
+  if (typeof window.loadAllResults === "function") {
+    window.loadAllResults();
     return;
   }
 
-  // Clear current content
-  listEl.innerHTML = "";
-
-  items.forEach((notif) => {
-    const li = makeNotifItem(notif);
-
-    // Slide-in animation ONLY for truly new keys
-    if (!prevKeySet.has(notif.__key)) {
-      li.classList.add("is-new");
-      // remove the animation class after a while so it can re-apply if needed
-      setTimeout(() => li.classList.remove("is-new"), 2200);
-    }
-
-    listEl.appendChild(li);
-  });
+  window.dispatchEvent(new CustomEvent("emis:result-submitted", {
+    detail: notif
+  }));
 }
 
-/* ----------------------------------------------------------------------------
-   MAIN POLL FUNCTION — HIGH VOLUME SAFE
+function addNotification(notif, fromLive = false) {
+  if (!notif || !notif.type) return;
 
-   - Fetches full queue from backend
-   - Dedupe per student / exam
-   - Only keeps recent unique events
-   - Renders login & exam lists with animations
----------------------------------------------------------------------------- */
-async function pollNotifications() {
+  const key = getNotificationKey(notif);
+
+  if (seenKeys.has(key)) return;
+
+  seenKeys.add(key);
+  allNotifications.push(notif);
+
+  if (Number(notif.created_at || 0) > lastEventTime) {
+    lastEventTime = Number(notif.created_at);
+  }
+
+  if (allNotifications.length > 500) {
+    allNotifications = allNotifications.slice(-500);
+  }
+
+  renderNotifications(fromLive ? new Set([key]) : new Set());
+
+  if (fromLive) {
+    triggerResultsRefresh(notif);
+  }
+}
+
+async function fetchNotifications(initial = false) {
   try {
-    const res = await fetch("/api/notifications/fetch", {
-      headers: { "Accept": "application/json" }
+    const url = initial
+      ? "/api/notifications/fetch"
+      : `/api/notifications/fetch?since=${encodeURIComponent(lastEventTime)}`;
+
+    const res = await fetch(url, {
+      headers: {
+        Accept: "application/json"
+      }
     });
 
     if (!res.ok) {
-      console.warn("[notifications] fetch failed with status", res.status);
+      console.warn("[notifications] fetch failed:", res.status);
       return;
     }
 
@@ -226,32 +289,90 @@ async function pollNotifications() {
       return;
     }
 
-    const all = Array.isArray(data.notifications) ? data.notifications : [];
+    const list = Array.isArray(data.notifications) ? data.notifications : [];
+    const newKeys = new Set();
 
-    // Build deduped queues
-    const { loginArray, examArray } = buildQueues(all);
+    list.forEach((notif) => {
+      const key = getNotificationKey(notif);
 
-    // Current key sets for diffing
-    const currentLoginKeys = new Set(loginArray.map(n => n.__key));
-    const currentExamKeys  = new Set(examArray.map(n => n.__key));
+      if (!seenKeys.has(key)) {
+        seenKeys.add(key);
+        newKeys.add(key);
+        allNotifications.push(notif);
+      }
 
-    // Render lists (with "is-new" where needed)
-    renderList(loginList, loginArray, "login", prevLoginKeys);
-    renderList(examList,  examArray,  "exam",  prevExamKeys);
+      if (Number(notif.created_at || 0) > lastEventTime) {
+        lastEventTime = Number(notif.created_at);
+      }
+    });
 
-    // Save for next poll
-    prevLoginKeys = currentLoginKeys;
-    prevExamKeys  = currentExamKeys;
+    if (allNotifications.length > 500) {
+      allNotifications = allNotifications.slice(-500);
+    }
 
+    renderNotifications(initial ? new Set() : newKeys);
+
+    if (!initial && list.some((n) => n.type === "exam_end")) {
+      triggerResultsRefresh({ type: "exam_end" });
+    }
   } catch (err) {
-    console.error("[notifications] fetch failed", err);
+    console.error("[notifications] fetch failed:", err);
   }
 }
 
-/* ----------------------------------------------------------------------------
-   Start polling every 7 seconds
----------------------------------------------------------------------------- */
-setInterval(pollNotifications, 7000);
+function startPolling() {
+  if (pollTimer) clearInterval(pollTimer);
 
-// First load immediately
-pollNotifications();
+  pollTimer = setInterval(() => {
+    fetchNotifications(false);
+  }, 3000);
+}
+
+function startEventStream() {
+  if (!window.EventSource) {
+    startPolling();
+    return;
+  }
+
+  try {
+    eventSource = new EventSource("/api/notifications/stream");
+
+    eventSource.addEventListener("connected", () => {
+      console.log("[notifications] SSE connected");
+    });
+
+    eventSource.addEventListener("notification", (event) => {
+      try {
+        const notif = JSON.parse(event.data);
+        addNotification(notif, true);
+      } catch (err) {
+        console.error("[notifications] bad SSE payload:", err);
+      }
+    });
+
+    eventSource.onerror = () => {
+      console.warn("[notifications] SSE disconnected. Falling back to polling.");
+
+      if (eventSource) {
+        eventSource.close();
+        eventSource = null;
+      }
+
+      startPolling();
+    };
+  } catch (err) {
+    console.error("[notifications] SSE failed:", err);
+    startPolling();
+  }
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    fetchNotifications(false);
+  }
+});
+
+fetchNotifications(true).then(() => {
+  startEventStream();
+  startPolling();
+});

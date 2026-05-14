@@ -1,64 +1,91 @@
 # modules/document_routes.py
+
 from flask import Blueprint, jsonify, request, session, redirect, url_for, render_template
 import os
+import json
 from werkzeug.utils import secure_filename
 
-# NEW: Import your convert logic
 from convert import convert_exam, save_output
-import json
+from modules.class_config import SUPPORTED_CLASSES
 
-# NEW: Correct base paths
-BASE_DOCX = "static/subjects/subjects-docx"
-BASE_JSON = "static/subjects/subjects-json"
 
 document_bp = Blueprint("document_bp", __name__)
 
 
+BASE_DOCX = "static/subjects/subjects-docx"
+BASE_JSON = "static/subjects/subjects-json"
+
+
 # =========================================================
-# UPLOADS PAGE (Admin + Teacher)
+# Helper — Access check
+# =========================================================
+def can_manage_uploads():
+    return session.get("user_type") in ["admin", "teacher"]
+
+
+# =========================================================
+# Helper — Normalize class
+# =========================================================
+def normalize_class(cls):
+    cls = str(cls or "").upper().strip()
+    return cls if cls in SUPPORTED_CLASSES else ""
+
+
+# =========================================================
+# UPLOADS PAGE Admin + Teacher
 # =========================================================
 @document_bp.route("/admin/uploads")
 def uploads_page():
-    user_type = session.get("user_type")
-    if user_type not in ["admin", "teacher"]:
+    if not can_manage_uploads():
         return redirect(url_for("admin_bp.admin_login"))
-    return render_template("uploads.html", user_type=user_type)
+
+    return render_template(
+        "uploads.html",
+        user_type=session.get("user_type")
+    )
 
 
 # =========================================================
-# API — UPLOAD + CONVERT DOCX → JSON
+# API — UPLOAD + CONVERT DOCX TO JSON
 # =========================================================
 @document_bp.route("/api/upload", methods=["POST"])
 def api_upload():
-    user_type = session.get("user_type")
-    if user_type not in ["admin", "teacher"]:
+    if not can_manage_uploads():
         return jsonify({"error": "Unauthorized"}), 403
 
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
 
     file = request.files["file"]
+
     if file.filename == "":
         return jsonify({"error": "Invalid file name"}), 400
 
     filename = secure_filename(file.filename)
 
-    # Save DOCX into static/subjects/subjects-docx/
     os.makedirs(BASE_DOCX, exist_ok=True)
+
     docx_path = os.path.join(BASE_DOCX, filename)
     file.save(docx_path)
 
     try:
-        # Run conversion
         subject, class_cat, data = convert_exam(docx_path)
 
-        # Save JSON output properly
+        class_cat = normalize_class(class_cat)
+
+        if not class_cat:
+            return jsonify({
+                "error": "Invalid or unsupported class detected from document"
+            }), 400
+
         json_path = save_output(subject, class_cat, data)
 
         return jsonify({
             "success": True,
             "message": "File converted successfully",
-            "json_file": os.path.basename(json_path)
+            "json_file": os.path.basename(json_path),
+            "class_category": class_cat,
+            "subject": subject
         })
 
     except Exception as e:
@@ -68,27 +95,26 @@ def api_upload():
 
 # =========================================================
 # API — LIST ALL CONVERTED JSON
+# static/subjects/subjects-json/<CLASS>/
 # =========================================================
 @document_bp.route("/api/uploads", methods=["GET"])
 def api_list_uploads():
-    user_type = session.get("user_type")
-    if user_type not in ["admin", "teacher"]:
+    if not can_manage_uploads():
         return jsonify({"error": "Unauthorized"}), 403
 
     all_files = {}
 
-    # Scan SS1, SS2, SS3 folders
-    for cls in ["SS1", "SS2", "SS3"]:
+    for cls in SUPPORTED_CLASSES:
         folder = os.path.join(BASE_JSON, cls)
+
         if not os.path.exists(folder):
+            all_files[cls] = []
             continue
 
-        items = [
+        all_files[cls] = sorted([
             f for f in os.listdir(folder)
-            if f.endswith(".json")
-        ]
-
-        all_files[cls] = items
+            if f.lower().endswith(".json")
+        ])
 
     return jsonify({"uploads": all_files})
 
@@ -98,11 +124,16 @@ def api_list_uploads():
 # =========================================================
 @document_bp.route("/api/uploads/<cls>/<filename>", methods=["GET"])
 def api_view_upload(cls, filename):
-    user_type = session.get("user_type")
-    if user_type not in ["admin", "teacher"]:
+    if not can_manage_uploads():
         return jsonify({"error": "Unauthorized"}), 403
 
-    path = os.path.join(BASE_JSON, cls.upper(), filename)
+    cls = normalize_class(cls)
+
+    if not cls:
+        return jsonify({"error": "Invalid class"}), 400
+
+    filename = secure_filename(filename)
+    path = os.path.join(BASE_JSON, cls, filename)
 
     if not os.path.exists(path):
         return jsonify({"error": "File not found"}), 404
@@ -110,7 +141,11 @@ def api_view_upload(cls, filename):
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    return jsonify({"content": content})
+    return jsonify({
+        "class_category": cls,
+        "filename": filename,
+        "content": content
+    })
 
 
 # =========================================================
@@ -118,11 +153,16 @@ def api_view_upload(cls, filename):
 # =========================================================
 @document_bp.route("/api/uploads/<cls>/<filename>", methods=["DELETE"])
 def api_delete_upload(cls, filename):
-    user_type = session.get("user_type")
-    if user_type not in ["admin", "teacher"]:
+    if not can_manage_uploads():
         return jsonify({"error": "Unauthorized"}), 403
 
-    path = os.path.join(BASE_JSON, cls.upper(), filename)
+    cls = normalize_class(cls)
+
+    if not cls:
+        return jsonify({"error": "Invalid class"}), 400
+
+    filename = secure_filename(filename)
+    path = os.path.join(BASE_JSON, cls, filename)
 
     if not os.path.exists(path):
         return jsonify({"error": "File not found"}), 404
@@ -131,42 +171,48 @@ def api_delete_upload(cls, filename):
 
     return jsonify({
         "success": True,
-        "message": f"{filename} deleted successfully"
+        "message": f"{filename} deleted successfully",
+        "class_category": cls
     })
-
 
 
 # =========================================================
 # API — LIST JSON FILES BY YEAR
 # /api/uploads/<year>
+#
+# Expected:
+# static/subjects/<year>/subjects-json/<CLASS>/<file>.json
 # =========================================================
 @document_bp.route("/api/uploads/<int:year>", methods=["GET"])
 def api_list_by_year(year):
-    user_type = session.get("user_type")
-    if user_type not in ["admin", "teacher"]:
+    if not can_manage_uploads():
         return jsonify({"error": "Unauthorized"}), 403
 
-    year_folder = os.path.join("static/subjects", str(year), "subjects-json")
+    year_folder = os.path.join(
+        "static",
+        "subjects",
+        str(year),
+        "subjects-json"
+    )
+
     results = []
 
-    # If year folder missing → no subjects
     if not os.path.exists(year_folder):
         return jsonify({"uploads": []})
 
-    # Scan SS1 SS2 SS3
-    for cls in ["SS1", "SS2", "SS3"]:
+    for cls in SUPPORTED_CLASSES:
         cls_path = os.path.join(year_folder, cls)
+
         if not os.path.exists(cls_path):
             continue
 
-        for fname in os.listdir(cls_path):
-            if not fname.endswith(".json"):
+        for fname in sorted(os.listdir(cls_path)):
+            if not fname.lower().endswith(".json"):
                 continue
 
             fpath = os.path.join(cls_path, fname)
             size_kb = round(os.path.getsize(fpath) / 1024, 1)
 
-            # Load minimal JSON to extract meta
             try:
                 with open(fpath, "r", encoding="utf-8") as f:
                     j = json.load(f)
@@ -174,7 +220,8 @@ def api_list_by_year(year):
                 subject = j.get("subject", "Unknown")
                 questions = len(j.get("questions", []))
                 version = j.get("version", None)
-            except:
+
+            except Exception:
                 subject = "Unknown"
                 questions = 0
                 version = None

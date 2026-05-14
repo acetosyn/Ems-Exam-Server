@@ -1,74 +1,65 @@
-<!-- uploads.html — Modern Premium, Year-Aware, Extended Build -->
+<!-- uploads.html — Modern Premium, Year-Aware, JSS1–SS3 Build -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
 
 <div class="uploads-wrapper fade-in">
 
   <!-- ===========================================================
-     HEADER — Title, available years, role badge, quick actions
-============================================================ -->
-<div class="uploads-header">
-  <div class="uploads-header-main">
+       HEADER
+  ============================================================ -->
+  <div class="uploads-header">
+    <div class="uploads-header-main">
 
-    <!-- LEFT: TITLE -->
-    <div class="uploads-header-left">
-      <h3>
-        <i class="fa-solid fa-cloud-arrow-up text-accent"></i>
-        Exam & Past Questions Uploads
-      </h3>
-      <p class="sub-text">
-        Manage JSON exam files by academic year. Upload → View → Push to student portal.
-      </p>
-    </div>
-
-    <!-- CENTER: AVAILABLE WAEC YEARS (NEW) -->
-    <div class="uploads-header-center">
-      <div class="available-years-card">
-        <div class="available-years-title">
-          <i class="fa-solid fa-calendar-check"></i>
-          Available WAEC Years
-        </div>
-
-        <div id="availableYearsList" class="available-years-list">
-          <span class="year-loading">Loading…</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT: ROLE + ACTIONS -->
-    <div class="uploads-header-right">
-
-      <!-- Role Indicator -->
-      <div class="role-banner" data-role="{{ user_type|default('admin') }}">
-        {% if user_type == 'teacher' %}
-          <i class="fa-solid fa-chalkboard-user text-green-600"></i> Teacher Mode
-        {% else %}
-          <i class="fa-solid fa-shield-halved text-accent"></i> Admin Mode
-        {% endif %}
+      <div class="uploads-header-left">
+        <h3>
+          <i class="fa-solid fa-cloud-arrow-up text-accent"></i>
+          Exam & Past Questions Uploads
+        </h3>
+        <p class="sub-text">
+          Manage JSON exam files by academic year. Upload → View → Push to student portal.
+        </p>
       </div>
 
-      <!-- View Subjects Button -->
-      <div class="header-actions">
-        <button id="btnViewSubjects" class="btn-ghost small">
-          <i class="fa-solid fa-book-open-reader"></i>
-          View Subjects
-        </button>
+      <div class="uploads-header-center">
+        <div class="available-years-card">
+          <div class="available-years-title">
+            <i class="fa-solid fa-calendar-check"></i>
+            Available Exam Years
+          </div>
+
+          <div id="availableYearsList" class="available-years-list">
+            <span class="year-loading">Loading…</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="uploads-header-right">
+        <div class="role-banner" data-role="{{ user_type|default('admin') }}">
+          {% if user_type == 'teacher' %}
+            <i class="fa-solid fa-chalkboard-user text-green-600"></i> Teacher Mode
+          {% else %}
+            <i class="fa-solid fa-shield-halved text-accent"></i> Admin Mode
+          {% endif %}
+        </div>
+
+        <div class="header-actions">
+          <button id="btnViewSubjects" class="btn-ghost small">
+            <i class="fa-solid fa-book-open-reader"></i>
+            View Subjects
+          </button>
+        </div>
       </div>
 
     </div>
   </div>
-</div>
 
 
   <!-- ===========================================================
-       3-COLUMN GRID LAYOUT
-       (Short comment: Left = Upload, Middle = JSON list, Right = Push)
+       MAIN GRID
   ============================================================ -->
   <div class="uploads-grid">
 
-
     <!-- ===========================================================
-         LEFT PANEL — Upload & Convert Section
-         (Short comment: Reserved for future LLM conversion features)
+         LEFT PANEL — Upload & Convert
     ============================================================ -->
     <section class="upload-panel card">
       <header class="panel-header">
@@ -76,7 +67,6 @@
         <p class="panel-subtitle">Optional: upload DOCX exam files to generate JSON.</p>
       </header>
 
-      <!-- Upload Zone -->
       <div class="drop-box" id="uploadDropZone">
         <input type="file" id="uploadInputSingle" hidden accept=".docx">
         <input type="file" id="uploadInputMulti" hidden accept=".docx" multiple>
@@ -97,16 +87,16 @@
         </div>
       </div>
 
-      <!-- Selected File List -->
       <div class="selected-files-block">
         <div class="block-header">
-          <span class="block-title"><i class="fa-solid fa-list-check"></i> Selected Files</span>
+          <span class="block-title">
+            <i class="fa-solid fa-list-check"></i> Selected Files
+          </span>
           <span id="selectedCount" class="badge badge-soft">0 selected</span>
         </div>
         <ul id="fileList" class="file-list"></ul>
       </div>
 
-      <!-- Buttons -->
       <div class="upload-actions">
         <button id="startUpload" class="btn-primary">
           <i class="fa-solid fa-wand-magic-sparkles"></i> Convert to JSON
@@ -116,7 +106,6 @@
         </button>
       </div>
 
-      <!-- Upload Progress -->
       <div id="uploadProgress" class="progress hidden">
         <div id="uploadProgressBar" class="progress-bar"></div>
         <span id="uploadProgressLabel" class="progress-label">Processing…</span>
@@ -124,91 +113,80 @@
     </section>
 
 
+    <!-- ===========================================================
+         MIDDLE PANEL — JSON Files Table
+    ============================================================ -->
+    <section class="dashboard-panel card">
 
+      <header class="panel-header">
+        <div class="panel-header-main">
+          <h4><i class="fa-solid fa-table-list"></i> Converted / Uploaded JSON Files</h4>
+          <p class="panel-subtitle">
+            Browse exam JSON files by academic year & class category.
+          </p>
+        </div>
 
-<!-- ===========================================================
-     MIDDLE PANEL — JSON Files Table + Year & Class Filters
-     (Short comment: This is the main browsing interface)
-============================================================ -->
-<section class="dashboard-panel card">
+        <div class="panel-header-actions">
 
-  <header class="panel-header">
-    <div class="panel-header-main">
-      <h4><i class="fa-solid fa-table-list"></i> Converted / Uploaded JSON Files</h4>
-      <p class="panel-subtitle">
-        Browse exam JSON files by academic year & class category.
-      </p>
-    </div>
+          <select id="yearSelectorUploads" class="year-selector">
+            <option disabled selected>Select Year</option>
+            {% for y in range(2026, 2012, -1) %}
+              <option value="{{ y }}">{{ y }}</option>
+            {% endfor %}
+          </select>
 
-    <div class="panel-header-actions">
+          <div class="class-filter">
+            <button class="class-pill active" data-class="ALL">All</button>
+            <button class="class-pill" data-class="JSS1">JSS1</button>
+            <button class="class-pill" data-class="JSS2">JSS2</button>
+            <button class="class-pill" data-class="JSS3">JSS3</button>
+            <button class="class-pill" data-class="SS1">SS1</button>
+            <button class="class-pill" data-class="SS2">SS2</button>
+            <button class="class-pill" data-class="SS3">SS3</button>
+          </div>
 
-      <!-- YEAR DROPDOWN -->
-      <select id="yearSelectorUploads" class="year-selector">
-        <option disabled selected>Select Year</option>
-        {% for y in range(2025, 2012, -1) %}
-          <option value="{{ y }}">{{ y }}</option>
-        {% endfor %}
-      </select>
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input id="searchUploads" type="text" class="form-input" placeholder="Search filename…">
+          </div>
 
-      <!-- CLASS DROPDOWN -->
-<div class="class-filter">
-  <button class="class-pill active" data-class="ALL">All</button>
-  <button class="class-pill" data-class="SS1">SS1</button>
-  <button class="class-pill" data-class="SS2">SS2</button>
-  <button class="class-pill" data-class="SS3">SS3</button>
-</div>
+          <button id="refreshUploads" class="btn-ghost small">
+            <i class="fa-solid fa-rotate"></i> Refresh
+          </button>
 
+        </div>
+      </header>
 
-      <!-- SEARCH BAR -->
-      <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input id="searchUploads" type="text" class="form-input" placeholder="Search filename…">
+      <div class="table-wrapper">
+        <table class="uploads-table">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Subject</th>
+              <th>Class</th>
+              <th>Version</th>
+              <th>Questions</th>
+              <th>Size (KB)</th>
+              <th>Status</th>
+              <th style="min-width: 200px;">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody id="uploadedTable">
+            <tr>
+              <td colspan="8" class="empty">
+                <span>Select a year to load JSON files</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- REFRESH BUTTON -->
-      <button id="refreshUploads" class="btn-ghost small">
-        <i class="fa-solid fa-rotate"></i> Refresh
-      </button>
-
-    </div>
-  </header>
-
-  <div class="table-wrapper">
-    <table class="uploads-table">
-
-      <!-- Column Headers -->
-      <thead>
-        <tr>
-          <th>Filename</th>
-          <th>Subject</th>
-          <th>Class</th>
-          <th>Version</th>
-          <th>Questions</th>
-          <th>Size (KB)</th>
-          <th>Status</th>
-          <th style="min-width: 200px;">Actions</th>
-        </tr>
-      </thead>
-
-      <!-- Dynamic Body -->
-      <tbody id="uploadedTable">
-        <tr>
-          <td colspan="8" class="empty">
-            <span>Select a year to load JSON files</span>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-  </div>
-
-</section>
-
+    </section>
 
 
     <!-- ===========================================================
-         RIGHT PANEL — Push to Student Portal + Preview
-         (Short comment: Controls pushing JSON to students by year/class)
+         RIGHT PANEL — Push to Portal
     ============================================================ -->
     <section class="push-panel card">
 
@@ -219,25 +197,20 @@
         </p>
       </header>
 
-      <!-- YEAR SELECTOR FOR PUSH -->
-      <!-- Short: Determines where to write in pushed_subjects.json -->
       <div class="push-year-control">
         <label>Select Year</label>
         <select id="pushYearSelector" class="year-selector">
           <option disabled selected>Select Year</option>
-          {% for y in range(2025, 2012, -1) %}
+          {% for y in range(2026, 2012, -1) %}
             <option value="{{ y }}">{{ y }}</option>
           {% endfor %}
         </select>
 
-       <div class="active-year-card">
-    <span id="activeYearLabel">Active Year: —</span>
-</div>
-
-
+        <div class="active-year-card">
+          <span id="activeYearLabel">Active Year: —</span>
+        </div>
       </div>
 
-      <!-- Summary -->
       <div class="portal-summary">
         <div class="portal-icon"><i class="fa-solid fa-database"></i></div>
         <div class="portal-meta">
@@ -248,7 +221,6 @@
         </div>
       </div>
 
-      <!-- Push Buttons -->
       <div class="push-actions">
 
         <div class="push-actions-row">
@@ -271,7 +243,6 @@
 
       </div>
 
-      <!-- Preview Card -->
       <div class="preview-card">
         <div class="preview-card-header">
           <div>
@@ -294,12 +265,16 @@
         </div>
       </div>
 
-      <!-- Log -->
       <div class="log-box">
         <div class="log-header">
-          <span class="log-title"><i class="fa-solid fa-notes-medical"></i> Activity Log</span>
-          <button id="clearPortalLog" class="btn-ghost tiny"><i class="fa-solid fa-eraser"></i> Clear</button>
+          <span class="log-title">
+            <i class="fa-solid fa-notes-medical"></i> Activity Log
+          </span>
+          <button id="clearPortalLog" class="btn-ghost tiny">
+            <i class="fa-solid fa-eraser"></i> Clear
+          </button>
         </div>
+
         <div id="portalLogBody" class="log-body pretty-scroll">
           <p class="log-placeholder">No actions yet.</p>
         </div>
@@ -309,32 +284,24 @@
   </div>
 
 
-
-
-
   <!-- ===========================================================
-       SUBJECTS MODAL — View subjects per year
-       (Short comment: Quick overview of all JSON files)
+       SUBJECTS MODAL
   ============================================================ -->
   <div id="subjectsModal" class="modal hidden">
-
     <div class="modal-backdrop" data-close="true"></div>
 
     <div class="modal-card modal-large">
 
       <div class="modal-header">
-
         <div class="modal-header-main">
           <h3><i class="fa-solid fa-book-open-reader"></i> Subjects in Repository</h3>
           <p class="modal-subtitle">Browse JSON files stored per-year.</p>
         </div>
 
         <div class="modal-header-actions">
-
-          <!-- Modal Year Selector -->
           <select id="subjectsModalYear" class="year-selector small-year">
             <option disabled selected>Select Year</option>
-            {% for y in range(2025, 2012, -1) %}
+            {% for y in range(2026, 2012, -1) %}
               <option value="{{ y }}">{{ y }}</option>
             {% endfor %}
           </select>
@@ -350,20 +317,16 @@
           <button class="modal-close" data-close="true">
             <i class="fa-solid fa-xmark"></i>
           </button>
-
         </div>
       </div>
 
       <div class="modal-body subjects-modal-body">
-
-        <!-- Dynamic JSON cards -->
         <div id="subjectsCardsContainer" class="subjects-grid"></div>
 
         <div id="subjectsEmptyState" class="empty-state hidden">
           <i class="fa-solid fa-folder-open"></i>
           <p>No subjects found for this year.</p>
         </div>
-
       </div>
 
       <div class="modal-footer">
@@ -374,12 +337,8 @@
   </div>
 
 
-
-
-
   <!-- ===========================================================
-       PUSH CLASS MODAL — Choose SS1/SS2/SS3
-       (Short comment: Handles class routing for pushes)
+       PUSH CLASS MODAL
   ============================================================ -->
   <div id="pushClassModal" class="modal hidden">
     <div class="modal-backdrop" data-close="true"></div>
@@ -388,7 +347,9 @@
 
       <div class="modal-header">
         <h3><i class="fa-solid fa-paper-plane"></i> Push to Student Portal</h3>
-        <button class="modal-close" data-close="true"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="true">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
       <div class="modal-body">
@@ -397,6 +358,9 @@
         </p>
 
         <div class="class-options">
+          <button class="class-btn" data-class="JSS1">JSS1</button>
+          <button class="class-btn" data-class="JSS2">JSS2</button>
+          <button class="class-btn" data-class="JSS3">JSS3</button>
           <button class="class-btn" data-class="SS1">SS1</button>
           <button class="class-btn" data-class="SS2">SS2</button>
           <button class="class-btn" data-class="SS3">SS3</button>
@@ -406,7 +370,9 @@
       </div>
 
       <div class="modal-footer">
-        <button id="btnConfirmPush" class="btn-primary disabled" disabled>Confirm Push</button>
+        <button id="btnConfirmPush" class="btn-primary disabled" disabled>
+          Confirm Push
+        </button>
         <button class="btn-secondary" data-close="true">Cancel</button>
       </div>
 
@@ -414,12 +380,8 @@
   </div>
 
 
-
-
-
   <!-- ===========================================================
-       CLEAR PORTAL MODAL — Clear subjects year/class
-       (Short comment: Clearing is also year-aware)
+       CLEAR PORTAL MODAL
   ============================================================ -->
   <div id="clearPortalModal" class="modal hidden">
     <div class="modal-backdrop" data-close="true"></div>
@@ -428,13 +390,18 @@
 
       <div class="modal-header">
         <h3><i class="fa-solid fa-trash"></i> Clear Portal Subjects</h3>
-        <button class="modal-close" data-close="true"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" data-close="true">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
       <div class="modal-body">
         <p>Select which class to clear:</p>
 
         <div class="class-options">
+          <button class="clear-btn" data-class="JSS1">Clear JSS1</button>
+          <button class="clear-btn" data-class="JSS2">Clear JSS2</button>
+          <button class="clear-btn" data-class="JSS3">Clear JSS3</button>
           <button class="clear-btn" data-class="SS1">Clear SS1</button>
           <button class="clear-btn" data-class="SS2">Clear SS2</button>
           <button class="clear-btn" data-class="SS3">Clear SS3</button>
@@ -450,12 +417,8 @@
   </div>
 
 
-
-
-
   <!-- ===========================================================
-       JSON PREVIEW MODAL — Full JSON view
-       (Short comment: Used to inspect JSON structure)
+       JSON PREVIEW MODAL
   ============================================================ -->
   <div id="jsonPreviewModal" class="modal hidden">
     <div class="modal-backdrop" data-close="true"></div>
@@ -463,8 +426,12 @@
     <div class="modal-card modal-code">
 
       <div class="modal-header">
-        <h3 id="jsonPreviewTitle"><i class="fa-solid fa-code"></i> JSON Preview</h3>
-        <button class="modal-close" data-close="true"><i class="fa-solid fa-xmark"></i></button>
+        <h3 id="jsonPreviewTitle">
+          <i class="fa-solid fa-code"></i> JSON Preview
+        </h3>
+        <button class="modal-close" data-close="true">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
       <div class="modal-body">

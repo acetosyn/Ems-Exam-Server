@@ -1,19 +1,21 @@
 /* ==========================================================
-   EMIS UPLOADS — YEAR + CLASS PILL FILTER BROWSER (v23 FINAL)
-   Handles:
-     • Load JSON files by YEAR
-     • Filter by CLASS (SS1 / SS2 / SS3 / ALL via pills)
-     • Search
-     • Preview JSON
-     • Select files for push
+   EMIS UPLOADS — YEAR + CLASS PILL FILTER BROWSER
+   Supports:
+     • JSS1 / JSS2 / JSS3
+     • SS1 / SS2 / SS3
+     • ALL
 ========================================================== */
 
 function flashMessage(text, type = "success") {
   const fm = document.getElementById("flashMessage");
   if (!fm) return;
+
   fm.textContent = text;
   fm.className = `flash-message ${type} show`;
-  setTimeout(() => fm.classList.remove("show"), 3000);
+
+  setTimeout(() => {
+    fm.classList.remove("show");
+  }, 3000);
 }
 
 (() => {
@@ -22,232 +24,303 @@ function flashMessage(text, type = "success") {
 
   window.EmisUploads = {
     activeYear: null,
-    activeClass: "ALL", // NEW (SS1 / SS2 / SS3 / ALL)
+    activeClass: "ALL",
     convertedItems: [],
     selectedFiles: new Set(),
 
-    /* Get item meta by filename + year */
+    supportedClasses: ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
+
+    normalizeClass(cls) {
+      return String(cls || "").toUpperCase().trim();
+    },
+
     getMeta(fname, year) {
       return this.convertedItems.find(
-        (i) => i.filename === fname && String(i.year) === String(year)
+        (i) =>
+          i.filename === fname &&
+          String(i.year) === String(year)
       );
+    },
+
+    updatePushCount() {
+      const el = document.getElementById("pushCount");
+      if (el) el.textContent = this.selectedFiles.size;
     },
 
     initOnce(container = document) {
       const root = container.querySelector(".uploads-wrapper");
       if (!root || root.__initialized__) return;
+
       root.__initialized__ = true;
 
-      /* ELEMENTS */
       const yearSelector = root.querySelector("#yearSelectorUploads");
-      const classPills = root.querySelectorAll(".class-pill"); // NEW pill UI
+      const classPills = root.querySelectorAll(".class-pill");
       const tableBody = root.querySelector("#uploadedTable");
       const searchBox = root.querySelector("#searchUploads");
       const refreshBtn = root.querySelector("#refreshUploads");
+      const activeYearLabel = document.getElementById("activeYearLabel");
 
- /* ---------------------------------------------
-   YEAR SELECTOR → Load year JSONs
----------------------------------------------- */
-yearSelector.onchange = () => {
-  this.activeYear = yearSelector.value;
+      if (!yearSelector || !tableBody) return;
 
-  // ⭐ UPDATE ACTIVE YEAR LABEL (NEW)
-  const activeYearLabel = document.getElementById("activeYearLabel");
-  if (activeYearLabel) {
-    activeYearLabel.textContent = 
-      this.activeYear && this.activeYear !== "Select Year"
-        ? `Active Year: ${this.activeYear}`
-        : "Active Year: —";
-  }
+      const setActiveYearLabel = (year) => {
+        if (!activeYearLabel) return;
 
-  loadYearFiles(this.activeYear);
-};
-
-      /* ---------------------------------------------
-         CLASS PILL SELECTOR → Filter table
-      ---------------------------------------------- */
-      classPills.forEach((pill) => {
-        pill.onclick = () => {
-          classPills.forEach((p) => p.classList.remove("active"));
-          pill.classList.add("active");
-
-          this.activeClass = pill.dataset.class;
-          renderTable();
-        };
-      });
-
-      /* ---------------------------------------------
-         REFRESH YEAR LIST
-      ---------------------------------------------- */
-      refreshBtn.onclick = () => {
-        if (this.activeYear) loadYearFiles(this.activeYear, true);
+        if (!year || year === "Select Year") {
+          activeYearLabel.textContent = "Active Year: —";
+        } else {
+          activeYearLabel.textContent = `Active Year: ${year}`;
+        }
       };
 
-      /* ---------------------------------------------
-         LOAD JSON LIST FOR A YEAR
-      ---------------------------------------------- */
-      async function loadYearFiles(year, refreshing = false) {
-        if (!year) return;
+      const setLoadingState = (loading) => {
+        if (!refreshBtn) return;
 
-        if (refreshing) {
+        if (loading) {
           refreshBtn.disabled = true;
           refreshBtn.innerHTML = `<span class="spinner"></span>`;
+        } else {
+          refreshBtn.disabled = false;
+          refreshBtn.innerHTML = `<i class="fa-solid fa-rotate"></i> Refresh`;
         }
+      };
 
-        try {
-          const res = await fetch(`/api/uploads/${year}`);
-          const data = await res.json();
+      const escapeHtml = (value) => {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      };
 
-          EmisUploads.convertedItems = data.uploads || [];
-          renderTable();
-        } catch (err) {
-          console.error(err);
-          tableBody.innerHTML = `
-            <tr><td colspan="8" class="empty">Failed to load JSON list.</td></tr>`;
-        }
+      const renderEmpty = (message) => {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="8" class="empty">${escapeHtml(message)}</td>
+          </tr>
+        `;
+      };
 
-        if (refreshing) {
-          setTimeout(() => {
-            refreshBtn.disabled = false;
-            refreshBtn.innerHTML = `<i class="fa-solid fa-rotate"></i>`;
-          }, 300);
-        }
-      }
-
-      /* ---------------------------------------------
-         RENDER TABLE — filtered by YEAR + CLASS pill
-      ---------------------------------------------- */
-      function renderTable() {
-        if (!EmisUploads.activeYear) {
-          tableBody.innerHTML = `
-            <tr><td colspan="8" class="empty">Select a year to load JSON files</td></tr>`;
+      const renderTable = () => {
+        if (!this.activeYear) {
+          renderEmpty("Select a year to load JSON files");
           return;
         }
 
-        let rows = EmisUploads.convertedItems;
+        let rows = Array.isArray(this.convertedItems)
+          ? [...this.convertedItems]
+          : [];
 
-        /* APPLY CLASS FILTER */
-        if (EmisUploads.activeClass !== "ALL") {
-          rows = rows.filter(
-            (i) => i.class_category.toUpperCase() === EmisUploads.activeClass
-          );
+        if (this.activeClass !== "ALL") {
+          rows = rows.filter((item) => {
+            const cls = this.normalizeClass(item.class_category);
+            return cls === this.activeClass;
+          });
+        }
+
+        const q = String(searchBox?.value || "").toLowerCase().trim();
+
+        if (q) {
+          rows = rows.filter((item) => {
+            const filename = String(item.filename || "").toLowerCase();
+            const subject = String(item.subject || "").toLowerCase();
+            const cls = String(item.class_category || "").toLowerCase();
+
+            return (
+              filename.includes(q) ||
+              subject.includes(q) ||
+              cls.includes(q)
+            );
+          });
         }
 
         if (!rows.length) {
-          tableBody.innerHTML = `
-            <tr><td colspan="8" class="empty">
-              No ${EmisUploads.activeClass === "ALL" ? "" : EmisUploads.activeClass + " "}
-              files found for ${EmisUploads.activeYear}.
-            </td></tr>`;
+          const classText =
+            this.activeClass === "ALL"
+              ? ""
+              : `${this.activeClass} `;
+
+          renderEmpty(`No ${classText}files found for ${this.activeYear}.`);
           return;
         }
 
         tableBody.innerHTML = rows
           .map((item) => {
-            const key = `${item.year}:${item.filename}`;
+            const year = escapeHtml(item.year || this.activeYear);
+            const filename = escapeHtml(item.filename || "");
+            const subject = escapeHtml(item.subject || "Unknown");
+            const classCategory = escapeHtml(item.class_category || "—");
+            const version = escapeHtml(item.version || "—");
+            const questions = escapeHtml(item.questions || 0);
+            const sizeKb = escapeHtml(item.size_kb || "—");
+            const status = escapeHtml(item.status || "OK");
+
+            const key = `${item.year || this.activeYear}:${item.filename}`;
+
             return `
               <tr class="upload-row"
-                  data-year="${item.year}"
-                  data-filename="${item.filename}"
-                  data-class="${item.class_category}">
+                  data-year="${year}"
+                  data-filename="${filename}"
+                  data-class="${classCategory}">
 
                 <td>
                   <input type="checkbox" class="row-select"
-                    ${EmisUploads.selectedFiles.has(key) ? "checked" : ""}>
+                    ${this.selectedFiles.has(key) ? "checked" : ""}>
                 </td>
 
                 <td class="file-cell" data-clickable="true">
                   <div class="file-main">
-                    <span class="file-name">${item.filename}</span>
+                    <span class="file-name">${filename}</span>
                     <span class="file-meta">
-                      ${item.subject} • ${item.class_category} • ${item.questions} questions
+                      ${subject} • ${classCategory} • ${questions} questions
                     </span>
                   </div>
                 </td>
 
-                <td>${item.subject}</td>
-                <td>${item.class_category}</td>
-                <td>${item.version || "—"}</td>
-                <td class="center">${item.questions}</td>
-                <td class="center">${item.size_kb || "—"} KB</td>
-                <td>${item.status || "OK"}</td>
+                <td>${subject}</td>
+                <td>${classCategory}</td>
+                <td>${version}</td>
+                <td class="center">${questions}</td>
+                <td class="center">${sizeKb} KB</td>
+                <td>${status}</td>
 
                 <td>
-                  <button class="btn-secondary tiny preview-btn">Preview</button>
+                  <button class="btn-secondary tiny preview-btn" type="button">
+                    Preview
+                  </button>
                 </td>
-              </tr>`;
+              </tr>
+            `;
           })
           .join("");
-      }
+      };
 
-      /* ---------------------------------------------
-         ROW EVENTS: select + preview
-      ---------------------------------------------- */
+      const loadYearFiles = async (year, refreshing = false) => {
+        if (!year || year === "Select Year") return;
+
+        if (refreshing) setLoadingState(true);
+
+        try {
+          const res = await fetch(`/api/uploads/${encodeURIComponent(year)}`);
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error || "Failed to load JSON files");
+          }
+
+          this.convertedItems = data.uploads || [];
+          renderTable();
+
+        } catch (err) {
+          console.error("Upload list error:", err);
+          renderEmpty("Failed to load JSON list.");
+        }
+
+        if (refreshing) {
+          setTimeout(() => setLoadingState(false), 300);
+        }
+      };
+
+      yearSelector.onchange = () => {
+        this.activeYear = yearSelector.value;
+        setActiveYearLabel(this.activeYear);
+        loadYearFiles(this.activeYear);
+      };
+
+      classPills.forEach((pill) => {
+        pill.onclick = () => {
+          classPills.forEach((p) => p.classList.remove("active"));
+          pill.classList.add("active");
+
+          this.activeClass = this.normalizeClass(pill.dataset.class || "ALL");
+          renderTable();
+        };
+      });
+
+      refreshBtn?.addEventListener("click", () => {
+        if (this.activeYear) {
+          loadYearFiles(this.activeYear, true);
+        }
+      });
+
       tableBody.onclick = async (e) => {
         const row = e.target.closest("tr.upload-row");
         if (!row) return;
 
         const year = row.dataset.year;
-        const fname = row.dataset.filename;
-        const key = `${year}:${fname}`;
+        const filename = row.dataset.filename;
+        const key = `${year}:${filename}`;
 
-        /* Checkbox → SELECT */
         if (e.target.classList.contains("row-select")) {
-          if (e.target.checked) EmisUploads.selectedFiles.add(key);
-          else EmisUploads.selectedFiles.delete(key);
-          updatePushCount();
+          if (e.target.checked) {
+            this.selectedFiles.add(key);
+          } else {
+            this.selectedFiles.delete(key);
+          }
+
+          this.updatePushCount();
           return;
         }
 
-        /* Preview button */
         if (e.target.classList.contains("preview-btn")) {
           try {
-            const res = await fetch(`/api/uploads/${year}/${fname}`);
-            const json = await res.json();
-            const meta = EmisUploads.getMeta(fname, year);
+            const meta = this.getMeta(filename, year);
+            const cls = this.normalizeClass(meta?.class_category || row.dataset.class);
 
-            ConvertUI.setPreviewCard(fname, meta, json);
-            ConvertUI.openJsonModal(
-              `Preview • ${year} • ${fname}`,
-              JSON.stringify(json, null, 2)
+            if (!cls) {
+              throw new Error("Missing class category for preview");
+            }
+
+            const res = await fetch(
+              `/api/uploads/${encodeURIComponent(cls)}/${encodeURIComponent(filename)}`
             );
+
+            const out = await res.json();
+
+            if (!res.ok) {
+              throw new Error(out.error || "Could not preview file");
+            }
+
+            const content = out.content
+              ? JSON.parse(out.content)
+              : out;
+
+            if (window.ConvertUI?.setPreviewCard) {
+              window.ConvertUI.setPreviewCard(filename, meta, content);
+            }
+
+            if (window.ConvertUI?.openJsonModal) {
+              window.ConvertUI.openJsonModal(
+                `Preview • ${year} • ${cls} • ${filename}`,
+                JSON.stringify(content, null, 2)
+              );
+            } else {
+              alert(JSON.stringify(content, null, 2));
+            }
+
           } catch (err) {
+            console.error("Preview error:", err);
             alert("Could not preview file.");
           }
         }
       };
 
-      /* ---------------------------------------------
-         SEARCH FILTER — by filename
-      ---------------------------------------------- */
-      searchBox.oninput = () => {
-        const q = searchBox.value.toLowerCase();
-        const rows = tableBody.querySelectorAll("tr.upload-row");
+      searchBox?.addEventListener("input", renderTable);
 
-        rows.forEach((r) => {
-          const name = r.dataset.filename.toLowerCase();
-          r.style.display = name.includes(q) ? "" : "none";
-        });
-      };
-
-      /* ---------------------------------------------
-         UPDATE PUSH COUNT
-      ---------------------------------------------- */
-      function updatePushCount() {
-        const el = document.getElementById("pushCount");
-        if (el) el.textContent = EmisUploads.selectedFiles.size;
-      }
+      this.updatePushCount();
     }
   };
 
-  /* AUTO INIT HOOK */
   const autoInit = () => {
     const wrap = document.querySelector(".uploads-wrapper");
     if (wrap) window.EmisUploads.initOnce(document);
   };
 
-  if (["complete", "interactive"].includes(document.readyState)) autoInit();
-  else document.addEventListener("DOMContentLoaded", autoInit);
+  if (["complete", "interactive"].includes(document.readyState)) {
+    autoInit();
+  } else {
+    document.addEventListener("DOMContentLoaded", autoInit);
+  }
 
   new MutationObserver(autoInit).observe(document.body, {
     childList: true,

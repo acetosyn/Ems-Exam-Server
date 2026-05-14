@@ -3,32 +3,25 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request, jsonify
 from pathlib import Path
 from datetime import datetime
+import json
+
 from modules.student_results import save_result, get_latest_result
 from modules.excel_manager import read_results
-from push import get_latest_year 
+from modules.class_config import get_subjects_for_class
+from push import get_latest_year
 
-student_portal_bp = Blueprint('student_portal_bp', __name__)
 
-DEFAULT_SUBJECTS = [
-    "BIOLOGY",
-    "CHEMISTRY",
-    "CIVIC EDUCATION",
-    "COMPUTER SCIENCE",
-    "ECONOMICS",
-    "ENGLISH LANGUAGE",
-    "FINANCIAL ACCOUNTING",
-    "GEOGRAPHY",
-    "GOVERNMENT",
-    "LITERATURE-IN-ENGLISH",
-    "MATHEMATICS",
-    "PHYSICS",
-    "TECHNICAL DRAWING"
-]
+student_portal_bp = Blueprint("student_portal_bp", __name__)
+
 
 # -----------------------------------------------------------
-# SUBJECT NORMALIZATION (NO CLASS — JUST BASE NAME)
+# SUBJECT NORMALIZATION
+# Converts display subject names to JSON filename base names.
+# Example:
+#   English Language + JSS1 => english_jss1.json
 # -----------------------------------------------------------
 BASE_SUBJECT_MAP = {
+    # Existing SS subjects
     "biology": "biology",
     "chemistry": "chemistry",
 
@@ -45,6 +38,7 @@ BASE_SUBJECT_MAP = {
     "english": "english",
 
     "financial accounting": "accounts",
+    "financial account": "accounts",
     "accounting": "accounts",
     "accounts": "accounts",
 
@@ -62,121 +56,219 @@ BASE_SUBJECT_MAP = {
 
     "technical drawing": "technical",
     "technical": "technical",
+
+    # New JSS / full-school subjects
+    "yoruba language": "yoruba",
+    "yoruba": "yoruba",
+
+    "history": "history",
+
+    "irk": "irk",
+    "irs": "irs",
+
+    "cca": "cca",
+
+    "arabic language": "arabic",
+    "arabic": "arabic",
+
+    "business studies": "business_studies",
+
+    "poise": "poise",
+
+    "islamiyyah": "islamiyyah",
+
+    "hort & crop production": "hort_crop_production",
+    "hort and crop production": "hort_crop_production",
+
+    "digital tech.": "digital_tech",
+    "digital tech": "digital_tech",
+    "digital technology": "digital_tech",
+
+    "inter science": "inter_science",
+    "integrated science": "inter_science",
+
+    "garment making": "garment_making",
+
+    "soc. & cit. std": "soc_cit_std",
+    "soc & cit std": "soc_cit_std",
+    "social and citizenship studies": "soc_cit_std",
+
+    "p.h.e": "phe",
+    "phe": "phe",
+    "physical health education": "phe",
+
+    "bst": "bst",
+
+    "national value": "national_value",
+    "national values": "national_value",
+
+    "pvs": "pvs",
+
+    "hausa language": "hausa",
+    "hausa": "hausa",
+
+    "cit & her. std": "cit_her_std",
+    "cit and her std": "cit_her_std",
+    "civic and heritage studies": "cit_her_std",
+
+    "commerce": "commerce",
+
+    "marketing": "marketing",
+
+    "further mathematics": "further_mathematics",
+    "further maths": "further_mathematics",
+
+    "agricultural science": "agricultural_science",
+    "agriculture": "agricultural_science",
 }
+
 
 # =======================================================
 # Helper — Student login validation
 # =======================================================
 def get_logged_in_student():
-    if session.get('user_type') != 'student':
+    if session.get("user_type") != "student":
         return None
-    return session.get('student')
+    return session.get("student")
+
+
+# =======================================================
+# Helper — Build full name safely
+# =======================================================
+def get_student_full_name(student):
+    full_name = student.get("full_name")
+
+    if full_name:
+        return str(full_name).strip()
+
+    return " ".join([
+        str(student.get("last_name", "")).strip(),
+        str(student.get("first_name", "")).strip(),
+        str(student.get("other_names", "")).strip(),
+    ]).strip()
+
+
+# =======================================================
+# Helper — Normalize subject filename
+# =======================================================
+def normalize_subject_base(subject):
+    key = str(subject or "").strip().lower()
+
+    base_name = BASE_SUBJECT_MAP.get(key)
+
+    if base_name:
+        return base_name
+
+    return (
+        key.replace("&", "and")
+           .replace(".", "")
+           .replace("-", "_")
+           .replace("/", "_")
+           .replace(" ", "_")
+    )
 
 
 # =======================================================
 # Student Dashboard
 # =======================================================
-@student_portal_bp.route('/student_portal')
+@student_portal_bp.route("/student_portal")
 def student_portal():
     student = get_logged_in_student()
     if not student:
-        return redirect(url_for('user_bp.student_login'))
+        return redirect(url_for("user_bp.student_login"))
+
+    class_category = str(student.get("class_category", "")).upper().strip()
+    subjects = get_subjects_for_class(class_category)
 
     return render_template(
-        'students.html',
+        "students.html",
         student=student,
-        subjects=DEFAULT_SUBJECTS,
-        exam_started=session.get('exam_started', False),
-        exam_submitted=session.get('exam_submitted', False)
+        subjects=subjects,
+        class_category=class_category,
+        exam_started=session.get("exam_started", False),
+        exam_submitted=session.get("exam_submitted", False)
     )
 
 
 # =======================================================
-# Exam Dashboard (UPDATED WITH TRUE LATEST YEAR LOGIC)
+# Exam Dashboard — JSS1 to SS3 + Year Aware
 # =======================================================
-@student_portal_bp.route('/exam_dashboard')
+@student_portal_bp.route("/exam_dashboard")
 def exam_dashboard():
-      # ⭐ import inside to avoid circular imports
-
     student = get_logged_in_student()
     if not student:
-        return redirect(url_for('user_bp.student_login'))
+        return redirect(url_for("user_bp.student_login"))
 
-    subject_raw = request.args.get('subject', '').strip().upper()
+    subject_raw = request.args.get("subject", "").strip()
     if not subject_raw:
-        return redirect(url_for('student_portal_bp.student_portal'))
+        return redirect(url_for("student_portal_bp.student_portal"))
+
+    subject_display = subject_raw.upper()
 
     # ------------------------------------------------------
-    # 1️⃣ GET YEAR: Priority = querystring → latest_year.txt → current year
+    # 1. GET YEAR: querystring → latest_year.txt → current year
     # ------------------------------------------------------
     year = request.args.get("year")
 
     if not year:
-        # Load from portal/latest_year.txt
         latest = get_latest_year()
-        if latest:
-            year = latest
-        else:
-            year = str(datetime.now().year)  # LAST fallback (rare)
+        year = latest if latest else str(datetime.now().year)
 
-    # Ensure string
-    year = str(year)
+    year = str(year).strip()
 
     # ------------------------------------------------------
-    # Student + subject meta
+    # 2. Student + subject meta
     # ------------------------------------------------------
-    class_category = student.get("class_category")  # SS1 / SS2 / SS3
-    class_suffix   = class_category.lower()
+    class_category = str(student.get("class_category", "")).upper().strip()
 
-    full_name    = student.get("full_name")
-    admission_no = student.get("admission_number")
+    if not class_category:
+        return redirect(url_for("student_portal_bp.student_portal"))
+
+    class_suffix = class_category.lower()
+
+    full_name = get_student_full_name(student)
+    admission_no = str(student.get("admission_number", "")).strip()
 
     # ------------------------------------------------------
-    # Normalize subject → base folder name
+    # 3. Normalize subject → JSON filename
     # ------------------------------------------------------
-    key       = subject_raw.lower()
-    base_name = BASE_SUBJECT_MAP.get(key)
-
-    if not base_name:
-        base_name = key.replace(" ", "_").replace("-", "_")
-
+    base_name = normalize_subject_base(subject_raw)
     json_filename = f"{base_name}_{class_suffix}.json"
 
-    # ------------------------------------------------------
-    # Check JSON exists for THIS YEAR (correct dynamic year!)
-    # ------------------------------------------------------
-    json_path = Path(f"static/subjects/{year}/subjects-json/{class_category}/{json_filename}")
+    # Example:
+    # static/subjects/2026/subjects-json/JSS1/mathematics_jss1.json
+    json_path = Path(
+        f"static/subjects/{year}/subjects-json/{class_category}/{json_filename}"
+    )
+
     exam_available = json_path.exists()
 
     # ------------------------------------------------------
-    # Check submission history (YEAR AWARE)
+    # 4. Check submission history
     # ------------------------------------------------------
-    existing_results = read_results(class_category, subject_raw, year)
+    existing_results = read_results(class_category, subject_display, year)
 
     already_written = False
     for r in existing_results:
-        name = str(r.get("Student Name", "")).upper()
-        adm  = str(r.get("Admission No", "")).upper()
+        name = str(r.get("Student Name", "")).upper().strip()
+        adm = str(r.get("Admission No", "")).upper().strip()
 
         if name == full_name.upper() and adm == admission_no.upper():
             already_written = True
             break
 
     # ------------------------------------------------------
-    # SAVE to session for later exam loading
+    # 5. Save to session for exam page/core JS
     # ------------------------------------------------------
-    session['selected_subject'] = subject_raw
-    session['selected_year']    = year          # ⭐ important
-    session['exam_submitted']   = already_written
+    session["selected_subject"] = subject_display
+    session["selected_year"] = year
+    session["exam_submitted"] = already_written
 
-    # ------------------------------------------------------
-    # Render dashboard
-    # ------------------------------------------------------
     return render_template(
-        'exam_dashboard.html',
+        "exam_dashboard.html",
         student=student,
-        subject=subject_raw,
-        year=year,                            # ⭐ correct dynamic year
+        subject=subject_display,
+        year=year,
         already_written=already_written,
         exam_available=exam_available,
         full_name=full_name,
@@ -184,16 +276,15 @@ def exam_dashboard():
         class_name=student.get("class"),
         class_category=class_category,
         system_id=student.get("id"),
-        exam_started=session.get('exam_started', False),
-        exam_submitted=session.get('exam_submitted', already_written)
+        exam_started=session.get("exam_started", False),
+        exam_submitted=session.get("exam_submitted", already_written)
     )
 
 
-
 # =======================================================
-# SUBMIT EXAM (YEAR-AWARE)
+# Submit Exam — JSS1 to SS3 + Year Aware
 # =======================================================
-@student_portal_bp.route('/submit_exam', methods=['POST'])
+@student_portal_bp.route("/submit_exam", methods=["POST"])
 def submit_exam():
     student = get_logged_in_student()
     if not student:
@@ -203,124 +294,98 @@ def submit_exam():
     if not data:
         return jsonify({"error": "Invalid"}), 400
 
-    subject = data.get("subject", "").upper()
-    class_category = student.get("class_category")
-    full_name = student.get("full_name")
-    admission_no = student.get("admission_number")
+    subject = str(data.get("subject", "")).upper().strip()
+    class_category = str(student.get("class_category", "")).upper().strip()
+    full_name = get_student_full_name(student)
+    admission_no = str(student.get("admission_number", "")).strip()
 
-    # Get YEAR from session
-    year = session.get("selected_year", str(datetime.now().year))
+    year = str(session.get("selected_year", datetime.now().year))
 
-    # ---------------------------------------------------
-    # YEAR-AWARE duplicate check
-    # ---------------------------------------------------
     previous = read_results(class_category, subject, year)
+
     for r in previous:
         if (
-            str(r.get("Student Name", "")).upper() == full_name.upper() and
-            str(r.get("Admission No", "")).upper() == admission_no.upper()
+            str(r.get("Student Name", "")).upper().strip() == full_name.upper()
+            and str(r.get("Admission No", "")).upper().strip() == admission_no.upper()
         ):
             return jsonify({"error": "Exam already submitted"}), 403
 
-    # ---------------------------------------------------
-    # Add required result fields
-    # ---------------------------------------------------
     data.update({
-        "student_id": student.get("id"),
+        "student_id": student.get("id") or admission_no,
         "full_name": full_name,
         "admission_number": admission_no,
         "class_name": student.get("class"),
         "class_category": class_category,
-        "year": year,                    # ✅ REQUIRED
+        "year": year,
+        "subject": subject,
     })
 
     save_result(data)
 
-    session['exam_submitted'] = True
-    session['exam_started'] = False
+    session["exam_submitted"] = True
+    session["exam_started"] = False
 
     return jsonify({"status": "ok"})
 
 
-
-@student_portal_bp.route('/start_exam', methods=['POST'])
+# =======================================================
+# Start Exam
+# =======================================================
+@student_portal_bp.route("/start_exam", methods=["POST"])
 def start_exam():
     student = get_logged_in_student()
     if not student:
-        return redirect(url_for('user_bp.student_login'))
+        return redirect(url_for("user_bp.student_login"))
 
-    # If already submitted, do not allow restart
-    if session.get('exam_submitted'):
-        return redirect(url_for('student_portal_bp.result'))
+    if session.get("exam_submitted"):
+        return redirect(url_for("student_portal_bp.result"))
 
-    # Mark exam as started
-    session['exam_started'] = True
+    session["exam_started"] = True
 
-    # -----------------------------------------------------
-    # Get subject + year from session (set by exam_dashboard)
-    # -----------------------------------------------------
     subject = session.get("selected_subject")
+    year = session.get("selected_year") or str(datetime.now().year)
 
-    # MOST IMPORTANT: year must be EXACT from session
-    year = session.get("selected_year")
-    if not year:
-        # LAST fallback (rare)
-        year = str(datetime.now().year)
-
-    # Redirect to /exam with correct year + subject
     return redirect(url_for(
-        'student_portal_bp.exam',
+        "student_portal_bp.exam",
         subject=subject,
         year=year
     ))
 
 
-
 # =======================================================
-# EXAM PAGE — YEAR-AWARE & STRICT
+# Exam Page
 # =======================================================
-@student_portal_bp.route('/exam')
+@student_portal_bp.route("/exam")
 def exam():
     student = get_logged_in_student()
     if not student:
-        return redirect(url_for('user_bp.student_login'))
+        return redirect(url_for("user_bp.student_login"))
 
-    # Subject
     subject = request.args.get("subject", "").strip()
+    year = request.args.get("year") or session.get("selected_year") or str(datetime.now().year)
 
-    # YEAR passed from start_exam redirect
-    year = request.args.get("year")
-
-    if not year:
-        # HARD fallback — but normally will NEVER run
-        year = session.get("selected_year")
-
-    if not year:
-        year = str(datetime.now().year)
-
-    # Always store year in session for exam-core.js to read
-    session['selected_year'] = str(year)
+    session["selected_year"] = str(year)
 
     return render_template(
-        'exam.html',
+        "exam.html",
         student=student,
         subject=subject,
-        year=year,   # ⭐ Sent to <meta name="exam-year">
-        exam_started=session.get('exam_started', False)
+        year=year,
+        exam_started=session.get("exam_started", False)
     )
 
 
-
 # =======================================================
-# RESULT PAGE
+# Result Page
 # =======================================================
-@student_portal_bp.route('/result')
+@student_portal_bp.route("/result")
 def result():
     student = get_logged_in_student()
     if not student:
-        return redirect(url_for('user_bp.student_login'))
+        return redirect(url_for("user_bp.student_login"))
 
-    latest = get_latest_result(student.get("id"))
+    student_id = student.get("id") or student.get("admission_number")
+    latest = get_latest_result(student_id)
 
     if not latest:
         latest = {
@@ -350,26 +415,46 @@ def api_student_subjects():
     if not student:
         return jsonify({"subjects": []})
 
-    class_cat = student.get("class_category")
-    year = request.args.get("year", "")
+    class_cat = str(student.get("class_category", "")).upper().strip()
+    year = request.args.get("year", "").strip()
 
     if not year:
-        return jsonify({"subjects": []})
+        latest = get_latest_year()
+        year = latest if latest else str(datetime.now().year)
 
     json_path = Path(f"static/portal/{year}/{class_cat}/pushed_subjects.json")
 
     if not json_path.exists():
-        return jsonify({"subjects": []})
+        # fallback to official class subject list
+        return jsonify({
+            "subjects": get_subjects_for_class(class_cat)
+        })
 
-    import json
     try:
-        data = json.loads(json_path.read_text())
-        return jsonify({"subjects": data.get("subjects", [])})
-    except:
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+
+        if isinstance(data, dict):
+            return jsonify({"subjects": data.get("subjects", [])})
+
+        if isinstance(data, list):
+            return jsonify({"subjects": data})
+
         return jsonify({"subjects": []})
 
+    except Exception:
+        return jsonify({"subjects": []})
 
 
 @student_portal_bp.route("/back_to_exam_dashboard")
 def back_to_exam_dashboard():
-    return redirect(url_for("student_portal_bp.exam_dashboard"))
+    subject = session.get("selected_subject")
+    year = session.get("selected_year")
+
+    if subject:
+        return redirect(url_for(
+            "student_portal_bp.exam_dashboard",
+            subject=subject,
+            year=year
+        ))
+
+    return redirect(url_for("student_portal_bp.student_portal"))

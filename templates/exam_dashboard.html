@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Exam Dashboard | EMIS</title>
 
   <meta name="exam-year" content="{{ year }}">
@@ -10,333 +11,316 @@
   <meta name="student-admission" content="{{ student.admission_number }}">
   <meta name="student-class" content="{{ student.class }}">
   <meta name="student-subject" content="{{ subject }}">
-
+  <meta name="student-class-category" content="{{ student.class_category }}">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/students.css') }}"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_dashboard.css') }}"/>
 </head>
 
-<body class="students-body">
+<body class="exam-body">
 
-  <!-- ===============================
-       HEADER (from students.html)
-  ================================ -->
-  <header class="student-header">
-    <div class="header-left">
-      <i class="fa-solid fa-graduation-cap header-logo"></i>
-      <span class="portal-title">EMIS Student Portal</span>
+<header class="exam-topbar">
+  <div class="topbar-brand">
+    <div class="brand-icon">
+      <i class="fa-solid fa-graduation-cap"></i>
     </div>
-
-    <div class="header-right">
-      <span id="liveClock" class="live-clock"></span>
-
-<!-- Logout to Student Login Page -->
-<a href="{{ url_for('user_bp.student_login') }}" class="logout-btn" title="Logout">
-    <i class="fa-solid fa-right-from-bracket"></i>
-</a>
-
-
-
-      <button class="icon-btn" id="notifBtn">
-        <i class="fa-solid fa-bell"></i>
-        <span class="notif-dot"></span>
-      </button>
-
-      <button class="icon-btn" id="themeToggle">
-        <i class="fa-solid fa-sun"></i>
-      </button>
-
-      <img src="{{ url_for('static', filename='images/student.jpg') }}"
-           class="student-avatar" />
-    </div>
-
-<div id="flashBar"
-     class="flash-bar hidden"
-     data-exam-available="{{ 'true' if exam_available else 'false' }}">
-</div>
-
-
-
-  </header>
-
-
-  <!-- ===============================
-       BODY SHELL
-  ================================ -->
-  <div class="exdash-shell">
-
-    <!-- Typewriter -->
-    <div class="exdash-typewriter">
-      <span id="typewriter"></span>
-    </div>
-
-
-    <!-- ===============================
-         4-CARD GRID
-    ================================ -->
-    <div class="exdash-grid">
-<!-- ===============================
-     CARD 1 — CANDIDATE INFO
-================================ -->
-<section class="exdash-card ex-card-light">
-  <h2 class="card-head">
-    <i class="fa-solid fa-user"></i> Candidate Details
-  </h2>
-
-  <div class="info">
-
     <div>
-      <span>Full Name:</span>
-      <strong>{{ student.full_name }}</strong>
+      <h1>EMIS Student Portal</h1>
+      <p>Computer Based Examination</p>
     </div>
-
-    <div>
-      <span>Admission:</span>
-      <strong>{{ student.admission_number }}</strong>
-    </div>
-
-    <div>
-      <span>Class:</span>
-      <strong>{{ student.class }}</strong>
-    </div>
-
-    <div>
-      <span>Class Category:</span>
-      <strong>{{ student.class_category }}</strong>
-    </div>
-
-    <div>
-      <span>System ID:</span>
-      <strong>{{ student.id }}</strong>
-    </div>
-
-    <div>
-      <span>Subject:</span>
-      <strong>{{ subject }}</strong>
-    </div>
-
-    <div>
-      <span>Recent Status:</span>
-      <strong>
-        {% if exam_submitted %}
-          Submitted
-        {% elif exam_started %}
-          In Progress
-        {% else %}
-          Not Started
-        {% endif %}
-      </strong>
-    </div>
-
   </div>
 
+  <div class="topbar-actions">
+    <span id="liveClock" class="live-clock"></span>
 
-  <!-- STATUS PILL BELOW -->
-  <div class="status-pill 
-      {{ 'pill-green' if exam_submitted else 
-         ('pill-amber' if exam_started else 'pill-gray') }}">
-    {% if exam_submitted %}
-      Exam submitted
-    {% elif exam_started %}
-      Exam in progress
-    {% else %}
-      Exam not started
-    {% endif %}
-  </div>
-</section>
-
-
-
-
-      <!-- ===============================
-           CARD 2 — EXAM OVERVIEW
-      ================================ -->
-      <section class="exdash-card">
-        <h2 class="card-head"><i class="fa-solid fa-file-lines"></i> Exam Overview</h2>
-
-        <ul class="overview-list">
-          <li><span>Status</span>
-            <strong>
-              {% if exam_submitted %}Submitted
-              {% elif exam_started %}In Progress
-              {% else %}Not Started
-              {% endif %}
-            </strong>
-          </li>
-
-          <li><span>Mode</span><strong>Multiple Choice</strong></li>
-          <li><span>Duration</span><strong>60 minutes</strong></li>
-          <li><span>Subject</span><strong>{{ subject }}</strong></li>
-        </ul>
-
-       <div class="cta">
-  {% if not exam_started and not exam_submitted %}
-    <button type="button" id="openExamModal" class="btn-primary btn-viewexam">
-      Proceed
+    <button class="icon-btn" id="notifBtn" title="Notifications">
+      <i class="fa-solid fa-bell"></i>
+      <span class="notif-dot"></span>
     </button>
 
-  {% elif exam_submitted %}
-    <a href="{{ url_for('student_portal_bp.result') }}"
-       class="btn-success">View Results</a>
+    <button class="icon-btn" id="themeToggle" title="Toggle Theme">
+      <i class="fa-solid fa-sun"></i>
+    </button>
 
-  {% else %}
-<a href="{{ url_for('student_portal_bp.exam', subject=subject, year=year) }}"
-   class="btn-warning">Resume Exam</a>
+    <a href="{{ url_for('user_bp.student_login') }}" class="logout-btn" title="Logout">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
 
-  {% endif %}
-</div>
-  
-      </section>
+    <div class="student-dp" title="{{ student.full_name }}">
+      {{ student.full_name[:1] }}
+    </div>
+  </div>
 
+  <div id="flashBar"
+       class="flash-bar hidden"
+       data-exam-available="{{ 'true' if exam_available else 'false' }}">
+  </div>
+</header>
 
+<main class="exam-dashboard">
 
-      <!-- ===============================
-           CARD 3 — INSTRUCTIONS (1)
-      ================================ -->
-      <section class="exdash-card instructions-card glow-animate">
-        <span class="glow-line"></span> <!-- animated moving border -->
-        <h2 class="card-head"><i class="fa-solid fa-circle-info"></i> Exam Instructions (1)</h2>
-
-        <ul class="instructions-list">
-
-          <!-- MOVING GLOW BORDER WARNING -->
-          <li class="warn-glow">
-            ⚠️ Leaving the exam page triggers a warning. A second time ends it automatically.
-          </li>
-
-          <li>🚫 Do not switch tabs during the exam.</li>
-          <li>🖥️ Use Chrome, Safari, or Edge browsers only.</li>
-          <li>📶 Ensure stable internet connection.</li>
-        </ul>
-      </section>
-
-
-
-      <!-- ===============================
-           CARD 4 — INSTRUCTIONS (2)
-      ================================ -->
-      <section class="exdash-card instructions-card glow-animate">
-        <span class="glow-line"></span> <!-- animated border -->
-        <h2 class="card-head"><i class="fa-solid fa-lightbulb"></i> Exam Instructions (2)</h2>
-
-        <ul class="instructions-list">
-          <li>📵 Close all background applications.</li>
-          <li>⏲️ Your exam timer cannot be paused.</li>
-
-          <li>💾 You can only answer a question once. Once answered, it is auto-saved.</li>
-        </ul>
-      </section>
-
-
+  <section class="hero-panel">
+    <div>
+      <span class="eyebrow">Exam Access Panel</span>
+      <h2 id="typewriter">Welcome, {{ student.full_name }}</h2>
+      <p>Review your details and exam rules carefully before proceeding.</p>
     </div>
 
+    <div class="hero-badge">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>Secure Exam Mode</span>
+    </div>
+  </section>
 
-<!-- ============================================================
-     EXAM PRE START PAGE MODAL
-============================================================ -->
+  <section class="quick-stats">
+    <div class="stat-card">
+      <i class="fa-solid fa-book-open"></i>
+      <div>
+        <span>Subject</span>
+        <strong>{{ subject }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <i class="fa-solid fa-clock"></i>
+      <div>
+        <span>Duration</span>
+        <strong>60 minutes</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <i class="fa-solid fa-list-check"></i>
+      <div>
+        <span>Mode</span>
+        <strong>Multiple Choice</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <i class="fa-solid fa-circle-check"></i>
+      <div>
+        <span>Status</span>
+        <strong>
+          {% if exam_submitted %}
+            Submitted
+          {% elif exam_started %}
+            In Progress
+          {% else %}
+            Not Started
+          {% endif %}
+        </strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-grid">
+
+    <article class="dash-card candidate-card">
+      <div class="card-title">
+        <i class="fa-solid fa-user"></i>
+        <h3>Candidate Details</h3>
+      </div>
+
+      <div class="candidate-profile">
+        <div class="profile-avatar">{{ student.full_name[:1] }}</div>
+        <div>
+          <h4>{{ student.full_name }}</h4>
+          <p>{{ student.admission_number }}</p>
+        </div>
+      </div>
+
+      <div class="info-list">
+        <div><span>Class</span><strong>{{ student.class }}</strong></div>
+        <div><span>Class Category</span><strong>{{ student.class_category }}</strong></div>
+        <div><span>System ID</span><strong>{{ student.id }}</strong></div>
+        <div><span>Subject</span><strong>{{ subject }}</strong></div>
+      </div>
+
+      <div class="status-pill 
+        {{ 'pill-green' if exam_submitted else ('pill-amber' if exam_started else 'pill-gray') }}">
+        {% if exam_submitted %}
+          Exam submitted
+        {% elif exam_started %}
+          Exam in progress
+        {% else %}
+          Exam not started
+        {% endif %}
+      </div>
+    </article>
+
+    <article class="dash-card action-card">
+      <div class="card-title">
+        <i class="fa-solid fa-file-lines"></i>
+        <h3>Exam Overview</h3>
+      </div>
+
+      <div class="overview-box">
+        <div>
+          <span>Exam Year</span>
+          <strong>{{ year }}</strong>
+        </div>
+        <div>
+          <span>Question Type</span>
+          <strong>Objective</strong>
+        </div>
+        <div>
+          <span>Auto Save</span>
+          <strong>Enabled</strong>
+        </div>
+      </div>
+
+      <div class="cta-area">
+        {% if not exam_started and not exam_submitted %}
+          <button type="button" id="openExamModal" class="primary-btn">
+            <i class="fa-solid fa-play"></i>
+            Proceed
+          </button>
+        {% elif exam_submitted %}
+          <a href="{{ url_for('student_portal_bp.result') }}" class="success-btn">
+            <i class="fa-solid fa-chart-simple"></i>
+            View Results
+          </a>
+        {% else %}
+          <a href="{{ url_for('student_portal_bp.exam', subject=subject, year=year) }}" class="warning-btn">
+            <i class="fa-solid fa-rotate-right"></i>
+            Resume Exam
+          </a>
+        {% endif %}
+      </div>
+    </article>
+
+    <article class="dash-card instructions-card">
+      <div class="card-title">
+        <i class="fa-solid fa-circle-info"></i>
+        <h3>Exam Rules</h3>
+      </div>
+
+      <ul class="rule-list">
+        <li class="danger-rule">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Leaving the exam page triggers a warning.
+        </li>
+        <li>
+          <i class="fa-solid fa-ban"></i>
+          Do not switch tabs during the exam.
+        </li>
+        <li>
+          <i class="fa-solid fa-wifi"></i>
+          Ensure stable internet connection.
+        </li>
+        <li>
+          <i class="fa-solid fa-floppy-disk"></i>
+          Answers are auto-saved once selected.
+        </li>
+      </ul>
+    </article>
+
+    <article class="dash-card tips-card">
+      <div class="card-title">
+        <i class="fa-solid fa-lightbulb"></i>
+        <h3>Before You Start</h3>
+      </div>
+
+      <ul class="rule-list">
+        <li>
+          <i class="fa-solid fa-window-close"></i>
+          Close all background applications.
+        </li>
+        <li>
+          <i class="fa-solid fa-stopwatch"></i>
+          The timer cannot be paused.
+        </li>
+        <li>
+          <i class="fa-solid fa-desktop"></i>
+          Use Chrome, Safari, or Edge.
+        </li>
+        <li>
+          <i class="fa-solid fa-check-double"></i>
+          Read carefully before selecting answers.
+        </li>
+      </ul>
+    </article>
+
+  </section>
+</main>
+
 <div id="examStartModal" class="exam-modal hidden">
-
   <div class="exam-modal-content">
-
-    <!-- CLOSE BUTTON -->
     <button class="exam-modal-close" id="closeExamModal" title="Close">
       <i class="fa-solid fa-xmark"></i>
     </button>
 
-    <!-- TITLE -->
-    <h2 class="exam-modal-title">
+    <div class="modal-icon warning">
       <i class="fa-solid fa-triangle-exclamation"></i>
-      Ready to Begin?
-    </h2>
+    </div>
 
-    <!-- SUBTEXT -->
+    <h2 class="exam-modal-title">Ready to Begin?</h2>
+
     <p class="exam-modal-sub">
-      You are about to start your exam — please read the below carefully.
+      You are about to start your exam. Please read the instructions carefully.
     </p>
-    <!-- STEP LIST -->
+
     <div class="exam-steps">
       <div class="exam-step">
-        <div class="step-number">1</div>
-        <div class="step-text">
-         This Exam is in one sitting. Once done click submit to end it.
-        </div>
-      </div>
-      <div class="exam-step">
-        <div class="step-number">2</div>
-        <div class="step-text">
-          Once started, you cannot leave or reload the exam page.
-        </div>
-      </div>
-      <div class="exam-step">
-        <div class="step-number">3</div>
-        <div class="step-text">
-          Opening a new tab triggers a warning. Doing so twice ends the exam immediately.
-        </div>
+        <span>1</span>
+        <p>This exam is in one sitting. Click submit when you are done.</p>
       </div>
 
       <div class="exam-step">
-        <div class="step-number">4</div>
-        <div class="step-text">
-          You can only answer a question once, so read questions carefully before picking an answer.
-        </div>
+        <span>2</span>
+        <p>Once started, do not leave or reload the exam page.</p>
       </div>
 
+      <div class="exam-step">
+        <span>3</span>
+        <p>Opening a new tab triggers a warning. Doing so twice ends the exam.</p>
+      </div>
+
+      <div class="exam-step">
+        <span>4</span>
+        <p>You can only answer a question once, so choose carefully.</p>
+      </div>
     </div>
-    <!-- START BUTTON -->
-<a href="{{ url_for('student_portal_bp.exam', subject=subject, year=year) }}"
-   class="exam-modal-startbtn">
-   Proceed
-</a>
 
-
+    <a href="{{ url_for('student_portal_bp.exam', subject=subject, year=year) }}"
+       class="exam-modal-startbtn">
+       Proceed
+    </a>
   </div>
 </div>
 
-
-<!-- ============================================================
-     ALREADY WRITTEN MODAL
-============================================================ -->
 <div id="alreadyWrittenModal" class="exam-modal hidden">
-
   <div class="exam-modal-content">
-
     <button class="exam-modal-close" id="closeAlreadyWrittenModal" title="Close">
       <i class="fa-solid fa-xmark"></i>
     </button>
 
-    <h2 class="exam-modal-title" style="color:#ef4444;">
-      <i class="fa-solid fa-ban"></i> Exam Already Submitted
-    </h2>
+    <div class="modal-icon danger">
+      <i class="fa-solid fa-ban"></i>
+    </div>
+
+    <h2 class="exam-modal-title">Exam Already Submitted</h2>
 
     <p class="exam-modal-sub">
       You have already written and submitted this exam.
     </p>
 
-    <p style="font-size:0.95rem; margin-top:10px;">
-      If you believe this is a mistake, please contact your teacher or admin for assistance.
-    </p>
-
-    <a href="{{ url_for('student_portal_bp.result') }}" class="exam-modal-startbtn" style="background:#22c55e;">
+    <a href="{{ url_for('student_portal_bp.result') }}" class="exam-modal-startbtn green">
       View My Result
     </a>
-
   </div>
 </div>
 
-  <!-- Inline script to show Already Written Modal -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const alreadyWritten = "{{ already_written }}".toLowerCase() === "true";
-        if (alreadyWritten) {
-            document.getElementById("alreadyWrittenModal")?.classList.remove("hidden");
-        }
-    });
-  </script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const alreadyWritten = "{{ already_written }}".toLowerCase() === "true";
+    if (alreadyWritten) {
+      document.getElementById("alreadyWrittenModal")?.classList.remove("hidden");
+    }
+  });
+</script>
 
-
-</div> <!-- End of exdash-shell -->
-
-  <script src="{{ url_for('static', filename='js/exam_dashboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/exam_dashboard.js') }}"></script>
 </body>
 </html>

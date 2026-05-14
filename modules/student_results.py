@@ -3,16 +3,17 @@
 import sqlite3
 from pathlib import Path
 from datetime import datetime
+
 from modules.excel_manager import append_result_to_excel
+
 
 DB_PATH = Path("database.db")
 
 
 # ============================================================
-#   INIT — CREATE CLEAN NEW RESULTS TABLE
+# INIT DATABASE
 # ============================================================
 def init_db():
-    """Creates a clean results table matching the new exam system."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
@@ -20,14 +21,12 @@ def init_db():
         CREATE TABLE IF NOT EXISTS student_results (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-            -- Student Info
             student_id TEXT NOT NULL,
             full_name TEXT NOT NULL,
             admission_number TEXT NOT NULL,
             class_name TEXT,
             class_category TEXT,
 
-            -- Exam Details
             subject TEXT NOT NULL,
             score INTEGER NOT NULL,
             correct INTEGER,
@@ -48,71 +47,96 @@ def init_db():
     conn.close()
 
 
-
 # ============================================================
-#   SAVE RESULT  — FINAL FIXED VERSION (SQLite + Excel)
+# SUBJECT NORMALIZATION
 # ============================================================
-
 SUBJECT_MAP = {
-    "FINANCIAL ACCOUNTING": "ACCOUNTING",
-    "ACCOUNTS": "ACCOUNTING",
-    "ACCOUNTING": "ACCOUNTING",
+    "FINANCIAL ACCOUNTING": "FINANCIAL ACCOUNTING",
+    "FINANCIAL ACCOUNT": "FINANCIAL ACCOUNTING",
+    "ACCOUNTS": "FINANCIAL ACCOUNTING",
+    "ACCOUNTING": "FINANCIAL ACCOUNTING",
 
-    "ENGLISH LANGUAGE": "ENGLISH",
-    "ENGLISH": "ENGLISH",
+    "ENGLISH LANGUAGE": "ENGLISH LANGUAGE",
+    "ENGLISH": "ENGLISH LANGUAGE",
 
     "MATHEMATICS": "MATHEMATICS",
     "MATHS": "MATHEMATICS",
+
+    "FURTHER MATHEMATICS": "FURTHER MATHEMATICS",
+    "FURTHER MATHS": "FURTHER MATHEMATICS",
+
+    "CIVIC EDUCATION": "CIVIC EDUCATION",
+    "CIVIC": "CIVIC EDUCATION",
+
+    "AGRICULTURAL SCIENCE": "AGRICULTURAL SCIENCE",
+    "AGRICULTURE": "AGRICULTURAL SCIENCE",
+
+    "DIGITAL TECH.": "DIGITAL TECH.",
+    "DIGITAL TECH": "DIGITAL TECH.",
+    "DIGITAL TECHNOLOGY": "DIGITAL TECH.",
+
+    "P.H.E": "P.H.E",
+    "PHE": "P.H.E",
+
+    "IRK": "IRK",
+    "IRS": "IRS",
+
+    "CCA": "CCA",
+    "BST": "BST",
+    "PVS": "PVS",
 }
+
 
 def normalize_subject(name: str) -> str:
     if not name:
         return "UNKNOWN"
-    name = name.strip().upper()
+
+    name = str(name).strip().upper()
     return SUBJECT_MAP.get(name, name)
 
 
-# ================================================
-# 1️⃣ SAVE RESULT FUNCTION — YEAR-AWARE (FINAL)
-# ================================================
+# ============================================================
+# SAFE INTEGER
+# ============================================================
+def safe_int(value, default=0):
+    try:
+        return int(value)
+    except Exception:
+        return default
 
+
+# ============================================================
+# SAVE RESULT — SQLITE + EXCEL
+# ============================================================
 def save_result(data: dict):
-    """
-    Saves a student's exam result into:
-    - SQLite database
-    - Excel YEAR / CLASS / SUBJECT folder
-    """
-
     init_db()
 
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-
-    # --- FIX 1: Accept both submittedAt and submitted_at ---
     submitted_at = (
         data.get("submittedAt")
         or data.get("submitted_at")
         or datetime.now().isoformat()
     )
 
-    # --- FIX 2: Normalize subject before saving ---
     subject = normalize_subject(data.get("subject"))
-
-    # --- FIX 3 (NEW): YEAR MUST COME FROM PAYLOAD ---
-    # Student exam already passes this from session
     year = str(data.get("year") or datetime.now().year)
 
-    # Extract safe numeric values
-    total = int(data.get("total") or 0)
-    correct = int(data.get("correct") or 0)
-    answered = int(data.get("answered") or 0)
+    total = safe_int(data.get("total"))
+    correct = safe_int(data.get("correct"))
+    answered = safe_int(data.get("answered"))
+    score = safe_int(data.get("score"))
 
-    incorrect = total - correct
-    skipped = total - answered
+    incorrect = max(total - correct, 0)
+    skipped = max(total - answered, 0)
 
-    # ================================
-    # 1️⃣ SAVE TO SQLITE
-    # ================================
+    flagged = safe_int(data.get("flagged"))
+    tab_switches = safe_int(data.get("tabSwitches") or data.get("tab_switches"))
+    time_taken = safe_int(data.get("time_taken") or data.get("timeTaken"))
+
+    student_id = data.get("student_id") or data.get("admission_number")
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
     cursor.execute("""
         INSERT INTO student_results (
             student_id, full_name, admission_number,
@@ -124,23 +148,22 @@ def save_result(data: dict):
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
-        data.get("student_id"),
+        student_id,
         data.get("full_name"),
         data.get("admission_number"),
         data.get("class_name"),
         data.get("class_category"),
 
         subject,
-        data.get("score"),
+        score,
         correct,
         incorrect,
         total,
         answered,
         skipped,
-
-        data.get("flagged", 0),
-        data.get("tabSwitches", 0),
-        data.get("time_taken") or data.get("timeTaken", 0),
+        flagged,
+        tab_switches,
+        time_taken,
 
         submitted_at,
         data.get("status", "completed")
@@ -149,35 +172,29 @@ def save_result(data: dict):
     conn.commit()
     conn.close()
 
-    # ================================
-    # 2️⃣ SAVE TO EXCEL (YEAR-AWARE)
-    # ================================
     excel_payload = {
-        "full_name":        data.get("full_name"),
+        "full_name": data.get("full_name"),
         "admission_number": data.get("admission_number"),
-        "class_name":       data.get("class_name"),
-        "class_category":   data.get("class_category"),
-        "subject":          subject,
-        "score":            data.get("score") or 0,
-        "correct":          correct,
-        "total":            total,
-        "submitted_at":     submitted_at,
-        "year":             year   # 🔥 KEY FIX — now Excel is saved into correct year
+        "class_name": data.get("class_name"),
+        "class_category": data.get("class_category"),
+        "subject": subject,
+        "score": score,
+        "correct": correct,
+        "total": total,
+        "time_taken": time_taken,
+        "submitted_at": submitted_at,
+        "year": year,
     }
 
-    # append_result_to_excel now receives YEAR also
     append_result_to_excel(excel_payload)
 
     return True
 
 
-
-
 # ============================================================
-#   GET LATEST RESULT FOR A STUDENT
+# GET LATEST RESULT FOR STUDENT
 # ============================================================
 def get_latest_result(student_id):
-    """Returns the most recent exam result for a specific student."""
     init_db()
 
     conn = sqlite3.connect(DB_PATH)
@@ -220,16 +237,14 @@ def get_latest_result(student_id):
         "tabSwitches": row[13],
         "time_taken": row[14],
         "submitted_at": row[15],
-        "status": row[16]
+        "status": row[16],
     }
 
 
-
 # ============================================================
-#   FOR ADMIN — GET ALL RESULTS
+# GET ALL RESULTS
 # ============================================================
 def get_all_results(limit=200):
-    """Returns latest exam results for admin dashboard."""
     init_db()
 
     conn = sqlite3.connect(DB_PATH)
@@ -252,6 +267,7 @@ def get_all_results(limit=200):
     conn.close()
 
     results = []
+
     for r in rows:
         results.append({
             "student_id": r[0],

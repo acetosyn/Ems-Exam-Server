@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}EMIS — Results Console{% endblock %}
+{% block title %}EMIS — Results Intelligence Console{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_results.css') }}">
@@ -9,323 +9,336 @@
 
 <div class="results-wrapper fade-in">
 
- <style>
-  /* Pull notifications closer to the header */
-  .emis-notifications-row {
-      margin-top: -10px;
-  }
-</style>
-
-<!-- ============================================================
-     LIVE NOTIFICATIONS PANELS — EMIS REAL-TIME ACTIVITY
-============================================================ -->
-<section class="emis-notifications-row">
-
-    <!-- LOGIN NOTIFICATIONS -->
-    <section class="emis-notif-card" id="loginNotifCard">
-        <header class="emis-notif-header">
-            <h3><i class="fa-solid fa-bell"></i> Login Notifications</h3>
-        </header>
-
-        <ul class="emis-notif-list" id="loginNotifList">
-            <li class="emis-notif-empty">
-                <i class="fa-solid fa-bell-slash"></i>
-                <p>No logins yet</p>
-                <span>Student login activity will appear here in real-time.</span>
-            </li>
-        </ul>
-    </section>
-
-    <!-- EXAM NOTIFICATIONS -->
-    <section class="emis-notif-card" id="examNotifCard">
-        <header class="emis-notif-header">
-            <h3><i class="fa-solid fa-clipboard-check"></i> Exam Activity</h3>
-        </header>
-
-        <ul class="emis-notif-list" id="examNotifList">
-            <li class="emis-notif-empty">
-                <i class="fa-solid fa-bell-slash"></i>
-                <p>No exam activity yet</p>
-                <span>Exam start and submission actions will show here in real-time.</span>
-            </li>
-        </ul>
-    </section>
-
-</section>
-
-
-
-<!-- --------------------------------------------------------
-     TOP HEADER + SUBTITLE
---------------------------------------------------------- -->
-<section class="header-panel">
-    <div class="hp-left">
-        <h1 class="hp-title">
-            <i class="fa-solid fa-chart-pie"></i> Results Management Console
-        </h1>
-        <p class="hp-sub">Filter • Analyze • Export • Print</p>
+  <section class="results-hero">
+    <div>
+      <span class="hero-kicker">EMIS Results Console</span>
+      <h1><i class="fa-solid fa-chart-pie"></i> Results Intelligence Dashboard</h1>
+      <p>View, analyze, search, export, print, and manage all CBT results across JSS1–SS3 and SS1–SS3.</p>
     </div>
 
-    <div class="hp-right">
-        <div class="hp-badge">Admin Mode</div>
+    <div class="hero-actions">
+      <button id="reloadTableBtn" class="btn btn-light">
+        <i class="fa-solid fa-rotate"></i> Refresh All
+      </button>
+      <button id="clearFiltersBtn" class="btn btn-warning">
+        <i class="fa-solid fa-eraser"></i> Clear Filters
+      </button>
     </div>
-</section>
+  </section>
 
+  <section class="notif-grid">
+    <article class="notif-card" id="loginNotifCard">
+      <header>
+        <h3><i class="fa-solid fa-bell"></i> Login Notifications</h3>
+        <span>Live</span>
+      </header>
+      <ul class="emis-notif-list" id="loginNotifList">
+        <li class="emis-notif-empty">
+          <i class="fa-solid fa-bell-slash"></i>
+          <p>No logins yet</p>
+          <small>Student login activity will appear here.</small>
+        </li>
+      </ul>
+    </article>
 
+    <article class="notif-card wide" id="examNotifCard">
+      <header>
+        <h3><i class="fa-solid fa-clipboard-check"></i> Exam Activity</h3>
+        <span>Realtime</span>
+      </header>
+      <ul class="emis-notif-list" id="examNotifList">
+        <li class="emis-notif-empty">
+          <i class="fa-solid fa-bell-slash"></i>
+          <p>No exam activity yet</p>
+          <small>Exam start and submission actions will show here.</small>
+        </li>
+      </ul>
+    </article>
+  </section>
 
-   <!-- --------------------------------------------------------
-         FILTER BAR — Modern + Clean
---------------------------------------------------------- -->
-<section class="filter-panel glass-card">
+  <section class="stats-grid">
+    <article class="stat-card">
+      <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+      <div>
+        <span>Total Results</span>
+        <strong id="statTotalResults">0</strong>
+      </div>
+    </article>
 
-    <!-- CLEAR FILTER BUTTON -->
-    <div class="clear-filters-wrapper">
-        <button id="clearFiltersBtn" class="btn-clear-filters">
-            <i class="fa-solid fa-eraser"></i>
-            Clear Filters
-        </button>
+    <article class="stat-card">
+      <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+      <div>
+        <span>Pass Rate</span>
+        <strong id="statPassRate">0%</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon gold"><i class="fa-solid fa-chart-line"></i></div>
+      <div>
+        <span>Average Score</span>
+        <strong id="statAvgScore">0%</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon red"><i class="fa-solid fa-book"></i></div>
+      <div>
+        <span>Subjects Loaded</span>
+        <strong id="statSubjects">0</strong>
+      </div>
+    </article>
+  </section>
+
+  <section class="insight-grid">
+    <article class="insight-card">
+      <h3><i class="fa-solid fa-trophy"></i> Top Performer</h3>
+      <p id="topPerformerName">—</p>
+      <span id="topPerformerMeta">No data loaded</span>
+    </article>
+
+    <article class="insight-card">
+      <h3><i class="fa-solid fa-arrow-trend-up"></i> Highest Score</h3>
+      <p id="highestScore">0%</p>
+      <span>Best result in current view</span>
+    </article>
+
+    <article class="insight-card">
+      <h3><i class="fa-solid fa-arrow-trend-down"></i> Lowest Score</h3>
+      <p id="lowestScore">0%</p>
+      <span>Lowest result in current view</span>
+    </article>
+
+    <article class="insight-card">
+      <h3><i class="fa-solid fa-hourglass-half"></i> Avg. Time</h3>
+      <p id="avgTimeTaken">—</p>
+      <span>Average completion time</span>
+    </article>
+  </section>
+
+  <section class="filter-panel">
+    <div class="filter-top">
+      <div>
+        <h2><i class="fa-solid fa-filter"></i> Result Filters</h2>
+        <p>By default, this page loads all written exam results. Use filters to narrow down.</p>
+      </div>
+
+      <div class="class-pills" id="classPills">
+        <button class="class-pill active" data-class="all">All</button>
+        <button class="class-pill" data-class="JSS1">JSS1</button>
+        <button class="class-pill" data-class="JSS2">JSS2</button>
+        <button class="class-pill" data-class="JSS3">JSS3</button>
+        <button class="class-pill" data-class="SS1">SS1</button>
+        <button class="class-pill" data-class="SS2">SS2</button>
+        <button class="class-pill" data-class="SS3">SS3</button>
+      </div>
     </div>
 
     <div class="filter-grid">
+      <div class="filter-group">
+        <label for="yearSelector">Academic Year</label>
+        <select id="yearSelector" class="filter-input">
+          <option value="all" selected>All Years</option>
+          {% for y in range(2026, 2012, -1) %}
+            <option value="{{ y }}">{{ y }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-        <!-- YEAR SELECTOR -->
-        <div class="filter-group">
-            <label for="yearSelector">Year</label>
-            <select id="yearSelector" class="filter-input">
-                <option value="" disabled selected>Select Year</option>
-                {% for y in range(2025, 2012, -1) %}
-                    <option value="{{ y }}">{{ y }}</option>
-                {% endfor %}
-            </select>
+      <div class="filter-group">
+        <label for="classSelector">Class Category</label>
+        <select id="classSelector" class="filter-input">
+          <option value="all" selected>All Classes</option>
+          <option value="JSS1">JSS1</option>
+          <option value="JSS2">JSS2</option>
+          <option value="JSS3">JSS3</option>
+          <option value="SS1">SS1</option>
+          <option value="SS2">SS2</option>
+          <option value="SS3">SS3</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="subjectSelector">Subject</label>
+        <select id="subjectSelector" class="filter-input">
+          <option value="all" selected>All Subjects</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="statusFilter">Status</label>
+        <select id="statusFilter" class="filter-input">
+          <option value="">All Status</option>
+          <option value="PASS">PASS</option>
+          <option value="FAIL">FAIL</option>
+        </select>
+      </div>
+
+      <div class="filter-group full">
+        <label for="globalSearch">Search</label>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="globalSearch" type="text" placeholder="Search by name, admission number, subject, class, score, year…" autocomplete="off">
         </div>
-
-        <!-- CLASS SELECTOR -->
-        <div class="filter-group">
-            <label>Class Category</label>
-            <select id="classSelector" class="filter-input">
-                <option value="">-- Select Class --</option>
-                <option value="SS1">SS1</option>
-                <option value="SS2">SS2</option>
-                <option value="SS3">SS3</option>
-            </select>
-        </div>
-
-        <!-- SUBJECT SELECTOR -->
-        <div class="filter-group">
-            <label>Subject</label>
-            <select id="subjectSelector" class="filter-input">
-                <option value="">-- Select Subject --</option>
-                {% for sub in [
-                    "BIOLOGY","CHEMISTRY","CIVIC EDUCATION",
-                    "COMPUTER STUDIES","ECONOMICS","ENGLISH LANGUAGE",
-                    "GEOGRAPHY","GOVERNMENT","MATHEMATICS","PHYSICS",
-                    "TECHNICAL DRAWING","ACCOUNTING","LITERATURE"
-                ] %}
-                    <option value="{{ sub }}">{{ sub }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- SEARCH -->
-        <div class="filter-group full">
-            <label>Search</label>
-            <div class="search-box">
-                <i class="fa-solid fa-search"></i>
-                <input id="globalSearch" type="text"
-                    placeholder="Search results by name, admission, subject, score…"
-                    autocomplete="off">
-            </div>
-        </div>
-
+      </div>
     </div>
-</section>
+  </section>
 
+  <section class="toolbar-panel">
+    <div class="toolbar-left">
+      <button id="deleteSelectedBtn" class="btn btn-danger">
+        <i class="fa-solid fa-trash"></i> Delete Selected
+      </button>
 
+      <button id="printSelectedBtn" class="btn btn-light">
+        <i class="fa-solid fa-file-pdf"></i> Print Selected
+      </button>
 
-    <!-- --------------------------------------------------------
-         TOOLBAR — Export / Print / Delete / Refresh
-    --------------------------------------------------------- -->
-    <section class="toolbar-panel glass-card">
+      <span id="selectedCountBadge" class="selected-badge">0 selected</span>
+    </div>
 
-        <div class="toolbar-left">
-            <button id="deleteSelectedBtn" class="btn-danger">
-                <i class="fa-solid fa-trash"></i> Delete Selected
-            </button>
+    <div class="toolbar-right">
+      <button id="exportAllExcelBtn" class="btn btn-light">
+        <i class="fa-solid fa-file-excel"></i> Excel
+      </button>
 
-            <button id="printSelectedBtn" class="btn-light">
-                <i class="fa-solid fa-file-pdf"></i>
-                Print Selected
-            </button>
-        </div>
+      <button id="exportCsvBtn" class="btn btn-light">
+        <i class="fa-solid fa-file-csv"></i> CSV
+      </button>
 
-        <div class="toolbar-right">
+      <button id="printAllPdfBtn" class="btn btn-light">
+        <i class="fa-solid fa-print"></i> Print All
+      </button>
+    </div>
+  </section>
 
-            <button id="exportAllExcelBtn" class="btn-light">
-                <i class="fa-solid fa-file-excel"></i>
-                Excel
-            </button>
+  <section class="results-table-panel">
+    <div class="table-header">
+      <div>
+        <h2><i class="fa-solid fa-table"></i> Results Table</h2>
+        <p id="tableSubtitle">Loading all written exam results...</p>
+      </div>
 
-            <button id="exportCsvBtn" class="btn-light">
-                <i class="fa-solid fa-file-csv"></i>
-                CSV
-            </button>
-
-            <button id="printAllPdfBtn" class="btn-light">
-                <i class="fa-solid fa-print"></i>
-                Print All
-            </button>
-
-            <button id="reloadTableBtn" class="btn-light">
-                <i class="fa-solid fa-rotate"></i>
-                Refresh
-            </button>
-
-        </div>
-    </section>
-
-
-
-    <!-- --------------------------------------------------------
-     RESULTS TABLE — UPDATED WITH BADGES & ICONS
---------------------------------------------------------- -->
-<section class="results-table-panel glass-card">
+      <div class="table-tools">
+        <button id="toggleCompactBtn" class="btn btn-light tiny">
+          <i class="fa-solid fa-compress"></i> Compact
+        </button>
+      </div>
+    </div>
 
     <div class="table-wrapper">
-        <table class="results-table">
-            <thead>
-                <tr>
-                    <th><input type="checkbox" id="selectAllRows"></th>
-                    <th>Student</th>
-                    <th>Admission</th>
-                    <th>Class</th>
-                    <th>Subject</th>
-                    <th>Score</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+      <table class="results-table" id="resultsTable">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="selectAllRows"></th>
+            <th>Student</th>
+            <th>Admission</th>
+            <th>Year</th>
+            <th>Class</th>
+            <th>Subject</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Time</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-            <tbody id="resultsBody">
-
-                <!-- Placeholder until data loads -->
-                <tr>
-                    <td colspan="9" class="table-placeholder">
-                        Select Year, Class, and Subject to view results
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
+        <tbody id="resultsBody">
+          <tr>
+            <td colspan="11" class="table-placeholder">
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              <strong>Loading results</strong>
+              <span>Please wait while EMIS scans all classes and subjects.</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div id="pagination" class="pagination"></div>
+    <div class="table-footer">
+      <div id="paginationInfo">Showing 0 results</div>
+      <div id="pagination" class="pagination"></div>
+    </div>
+  </section>
 
-</section>
+  <section class="chart-panel">
+    <div class="chart-card">
+      <h3><i class="fa-solid fa-chart-simple"></i> Score Distribution</h3>
+      <div id="scoreBars" class="score-bars">
+        <p class="chart-empty">Load results to view score distribution.</p>
+      </div>
+    </div>
 
-
-
-    <!-- --------------------------------------------------------
-         ANALYTICS PANEL
-    --------------------------------------------------------- -->
-    <section class="analytics-panel glass-card">
-        <div class="analytics-grid">
-            <div class="analytics-item">
-                <h3>Total Results</h3>
-                <p id="statTotalResults">0</p>
-            </div>
-
-            <div class="analytics-item">
-                <h3>Pass Rate</h3>
-                <p id="statPassRate">0%</p>
-            </div>
-
-            <div class="analytics-item">
-                <h3>Average Score</h3>
-                <p id="statAvgScore">0%</p>
-            </div>
-
-            <div class="analytics-item">
-                <h3>Subjects Loaded</h3>
-                <p id="statSubjects">0</p>
-            </div>
+    <div class="chart-card">
+      <h3><i class="fa-solid fa-scale-balanced"></i> Pass / Fail Split</h3>
+      <div class="donut-wrap">
+        <div id="passFailDonut" class="donut" style="--pass:0;">
+          <span id="donutText">0%</span>
         </div>
-    </section>
-
-
-
-
-
-    <!-- --------------------------------------------------------
-         DELETE CONFIRMATION MODAL
-    --------------------------------------------------------- -->
-    <div id="deleteModal" class="modal-backdrop hidden">
-        <div class="modal-card">
-            <h3>Delete Selected Results?</h3>
-            <p>This action cannot be undone.</p>
-
-            <div class="modal-footer">
-                <button onclick="closeDeleteModal()" class="btn-secondary">Cancel</button>
-                
-                <button id="confirmDeleteBtn" class="btn-danger"><span class="btn-text">Delete</span><span class="btn-spinner hidden"></span>
-                </button>
-
-            </div>
+        <div class="donut-legend">
+          <span><i class="legend-pass"></i> Pass</span>
+          <span><i class="legend-fail"></i> Fail</span>
         </div>
+      </div>
     </div>
+  </section>
 
-</div>  <!-- END OF results-wrapper -->
+  <div id="deleteModal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <h3>Delete Selected Results?</h3>
+      <p>This action cannot be undone. Selected rows will be removed from their Excel result files.</p>
 
-
-
-<!-- ======================================================================
-     SUMMARY OVERLAY + SUMMARY MODAL
-====================================================================== -->
-<div id="summaryOverlay" class="summary-overlay"></div>
-
-<div id="adminPrintSummary" class="print-summary">
-
-    <span class="summary-close-btn" onclick="closeSummary()">&times;</span>
-
-    <div class="summary-header">
-        <img src="{{ url_for('static', filename='images/logo.jpg') }}"
-             alt="EMIS Logo" class="summary-logo">
-        <h2 class="summary-header-title">Exam Result Summary</h2>
+      <div class="modal-footer">
+        <button id="cancelDeleteBtn" class="btn btn-light">Cancel</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger">
+          <span class="btn-text">Delete</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+      </div>
     </div>
-
-    <div class="summary-section">
-        <p><strong>Student Name:</strong> <span id="ap_studentName"></span></p>
-        <p><strong>Admission No:</strong> <span id="ap_studentID"></span></p>
-        <p><strong>Class:</strong> <span id="ap_studentClass"></span></p>
-        <p><strong>Category:</strong> <span id="ap_studentCategory"></span></p>
-    </div>
-
-    <hr class="summary-divider">
-
-    <div class="summary-section">
-        <p><strong>Subject:</strong> <span id="ap_subject"></span></p>
-
-        <!-- ⭐ NEW: Percentage + Raw Score -->
-        <p><strong>Score (%):</strong> <span id="ap_percent"></span></p>
-        <p><strong>Raw Score:</strong> <span id="ap_rawScore"></span></p>
-
-        <p><strong>Correct:</strong> <span id="ap_correct"></span></p>
-        <p><strong>Total Questions:</strong> <span id="ap_total"></span></p>
-        <p><strong>Accuracy:</strong> <span id="ap_accuracy"></span></p>
-        <p><strong>Time Taken:</strong> <span id="ap_time"></span></p>
-        <p><strong>Exam Status:</strong> <span id="ap_status"></span></p>
-    </div>
-
-    <hr class="summary-divider">
-
-    <div class="summary-section">
-        <p><strong>Completion Date:</strong> <span id="ap_date"></span></p>
-        <p class="print-footer-note">Generated by EMIS Admin Console</p>
-    </div>
+  </div>
 
 </div>
 
+<div id="summaryOverlay" class="summary-overlay"></div>
 
+<div id="adminPrintSummary" class="print-summary">
+  <button id="summaryCloseBtn" class="summary-close-btn" type="button">&times;</button>
+
+  <div class="summary-header">
+    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo" class="summary-logo">
+    <div>
+      <h2>Exam Result Summary</h2>
+      <p>Generated by EMIS Admin Console</p>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-section">
+      <h3>Candidate</h3>
+      <p><strong>Student Name:</strong> <span id="ap_studentName"></span></p>
+      <p><strong>Admission No:</strong> <span id="ap_studentID"></span></p>
+      <p><strong>Year:</strong> <span id="ap_year"></span></p>
+      <p><strong>Class:</strong> <span id="ap_studentClass"></span></p>
+      <p><strong>Category:</strong> <span id="ap_studentCategory"></span></p>
+    </div>
+
+    <div class="summary-section">
+      <h3>Performance</h3>
+      <p><strong>Subject:</strong> <span id="ap_subject"></span></p>
+      <p><strong>Score (%):</strong> <span id="ap_percent"></span></p>
+      <p><strong>Raw Score:</strong> <span id="ap_rawScore"></span></p>
+      <p><strong>Correct:</strong> <span id="ap_correct"></span></p>
+      <p><strong>Total Questions:</strong> <span id="ap_total"></span></p>
+      <p><strong>Accuracy:</strong> <span id="ap_accuracy"></span></p>
+      <p><strong>Time Taken:</strong> <span id="ap_time"></span></p>
+      <p><strong>Exam Status:</strong> <span id="ap_status"></span></p>
+      <p><strong>Completion Date:</strong> <span id="ap_date"></span></p>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 

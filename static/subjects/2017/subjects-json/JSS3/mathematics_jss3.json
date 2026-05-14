@@ -1,0 +1,608 @@
+{
+  "subject": "Mathematics",
+  "class": "JSS3",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Evaluate 3x + 5 when x = 4.",
+      "diagram": null,
+      "options": [
+        "A. 12",
+        "B. 17",
+        "C. 20",
+        "D. 9"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Simplify 5a + 3a − 2a.",
+      "diagram": null,
+      "options": [
+        "A. 6a",
+        "B. 10a",
+        "C. 4a",
+        "D. 8a"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Solve for x: 2x + 7 = 19.",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 8"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "Factorize x² + 5x + 6.",
+      "diagram": null,
+      "options": [
+        "A. (x + 2)(x + 3)",
+        "B. (x + 1)(x + 6)",
+        "C. (x − 2)(x − 3)",
+        "D. (x + 5)(x + 6)"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Expand 3(x + 4).",
+      "diagram": null,
+      "options": [
+        "A. 3x + 4",
+        "B. x + 12",
+        "C. 3x + 12",
+        "D. 7x"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Find the value of 2³ × 2².",
+      "diagram": null,
+      "options": [
+        "A. 2⁵",
+        "B. 2⁶",
+        "C. 4⁵",
+        "D. 2¹"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "Simplify 5² × 5³.",
+      "diagram": null,
+      "options": [
+        "A. 5⁶",
+        "B. 5⁵",
+        "C. 25⁵",
+        "D. 10⁵"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Express 0.75 as a fraction in its lowest term.",
+      "diagram": null,
+      "options": [
+        "A. 1/4",
+        "B. 2/3",
+        "C. 3/4",
+        "D. 4/5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "Convert 35% to a decimal.",
+      "diagram": null,
+      "options": [
+        "A. 3.5",
+        "B. 0.35",
+        "C. 0.035",
+        "D. 35.0"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "Find 20% of ₦1500.",
+      "diagram": null,
+      "options": [
+        "A. ₦200",
+        "B. ₦250",
+        "C. ₦300",
+        "D. ₦350"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "A trader bought an article for ₦800 and sold it for ₦1000. Find the profit.",
+      "diagram": null,
+      "options": [
+        "A. ₦100",
+        "B. ₦150",
+        "C. ₦200",
+        "D. ₦250"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "A man bought a radio for ₦5000 and sold it at a loss of 10%. Find the selling price.",
+      "diagram": null,
+      "options": [
+        "A. ₦4000",
+        "B. ₦4500",
+        "C. ₦5000",
+        "D. ₦5500"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "Find the simple interest on ₦2000 for 3 years at 5% per annum.",
+      "diagram": null,
+      "options": [
+        "A. ₦100",
+        "B. ₦200",
+        "C. ₦300",
+        "D. ₦500"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Find the area of a rectangle of length 12cm and breadth 7cm.",
+      "diagram": null,
+      "options": [
+        "A. 19cm²",
+        "B. 38cm²",
+        "C. 84cm²",
+        "D. 144cm²"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "Find the perimeter of a square of side 9cm.",
+      "diagram": null,
+      "options": [
+        "A. 18cm",
+        "B. 27cm",
+        "C. 36cm",
+        "D. 81cm"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "Find the area of a triangle with base 10cm and height 8cm.",
+      "diagram": null,
+      "options": [
+        "A. 18cm²",
+        "B. 40cm²",
+        "C. 80cm²",
+        "D. 100cm²"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "Find the circumference of a circle of radius 7cm. Take π = 22/7.",
+      "diagram": null,
+      "options": [
+        "A. 22cm",
+        "B. 44cm",
+        "C. 49cm",
+        "D. 154cm"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "Find the area of a circle of radius 7cm. Take π = 22/7.",
+      "diagram": null,
+      "options": [
+        "A. 44cm²",
+        "B. 77cm²",
+        "C. 154cm²",
+        "D. 308cm²"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "The volume of a cuboid is given by __________.",
+      "diagram": null,
+      "options": [
+        "A. length + breadth + height",
+        "B. length × breadth × height",
+        "C. 2(length + breadth)",
+        "D. length × breadth"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "Find the volume of a cuboid of length 8cm, breadth 5cm and height 4cm.",
+      "diagram": null,
+      "options": [
+        "A. 17cm³",
+        "B. 40cm³",
+        "C. 80cm³",
+        "D. 160cm³"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 21,
+      "question": "Find the volume of a cube of side 6cm.",
+      "diagram": null,
+      "options": [
+        "A. 36cm³",
+        "B. 72cm³",
+        "C. 216cm³",
+        "D. 256cm³"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "The sum of angles in a triangle is __________.",
+      "diagram": null,
+      "options": [
+        "A. 90°",
+        "B. 180°",
+        "C. 270°",
+        "D. 360°"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Find the third angle of a triangle whose two angles are 55° and 65°.",
+      "diagram": null,
+      "options": [
+        "A. 50°",
+        "B. 55°",
+        "C. 60°",
+        "D. 70°"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "An angle greater than 90° but less than 180° is called __________.",
+      "diagram": null,
+      "options": [
+        "A. acute angle",
+        "B. right angle",
+        "C. obtuse angle",
+        "D. reflex angle"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "The exterior angle of a triangle is equal to __________.",
+      "diagram": null,
+      "options": [
+        "A. the sum of the two opposite interior angles",
+        "B. the sum of all interior angles",
+        "C. half of the opposite angle",
+        "D. twice the adjacent angle"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "Find the mean of 4, 6, 8, 10 and 12.",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 7",
+        "C. 8",
+        "D. 10"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "Find the median of 3, 7, 9, 12 and 15.",
+      "diagram": null,
+      "options": [
+        "A. 7",
+        "B. 9",
+        "C. 12",
+        "D. 15"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "Find the mode of 2, 4, 4, 5, 6, 6, 6 and 8.",
+      "diagram": null,
+      "options": [
+        "A. 4",
+        "B. 5",
+        "C. 6",
+        "D. 8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "A die is thrown once. What is the probability of getting an even number?",
+      "diagram": null,
+      "options": [
+        "A. 1/6",
+        "B. 1/3",
+        "C. 1/2",
+        "D. 2/3"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "A bag contains 3 red balls and 2 blue balls. What is the probability of picking a blue ball?",
+      "diagram": null,
+      "options": [
+        "A. 2/5",
+        "B. 3/5",
+        "C. 1/2",
+        "D. 5/2"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Solve the inequality: x + 3 < 8.",
+      "diagram": null,
+      "options": [
+        "A. x < 5",
+        "B. x > 5",
+        "C. x < 11",
+        "D. x > 11"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "Solve for y: 3y = 27.",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 7",
+        "C. 8",
+        "D. 9"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "If a:b = 2:5 and b = 20, find a.",
+      "diagram": null,
+      "options": [
+        "A. 4",
+        "B. 8",
+        "C. 10",
+        "D. 15"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Share ₦720 in the ratio 2:3:4. What is the largest share?",
+      "diagram": null,
+      "options": [
+        "A. ₦160",
+        "B. ₦240",
+        "C. ₦320",
+        "D. ₦400"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "If 5 books cost ₦750, what is the cost of 8 books at the same rate?",
+      "diagram": null,
+      "options": [
+        "A. ₦1000",
+        "B. ₦1100",
+        "C. ₦1200",
+        "D. ₦1500"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Find the square root of 144.",
+      "diagram": null,
+      "options": [
+        "A. 10",
+        "B. 11",
+        "C. 12",
+        "D. 14"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Find the value of ³√64.",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "Simplify 12/18 to its lowest term.",
+      "diagram": null,
+      "options": [
+        "A. 1/3",
+        "B. 2/3",
+        "C. 3/4",
+        "D. 4/5"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Add 2/5 and 1/10.",
+      "diagram": null,
+      "options": [
+        "A. 1/2",
+        "B. 3/15",
+        "C. 3/10",
+        "D. 5/10"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "Subtract 3/8 from 7/8.",
+      "diagram": null,
+      "options": [
+        "A. 1/8",
+        "B. 1/4",
+        "C. 1/2",
+        "D. 5/8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "A car travels 180km in 3 hours. Find its average speed.",
+      "diagram": null,
+      "options": [
+        "A. 30km/h",
+        "B. 45km/h",
+        "C. 60km/h",
+        "D. 90km/h"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "Convert 2.5km to metres.",
+      "diagram": null,
+      "options": [
+        "A. 25m",
+        "B. 250m",
+        "C. 2500m",
+        "D. 25000m"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "Convert 3500g to kilograms.",
+      "diagram": null,
+      "options": [
+        "A. 0.35kg",
+        "B. 3.5kg",
+        "C. 35kg",
+        "D. 350kg"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "The bearing of East is __________.",
+      "diagram": null,
+      "options": [
+        "A. 000°",
+        "B. 045°",
+        "C. 090°",
+        "D. 180°"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "The bearing of South is __________.",
+      "diagram": null,
+      "options": [
+        "A. 090°",
+        "B. 120°",
+        "C. 180°",
+        "D. 270°"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Find the gradient of a line passing through points (1, 2) and (3, 6).",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "Which of the following is a linear equation?",
+      "diagram": null,
+      "options": [
+        "A. x² + 3 = 0",
+        "B. y = 2x + 5",
+        "C. y = x³",
+        "D. xy = 12"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Find the next number in the sequence: 3, 6, 12, 24, __________.",
+      "diagram": null,
+      "options": [
+        "A. 30",
+        "B. 36",
+        "C. 42",
+        "D. 48"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "Find the next number in the sequence: 5, 10, 15, 20, __________.",
+      "diagram": null,
+      "options": [
+        "A. 21",
+        "B. 22",
+        "C. 25",
+        "D. 30"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "The formula for the area of a trapezium is __________.",
+      "diagram": null,
+      "options": [
+        "A. 1/2(a + b)h",
+        "B. ab",
+        "C. 2(l + b)",
+        "D. πr²"
+      ],
+      "correctOption": "A"
+    }
+  ]
+}
