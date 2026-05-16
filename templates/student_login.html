@@ -1,96 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Login - EMIS Exam Portal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_login.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Font Awesome for Icons (optional but recommended) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Student Login — EMIS CBT Server</title>
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/student_login.css') }}">
 </head>
 
 <body>
 
-<div class="login-page">
+  <main class="student-login-page">
 
-    <!-- ==============================
-         TITLE CARD
-    =============================== -->
-    <div class="title-card">
-        <h1>Welcome to your Student Login Page</h1>
-        <p>Please enter your admission number and first name to access your exam portal.</p>
-    </div>
+    <section class="student-showcase">
+      <div class="showcase-overlay"></div>
 
-    <!-- ==============================
-         LOGIN CARD
-    =============================== -->
-    <div class="login-card">
+      <div class="showcase-content">
 
-        <div class="logo-container">
-            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo" class="logo">
-            <h2 class="school-name">EMIS - Student Login</h2>
-            <p class="login-subtitle">Access your exam portal</p>
+        <a href="{{ url_for('home') }}" class="brand-chip">
+          <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo">
+          <span>EMIS CBT Server</span>
+        </a>
+
+        <div class="showcase-main">
+          <span class="eyebrow">
+            <i class="fa-solid fa-user-graduate"></i>
+            Student Access
+          </span>
+
+          <h1>CBT Exam Login</h1>
+
+          <p>
+            Enter your admission number with either your first name or surname.
+            Names are checked without spaces, symbols, or capital letters.
+          </p>
         </div>
+
+        <div class="showcase-tips">
+          <span><i class="fa-solid fa-id-card"></i> Admission number required</span>
+          <span><i class="fa-solid fa-user-check"></i> First name or surname accepted</span>
+          <span><i class="fa-solid fa-lock"></i> Secure exam session</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section class="student-auth">
+
+      <div class="student-card">
+
+        <div class="card-header">
+          <div class="logo-wrap">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo">
+          </div>
+
+          <span class="card-kicker">Student Portal</span>
+          <h2>Login</h2>
+        </div>
+
 
         {% if error %}
-        <div class="error-banner">
-            ❌ {{ error }}
-        </div>
+          <div class="error-banner">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+              <strong>Login Failed</strong>
+              <span>{{ error }}</span>
+            </div>
+          </div>
         {% endif %}
+
 
         <form id="studentLoginForm" method="POST" class="login-form">
 
-            <div class="form-field">
-                <label for="first_name">First Name</label>
-                <div class="username-wrapper">
-                    <input
-                        type="text"
-                        id="first_name"
-                        name="first_name"
-                        required
-                        placeholder="Enter your first name"
-                        value="{{ first_name or '' }}"
-                    >
-                </div>
-            </div>
+          <div class="form-field">
+            <label for="login_name">First Name or Surname</label>
 
-            <div class="form-field">
-                <label for="admission_number">Admission Number</label>
-                <div class="password-wrapper">
-                    <input
-                        type="text"
-                        id="admission_number"
-                        name="admission_number"
-                        required
-                        placeholder="e.g. std148"
-                        value="{{ admission_number or '' }}"
-                    >
-                </div>
-            </div>
+            <div class="input-box username-wrapper">
+              <i class="fa-solid fa-user input-icon"></i>
 
-            <button type="submit" class="login-btn">
-                <span class="btn-text">Login</span>
-                <div class="loading-spinner hidden"></div>
-            </button>
+              <input
+                type="text"
+                id="login_name"
+                name="login_name"
+                required
+                autocomplete="name"
+                placeholder="e.g. Abdulmumin"
+                value="{{ login_name or first_name or '' }}"
+              >
+            </div>
+          </div>
+
+
+          <div class="form-field">
+            <label for="admission_number">Admission Number</label>
+
+            <div class="input-box admission-wrapper">
+              <i class="fa-solid fa-id-badge input-icon"></i>
+
+              <input
+                type="text"
+                id="admission_number"
+                name="admission_number"
+                required
+                autocomplete="off"
+                placeholder="e.g. std148"
+                value="{{ admission_number or '' }}"
+              >
+            </div>
+          </div>
+
+
+          <div class="form-options">
+            <label class="remember-row">
+              <input type="checkbox" id="rememberStudent" name="remember_student">
+              <span>Remember me</span>
+            </label>
+
+            <span class="secure-note">
+              <i class="fa-solid fa-shield-halved"></i>
+              Protected
+            </span>
+          </div>
+
+
+          <button type="submit" id="studentLoginButton" class="login-btn">
+            <span class="btn-text">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              Login to Exam Portal
+            </span>
+
+            <span class="btn-loader hidden">
+              <span class="outer-circle"></span>
+              <span class="inner-circle"></span>
+            </span>
+          </button>
+
         </form>
 
-        <p class="footer-text">Powered by EMIS - Epitome Model Islamic Schools</p>
 
-    </div> <!-- /.login-card -->
+        <p class="footer-text">
+          Powered by <strong>EMIS</strong>
+        </p>
 
-</div> <!-- /.login-page -->
+      </div>
+
+    </section>
+
+  </main>
 
 
-<!-- Loading Overlay -->
-<div id="loadingOverlay" class="loading-overlay hidden">
+  <div id="loadingOverlay" class="loading-overlay hidden">
     <div class="loading-box">
-        <div class="loading-spinner big"></div>
-        <p>Signing you in...</p>
-    </div>
-</div>
+      <div class="dynamic-loader">
+        <div class="outer-circle"></div>
+        <div class="inner-circle"></div>
+      </div>
 
-<script src="{{ url_for('static', filename='js/student_login.js') }}"></script>
+      <p>Signing you in...</p>
+    </div>
+  </div>
+
+
+  <script src="{{ url_for('static', filename='js/student_login.js') }}"></script>
 
 </body>
 </html>

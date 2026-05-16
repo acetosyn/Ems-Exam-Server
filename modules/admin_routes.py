@@ -12,6 +12,16 @@ from engine import (
     delete_teacher_from_db
 )
 
+from modules.promotion_manager import (
+    get_class_summary,
+    read_students,
+    read_logs,
+    promote_or_move_students,
+    import_csv_to_class,
+    CLASSES,
+    DESTINATIONS,
+)
+
 import user_exam
 
 
@@ -165,10 +175,10 @@ def admin_third_party():
     return render_template("third_party.html", user_type="admin")
 
 
-@admin_bp.route("/admin/activities")
+@admin_bp.route("/admin/promotion")
 @admin_only
 def admin_activities():
-    return render_template("activities.html", user_type="admin")
+    return render_template("promotion.html", user_type="admin")
 
 
 @admin_bp.route("/admin/settings")
@@ -265,6 +275,83 @@ def admin_results():
         "admin_results.html",
         user_type=session.get("user_type")
     )
+
+
+
+# =======================================================
+# PROMOTION MANAGER
+# =======================================================
+@admin_bp.route("/admin/promotion")
+def admin_promotion():
+    return render_template(
+        "promotion.html",
+        classes=CLASSES,
+        destinations=DESTINATIONS,
+    )
+
+
+@admin_bp.route("/api/promotion/summary")
+def api_promotion_summary():
+    return jsonify({
+        "success": True,
+        "summary": get_class_summary(),
+    })
+
+
+@admin_bp.route("/api/promotion/students")
+def api_promotion_students():
+    class_category = request.args.get("class", "JSS1")
+    rows = read_students(class_category)
+
+    return jsonify({
+        "success": True,
+        "class": class_category,
+        "students": rows,
+        "count": len(rows),
+    })
+
+
+@admin_bp.route("/api/promotion/logs")
+def api_promotion_logs():
+    return jsonify({
+        "success": True,
+        "logs": read_logs(),
+    })
+
+
+@admin_bp.route("/api/promotion/promote", methods=["POST"])
+def api_promote_students():
+    data = request.get_json(silent=True) or {}
+
+    success, message, payload = promote_or_move_students(
+        from_class=data.get("from_class"),
+        to_class=data.get("to_class"),
+        admissions=data.get("admissions") or [],
+        mode=data.get("mode", "selected"),
+        destination_arm=data.get("destination_arm", ""),
+        note=data.get("note", ""),
+    )
+
+    return jsonify({
+        "success": success,
+        "message": message,
+        "data": payload,
+    }), 200 if success else 400
+
+
+@admin_bp.route("/api/promotion/import", methods=["POST"])
+def api_import_students():
+    success, message, payload = import_csv_to_class(
+        target_class=request.form.get("target_class"),
+        uploaded_file=request.files.get("csv_file"),
+        mode=request.form.get("mode", "append"),
+    )
+
+    return jsonify({
+        "success": success,
+        "message": message,
+        "data": payload,
+    }), 200 if success else 400
 
 
 # ==========================================================

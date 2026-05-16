@@ -668,19 +668,31 @@ function closeSummary() {
 }
 
 
+// Print the currently selected result in the summary view//
+function printSelected() {
+  const records = getSelectedRecords();
 
-
-  function printSelected() {
-    const records = getSelectedRecords();
-
-    if (!records.length) {
-      showToast("Please select one result to print.", "warning");
-      return;
-    }
-
-    openSummary(records[0]);
-    setTimeout(() => window.print(), 250);
+  if (!records.length) {
+    showToast("Please select one result to print.", "warning");
+    return;
   }
+
+  openSummary(records[0]);
+
+  document.body.classList.add("printing-summary");
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      window.print();
+
+      setTimeout(() => {
+        document.body.classList.remove("printing-summary");
+      }, 600);
+    }, 500);
+  });
+}
+
+
 
   function printAll() {
     if (!filteredResults.length) {

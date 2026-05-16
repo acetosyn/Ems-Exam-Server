@@ -2,7 +2,31 @@
 
 import csv
 import os
+import re
+import unicodedata
+
 from modules.class_config import STUDENT_CSV_FILES, is_valid_class
+
+
+def normalize_login_text(value):
+    """
+    Login-safe normalizer.
+
+    Examples:
+        Abdul-Mumin  -> abdulmumin
+        ABDUL MUMIN  -> abdulmumin
+        Abdul.Mumin  -> abdulmumin
+        O'Connor     -> oconnor
+    """
+    value = str(value or "").strip()
+
+    value = unicodedata.normalize("NFKD", value)
+    value = value.encode("ascii", "ignore").decode("ascii")
+
+    value = value.lower()
+    value = re.sub(r"[^a-z0-9]", "", value)
+
+    return value
 
 
 def build_full_name(row):
@@ -11,6 +35,56 @@ def build_full_name(row):
         str(row.get("First_name", "")).strip(),
         str(row.get("Other_names", "")).strip(),
     ]).strip()
+
+
+def build_login_name_tokens(student):
+    """
+    Builds all acceptable name tokens for login.
+
+    A student can login with:
+      - first name
+      - last name / surname
+      - other name
+      - any individual part of the full name
+
+    All tokens are normalized, so Abdul-Mumin and abdulmumin match.
+    """
+    tokens = set()
+
+    possible_values = [
+        student.get("first_name"),
+        student.get("last_name"),
+        student.get("other_names"),
+        student.get("full_name"),
+    ]
+
+    for value in possible_values:
+        raw = str(value or "").strip()
+
+        if not raw:
+            continue
+
+        normalized_whole = normalize_login_text(raw)
+        if normalized_whole:
+            tokens.add(normalized_whole)
+
+        for part in re.split(r"[\s,\-/_.']+", raw):
+            normalized_part = normalize_login_text(part)
+            if normalized_part:
+                tokens.add(normalized_part)
+
+    return tokens
+
+
+def student_name_matches(student, entered_name):
+    entered = normalize_login_text(entered_name)
+
+    if not entered:
+        return False
+
+    allowed_tokens = build_login_name_tokens(student)
+
+    return entered in allowed_tokens
 
 
 def normalize_class_category(value, fallback):
@@ -42,7 +116,7 @@ def normalize_class_category(value, fallback):
 
 
 def find_student_by_admission(admission_number):
-    admission_number = str(admission_number or "").strip().lower()
+    admission_number = normalize_login_text(admission_number)
 
     if not admission_number:
         return None
@@ -55,7 +129,7 @@ def find_student_by_admission(admission_number):
             reader = csv.DictReader(file)
 
             for row in reader:
-                csv_admission = str(row.get("Admission_number", "")).strip().lower()
+                csv_admission = normalize_login_text(row.get("Admission_number", ""))
 
                 if csv_admission == admission_number:
                     class_name = str(row.get("Class", "")).upper().strip()
@@ -73,7 +147,7 @@ def find_student_by_admission(admission_number):
 
                     full_name = build_full_name(row)
 
-                    return {
+                    student = {
                         "id": row.get("Admission_number"),
                         "admission_number": row.get("Admission_number"),
                         "last_name": row.get("Last_name"),
@@ -88,5 +162,9 @@ def find_student_by_admission(admission_number):
                         # Broad portal/exam class e.g JSS1, SS1
                         "class_category": class_category,
                     }
+
+                    student["login_name_tokens"] = sorted(build_login_name_tokens(student))
+
+                    return student
 
     return None

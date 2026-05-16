@@ -1162,9 +1162,22 @@
   background: linear-gradient(135deg, #f59e0b, #b45309);
 }
 
-/* PRINT */
-
+/* PRINT FIX - ADMIN RESULT SUMMARY */
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
   body * {
     visibility: hidden !important;
   }
@@ -1174,24 +1187,99 @@
     visibility: visible !important;
   }
 
-  #adminPrintSummary {
-    display: block !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    box-shadow: none !important;
-    padding: 2rem !important;
-  }
-
-  .summary-close-btn {
+  .results-wrapper,
+  #summaryOverlay,
+  .summary-overlay,
+  .summary-close-btn,
+  #summaryCloseBtn,
+  .modal-backdrop,
+  nav,
+  aside,
+  header,
+  footer {
     display: none !important;
   }
 
-  @page {
-    margin: 1.2cm;
+  #adminPrintSummary {
+    display: block !important;
+    visibility: visible !important;
+
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: #fff !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    z-index: auto !important;
+  }
+
+  #adminPrintSummary .summary-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    padding-bottom: 14px !important;
+    margin-bottom: 18px !important;
+    border-bottom: 1px solid #dce7f5 !important;
+  }
+
+  #adminPrintSummary .summary-logo {
+    width: 70px !important;
+    height: 70px !important;
+    object-fit: contain !important;
+  }
+
+  #adminPrintSummary .summary-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    margin-top: 0 !important;
+  }
+
+  #adminPrintSummary .summary-section {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    border: 1px solid #dce7f5 !important;
+    border-radius: 14px !important;
+    padding: 16px !important;
+    background: #f8fbff !important;
+  }
+
+  #adminPrintSummary h2 {
+    font-size: 22px !important;
+    margin: 0 0 4px !important;
+    color: #102033 !important;
+  }
+
+  #adminPrintSummary h3 {
+    font-size: 17px !important;
+    margin: 0 0 12px !important;
+    color: #123f8c !important;
+  }
+
+  #adminPrintSummary p {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin: 7px 0 !important;
+    color: #63748a !important;
+  }
+
+  #adminPrintSummary strong {
+    color: #102033 !important;
   }
 }
+
 
 /* RESPONSIVE */
 

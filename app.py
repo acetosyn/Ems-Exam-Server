@@ -15,6 +15,7 @@ from uploads import uploads_bp
 from push import push_bp
 from modules import student_results
 from modules.notifications import notifications_bp
+from modules.promotion_manager import promotion_bp
 
 
 # Other system modules
@@ -36,6 +37,7 @@ app.register_blueprint(api_bp)
 app.register_blueprint(document_bp)
 app.register_blueprint(uploads_bp)
 app.register_blueprint(push_bp, url_prefix="/api")
+app.register_blueprint(promotion_bp)
 app.register_blueprint(notifications_bp, url_prefix="/api/notifications")
 
 

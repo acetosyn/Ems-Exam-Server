@@ -1,0 +1,564 @@
+{% extends "base.html" %}
+
+{% block title %}EMIS — Promotion Manager{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=3">
+{% endblock %}
+
+{% block content %}
+
+<div class="promotion-page fade-in">
+
+  <!-- ================= HERO ================= -->
+  <section class="promotion-hero">
+    <div>
+      <span class="hero-kicker">
+        <i class="fa-solid fa-users-gear"></i>
+        Student Records
+      </span>
+
+      <h1>Promotion Manager</h1>
+
+      <p>
+        Promote, move, graduate, import, edit, preview, filter, and manage student CSV records safely.
+      </p>
+    </div>
+
+    <div class="hero-actions">
+      <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="pm-btn pm-btn-light">
+        <i class="fa-solid fa-arrow-left"></i>
+        Dashboard
+      </a>
+
+      <button id="refreshBtn" class="pm-btn pm-btn-primary">
+        <i class="fa-solid fa-rotate"></i>
+        Refresh
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ================= SUMMARY ================= -->
+  <section class="summary-grid" id="summaryGrid">
+    <article class="summary-card loading-card">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      <span>Loading class summary...</span>
+    </article>
+  </section>
+
+
+  <!-- ================= QUICK TOOLS ================= -->
+  <section class="promotion-panel pm-tools-panel">
+    <header class="panel-head">
+      <div>
+        <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Student Database Tools</h2>
+        <p>Fast actions for filtering, exporting, backing up, adding, editing, and reviewing students.</p>
+      </div>
+    </header>
+
+    <div class="pm-tools-grid">
+      <button id="openAddStudentBtn" class="pm-tool-card">
+        <i class="fa-solid fa-user-plus"></i>
+        <strong>Add Student</strong>
+        <span>Create a new student record</span>
+      </button>
+
+      <button id="openBulkEditBtn" class="pm-tool-card">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <strong>Bulk Edit</strong>
+        <span>Edit selected records</span>
+      </button>
+
+      <button id="exportClassBtn" class="pm-tool-card">
+        <i class="fa-solid fa-file-export"></i>
+        <strong>Export Class</strong>
+        <span>Download current class CSV</span>
+      </button>
+
+      <button id="backupNowBtn" class="pm-tool-card">
+        <i class="fa-solid fa-database"></i>
+        <strong>Backup Now</strong>
+        <span>Create instant backup</span>
+      </button>
+
+      <button id="viewGraduatedBtn" class="pm-tool-card">
+        <i class="fa-solid fa-user-graduate"></i>
+        <strong>Graduated</strong>
+        <span>View SS3 graduates</span>
+      </button>
+
+      <button id="viewLeftBtn" class="pm-tool-card">
+        <i class="fa-solid fa-user-minus"></i>
+        <strong>Left School</strong>
+        <span>View inactive records</span>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ================= MAIN GRID ================= -->
+  <section class="manager-grid">
+
+    <!-- ================= TABLE MANAGER ================= -->
+    <article class="promotion-panel">
+      <header class="panel-head">
+        <div>
+          <h2><i class="fa-solid fa-arrow-up-right-dots"></i> Promote / Move Students</h2>
+          <p>Select a source class, load students, choose records, then apply promotion or movement.</p>
+        </div>
+
+        <span id="tableStatusBadge" class="selected-badge">Ready</span>
+      </header>
+
+
+      <!-- FILTER CONTROLS -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fromClass">From Class</label>
+          <select id="fromClass">
+            <option value="JSS1" selected>JSS1</option>
+            <option value="JSS2">JSS2</option>
+            <option value="JSS3">JSS3</option>
+            <option value="SS1">SS1</option>
+            <option value="SS2">SS2</option>
+            <option value="SS3">SS3</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="toClass">To Destination</label>
+          <select id="toClass">
+            <option value="JSS1">JSS1</option>
+            <option value="JSS2" selected>JSS2</option>
+            <option value="JSS3">JSS3</option>
+            <option value="SS1">SS1</option>
+            <option value="SS2">SS2</option>
+            <option value="SS3">SS3</option>
+            <option value="GRADUATED">GRADUATED</option>
+            <option value="LEFT">LEFT</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="destinationArm">Destination Arm</label>
+          <input id="destinationArm" type="text" placeholder="A, B, C, GOLD">
+        </div>
+
+        <div class="form-group">
+          <label for="promotionMode">Mode</label>
+          <select id="promotionMode">
+            <option value="selected">Selected students only</option>
+            <option value="all">Entire loaded class</option>
+          </select>
+        </div>
+      </div>
+
+
+      <!-- ADVANCED FILTERS -->
+      <div class="form-grid pm-filter-grid">
+        <div class="form-group">
+          <label for="statusFilter">Status</label>
+          <select id="statusFilter">
+            <option value="">All Status</option>
+            <option value="ACTIVE">Active</option>
+            <option value="GRADUATED">Graduated</option>
+            <option value="LEFT">Left</option>
+            <option value="REPEATED">Repeated</option>
+            <option value="TRANSFERRED">Transferred</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="armFilter">Class Arm</label>
+          <select id="armFilter">
+            <option value="">All Arms</option>
+            <option value="A">Arm A</option>
+            <option value="B">Arm B</option>
+            <option value="C">Arm C</option>
+            <option value="GOLD">Gold</option>
+            <option value="SILVER">Silver</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pageSize">Rows Per Page</label>
+          <select id="pageSize">
+            <option value="10">10 rows</option>
+            <option value="25">25 rows</option>
+            <option value="50" selected>50 rows</option>
+            <option value="100">100 rows</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sortStudents">Sort By</label>
+          <select id="sortStudents">
+            <option value="name">Name</option>
+            <option value="admission">Admission No</option>
+            <option value="class">Class</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+      </div>
+
+
+      <!-- ACTIONS -->
+      <div class="action-strip">
+        <button id="loadStudentsBtn" class="pm-btn pm-btn-primary" type="button">
+          <i class="fa-solid fa-users"></i>
+          Load Students
+        </button>
+
+        <button id="selectAllBtn" class="pm-btn pm-btn-light" type="button">
+          <i class="fa-solid fa-check-double"></i>
+          Select All
+        </button>
+
+        <button id="clearSelectionBtn" class="pm-btn pm-btn-light" type="button">
+          <i class="fa-solid fa-eraser"></i>
+          Clear
+        </button>
+
+        <button id="previewPromotionBtn" class="pm-btn pm-btn-light" type="button">
+          <i class="fa-solid fa-eye"></i>
+          Preview
+        </button>
+
+        <button id="promoteBtn" class="pm-btn pm-btn-success" type="button">
+          <i class="fa-solid fa-arrow-up"></i>
+          Apply
+        </button>
+
+        <button id="deleteSelectedBtn" class="pm-btn pm-btn-danger" type="button">
+          <i class="fa-solid fa-trash"></i>
+          Delete
+        </button>
+      </div>
+
+
+      <!-- SEARCH -->
+      <div class="search-row">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="studentSearch" type="text" placeholder="Search by name, admission number, phone, class...">
+        </div>
+
+        <span id="selectedBadge" class="selected-badge">0 selected</span>
+      </div>
+
+      <!-- MINI TABLE INFO -->
+      <div class="pm-table-info">
+        <span id="recordCountText">
+          <i class="fa-solid fa-list"></i>
+          0 records loaded
+        </span>
+
+        <span id="currentViewText">
+          <i class="fa-solid fa-filter"></i>
+          No active filter
+        </span>
+      </div>
+
+
+      <!-- TABLE -->
+      <div class="table-wrap">
+        <table id="studentsTable">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="masterCheck"></th>
+              <th data-sort="name">Student</th>
+              <th data-sort="admission">Admission</th>
+              <th data-sort="class">Class</th>
+              <th data-sort="status">Status</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody id="studentsBody">
+            <tr>
+              <td colspan="7" class="empty-cell">
+                <i class="fa-solid fa-folder-open"></i>
+                <strong>No students loaded</strong>
+                <span>Select a class and click Load Students.</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!-- PAGINATION -->
+      <div class="pm-pagination">
+        <button id="prevPageBtn" class="pm-btn pm-btn-light">
+          <i class="fa-solid fa-chevron-left"></i>
+          Previous
+        </button>
+
+        <span id="pageInfo">Page 1 of 1</span>
+
+        <button id="nextPageBtn" class="pm-btn pm-btn-light">
+          Next
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </article>
+
+
+    <!-- ================= RIGHT COLUMN ================= -->
+    <aside class="side-column">
+
+      <!-- IMPORT -->
+      <article class="promotion-panel compact-panel">
+        <header class="panel-head">
+          <div>
+            <h2><i class="fa-solid fa-file-import"></i> Import CSV</h2>
+            <p>Upload a fresh student list into any class.</p>
+          </div>
+        </header>
+
+        <form id="importForm" class="import-form" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="targetClass">Target Class</label>
+            <select id="targetClass" name="target_class">
+              <option value="">Select target class</option>
+              {% for cls in classes %}
+                <option value="{{ cls }}">{{ cls }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="importMode">Import Mode</label>
+            <select id="importMode" name="mode">
+              <option value="append">Append new students only</option>
+              <option value="replace">Replace class CSV</option>
+              <option value="merge">Merge and update duplicates</option>
+            </select>
+          </div>
+
+          <div class="file-drop">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <strong>Choose CSV file</strong>
+            <span id="fileName">No file selected</span>
+            <input id="csvFile" name="csv_file" type="file" accept=".csv" required>
+          </div>
+
+          <button class="pm-btn pm-btn-primary full-width" type="submit">
+            <i class="fa-solid fa-upload"></i>
+            Import Students
+          </button>
+        </form>
+      </article>
+
+
+      <!-- SELECTED PREVIEW -->
+      <article class="promotion-panel compact-panel">
+        <header class="panel-head">
+          <div>
+            <h2><i class="fa-solid fa-clipboard-check"></i> Selected Preview</h2>
+            <p>Quick view of selected students before applying changes.</p>
+          </div>
+        </header>
+
+        <div id="selectedPreviewList" class="logs-list">
+          <div class="log-empty">
+            <i class="fa-solid fa-user-check"></i>
+            No selected student yet.
+          </div>
+        </div>
+      </article>
+
+
+      <!-- LOGS -->
+      <article class="promotion-panel compact-panel">
+        <header class="panel-head">
+          <div>
+            <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Actions</h2>
+            <p>Promotion, graduation, movement, import, edit, and delete logs.</p>
+          </div>
+        </header>
+
+        <div id="logsList" class="logs-list">
+          <div class="log-empty">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Loading logs...
+          </div>
+        </div>
+      </article>
+
+    </aside>
+
+  </section>
+
+</div>
+
+
+<!-- ================= STUDENT DETAILS MODAL ================= -->
+<div id="studentDetailsModal" class="pm-modal-backdrop hidden">
+  <div class="pm-modal-card pm-wide-modal">
+    <button type="button" class="pm-modal-close" id="closeStudentDetailsBtn">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="modal-icon">
+      <i class="fa-solid fa-user-graduate"></i>
+    </div>
+
+    <h3>Student Details</h3>
+
+    <div id="studentDetailsBody" class="pm-details-body">
+      Loading student details...
+    </div>
+
+    <div class="modal-actions">
+      <button id="editFromDetailsBtn" class="pm-btn pm-btn-primary">
+        <i class="fa-solid fa-pen"></i>
+        Edit
+      </button>
+
+      <button id="closeDetailsActionBtn" class="pm-btn pm-btn-light">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================= ADD / EDIT STUDENT MODAL ================= -->
+<div id="studentFormModal" class="pm-modal-backdrop hidden">
+  <div class="pm-modal-card pm-wide-modal">
+    <button type="button" class="pm-modal-close" id="closeStudentFormBtn">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="modal-icon">
+      <i class="fa-solid fa-user-pen"></i>
+    </div>
+
+    <h3 id="studentFormTitle">Add Student</h3>
+
+    <form id="studentRecordForm" class="pm-student-form">
+      <input type="hidden" id="editingAdmission">
+
+      <div class="form-grid pm-modal-form-grid">
+        <div class="form-group">
+          <label for="formAdmission">Admission Number</label>
+          <input id="formAdmission" type="text" required placeholder="std1001">
+        </div>
+
+        <div class="form-group">
+          <label for="formLastName">Last Name</label>
+          <input id="formLastName" type="text" required placeholder="Surname">
+        </div>
+
+        <div class="form-group">
+          <label for="formFirstName">First Name</label>
+          <input id="formFirstName" type="text" required placeholder="First name">
+        </div>
+
+        <div class="form-group">
+          <label for="formOtherNames">Other Names</label>
+          <input id="formOtherNames" type="text" placeholder="Other names">
+        </div>
+
+        <div class="form-group">
+          <label for="formPhone">Phone</label>
+          <input id="formPhone" type="text" placeholder="080...">
+        </div>
+
+        <div class="form-group">
+          <label for="formClass">Class</label>
+          <input id="formClass" type="text" required placeholder="JSS1A">
+        </div>
+
+        <div class="form-group">
+          <label for="formClassCategory">Class Category</label>
+          <select id="formClassCategory" required>
+            {% for cls in classes %}
+              <option value="{{ cls }}">{{ cls }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="formStatus">Status</label>
+          <select id="formStatus">
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="REPEATED">REPEATED</option>
+            <option value="TRANSFERRED">TRANSFERRED</option>
+            <option value="GRADUATED">GRADUATED</option>
+            <option value="LEFT">LEFT</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" id="cancelStudentFormBtn" class="pm-btn pm-btn-light">
+          Cancel
+        </button>
+
+        <button type="submit" class="pm-btn pm-btn-success">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save Student
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- ================= PREVIEW MODAL ================= -->
+<div id="previewModal" class="pm-modal-backdrop hidden">
+  <div class="pm-modal-card pm-wide-modal">
+    <button type="button" class="pm-modal-close" id="closePreviewBtn">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="modal-icon">
+      <i class="fa-solid fa-eye"></i>
+    </div>
+
+    <h3>Promotion Preview</h3>
+
+    <div id="previewBody" class="pm-details-body">
+      No preview yet.
+    </div>
+
+    <div class="modal-actions">
+      <button id="cancelPreviewBtn" class="pm-btn pm-btn-light">Cancel</button>
+      <button id="confirmPreviewApplyBtn" class="pm-btn pm-btn-success">
+        Apply Changes
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================= CONFIRM MODAL ================= -->
+<div id="confirmModal" class="pm-modal-backdrop hidden">
+  <div class="pm-modal-card">
+    <div class="modal-icon">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+
+    <h3>Confirm Action</h3>
+    <p id="confirmText">Are you sure?</p>
+
+    <div class="modal-actions">
+      <button id="cancelConfirmBtn" class="pm-btn pm-btn-light">Cancel</button>
+      <button id="confirmActionBtn" class="pm-btn pm-btn-success">
+        Yes, Continue
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toastRoot" class="toast-root"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/promotion.js') }}?v=6"></script>
+{% endblock %}

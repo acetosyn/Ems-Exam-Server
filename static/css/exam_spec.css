@@ -125,3 +125,133 @@
     order: 1;
   }
 }
+
+
+
+
+/* ============================================================
+   QUESTION READABILITY + SOFT COLOR UPGRADE
+============================================================ */
+
+/* Subject pill: add richer but still calm color */
+.exam-subject-pill {
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 58%, #fff7ed 100%) !important;
+  border: 1px solid rgba(37, 99, 235, 0.22) !important;
+  color: var(--blue-dark) !important;
+  box-shadow:
+    0 12px 28px rgba(37, 99, 235, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.75) !important;
+}
+
+.exam-subject-pill i {
+  color: var(--amber) !important;
+}
+
+.exam-subject-pill span {
+  color: var(--blue) !important;
+}
+
+/* Make the actual question stand out */
+#questionContent,
+.question-text {
+  margin-bottom: 20px;
+}
+
+#questionContent,
+#questionContent h3,
+.question-text,
+.question-text h3,
+.question-text .q-title {
+  font-family: "Trebuchet MS", "Segoe UI", Inter, system-ui, sans-serif !important;
+  font-size: clamp(1.25rem, 1.55vw, 1.45rem) !important;
+  line-height: 1.55 !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.015em !important;
+  color: #071827 !important;
+}
+
+#questionContent h3,
+.question-text h3,
+.question-text .q-title {
+  padding: 4px 0 2px;
+  margin-bottom: 20px !important;
+}
+
+/* Option cards: clean but less boring */
+.option-btn,
+.answers-list .option {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
+  border: 1px solid #dbe7f8 !important;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+}
+
+.option-btn:hover,
+.answers-list .option:hover {
+  background: #f1f7ff !important;
+  border-color: rgba(37, 99, 235, 0.38) !important;
+}
+
+/* Different calm colors for A B C D */
+.answers-list .option:nth-child(1) .opt-bullet,
+.option-btn:nth-child(1) .option-letter {
+  background: #dbeafe !important;
+  color: #1e3a8a !important;
+}
+
+.answers-list .option:nth-child(2) .opt-bullet,
+.option-btn:nth-child(2) .option-letter {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.answers-list .option:nth-child(3) .opt-bullet,
+.option-btn:nth-child(3) .option-letter {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+.answers-list .option:nth-child(4) .opt-bullet,
+.option-btn:nth-child(4) .option-letter {
+  background: #fae8ff !important;
+  color: #86198f !important;
+}
+
+/* Keep selected answer obvious */
+.option-btn.selected,
+.answers-list .option.selected {
+  background: #ecfdf5 !important;
+  border-color: rgba(22, 163, 74, 0.55) !important;
+  box-shadow: 0 12px 26px rgba(22, 163, 74, 0.12) !important;
+}
+
+.option-btn.selected .option-letter,
+.answers-list .option.selected .opt-bullet {
+  background: var(--green) !important;
+  color: #ffffff !important;
+}
+
+/* Slightly improve option text readability */
+.opt-text,
+.option-btn span:not(.option-letter) {
+  font-size: 1.07rem !important;
+  font-weight: 850 !important;
+  line-height: 1.4 !important;
+  color: #0f172a !important;
+}
+
+/* Mobile: keep readable but not oversized */
+@media (max-width: 760px) {
+  #questionContent,
+  #questionContent h3,
+  .question-text,
+  .question-text h3,
+  .question-text .q-title {
+    font-size: 1.18rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .opt-text,
+  .option-btn span:not(.option-letter) {
+    font-size: 1rem !important;
+  }
+}
