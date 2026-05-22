@@ -4,7 +4,9 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from pathlib import Path
 from datetime import datetime
 import json
-
+import os
+from modules.supabase_results import save_exam_result_to_supabase, get_academic_settings
+from modules.supabase_results import save_exam_result_to_supabase
 from modules.student_results import save_result, get_latest_result
 from modules.excel_manager import read_results
 from modules.class_config import get_subjects_for_class
@@ -282,7 +284,7 @@ def exam_dashboard():
 
 
 # =======================================================
-# Submit Exam — JSS1 to SS3 + Year Aware
+# Submit Exam — JSS1 to SS3 + Year Aware + Supabase Save
 # =======================================================
 @student_portal_bp.route("/submit_exam", methods=["POST"])
 def submit_exam():
@@ -301,6 +303,21 @@ def submit_exam():
 
     year = str(session.get("selected_year", datetime.now().year))
 
+    # Get active academic session + term from Supabase settings
+    try:
+        academic_settings = get_academic_settings()
+        academic_session = str(
+            academic_settings.get("current_session", "2025/2026")
+        ).strip()
+        term = str(
+            academic_settings.get("current_term", "SECOND TERM")
+        ).upper().strip()
+
+    except Exception as e:
+        print("ACADEMIC SETTINGS FETCH ERROR:", e)
+        academic_session = "2025/2026"
+        term = "SECOND TERM"
+
     previous = read_results(class_category, subject, year)
 
     for r in previous:
@@ -310,6 +327,8 @@ def submit_exam():
         ):
             return jsonify({"error": "Exam already submitted"}), 403
 
+    now = datetime.now()
+
     data.update({
         "student_id": student.get("id") or admission_no,
         "full_name": full_name,
@@ -318,14 +337,33 @@ def submit_exam():
         "class_category": class_category,
         "year": year,
         "subject": subject,
+
+        "academic_session": academic_session,
+        "term": term,
+
+        "submitted_at": now.strftime("%Y-%m-%d %H:%M"),
+        "date_written": now.strftime("%Y-%m-%d"),
+        "day_written": now.strftime("%A"),
+        "time_written": now.strftime("%I:%M %p"),
     })
 
+    # 1. Save locally as before
     save_result(data)
+
+    # 2. Also save to Supabase
+    try:
+        save_exam_result_to_supabase(data)
+    except Exception as e:
+        print("SUPABASE SAVE ERROR:", e)
 
     session["exam_submitted"] = True
     session["exam_started"] = False
 
-    return jsonify({"status": "ok"})
+    return jsonify({
+        "status": "ok",
+        "academic_session": academic_session,
+        "term": term
+    })
 
 
 # =======================================================

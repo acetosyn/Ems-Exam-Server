@@ -3,7 +3,7 @@
 from flask import Blueprint, jsonify, request, session
 from pathlib import Path
 from openpyxl import Workbook, load_workbook
-
+from modules.supabase_results import get_academic_settings, update_academic_settings
 from modules.excel_manager import read_results, get_excel_path, EXPECTED_HEADERS, repair_missing_headers
 from modules.class_config import SUPPORTED_CLASSES
 
@@ -546,3 +546,60 @@ def search_admission():
                         matches.append(row_dict)
 
     return jsonify({"results": clean_records(matches)})
+
+
+
+# ============================================================
+# Academic Settings — Current Session + Term
+# ============================================================
+@api_bp.route("/api/academic-settings", methods=["GET"])
+def api_get_academic_settings():
+    if not can_view_results():
+        return jsonify({"error": "Unauthorized"}), 403
+
+    try:
+        settings = get_academic_settings()
+
+        return jsonify({
+            "success": True,
+            "settings": settings
+        })
+
+    except Exception as e:
+        print("ACADEMIC SETTINGS FETCH ERROR:", e)
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+@api_bp.route("/api/academic-settings", methods=["POST"])
+def api_update_academic_settings():
+    if not can_view_results():
+        return jsonify({"error": "Unauthorized"}), 403
+
+    try:
+        data = request.get_json(silent=True) or {}
+
+        session_value = str(data.get("current_session", "")).strip()
+        term_value = str(data.get("current_term", "")).strip().upper()
+
+        if not session_value or not term_value:
+            return jsonify({
+                "success": False,
+                "error": "Session and term are required"
+            }), 400
+
+        update_academic_settings(session_value, term_value)
+
+        return jsonify({
+            "success": True,
+            "message": "Academic settings updated successfully"
+        })
+
+    except Exception as e:
+        print("ACADEMIC SETTINGS UPDATE ERROR:", e)
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500

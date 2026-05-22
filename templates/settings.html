@@ -1,0 +1,258 @@
+<!-- settings.html -->
+{% extends "base.html" %}
+
+{% block title %}Settings — EMIS CBT Server{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="settings-page">
+
+  <section class="settings-hero">
+    <div class="hero-orb orb-one"></div>
+    <div class="hero-orb orb-two"></div>
+
+    <div class="settings-hero-left">
+      <span class="settings-kicker">
+        <i class="fa-solid fa-sliders"></i>
+        System Settings
+      </span>
+
+      <h1>Academic Configuration</h1>
+
+      <p>
+        Manage the active academic session and term used for every exam result saved to Supabase.
+      </p>
+
+      <div class="hero-mini-row">
+        <span><i class="fa-solid fa-database"></i> Supabase Sync</span>
+        <span><i class="fa-solid fa-shield-check"></i> Result Safe</span>
+        <span><i class="fa-solid fa-clock"></i> Live Term</span>
+      </div>
+    </div>
+
+    <div class="settings-live-card">
+      <div class="live-dot"></div>
+      <span>Current Active Term</span>
+      <strong id="activeAcademicLabel">Loading...</strong>
+      <small id="settingsLastUpdated">Checking Supabase...</small>
+    </div>
+  </section>
+
+  <section class="settings-stats-grid">
+
+    <article class="settings-stat-card">
+      <div class="stat-icon cloud">
+        <i class="fa-solid fa-cloud"></i>
+      </div>
+      <div>
+        <span>Supabase Status</span>
+        <strong id="supabaseStatusText">Checking...</strong>
+      </div>
+    </article>
+
+    <article class="settings-stat-card">
+      <div class="stat-icon session">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+      <div>
+        <span>Academic Session</span>
+        <strong id="currentSessionText">--</strong>
+      </div>
+    </article>
+
+    <article class="settings-stat-card">
+      <div class="stat-icon term">
+        <i class="fa-solid fa-layer-group"></i>
+      </div>
+      <div>
+        <span>Current Term</span>
+        <strong id="currentTermText">--</strong>
+      </div>
+    </article>
+
+  </section>
+
+  <section class="settings-grid">
+
+    <article class="settings-card settings-main-card">
+
+      <div class="settings-card-header">
+        <div>
+          <span class="section-kicker">Academic Control</span>
+          <h2>
+            <i class="fa-solid fa-school-circle-check"></i>
+            Session & Term Setup
+          </h2>
+        </div>
+
+        <span class="settings-pill live">
+          <i class="fa-solid fa-circle"></i>
+          Live Setting
+        </span>
+      </div>
+
+      <p class="settings-description">
+        Select the active session and term before students start writing exams.
+      </p>
+
+      <form id="academicSettingsForm" class="settings-form">
+
+        <div class="form-grid two">
+
+          <div class="form-group">
+            <label for="currentSession" class="form-label">Academic Session</label>
+            <div class="select-wrap">
+              <i class="fa-solid fa-calendar-check"></i>
+              <select id="currentSession" class="form-input" required>
+                <option value="">Select session</option>
+                <option value="2025/2026">2025/2026</option>
+                <option value="2026/2027">2026/2027</option>
+                <option value="2027/2028">2027/2028</option>
+                <option value="2028/2029">2028/2029</option>
+                <option value="2029/2030">2029/2030</option>
+                <option value="2030/2031">2030/2031</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="currentTerm" class="form-label">Academic Term</label>
+            <div class="select-wrap">
+              <i class="fa-solid fa-book-open-reader"></i>
+              <select id="currentTerm" class="form-input" required>
+                <option value="">Select term</option>
+                <option value="FIRST TERM">FIRST TERM</option>
+                <option value="SECOND TERM">SECOND TERM</option>
+                <option value="THIRD TERM">THIRD TERM</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="settings-warning-box">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <p>
+            Confirm this setting before exams begin. Changing it later may push new results into another report period.
+          </p>
+        </div>
+
+        <div class="settings-actions">
+          <button type="button" id="refreshAcademicSettings" class="settings-btn ghost">
+            <i class="fa-solid fa-rotate"></i>
+            Refresh
+          </button>
+
+          <button type="submit" id="saveAcademicSettings" class="settings-btn primary">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Settings
+          </button>
+        </div>
+
+        <div id="academicSettingsMsg" class="settings-message"></div>
+
+      </form>
+
+    </article>
+
+    <article class="settings-card">
+      <div class="settings-card-header">
+        <div>
+          <span class="section-kicker orange">Result Pipeline</span>
+          <h2>
+            <i class="fa-solid fa-route"></i>
+            How Results Save
+          </h2>
+        </div>
+      </div>
+
+      <div class="flow-list">
+        <div class="flow-item">
+          <span>1</span>
+          <div>
+            <strong>Student submits exam</strong>
+            <p>Exam Server calculates the raw percentage score.</p>
+          </div>
+        </div>
+
+        <div class="flow-item">
+          <span>2</span>
+          <div>
+            <strong>Score converts to /70</strong>
+            <p>The report-sheet exam score is saved as 70% maximum.</p>
+          </div>
+        </div>
+
+        <div class="flow-item">
+          <span>3</span>
+          <div>
+            <strong>Supabase receives result</strong>
+            <p>Student, class, subject, session, term and time are saved.</p>
+          </div>
+        </div>
+
+        <div class="flow-item">
+          <span>4</span>
+          <div>
+            <strong>Staff software reads it</strong>
+            <p>CA/Test scores are added before report generation.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <section class="settings-card full">
+
+    <div class="settings-card-header">
+      <div>
+        <span class="section-kicker green">Important Rules</span>
+        <h2>
+          <i class="fa-solid fa-shield-halved"></i>
+          Result Saving Rules
+        </h2>
+      </div>
+    </div>
+
+    <div class="rules-grid">
+
+      <div class="rule-box">
+        <i class="fa-solid fa-id-card"></i>
+        <strong>Admission number is the main key</strong>
+        <p>Names can repeat, but admission numbers identify students correctly.</p>
+      </div>
+
+      <div class="rule-box">
+        <i class="fa-solid fa-book"></i>
+        <strong>One result per subject per term</strong>
+        <p>A student should not have duplicate subject results for one term.</p>
+      </div>
+
+      <div class="rule-box">
+        <i class="fa-solid fa-database"></i>
+        <strong>Local + Supabase saving</strong>
+        <p>CSV/Excel remains while Supabase becomes the shared bridge.</p>
+      </div>
+
+      <div class="rule-box">
+        <i class="fa-solid fa-lock"></i>
+        <strong>Backend only</strong>
+        <p>The Supabase service key must never enter frontend JavaScript.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}
