@@ -19,11 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const liveClock = document.getElementById("liveClock");
   const footerYear = document.getElementById("year");
+  const availableSubjectsCount = document.getElementById("availableSubjectsCount");
+
+  const metaYear = document.querySelector('meta[name="exam-year"]');
+  const metaClassArm = document.querySelector('meta[name="student-class-arm"]');
+  const metaClassLevel = document.querySelector('meta[name="student-class-level"]');
+  const metaStream = document.querySelector('meta[name="student-stream"]');
 
   let pushedSubjects = [];
 
   function openExamModal() {
     examModal?.classList.add("show");
+    refreshSubjects();
   }
 
   function closeExamModal() {
@@ -80,12 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!clockParts) return;
 
     const now = new Date();
-
     const hours24 = now.getHours();
     const hours12 = hours24 % 12 || 12;
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    const ampm = hours24 >= 12 ? "PM" : "AM";
 
     const day = now.toLocaleDateString([], { weekday: "short" });
     const date = now.toLocaleDateString([], {
@@ -93,58 +96,140 @@ document.addEventListener("DOMContentLoaded", () => {
       day: "numeric"
     });
 
-    const greeting = getGreeting(hours24);
-
     clockParts.hour.textContent = padTime(hours12);
-    clockParts.minute.textContent = padTime(minutes);
-    clockParts.second.textContent = padTime(seconds);
-    clockParts.ampm.textContent = ampm;
+    clockParts.minute.textContent = padTime(now.getMinutes());
+    clockParts.second.textContent = padTime(now.getSeconds());
+    clockParts.ampm.textContent = hours24 >= 12 ? "PM" : "AM";
     clockParts.date.textContent = `${day}, ${date}`;
-    clockParts.widget.title = `${greeting} • ${day}, ${date}`;
+    clockParts.widget.title = `${getGreeting(hours24)} • ${day}, ${date}`;
   }
 
   function startAdvancedClock() {
     const clockParts = createAdvancedClock();
-
     updateAdvancedClock(clockParts);
     setInterval(() => updateAdvancedClock(clockParts), 1000);
   }
 
-  async function fetchPushedSubjects() {
-    try {
-      const res = await fetch("/api/get_pushed_subjects");
-      const data = await res.json();
+  function getExamYearQuery() {
+    const year = metaYear?.content?.trim();
+    return year ? `?year=${encodeURIComponent(year)}` : "";
+  }
 
-      pushedSubjects = (data.subjects || [])
-        .map((item) => {
-          if (typeof item === "string") return item;
-          return item.subject || "";
-        })
-        .filter(Boolean);
+function normalizeSubjectItem(item) {
+  let subject = "";
 
-    } catch (err) {
-      console.error("Error fetching pushed subjects:", err);
-      pushedSubjects = [];
+  if (typeof item === "string") {
+    subject = item;
+  } else if (item && typeof item === "object") {
+    subject = item.subject || item.name || item.title || "";
+  }
+
+  subject = String(subject || "").trim();
+
+  subject = subject
+    .replace(/[_-]/g, " ")
+    .replace(/\b(JSS1|JSS2|JSS3|SS1|SS2|SS3)\b/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return subject.toUpperCase();
+}
+
+
+
+  function updateSubjectDropdown() {
+    if (!subjectDropdown) return;
+
+    const currentValue = subjectDropdown.value;
+    subjectDropdown.innerHTML = `<option value="">-- Select Subject --</option>`;
+
+    pushedSubjects.forEach((subject) => {
+      const upperSubject = String(subject || "").toUpperCase();
+      const option = document.createElement("option");
+      option.value = upperSubject;
+      option.textContent = upperSubject;
+      subjectDropdown.appendChild(option);
+    });
+
+    if (currentValue) {
+      subjectDropdown.value = currentValue;
+    }
+
+    if (!subjectDropdown.value && startExamBtn) {
+      startExamBtn.disabled = true;
     }
   }
 
-  async function loadSubjectsCard() {
-    await fetchPushedSubjects();
-
+  function renderSubjectsList() {
     if (!subjectsList) return;
 
     subjectsList.innerHTML = "";
 
     if (!pushedSubjects.length) {
-      subjectsList.innerHTML = `<li class="empty">No subjects pushed yet.</li>`;
-    } else {
-      pushedSubjects.forEach((sub) => {
-        const li = document.createElement("li");
-        li.innerHTML = `<i class="fa-solid fa-book"></i> ${escapeHtml(sub)}`;
-        subjectsList.appendChild(li);
-      });
+      subjectsList.innerHTML = `<li class="empty">No subjects available yet.</li>`;
+      return;
     }
 
+    pushedSubjects.forEach((sub) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<i class="fa-solid fa-book"></i> ${escapeHtml(String(sub).toUpperCase())}`;
+      subjectsList.appendChild(li);
+    });
+  }
+
+  async function fetchPushedSubjects() {
+    try {
+      const res = await fetch(`/api/student/subjects${getExamYearQuery()}`);
+
+      if (!res.ok) {
+        throw new Error(`Subject API failed: ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      const seen = new Set();
+
+      pushedSubjects = (data.subjects || [])
+        .map(normalizeSubjectItem)
+        .filter(Boolean)
+        .filter((subject) => {
+          const key = subject.toLowerCase();
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+
+      if (availableSubjectsCount) {
+        availableSubjectsCount.textContent = pushedSubjects.length;
+      }
+
+      if (data.class_arm && metaClassArm) {
+        metaClassArm.content = data.class_arm;
+      }
+
+      if (data.class_level && metaClassLevel) {
+        metaClassLevel.content = data.class_level;
+      }
+
+      if (data.stream && metaStream) {
+        metaStream.content = data.stream;
+      }
+
+    } catch (err) {
+      console.error("Error fetching student subjects:", err);
+      pushedSubjects = [];
+    }
+  }
+  
+
+  async function refreshSubjects() {
+    await fetchPushedSubjects();
+    renderSubjectsList();
+    updateSubjectDropdown();
+  }
+
+  async function loadSubjectsCard() {
+    await refreshSubjects();
     subjectsCard?.classList.add("show");
   }
 
@@ -165,18 +250,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   subjectDropdown?.addEventListener("change", () => {
-    startExamBtn.disabled = !subjectDropdown.value.trim();
+    if (startExamBtn) {
+      startExamBtn.disabled = !subjectDropdown.value.trim();
+    }
   });
 
-  refreshSubjectsBtn?.addEventListener("click", async () => {
-    await loadSubjectsCard();
-  });
+  refreshSubjectsBtn?.addEventListener("click", loadSubjectsCard);
 
   startExamBtn?.addEventListener("click", () => {
-    const subject = subjectDropdown.value.trim();
+    const subject = subjectDropdown?.value?.trim();
+
     if (!subject) return;
 
-    window.location.href = `/exam_dashboard?subject=${encodeURIComponent(subject)}`;
+    const year = metaYear?.content?.trim();
+    const params = new URLSearchParams();
+    params.set("subject", subject);
+
+    if (year) {
+      params.set("year", year);
+    }
+
+    window.location.href = `/exam_dashboard?${params.toString()}`;
   });
 
   startAdvancedClock();
@@ -184,4 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (footerYear) {
     footerYear.textContent = new Date().getFullYear();
   }
+
+  refreshSubjects();
 });

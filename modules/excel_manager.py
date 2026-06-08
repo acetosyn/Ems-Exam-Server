@@ -186,7 +186,8 @@ def get_excel_path(class_category: str, subject: str, year: str):
 EXPECTED_HEADERS = [
     "Student Name",
     "Admission No",
-    "Class",
+    "Class Level",
+    "Class Arm",
     "Subject",
     "Score (%)",
     "Correct",
@@ -195,7 +196,6 @@ EXPECTED_HEADERS = [
     "Time Taken",
     "Submitted At",
 ]
-
 
 # =========================================================
 # Repair missing/corrupt headers
@@ -233,14 +233,25 @@ def repair_missing_headers(ws):
 # Append result to Excel
 # =========================================================
 def append_result_to_excel(result: dict):
-    class_cat = normalize_class_category(
-        result.get("class_category") or result.get("class_name")
+    class_level = normalize_class_category(
+        result.get("class_level")
+        or result.get("class_category")
+        or result.get("class_name")
+        or result.get("class")
     )
+
+    class_arm = str(
+        result.get("class_arm")
+        or result.get("class")
+        or result.get("class_name")
+        or class_level
+    ).upper().strip()
 
     subject = str(result.get("subject", "UNKNOWN")).strip()
     year = str(result.get("year", datetime.now().year)).strip()
 
-    excel_path = get_excel_path(class_cat, subject, year)
+    # Keep folder structure broad: RESULTS/<YEAR>/CLASS/<SS1>/<Subject>/results.xlsx
+    excel_path = get_excel_path(class_level, subject, year)
 
     if not excel_path.exists():
         wb = Workbook()
@@ -272,7 +283,8 @@ def append_result_to_excel(result: dict):
     ws.append([
         result.get("full_name"),
         result.get("admission_number"),
-        class_cat,
+        class_level,
+        class_arm,
         subject.upper(),
         f"{score_percent}%",
         result.get("correct", 0),
@@ -284,7 +296,6 @@ def append_result_to_excel(result: dict):
 
     wb.save(excel_path)
     return True
-
 
 # =========================================================
 # Read Excel results

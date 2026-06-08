@@ -3,9 +3,15 @@
 from flask import Blueprint, jsonify, request, session
 from pathlib import Path
 from openpyxl import Workbook, load_workbook
+
 from modules.supabase_results import get_academic_settings, update_academic_settings
-from modules.excel_manager import read_results, get_excel_path, EXPECTED_HEADERS, repair_missing_headers
-from modules.class_config import SUPPORTED_CLASSES
+from modules.excel_manager import (
+    read_results,
+    get_excel_path,
+    EXPECTED_HEADERS,
+    repair_missing_headers,
+)
+from modules.class_config import SUPPORTED_CLASSES, normalize_class_level
 
 
 api_bp = Blueprint("api_bp", __name__)
@@ -22,19 +28,11 @@ def can_view_results():
 
 
 # ============================================================
-# Helper — Normalize class
+# Helper — Normalize class level
+# Accepts: JSS1A, SS1_GOLD, SS2B -> JSS1, SS1, SS2
 # ============================================================
 def normalize_class(class_cat):
-    value = str(class_cat or "").upper().strip()
-
-    if value in SUPPORTED_CLASSES:
-        return value
-
-    for cls in SUPPORTED_CLASSES:
-        if value.startswith(cls):
-            return cls
-
-    return ""
+    return normalize_class_level(class_cat)
 
 
 # ============================================================
@@ -65,6 +63,50 @@ def normalize_score_value(value):
 
 
 # ============================================================
+# Helper — Normalize result record
+# Supports old Excel format:
+#   Class
+# And new Excel format:
+#   Class Level, Class Arm
+# ============================================================
+def normalize_result_record(row_dict, class_cat="", subject_name="", year=""):
+    class_level_raw = (
+        row_dict.get("Class Level")
+        or row_dict.get("Class Category")
+        or row_dict.get("Class")
+        or class_cat
+    )
+
+    class_arm_raw = (
+        row_dict.get("Class Arm")
+        or row_dict.get("Class")
+        or class_level_raw
+    )
+
+    class_level = normalize_class(class_level_raw) or str(class_level_raw or "").upper().strip()
+    class_arm = str(class_arm_raw or class_level).upper().strip()
+
+    row_dict["Year"] = row_dict.get("Year") or year
+
+    row_dict["Class Level"] = class_level
+    row_dict["Class Arm"] = class_arm
+
+    # Backward compatibility for old admin frontend JS
+    row_dict["Class"] = class_arm or class_level
+    row_dict["Class Category"] = class_level
+
+    row_dict["Subject"] = (
+        row_dict.get("Subject")
+        or str(subject_name or "").replace("_", " ").upper()
+    )
+
+    row_dict["Subject Folder"] = subject_name
+    row_dict["Score Number"] = normalize_score_value(row_dict.get("Score (%)"))
+
+    return row_dict
+
+
+# ============================================================
 # Helper — Read direct Excel file without creating folders
 # ============================================================
 def read_excel_file_direct(excel_path: Path):
@@ -82,15 +124,16 @@ def read_excel_file_direct(excel_path: Path):
     if len(rows) < 2:
         return []
 
+    headers = list(rows[0])
     results = []
 
     for row in rows[1:]:
         values = list(row)
 
-        if len(values) < len(EXPECTED_HEADERS):
-            values += [None] * (len(EXPECTED_HEADERS) - len(values))
+        if len(values) < len(headers):
+            values += [None] * (len(headers) - len(values))
 
-        row_dict = dict(zip(EXPECTED_HEADERS, values[:len(EXPECTED_HEADERS)]))
+        row_dict = dict(zip(headers, values[:len(headers)]))
 
         if row_dict.get("Student Name") or row_dict.get("Admission No"):
             results.append(row_dict)
@@ -137,7 +180,7 @@ def get_classes_for_year():
 
     classes = sorted([
         f.name for f in class_root.iterdir()
-        if f.is_dir() and f.name in SUPPORTED_CLASSES
+        if f.is_dir() and normalize_class(f.name) in SUPPORTED_CLASSES
     ])
 
     return jsonify({"classes": classes})
@@ -189,10 +232,7 @@ def load_excel_results():
         records = read_results(class_cat, subject, year)
 
         for r in records:
-            r["Year"] = year
-            r["Class"] = r.get("Class") or class_cat
-            r["Class Category"] = class_cat
-            r["Subject Folder"] = subject
+            normalize_result_record(r, class_cat, subject, year)
 
         return jsonify({"results": clean_records(records)}), 200
 
@@ -258,10 +298,7 @@ def api_get_results():
         records = read_results(class_cat, subject, year)
 
         for r in records:
-            r["Year"] = year
-            r["Class"] = r.get("Class") or class_cat
-            r["Class Category"] = class_cat
-            r["Subject Folder"] = subject
+            normalize_result_record(r, class_cat, subject, year)
 
         return jsonify({"results": clean_records(records)}), 200
 
@@ -279,8 +316,10 @@ def api_get_all_results():
         return jsonify({"error": "Unauthorized", "results": []}), 403
 
     year_filter = request.args.get("year", "all").strip()
-    class_filter = request.args.get("class", "all").strip().upper()
+    class_filter_raw = request.args.get("class", "all").strip()
     subject_filter = request.args.get("subject", "all").strip()
+
+    class_filter = normalize_class(class_filter_raw) if class_filter_raw.lower() != "all" else "all"
 
     if not RESULTS_DIR.exists():
         return jsonify({
@@ -321,7 +360,7 @@ def api_get_all_results():
             if not class_cat:
                 continue
 
-            if class_filter and class_filter.lower() != "all" and class_cat != class_filter:
+            if class_filter and class_filter != "all" and class_cat != class_filter:
                 continue
 
             for subject_folder in class_folder.iterdir():
@@ -349,12 +388,7 @@ def api_get_all_results():
                     continue
 
                 for r in records:
-                    r["Year"] = year
-                    r["Class"] = r.get("Class") or class_cat
-                    r["Class Category"] = class_cat
-                    r["Subject"] = r.get("Subject") or subject_name.replace("_", " ").upper()
-                    r["Subject Folder"] = subject_name
-                    r["Score Number"] = normalize_score_value(r.get("Score (%)"))
+                    normalize_result_record(r, class_cat, subject_name, year)
 
                     all_results.append(r)
 
@@ -388,7 +422,6 @@ def delete_excel_results():
         return jsonify({"error": "Unauthorized"}), 403
 
     data = request.get_json() or {}
-
     delete_list = data.get("delete_items", [])
 
     if not delete_list:
@@ -398,13 +431,16 @@ def delete_excel_results():
 
     for item in delete_list:
         year = str(item.get("Year") or data.get("year") or "").strip()
+
         class_cat = normalize_class(
-            item.get("Class Category")
+            item.get("Class Level")
+            or item.get("Class Category")
             or item.get("class_category")
             or item.get("Class")
             or data.get("class_category")
             or data.get("class")
         )
+
         subject = str(
             item.get("Subject Folder")
             or item.get("Subject")
@@ -437,7 +473,6 @@ def delete_excel_results():
             continue
 
         results = read_results(class_cat, subject, year)
-
         updated = []
 
         for r in results:
@@ -457,17 +492,20 @@ def delete_excel_results():
         ws.append(EXPECTED_HEADERS)
 
         for row in updated:
+            normalized = normalize_result_record(row, class_cat, subject, year)
+
             ws.append([
-                row.get("Student Name", ""),
-                row.get("Admission No", ""),
-                row.get("Class", ""),
-                row.get("Subject", ""),
-                row.get("Score (%)", ""),
-                row.get("Correct", ""),
-                row.get("Total", ""),
-                row.get("Status", ""),
-                row.get("Time Taken", ""),
-                row.get("Submitted At", ""),
+                normalized.get("Student Name", ""),
+                normalized.get("Admission No", ""),
+                normalized.get("Class Level", ""),
+                normalized.get("Class Arm", ""),
+                normalized.get("Subject", ""),
+                normalized.get("Score (%)", ""),
+                normalized.get("Correct", ""),
+                normalized.get("Total", ""),
+                normalized.get("Status", ""),
+                normalized.get("Time Taken", ""),
+                normalized.get("Submitted At", ""),
             ])
 
         wb.save(excel_path)
@@ -538,15 +576,10 @@ def search_admission():
                     name = str(row_dict.get("Student Name", "")).strip().lower()
 
                     if q in admission or q in name:
-                        row_dict["Year"] = year
-                        row_dict["Class"] = row_dict.get("Class") or class_cat
-                        row_dict["Class Category"] = class_cat
-                        row_dict["Subject"] = row_dict.get("Subject") or subject
-                        row_dict["Subject Folder"] = subject
+                        normalize_result_record(row_dict, class_cat, subject, year)
                         matches.append(row_dict)
 
     return jsonify({"results": clean_records(matches)})
-
 
 
 # ============================================================

@@ -1,396 +1,358 @@
 /* ============================================================
-   EMIS RESULT ENGINE — result.js (2025 v15)
+   EMIS RESULT ENGINE — result.js
    ------------------------------------------------------------
-   ✔ Confetti for high scores (≥ 70)
-   ✔ Animated score ring
-   ✔ Animated stat bars under each stat
-   ✔ Dynamic PDF Download button
-   ✔ Shareable Result Link button
-   ✔ Rank Badges (Platinum, Gold, Silver, Bronze)
-   ✔ Auto-save exam result → backend
-   ✔ Perfect compatibility with redesigned result.html + result.css
-   ✔ Clean, modern, optimized animations
+   Student-side completion confirmation only.
+
+   Includes:
+   - Live clock
+   - Theme toggle
+   - Completion info
+   - One-time party celebration rain
 ===============================================================*/
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (!window.resultData || !window.studentData) {
-        console.error("❌ Missing resultData or studentData");
-        return;
-    }
+  initLiveClock();
+  initThemeToggle();
+  injectCompletionInfo();
+  setupBackButton();
+  overrideBackNavigation();
 
-    injectStudentInfo();
-    populateResult();
-    animateScoreRing(window.resultData.score || 0);
-    animateStatBars();
-    assignBadge(window.resultData.score);
-    addPDFDownloadButton();
-    addShareButton();
-    // sendResultToServer();
-    setupBackButton();
-    overrideBackNavigation();
-
-    if ((window.resultData.score || 0) >= 70) {
-        startConfettiBurst();
-    }
+  setTimeout(() => {
+    startSubmissionCelebration();
+  }, 450);
 });
 
 /* ------------------------------------------------------------
-   1. Inject Student Information
+   1. Live Clock
 -------------------------------------------------------------*/
-function injectStudentInfo() {
-    const s = window.studentData;
+function initLiveClock() {
+  const clock = document.getElementById("liveClock");
+  if (!clock) return;
 
-    setText("studentName", s.full_name);
-    setText("studentID", s.admission_number);
-    setText("studentClass", s.class);
-    setText("studentCategory", s.class_category);
-    setText("studentSysID", s.id);
-}
+  function updateClock() {
+    const now = new Date();
 
-/* ------------------------------------------------------------
-   2. Populate Result Values — WAEC Standard (70% Pass)
--------------------------------------------------------------*/
-function populateResult() {
-    const r = window.resultData;
-
-    const correct  = Number(r.correct || 0);
-    const total    = Number(r.total || 0);
-    const answered = Number(r.answered || 0);
-
-    /* -------------------------------
-       BASIC COUNTS
-    ------------------------------- */
-    setText("correctAnswers", correct);
-    setText("totalQuestions", total);
-    setText("incorrectAnswers", total - correct);
-    setText("answeredQuestions", answered);
-    setText("skippedQuestions", total - answered);
-    setText("flaggedQuestions", r.flagged || 0);
-    setText("tabSwitches", r.tabSwitches || 0);
-
-    setText("subjectName", r.subject);
-
-    /* -------------------------------
-       ACCURACY (%)
-    ------------------------------- */
-    const accuracy =
-        answered > 0 ? Math.round((correct / answered) * 100) : 0;
-    setText("accuracyRate", accuracy + "%");
-
-    /* -------------------------------
-       TIME
-    ------------------------------- */
-    setText("timeTaken", formatTime(r.time_taken || 0));
-
-    const avg =
-        answered > 0 ? Math.round((r.time_taken || 0) / answered) : 0;
-    setText("avgTimePerQuestion", avg + "s");
-
-    /* -------------------------------
-       COMPLETION DATE
-    ------------------------------- */
-    const completion = r.submitted_at
-        ? new Date(r.submitted_at).toLocaleString()
-        : "--";
-    setText("completionDate", completion);
-
-    setText("examStatus", r.status || "Completed");
-
-    /* ======================================================
-       PASS / FAIL — WAEC RULE (70%)
-    ====================================================== */
-    const passMark = Math.ceil(total * 0.7);
-    const passed   = correct >= passMark;
-
-    const pf = document.getElementById("passFail");
-    const resultMessage = document.getElementById("resultMessage");
-
-    // reset state
-    resultMessage.classList.remove("pass-message", "fail-message");
-
-    if (passed) {
-        pf.textContent = "PASS ✓";
-        pf.style.color = "#16a34a";
-
-        resultMessage.classList.add("pass-message");
-        resultMessage.innerHTML = `
-            🎉 <strong>Congratulations!</strong> You passed this exam.
-            <small>
-                Pass Mark: ${passMark} / ${total} (70%)
-            </small>
-        `;
-
-        // 🎊 celebrate once
-        setTimeout(() => {
-            startConfettiBurst();
-        }, 400);
-
-    } else {
-        pf.textContent = "FAIL ✗";
-        pf.style.color = "#dc2626";
-
-        resultMessage.classList.add("fail-message");
-        resultMessage.innerHTML = `
-            ❌ <strong>Keep Trying!</strong> You did not meet the pass mark.
-            <small>
-                Pass Mark: ${passMark} / ${total} (70%)
-            </small>
-        `;
-    }
-
-    /* -------------------------------
-       BIG RAW SCORE DISPLAY
-    ------------------------------- */
-    const rawScoreText = document.getElementById("rawScoreText");
-    if (rawScoreText) {
-        rawScoreText.textContent = `Score: ${correct} / ${total}`;
-    }
-}
-
-
-
-/* ------------------------------------------------------------
-   3. Score Ring Animation
--------------------------------------------------------------*/
-function animateScoreRing(score) {
-    const circle = document.getElementById("progressCircle");
-    const text = document.getElementById("scoreDisplay");
-
-    const radius = 40;
-    const circumference = 2 * Math.PI * radius;
-
-    circle.style.strokeDasharray = `${circumference}`;
-
-    let current = 0;
-    const timer = setInterval(() => {
-        current++;
-        if (current >= score) {
-            current = score;
-            clearInterval(timer);
-        }
-
-        const offset = circumference - (current / 100) * circumference;
-        circle.style.strokeDashoffset = offset;
-        text.textContent = current + "%";
-
-        if (current >= 90) circle.style.stroke = "#a855f7";
-        else if (current >= 80) circle.style.stroke = "#eab308";
-        else if (current >= 70) circle.style.stroke = "#22c55e";
-        else if (current >= 50) circle.style.stroke = "#f59e0b";
-        else circle.style.stroke = "#dc2626";
-
-    }, 14);
-}
-
-/* ------------------------------------------------------------
-   4. Stat Bar Fill Animation
--------------------------------------------------------------*/
-function animateStatBars() {
-    const fills = document.querySelectorAll(".stat-bar-fill");
-
-    fills.forEach(bar => {
-        bar.style.width = "0%";
-
-        setTimeout(() => {
-            const statType = bar.dataset.stat;
-            let percent = 50;
-
-            if (statType === "accuracy") percent = window.resultData.correct;
-            if (statType === "incorrect") percent = (window.resultData.total - window.resultData.correct);
-            if (statType === "tabs") percent = Math.min(window.resultData.tabSwitches * 25, 100);
-            if (statType === "time") percent = Math.min(window.resultData.time_taken / 2, 100);
-
-            bar.style.width = Math.min(percent, 100) + "%";
-        }, 400);
+    clock.textContent = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
     });
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
 }
 
 /* ------------------------------------------------------------
-   5. Award Performance Badge
+   2. Theme Toggle
 -------------------------------------------------------------*/
-function assignBadge(score) {
-    const badgeSlot = document.getElementById("resultBadgeSlot");
-    const badge = document.createElement("div");
-    badge.className = "result-badge";
+function initThemeToggle() {
+  const btn = document.getElementById("themeToggle");
+  if (!btn) return;
 
-    if (score >= 90) {
-        badge.innerHTML = "🏆 Platinum Performer";
-        badge.style.background = "#a855f7";
-    } else if (score >= 80) {
-        badge.innerHTML = "🥇 Gold Level";
-        badge.style.background = "#eab308";
-    } else if (score >= 70) {
-        badge.innerHTML = "🥈 Silver Level";
-        badge.style.background = "#6b7280";
-    } else if (score >= 50) {
-        badge.innerHTML = "🥉 Bronze Level";
-        badge.style.background = "#d97706";
-    } else {
-        badge.innerHTML = "📘 Keep Improving";
-        badge.style.background = "#0ea5e9";
-    }
+  const savedTheme = localStorage.getItem("emis_result_theme");
 
-    badgeSlot.appendChild(badge);
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    btn.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+  }
+
+  btn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    const isDark = document.body.classList.contains("dark-mode");
+
+    localStorage.setItem("emis_result_theme", isDark ? "dark" : "light");
+
+    btn.innerHTML = isDark
+      ? `<i class="fa-solid fa-sun"></i>`
+      : `<i class="fa-solid fa-moon"></i>`;
+  });
 }
 
 /* ------------------------------------------------------------
-   6. Confetti Burst Animation
+   3. Completion Info
 -------------------------------------------------------------*/
-function startConfettiBurst() {
-    const end = Date.now() + 2500;
+function injectCompletionInfo() {
+  const result = window.resultData || {};
+  const student = window.studentData || {};
 
-    (function frame() {
-        for (let i = 0; i < 6; i++) {
-            const conf = document.createElement("div");
-            conf.className = "confetti-piece";
-            conf.style.left = Math.random() * 100 + "%";
-            conf.style.animationDuration = 2 + Math.random() * 3 + "s";
-            conf.style.background = randomColor();
-            document.body.appendChild(conf);
+  const subject = cleanText(result.subject || result.Subject || "your exam");
+  const studentName = cleanText(student.full_name || student.name || "Student");
+  const admissionNo = cleanText(
+    student.admission_number ||
+    student.admission_no ||
+    student.student_id ||
+    "--"
+  );
 
-            setTimeout(() => conf.remove(), 5000);
-        }
+  const className = cleanText(
+    student.class_name ||
+    student.class ||
+    result.class_name ||
+    result.Class ||
+    "--"
+  );
 
-        if (Date.now() < end) requestAnimationFrame(frame);
-    })();
-}
+  const classCategory = cleanText(
+    student.class_category ||
+    result.class_category ||
+    result["Class Category"] ||
+    "--"
+  );
 
-function randomColor() {
-    const c = ["#38bdf8", "#34d399", "#fbbf24", "#fb7185", "#c084fc"];
-    return c[Math.floor(Math.random() * c.length)];
-}
+  const submittedAt = formatDateTime(
+    result.submitted_at ||
+    result.submittedAt ||
+    result["Submitted At"]
+  );
 
+  setText("studentName", studentName);
+  setText("studentID", admissionNo);
+  setText("studentClass", className);
+  setText("studentCategory", classCategory);
+  setText("studentSysID", student.id || admissionNo);
 
-/* ------------------------------------------------------------
-   🎉 PARTY POP CONFETTI — LEGACY CELEBRATION
--------------------------------------------------------------*/
-function partyPopConfetti() {
-    const colors = ["#22c55e", "#38bdf8", "#fbbf24", "#a855f7", "#fb7185"];
+  setText("subjectName", subject);
+  setText("examStatus", "Completed");
+  setText("completionDate", submittedAt);
 
-    for (let i = 0; i < 35; i++) {
-        const conf = document.createElement("div");
-
-        conf.style.position = "fixed";
-        conf.style.width = "10px";
-        conf.style.height = "10px";
-        conf.style.borderRadius = "50%";
-        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
-        conf.style.left = Math.random() * 100 + "vw";
-        conf.style.top = "-12px";
-        conf.style.opacity = "0.95";
-        conf.style.zIndex = "9999";
-        conf.style.animation = `partyFall ${2 + Math.random() * 2}s ease-out forwards`;
-
-        document.body.appendChild(conf);
-
-        setTimeout(() => conf.remove(), 5000);
-    }
-}
-
-
-
-/* ------------------------------------------------------------
-   7. Save Result to Backend
--------------------------------------------------------------*/
-function sendResultToServer() {
-    console.warn("⚠ sendResultToServer blocked — submission already handled by exam-core.js");
+  const wrapper = document.querySelector(".result-wrapper");
+  if (wrapper) {
+    wrapper.dataset.subject = subject;
+  }
 }
 
 /* ------------------------------------------------------------
-   8. PDF Download Button
--------------------------------------------------------------*/
-function addPDFDownloadButton() {
-    const btn = document.createElement("button");
-    btn.className = "btn-secondary pdf-btn";
-    btn.innerHTML = `<i class="fa-solid fa-file-pdf"></i> Download PDF`;
-
-    btn.addEventListener("click", () => {
-        fillPrintSummary();
-        window.print();
-    });
-
-    document.querySelector(".result-topbar-actions").appendChild(btn);
-}
-
-/* ------------------------------------------------------------
-   9. Shareable Result Link
--------------------------------------------------------------*/
-function addShareButton() {
-    const btn = document.createElement("button");
-    btn.className = "btn-light share-btn";
-    btn.innerHTML = `<i class="fa-solid fa-share-from-square"></i> Share Result`;
-
-    btn.addEventListener("click", async () => {
-        const link = window.location.href;
-        try {
-            await navigator.clipboard.writeText(link);
-            alert("🔗 Result link copied to clipboard!");
-        } catch {
-            alert("Unable to copy. Share manually:\n" + link);
-        }
-    });
-
-    document.querySelector(".result-topbar-actions").appendChild(btn);
-}
-
-/* ------------------------------------------------------------
-   10. Back Button
+   4. Back Button
 -------------------------------------------------------------*/
 function setupBackButton() {
-    document.getElementById("backToDashboardBtn")
-        .addEventListener("click", () => {
-            window.location.href = "/back_to_exam_dashboard";
-        });
+  const btn = document.getElementById("backToDashboardBtn");
+  if (!btn) return;
+
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "/back_to_exam_dashboard";
+  });
 }
 
-
 /* ------------------------------------------------------------
-   11. Disable Browser Back
+   5. Disable Browser Back To Exam Page
 -------------------------------------------------------------*/
 function overrideBackNavigation() {
+  try {
     history.pushState(null, "", window.location.href);
 
     window.onpopstate = () => {
-        window.location.href = "/back_to_exam_dashboard";
+      window.location.href = "/back_to_exam_dashboard";
     };
+  } catch (error) {
+    console.warn("Back navigation override unavailable:", error);
+  }
 }
 
+/* ------------------------------------------------------------
+   6. One-Time Submission Celebration
+-------------------------------------------------------------*/
+function startSubmissionCelebration() {
+  const oldLayer = document.getElementById("submissionCelebrationLayer");
+  if (oldLayer) oldLayer.remove();
+
+  const layer = document.createElement("div");
+  layer.id = "submissionCelebrationLayer";
+  layer.className = "submission-celebration-layer";
+  document.body.appendChild(layer);
+
+  injectCelebrationStyles();
+
+  const emojis = ["🎈", "🎉", "🎊", "⭐", "✨", "🏆", "💫"];
+  const colors = ["#2563eb", "#8b5cf6", "#06b6d4", "#22c55e", "#f59e0b", "#ef4444", "#ec4899"];
+
+  for (let i = 0; i < 55; i++) {
+    const item = document.createElement("div");
+    const isEmoji = Math.random() > 0.45;
+
+    item.className = isEmoji ? "party-emoji" : "party-confetti";
+
+    if (isEmoji) {
+      item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    } else {
+      item.style.background = colors[Math.floor(Math.random() * colors.length)];
+      item.style.borderRadius = Math.random() > 0.5 ? "999px" : "4px";
+    }
+
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.animationDelay = Math.random() * 0.9 + "s";
+    item.style.animationDuration = 3.5 + Math.random() * 3.2 + "s";
+    item.style.transform = `rotate(${Math.random() * 360}deg)`;
+    item.style.setProperty("--drift", `${Math.random() * 180 - 90}px`);
+    item.style.setProperty("--spin", `${Math.random() * 720 - 360}deg`);
+
+    layer.appendChild(item);
+  }
+
+  for (let i = 0; i < 10; i++) {
+    const balloon = document.createElement("div");
+    balloon.className = "party-balloon";
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.animationDelay = Math.random() * 1.2 + "s";
+    balloon.style.animationDuration = 6 + Math.random() * 2 + "s";
+    balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+    balloon.style.setProperty("--drift", `${Math.random() * 140 - 70}px`);
+
+    layer.appendChild(balloon);
+  }
+
+  setTimeout(() => {
+    layer.remove();
+  }, 8500);
+}
+
+/* ------------------------------------------------------------
+   7. Inject Celebration CSS From JS
+-------------------------------------------------------------*/
+function injectCelebrationStyles() {
+  if (document.getElementById("submissionCelebrationStyles")) return;
+
+  const style = document.createElement("style");
+  style.id = "submissionCelebrationStyles";
+
+  style.textContent = `
+    .submission-celebration-layer {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 99999;
+    }
+
+    .party-emoji,
+    .party-confetti,
+    .party-balloon {
+      position: absolute;
+      top: -60px;
+      will-change: transform, opacity;
+    }
+
+    .party-emoji {
+      font-size: clamp(1.3rem, 2.4vw, 2.5rem);
+      filter: drop-shadow(0 8px 12px rgba(15, 23, 42, 0.18));
+      animation: partyRain linear forwards;
+    }
+
+    .party-confetti {
+      width: 12px;
+      height: 18px;
+      opacity: 0.95;
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.16);
+      animation: partyRain linear forwards;
+    }
+
+    .party-balloon {
+      width: 34px;
+      height: 44px;
+      border-radius: 50% 50% 45% 45%;
+      opacity: 0.92;
+      box-shadow:
+        inset -8px -10px 14px rgba(15, 23, 42, 0.16),
+        inset 6px 7px 10px rgba(255, 255, 255, 0.35),
+        0 14px 26px rgba(15, 23, 42, 0.18);
+      animation: balloonRain ease-in forwards;
+    }
+
+    .party-balloon::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -7px;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 8px solid currentColor;
+      color: inherit;
+    }
+
+    .party-balloon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -42px;
+      width: 1px;
+      height: 38px;
+      background: rgba(15, 23, 42, 0.25);
+      transform: translateX(-50%);
+    }
+
+    @keyframes partyRain {
+      0% {
+        transform: translate3d(0, -80px, 0) rotate(0deg) scale(0.85);
+        opacity: 0;
+      }
+
+      8% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate3d(var(--drift), 115vh, 0) rotate(var(--spin)) scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes balloonRain {
+      0% {
+        transform: translate3d(0, -90px, 0) rotate(-8deg);
+        opacity: 0;
+      }
+
+      12% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate3d(var(--drift), 118vh, 0) rotate(10deg);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .submission-celebration-layer {
+        display: none !important;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
 
 /* ------------------------------------------------------------
    Utilities
 -------------------------------------------------------------*/
-function setText(id, val) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val;
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value || "--";
 }
 
-function formatTime(seconds) {
-    const m = Math.floor(seconds / 60);
-    const s = (seconds % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
+function cleanText(value) {
+  return String(value || "").trim();
 }
 
+function formatDateTime(value) {
+  if (!value) return "Submitted";
 
+  const date = new Date(value);
 
-function fillPrintSummary() {
-    const r = window.resultData;
-    const s = window.studentData;
+  if (Number.isNaN(date.getTime())) {
+    return String(value);
+  }
 
-    document.getElementById("p_studentName").textContent = s.full_name;
-    document.getElementById("p_studentID").textContent = s.admission_number;
-    document.getElementById("p_studentClass").textContent = s.class;
-    document.getElementById("p_studentCategory").textContent = s.class_category;
-
-    document.getElementById("p_subject").textContent = r.subject;
-    document.getElementById("p_rawScore").textContent = `${r.correct} / ${r.total}`;
-    document.getElementById("p_correct").textContent = r.correct;
-    document.getElementById("p_total").textContent = r.total;
-    document.getElementById("p_accuracy").textContent =
-        r.answered > 0 ? Math.round((r.correct / r.answered) * 100) + "%" : "0%";
-
-    document.getElementById("p_time").textContent = formatTime(r.time_taken);
-    document.getElementById("p_status").textContent = r.status;
-    document.getElementById("p_date").textContent =
-        new Date(r.submitted_at).toLocaleString();
+  return date.toLocaleString([], {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 }
-

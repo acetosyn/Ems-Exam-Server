@@ -1,13 +1,24 @@
-# push.py — FULL JSS1–SS3 YEAR-AWARE EMIS PORTAL PUSH SYSTEM
+# push.py — EMIS PORTAL PUSH SYSTEM
+# Supports:
+#   - Broad class push: JSS1, SS1, SS3
+#   - Exact class-arm push: JSS1A, SS3_GOLD, SS3B
+#   - Per-target active years
+#   - Backward compatibility with old push.js
 
 import os
 import json
 import shutil
-from flask import Blueprint, jsonify, request, session
 from pathlib import Path
+from datetime import datetime
+from flask import Blueprint, jsonify, request, session
 
-from modules.class_config import SUPPORTED_CLASSES
-
+from modules.class_config import (
+    SUPPORTED_CLASSES,
+    CLASS_ARMS,
+    normalize_class_level,
+    normalize_class_arm,
+    is_valid_class_arm,
+)
 
 push_bp = Blueprint("push_bp", __name__)
 
@@ -26,41 +37,143 @@ CLASS_ACTIVE_YEARS_FILE = PORTAL_ROOT / "class_active_years.json"
 # ============================================================
 def read_json(path, default=None):
     try:
+        path = Path(path)
         if path.exists():
             return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"JSON READ ERROR [{path}]:", e)
+
     return default
 
 
 def write_json(path, data):
+    path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=4), encoding="utf-8")
-
-
-def normalize_class(class_cat):
-    class_cat = str(class_cat or "").upper().strip()
-
-    if class_cat in SUPPORTED_CLASSES:
-        return class_cat
-
-    for cls in SUPPORTED_CLASSES:
-        if class_cat.startswith(cls):
-            return cls
-
-    return ""
+    path.write_text(json.dumps(data, indent=4, ensure_ascii=False), encoding="utf-8")
 
 
 # ============================================================
-# GLOBAL LATEST YEAR — kept for backward compatibility
+# CLASS / ARM HELPERS
+# ============================================================
+def normalize_class(class_cat):
+    """
+    Backward-compatible helper.
+    Returns broad class level only:
+    SS3_GOLD -> SS3
+    JSS1A -> JSS1
+    """
+    return normalize_class_level(class_cat)
+
+
+def normalize_target(value, fallback_level=""):
+    """
+    Preserves exact target:
+    SS3_GOLD -> SS3_GOLD
+    SS3B -> SS3B
+    JSS1A -> JSS1A
+    SS3 -> SS3
+    """
+    level = normalize_class_level(fallback_level or value)
+    arm = normalize_class_arm(value, level)
+
+    if not level:
+        level = normalize_class_level(arm)
+
+    if not arm:
+        arm = level
+
+    if not level or not arm:
+        return "", ""
+
+    return level, arm
+
+
+def get_payload_target(payload):
+    """
+    Supports both new and old payloads.
+
+    Old:
+      { class_category: "SS3" }
+
+    New:
+      { class_level: "SS3", class_arm: "SS3_GOLD" }
+    """
+    raw_level = (
+        payload.get("class_level")
+        or payload.get("class_category")
+        or payload.get("class")
+        or ""
+    )
+
+    raw_arm = (
+        payload.get("class_arm")
+        or payload.get("target_arm")
+        or payload.get("target_class")
+        or payload.get("class_category")
+        or raw_level
+    )
+
+    class_level, target_arm = normalize_target(raw_arm, raw_level)
+
+    if not class_level:
+        class_level = normalize_class_level(raw_level)
+
+    if not target_arm:
+        target_arm = class_level
+
+    return class_level, target_arm
+
+
+def is_valid_target(class_level, target_arm):
+    if not class_level or not target_arm:
+        return False
+
+    if class_level not in SUPPORTED_CLASSES:
+        return False
+
+    if target_arm == class_level:
+        return True
+
+    return target_arm in CLASS_ARMS.get(class_level, [])
+
+
+def get_student_target_meta(student):
+    class_level = normalize_class_level(
+        student.get("class_category")
+        or student.get("class_level")
+        or student.get("class")
+        or ""
+    )
+
+    class_arm = normalize_class_arm(
+        student.get("class_arm")
+        or student.get("class")
+        or student.get("class_category")
+        or class_level,
+        class_level
+    )
+
+    if not class_level:
+        class_level = normalize_class_level(class_arm)
+
+    if not class_arm:
+        class_arm = class_level
+
+    return class_level, class_arm
+
+
+# ============================================================
+# GLOBAL LATEST YEAR — backward compatibility
 # ============================================================
 def get_latest_year():
     if LATEST_YEAR_FILE.exists():
-        return LATEST_YEAR_FILE.read_text(encoding="utf-8").strip()
+        year = LATEST_YEAR_FILE.read_text(encoding="utf-8").strip()
+        return year or None
     return None
 
 
 def set_latest_year(year):
+    PORTAL_ROOT.mkdir(parents=True, exist_ok=True)
     LATEST_YEAR_FILE.write_text(str(year), encoding="utf-8")
 
 
@@ -70,52 +183,93 @@ def clear_latest_year():
 
 
 # ============================================================
-# CLASS ACTIVE YEAR
+# ACTIVE YEAR MAP
 # ============================================================
 def get_class_active_years():
     return read_json(CLASS_ACTIVE_YEARS_FILE, default={}) or {}
 
 
 def save_class_active_years(data):
-    write_json(CLASS_ACTIVE_YEARS_FILE, data)
+    write_json(CLASS_ACTIVE_YEARS_FILE, data or {})
 
 
 def get_active_year_for_class(class_cat):
-    class_cat = normalize_class(class_cat)
-    if not class_cat:
+    """
+    Backward-compatible public helper.
+
+    Accepts:
+      SS3_GOLD -> checks SS3_GOLD first, then SS3
+      SS3      -> checks SS3
+    """
+    class_level, target_arm = normalize_target(class_cat)
+
+    if not class_level:
         return None
 
     active_years = get_class_active_years()
-    return active_years.get(class_cat)
+
+    if target_arm and target_arm in active_years:
+        return active_years.get(target_arm)
+
+    return active_years.get(class_level)
+
+
+def get_active_year_for_target(target_arm, fallback_level=""):
+    class_level, target_arm = normalize_target(target_arm, fallback_level)
+
+    if not class_level:
+        return None
+
+    active_years = get_class_active_years()
+
+    return active_years.get(target_arm) or active_years.get(class_level)
 
 
 def set_active_year_for_class(class_cat, year):
-    class_cat = normalize_class(class_cat)
-    if not class_cat:
+    """
+    Backward-compatible name, but now preserves arm.
+    """
+    class_level, target_arm = normalize_target(class_cat)
+
+    if not class_level or not target_arm:
         return
 
     active_years = get_class_active_years()
-    active_years[class_cat] = str(year)
+    active_years[target_arm] = str(year)
+    save_class_active_years(active_years)
+
+    set_latest_year(year)
+
+
+def set_active_year_for_target(target_arm, year, class_level=""):
+    class_level, target_arm = normalize_target(target_arm, class_level)
+
+    if not class_level or not target_arm:
+        return
+
+    active_years = get_class_active_years()
+    active_years[target_arm] = str(year)
     save_class_active_years(active_years)
 
     set_latest_year(year)
 
 
 def remove_active_year_for_class(class_cat):
-    class_cat = normalize_class(class_cat)
-    if not class_cat:
+    class_level, target_arm = normalize_target(class_cat)
+
+    if not class_level:
         return
 
     active_years = get_class_active_years()
 
-    if class_cat in active_years:
-        del active_years[class_cat]
+    if target_arm in active_years:
+        del active_years[target_arm]
 
     save_class_active_years(active_years)
 
 
 # ============================================================
-# RECALCULATE ACTIVE YEARS PER CLASS
+# RECALCULATE ACTIVE YEARS
 # ============================================================
 def recalculate_active_years():
     active = {}
@@ -134,33 +288,42 @@ def recalculate_active_years():
         if not year.isdigit():
             continue
 
-        for class_folder in year_folder.iterdir():
-            if not class_folder.is_dir():
+        for target_folder in year_folder.iterdir():
+            if not target_folder.is_dir():
                 continue
 
-            class_cat = normalize_class(class_folder.name)
+            target_name = target_folder.name
+            class_level, target_arm = normalize_target(target_name)
 
-            if not class_cat:
+            if not class_level or not target_arm:
                 continue
 
-            pushed_file = class_folder / "pushed_subjects.json"
+            pushed_file = target_folder / "pushed_subjects.json"
 
             if not pushed_file.exists():
                 continue
 
             data = read_json(pushed_file, default={}) or {}
-            subjects = data.get("subjects", [])
+
+            if isinstance(data, dict):
+                subjects = data.get("subjects", [])
+            elif isinstance(data, list):
+                subjects = data
+            else:
+                subjects = []
 
             if subjects:
-                if class_cat not in active:
-                    active[class_cat] = year
+                previous_year = active.get(target_arm)
+
+                if not previous_year:
+                    active[target_arm] = year
                 else:
-                    active[class_cat] = max(active[class_cat], year)
+                    active[target_arm] = str(max(int(previous_year), int(year)))
 
     save_class_active_years(active)
 
     if active:
-        global_latest = max(active.values())
+        global_latest = str(max(int(y) for y in active.values()))
         set_latest_year(global_latest)
     else:
         clear_latest_year()
@@ -170,27 +333,27 @@ def recalculate_active_years():
 
 def recalculate_latest_year():
     active = recalculate_active_years()
+
     if not active:
         return None
 
-    return max(active.values())
+    return str(max(int(y) for y in active.values()))
 
 
 # ============================================================
 # PUSHED SUBJECT LIST
 # ============================================================
 def load_pushed_list(year, class_cat):
-    class_cat = normalize_class(class_cat)
+    class_level, target_arm = normalize_target(class_cat)
 
-    if not year or not class_cat:
+    if not year or not target_arm:
         return []
 
-    path = PORTAL_ROOT / str(year) / class_cat / "pushed_subjects.json"
-
+    path = PORTAL_ROOT / str(year) / target_arm / "pushed_subjects.json"
     data = read_json(path, default={}) or {}
 
     if isinstance(data, dict):
-        return data.get("subjects", [])
+        return data.get("subjects", []) or []
 
     if isinstance(data, list):
         return data
@@ -198,21 +361,26 @@ def load_pushed_list(year, class_cat):
     return []
 
 
-def save_pushed_list(year, class_cat, subjects):
-    class_cat = normalize_class(class_cat)
+def save_pushed_list(year, class_cat, subjects, class_level=""):
+    resolved_level, target_arm = normalize_target(class_cat, class_level)
 
-    if not year or not class_cat:
+    if not year or not target_arm:
         return
 
-    folder = PORTAL_ROOT / str(year) / class_cat
+    folder = PORTAL_ROOT / str(year) / target_arm
     folder.mkdir(parents=True, exist_ok=True)
 
     path = folder / "pushed_subjects.json"
 
     write_json(path, {
         "year": str(year),
-        "class_category": class_cat,
-        "subjects": subjects
+        "class_level": resolved_level,
+        "class_category": resolved_level,
+        "class_arm": target_arm,
+        "target_arm": target_arm,
+        "subjects": subjects or [],
+        "updated_at": datetime.now().isoformat(timespec="seconds"),
+        "updated_by": session.get("username", "system"),
     })
 
 
@@ -220,7 +388,7 @@ def save_pushed_list(year, class_cat, subjects):
 # SUBJECT NAME FROM FILE
 # ============================================================
 def subject_name_from_filename(filename):
-    name = filename.replace(".json", "")
+    name = str(filename or "").replace(".json", "")
 
     for cls in SUPPORTED_CLASSES:
         suffix = f"_{cls.lower()}"
@@ -228,7 +396,23 @@ def subject_name_from_filename(filename):
             name = name[: -len(suffix)]
             break
 
-    return name.replace("_", " ").title()
+    aliases = {
+        "accounts": "Financial Account",
+        "account": "Financial Account",
+        "financial_account": "Financial Account",
+        "financial_accounting": "Financial Account",
+        "english": "English Language",
+        "maths": "Mathematics",
+        "computer": "Computer Science",
+        "computer_science": "Computer Science",
+        "civic": "Civic Education",
+        "technical": "Technical Drawing",
+        "irs": "IRS",
+        "irk": "IRK",
+    }
+
+    key = name.lower().strip()
+    return aliases.get(key, name.replace("_", " ").title())
 
 
 # ============================================================
@@ -236,68 +420,114 @@ def subject_name_from_filename(filename):
 # ============================================================
 @push_bp.route("/push", methods=["POST"])
 def push_subjects():
-    payload = request.get_json() or {}
+    payload = request.get_json(silent=True) or {}
 
     raw_files = payload.get("files", [])
-    target_class = normalize_class(payload.get("class_category"))
+
+    class_level, target_arm = get_payload_target(payload)
 
     if not raw_files:
-        return jsonify({"success": False, "error": "No files provided"}), 400
+        return jsonify({
+            "success": False,
+            "error": "No files provided"
+        }), 400
 
-    if not target_class:
-        return jsonify({"success": False, "error": "Invalid class"}), 400
+    if not is_valid_target(class_level, target_arm):
+        return jsonify({
+            "success": False,
+            "error": f"Invalid class target: {target_arm or class_level}"
+        }), 400
 
     pushed_summary = []
-    last_year_used = None
+    failed = []
+    years_used = set()
 
     for entry in raw_files:
         try:
-            year, filename = entry.split(":", 1)
+            year, filename = str(entry).split(":", 1)
         except Exception:
-            return jsonify({
-                "success": False,
-                "error": f"Invalid entry: {entry}"
-            }), 400
+            failed.append({
+                "entry": entry,
+                "reason": "Invalid entry format. Expected YEAR:FILENAME"
+            })
+            continue
 
         year = str(year).strip()
-        last_year_used = year
+        filename = os.path.basename(str(filename).strip())
 
-        src = SUBJECTS_JSON_ROOT / year / "subjects-json" / target_class / filename
+        if not year.isdigit():
+            failed.append({
+                "entry": entry,
+                "reason": "Invalid year"
+            })
+            continue
+
+        if not filename.lower().endswith(".json"):
+            failed.append({
+                "entry": entry,
+                "reason": "Only JSON files can be pushed"
+            })
+            continue
+
+        years_used.add(year)
+
+        # Source stays broad class level:
+        # static/subjects/<year>/subjects-json/SS3/physics_ss3.json
+        src = SUBJECTS_JSON_ROOT / year / "subjects-json" / class_level / filename
 
         if not src.exists():
+            failed.append({
+                "entry": entry,
+                "reason": f"Missing source JSON: {src}"
+            })
             print(f"Missing JSON: {src}")
             continue
 
         try:
             content = json.loads(src.read_text(encoding="utf-8"))
         except Exception as e:
+            failed.append({
+                "entry": entry,
+                "reason": f"Invalid JSON: {e}"
+            })
             print(f"Invalid JSON {src}: {e}")
             continue
 
-        dst_folder = PORTAL_ROOT / year / target_class
+        # Destination preserves target arm:
+        # static/portal/<year>/SS3_GOLD/physics_ss3.json
+        dst_folder = PORTAL_ROOT / year / target_arm
         dst_folder.mkdir(parents=True, exist_ok=True)
 
         dst = dst_folder / filename
-        dst.write_text(json.dumps(content, indent=4), encoding="utf-8")
+        dst.write_text(json.dumps(content, indent=4, ensure_ascii=False), encoding="utf-8")
 
-        pushed_list = load_pushed_list(year, target_class)
+        pushed_list = load_pushed_list(year, target_arm)
         subject_name = subject_name_from_filename(filename)
 
         if subject_name not in pushed_list:
             pushed_list.append(subject_name)
 
-        save_pushed_list(year, target_class, pushed_list)
+        save_pushed_list(year, target_arm, pushed_list, class_level)
 
-        pushed_summary.append(subject_name)
+        if subject_name not in pushed_summary:
+            pushed_summary.append(subject_name)
 
-    if last_year_used:
-        set_active_year_for_class(target_class, last_year_used)
+    active_year = None
+
+    if years_used:
+      active_year = str(max(int(y) for y in years_used))
+      set_active_year_for_target(target_arm, active_year, class_level)
 
     return jsonify({
         "success": True,
-        "class": target_class,
+        "class": class_level,
+        "class_level": class_level,
+        "class_category": class_level,
+        "class_arm": target_arm,
+        "target_arm": target_arm,
         "subjects_pushed": pushed_summary,
-        "active_year": last_year_used,
+        "failed": failed,
+        "active_year": active_year,
         "latest_year": get_latest_year(),
         "class_active_years": get_class_active_years()
     })
@@ -308,20 +538,28 @@ def push_subjects():
 # ============================================================
 @push_bp.route("/clear", methods=["POST"])
 def clear_portal():
-    payload = request.get_json() or {}
+    payload = request.get_json(silent=True) or {}
 
     year = str(payload.get("year", "")).strip()
-    target_class_raw = str(payload.get("class_category", "")).upper().strip()
 
-    if target_class_raw != "ALL":
-        target_class = normalize_class(target_class_raw)
-        if not target_class:
-            return jsonify({"success": False, "error": "Invalid class"}), 400
-    else:
-        target_class = "ALL"
+    raw_target = (
+        payload.get("class_arm")
+        or payload.get("target_arm")
+        or payload.get("class_category")
+        or payload.get("class_level")
+        or ""
+    )
 
-    # Clear all years and all classes
-    if year == "ALL" and target_class == "ALL":
+    raw_target = str(raw_target).upper().strip()
+
+    if not year:
+        return jsonify({
+            "success": False,
+            "error": "Year is required"
+        }), 400
+
+    # Clear all years and all targets
+    if year == "ALL" and raw_target == "ALL":
         if PORTAL_ROOT.exists():
             shutil.rmtree(PORTAL_ROOT)
 
@@ -332,11 +570,12 @@ def clear_portal():
         return jsonify({
             "success": True,
             "cleared": "ALL",
+            "latest_year": None,
             "class_active_years": {}
         })
 
-    # Clear one year for all classes
-    if target_class == "ALL":
+    # Clear one year for all targets
+    if raw_target == "ALL":
         year_folder = PORTAL_ROOT / year
 
         if year_folder.exists():
@@ -351,27 +590,42 @@ def clear_portal():
             "class_active_years": active
         })
 
-    # Clear one year + one class
-    class_folder = PORTAL_ROOT / year / target_class
+    class_level, target_arm = get_payload_target(payload)
 
-    if class_folder.exists():
-        shutil.rmtree(class_folder)
+    if not is_valid_target(class_level, target_arm):
+        return jsonify({
+            "success": False,
+            "error": f"Invalid class target: {target_arm or class_level}"
+        }), 400
 
-    class_folder.mkdir(parents=True, exist_ok=True)
-    save_pushed_list(year, target_class, [])
+    # Clear one year + one target
+    target_folder = PORTAL_ROOT / year / target_arm
+
+    if target_folder.exists():
+        shutil.rmtree(target_folder)
+
+    target_folder.mkdir(parents=True, exist_ok=True)
+    save_pushed_list(year, target_arm, [], class_level)
 
     active = recalculate_active_years()
 
     return jsonify({
         "success": True,
-        "cleared": f"{year}-{target_class}",
+        "cleared": f"{year}-{target_arm}",
+        "class": class_level,
+        "class_level": class_level,
+        "class_category": class_level,
+        "class_arm": target_arm,
+        "target_arm": target_arm,
         "latest_year": get_latest_year(),
         "class_active_years": active
     })
 
 
 # ============================================================
-# STUDENT FETCH — GET ACTIVE YEAR FOR STUDENT CLASS
+# STUDENT FETCH — GET PUSHED SUBJECTS
+# Kept for backward compatibility.
+# Your student_portal.py now has stronger routing.
 # ============================================================
 @push_bp.route("/get_pushed_subjects", methods=["GET"])
 def student_get_pushed():
@@ -380,30 +634,39 @@ def student_get_pushed():
     if not student:
         return jsonify({"subjects": []})
 
-    class_cat = normalize_class(student.get("class_category"))
+    class_level, class_arm = get_student_target_meta(student)
 
-    if not class_cat:
+    if not class_level:
         return jsonify({"subjects": []})
 
-    active_year = get_active_year_for_class(class_cat)
+    active_year = get_active_year_for_target(class_arm, class_level)
 
     if not active_year:
         active_years = recalculate_active_years()
-        active_year = active_years.get(class_cat)
+        active_year = active_years.get(class_arm) or active_years.get(class_level)
 
     if not active_year:
         return jsonify({"subjects": []})
 
-    pushed_list = load_pushed_list(active_year, class_cat)
+    pushed_list = load_pushed_list(active_year, class_arm)
+
+    # JSS broad fallback
+    if not pushed_list and class_level.startswith("JSS"):
+        pushed_list = load_pushed_list(active_year, class_level)
 
     return jsonify({
-        "class": class_cat,
+        "class": class_level,
+        "class_level": class_level,
+        "class_category": class_level,
+        "class_arm": class_arm,
         "active_year": active_year,
         "subjects": [
             {
                 "subject": subject,
                 "year": active_year,
-                "class": class_cat
+                "class": class_arm,
+                "class_level": class_level,
+                "class_arm": class_arm,
             }
             for subject in pushed_list
         ]
@@ -430,30 +693,71 @@ def push_latest_year():
 
 
 # ============================================================
-# API — Active year for a specific class
-# /api/push_active_year?class=JSS1
+# API — Active year for a specific class / arm
+# /api/push_active_year?class=SS3_GOLD
+# /api/push_active_year?class=SS3
 # ============================================================
 @push_bp.route("/push_active_year", methods=["GET"])
 def push_active_year():
-    class_cat = normalize_class(request.args.get("class", ""))
+    raw_class = request.args.get("class", "")
+    class_level, target_arm = normalize_target(raw_class)
 
-    if not class_cat:
+    if not class_level:
         return jsonify({"error": "Invalid class"}), 400
 
-    active_year = get_active_year_for_class(class_cat)
+    active_year = get_active_year_for_target(target_arm, class_level)
 
     if not active_year:
         active = recalculate_active_years()
-        active_year = active.get(class_cat)
+        active_year = active.get(target_arm) or active.get(class_level)
 
     return jsonify({
-        "class": class_cat,
+        "class": class_level,
+        "class_level": class_level,
+        "class_category": class_level,
+        "class_arm": target_arm,
+        "target_arm": target_arm,
         "year": active_year
     })
 
 
 # ============================================================
-# Detect available subject years
+# API — Portal active map
+# Useful for admin/teacher dashboard
+# ============================================================
+@push_bp.route("/portal_active_map", methods=["GET"])
+def portal_active_map():
+    active = get_class_active_years()
+
+    if not active:
+        active = recalculate_active_years()
+
+    details = {}
+
+    for target_arm, year in active.items():
+        class_level, resolved_arm = normalize_target(target_arm)
+        subjects = load_pushed_list(year, resolved_arm)
+
+        details[resolved_arm] = {
+            "year": year,
+            "class_level": class_level,
+            "class_category": class_level,
+            "class_arm": resolved_arm,
+            "target_arm": resolved_arm,
+            "subjects": subjects,
+            "subject_count": len(subjects),
+        }
+
+    return jsonify({
+        "success": True,
+        "latest_year": get_latest_year(),
+        "class_active_years": active,
+        "active_map": details
+    })
+
+
+# ============================================================
+# DETECT AVAILABLE SUBJECT YEARS
 # ============================================================
 def get_available_subject_years():
     years = []
@@ -493,7 +797,7 @@ def get_available_subject_years():
 
 
 # ============================================================
-# API — Available Years
+# API — AVAILABLE YEARS
 # ============================================================
 @push_bp.route("/available-years", methods=["GET"])
 def available_waec_years():

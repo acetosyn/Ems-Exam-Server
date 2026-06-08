@@ -1,71 +1,153 @@
-<!-- uploads.html — Modern Premium, Year-Aware, JSS1–SS3 Build -->
+<!-- uploads.html — EMIS CBT Modern Flexible Upload & Portal Targeting -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
 
-<div class="uploads-wrapper fade-in">
+<div class="uploads-wrapper fade-in"
+     data-user-role="{{ user_type|default('admin') }}"
+     data-classes='{{ classes|tojson if classes is defined else "[]" }}'
+     data-class-arms='{{ class_arms|tojson if class_arms is defined else "{}" }}'>
 
-  <!-- ===========================================================
-       HEADER
+  <!-- ============================================================
+       HERO HEADER
   ============================================================ -->
-  <div class="uploads-header">
-    <div class="uploads-header-main">
+  <section class="uploads-hero">
+    <div class="hero-left">
+      <span class="hero-kicker">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        EMIS CBT Upload Server
+      </span>
 
-      <div class="uploads-header-left">
-        <h3>
-          <i class="fa-solid fa-cloud-arrow-up text-accent"></i>
-          Exam & Past Questions Uploads
-        </h3>
-        <p class="sub-text">
-          Manage JSON exam files by academic year. Upload → View → Push to student portal.
-        </p>
+      <h1>Exam Upload & Portal Push Control</h1>
+
+      <p>
+        Upload, convert, preview, and push different exam years to different
+        classes or class arms without forcing one global year on everybody.
+      </p>
+
+      <div class="hero-mini-actions">
+        <button id="btnViewSubjects" class="btn-soft">
+          <i class="fa-solid fa-book-open-reader"></i>
+          Subject Repository
+        </button>
+
+        <button id="refreshUploads" class="btn-soft">
+          <i class="fa-solid fa-rotate"></i>
+          Refresh Library
+        </button>
       </div>
-
-      <div class="uploads-header-center">
-        <div class="available-years-card">
-          <div class="available-years-title">
-            <i class="fa-solid fa-calendar-check"></i>
-            Available Exam Years
-          </div>
-
-          <div id="availableYearsList" class="available-years-list">
-            <span class="year-loading">Loading…</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="uploads-header-right">
-        <div class="role-banner" data-role="{{ user_type|default('admin') }}">
-          {% if user_type == 'teacher' %}
-            <i class="fa-solid fa-chalkboard-user text-green-600"></i> Teacher Mode
-          {% else %}
-            <i class="fa-solid fa-shield-halved text-accent"></i> Admin Mode
-          {% endif %}
-        </div>
-
-        <div class="header-actions">
-          <button id="btnViewSubjects" class="btn-ghost small">
-            <i class="fa-solid fa-book-open-reader"></i>
-            View Subjects
-          </button>
-        </div>
-      </div>
-
     </div>
-  </div>
+
+    <div class="hero-right">
+      <div class="role-card" data-role="{{ user_type|default('admin') }}">
+        {% if user_type == 'teacher' %}
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Teacher Mode</span>
+        {% else %}
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Admin Mode</span>
+        {% endif %}
+      </div>
+
+      <div class="live-card">
+        <small>Current Push System</small>
+        <strong>Class / Arm Flexible</strong>
+        <span>No more single global year</span>
+      </div>
+    </div>
+  </section>
 
 
-  <!-- ===========================================================
-       MAIN GRID
+  <!-- ============================================================
+       10 MODERN FEATURE STRIP
   ============================================================ -->
-  <div class="uploads-grid">
+  <section class="feature-strip">
+    <article><i class="fa-solid fa-calendar-days"></i><span>Year Aware</span></article>
+    <article><i class="fa-solid fa-users-gear"></i><span>Class Arm Push</span></article>
+    <article><i class="fa-solid fa-layer-group"></i><span>Batch Convert</span></article>
+    <article><i class="fa-solid fa-filter"></i><span>Smart Filters</span></article>
+    <article><i class="fa-solid fa-magnifying-glass"></i><span>Live Search</span></article>
+    <article><i class="fa-solid fa-eye"></i><span>JSON Preview</span></article>
+    <article><i class="fa-solid fa-list-check"></i><span>Push Queue</span></article>
+    <article><i class="fa-solid fa-map-location-dot"></i><span>Portal Map</span></article>
+    <article><i class="fa-solid fa-bell"></i><span>Action Log</span></article>
+    <article><i class="fa-solid fa-broom"></i><span>Safe Clear</span></article>
+  </section>
 
-    <!-- ===========================================================
-         LEFT PANEL — Upload & Convert
-    ============================================================ -->
-    <section class="upload-panel card">
-      <header class="panel-header">
-        <h4><i class="fa-solid fa-upload"></i> Upload & Convert Exams</h4>
-        <p class="panel-subtitle">Optional: upload DOCX exam files to generate JSON.</p>
-      </header>
+
+  <!-- ============================================================
+       TOP STATS
+  ============================================================ -->
+  <section class="uploads-stats-grid">
+    <article class="stat-card">
+      <div class="stat-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
+      <div>
+        <span>Selected Year</span>
+        <strong id="statSelectedYear">—</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon green"><i class="fa-solid fa-folder-tree"></i></div>
+      <div>
+        <span>Loaded JSON Files</span>
+        <strong id="statLoadedFiles">0</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon purple"><i class="fa-solid fa-paper-plane"></i></div>
+      <div>
+        <span>Push Queue</span>
+        <strong id="pushCount">0</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon orange"><i class="fa-solid fa-user-group"></i></div>
+      <div>
+        <span>Target Arm</span>
+        <strong id="statTargetArm">—</strong>
+      </div>
+    </article>
+  </section>
+
+
+  <!-- ============================================================
+       AVAILABLE YEARS
+  ============================================================ -->
+  <section class="years-panel card">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">Repository</span>
+        <h2>Available Exam Years</h2>
+      </div>
+
+      <div id="availableYearsList" class="available-years-list">
+        <span class="year-loading">Loading…</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       MAIN WORKSPACE
+  ============================================================ -->
+  <section class="uploads-workspace">
+
+    <!-- ========================================================
+         LEFT: UPLOAD + CONVERT
+    ======================================================== -->
+    <aside class="upload-panel card">
+      <div class="section-head compact">
+        <div>
+          <span class="section-kicker">Step 1</span>
+          <h2>Upload & Convert DOCX</h2>
+        </div>
+        <i class="fa-solid fa-wand-magic-sparkles section-icon"></i>
+      </div>
+
+      <p class="panel-subtitle">
+        Optional: upload one or multiple DOCX exam files and convert them to JSON.
+      </p>
 
       <div class="drop-box" id="uploadDropZone">
         <input type="file" id="uploadInputSingle" hidden accept=".docx">
@@ -73,15 +155,18 @@
 
         <div class="drop-content">
           <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
-          <p><strong>Drag & Drop</strong> DOCX here</p>
-          <p class="hint-text">or choose files manually</p>
+          <h3>Drop DOCX files here</h3>
+          <p>or select files manually</p>
 
           <div class="btn-row">
             <button id="chooseSingle" class="btn-primary small">
-              <i class="fa-solid fa-file-import"></i> Choose One
+              <i class="fa-solid fa-file-import"></i>
+              One File
             </button>
+
             <button id="chooseMulti" class="btn-secondary small">
-              <i class="fa-solid fa-layer-group"></i> Choose Multiple
+              <i class="fa-solid fa-layer-group"></i>
+              Multiple
             </button>
           </div>
         </div>
@@ -89,20 +174,25 @@
 
       <div class="selected-files-block">
         <div class="block-header">
-          <span class="block-title">
-            <i class="fa-solid fa-list-check"></i> Selected Files
+          <span>
+            <i class="fa-solid fa-list-check"></i>
+            Selected Files
           </span>
-          <span id="selectedCount" class="badge badge-soft">0 selected</span>
+          <strong id="selectedCount" class="mini-badge">0 selected</strong>
         </div>
+
         <ul id="fileList" class="file-list"></ul>
       </div>
 
       <div class="upload-actions">
-        <button id="startUpload" class="btn-primary">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> Convert to JSON
+        <button id="startUpload" class="btn-primary full">
+          <i class="fa-solid fa-gears"></i>
+          Convert to JSON
         </button>
-        <button id="clearUploads" class="btn-secondary">
-          <i class="fa-solid fa-trash-can"></i> Clear
+
+        <button id="clearUploads" class="btn-secondary full">
+          <i class="fa-solid fa-trash-can"></i>
+          Clear Files
         </button>
       </div>
 
@@ -110,24 +200,21 @@
         <div id="uploadProgressBar" class="progress-bar"></div>
         <span id="uploadProgressLabel" class="progress-label">Processing…</span>
       </div>
-    </section>
+    </aside>
 
 
-    <!-- ===========================================================
-         MIDDLE PANEL — JSON Files Table
-    ============================================================ -->
-    <section class="dashboard-panel card">
-
-      <header class="panel-header">
-        <div class="panel-header-main">
-          <h4><i class="fa-solid fa-table-list"></i> Converted / Uploaded JSON Files</h4>
-          <p class="panel-subtitle">
-            Browse exam JSON files by academic year & class category.
-          </p>
+    <!-- ========================================================
+         CENTER: JSON LIBRARY
+    ======================================================== -->
+    <main class="library-panel card">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Step 2</span>
+          <h2>JSON Exam Library</h2>
+          <p>Browse by year, class, subject, question count, and file status.</p>
         </div>
 
-        <div class="panel-header-actions">
-
+        <div class="library-top-actions">
           <select id="yearSelectorUploads" class="year-selector">
             <option disabled selected>Select Year</option>
             {% for y in range(2026, 2012, -1) %}
@@ -135,70 +222,92 @@
             {% endfor %}
           </select>
 
-          <div class="class-filter">
-            <button class="class-pill active" data-class="ALL">All</button>
-            <button class="class-pill" data-class="JSS1">JSS1</button>
-            <button class="class-pill" data-class="JSS2">JSS2</button>
-            <button class="class-pill" data-class="JSS3">JSS3</button>
-            <button class="class-pill" data-class="SS1">SS1</button>
-            <button class="class-pill" data-class="SS2">SS2</button>
-            <button class="class-pill" data-class="SS3">SS3</button>
-          </div>
-
-          <div class="search-bar">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input id="searchUploads" type="text" class="form-input" placeholder="Search filename…">
-          </div>
-
-          <button id="refreshUploads" class="btn-ghost small">
-            <i class="fa-solid fa-rotate"></i> Refresh
+          <button id="selectAllVisible" class="btn-soft small">
+            <i class="fa-solid fa-check-double"></i>
+            Select Visible
           </button>
 
+          <button id="clearQueue" class="btn-soft small">
+            <i class="fa-solid fa-broom"></i>
+            Clear Queue
+          </button>
         </div>
-      </header>
+      </div>
+
+      <div class="library-toolbar">
+        <div class="class-filter">
+          <button class="class-pill active" data-class="ALL">All</button>
+          <button class="class-pill" data-class="JSS1">JSS1</button>
+          <button class="class-pill" data-class="JSS2">JSS2</button>
+          <button class="class-pill" data-class="JSS3">JSS3</button>
+          <button class="class-pill" data-class="SS1">SS1</button>
+          <button class="class-pill" data-class="SS2">SS2</button>
+          <button class="class-pill" data-class="SS3">SS3</button>
+        </div>
+
+
+        <div class="subject-filter-box">
+  <i class="fa-solid fa-book"></i>
+  <select id="subjectFilterUploads" class="subject-filter-select">
+    <option value="ALL">All Subjects</option>
+  </select>
+</div>
+
+
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchUploads" type="text" placeholder="Search filename, subject, class…">
+        </div>
+      </div>
 
       <div class="table-wrapper">
         <table class="uploads-table">
           <thead>
             <tr>
+              <th>
+                <input type="checkbox" id="checkAllUploads">
+              </th>
               <th>Filename</th>
               <th>Subject</th>
               <th>Class</th>
               <th>Version</th>
               <th>Questions</th>
-              <th>Size (KB)</th>
+              <th>Size</th>
               <th>Status</th>
-              <th style="min-width: 200px;">Actions</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
           <tbody id="uploadedTable">
             <tr>
-              <td colspan="8" class="empty">
+              <td colspan="9" class="empty">
                 <span>Select a year to load JSON files</span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+    </main>
 
-    </section>
 
+    <!-- ========================================================
+         RIGHT: PUSH CONTROL
+    ======================================================== -->
+    <aside class="push-panel card">
+      <div class="section-head compact">
+        <div>
+          <span class="section-kicker">Step 3</span>
+          <h2>Push Target</h2>
+        </div>
+        <i class="fa-solid fa-paper-plane section-icon"></i>
+      </div>
 
-    <!-- ===========================================================
-         RIGHT PANEL — Push to Portal
-    ============================================================ -->
-    <section class="push-panel card">
+      <p class="panel-subtitle">
+        Push selected subjects to a whole class or a specific class arm.
+      </p>
 
-      <header class="panel-header">
-        <h4><i class="fa-solid fa-paper-plane"></i> Push to Student Portal</h4>
-        <p class="panel-subtitle">
-          Queue and push selected JSON files to the portal per-year, per-class.
-        </p>
-      </header>
-
-      <div class="push-year-control">
-        <label>Select Year</label>
+      <div class="push-form">
+        <label>Push Year</label>
         <select id="pushYearSelector" class="year-selector">
           <option disabled selected>Select Year</option>
           {% for y in range(2026, 2012, -1) %}
@@ -206,96 +315,144 @@
           {% endfor %}
         </select>
 
-        <div class="active-year-card">
-          <span id="activeYearLabel">Active Year: —</span>
-        </div>
+        <label>Class Level</label>
+        <select id="pushClassLevel" class="year-selector">
+          <option disabled selected>Select Class</option>
+          <option value="JSS1">JSS1</option>
+          <option value="JSS2">JSS2</option>
+          <option value="JSS3">JSS3</option>
+          <option value="SS1">SS1</option>
+          <option value="SS2">SS2</option>
+          <option value="SS3">SS3</option>
+        </select>
+
+        <label>Class Arm / Group</label>
+        <select id="pushClassArm" class="year-selector">
+          <option disabled selected>Select class first</option>
+        </select>
       </div>
 
       <div class="portal-summary">
-        <div class="portal-icon"><i class="fa-solid fa-database"></i></div>
+        <div class="portal-icon">
+          <i class="fa-solid fa-database"></i>
+        </div>
+
         <div class="portal-meta">
-          <p class="summary-title">Portal Sync Queue</p>
-          <p class="summary-sub">
-            <span id="pushCount">0</span> files selected
-          </p>
+          <p>Portal Sync Queue</p>
+          <strong><span id="pushCountSide">0</span> selected</strong>
+          <small id="activeYearLabel">Active Year: —</small>
         </div>
       </div>
 
       <div class="push-actions">
-
-        <div class="push-actions-row">
-          <button id="pushSelectedToPortal" class="btn-primary">
-            <i class="fa-solid fa-cloud-arrow-right"></i> Push Selected
-          </button>
-
-          <button id="viewPortalJSON" class="btn-secondary">
-            <i class="fa-solid fa-code"></i> View JSON
-          </button>
-        </div>
-
-        <button id="clearPortalSubjects" class="btn-danger small">
-          <i class="fa-solid fa-trash"></i> Clear Subjects
+        <button id="pushSelectedToPortal" class="btn-primary full">
+          <i class="fa-solid fa-cloud-arrow-right"></i>
+          Push Selected to Target
         </button>
 
-        <button id="clearQueue" class="btn-ghost tiny hidden">
-          <i class="fa-solid fa-broom"></i> Clear Queue
+        <button id="viewPortalJSON" class="btn-secondary full">
+          <i class="fa-solid fa-code"></i>
+          View Portal JSON
         </button>
 
+        <button id="clearPortalSubjects" class="btn-danger full">
+          <i class="fa-solid fa-trash"></i>
+          Clear Target Subjects
+        </button>
       </div>
 
       <div class="preview-card">
         <div class="preview-card-header">
           <div>
-            <h5><i class="fa-solid fa-eye"></i> Latest Conversion Preview</h5>
-            <p class="preview-subtitle">Shows preview of last converted JSON.</p>
+            <h5>
+              <i class="fa-solid fa-eye"></i>
+              Latest Preview
+            </h5>
+            <p>Last converted or selected JSON file.</p>
           </div>
-          <button id="openFullPreviewModal" class="btn-ghost tiny">
-            <i class="fa-solid fa-up-right-from-square"></i> Full View
+
+          <button id="openFullPreviewModal" class="btn-soft tiny">
+            <i class="fa-solid fa-up-right-from-square"></i>
           </button>
         </div>
 
         <div id="latestPreviewMeta" class="preview-meta">
-          <span class="preview-pill" id="previewSubjectPill">Subject: —</span>
-          <span class="preview-pill" id="previewVersionPill">Version: —</span>
-          <span class="preview-pill" id="previewQuestionCountPill">Questions: —</span>
+          <span id="previewSubjectPill">Subject: —</span>
+          <span id="previewVersionPill">Version: —</span>
+          <span id="previewQuestionCountPill">Questions: —</span>
         </div>
 
         <div id="latestPreviewBody" class="preview-body pretty-scroll">
           <p class="preview-placeholder">No preview available.</p>
         </div>
       </div>
+    </aside>
 
-      <div class="log-box">
-        <div class="log-header">
-          <span class="log-title">
-            <i class="fa-solid fa-notes-medical"></i> Activity Log
-          </span>
-          <button id="clearPortalLog" class="btn-ghost tiny">
-            <i class="fa-solid fa-eraser"></i> Clear
-          </button>
-        </div>
+  </section>
 
-        <div id="portalLogBody" class="log-body pretty-scroll">
-          <p class="log-placeholder">No actions yet.</p>
-        </div>
+
+  <!-- ============================================================
+       ACTIVE PORTAL MAP
+  ============================================================ -->
+  <section class="portal-map-panel card">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">Live Portal Routing</span>
+        <h2>Current Class / Arm Exam Assignments</h2>
+        <p>Shows which year and subjects each class or arm is currently seeing.</p>
       </div>
 
-    </section>
-  </div>
+      <button id="refreshPortalMap" class="btn-soft small">
+        <i class="fa-solid fa-rotate"></i>
+        Refresh Map
+      </button>
+    </div>
+
+    <div id="portalMapGrid" class="portal-map-grid">
+      <div class="empty-map">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <p>No portal map loaded yet.</p>
+      </div>
+    </div>
+  </section>
 
 
-  <!-- ===========================================================
+  <!-- ============================================================
+       ACTIVITY LOG
+  ============================================================ -->
+  <section class="activity-panel card">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">Activity</span>
+        <h2>Upload & Push Log</h2>
+      </div>
+
+      <button id="clearPortalLog" class="btn-soft small">
+        <i class="fa-solid fa-eraser"></i>
+        Clear Log
+      </button>
+    </div>
+
+    <div id="portalLogBody" class="log-body pretty-scroll">
+      <p class="log-placeholder">No actions yet.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
        SUBJECTS MODAL
   ============================================================ -->
   <div id="subjectsModal" class="modal hidden">
     <div class="modal-backdrop" data-close="true"></div>
 
     <div class="modal-card modal-large">
-
       <div class="modal-header">
-        <div class="modal-header-main">
-          <h3><i class="fa-solid fa-book-open-reader"></i> Subjects in Repository</h3>
-          <p class="modal-subtitle">Browse JSON files stored per-year.</p>
+        <div>
+          <h3>
+            <i class="fa-solid fa-book-open-reader"></i>
+            Subjects in Repository
+          </h3>
+          <p>Browse JSON files stored by year and class.</p>
         </div>
 
         <div class="modal-header-actions">
@@ -307,11 +464,13 @@
           </select>
 
           <button id="btnRefreshSubjects" class="btn-secondary small">
-            <i class="fa-solid fa-rotate"></i> Refresh
+            <i class="fa-solid fa-rotate"></i>
+            Refresh
           </button>
 
           <button id="btnPushAllSubjects" class="btn-primary small">
-            <i class="fa-solid fa-cloud-arrow-up"></i> Push ALL
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            Push All Visible
           </button>
 
           <button class="modal-close" data-close="true">
@@ -332,21 +491,23 @@
       <div class="modal-footer">
         <button class="btn-secondary small" data-close="true">Close</button>
       </div>
-
     </div>
   </div>
 
 
-  <!-- ===========================================================
-       PUSH CLASS MODAL
+  <!-- ============================================================
+       PUSH CONFIRM MODAL
   ============================================================ -->
   <div id="pushClassModal" class="modal hidden">
     <div class="modal-backdrop" data-close="true"></div>
 
     <div class="modal-card small">
-
       <div class="modal-header">
-        <h3><i class="fa-solid fa-paper-plane"></i> Push to Student Portal</h3>
+        <h3>
+          <i class="fa-solid fa-paper-plane"></i>
+          Confirm Portal Push
+        </h3>
+
         <button class="modal-close" data-close="true">
           <i class="fa-solid fa-xmark"></i>
         </button>
@@ -354,16 +515,14 @@
 
       <div class="modal-body">
         <p class="warning-text">
-          Select the appropriate class category.
+          Confirm the selected year, class, arm, and queued subjects before pushing.
         </p>
 
-        <div class="class-options">
-          <button class="class-btn" data-class="JSS1">JSS1</button>
-          <button class="class-btn" data-class="JSS2">JSS2</button>
-          <button class="class-btn" data-class="JSS3">JSS3</button>
-          <button class="class-btn" data-class="SS1">SS1</button>
-          <button class="class-btn" data-class="SS2">SS2</button>
-          <button class="class-btn" data-class="SS3">SS3</button>
+        <div class="confirm-summary">
+          <p><span>Year</span><strong id="confirmPushYear">—</strong></p>
+          <p><span>Class</span><strong id="confirmPushClass">—</strong></p>
+          <p><span>Arm</span><strong id="confirmPushArm">—</strong></p>
+          <p><span>Subjects</span><strong id="confirmPushCount">0</strong></p>
         </div>
 
         <p id="chosenPushClass" class="chosen-class hidden"></p>
@@ -371,64 +530,114 @@
 
       <div class="modal-footer">
         <button id="btnConfirmPush" class="btn-primary disabled" disabled>
+          <i class="fa-solid fa-check"></i>
           Confirm Push
         </button>
+
         <button class="btn-secondary" data-close="true">Cancel</button>
       </div>
-
     </div>
   </div>
 
 
-  <!-- ===========================================================
+  <!-- ============================================================
        CLEAR PORTAL MODAL
   ============================================================ -->
   <div id="clearPortalModal" class="modal hidden">
     <div class="modal-backdrop" data-close="true"></div>
 
     <div class="modal-card small">
-
       <div class="modal-header">
-        <h3><i class="fa-solid fa-trash"></i> Clear Portal Subjects</h3>
+        <h3>
+          <i class="fa-solid fa-trash"></i>
+          Clear Portal Subjects
+        </h3>
+
         <button class="modal-close" data-close="true">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <div class="modal-body">
-        <p>Select which class to clear:</p>
+        <p>Select the target to clear.</p>
 
-        <div class="class-options">
-          <button class="clear-btn" data-class="JSS1">Clear JSS1</button>
-          <button class="clear-btn" data-class="JSS2">Clear JSS2</button>
-          <button class="clear-btn" data-class="JSS3">Clear JSS3</button>
-          <button class="clear-btn" data-class="SS1">Clear SS1</button>
-          <button class="clear-btn" data-class="SS2">Clear SS2</button>
-          <button class="clear-btn" data-class="SS3">Clear SS3</button>
-          <button class="clear-btn danger" data-class="ALL">Clear ALL</button>
+        <div class="clear-target-box">
+          <select id="clearClassLevel" class="year-selector">
+            <option disabled selected>Select Class</option>
+            <option value="JSS1">JSS1</option>
+            <option value="JSS2">JSS2</option>
+            <option value="JSS3">JSS3</option>
+            <option value="SS1">SS1</option>
+            <option value="SS2">SS2</option>
+            <option value="SS3">SS3</option>
+          </select>
+
+          <select id="clearClassArm" class="year-selector">
+            <option disabled selected>Select class first</option>
+          </select>
+
+          <button id="confirmClearTarget" class="btn-danger full">
+            <i class="fa-solid fa-trash"></i>
+            Clear Selected Target
+          </button>
+
+          <button id="confirmClearAllTargets" class="btn-danger-soft full">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Clear All Portal Targets
+          </button>
         </div>
       </div>
 
       <div class="modal-footer">
         <button class="btn-secondary" data-close="true">Close</button>
       </div>
-
     </div>
   </div>
 
 
-  <!-- ===========================================================
+
+<div id="pushConfirmModal" class="push-confirm-modal hidden">
+  <div class="push-confirm-backdrop"></div>
+
+  <div class="push-confirm-card">
+    <div class="push-confirm-icon">
+      <i class="fa-solid fa-paper-plane"></i>
+    </div>
+
+    <h3>Confirm Portal Push</h3>
+    <p id="pushConfirmText">Ready to push subjects.</p>
+
+    <div class="push-confirm-summary">
+      <span id="pushConfirmYear">Year: —</span>
+      <span id="pushConfirmTarget">Target: —</span>
+      <span id="pushConfirmCount">Subjects: 0</span>
+    </div>
+
+    <div class="push-confirm-actions">
+      <button id="cancelPushConfirm" class="btn-secondary">Cancel</button>
+      <button id="acceptPushConfirm" class="btn-primary">
+        <i class="fa-solid fa-check"></i>
+        Yes, Push
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- ============================================================
        JSON PREVIEW MODAL
   ============================================================ -->
   <div id="jsonPreviewModal" class="modal hidden">
     <div class="modal-backdrop" data-close="true"></div>
 
     <div class="modal-card modal-code">
-
       <div class="modal-header">
         <h3 id="jsonPreviewTitle">
-          <i class="fa-solid fa-code"></i> JSON Preview
+          <i class="fa-solid fa-code"></i>
+          JSON Preview
         </h3>
+
         <button class="modal-close" data-close="true">
           <i class="fa-solid fa-xmark"></i>
         </button>
@@ -441,7 +650,6 @@
       <div class="modal-footer">
         <button class="btn-secondary small" data-close="true">Close</button>
       </div>
-
     </div>
   </div>
 

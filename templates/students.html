@@ -7,8 +7,12 @@
 
   <meta name="student-name" content="{{ student.full_name }}">
   <meta name="student-admission" content="{{ student.admission_number }}">
-  <meta name="student-class" content="{{ student.class }}">
-  <meta name="student-class-category" content="{{ student.class_category }}">
+  <meta name="student-class" content="{{ class_arm or student.class }}">
+  <meta name="student-class-arm" content="{{ class_arm or student.class_arm or student.class }}">
+  <meta name="student-class-level" content="{{ class_level or class_category or student.class_category }}">
+  <meta name="student-class-category" content="{{ class_level or class_category or student.class_category }}">
+  <meta name="student-stream" content="{{ student.stream or student.ss_stream or '' }}">
+  <meta name="exam-year" content="{{ year or '' }}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +53,6 @@
           <i class="fa-solid fa-right-from-bracket"></i>
           <span>Logout</span>
         </a>
-        
       </div>
     </header>
 
@@ -92,24 +95,24 @@
         <article class="summary-card">
           <div class="summary-icon gold"><i class="fa-solid fa-school"></i></div>
           <div class="summary-text">
-            <span>Class</span>
-            <strong>{{ student.class }}</strong>
+            <span>Class Arm</span>
+            <strong>{{ class_arm or student.class_arm or student.class }}</strong>
           </div>
         </article>
 
         <article class="summary-card">
           <div class="summary-icon green"><i class="fa-solid fa-layer-group"></i></div>
           <div class="summary-text">
-            <span>Category</span>
-            <strong>{{ student.class_category }}</strong>
+            <span>Class Level</span>
+            <strong>{{ class_level or class_category or student.class_category }}</strong>
           </div>
         </article>
 
         <article class="summary-card">
-          <div class="summary-icon red"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="summary-icon red"><i class="fa-solid fa-diagram-project"></i></div>
           <div class="summary-text">
-            <span>Portal Status</span>
-            <strong>Active</strong>
+            <span>Stream</span>
+            <strong>{{ student.stream or student.ss_stream or 'GENERAL' }}</strong>
           </div>
         </article>
       </section>
@@ -159,13 +162,23 @@
             </div>
 
             <div class="detail-item">
-              <span>Class</span>
-              <strong>{{ student.class }}</strong>
+              <span>Class Arm</span>
+              <strong>{{ class_arm or student.class_arm or student.class }}</strong>
             </div>
 
             <div class="detail-item">
-              <span>Class Category</span>
-              <strong>{{ student.class_category }}</strong>
+              <span>Class Level</span>
+              <strong>{{ class_level or class_category or student.class_category }}</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Stream</span>
+              <strong>{{ student.stream or student.ss_stream or 'GENERAL' }}</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Exam Year</span>
+              <strong>{{ year or '—' }}</strong>
             </div>
 
             <div class="detail-item">
@@ -227,7 +240,12 @@
 
             <div class="overview-row">
               <span>Available Subjects</span>
-              <strong>{{ subjects|length }}</strong>
+              <strong id="availableSubjectsCount">{{ subjects|length }}</strong>
+            </div>
+
+            <div class="overview-row">
+              <span>Class Arm</span>
+              <strong>{{ class_arm or student.class_arm or student.class }}</strong>
             </div>
           </div>
 
@@ -250,10 +268,19 @@
 
           <div class="available-subjects-card" id="availableSubjectsCard">
             <h4><i class="fa-solid fa-book-open"></i> Available Exams</h4>
-            <p class="small-sub">Subjects pushed to your portal:</p>
+            <p class="small-sub">
+              Subjects assigned to your class arm:
+              <strong>{{ class_arm or student.class_arm or student.class }}</strong>
+            </p>
 
             <ul id="availableSubjectsList" class="subjects-list">
-              <li class="empty">Click “View Available Exams” to refresh.</li>
+              {% if subjects %}
+                {% for subject in subjects %}
+                  <li>{{ subject.upper() }}</li>
+                {% endfor %}
+              {% else %}
+                <li class="empty">No subjects available yet.</li>
+              {% endif %}
             </ul>
           </div>
         </article>
@@ -294,7 +321,8 @@
       </h2>
 
       <p class="modal-subtitle">
-        Select a subject assigned to your class category.
+        Select a subject assigned to your class arm:
+        <strong>{{ class_arm or student.class_arm or student.class }}</strong>
       </p>
 
       <div class="form-group">
@@ -318,7 +346,7 @@
   </div>
 
   <script src="{{ url_for('static', filename='js/student-exams.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/student-dashboard.js') }}"></script>
+  <!-- <script src="{{ url_for('static', filename='js/student-dashboard.js') }}"></script> -->
   <script src="{{ url_for('static', filename='js/students.js') }}"></script>
 
 </body>

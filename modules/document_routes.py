@@ -6,7 +6,13 @@ import json
 from werkzeug.utils import secure_filename
 
 from convert import convert_exam, save_output
-from modules.class_config import SUPPORTED_CLASSES
+from modules.class_config import (
+    SUPPORTED_CLASSES,
+    CLASS_ARMS,
+    normalize_class_level,
+    normalize_class_arm,
+    get_ss_stream,
+)
 
 
 document_bp = Blueprint("document_bp", __name__)
@@ -25,10 +31,36 @@ def can_manage_uploads():
 
 # =========================================================
 # Helper — Normalize class
+# Accepts:
+#   JSS1
+#   JSS1A
+#   SS1_GOLD
+#   SS3B
+# Returns broad level:
+#   JSS1 / SS1 / SS3
 # =========================================================
 def normalize_class(cls):
-    cls = str(cls or "").upper().strip()
-    return cls if cls in SUPPORTED_CLASSES else ""
+    return normalize_class_level(cls)
+
+
+# =========================================================
+# Helper — Build class meta
+# =========================================================
+def get_class_meta(raw_class):
+    class_level = normalize_class_level(raw_class)
+    class_arm = normalize_class_arm(raw_class, class_level)
+
+    if not class_arm:
+        class_arm = class_level
+
+    stream = get_ss_stream(class_arm)
+
+    return {
+        "class_level": class_level,
+        "class_category": class_level,
+        "class_arm": class_arm,
+        "stream": stream,
+    }
 
 
 # =========================================================
@@ -41,7 +73,9 @@ def uploads_page():
 
     return render_template(
         "uploads.html",
-        user_type=session.get("user_type")
+        user_type=session.get("user_type"),
+        classes=SUPPORTED_CLASSES,
+        class_arms=CLASS_ARMS,
     )
 
 
@@ -69,22 +103,28 @@ def api_upload():
     file.save(docx_path)
 
     try:
-        subject, class_cat, data = convert_exam(docx_path)
+        subject, detected_class, data = convert_exam(docx_path)
 
-        class_cat = normalize_class(class_cat)
+        class_meta = get_class_meta(detected_class)
+        class_level = class_meta["class_level"]
 
-        if not class_cat:
+        if not class_level:
             return jsonify({
                 "error": "Invalid or unsupported class detected from document"
             }), 400
 
-        json_path = save_output(subject, class_cat, data)
+        # Keep JSON questions in broad class folder:
+        # static/subjects/subjects-json/SS1/physics_ss1.json
+        json_path = save_output(subject, class_level, data)
 
         return jsonify({
             "success": True,
             "message": "File converted successfully",
             "json_file": os.path.basename(json_path),
-            "class_category": class_cat,
+            "class_category": class_level,
+            "class_level": class_level,
+            "class_arm": class_meta["class_arm"],
+            "stream": class_meta["stream"],
             "subject": subject
         })
 
@@ -116,7 +156,11 @@ def api_list_uploads():
             if f.lower().endswith(".json")
         ])
 
-    return jsonify({"uploads": all_files})
+    return jsonify({
+        "uploads": all_files,
+        "classes": SUPPORTED_CLASSES,
+        "class_arms": CLASS_ARMS,
+    })
 
 
 # =========================================================
@@ -127,13 +171,14 @@ def api_view_upload(cls, filename):
     if not can_manage_uploads():
         return jsonify({"error": "Unauthorized"}), 403
 
-    cls = normalize_class(cls)
+    class_meta = get_class_meta(cls)
+    class_level = class_meta["class_level"]
 
-    if not cls:
+    if not class_level:
         return jsonify({"error": "Invalid class"}), 400
 
     filename = secure_filename(filename)
-    path = os.path.join(BASE_JSON, cls, filename)
+    path = os.path.join(BASE_JSON, class_level, filename)
 
     if not os.path.exists(path):
         return jsonify({"error": "File not found"}), 404
@@ -142,7 +187,10 @@ def api_view_upload(cls, filename):
         content = f.read()
 
     return jsonify({
-        "class_category": cls,
+        "class_category": class_level,
+        "class_level": class_level,
+        "class_arm": class_meta["class_arm"],
+        "stream": class_meta["stream"],
         "filename": filename,
         "content": content
     })
@@ -156,13 +204,14 @@ def api_delete_upload(cls, filename):
     if not can_manage_uploads():
         return jsonify({"error": "Unauthorized"}), 403
 
-    cls = normalize_class(cls)
+    class_meta = get_class_meta(cls)
+    class_level = class_meta["class_level"]
 
-    if not cls:
+    if not class_level:
         return jsonify({"error": "Invalid class"}), 400
 
     filename = secure_filename(filename)
-    path = os.path.join(BASE_JSON, cls, filename)
+    path = os.path.join(BASE_JSON, class_level, filename)
 
     if not os.path.exists(path):
         return jsonify({"error": "File not found"}), 404
@@ -172,7 +221,9 @@ def api_delete_upload(cls, filename):
     return jsonify({
         "success": True,
         "message": f"{filename} deleted successfully",
-        "class_category": cls
+        "class_category": class_level,
+        "class_level": class_level,
+        "class_arm": class_meta["class_arm"],
     })
 
 
@@ -231,6 +282,8 @@ def api_list_by_year(year):
                 "filename": fname,
                 "subject": subject,
                 "class_category": cls,
+                "class_level": cls,
+                "available_arms": CLASS_ARMS.get(cls, []),
                 "questions": questions,
                 "version": version,
                 "size_kb": size_kb,

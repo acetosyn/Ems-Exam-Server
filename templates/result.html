@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Exam Result | EMIS Portal</title>
+  <title>Exam Completed | EMIS Portal</title>
 
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -23,7 +23,7 @@
 
     <div>
       <h1>EMIS Student Portal</h1>
-      <p>Exam Result Center</p>
+      <p>Exam Completion Center</p>
     </div>
   </div>
 
@@ -51,10 +51,10 @@
 
   <div class="result-topbar">
     <div>
-      <span class="result-kicker">Performance Summary</span>
+      <span class="result-kicker">Exam Submitted Successfully</span>
       <h1 class="result-title">
-        <i class="fa-solid fa-square-poll-vertical"></i>
-        Exam Result
+        <i class="fa-solid fa-circle-check"></i>
+        Exam Completed
       </h1>
     </div>
 
@@ -78,100 +78,68 @@
           {{ student.full_name[:1] }}
         </div>
 
-        <h2 id="studentName">Student Name</h2>
-        <p class="muted-small">Basic Information</p>
+        <h2>{{ student.full_name }}</h2>
+        <p class="muted-small">Student Information</p>
 
         <div class="info-grid">
           <div>
             <span>Admission No.</span>
-            <strong id="studentID">--</strong>
+            <strong>{{ student.admission_number }}</strong>
           </div>
 
           <div>
             <span>Class</span>
-            <strong id="studentClass">--</strong>
+            <strong>{{ student.class_name }}</strong>
           </div>
 
           <div>
             <span>Class Category</span>
-            <strong id="studentCategory">--</strong>
+            <strong>{{ student.class_category }}</strong>
           </div>
 
           <div>
-            <span>System ID</span>
-            <strong id="studentSysID">--</strong>
+            <span>Status</span>
+            <strong>Submitted</strong>
           </div>
         </div>
       </div>
     </aside>
 
     <section class="result-col core-col">
-      <div class="core-result-card">
+      <div class="core-result-card completion-card">
 
-        <div id="resultBadgeSlot" class="result-badge-bar"></div>
-
-        <div class="score-ring-card">
-          <svg class="score-ring" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" class="score-bg"></circle>
-            <circle id="progressCircle" cx="50" cy="50" r="40" class="score-progress"></circle>
-          </svg>
-
-          <div class="score-text">
-            <div id="scoreDisplay">0%</div>
-
-            <div class="fraction">
-              <span id="correctAnswers" class="numerator">0</span>
-              <span class="line">/</span>
-              <span id="totalQuestions" class="denominator">0</span>
-            </div>
-
-            <span class="score-label">Score</span>
-            <div id="passFail" class="passfail-text">—</div>
-          </div>
+        <div class="completion-icon">
+          <i class="fa-solid fa-check"></i>
         </div>
 
-        <div class="raw-score-box">
-          <span id="rawScoreText">Score: 0 / 0</span>
-        </div>
+        <h2>Well Done!</h2>
 
-        <div class="stats-box-grid">
+        <p class="completion-message">
+          You have successfully completed and submitted your
+          <strong>{{ result.subject }}</strong> examination.
+        </p>
+
+        <div class="completion-summary-grid">
           <div class="stat-box">
-            <span id="timeTaken">--:--</span>
-            <small>Time Taken</small>
-            <div class="stat-bar">
-              <div class="stat-bar-fill" data-stat="time"></div>
-            </div>
+            <span>{{ result.subject }}</span>
+            <small>Exam Written</small>
           </div>
 
           <div class="stat-box">
-            <span id="incorrectAnswers">0</span>
-            <small>Incorrect</small>
-            <div class="stat-bar">
-              <div class="stat-bar-fill" data-stat="incorrect"></div>
-            </div>
+            <span>Completed</span>
+            <small>Exam Status</small>
           </div>
 
           <div class="stat-box">
-            <span id="accuracyRate">0%</span>
-            <small>Accuracy</small>
-            <div class="stat-bar">
-              <div class="stat-bar-fill" data-stat="accuracy"></div>
-            </div>
-          </div>
-
-          <div class="stat-box">
-            <span id="tabSwitches">0</span>
-            <small>Tab Violations</small>
-            <div class="stat-bar">
-              <div class="stat-bar-fill" data-stat="tabs"></div>
-            </div>
+            <span>{{ result.submitted_at or "Submitted" }}</span>
+            <small>Submission Time</small>
           </div>
         </div>
 
         <div class="subject-status-box">
-          <h3 id="subjectName">Subject Name</h3>
-          <p id="resultMessage" class="muted">
-            Result summary will appear here.
+          <h3>Result Notice</h3>
+          <p class="muted">
+            Your result has been submitted successfully. Final results will be processed and made available through the school result system.
           </p>
         </div>
 
@@ -181,53 +149,25 @@
     <aside class="result-col detail-col">
       <div class="result-detail-card">
         <h2 class="detail-header">
-          <i class="fa-solid fa-chart-simple"></i>
-          Detailed Breakdown
+          <i class="fa-solid fa-shield-check"></i>
+          Submission Confirmed
         </h2>
 
         <div class="detail-grid">
           <div class="detail-item">
-            <p>Answered: <strong id="answeredQuestions">0</strong></p>
-            <p>Skipped: <strong id="skippedQuestions">0</strong></p>
-            <p>Flagged: <strong id="flaggedQuestions">0</strong></p>
+            <p><strong>No result is displayed on the student portal.</strong></p>
+            <p>Your exam record has been saved for official processing.</p>
           </div>
 
           <div class="detail-item">
-            <p>Avg Time / Question: <strong id="avgTimePerQuestion">0s</strong></p>
-            <p>Completion Date: <strong id="completionDate">--</strong></p>
-            <p>Exam Status: <strong id="examStatus">Completed</strong></p>
+            <p>Good luck.</p>
+            <p>You may now return to your dashboard.</p>
           </div>
         </div>
       </div>
     </aside>
 
   </section>
-
-  <div id="printSummary" class="print-summary">
-    <h2>Exam Result Summary</h2>
-
-    <p><strong>Student Name:</strong> <span id="p_studentName"></span></p>
-    <p><strong>Admission No:</strong> <span id="p_studentID"></span></p>
-    <p><strong>Class:</strong> <span id="p_studentClass"></span></p>
-    <p><strong>Category:</strong> <span id="p_studentCategory"></span></p>
-
-    <hr>
-
-    <p><strong>Subject:</strong> <span id="p_subject"></span></p>
-    <p><strong>Score:</strong> <span id="p_rawScore"></span></p>
-    <p><strong>Correct:</strong> <span id="p_correct"></span></p>
-    <p><strong>Total Questions:</strong> <span id="p_total"></span></p>
-    <p><strong>Accuracy:</strong> <span id="p_accuracy"></span></p>
-    <p><strong>Time Taken:</strong> <span id="p_time"></span></p>
-    <p><strong>Exam Status:</strong> <span id="p_status"></span></p>
-
-    <hr>
-
-    <p><strong>Completion Date:</strong> <span id="p_date"></span></p>
-
-    <br>
-    <p style="font-size: 0.8rem; color:#444;">Generated by EMIS Student Portal</p>
-  </div>
 
 </main>
 
@@ -237,8 +177,6 @@
 </script>
 
 <script src="{{ url_for('static', filename='js/result.js') }}"></script>
-<script src="{{ url_for('static', filename='js/students.js') }}"></script>
-<script src="{{ url_for('static', filename='js/student-exams.js') }}"></script>
 
 </body>
 </html>

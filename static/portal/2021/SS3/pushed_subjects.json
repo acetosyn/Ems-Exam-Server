@@ -1,8 +1,20 @@
 {
+    "year": "2021",
+    "class_category": "SS3",
     "subjects": [
         "Mathematics Ss3",
         "English Ss3",
         "Technical Drawing Ss3",
-        "Technical Ss3"
+        "Technical Ss3",
+        "Accounts",
+        "Chemistry",
+        "Civic",
+        "Economics",
+        "English",
+        "Government",
+        "Literature",
+        "Mathematics",
+        "Physics",
+        "Technical"
     ]
 }

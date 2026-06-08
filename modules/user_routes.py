@@ -160,20 +160,79 @@ def student_login():
         clear_failed_login(admission_number)
 
         session.clear()
+
         session["user_type"] = "student"
         session["student"] = student
 
-        session["class"] = student.get("class")                    # e.g JSS1A / SS1_GOLD
-        session["class_category"] = student.get("class_category")  # e.g JSS1 / SS1
+        # ==================================================
+        # CLASS INFORMATION
+        # ==================================================
 
+        # Exact class arm
+        # Examples:
+        #   JSS1A
+        #   JSS2C
+        #   SS1_GOLD
+        #   SS2_SILVER
+        #   SS3_DIAMOND
+        #   SS1B
+        session["class"] = (
+            student.get("class")
+            or student.get("class_arm")
+        )
+
+        session["class_arm"] = (
+            student.get("class_arm")
+            or student.get("class")
+        )
+
+        # Broad class level
+        # Examples:
+        #   JSS1
+        #   JSS2
+        #   SS1
+        #   SS2
+        session["class_category"] = (
+            student.get("class_category")
+            or student.get("class_level")
+        )
+
+        session["class_level"] = (
+            student.get("class_level")
+            or student.get("class_category")
+        )
+
+        # SS stream awareness
+        # SCIENCE / ART_COMMERCIAL / GENERAL
+        session["stream"] = (
+            student.get("stream")
+            or student.get("ss_stream")
+            or ""
+        )
+
+        session["ss_stream"] = (
+            student.get("ss_stream")
+            or student.get("stream")
+            or ""
+        )
+
+        # ==================================================
+        # EXAM STATE
+        # ==================================================
         session["exam_started"] = False
         session["exam_submitted"] = False
 
-        # Helpful audit data
+        # ==================================================
+        # AUDIT INFORMATION
+        # ==================================================
         session["student_login_name_used"] = login_name
-        session["student_login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        session["student_login_time"] = datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
 
-        return redirect(url_for("student_portal_bp.student_portal"))
+        return redirect(
+            url_for("student_portal_bp.student_portal")
+        )
 
     return render_template("student_login.html")
 

@@ -1,125 +1,190 @@
 /* ==========================================================
-   EMIS TEACHER PAGE ROUTER — teacher_pageroutes.js (v6)
-   ----------------------------------------------------------
-   Dynamically loads teacher tools (uploads, results, reports)
-   into #teacherDynamicContent without leaving teachers.html
-
-   ✳️ Fixes:
-   - Reinitialize uploads.js + push.js after dynamic load
-   - Ensures push buttons work inside uploads.html
-   - Prevents duplicate event binding
+   EMIS TEACHER PAGE ROUTER — teacher_pageroutes.js
+   Dynamic module loader with premium spin loader
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
   const dynamicContainer = document.getElementById("teacherDynamicContent");
   const toolButtons = document.querySelectorAll(".module-item[data-page]");
 
-  const loaderHTML = `
-    <div class="route-loader fade-in">
-      <div class="loader-spinner"></div>
-      <p>Loading, please wait...</p>
+  if (!dynamicContainer) return;
+
+  const routeCache = new Map();
+
+  const loaderHTML = (label = "Opening module...") => `
+    <div class="teacher-route-loader fade-in">
+      <div class="teacher-loader-card">
+        <div class="teacher-loader-orbit">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div>
+          <h3>${label}</h3>
+          <p>Please wait while EMIS prepares your workspace.</p>
+        </div>
+      </div>
     </div>
   `;
 
-  /* ==========================================================
-     AUTO LOAD VIA ?open=uploads
-  ========================================================== */
+  const errorHTML = (page, error) => `
+    <div class="teacher-route-error fade-in">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+
+      <h3>Unable to load module</h3>
+      <p>
+        Could not open <strong>${page}</strong>.
+        <br>
+        <small>${error.message || "Unknown error"}</small>
+      </p>
+
+      <button id="retryTeacherRoute" class="btn-primary">
+        <i class="fa-solid fa-rotate"></i>
+        Try Again
+      </button>
+    </div>
+  `;
+
+  function normalizePage(page) {
+    page = String(page || "").trim();
+    if (!page.endsWith(".html")) page = `${page}.html`;
+    return page;
+  }
+
+  function routeName(page) {
+    return page.replace(".html", "");
+  }
+
+  function setActiveButton(activeBtn) {
+    toolButtons.forEach((btn) => btn.classList.remove("active"));
+    activeBtn?.classList.add("active");
+  }
+
+  function updateUrl(page) {
+    const openName = routeName(page);
+    const url = new URL(window.location.href);
+    url.searchParams.set("open", openName);
+    window.history.replaceState({}, "", url);
+  }
+
+  function reexecuteScripts(scope) {
+    const externalScripts = scope.querySelectorAll("script[src]");
+    externalScripts.forEach((oldScript) => {
+      const src = oldScript.getAttribute("src");
+      if (!src) return;
+
+      const newScript = document.createElement("script");
+      newScript.src = src;
+      newScript.async = false;
+      newScript.dataset.dynamicTeacherScript = "true";
+      document.body.appendChild(newScript);
+    });
+
+    const inlineScripts = scope.querySelectorAll("script:not([src])");
+    inlineScripts.forEach((inline) => {
+      try {
+        const script = document.createElement("script");
+        script.textContent = inline.textContent;
+        document.body.appendChild(script);
+        script.remove();
+      } catch (err) {
+        console.error("Inline script error:", err);
+      }
+    });
+  }
+
+  function initLoadedModule(page) {
+    if (page === "uploads.html") {
+      const wrap = dynamicContainer.querySelector(".uploads-wrapper");
+
+      if (wrap) {
+        wrap.__initialized__ = false;
+        wrap.__push_initialized__ = false;
+      }
+
+      if (window.EmisUploads?.initOnce) {
+        window.EmisUploads.initOnce(dynamicContainer);
+      }
+
+      if (window.EmisPush?.init) {
+        window.EmisPush.init();
+      }
+
+      if (window.EmisAvailableYears?.reload) {
+        window.EmisAvailableYears.reload();
+      }
+    }
+  }
+
+  async function loadTeacherPage(button, useCache = true) {
+    let page = normalizePage(button.dataset.page);
+    const endpoint = `/admin/${routeName(page)}`;
+
+    setActiveButton(button);
+    updateUrl(page);
+
+    dynamicContainer.innerHTML = loaderHTML(`Loading ${routeName(page).replaceAll("_", " ")}...`);
+    dynamicContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    try {
+      let html = "";
+
+      if (useCache && routeCache.has(endpoint)) {
+        html = routeCache.get(endpoint);
+      } else {
+        const response = await fetch(endpoint, {
+          headers: { "X-Requested-With": "fetch" },
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error(`Page not found (${response.status})`);
+        }
+
+        html = await response.text();
+        routeCache.set(endpoint, html);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 280));
+
+      dynamicContainer.innerHTML = `<div class="teacher-route-content fade-slide-in">${html}</div>`;
+
+      reexecuteScripts(dynamicContainer);
+      initLoadedModule(page);
+
+    } catch (error) {
+      console.error("Teacher route load error:", error);
+
+      dynamicContainer.innerHTML = errorHTML(page, error);
+
+      const retryBtn = document.getElementById("retryTeacherRoute");
+      retryBtn?.addEventListener("click", () => loadTeacherPage(button, false));
+    }
+  }
+
+  toolButtons.forEach((btn) => {
+    btn.addEventListener("click", () => loadTeacherPage(btn));
+  });
+
   const urlParams = new URLSearchParams(window.location.search);
   const moduleToOpen = urlParams.get("open");
 
   if (moduleToOpen) {
     const targetBtn = document.querySelector(
-      `.module-item[data-page="${moduleToOpen}.html"]`
+      `.module-item[data-page="${moduleToOpen}.html"], .module-item[data-page="${moduleToOpen}"]`
     );
 
     if (targetBtn) {
-      setTimeout(() => {
-        targetBtn.click();
-      }, 350);
+      setTimeout(() => loadTeacherPage(targetBtn), 350);
     }
   }
 
-  /* ==========================================================
-     LOAD MODULE WHEN BUTTON CLICKED
-  ========================================================== */
-  toolButtons.forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      let page = btn.dataset.page;
-
-      if (!page.endsWith(".html")) {
-        page = `${page}.html`;
-      }
-
-      toolButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      dynamicContainer.innerHTML = loaderHTML;
-
-      try {
-        const response = await fetch(`/admin/${page.replace(".html", "")}`);
-        if (!response.ok) throw new Error(`Page not found (${response.status})`);
-
-        const html = await response.text();
-
-        setTimeout(() => {
-          dynamicContainer.innerHTML = `<div class="fade-slide-in">${html}</div>`;
-          dynamicContainer.scrollIntoView({ behavior: "smooth" });
-
-          /* ================================================
-             AUTO INIT MODULES AFTER HTML INSERTION
-          ================================================= */
-          if (page === "uploads.html") {
-            // Init uploads (file convert UI)
-            if (window.EmisUploads) {
-              EmisUploads.initOnce(dynamicContainer);
-            }
-
-            // Init push controller (push modals)
-            if (window.EmisPush) {
-              EmisPush.init();  
-            }
-          }
-
-          /* ================================================
-             RE-EXECUTE EXTERNAL SCRIPTS INSIDE LOADED HTML
-          ================================================= */
-          const scriptTags = dynamicContainer.querySelectorAll("script[src]");
-          scriptTags.forEach((oldScript) => {
-            const newScript = document.createElement("script");
-            newScript.src = oldScript.src;
-            newScript.async = true;
-            document.body.appendChild(newScript);
-          });
-
-          /* Execute inline scripts */
-          const inlineScripts = dynamicContainer.querySelectorAll("script:not([src])");
-          inlineScripts.forEach((inline) => {
-            try {
-              eval(inline.textContent);
-            } catch (err) {
-              console.error("⚠️ Inline script error:", err);
-            }
-          });
-
-        }, 250);
-      } catch (error) {
-        console.error("❌ Route load error:", error);
-        dynamicContainer.innerHTML = `
-          <div class="error-panel fade-in">
-            <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
-            <p>⚠️ Unable to load <strong>${page}</strong><br>
-            <small>${error.message}</small></p>
-          </div>
-        `;
-      }
-    });
-  });
-
-  /* ==========================================================
-     DASHBOARD REFRESH BUTTON
-  ========================================================== */
   const refreshBtn = document.getElementById("refreshDashboard");
-  if (refreshBtn) {
-    refreshBtn.addEventListener("click", () => location.reload());
-  }
+  refreshBtn?.addEventListener("click", () => {
+    routeCache.clear();
+    location.reload();
+  });
 });

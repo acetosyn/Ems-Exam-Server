@@ -27,136 +27,183 @@
 
   <main class="student-login-page">
 
-    <section class="student-showcase">
-      <div class="showcase-overlay"></div>
+    <section class="student-stage">
 
-      <div class="showcase-content">
+      <div class="stage-orb orb-one"></div>
+      <div class="stage-orb orb-two"></div>
+      <div class="stage-orb orb-three"></div>
 
-        <a href="{{ url_for('home') }}" class="brand-chip">
+      <header class="student-topbar">
+        <a href="{{ url_for('home') }}" class="student-brand">
           <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo">
-          <span>EMIS CBT Server</span>
+          <div>
+            <strong>EMIS CBT</strong>
+            <span>Student Exam Access</span>
+          </div>
         </a>
 
-        <div class="showcase-main">
-          <span class="eyebrow">
-            <i class="fa-solid fa-user-graduate"></i>
-            Student Access
-          </span>
+        <div class="top-status">
+          <span><i class="fa-solid fa-circle"></i> Server Online</span>
+        </div>
+      </header>
 
-          <h1>CBT Exam Login</h1>
+      <div class="student-layout">
+
+        <section class="student-welcome">
+
+          <div class="welcome-badge">
+            <i class="fa-solid fa-user-graduate"></i>
+            Student Portal
+          </div>
+
+          <h1>Ready for your CBT exam?</h1>
 
           <p>
-            Enter your admission number with either your first name or surname.
-            Names are checked without spaces, symbols, or capital letters.
+            Login with your admission number and either your first name or surname.
           </p>
-        </div>
 
-        <div class="showcase-tips">
-          <span><i class="fa-solid fa-id-card"></i> Admission number required</span>
-          <span><i class="fa-solid fa-user-check"></i> First name or surname accepted</span>
-          <span><i class="fa-solid fa-lock"></i> Secure exam session</span>
-        </div>
+          <div class="exam-preview-card">
 
-      </div>
-    </section>
+            <div class="preview-top">
+              <div class="preview-icon">
+                <i class="fa-solid fa-laptop-file"></i>
+              </div>
 
-
-    <section class="student-auth">
-
-      <div class="student-card">
-
-        <div class="card-header">
-          <div class="logo-wrap">
-            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo">
-          </div>
-
-          <span class="card-kicker">Student Portal</span>
-          <h2>Login</h2>
-        </div>
-
-
-        {% if error %}
-          <div class="error-banner">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <div>
-              <strong>Login Failed</strong>
-              <span>{{ error }}</span>
+              <div>
+                <span>Today’s Access</span>
+                <strong>Exam Portal</strong>
+              </div>
             </div>
-          </div>
-        {% endif %}
 
+            <div class="preview-grid">
+              <div>
+                <i class="fa-solid fa-id-card"></i>
+                <span>Admission No.</span>
+              </div>
 
-        <form id="studentLoginForm" method="POST" class="login-form">
+              <div>
+                <i class="fa-solid fa-user-check"></i>
+                <span>Name Match</span>
+              </div>
 
-          <div class="form-field">
-            <label for="login_name">First Name or Surname</label>
-
-            <div class="input-box username-wrapper">
-              <i class="fa-solid fa-user input-icon"></i>
-
-              <input
-                type="text"
-                id="login_name"
-                name="login_name"
-                required
-                autocomplete="name"
-                placeholder="e.g. Abdulmumin"
-                value="{{ login_name or first_name or '' }}"
-              >
+              <div>
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Protected</span>
+              </div>
             </div>
+
           </div>
 
+          <div class="student-mini-tips">
+            <span><i class="fa-solid fa-check"></i> First name accepted</span>
+            <span><i class="fa-solid fa-check"></i> Surname accepted</span>
+            <span><i class="fa-solid fa-check"></i> Case ignored</span>
+          </div>
 
-          <div class="form-field">
-            <label for="admission_number">Admission Number</label>
+        </section>
 
-            <div class="input-box admission-wrapper">
-              <i class="fa-solid fa-id-badge input-icon"></i>
 
-              <input
-                type="text"
-                id="admission_number"
-                name="admission_number"
-                required
-                autocomplete="off"
-                placeholder="e.g. std148"
-                value="{{ admission_number or '' }}"
-              >
+        <section class="student-auth">
+
+          <div class="student-card">
+
+            <div class="card-glow"></div>
+
+            <div class="card-header">
+              <div class="logo-wrap">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo">
+              </div>
+
+              <span class="card-kicker">Exam Login</span>
+              <h2>Enter Portal</h2>
             </div>
+
+            {% if error %}
+              <div class="error-banner">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                  <strong>Login Failed</strong>
+                  <span>{{ error }}</span>
+                </div>
+              </div>
+            {% endif %}
+
+            <form id="studentLoginForm" method="POST" class="login-form">
+
+              <div class="form-field">
+                <label for="login_name">First Name or Surname</label>
+
+                <div class="input-box username-wrapper">
+                  <i class="fa-solid fa-user input-icon"></i>
+
+                  <input
+                    type="text"
+                    id="login_name"
+                    name="login_name"
+                    required
+                    autocomplete="name"
+                    placeholder="e.g. Hanifa"
+                    value="{{ login_name or first_name or '' }}"
+                  >
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="admission_number">Admission Number</label>
+
+                <div class="input-box admission-wrapper">
+                  <i class="fa-solid fa-id-badge input-icon"></i>
+
+                  <input
+                    type="text"
+                    id="admission_number"
+                    name="admission_number"
+                    required
+                    autocomplete="off"
+                    placeholder="e.g. std175"
+                    value="{{ admission_number or '' }}"
+                  >
+                </div>
+              </div>
+
+              <div class="form-options">
+                <label class="remember-row">
+                  <input type="checkbox" id="rememberStudent" name="remember_student">
+                  <span>Remember me</span>
+                </label>
+
+                <span class="secure-note">
+                  <i class="fa-solid fa-lock"></i>
+                  Secure
+                </span>
+              </div>
+
+              <button type="submit" id="studentLoginButton" class="login-btn">
+                <span class="btn-text">
+                  <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                  Continue to Exam
+                </span>
+
+                <span class="btn-loader hidden">
+                  <span class="outer-circle"></span>
+                  <span class="inner-circle"></span>
+                </span>
+              </button>
+
+            </form>
+
+            <div class="student-help-strip">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Use your registered school details only.</span>
+            </div>
+
+            <p class="footer-text">
+              Powered by <strong>EMIS</strong>
+            </p>
+
           </div>
 
-
-          <div class="form-options">
-            <label class="remember-row">
-              <input type="checkbox" id="rememberStudent" name="remember_student">
-              <span>Remember me</span>
-            </label>
-
-            <span class="secure-note">
-              <i class="fa-solid fa-shield-halved"></i>
-              Protected
-            </span>
-          </div>
-
-
-          <button type="submit" id="studentLoginButton" class="login-btn">
-            <span class="btn-text">
-              <i class="fa-solid fa-right-to-bracket"></i>
-              Login to Exam Portal
-            </span>
-
-            <span class="btn-loader hidden">
-              <span class="outer-circle"></span>
-              <span class="inner-circle"></span>
-            </span>
-          </button>
-
-        </form>
-
-
-        <p class="footer-text">
-          Powered by <strong>EMIS</strong>
-        </p>
+        </section>
 
       </div>
 
@@ -172,7 +219,7 @@
         <div class="inner-circle"></div>
       </div>
 
-      <p>Signing you in...</p>
+      <p>Opening portal...</p>
     </div>
   </div>
 

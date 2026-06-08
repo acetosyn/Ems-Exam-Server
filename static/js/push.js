@@ -1,11 +1,6 @@
 /* ======================================================================
-   EMIS PUSH — JSS1–SS3 PORTAL PUSH SYSTEM
-   Supports:
-     ✓ JSS1 / JSS2 / JSS3 / SS1 / SS2 / SS3
-     ✓ Per-class active years
-     ✓ Push selected files
-     ✓ Push all filtered files
-     ✓ Clear by class or ALL
+   EMIS PUSH — YEAR + CLASS ARM PORTAL PUSH SYSTEM
+   Fixed for right-side Push Target panel
 ====================================================================== */
 
 (() => {
@@ -13,32 +8,124 @@
   window.__EMIS_PUSH_BOUND__ = true;
 
   window.EmisPush = {
-    selectedClass: null,
-
     supportedClasses: ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
 
-    normalizeClass(cls) {
-      return String(cls || "").toUpperCase().trim();
+    classArms: {
+      JSS1: ["JSS1A", "JSS1B", "JSS1C"],
+      JSS2: ["JSS2A", "JSS2B", "JSS2C"],
+      JSS3: ["JSS3A", "JSS3B", "JSS3C"],
+      SS1: ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1B"],
+      SS2: ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2B"],
+      SS3: ["SS3_GOLD", "SS3_SILVER", "SS3_DIAMOND", "SS3B"],
     },
+
+    normalize(value) {
+      return String(value || "").toUpperCase().trim().replaceAll("-", "_");
+    },
+
+    normalizeClassLevel(value) {
+      const compact = this.normalize(value).replaceAll("_", "").replaceAll(" ", "");
+
+      for (const cls of this.supportedClasses) {
+        if (compact === cls || compact.startsWith(cls)) return cls;
+      }
+
+      return "";
+    },
+
+    normalizeClassArm(value, fallbackLevel = "") {
+      const raw = this.normalize(value);
+      const compact = raw.replaceAll("_", "").replaceAll(" ", "");
+      const level = this.normalizeClassLevel(raw) || this.normalizeClassLevel(fallbackLevel);
+
+      if (!level) return "";
+
+      if (level.startsWith("JSS")) {
+        for (const arm of ["A", "B", "C"]) {
+          if (compact === `${level}${arm}`) return `${level}${arm}`;
+        }
+        return level;
+      }
+
+      for (const label of ["GOLD", "SILVER", "DIAMOND"]) {
+        if (compact.includes(label)) return `${level}_${label}`;
+      }
+
+      if (compact === `${level}B`) return `${level}B`;
+
+      return level;
+    },
+
+    isValidTarget(classLevel, classArm) {
+      if (!classLevel || !classArm) return false;
+      if (!this.supportedClasses.includes(classLevel)) return false;
+      if (classArm === classLevel) return true;
+      return (this.classArms[classLevel] || []).includes(classArm);
+    },
+
+    showPushConfirm({ year, classArm, count }) {
+  return new Promise((resolve) => {
+    const modal = document.querySelector("#pushConfirmModal");
+    const text = document.querySelector("#pushConfirmText");
+    const yearEl = document.querySelector("#pushConfirmYear");
+    const targetEl = document.querySelector("#pushConfirmTarget");
+    const countEl = document.querySelector("#pushConfirmCount");
+    const cancelBtn = document.querySelector("#cancelPushConfirm");
+    const acceptBtn = document.querySelector("#acceptPushConfirm");
+    const backdrop = modal?.querySelector(".push-confirm-backdrop");
+
+    if (!modal) {
+      resolve(confirm(`Push ${count} subject(s) to ${classArm}?`));
+      return;
+    }
+
+    if (text) text.textContent = `You are about to publish selected exam JSON files to ${classArm}.`;
+    if (yearEl) yearEl.textContent = `Year: ${year}`;
+    if (targetEl) targetEl.textContent = `Target: ${classArm}`;
+    if (countEl) countEl.textContent = `Subjects: ${count}`;
+
+    modal.classList.remove("hidden");
+
+    const close = (answer) => {
+      modal.classList.add("hidden");
+
+      cancelBtn?.removeEventListener("click", onCancel);
+      acceptBtn?.removeEventListener("click", onAccept);
+      backdrop?.removeEventListener("click", onCancel);
+
+      resolve(answer);
+    };
+
+    const onCancel = () => close(false);
+    const onAccept = () => close(true);
+
+    cancelBtn?.addEventListener("click", onCancel);
+    acceptBtn?.addEventListener("click", onAccept);
+    backdrop?.addEventListener("click", onCancel);
+  });
+},
 
     init() {
       const btnPush = document.querySelector("#pushSelectedToPortal");
       const btnClear = document.querySelector("#clearPortalSubjects");
       const btnPushAll = document.querySelector("#btnPushAllSubjects");
 
-      const modalPush = document.querySelector("#pushClassModal");
-      const modalClear = document.querySelector("#clearPortalModal");
-
-      const confirmPush = document.querySelector("#btnConfirmPush");
       const pushYearSel = document.querySelector("#pushYearSelector");
+      const pushClassLevel = document.querySelector("#pushClassLevel");
+      const pushClassArm = document.querySelector("#pushClassArm");
 
       const logBody = document.querySelector("#portalLogBody");
-      const activeYearLabel = document.getElementById("activeYearLabel");
+      const activeYearLabel = document.querySelector("#activeYearLabel");
 
-      if (!btnPush || !modalPush || !confirmPush || !pushYearSel) return;
+      if (!btnPush || !pushYearSel || !pushClassLevel || !pushClassArm) return;
 
-      const pushClassBtns = modalPush.querySelectorAll(".class-btn");
-      const clearClassBtns = modalClear?.querySelectorAll(".clear-btn");
+      const showMessage = (msg, type = "success") => {
+        if (typeof flashMessage === "function") {
+          flashMessage(msg, type);
+        } else {
+          alert(msg);
+        }
+      };
 
       const log = (msg, type = "info") => {
         if (!logBody) return;
@@ -47,187 +134,120 @@
         if (placeholder) logBody.innerHTML = "";
 
         const p = document.createElement("p");
-
-        if (type === "success") {
-          p.innerHTML = `<span class="lg-success">✔</span> ${msg}`;
-        } else if (type === "error") {
-          p.innerHTML = `<span class="lg-error">✖</span> ${msg}`;
-        } else {
-          p.innerHTML = `<span class="lg-info">•</span> ${msg}`;
-        }
-
+        p.className = `push-log ${type}`;
+        p.innerHTML = msg;
         logBody.appendChild(p);
         logBody.scrollTop = logBody.scrollHeight;
       };
 
-      const logSuccess = (msg) => log(msg, "success");
-      const logError = (msg) => log(msg, "error");
-      const logInfo = (msg) => log(msg, "info");
+      const updatePushCount = () => {
+        const count = window.EmisUploads?.selectedFiles?.size || 0;
 
-      const showMessage = (msg, type = "success") => {
-        if (typeof flashMessage === "function") {
-          flashMessage(msg, type);
-        } else {
-          console[type === "error" ? "error" : "log"](msg);
+        const pushCount = document.querySelector("#pushCount");
+        const pushCountSide = document.querySelector("#pushCountSide");
+
+        if (pushCount) pushCount.textContent = count;
+        if (pushCountSide) pushCountSide.textContent = count;
+
+        if (window.EmisUploads?.updatePushCount) {
+          window.EmisUploads.updatePushCount();
         }
       };
 
-      const updatePushCount = () => {
-        if (window.EmisUploads?.updatePushCount) {
-          window.EmisUploads.updatePushCount();
+      const buildArmOptions = (classLevel) => {
+        if (!classLevel) {
+          pushClassArm.innerHTML = `<option value="">Select class first</option>`;
           return;
         }
 
-        const el = document.getElementById("pushCount");
-        if (el && window.EmisUploads?.selectedFiles) {
-          el.textContent = window.EmisUploads.selectedFiles.size;
-        }
+        const arms = this.classArms[classLevel] || [];
+
+        pushClassArm.innerHTML = `
+          <option value="">Select Arm / Group</option>
+          <option value="${classLevel}">${classLevel} — Whole Class Level</option>
+          ${arms.map((arm) => `<option value="${arm}">${arm}</option>`).join("")}
+        `;
       };
 
-      const updateActiveYearLabel = (year, classActiveYears = null) => {
+      const updateActiveYearLabel = (year, activeMap = null) => {
         if (!activeYearLabel) return;
 
-        if (!year || year === "Select Year") {
+        if (!year) {
           activeYearLabel.textContent = "Active Year: —";
-          activeYearLabel.classList.add("year-empty");
         } else {
-          activeYearLabel.textContent = `Latest Active Year: ${year}`;
-          activeYearLabel.classList.remove("year-empty");
+          activeYearLabel.textContent = `Active Year: ${year}`;
         }
 
-        if (classActiveYears && typeof classActiveYears === "object") {
-          const parts = Object.entries(classActiveYears)
-            .map(([cls, yr]) => `${cls}: ${yr}`)
+        if (activeMap && typeof activeMap === "object") {
+          activeYearLabel.title = Object.entries(activeMap)
+            .map(([target, yr]) => `${target}: ${yr}`)
             .join(" • ");
-
-          if (parts) {
-            activeYearLabel.title = parts;
-          }
         }
-
-        activeYearLabel.classList.remove("year-pulse");
-        void activeYearLabel.offsetWidth;
-        activeYearLabel.classList.add("year-pulse");
       };
 
-      const autoFetchLatestYear = async () => {
+      const fetchLatestYear = async () => {
         try {
           const res = await fetch("/api/push_latest_year");
           const data = await res.json();
 
-          const latest = data?.year || data?.latest_year || "";
-          const classActiveYears = data?.class_active_years || {};
-
-          updateActiveYearLabel(latest, classActiveYears);
-
-          if (!pushYearSel.value || pushYearSel.value === "Select Year") {
-            if (latest) pushYearSel.value = latest;
-          }
-
+          updateActiveYearLabel(
+            data.latest_year || data.year || "",
+            data.class_active_years || {}
+          );
         } catch (err) {
-          console.warn("Year sync error:", err);
+          console.warn("Latest year fetch failed:", err);
         }
       };
 
-      autoFetchLatestYear();
-
-      pushYearSel.onchange = () => {
-        updateActiveYearLabel(pushYearSel.value);
-      };
-
-      const resetPushModal = () => {
-        this.selectedClass = null;
-
-        confirmPush.disabled = true;
-        confirmPush.classList.add("disabled");
-
-        const chosen = modalPush.querySelector("#chosenPushClass");
-        if (chosen) {
-          chosen.textContent = "";
-          chosen.classList.add("hidden");
-        }
-      };
-
-      const closePushModal = () => {
-        modalPush.classList.add("hidden");
-        resetPushModal();
-      };
-
-      const closeClearModal = () => {
-        modalClear?.classList.add("hidden");
-      };
-
-      modalPush.querySelectorAll('[data-close="true"]').forEach((el) => {
-        el.onclick = closePushModal;
+      pushClassLevel.addEventListener("change", () => {
+        const level = this.normalizeClassLevel(pushClassLevel.value);
+        buildArmOptions(level);
       });
 
-      modalClear?.querySelectorAll('[data-close="true"]').forEach((el) => {
-        el.onclick = closeClearModal;
-      });
-
-      btnPush.onclick = () => {
+      btnPush.addEventListener("click", async () => {
         const year = pushYearSel.value;
+        const classLevel = this.normalizeClassLevel(pushClassLevel.value);
+        const classArm = this.normalizeClassArm(pushClassArm.value, classLevel);
+        const files = [...(window.EmisUploads?.selectedFiles || [])];
 
         if (!year || year === "Select Year") {
           showMessage("Select a year first.", "error");
           return;
         }
 
-        if (!window.EmisUploads?.selectedFiles?.size) {
-          showMessage("No files selected.", "error");
-          return;
-        }
-
-        modalPush.classList.remove("hidden");
-      };
-
-      pushClassBtns.forEach((btn) => {
-        btn.onclick = () => {
-          const cls = this.normalizeClass(btn.dataset.class);
-
-          if (!this.supportedClasses.includes(cls)) {
-            showMessage("Invalid class selected.", "error");
-            return;
-          }
-
-          this.selectedClass = cls;
-
-          confirmPush.disabled = false;
-          confirmPush.classList.remove("disabled");
-
-          const chosen = modalPush.querySelector("#chosenPushClass");
-          if (chosen) {
-            chosen.textContent = `Selected Class: ${this.selectedClass}`;
-            chosen.classList.remove("hidden");
-          }
-        };
-      });
-
-      confirmPush.onclick = async () => {
-        const cls = this.normalizeClass(this.selectedClass);
-        const files = [...(window.EmisUploads?.selectedFiles || [])];
-
-        if (!cls || !this.supportedClasses.includes(cls)) {
-          showMessage("Select a valid class.", "error");
+        if (!this.isValidTarget(classLevel, classArm)) {
+          showMessage("Select class level and class arm/group.", "error");
           return;
         }
 
         if (!files.length) {
-          showMessage("No files selected.", "error");
+          showMessage("No JSON file selected.", "error");
           return;
         }
 
-        closePushModal();
+      const confirmed = await this.showPushConfirm({
+        year,
+        classArm,
+        count: files.length
+      });
+
+        if (!confirmed) return;
 
         try {
-          logInfo(`Pushing ${files.length} file(s) to ${cls}...`);
+          btnPush.disabled = true;
+          btnPush.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Pushing...`;
+
+          log(`Pushing ${files.length} file(s) to ${classArm}...`);
 
           const res = await fetch("/api/push", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               files,
-              class_category: cls
+              class_level: classLevel,
+              class_category: classLevel,
+              class_arm: classArm,
+              target_arm: classArm
             }),
           });
 
@@ -238,93 +258,99 @@
           }
 
           const count = out.subjects_pushed?.length || 0;
+          const failed = out.failed?.length || 0;
 
-          showMessage(`Pushed ${count} subject(s) to ${cls}.`, "success");
-          logSuccess(`Pushed ${count} subject(s) → ${cls}`);
+          showMessage(`Pushed ${count} subject(s) to ${classArm}.`, "success");
+          log(`✅ Pushed ${count} subject(s) to ${classArm}.`, "success");
+
+          if (failed) {
+            log(`⚠️ ${failed} file(s) failed. Check backend console.`, "error");
+          }
 
           if (window.EmisUploads?.selectedFiles) {
             window.EmisUploads.selectedFiles.clear();
           }
 
+          document.querySelectorAll(".row-select").forEach((box) => {
+            box.checked = false;
+          });
+
           updatePushCount();
 
           updateActiveYearLabel(
-            out.latest_year || out.active_year || "",
-            out.class_active_years || null
+            out.active_year || out.latest_year || year,
+            out.class_active_years || {}
           );
 
         } catch (err) {
           console.error("Push error:", err);
-          showMessage("Push failed.", "error");
-          logError(err.message || "Push failed.");
+          showMessage(err.message || "Push failed.", "error");
+          log(`❌ ${err.message || "Push failed."}`, "error");
+        } finally {
+          btnPush.disabled = false;
+          btnPush.innerHTML = `<i class="fa-solid fa-cloud-arrow-right"></i> Push Selected to Target`;
         }
-      };
+      });
 
-      btnClear.onclick = () => {
+      btnClear?.addEventListener("click", async () => {
         const year = pushYearSel.value;
+        const classLevel = this.normalizeClassLevel(pushClassLevel.value);
+        const classArm = this.normalizeClassArm(pushClassArm.value, classLevel);
 
         if (!year || year === "Select Year") {
           showMessage("Select a year first.", "error");
           return;
         }
 
-        modalClear?.classList.remove("hidden");
-      };
+        if (!this.isValidTarget(classLevel, classArm)) {
+          showMessage("Select class level and class arm/group to clear.", "error");
+          return;
+        }
 
-      clearClassBtns?.forEach((btn) => {
-        btn.onclick = async () => {
-          const clsRaw = this.normalizeClass(btn.dataset.class);
-          const cls = clsRaw === "ALL" ? "ALL" : clsRaw;
-          const year = pushYearSel.value;
+        if (!confirm(`Clear pushed subjects for ${year} / ${classArm}?`)) return;
 
-          if (!year || year === "Select Year") {
-            showMessage("Select a year first.", "error");
-            return;
+        try {
+          btnClear.disabled = true;
+          btnClear.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Clearing...`;
+
+          const res = await fetch("/api/clear", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              year,
+              class_level: classLevel,
+              class_category: classLevel,
+              class_arm: classArm,
+              target_arm: classArm
+            }),
+          });
+
+          const out = await res.json();
+
+          if (!res.ok || !out.success) {
+            throw new Error(out.error || "Clear failed");
           }
 
-          if (cls !== "ALL" && !this.supportedClasses.includes(cls)) {
-            showMessage("Invalid class selected.", "error");
-            return;
-          }
+          showMessage(`Cleared ${classArm}.`, "success");
+          log(`🗑️ Cleared ${out.cleared}.`, "success");
 
-          closeClearModal();
+          updateActiveYearLabel(
+            out.latest_year || "",
+            out.class_active_years || {}
+          );
 
-          try {
-            logInfo(`Clearing ${year} / ${cls}...`);
-
-            const res = await fetch("/api/clear", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                year,
-                class_category: cls
-              }),
-            });
-
-            const out = await res.json();
-
-            if (!res.ok || !out.success) {
-              throw new Error(out.error || "Clear failed");
-            }
-
-            showMessage(`Cleared: ${out.cleared}`, "success");
-            logSuccess(`Cleared ${out.cleared}`);
-
-            updateActiveYearLabel(
-              out.latest_year || "",
-              out.class_active_years || null
-            );
-
-          } catch (err) {
-            console.error("Clear error:", err);
-            showMessage("Clear failed.", "error");
-            logError(err.message || "Clear failed.");
-          }
-        };
+        } catch (err) {
+          console.error("Clear error:", err);
+          showMessage(err.message || "Clear failed.", "error");
+          log(`❌ ${err.message || "Clear failed."}`, "error");
+        } finally {
+          btnClear.disabled = false;
+          btnClear.innerHTML = `<i class="fa-solid fa-trash"></i> Clear Target Subjects`;
+        }
       });
 
       if (btnPushAll) {
-        btnPushAll.onclick = () => {
+        btnPushAll.addEventListener("click", () => {
           const year = pushYearSel.value;
 
           if (!year || year === "Select Year") {
@@ -339,18 +365,10 @@
 
           let items = window.EmisUploads.convertedItems;
 
-          if (
-            window.EmisUploads.activeClass &&
-            window.EmisUploads.activeClass !== "ALL"
-          ) {
+          if (window.EmisUploads.activeClass && window.EmisUploads.activeClass !== "ALL") {
             items = items.filter((it) => {
-              return this.normalizeClass(it.class_category) === window.EmisUploads.activeClass;
+              return this.normalizeClassLevel(it.class_category) === window.EmisUploads.activeClass;
             });
-          }
-
-          if (!items.length) {
-            showMessage("No subjects found for the selected class.", "error");
-            return;
           }
 
           window.EmisUploads.selectedFiles.clear();
@@ -359,13 +377,20 @@
             window.EmisUploads.selectedFiles.add(`${year}:${it.filename}`);
           });
 
-          updatePushCount();
+          document.querySelectorAll(".row-select").forEach((box) => {
+            box.checked = true;
+          });
 
-          modalPush.classList.remove("hidden");
-          showMessage("Select a class to push selected subject(s).", "info");
-          logInfo(`Queued ${items.length} file(s) from ${year}.`);
-        };
+          updatePushCount();
+          showMessage(`${items.length} file(s) queued. Select target and push.`, "success");
+        });
       }
+
+      const currentLevel = this.normalizeClassLevel(pushClassLevel.value);
+      if (currentLevel) buildArmOptions(currentLevel);
+
+      fetchLatestYear();
+      updatePushCount();
     },
   };
 

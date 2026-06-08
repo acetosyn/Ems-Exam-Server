@@ -1,75 +1,55 @@
 // ======================================================
-// exam-core.js — MERGED FINAL CBT ENGINE (2025 v12)
-// - Pure CBT engine (no anti-cheat; handled by exam-realtime.js)
-// - Restores clocks/hourglass/topbar
-// - Modern subject title with REAL question count
-// - Timer warnings (20, 10, 5 mins) + blinking < 60s
-// - No internal shuffling (shuffle.js handles that)
-// - English-style SECTION instructions shown as cards
-//   (not numbered, not in nav, not counted)
+// exam-core.js — EMIS CBT ENGINE v13
+// Class-arm aware + full subject resolver
 // ======================================================
 
-console.log("[exam-core] MERGED CBT ENGINE v12 LOADED");
+console.log("[exam-core] EMIS CBT ENGINE v13 LOADED");
 
-// ------------------------------------------------------
-// GLOBAL STATE
-// ------------------------------------------------------
-window.examData             = null;   // full JSON
-window.currentQuestionIndex = 0;      // index in examData.questions (real question)
-window.userAnswers          = {};     // keyed by QUESTION INDEX (0-based)
-window.lockedQuestions      = new Set(); // indexes
-window.flaggedQuestions     = new Set();
-window.examTimer            = null;
-window.timeRemaining        = 0;
-window.initialTimeAllowed   = 0;      // for warning thresholds
-window.examStarted          = false;
-window.examStartTime        = null;
-window.__examFinished       = false;
-window.__timeExpired        = false;
-window.__reviewBlocked      = false;
+window.examData = null;
+window.currentQuestionIndex = 0;
+window.userAnswers = {};
+window.lockedQuestions = new Set();
+window.flaggedQuestions = new Set();
+window.examTimer = null;
+window.timeRemaining = 0;
+window.initialTimeAllowed = 0;
+window.examStarted = false;
+window.examStartTime = null;
+window.__examFinished = false;
+window.__timeExpired = false;
+window.__reviewBlocked = false;
+window.realQuestionIndices = [];
+window.sectionInstructions = {};
 
-// Only REAL questions (no instructions) — array of indices
-window.realQuestionIndices  = [];
-
-// For each question index i → section instruction meta
-// { title, body, raw }
-window.sectionInstructions  = {};
-
-const SS_KEY       = "emis_exam_progress";
-const LS_RELOADS   = "emis_exam_reload_count";
+const SS_KEY = "emis_exam_progress";
+const LS_RELOADS = "emis_exam_reload_count";
 const LS_EXAM_LOCK = "emis_exam_lock_active";
 
-// Timer warning flags (20, 10, 5 mins)
 let __warn20Shown = false;
 let __warn10Shown = false;
-let __warn5Shown  = false;
+let __warn5Shown = false;
 
-// ------------------------------------------------------
-// HELPERS
-// ------------------------------------------------------
-function $(s, r = document) { return r.querySelector(s); }
-function $$(s, r = document) { return [...r.querySelectorAll(s)]; }
+function $(s, r = document) {
+  return r.querySelector(s);
+}
 
-function formatTime(sec){
+function $$(s, r = document) {
+  return [...r.querySelectorAll(s)];
+}
+
+function formatTime(sec) {
   const safe = Math.max(0, sec | 0);
   const m = Math.floor(safe / 60).toString().padStart(2, "0");
   const s = (safe % 60).toString().padStart(2, "0");
   return `${m}:${s}`;
 }
 
-// Optional flash helper (uses #examFlash or #flashMessage if present)
-// ------------------------------------------------------
-// SAFE EXAM FLASH — NO ALERT (ANTI-CHEAT FRIENDLY)
-// ------------------------------------------------------
 function examFlash(message, type = "info") {
   let flashEl =
     document.getElementById("examFlashMessage") ||
     document.getElementById("examFlash") ||
     document.getElementById("flashMessage");
 
-  // --------------------------------------------------
-  // Auto-create flash container if missing (SAFE)
-  // --------------------------------------------------
   if (!flashEl) {
     flashEl = document.createElement("div");
     flashEl.id = "examFlash";
@@ -78,12 +58,8 @@ function examFlash(message, type = "info") {
     document.body.appendChild(flashEl);
   }
 
-  // --------------------------------------------------
-  // Set message & style
-  // --------------------------------------------------
   flashEl.textContent = message;
 
-  // Reset classes first
   flashEl.classList.remove(
     "exam-flash-info",
     "exam-flash-success",
@@ -92,195 +68,423 @@ function examFlash(message, type = "info") {
     "show"
   );
 
-  // Apply type class
   flashEl.classList.add(`exam-flash-${type}`, "show");
-
-  // 🔒 CRITICAL: prevent click / focus / anti-cheat strike
   flashEl.style.pointerEvents = "none";
 
-  // --------------------------------------------------
-  // Auto-dismiss (no interaction)
-  // --------------------------------------------------
   setTimeout(() => {
     flashEl.classList.remove("show");
   }, 2600);
 }
 
-// Parse instruction text into {title, body, raw}
-// e.g. "SECTION 3:\nChoose the interpretation..." ->
-//   title: "SECTION 3"
-//   body:  "Choose the interpretation..."
 function parseInstructionText(text) {
   if (!text) return null;
 
-  const lines = text.split(/\r?\n+/);
+  const lines = String(text).split(/\r?\n+/);
   let title = (lines[0] || "").trim();
-  // strip trailing colon
   title = title.replace(/\s*[:：]\s*$/, "");
 
   const body = lines.slice(1).join(" ").trim();
 
-  return {
-    title,
-    body,
-    raw: text
-  };
+  return { title, body, raw: text };
 }
 
-// For future use if needed
-function getCorrectIndex(q){
+function getCorrectIndex(q) {
   if (typeof q.correctIndex === "number") return q.correctIndex;
-  if (q.correctOption){
-    return q.correctOption.trim().toUpperCase().charCodeAt(0) - 65;
+
+  const raw =
+    q.correctOption ||
+    q.correct_option ||
+    q.answer ||
+    q.correctAnswer ||
+    q.correct_answer ||
+    "";
+
+  if (!raw) return -1;
+
+  const cleaned = String(raw).trim().toUpperCase();
+
+  if (/^[A-D]$/.test(cleaned)) {
+    return cleaned.charCodeAt(0) - 65;
   }
+
+  const optionIndex = Number(cleaned);
+  if (!Number.isNaN(optionIndex)) {
+    if (optionIndex >= 0 && optionIndex <= 3) return optionIndex;
+    if (optionIndex >= 1 && optionIndex <= 4) return optionIndex - 1;
+  }
+
   return -1;
 }
 
-// ------------------------------------------------------
-// NORMALIZE SUBJECT NAME (FULL MAP FOR ALL 13 SUBJECTS)
-// ------------------------------------------------------
-function normalizeSubjectName(subject){
-  subject = subject.toLowerCase().trim();
+/* ======================================================
+   FULL EMIS SUBJECT RESOLVER
+====================================================== */
 
-  const map = {
-    // 1. BIOLOGY
-    "biology": "biology",
+function normalizeSubjectKey(subject) {
+  let value = String(subject || "").toUpperCase().trim();
 
-    // 2. CHEMISTRY
-    "chemistry": "chemistry",
+  value = value.replace(/\./g, "");
+  value = value.replace(/&/g, "AND");
+  value = value.replace(/[_\-\/]+/g, " ");
+  value = value.replace(/\s+/g, " ").trim();
 
-    // 3. CIVIC EDUCATION
-    "civic education": "civic",
-    "civic": "civic",
+  const aliases = {
+    MATHS: "MATHEMATICS",
+    MATH: "MATHEMATICS",
+    MATHEMATICS: "MATHEMATICS",
 
-    // 4. COMPUTER SCIENCE
-    "computer science": "computer_science",
-    "computer studies": "computer_science",
-    "computer": "computer_science",
+    ENGLISH: "ENGLISH LANGUAGE",
+    "ENGLISH LANGUAGE": "ENGLISH LANGUAGE",
 
-    // 5. ECONOMICS
-    "economics": "economics",
+    CHEMISTRY: "CHEMISTRY",
+    PHYSICS: "PHYSICS",
+    BIOLOGY: "BIOLOGY",
 
-    // 6. ENGLISH LANGUAGE
-    "english language": "english",
-    "english": "english",
+    "TECHNICAL": "TECHNICAL DRAWING",
+    "TECHNICAL DRAWING": "TECHNICAL DRAWING",
 
-    // 7. FINANCIAL ACCOUNTING
-    "financial accounting": "accounts",
-    "accounting": "accounts",
+    IRK: "IRS",
+    IRS: "IRS",
 
-    // 8. GEOGRAPHY
-    "geography": "geography",
+    ISLAMIYAH: "ISLAMIYYAH",
+    ISLAMIYYA: "ISLAMIYYAH",
+    ISLAMIYYAH: "ISLAMIYYAH",
 
-    // 9. GOVERNMENT
-    "government": "government",
+    "COMPUTER": "COMPUTER SCIENCE",
+    "COMPUTER STUDIES": "COMPUTER SCIENCE",
+    "COMPUTER SCIENCE": "COMPUTER SCIENCE",
 
-    // 10. LITERATURE-IN-ENGLISH
-    "literature-in-english": "literature",
-    "literature in english": "literature",
-    "literature": "literature",
+    "FURTHER MATHS": "FURTHER MATHEMATICS",
+    "FURTHER MATHEMATICS": "FURTHER MATHEMATICS",
 
-    // 11. MATHEMATICS
-    "mathematics": "mathematics",
-    "maths": "mathematics",
+    AGRICULTURE: "AGRICULTURAL SCIENCE",
+    "AGRICULTURAL SCIENCE": "AGRICULTURAL SCIENCE",
 
-    // 12. PHYSICS
-    "physics": "physics",
+    CIVIC: "CIVIC EDUCATION",
+    "CIVIC EDUCATION": "CIVIC EDUCATION",
 
-    // 13. TECHNICAL DRAWING
-    "technical drawing": "technical",
-    "technical": "technical"
+    GEOGRAPHY: "GEOGRAPHY",
+    ECONOMICS: "ECONOMICS",
+    POISE: "POISE",
+
+    LITERATURE: "LITERATURE",
+    "LITERATURE IN ENGLISH": "LITERATURE",
+    "LITERATURE-IN-ENGLISH": "LITERATURE",
+
+    GOVERNMENT: "GOVERNMENT",
+
+    HAUSA: "HAUSA LANGUAGE",
+    "HAUSA LANGUAGE": "HAUSA LANGUAGE",
+
+    YORUBA: "YORUBA LANGUAGE",
+    "YORUBA LANGUAGE": "YORUBA LANGUAGE",
+
+    ARABIC: "ARABIC LANGUAGE",
+    "ARABIC LANGUAGE": "ARABIC LANGUAGE",
+
+    MARKETTING: "MARKETING",
+    MARKETING: "MARKETING",
+
+    COMMERCE: "COMMERCE",
+
+    ACCOUNT: "FINANCIAL ACCOUNT",
+    ACCOUNTS: "FINANCIAL ACCOUNT",
+    ACCOUNTING: "FINANCIAL ACCOUNT",
+    "FINANCIAL ACCOUNTING": "FINANCIAL ACCOUNT",
+    "FINANCIAL ACCOUNT": "FINANCIAL ACCOUNT",
+
+    "HERITAGE AND CITIZENSHIP STUDIES": "CIT AND HER STD",
+    "HERITAGE CITIZENSHIP STUDIES": "CIT AND HER STD",
+    "CITIZENSHIP AND HERITAGE STUDIES": "CIT AND HER STD",
+    "CIT AND HER STD": "CIT AND HER STD",
+    "CIT HER STD": "CIT AND HER STD",
+
+    "SOC AND CIT STD": "SOC AND CIT STD",
+    "SOCIAL AND CITIZENSHIP STUDIES": "SOC AND CIT STD",
+
+    "NATIONAL VALUE": "NATIONAL VALUE",
+    "NATIONAL VALUES": "NATIONAL VALUE",
+
+    CCA: "CCA",
+    "BUSINESS STUDIES": "BUSINESS STUDIES",
+    HISTORY: "HISTORY",
+
+    BST: "BST",
+
+    PHE: "PHE",
+    "P H E": "PHE",
+    "PHYSICAL HEALTH EDUCATION": "PHE",
+
+    PVS: "PVS",
+
+    "HORTICULTURE AND CROP PRODUCTION": "HORT AND CROP PRODUCTION",
+    "HORT AND CROP PRODUCTION": "HORT AND CROP PRODUCTION",
+    "HORT CROP PRODUCTION": "HORT AND CROP PRODUCTION",
+
+    "DIGITAL TECH": "DIGITAL TECH",
+    "DIGITAL TECHNOLOGY": "DIGITAL TECH",
+
+    "INTER SCIENCE": "INTER SCIENCE",
+    "INTEGRATED SCIENCE": "INTER SCIENCE",
+
+    "GARMENT MAKING": "GARMENT MAKING"
   };
 
-  return map[subject] || subject.replace(/\s+/g, "");
+  return aliases[value] || value;
 }
 
-// ------------------------------------------------------
-// RESOLVE JSON PATH — NOW INCLUDES YEAR FOLDER
-// ------------------------------------------------------
-function resolveExamJSON(subject, classCategory){
-  const subjectKey = normalizeSubjectName(subject);  // english → english
-  const cls        = classCategory.toUpperCase();    // SS1
-  const clsLower   = classCategory.toLowerCase();    // ss1
+function subjectKeyToFileBase(subject) {
+  const key = normalizeSubjectKey(subject);
 
-  // Read YEAR passed from exam.html <meta>
-  const yearMeta = document.querySelector('meta[name="exam-year"]');
-  const year = yearMeta ? yearMeta.content : new Date().getFullYear();
+  const map = {
+    "MATHEMATICS": "mathematics",
+    "ENGLISH LANGUAGE": "english",
+    "CHEMISTRY": "chemistry",
+    "PHYSICS": "physics",
+    "BIOLOGY": "biology",
+    "TECHNICAL DRAWING": "technical",
 
-  // NEW correct path:
-  return `/static/subjects/${year}/subjects-json/${cls}/${subjectKey}_${clsLower}.json`;
+    "IRS": "irs",
+    "ISLAMIYYAH": "islamiyyah",
+
+    "COMPUTER SCIENCE": "computer_science",
+    "FURTHER MATHEMATICS": "further_mathematics",
+    "AGRICULTURAL SCIENCE": "agricultural_science",
+
+    "CIVIC EDUCATION": "civic",
+    "GEOGRAPHY": "geography",
+    "ECONOMICS": "economics",
+
+    "POISE": "poise",
+
+    "LITERATURE": "literature",
+    "GOVERNMENT": "government",
+
+    "HAUSA LANGUAGE": "hausa",
+    "YORUBA LANGUAGE": "yoruba",
+    "ARABIC LANGUAGE": "arabic",
+
+    "MARKETING": "marketing",
+    "COMMERCE": "commerce",
+    "FINANCIAL ACCOUNT": "accounts",
+
+    "CIT AND HER STD": "cit_her_std",
+    "SOC AND CIT STD": "soc_cit_std",
+
+    "NATIONAL VALUE": "national_value",
+    "CCA": "cca",
+    "BUSINESS STUDIES": "business_studies",
+    "HISTORY": "history",
+
+    "BST": "bst",
+    "PHE": "phe",
+    "PVS": "pvs",
+
+    "HORT AND CROP PRODUCTION": "hort_crop_production",
+    "DIGITAL TECH": "digital_tech",
+    "INTER SCIENCE": "inter_science",
+    "GARMENT MAKING": "garment_making"
+  };
+
+  return (
+    map[key] ||
+    key.toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/\./g, "")
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "")
+  );
 }
 
-// ------------------------------------------------------
-// LOAD EXAM DATA (QUIET MODE FOR startExam)
-// ------------------------------------------------------
+function getMetaContent(...names) {
+  for (const name of names) {
+    const meta = document.querySelector(`meta[name="${name}"]`);
+    if (meta && meta.content) return meta.content.trim();
+  }
+  return "";
+}
+
+function normalizeClassLevel(value) {
+  const raw = String(value || "").toUpperCase().trim().replace(/-/g, "_");
+  const compact = raw.replace(/[\s_]/g, "");
+
+  for (const level of ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]) {
+    if (compact === level || compact.startsWith(level)) return level;
+  }
+
+  return "";
+}
+
+function getExamClassLevel(classCategory = "") {
+  return (
+    normalizeClassLevel(getMetaContent("student-class-level")) ||
+    normalizeClassLevel(getMetaContent("student-class-category")) ||
+    normalizeClassLevel(classCategory) ||
+    normalizeClassLevel(getMetaContent("student-class")) ||
+    ""
+  );
+}
+
+function getExamYear() {
+  return (
+    getMetaContent("exam-year") ||
+    String(new Date().getFullYear())
+  );
+}
+
+function uniqueArray(items) {
+  return [...new Set(items.filter(Boolean))];
+}
+
+function buildExamJSONCandidates(subject, classCategory) {
+  const year = getExamYear();
+  const classLevel = getExamClassLevel(classCategory);
+  const clsLower = classLevel.toLowerCase();
+
+  const primary = subjectKeyToFileBase(subject);
+
+  const fallbacks = {
+    accounts: [
+      "accounts",
+      "account",
+      "accounting",
+      "financial_account",
+      "financial_accounting"
+    ],
+    english: ["english", "english_language"],
+    mathematics: ["mathematics", "maths"],
+    civic: ["civic", "civic_education"],
+    computer_science: ["computer_science", "computer_studies", "computer"],
+    technical: ["technical", "technical_drawing"],
+    irs: ["irs", "irk"],
+    islamiyyah: ["islamiyyah", "islamiyah", "islamiyya"],
+    literature: ["literature", "literature_in_english"],
+    agricultural_science: ["agricultural_science", "agriculture"],
+    further_mathematics: ["further_mathematics", "further_maths"],
+    digital_tech: ["digital_tech", "digital_technology"],
+    hort_crop_production: [
+      "hort_crop_production",
+      "hort_and_crop_production",
+      "horticulture_and_crop_production"
+    ],
+    soc_cit_std: [
+      "soc_cit_std",
+      "soc_and_cit_std",
+      "social_and_citizenship_studies"
+    ],
+    cit_her_std: [
+      "cit_her_std",
+      "cit_and_her_std",
+      "heritage_citizenship_studies",
+      "heritage_and_citizenship_studies",
+      "hcs"
+    ],
+    phe: ["phe", "p_h_e"],
+    national_value: ["national_value", "national_values"],
+    inter_science: ["inter_science", "integrated_science"],
+    garment_making: ["garment_making"],
+    business_studies: ["business_studies"]
+  };
+
+  const bases = uniqueArray([
+    primary,
+    ...(fallbacks[primary] || [])
+  ]);
+
+  return bases.map((base) => {
+    return `/static/subjects/${year}/subjects-json/${classLevel}/${base}_${clsLower}.json`;
+  });
+}
+
+function resolveExamJSON(subject, classCategory) {
+  return buildExamJSONCandidates(subject, classCategory)[0];
+}
+
+async function fetchFirstWorkingJSON(urls) {
+  const errors = [];
+
+  for (const url of urls) {
+    try {
+      console.log("📥 Trying Exam JSON:", url);
+
+      const res = await fetch(url, { cache: "no-store" });
+
+      if (!res.ok) {
+        errors.push(`${url} → ${res.status}`);
+        continue;
+      }
+
+      const data = await res.json();
+
+      return {
+        url,
+        data
+      };
+
+    } catch (err) {
+      errors.push(`${url} → ${err.message}`);
+    }
+  }
+
+  const error = new Error("Exam JSON not found");
+  error.tried = errors;
+  throw error;
+}
+
+/* ======================================================
+   LOAD EXAM DATA
+====================================================== */
+
 window.loadExamData = async function (quiet = false) {
   try {
     const subjectMeta = $('meta[name="exam-subject"]');
-    const classMeta   = $('meta[name="student-class"]');
+    const classMeta =
+      $('meta[name="student-class-level"]') ||
+      $('meta[name="student-class-category"]') ||
+      $('meta[name="student-class"]');
 
     if (!subjectMeta || !classMeta) {
       throw new Error("Missing subject/class metadata.");
     }
 
-    const subject       = subjectMeta.content;
+    const subject = subjectMeta.content;
     const classCategory = classMeta.content;
-    const jsonURL       = resolveExamJSON(subject, classCategory);
+    const candidates = buildExamJSONCandidates(subject, classCategory);
 
-    console.log("📥 Loading Exam JSON:", jsonURL);
+    const loaded = await fetchFirstWorkingJSON(candidates);
+    let rawData = loaded.data;
 
-    const res = await fetch(jsonURL, { cache: "no-store" });
-    if (!res.ok) throw new Error("Exam JSON not found");
+    console.log("✅ Exam JSON loaded:", loaded.url);
 
-    let rawData = await res.json();
-
-    // KEEP FULL STRUCTURE
     rawData.questions = (rawData.questions || []).map((q, idx) => {
-      let rawCorrect =
-        q.correctOption ||
-        q.correct_option ||
-        q.answer ||
-        null;
-
-      let ci = -1;
-      if (rawCorrect) {
-        ci = rawCorrect.toString().trim().toUpperCase().charCodeAt(0) - 65;
-      }
-
       return {
-        id:            q.id ?? idx,
-        question:      q.question,
-        options:       q.options || [],
-        diagram:       q.diagram || null,
-        passage:       q.passage || null,
+        id: q.id ?? idx,
+        question: q.question || "",
+        options: q.options || [],
+        diagram: q.diagram || null,
+        passage: q.passage || null,
         isInstruction: !!q.isInstruction,
-        correctIndex:  ci
+        correctIndex: getCorrectIndex(q)
       };
     });
 
-    // Shuffle externally-controlled
-    window.examData = shuffleQuestions(rawData);
+    window.examData =
+      typeof shuffleQuestions === "function"
+        ? shuffleQuestions(rawData)
+        : rawData;
 
-    // ------------------------------------------------------
-    // 1️⃣ Compute REAL QUESTIONS (no instructions)
-    //     FIXED: handles Literature options safely
-    // ------------------------------------------------------
     window.realQuestionIndices = [];
-    window.examData.questions.forEach((q, i) => {
 
-      // Detect if options actually contain visible text
+    window.examData.questions.forEach((q, i) => {
       const hasOptions =
         Array.isArray(q.options) &&
-        q.options.some(opt => opt && opt.toString().trim() !== "");
+        q.options.some((opt) => opt && opt.toString().trim() !== "");
 
       if (!q.isInstruction && hasOptions) {
         window.realQuestionIndices.push(i);
       }
     });
 
-    // ------------------------------------------------------
-    // 2️⃣ Compute SECTION INSTRUCTIONS per real question
-    // ------------------------------------------------------
     window.sectionInstructions = {};
     let currentSectionMeta = null;
 
@@ -289,6 +493,7 @@ window.loadExamData = async function (quiet = false) {
         currentSectionMeta = parseInstructionText(q.question);
         return;
       }
+
       if (!q.isInstruction && currentSectionMeta) {
         window.sectionInstructions[i] = currentSectionMeta;
       }
@@ -296,11 +501,14 @@ window.loadExamData = async function (quiet = false) {
 
     const totalReal = window.realQuestionIndices.length;
 
-    // Update subject title
+    if (!totalReal) {
+      throw new Error("No valid questions found in JSON.");
+    }
+
     const st = $("#examSubjectTitle");
     if (st) {
       st.innerHTML = `
-        <span class="exam-subject-pill">${subject.toUpperCase()}</span>
+        <span class="exam-subject-pill">${String(subject).toUpperCase()}</span>
         <span class="exam-question-count">• ${totalReal} QUESTION${totalReal === 1 ? "" : "S"}</span>
       `;
       st.classList.remove("hidden");
@@ -309,49 +517,69 @@ window.loadExamData = async function (quiet = false) {
     const totalQEl = $("#totalQuestions");
     if (totalQEl) totalQEl.textContent = totalReal;
 
-    // Timer setup
-    window.timeRemaining      = (rawData.time_allowed_minutes || 60) * 60;
+    window.timeRemaining = (rawData.time_allowed_minutes || 60) * 60;
     window.initialTimeAllowed = window.timeRemaining;
-    __warn20Shown = __warn10Shown = __warn5Shown = false;
+
+    __warn20Shown = false;
+    __warn10Shown = false;
+    __warn5Shown = false;
 
     const td = $("#timerDisplay");
     if (td) td.textContent = formatTime(window.timeRemaining);
 
-    // Load FIRST real question
-    if (window.realQuestionIndices.length > 0) {
-      loadQuestion(window.realQuestionIndices[0]);
-    }
-
+    loadQuestion(window.realQuestionIndices[0]);
     updateProgress();
     updateQuestionNavigation();
 
   } catch (err) {
     console.error("❌ loadExamData error:", err);
-    if (!quiet) alert("Unable to load exam. Contact admin.");
+
+    if (err.tried) {
+      console.table(err.tried);
+    }
+
+    const message =
+      "Unable to load exam JSON. Please contact admin. " +
+      "Check that the pushed subject file exists for this exam year and class level.";
+
+    examFlash(message, "danger");
+
+    if (!quiet) {
+      console.error(message);
+    }
+
     throw err;
   }
 };
 
-// ------------------------------------------------------
-// PROGRESS — counts ONLY real questions
-// ------------------------------------------------------
+
+
+
+
+/* ======================================================
+   PROGRESS
+====================================================== */
+
 window.updateProgress = function () {
   const total = window.realQuestionIndices.length;
-
-  // userAnswers is keyed by QUESTION INDEX (0-based)
-  const answered = window.realQuestionIndices.filter(i => !!window.userAnswers[i]).length;
-
+  const answered = window.realQuestionIndices.filter((i) => !!window.userAnswers[i]).length;
   const pct = total ? (answered / total) * 100 : 0;
 
-  $("#answeredCount").textContent  = answered;
-  $("#remainingCount").textContent = total - answered;
-  $("#progressBar").style.width    = `${pct}%`;
-  $("#progressText").textContent   = `${Math.round(pct)}% Complete`;
+  const answeredEl = $("#answeredCount");
+  const remainingEl = $("#remainingCount");
+  const progressBar = $("#progressBar");
+  const progressText = $("#progressText");
+
+  if (answeredEl) answeredEl.textContent = answered;
+  if (remainingEl) remainingEl.textContent = total - answered;
+  if (progressBar) progressBar.style.width = `${pct}%`;
+  if (progressText) progressText.textContent = `${Math.round(pct)}% Complete`;
 };
 
-// ------------------------------------------------------
-// NAVIGATION BUTTONS — last real question submits
-// ------------------------------------------------------
+/* ======================================================
+   NAVIGATION BUTTONS
+====================================================== */
+
 window.updateNavigationButtons = function () {
   const prev = $("#prevBtn");
   const next = $("#nextBtn");
@@ -359,21 +587,18 @@ window.updateNavigationButtons = function () {
   if (!window.realQuestionIndices || window.realQuestionIndices.length === 0) return;
 
   const firstRealIndex = window.realQuestionIndices[0];
-  const lastRealIndex  = window.realQuestionIndices[window.realQuestionIndices.length - 1];
+  const lastRealIndex = window.realQuestionIndices[window.realQuestionIndices.length - 1];
 
   if (prev) {
-    prev.disabled = (window.currentQuestionIndex === firstRealIndex);
+    prev.disabled = window.currentQuestionIndex === firstRealIndex;
   }
 
   if (next) {
-    const last = (window.currentQuestionIndex === lastRealIndex);
-    next.textContent = last ? "Submit" : "Next →";
+    const isLast = window.currentQuestionIndex === lastRealIndex;
+    next.textContent = isLast ? "Submit" : "Next →";
   }
 };
 
-// ------------------------------------------------------
-// QUESTION NAVIGATION — show ONLY real questions
-// ------------------------------------------------------
 window.updateQuestionNavigation = function () {
   const grid = $("#questionGrid");
   if (!grid || !window.examData) return;
@@ -381,11 +606,12 @@ window.updateQuestionNavigation = function () {
   let html = "";
 
   window.realQuestionIndices.forEach((trueIndex, pos) => {
-    const active   = (trueIndex === window.currentQuestionIndex) ? "active"   : "";
-    const answered = window.userAnswers[trueIndex]               ? "answered" : "";
+    const active = trueIndex === window.currentQuestionIndex ? "active" : "";
+    const answered = window.userAnswers[trueIndex] ? "answered" : "";
+    const flagged = window.flaggedQuestions.has(trueIndex) ? "flagged" : "";
 
     html += `
-      <button class="question-nav-btn ${active} ${answered}" data-q-index="${trueIndex}">
+      <button class="question-nav-btn ${active} ${answered} ${flagged}" data-q-index="${trueIndex}">
         ${pos + 1}
       </button>
     `;
@@ -393,26 +619,27 @@ window.updateQuestionNavigation = function () {
 
   grid.innerHTML = html;
 
-  $$(".question-nav-btn", grid).forEach(btn => {
+  $$(".question-nav-btn", grid).forEach((btn) => {
     btn.onclick = () => loadQuestion(Number(btn.dataset.qIndex));
   });
 };
 
-// ------------------------------------------------------
-// END EXAM — counts ONLY real questions
-// ------------------------------------------------------
+/* ======================================================
+   END EXAM MODAL
+====================================================== */
+
 window.endExam = function () {
   if (!window.examData) return;
 
-  const total    = window.realQuestionIndices.length;
-  const answered = window.realQuestionIndices.filter(i => !!window.userAnswers[i]).length;
+  const total = window.realQuestionIndices.length;
+  const answered = window.realQuestionIndices.filter((i) => !!window.userAnswers[i]).length;
 
   const msgEl = $("#endExamMessage");
   if (msgEl) {
     msgEl.innerHTML = `
       You answered <b>${answered}</b> out of <b>${total}</b>.<br>
-      Unanswered will be marked incorrect.<br><br>
-      Are you sure you want to end?
+      Unanswered questions will be marked incorrect.<br><br>
+      Are you sure you want to end this exam?
     `;
   }
 
@@ -420,14 +647,15 @@ window.endExam = function () {
   if (modal) modal.classList.remove("hidden");
 };
 
-window.closeEndExam = () => {
+window.closeEndExam = function () {
   const modal = $("#endExamModal");
   if (modal) modal.classList.add("hidden");
 };
 
-// ------------------------------------------------------
-// SUBMIT EXAM — now sends RAW SCORE + FLAGGED QUESTIONS
-// ------------------------------------------------------
+/* ======================================================
+   SUBMIT EXAM
+====================================================== */
+
 window.submitExam = async function (timeUp = false) {
   if (window.__examFinished) return;
   window.__examFinished = true;
@@ -442,23 +670,19 @@ window.submitExam = async function (timeUp = false) {
   realIndices.forEach((trueIndex) => {
     const q = window.examData.questions[trueIndex];
     const ua = window.userAnswers[trueIndex];
-    if (ua && ua.index === q.correctIndex) correct++;
+
+    if (ua && ua.index === q.correctIndex) {
+      correct++;
+    }
   });
 
-  const answered  = realIndices.filter(i => !!window.userAnswers[i]).length;
+  const answered = realIndices.filter((i) => !!window.userAnswers[i]).length;
   const incorrect = total - correct;
-  const skipped   = total - answered;
-
-  // ------------------------------------------------------
-  // ⭐ RAW SCORE
-  // ------------------------------------------------------
+  const skipped = total - answered;
   const rawScore = correct;
 
-  // ------------------------------------------------------
-  // 🚩 COLLECT FLAGGED QUESTIONS (NEW)
-  // ------------------------------------------------------
-  const flaggedQuestionsDetailed = [...window.flaggedQuestions].map(i => {
-    const q = window.examData.questions[i];
+  const flaggedQuestionsDetailed = [...window.flaggedQuestions].map((i) => {
+    const q = window.examData.questions[i] || {};
     return {
       index: i,
       question_id: q.id,
@@ -466,8 +690,11 @@ window.submitExam = async function (timeUp = false) {
     };
   });
 
+  const subjectMeta = $('meta[name="exam-subject"]');
+  const yearMeta = $('meta[name="exam-year"]');
+
   const payload = {
-    subject: $('meta[name="exam-subject"]').content.trim().toUpperCase(),
+    subject: subjectMeta ? subjectMeta.content.trim().toUpperCase() : "",
     score: rawScore,
     correct,
     incorrect,
@@ -484,19 +711,17 @@ window.submitExam = async function (timeUp = false) {
     status: timeUp ? "timeout" : "completed"
   };
 
-  // ---------------------------------------------
-  // 🔔 REAL-TIME NOTIFICATION: Exam End
-  // ---------------------------------------------
   try {
     const notifyBody = {
-      student_name: document.querySelector('meta[name="student-name"]')?.content || "",
-      admission_number: document.querySelector('meta[name="student-admission"]')?.content || "",
-      class_category: document.querySelector('meta[name="student-class"]')?.content || "",
+      student_name: getMetaContent("student-name"),
+      admission_number: getMetaContent("student-admission"),
+      class_category: getMetaContent("student-class-level", "student-class-category", "student-class"),
+      class_arm: getMetaContent("student-class-arm", "student-class"),
       subject: payload.subject,
       score: rawScore,
       total_questions: total,
       flagged: flaggedQuestionsDetailed.length,
-      year: document.querySelector('meta[name="exam-year"]')?.content || "",
+      year: yearMeta?.content || getExamYear(),
       submitted_at: payload.submittedAt,
       status: payload.status
     };
@@ -508,81 +733,92 @@ window.submitExam = async function (timeUp = false) {
     });
 
   } catch (err) {
-    console.error("❌ Failed to send exam_end notification:", err);
+    console.error("Failed to send exam_end notification:", err);
   }
 
-  // ---------------------------------------------
-  // 🔵 NORMAL SUBMISSION TO FLASK
-  // ---------------------------------------------
-  await fetch("/submit_exam", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
+  try {
+    const res = await fetch("/submit_exam", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-  location.replace("/result");
+    if (!res.ok) {
+      const out = await res.json().catch(() => ({}));
+      throw new Error(out.error || "Submit failed");
+    }
+
+    try {
+      sessionStorage.removeItem(SS_KEY);
+      localStorage.removeItem(LS_EXAM_LOCK);
+    } catch {}
+
+    location.replace("/result");
+
+  } catch (err) {
+    window.__examFinished = false;
+    examFlash(err.message || "Unable to submit exam. Please contact admin.", "danger");
+    console.error("Submit exam error:", err);
+  }
 };
 
+/* ======================================================
+   LOAD QUESTION
+====================================================== */
 
-// ------------------------------------------------------
-// LOAD SINGLE QUESTION  (REAL QUESTION NUMBERING + SECTION CARD)
-// ------------------------------------------------------
 window.loadQuestion = function (i) {
   if (!window.examData) return;
   if (i < 0 || i >= window.examData.questions.length) return;
 
   const q = window.examData.questions[i];
 
-  // Prevent loading pure instruction blocks
   if (q.isInstruction) {
-    const nextReal = window.realQuestionIndices.find(r => r > i);
-    if (nextReal !== undefined) {
-      return loadQuestion(nextReal);
-    }
+    const nextReal = window.realQuestionIndices.find((r) => r > i);
+    if (nextReal !== undefined) return loadQuestion(nextReal);
     return;
   }
 
-  // Set current question index
   window.currentQuestionIndex = i;
 
-  // ------------------------------------------------------
-  // 🚩 SYNC FLAG BUTTON STATE (NEW)
-  // ------------------------------------------------------
   if (typeof updateFlagUI === "function") {
     updateFlagUI(window.flaggedQuestions.has(i));
   }
 
-  // ------------------------------------------------------
-  // REAL QUESTION NUMBER (1-based)
-  // ------------------------------------------------------
   const pos = window.realQuestionIndices.indexOf(i);
-  if (pos !== -1) {
-    $("#currentQuestionNumber").textContent = pos + 1;
+  const currentQuestionNumber = $("#currentQuestionNumber");
+
+  if (pos !== -1 && currentQuestionNumber) {
+    currentQuestionNumber.textContent = pos + 1;
   }
 
-  const prev   = window.userAnswers[i]?.index;
+  const prev = window.userAnswers[i]?.index;
   const locked = window.lockedQuestions.has(i);
 
-  // 🔹 Remove "A." / "B." prefixes from JSON
+  function escapeHtml(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
   function stripLabel(text) {
-    return text.replace(/^[A-Da-d][\.\)\-:\s]+/, "").trim();
+    return String(text || "").replace(/^[A-Da-d][\.\)\-:\s]+/, "").trim();
   }
 
   function applyHighlight(text) {
-    if (!text) return text;
-    return text.replace(/\*(.+?)\*/g, `<span class="focus-word">$1</span>`);
+    const safe = escapeHtml(text);
+    return safe.replace(/\*(.+?)\*/g, `<span class="focus-word">$1</span>`);
   }
 
   function convertBlanks(text) {
     if (!text) return text;
-    return text.replace(/_{3,}\s*(\d+)/g, (_, num) =>
-      `<span class="gap">${num}</span>`
-    );
+    return String(text).replace(/_{3,}\s*(\d+)/g, (_, num) => {
+      return `<span class="gap">${num}</span>`;
+    });
   }
 
-  // ------------------------------------------------------
-  // PASSAGE BLOCK (FOR English + NON-instruction Literature)
-  // ------------------------------------------------------
   const passageBlock = $("#passageBlock");
 
   if (passageBlock) {
@@ -601,9 +837,6 @@ window.loadQuestion = function (i) {
     }
   }
 
-  // ------------------------------------------------------
-  // SECTION INSTRUCTION CARD — WITH LITERATURE FIX
-  // ------------------------------------------------------
   let sectionHTML = "";
   const sec = window.sectionInstructions[i];
 
@@ -638,28 +871,21 @@ window.loadQuestion = function (i) {
     `;
   }
 
-  // ------------------------------------------------------
-  // DIAGRAM RENDERING
-  // ------------------------------------------------------
   let diagramHTML = "";
   if (q.diagram) {
     diagramHTML = `
       <div class="question-diagram mb-4">
-        <img src="${q.diagram}" class="diagram-img"
+        <img src="${escapeHtml(q.diagram)}" class="diagram-img"
              style="max-width:100%; border-radius:6px;">
       </div>
     `;
   }
 
-  // ------------------------------------------------------
-  // OPTIONS RENDERING
-  // ------------------------------------------------------
   const optionsHTML = (q.options || []).map((opt, idx) => {
     const cleanOpt = stripLabel(opt);
-    const letter   = String.fromCharCode(65 + idx);
-
+    const letter = String.fromCharCode(65 + idx);
     const selected = prev === idx ? "selected" : "";
-    const dis      = locked ? "disabled" : "";
+    const dis = locked ? "disabled" : "";
 
     return `
       <button class="option-btn ${selected}" data-option-index="${idx}" ${dis}>
@@ -669,24 +895,24 @@ window.loadQuestion = function (i) {
     `;
   }).join("");
 
-  // ------------------------------------------------------
-  // RENDER QUESTION CARD
-  // ------------------------------------------------------
-  $("#questionContent").innerHTML = `
-    <div class="qa-slide fade-in-up">
-      ${diagramHTML}
-      ${sectionHTML}
-      <h3 class="text-xl font-medium mb-4">
-        ${applyHighlight(q.question)}
-      </h3>
-      <div class="space-y-3">
-        ${optionsHTML}
-      </div>
-    </div>
-  `;
+  const questionContent = $("#questionContent");
 
-  // Bind option selection
-  $$(".option-btn").forEach(btn => {
+  if (questionContent) {
+    questionContent.innerHTML = `
+      <div class="qa-slide fade-in-up">
+        ${diagramHTML}
+        ${sectionHTML}
+        <h3 class="text-xl font-medium mb-4">
+          ${applyHighlight(q.question)}
+        </h3>
+        <div class="space-y-3">
+          ${optionsHTML}
+        </div>
+      </div>
+    `;
+  }
+
+  $$(".option-btn").forEach((btn) => {
     btn.onclick = () => selectOption(Number(btn.dataset.optionIndex));
   });
 
@@ -694,23 +920,23 @@ window.loadQuestion = function (i) {
   updateQuestionNavigation();
 };
 
+/* ======================================================
+   SELECT OPTION
+====================================================== */
 
-// ------------------------------------------------------
-// SELECT OPTION — keyed by QUESTION INDEX
-// ------------------------------------------------------
-window.selectOption = function(idx){
+window.selectOption = function (idx) {
   const qIndex = window.currentQuestionIndex;
-  const q      = window.examData.questions[qIndex];
+  const q = window.examData.questions[qIndex];
 
   if (window.lockedQuestions.has(qIndex)) return;
 
-  const correct   = q.correctIndex;
-  const isCorrect = (idx === correct);
+  const correct = q.correctIndex;
+  const isCorrect = idx === correct;
 
   window.userAnswers[qIndex] = { index: idx, correct: isCorrect };
   window.lockedQuestions.add(qIndex);
 
-  $$(".option-btn").forEach(btn => {
+  $$(".option-btn").forEach((btn) => {
     btn.disabled = true;
     btn.classList.toggle(
       "selected",
@@ -721,9 +947,9 @@ window.selectOption = function(idx){
   updateProgress();
   updateQuestionNavigation();
 
-  // Auto-next after a short delay
   setTimeout(() => {
     const pos = window.realQuestionIndices.indexOf(window.currentQuestionIndex);
+
     if (pos >= 0 && pos < window.realQuestionIndices.length - 1) {
       const nextIndex = window.realQuestionIndices[pos + 1];
       loadQuestion(nextIndex);
@@ -735,35 +961,37 @@ window.selectOption = function(idx){
   }, 650);
 };
 
-// ------------------------------------------------------
-// NAVIGATION — move ONLY through real questions
-// ------------------------------------------------------
-window.previousQuestion = function(){
+/* ======================================================
+   QUESTION MOVEMENT
+====================================================== */
+
+window.previousQuestion = function () {
   if (!window.realQuestionIndices || window.realQuestionIndices.length === 0) return;
 
   const pos = window.realQuestionIndices.indexOf(window.currentQuestionIndex);
+
   if (pos > 0) {
-    const prevIndex = window.realQuestionIndices[pos - 1];
-    loadQuestion(prevIndex);
+    loadQuestion(window.realQuestionIndices[pos - 1]);
   }
 };
 
-window.nextQuestion = function(){
+window.nextQuestion = function () {
   if (!window.realQuestionIndices || window.realQuestionIndices.length === 0) return;
 
   const pos = window.realQuestionIndices.indexOf(window.currentQuestionIndex);
+
   if (pos < window.realQuestionIndices.length - 1) {
-    const nextIndex = window.realQuestionIndices[pos + 1];
-    loadQuestion(nextIndex);
+    loadQuestion(window.realQuestionIndices[pos + 1]);
   } else {
     submitExam(false);
   }
 };
 
-// ------------------------------------------------------
-// TIMER — with warnings & blinking < 60s
-// ------------------------------------------------------
-window.startTimer = function(){
+/* ======================================================
+   TIMER
+====================================================== */
+
+window.startTimer = function () {
   if (window.examTimer) clearInterval(window.examTimer);
 
   const timerDisplay = $("#timerDisplay");
@@ -783,17 +1011,19 @@ window.startTimer = function(){
       }
     }
 
-    const t    = window.timeRemaining;
+    const t = window.timeRemaining;
     const init = window.initialTimeAllowed || t;
 
     if (!__warn20Shown && init >= 20 * 60 && t <= 20 * 60 && t > 19 * 60) {
       examFlash("⏰ You have 20 minutes left.", "warning");
       __warn20Shown = true;
     }
+
     if (!__warn10Shown && init >= 10 * 60 && t <= 10 * 60 && t > 9 * 60) {
       examFlash("⏰ You have 10 minutes left.", "warning");
       __warn10Shown = true;
     }
+
     if (!__warn5Shown && init >= 5 * 60 && t <= 5 * 60 && t > 4 * 60) {
       examFlash("⚠️ Only 5 minutes left. Review and submit!", "danger");
       __warn5Shown = true;
@@ -807,10 +1037,11 @@ window.startTimer = function(){
   }, 1000);
 };
 
-// ------------------------------------------------------
-// START EXAM  — Stable layout + clocks/hourglass visible
-// ------------------------------------------------------
-window.startExam = async function(){
+/* ======================================================
+   START EXAM
+====================================================== */
+
+window.startExam = async function () {
   if (window.examStarted) return;
   window.examStarted = true;
 
@@ -831,62 +1062,53 @@ window.startExam = async function(){
     window.examStartTime = Date.now();
     startTimer();
 
-    const timerBlock   = $("#examTimer");
+    const timerBlock = $("#examTimer");
     const fullscreenBtn = $("#fullscreenBtn");
-    const studentBlock  = $(".exam-topbar-student");
+    const studentBlock = $(".exam-topbar-student");
 
-    if (timerBlock)   timerBlock.classList.remove("hidden");
+    if (timerBlock) timerBlock.classList.remove("hidden");
     if (fullscreenBtn) fullscreenBtn.classList.remove("hidden");
-    if (studentBlock)  studentBlock.classList.remove("hidden");
+    if (studentBlock) studentBlock.classList.remove("hidden");
 
   } catch (err) {
-    console.error("❌ startExam error:", err);
-    alert("Unable to start exam. Contact admin.");
+    console.error("startExam error:", err);
+
+    window.examStarted = false;
+
+    const iface = $("#examInterface");
+    if (iface) iface.classList.add("hidden");
+
+    const modal = $("#instructionsModal");
+    if (modal) {
+      modal.classList.remove("hidden");
+      modal.style.display = "";
+    }
+
+    examFlash("Unable to start exam. Contact admin.", "danger");
   }
 };
 
-// ------------------------------------------------------
-// DOM READY
-// ------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
-  const startBtn = $("#startExamBtn");
-  if (startBtn) {
-    startBtn.addEventListener("click", () => {
-      window.startExam();
-    });
-  }
-});
+/* ======================================================
+   FLAG QUESTION
+====================================================== */
 
-
-
-// ------------------------------------------------------
-// FLAG QUESTION — SAFE, NON-INTRUSIVE, ANTI-CHEAT FRIENDLY
-// ------------------------------------------------------
 window.toggleFlag = function () {
   const qIndex = window.currentQuestionIndex;
   if (qIndex == null) return;
 
-  // Prevent multiple flag toggles per question
   if (window.flaggedQuestions.has(qIndex)) {
     examFlash("⚠️ This question is already flagged.", "info");
     return;
   }
 
-  // Store flag
   window.flaggedQuestions.add(qIndex);
-
-  // Visual update
   updateFlagUI(true);
+  updateQuestionNavigation();
 
-  // SAFE in-page notification
-  examFlash(
-    "🚩 Your teacher has been notified of this question.",
-    "success"
-  );
+  examFlash("🚩 Your teacher has been notified of this question.", "success");
 
-  // Optional: auto-reset button text after flash
   setTimeout(() => {
-    updateFlagUI(false);
+    updateFlagUI(window.flaggedQuestions.has(qIndex));
   }, 2800);
 };
 
@@ -905,35 +1127,27 @@ function updateFlagUI(isFlagged) {
   }
 }
 
+/* ======================================================
+   DOM READY
+====================================================== */
 
+document.addEventListener("DOMContentLoaded", () => {
+  const startBtn = $("#startExamBtn");
 
-
-function updateFlagUI(isFlagged) {
-  const btn = document.getElementById("flagBtn");
-  const txt = document.getElementById("flagText");
-
-  if (!btn || !txt) return;
-
-  if (isFlagged) {
-    btn.classList.add("flagged");
-    txt.textContent = "Flagged";
-  } else {
-    btn.classList.remove("flagged");
-    txt.textContent = "Flag";
+  if (startBtn) {
+    startBtn.addEventListener("click", () => {
+      window.startExam();
+    });
   }
-}
+});
 
+/* ======================================================
+   KEYBOARD NAVIGATION
+====================================================== */
 
-
-// ------------------------------------------------------
-// KEYBOARD NAVIGATION — ← PREV | → NEXT (ANTI-CHEAT SAFE)
-// ------------------------------------------------------
 document.addEventListener("keydown", (e) => {
-
-  // Only when exam is active
   if (!window.examStarted || window.__examFinished) return;
 
-  // Do NOT hijack typing inside inputs / textareas
   const tag = e.target.tagName;
   if (tag === "INPUT" || tag === "TEXTAREA") return;
 
@@ -942,20 +1156,15 @@ document.addEventListener("keydown", (e) => {
 
   const pos = real.indexOf(window.currentQuestionIndex);
 
-  // LEFT ARROW → Previous Question (always allowed)
   if (e.key === "ArrowLeft") {
     e.preventDefault();
     window.previousQuestion();
   }
 
-  // RIGHT ARROW → Next Question (BLOCK on last question)
   if (e.key === "ArrowRight") {
     e.preventDefault();
 
-    // 🚫 If this is the LAST real question → do NOTHING
-    if (pos === real.length - 1) {
-      return; // stay on last question
-    }
+    if (pos === real.length - 1) return;
 
     window.nextQuestion();
   }

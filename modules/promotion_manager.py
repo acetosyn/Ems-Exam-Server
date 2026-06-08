@@ -6,6 +6,14 @@ from pathlib import Path
 from datetime import datetime
 from flask import Blueprint, render_template, request, jsonify, session, send_file
 
+from modules.class_config import (
+    SUPPORTED_CLASSES,
+    CLASS_ARMS,
+    normalize_class_level,
+    normalize_class_arm,
+    get_ss_stream,
+)
+
 promotion_bp = Blueprint("promotion_bp", __name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,7 +21,7 @@ DATA_DIR = BASE_DIR / "static" / "data"
 BACKUP_DIR = DATA_DIR / "backups"
 LOG_FILE = DATA_DIR / "promotion_logs.csv"
 
-CLASSES = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]
+CLASSES = SUPPORTED_CLASSES
 DESTINATIONS = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3", "GRADUATED", "LEFT"]
 
 NEXT_CLASS = {
@@ -50,8 +58,27 @@ def norm(value):
     return clean(value).upper()
 
 
+def normalize_csv_class(value, fallback_level=""):
+    value = norm(value)
+    fallback_level = normalize_class_level(fallback_level)
+
+    if value in ["GRADUATED", "LEFT"]:
+        return value
+
+    return normalize_class_arm(value, fallback_level) or normalize_class_level(value) or value
+
+
+def normalize_csv_level(value, fallback=""):
+    value = norm(value)
+
+    if value in ["GRADUATED", "LEFT"]:
+        return value
+
+    return normalize_class_level(value) or normalize_class_level(fallback) or value
+
+
 def file_for_class(class_category):
-    class_category = norm(class_category)
+    class_category = normalize_csv_level(class_category)
 
     if class_category == "GRADUATED":
         return DATA_DIR / "GRADUATED_Students.csv"
@@ -76,16 +103,31 @@ def admission_key(row):
 
 
 def normalize_row(row, fallback_class=""):
+    fallback_level = normalize_csv_level(fallback_class)
+
     normalized = {}
 
     for header in HEADERS:
         normalized[header] = clean(row.get(header))
 
-    if not normalized["Class_category"]:
-        normalized["Class_category"] = fallback_class
+    class_level = normalize_csv_level(
+        normalized.get("Class_category")
+        or normalized.get("Class")
+        or fallback_level
+    )
 
-    if not normalized["Class"]:
-        normalized["Class"] = normalized["Class_category"]
+    class_arm = normalize_csv_class(
+        normalized.get("Class")
+        or normalized.get("Class_category")
+        or class_level,
+        class_level
+    )
+
+    if class_level in ["GRADUATED", "LEFT"]:
+        class_arm = class_level
+
+    normalized["Class_category"] = class_level
+    normalized["Class"] = class_arm or class_level
 
     if not normalized["Status"]:
         normalized["Status"] = "ACTIVE"
@@ -105,7 +147,7 @@ def read_students(class_category):
         reader = csv.DictReader(file)
 
         for row in reader:
-            rows.append(normalize_row(row, norm(class_category)))
+            rows.append(normalize_row(row, normalize_csv_level(class_category)))
 
     return rows
 
@@ -169,8 +211,14 @@ def log_action(action, from_class, to_class, count, admissions, note=""):
 
 
 def class_arm_suffix(old_class, old_category):
-    old_class = norm(old_class)
-    old_category = norm(old_category)
+    old_class = normalize_csv_class(old_class, old_category)
+    old_category = normalize_csv_level(old_category)
+
+    if not old_class or not old_category:
+        return ""
+
+    if old_class == old_category:
+        return ""
 
     if old_class.startswith(old_category):
         return old_class.replace(old_category, "", 1)
@@ -179,24 +227,26 @@ def class_arm_suffix(old_class, old_category):
 
 
 def build_destination_class(old_class, old_category, destination_category, destination_arm=""):
-    old_class = norm(old_class)
-    old_category = norm(old_category)
-    destination_category = norm(destination_category)
+    old_class = normalize_csv_class(old_class, old_category)
+    old_category = normalize_csv_level(old_category)
+    destination_category = normalize_csv_level(destination_category)
     destination_arm = norm(destination_arm)
 
     if destination_category in ["GRADUATED", "LEFT"]:
         return destination_category
 
     if destination_arm:
-        if destination_arm.startswith(destination_category):
-            return destination_arm
+        normalized_arm = normalize_csv_class(destination_arm, destination_category)
 
-        return f"{destination_category}{destination_arm}"
+        if normalized_arm.startswith(destination_category):
+            return normalized_arm
+
+        return normalize_csv_class(f"{destination_category}{destination_arm}", destination_category)
 
     suffix = class_arm_suffix(old_class, old_category)
 
     if suffix:
-        return f"{destination_category}{suffix}"
+        return normalize_csv_class(f"{destination_category}{suffix}", destination_category)
 
     return destination_category
 
@@ -208,21 +258,43 @@ def get_class_summary():
         rows = read_students(cls)
         active = [row for row in rows if norm(row.get("Status")) == "ACTIVE"]
 
+        arms_count = {}
+
+        for row in active:
+            arm = normalize_csv_class(row.get("Class"), cls)
+            if arm:
+                arms_count[arm] = arms_count.get(arm, 0) + 1
+
         summary[cls] = {
             "total": len(rows),
             "active": len(active),
             "next": NEXT_CLASS.get(cls, ""),
+            "arms": arms_count,
+            "available_arms": CLASS_ARMS.get(cls, []),
         }
 
-    summary["GRADUATED"] = {"total": len(read_students("GRADUATED")), "active": 0, "next": ""}
-    summary["LEFT"] = {"total": len(read_students("LEFT")), "active": 0, "next": ""}
+    summary["GRADUATED"] = {
+        "total": len(read_students("GRADUATED")),
+        "active": 0,
+        "next": "",
+        "arms": {},
+        "available_arms": [],
+    }
+
+    summary["LEFT"] = {
+        "total": len(read_students("LEFT")),
+        "active": 0,
+        "next": "",
+        "arms": {},
+        "available_arms": [],
+    }
 
     return summary
 
 
 def promote_or_move_students(from_class, to_class, admissions, mode="selected", destination_arm="", note=""):
-    from_class = norm(from_class)
-    to_class = norm(to_class)
+    from_class = normalize_csv_level(from_class)
+    to_class = normalize_csv_level(to_class)
     mode = clean(mode).lower()
     destination_arm = norm(destination_arm)
 
@@ -282,13 +354,15 @@ def promote_or_move_students(from_class, to_class, admissions, mode="selected", 
         old_category = row.get("Class_category") or from_class
         old_class = row.get("Class") or from_class
 
-        row["Class_category"] = to_class
-        row["Class"] = build_destination_class(
+        new_class = build_destination_class(
             old_class=old_class,
             old_category=old_category,
             destination_category=to_class,
             destination_arm=destination_arm,
         )
+
+        row["Class_category"] = to_class
+        row["Class"] = new_class
 
         if to_class == "GRADUATED":
             row["Status"] = "GRADUATED"
@@ -323,7 +397,7 @@ def promote_or_move_students(from_class, to_class, admissions, mode="selected", 
 
 
 def import_csv_to_class(target_class, uploaded_file, mode="append"):
-    target_class = norm(target_class)
+    target_class = normalize_csv_level(target_class)
     mode = clean(mode).lower()
 
     if target_class not in CLASSES:
@@ -355,9 +429,14 @@ def import_csv_to_class(target_class, uploaded_file, mode="append"):
 
     for row in reader:
         clean_row = normalize_row(row, target_class)
-        clean_row["Class_category"] = target_class
 
-        if not clean_row["Class"].startswith(target_class):
+        clean_row["Class_category"] = target_class
+        clean_row["Class"] = normalize_csv_class(
+            clean_row.get("Class") or target_class,
+            target_class
+        )
+
+        if normalize_class_level(clean_row["Class"]) != target_class:
             clean_row["Class"] = target_class
 
         clean_row["Status"] = clean_row.get("Status") or "ACTIVE"
@@ -422,6 +501,7 @@ def promotion_page():
         "promotion.html",
         classes=CLASSES,
         destinations=DESTINATIONS,
+        class_arms=CLASS_ARMS,
     )
 
 
@@ -438,9 +518,19 @@ def api_promotion_students():
     class_category = request.args.get("class", "JSS1")
     rows = read_students(class_category)
 
+    for row in rows:
+        class_level = normalize_csv_level(row.get("Class_category"))
+        class_arm = normalize_csv_class(row.get("Class"), class_level)
+
+        row["Class_category"] = class_level
+        row["Class"] = class_arm
+        row["Class_level"] = class_level
+        row["Class_arm"] = class_arm
+        row["Stream"] = get_ss_stream(class_arm)
+
     return jsonify({
         "success": True,
-        "class": norm(class_category),
+        "class": normalize_csv_level(class_category),
         "students": rows,
         "count": len(rows),
     })
@@ -500,12 +590,10 @@ def api_import_students():
     }), status
 
 
-
-
 @promotion_bp.route("/api/promotion/backup", methods=["POST"])
 def api_backup_class():
     data = request.get_json(silent=True) or {}
-    class_category = norm(data.get("class_category") or "JSS1")
+    class_category = normalize_csv_level(data.get("class_category") or "JSS1")
 
     backup = backup_class_file(class_category)
 
@@ -533,7 +621,7 @@ def api_backup_class():
 
 @promotion_bp.route("/api/promotion/export")
 def api_export_class():
-    class_category = norm(request.args.get("class") or "JSS1")
+    class_category = normalize_csv_level(request.args.get("class") or "JSS1")
     path = file_for_class(class_category)
 
     if not path.exists():
@@ -554,7 +642,7 @@ def api_export_class():
 def api_delete_students():
     data = request.get_json(silent=True) or {}
 
-    class_category = norm(data.get("class_category") or "JSS1")
+    class_category = normalize_csv_level(data.get("class_category") or "JSS1")
     admissions = {
         clean(adm).lower()
         for adm in data.get("admissions", [])
@@ -619,7 +707,7 @@ def api_save_student():
     student = data.get("student") or {}
     original_admission = clean(data.get("original_admission")).lower()
 
-    class_category = norm(student.get("Class_category") or "JSS1")
+    class_category = normalize_csv_level(student.get("Class_category") or "JSS1")
 
     if class_category not in CLASSES:
         return jsonify({
@@ -637,8 +725,12 @@ def api_save_student():
 
     clean_student = normalize_row(student, class_category)
     clean_student["Class_category"] = class_category
+    clean_student["Class"] = normalize_csv_class(
+        clean_student.get("Class") or class_category,
+        class_category
+    )
 
-    if not clean_student["Class"]:
+    if normalize_class_level(clean_student["Class"]) != class_category:
         clean_student["Class"] = class_category
 
     backup = backup_class_file(class_category)

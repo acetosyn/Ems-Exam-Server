@@ -1,9 +1,10 @@
 /* ==========================================================
-   EMIS UPLOADS — YEAR + CLASS PILL FILTER BROWSER
+   EMIS UPLOADS — YEAR + CLASS + SUBJECT FILTER BROWSER
    Supports:
      • JSS1 / JSS2 / JSS3
      • SS1 / SS2 / SS3
      • ALL
+     • Dynamic subject dropdown filter
 ========================================================== */
 
 function flashMessage(text, type = "success") {
@@ -25,6 +26,7 @@ function flashMessage(text, type = "success") {
   window.EmisUploads = {
     activeYear: null,
     activeClass: "ALL",
+    activeSubject: "ALL",
     convertedItems: [],
     selectedFiles: new Set(),
 
@@ -32,6 +34,15 @@ function flashMessage(text, type = "success") {
 
     normalizeClass(cls) {
       return String(cls || "").toUpperCase().trim();
+    },
+
+    normalizeSubject(value) {
+      return String(value || "")
+        .toLowerCase()
+        .replaceAll("_", " ")
+        .replaceAll("-", " ")
+        .replace(/\s+/g, " ")
+        .trim();
     },
 
     getMeta(fname, year) {
@@ -43,8 +54,12 @@ function flashMessage(text, type = "success") {
     },
 
     updatePushCount() {
-      const el = document.getElementById("pushCount");
-      if (el) el.textContent = this.selectedFiles.size;
+      const count = this.selectedFiles.size;
+
+      ["pushCount", "pushCountSide", "statSelected", "statSelectedFiles"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = count;
+      });
     },
 
     initOnce(container = document) {
@@ -57,8 +72,15 @@ function flashMessage(text, type = "success") {
       const classPills = root.querySelectorAll(".class-pill");
       const tableBody = root.querySelector("#uploadedTable");
       const searchBox = root.querySelector("#searchUploads");
+      const subjectFilter = root.querySelector("#subjectFilterUploads");
       const refreshBtn = root.querySelector("#refreshUploads");
+      const checkAllUploads = root.querySelector("#checkAllUploads");
+      const selectAllVisibleBtn = root.querySelector("#selectAllVisible");
+      const clearQueueBtn = root.querySelector("#clearQueue");
       const activeYearLabel = document.getElementById("activeYearLabel");
+
+      const statSelectedYear = root.querySelector("#statSelectedYear");
+      const statLoadedFiles = root.querySelector("#statLoadedFiles");
 
       if (!yearSelector || !tableBody) return;
 
@@ -70,6 +92,20 @@ function flashMessage(text, type = "success") {
         } else {
           activeYearLabel.textContent = `Active Year: ${year}`;
         }
+      };
+
+      const updateStats = () => {
+        if (statSelectedYear) {
+          statSelectedYear.textContent = this.activeYear || "—";
+        }
+
+        if (statLoadedFiles) {
+          statLoadedFiles.textContent = Array.isArray(this.convertedItems)
+            ? this.convertedItems.length
+            : 0;
+        }
+
+        this.updatePushCount();
       };
 
       const setLoadingState = (loading) => {
@@ -96,25 +132,69 @@ function flashMessage(text, type = "success") {
       const renderEmpty = (message) => {
         tableBody.innerHTML = `
           <tr>
-            <td colspan="8" class="empty">${escapeHtml(message)}</td>
+            <td colspan="9" class="empty">${escapeHtml(message)}</td>
           </tr>
         `;
+
+        if (checkAllUploads) checkAllUploads.checked = false;
       };
 
-      const renderTable = () => {
-        if (!this.activeYear) {
-          renderEmpty("Select a year to load JSON files");
-          return;
-        }
+      const getSubjectLabel = (item) => {
+        const subject = String(item.subject || "").trim();
 
+        if (subject) return subject;
+
+        const filename = String(item.filename || "")
+          .replace(".json", "")
+          .replace(/_(jss1|jss2|jss3|ss1|ss2|ss3)$/i, "")
+          .replaceAll("_", " ")
+          .replaceAll("-", " ")
+          .replace(/\s+/g, " ")
+          .trim();
+
+        return filename || "Unknown";
+      };
+
+      const populateSubjectFilter = () => {
+        if (!subjectFilter) return;
+
+        const current = subjectFilter.value || "ALL";
+
+        const subjects = [...new Set(
+          (this.convertedItems || [])
+            .map((item) => getSubjectLabel(item))
+            .filter(Boolean)
+        )].sort((a, b) => a.localeCompare(b));
+
+        subjectFilter.innerHTML = `
+          <option value="ALL">All Subjects</option>
+          ${subjects.map((subject) => `
+            <option value="${escapeHtml(subject)}">${escapeHtml(subject)}</option>
+          `).join("")}
+        `;
+
+        const stillExists = [...subjectFilter.options].some((opt) => opt.value === current);
+        subjectFilter.value = stillExists ? current : "ALL";
+        this.activeSubject = subjectFilter.value;
+      };
+
+      const getFilteredRows = () => {
         let rows = Array.isArray(this.convertedItems)
           ? [...this.convertedItems]
           : [];
 
         if (this.activeClass !== "ALL") {
           rows = rows.filter((item) => {
-            const cls = this.normalizeClass(item.class_category);
+            const cls = this.normalizeClass(item.class_category || item.class_level);
             return cls === this.activeClass;
+          });
+        }
+
+        const selectedSubject = subjectFilter?.value || this.activeSubject || "ALL";
+
+        if (selectedSubject !== "ALL") {
+          rows = rows.filter((item) => {
+            return this.normalizeSubject(getSubjectLabel(item)) === this.normalizeSubject(selectedSubject);
           });
         }
 
@@ -123,8 +203,8 @@ function flashMessage(text, type = "success") {
         if (q) {
           rows = rows.filter((item) => {
             const filename = String(item.filename || "").toLowerCase();
-            const subject = String(item.subject || "").toLowerCase();
-            const cls = String(item.class_category || "").toLowerCase();
+            const subject = getSubjectLabel(item).toLowerCase();
+            const cls = String(item.class_category || item.class_level || "").toLowerCase();
 
             return (
               filename.includes(q) ||
@@ -134,13 +214,47 @@ function flashMessage(text, type = "success") {
           });
         }
 
-        if (!rows.length) {
-          const classText =
-            this.activeClass === "ALL"
-              ? ""
-              : `${this.activeClass} `;
+        return rows;
+      };
 
-          renderEmpty(`No ${classText}files found for ${this.activeYear}.`);
+      const syncCheckAll = () => {
+        if (!checkAllUploads) return;
+
+        const rows = getFilteredRows();
+
+        if (!rows.length) {
+          checkAllUploads.checked = false;
+          checkAllUploads.indeterminate = false;
+          return;
+        }
+
+        const selectedVisible = rows.filter((item) => {
+          const key = `${item.year || this.activeYear}:${item.filename}`;
+          return this.selectedFiles.has(key);
+        }).length;
+
+        checkAllUploads.checked = selectedVisible === rows.length;
+        checkAllUploads.indeterminate = selectedVisible > 0 && selectedVisible < rows.length;
+      };
+
+      const renderTable = () => {
+        if (!this.activeYear) {
+          renderEmpty("Select a year to load JSON files");
+          updateStats();
+          return;
+        }
+
+        const rows = getFilteredRows();
+
+        if (!rows.length) {
+          const classText = this.activeClass === "ALL" ? "" : `${this.activeClass} `;
+          const subjectText =
+            (subjectFilter?.value && subjectFilter.value !== "ALL")
+              ? `${subjectFilter.value} `
+              : "";
+
+          renderEmpty(`No ${subjectText}${classText}files found for ${this.activeYear}.`);
+          updateStats();
           return;
         }
 
@@ -148,8 +262,8 @@ function flashMessage(text, type = "success") {
           .map((item) => {
             const year = escapeHtml(item.year || this.activeYear);
             const filename = escapeHtml(item.filename || "");
-            const subject = escapeHtml(item.subject || "Unknown");
-            const classCategory = escapeHtml(item.class_category || "—");
+            const subject = escapeHtml(getSubjectLabel(item));
+            const classCategory = escapeHtml(item.class_category || item.class_level || "—");
             const version = escapeHtml(item.version || "—");
             const questions = escapeHtml(item.questions || 0);
             const sizeKb = escapeHtml(item.size_kb || "—");
@@ -182,10 +296,11 @@ function flashMessage(text, type = "success") {
                 <td>${version}</td>
                 <td class="center">${questions}</td>
                 <td class="center">${sizeKb} KB</td>
-                <td>${status}</td>
+                <td><span class="status-pill">${status}</span></td>
 
                 <td>
                   <button class="btn-secondary tiny preview-btn" type="button">
+                    <i class="fa-solid fa-eye"></i>
                     Preview
                   </button>
                 </td>
@@ -193,12 +308,24 @@ function flashMessage(text, type = "success") {
             `;
           })
           .join("");
+
+        syncCheckAll();
+        updateStats();
       };
 
       const loadYearFiles = async (year, refreshing = false) => {
         if (!year || year === "Select Year") return;
 
         if (refreshing) setLoadingState(true);
+
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="9" class="empty">
+              <span class="spinner"></span>
+              Loading JSON files...
+            </td>
+          </tr>
+        `;
 
         try {
           const res = await fetch(`/api/uploads/${encodeURIComponent(year)}`);
@@ -209,16 +336,24 @@ function flashMessage(text, type = "success") {
           }
 
           this.convertedItems = data.uploads || [];
+          this.selectedFiles.clear();
+
+          populateSubjectFilter();
           renderTable();
+          this.updatePushCount();
 
         } catch (err) {
           console.error("Upload list error:", err);
+          this.convertedItems = [];
+          populateSubjectFilter();
           renderEmpty("Failed to load JSON list.");
         }
 
         if (refreshing) {
           setTimeout(() => setLoadingState(false), 300);
         }
+
+        updateStats();
       };
 
       yearSelector.onchange = () => {
@@ -237,10 +372,59 @@ function flashMessage(text, type = "success") {
         };
       });
 
+      subjectFilter?.addEventListener("change", () => {
+        this.activeSubject = subjectFilter.value || "ALL";
+        renderTable();
+      });
+
+      searchBox?.addEventListener("input", renderTable);
+
       refreshBtn?.addEventListener("click", () => {
         if (this.activeYear) {
           loadYearFiles(this.activeYear, true);
         }
+      });
+
+      selectAllVisibleBtn?.addEventListener("click", () => {
+        const rows = getFilteredRows();
+
+        if (!rows.length) {
+          flashMessage("No visible files to select.", "error");
+          return;
+        }
+
+        rows.forEach((item) => {
+          const key = `${item.year || this.activeYear}:${item.filename}`;
+          this.selectedFiles.add(key);
+        });
+
+        renderTable();
+        this.updatePushCount();
+        flashMessage(`${rows.length} visible file(s) selected.`, "success");
+      });
+
+      clearQueueBtn?.addEventListener("click", () => {
+        this.selectedFiles.clear();
+        renderTable();
+        this.updatePushCount();
+        flashMessage("Push queue cleared.", "success");
+      });
+
+      checkAllUploads?.addEventListener("change", () => {
+        const rows = getFilteredRows();
+
+        rows.forEach((item) => {
+          const key = `${item.year || this.activeYear}:${item.filename}`;
+
+          if (checkAllUploads.checked) {
+            this.selectedFiles.add(key);
+          } else {
+            this.selectedFiles.delete(key);
+          }
+        });
+
+        renderTable();
+        this.updatePushCount();
       });
 
       tableBody.onclick = async (e) => {
@@ -258,14 +442,15 @@ function flashMessage(text, type = "success") {
             this.selectedFiles.delete(key);
           }
 
+          syncCheckAll();
           this.updatePushCount();
           return;
         }
 
-        if (e.target.classList.contains("preview-btn")) {
+        if (e.target.closest(".preview-btn")) {
           try {
             const meta = this.getMeta(filename, year);
-            const cls = this.normalizeClass(meta?.class_category || row.dataset.class);
+            const cls = this.normalizeClass(meta?.class_category || meta?.class_level || row.dataset.class);
 
             if (!cls) {
               throw new Error("Missing class category for preview");
@@ -295,19 +480,32 @@ function flashMessage(text, type = "success") {
                 JSON.stringify(content, null, 2)
               );
             } else {
-              alert(JSON.stringify(content, null, 2));
+              const title = document.getElementById("jsonPreviewTitle");
+              const body = document.getElementById("jsonPreviewBody");
+              const modal = document.getElementById("jsonPreviewModal");
+
+              if (title) title.innerHTML = `<i class="fa-solid fa-code"></i> Preview • ${year} • ${cls} • ${filename}`;
+              if (body) body.textContent = JSON.stringify(content, null, 2);
+              if (modal) modal.classList.remove("hidden");
             }
 
           } catch (err) {
             console.error("Preview error:", err);
-            alert("Could not preview file.");
+            flashMessage("Could not preview file.", "error");
           }
         }
       };
 
-      searchBox?.addEventListener("input", renderTable);
+      root.querySelectorAll('[data-close="true"]').forEach((el) => {
+        el.addEventListener("click", () => {
+          const modal = el.closest(".modal");
+          if (modal) modal.classList.add("hidden");
+        });
+      });
 
+      populateSubjectFilter();
       this.updatePushCount();
+      updateStats();
     }
   };
 
