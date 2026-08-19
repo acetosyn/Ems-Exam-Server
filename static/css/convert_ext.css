@@ -1,0 +1,74 @@
+/* ============================================================
+   EMIS CBT — CONVERT EXTENSION CSS
+   Minimal extension for simplified teacher converter
+============================================================ */
+
+.convert-ai-panel,
+.convert-review-panel,
+.student-json-card,
+#copyStudentJson,
+#downloadStudentJson,
+#validateConvertJson,
+#copyConvertJson,
+#downloadConvertJson {
+  display: none !important;
+}
+
+.convert-json-panel .preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.convert-json-panel .preview-meta span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: .25rem .55rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: .7rem;
+  font-weight: 950;
+}
+
+.convert-panel.card {
+  border-radius: 26px;
+  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, .08);
+}
+
+/* No clipping inside Step 1/2/3 */
+.convert-upload-panel,
+.convert-center-panel,
+.convert-json-panel {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* Better action button spacing */
+.convert-upload-panel .upload-actions .full {
+  min-height: 44px;
+}
+
+/* Scrollbars only where needed */
+.convert-json-pre::-webkit-scrollbar,
+.convert-textarea::-webkit-scrollbar,
+.json-pre::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+.convert-json-pre::-webkit-scrollbar-thumb,
+.convert-textarea::-webkit-scrollbar-thumb,
+.json-pre::-webkit-scrollbar-thumb {
+  background: #c4b5fd;
+  border-radius: 999px;
+}
+
+.convert-json-pre::-webkit-scrollbar-track,
+.convert-textarea::-webkit-scrollbar-track,
+.json-pre::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, .75);
+}

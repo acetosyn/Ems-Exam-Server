@@ -1,0 +1,626 @@
+<!-- convert.html — EMIS CBT Smart Question Converter -->
+
+<!-- convert.html — EMIS CBT Smart Question Converter -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/convert.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/convert_ext.css') }}">
+
+
+<div class="convert-wrapper fade-in"
+     data-user-role="{{ user_type|default('teacher') }}">
+
+  <!-- HERO HEADER -->
+  <section class="uploads-hero convert-hero">
+    <div class="hero-left">
+      <span class="hero-kicker">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        EMIS Smart Converter
+      </span>
+
+      <h1>Convert Questions to CBT JSON</h1>
+
+      <p>
+        Upload a DOCX or TXT exam file, extract clean text, generate CBT JSON,
+        and save it into the subject library for the Uploads page.
+      </p>
+
+      <div class="hero-mini-actions">
+        <button id="btnOpenConvertGuide" class="btn-soft">
+          <i class="fa-solid fa-circle-question"></i>
+          Guide
+        </button>
+
+        <button id="btnResetConvertPage" class="btn-soft">
+          <i class="fa-solid fa-rotate"></i>
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="role-card" data-role="{{ user_type|default('teacher') }}">
+        {% if user_type == 'teacher' %}
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Teacher Mode</span>
+        {% else %}
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Admin Mode</span>
+        {% endif %}
+      </div>
+
+      <div class="live-card">
+        <small>Conversion Flow</small>
+        <strong>DOCX → JSON → Library</strong>
+        <span>Ready for Uploads page</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP STATS -->
+  <section class="uploads-stats-grid convert-stats-grid">
+    <article class="stat-card">
+      <div class="stat-icon blue"><i class="fa-solid fa-file-lines"></i></div>
+      <div>
+        <span>Selected File</span>
+        <strong id="convertSelectedFile">—</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+      <div>
+        <span>Questions</span>
+        <strong id="convertQuestionCount">0</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon purple"><i class="fa-solid fa-image"></i></div>
+      <div>
+        <span>Diagrams</span>
+        <strong id="convertDiagramCount">0</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon orange"><i class="fa-solid fa-shield-halved"></i></div>
+      <div>
+        <span>Status</span>
+        <strong id="convertValidationStatus">Not Ready</strong>
+      </div>
+    </article>
+  </section>
+
+<!-- ____________________________________________________________
+     CONVERSION FLOW + RECENT JSON DRAFTS
+____________________________________________________________ -->
+<section class="years-panel card convert-pipeline-panel convert-drafts-panel">
+  <div class="section-head">
+    <div>
+      <span class="section-kicker">Pipeline</span>
+      <h2>Question Conversion Flow</h2>
+      <p>Generated JSON drafts are kept temporarily so you can save them later without spending OpenAI credits again.</p>
+    </div>
+
+    <div class="convert-pipeline-steps">
+      <span class="active"><i class="fa-solid fa-upload"></i> Upload</span>
+      <span><i class="fa-solid fa-align-left"></i> Extract</span>
+      <span><i class="fa-solid fa-gears"></i> Generate JSON</span>
+      <span><i class="fa-solid fa-floppy-disk"></i> Save Library</span>
+    </div>
+  </div>
+
+  <div class="section-head compact convert-drafts-head">
+    <div>
+      <span class="section-kicker">Saved Drafts</span>
+      <h2>Recent Converted JSON</h2>
+    </div>
+
+    <div class="library-top-actions">
+      <button id="refreshConvertDrafts" class="btn-soft small">
+        <i class="fa-solid fa-rotate"></i>
+        Refresh
+      </button>
+
+      <button id="clearConvertDrafts" class="btn-secondary small">
+        <i class="fa-solid fa-trash"></i>
+        Clear Drafts
+      </button>
+    </div>
+  </div>
+
+  <div id="convertDraftsBody" class="convert-drafts-body">
+    <p class="log-placeholder">Loading recent converted JSON drafts...</p>
+  </div>
+</section>
+
+
+  <!-- MAIN WORKSPACE -->
+  <section class="uploads-workspace convert-workspace">
+
+    <!-- STEP 1 -->
+    <aside class="upload-panel card convert-panel convert-upload-panel">
+      <div class="section-head compact">
+        <div>
+          <span class="section-kicker">Step 1</span>
+          <h2>Upload File</h2>
+        </div>
+        <i class="fa-solid fa-cloud-arrow-up section-icon"></i>
+      </div>
+
+      <p class="panel-subtitle">
+        Choose the question document and confirm the year, class, and subject.
+      </p>
+
+      <div class="drop-box" id="convertDropZone">
+        <input type="file" id="convertFileInput" hidden accept=".docx,.txt">
+
+        <div class="drop-content">
+          <i class="fa-solid fa-file-arrow-up upload-icon"></i>
+          <h3>Drop DOCX/TXT file here</h3>
+          <p>or choose a document manually</p>
+
+          <div class="btn-row">
+            <button id="chooseConvertFile" class="btn-primary small">
+              <i class="fa-solid fa-file-import"></i>
+              Choose File
+            </button>
+
+            <button id="clearConvertFile" class="btn-secondary small">
+              <i class="fa-solid fa-trash-can"></i>
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="selected-files-block">
+        <div class="block-header">
+          <span>
+            <i class="fa-solid fa-file-circle-check"></i>
+            Source Document
+          </span>
+          <strong id="convertFileBadge" class="mini-badge">No file</strong>
+        </div>
+
+        <ul id="convertFileList" class="file-list">
+          <li class="empty-file">No document selected.</li>
+        </ul>
+      </div>
+
+      <div class="convert-form-grid">
+        <label>
+          <span>Exam Year</span>
+          <select id="convertYear" class="year-selector">
+            {% for y in range(2026, 2012, -1) %}
+              <option value="{{ y }}">{{ y }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          <span>Class</span>
+          <select id="convertClass" class="year-selector">
+            <option value="">Auto Detect</option>
+            <option value="JSS1">JSS1</option>
+            <option value="JSS2">JSS2</option>
+            <option value="JSS3">JSS3</option>
+            <option value="SS1">SS1</option>
+            <option value="SS2">SS2</option>
+            <option value="SS3">SS3</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Subject</span>
+          <input id="convertSubject" class="convert-input" type="text" placeholder="Auto detect or type subject">
+        </label>
+
+        <label>
+          <span>Expected Questions</span>
+          <input id="convertExpectedCount" class="convert-input" type="number" min="1" value="50">
+        </label>
+      </div>
+
+      <div class="convert-switches simple">
+        <label class="convert-switch">
+          <input id="objectiveOnlyMode" type="checkbox" checked>
+          <span>Objective only</span>
+        </label>
+
+        <label class="convert-switch">
+          <input id="extractDiagramsMode" type="checkbox" checked>
+          <span>Extract diagrams</span>
+        </label>
+
+        <label class="convert-switch">
+          <input id="strictJsonMode" type="checkbox" checked>
+          <span>Clean JSON format</span>
+        </label>
+
+        <!-- <label class="convert-switch">
+          <input id="solveAnswersMode" type="checkbox" checked>
+          <span>Auto-fill answers</span>
+        </label>
+      </div> -->
+
+      <div class="upload-actions">
+        <button id="extractConvertText" class="btn-secondary full">
+          <i class="fa-solid fa-align-left"></i>
+          Extract Clean Text
+        </button>
+
+        <button id="generateConvertJson" class="btn-primary full">
+          <i class="fa-solid fa-gears"></i>
+          Generate CBT JSON
+        </button>
+
+        <button id="saveConvertJson" class="btn-success full" disabled>
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save JSON to Library
+        </button>
+      </div>
+
+      <div id="convertProgress" class="progress hidden">
+        <div id="convertProgressBar" class="progress-bar"></div>
+        <span id="convertProgressLabel" class="progress-label">Processing…</span>
+      </div>
+    </aside>
+
+    <!-- STEP 2 -->
+    <main class="library-panel card convert-panel convert-center-panel">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Step 2</span>
+          <h2>Clean Text</h2>
+          <p>Review or edit the extracted text before generating JSON.</p>
+        </div>
+
+        <div class="library-top-actions">
+          <button id="copyCleanText" class="btn-soft small">
+            <i class="fa-solid fa-copy"></i>
+            Copy Text
+          </button>
+
+          <button id="clearCleanText" class="btn-soft small">
+            <i class="fa-solid fa-broom"></i>
+            Clear Text
+          </button>
+        </div>
+      </div>
+
+      <div class="library-toolbar convert-toolbar">
+        <div class="class-filter">
+          <button class="class-pill active" data-convert-view="text">Clean Text</button>
+          <button class="class-pill" data-convert-view="questions">Questions</button>
+          <button class="class-pill" data-convert-view="diagrams">Diagrams</button>
+          <button class="class-pill" data-convert-view="issues">Issues</button>
+        </div>
+
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchCleanText" type="text" placeholder="Search text…">
+        </div>
+      </div>
+
+      <textarea id="cleanTextPreview"
+                class="convert-textarea pretty-scroll"
+                placeholder="Clean extracted text will appear here..."></textarea>
+
+      <div class="convert-detected-grid">
+        <div class="convert-detected-card">
+          <span>Questions</span>
+          <strong id="detectedQuestionMeta">0</strong>
+        </div>
+
+        <div class="convert-detected-card">
+          <span>Options</span>
+          <strong id="detectedOptionMeta">0</strong>
+        </div>
+
+        <div class="convert-detected-card">
+          <span>Groups</span>
+          <strong id="detectedGroupMeta">0</strong>
+        </div>
+
+        <div class="convert-detected-card">
+          <span>Warnings</span>
+          <strong id="detectedWarningMeta">0</strong>
+        </div>
+      </div>
+    </main>
+
+    <!-- STEP 3 -->
+    <aside class="push-panel card convert-panel convert-json-panel">
+      <div class="section-head compact">
+        <div>
+          <span class="section-kicker">Step 3</span>
+          <h2>Generated JSON</h2>
+        </div>
+        <i class="fa-solid fa-code section-icon"></i>
+      </div>
+
+      <p class="panel-subtitle">
+        Preview the generated subject JSON. Save it to the library when ready.
+      </p>
+
+      <div class="preview-card">
+        <div class="preview-card-header">
+          <div>
+            <h5>
+              <i class="fa-solid fa-eye"></i>
+              JSON Preview
+            </h5>
+            <p>This is the exam file that will be saved for Uploads.</p>
+          </div>
+
+          <button id="openConvertJsonModal" class="btn-soft tiny">
+            <i class="fa-solid fa-up-right-from-square"></i>
+          </button>
+        </div>
+
+        <div class="preview-meta">
+          <span id="jsonSubjectMeta">Subject: —</span>
+          <span id="jsonClassMeta">Class: —</span>
+          <span id="jsonCountMeta">Questions: 0</span>
+        </div>
+
+        <pre id="convertJsonPreview" class="convert-json-pre pretty-scroll">No JSON generated yet.</pre>
+      </div>
+
+      <div class="portal-summary convert-validation-summary">
+        <div class="portal-icon">
+          <i class="fa-solid fa-folder-open"></i>
+        </div>
+
+        <div class="portal-meta">
+          <p>Library Save Status</p>
+          <strong id="validationMainText">Waiting</strong>
+          <small id="validationSubText">Generate JSON first.</small>
+        </div>
+      </div>
+
+      <div class="convert-save-note">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>
+          Saved JSON files appear under the selected year and class folder,
+          then the Uploads page can push them to students.
+        </span>
+      </div>
+    </aside>
+
+  </section>
+
+
+
+
+
+
+  <!-- SIMPLE CHECKLIST -->
+  <section class="portal-map-panel card convert-quality-panel">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">Quick Check</span>
+        <h2>Conversion Status</h2>
+        <p>Simple checks before saving the generated subject JSON.</p>
+      </div>
+
+      <button id="rerunConvertChecks" class="btn-soft small">
+        <i class="fa-solid fa-rotate"></i>
+        Re-check
+      </button>
+    </div>
+
+    <div class="convert-check-grid">
+      <article id="checkQuestionCount" class="convert-check-card pending">
+        <i class="fa-solid fa-list-ol"></i>
+        <div>
+          <strong>Question Count</strong>
+          <span>Waiting for JSON generation</span>
+        </div>
+      </article>
+
+      <article id="checkOptions" class="convert-check-card pending">
+        <i class="fa-solid fa-list-check"></i>
+        <div>
+          <strong>Options</strong>
+          <span>Waiting for conversion</span>
+        </div>
+      </article>
+
+      <article id="checkAnswers" class="convert-check-card pending">
+        <i class="fa-solid fa-circle-check"></i>
+        <div>
+          <strong>Answers</strong>
+          <span>Waiting for conversion</span>
+        </div>
+      </article>
+
+      <article id="checkGroups" class="convert-check-card pending">
+        <i class="fa-solid fa-layer-group"></i>
+        <div>
+          <strong>Groups & Diagrams</strong>
+          <span>Waiting for detection</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+
+
+
+  <!-- ACTIVITY LOG -->
+  <section class="activity-panel card convert-log-panel">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">Activity</span>
+        <h2>Converter Log</h2>
+      </div>
+
+      <button id="clearConvertLog" class="btn-soft small">
+        <i class="fa-solid fa-eraser"></i>
+        Clear Log
+      </button>
+    </div>
+
+    <div id="convertLogBody" class="log-body pretty-scroll">
+      <p class="log-placeholder">No conversion actions yet.</p>
+    </div>
+  </section>
+
+  <!-- GUIDE MODAL -->
+  <div id="convertGuideModal" class="modal hidden">
+    <div class="modal-backdrop" data-close="true"></div>
+
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3>
+            <i class="fa-solid fa-circle-question"></i>
+            Conversion Guide
+          </h3>
+          <p>How to convert question papers into CBT JSON.</p>
+        </div>
+
+        <button class="modal-close" data-close="true">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body subjects-modal-body">
+        <div class="subjects-grid">
+          <article class="subject-card">
+            <i class="fa-solid fa-file-word"></i>
+            <h4>Upload DOCX/TXT</h4>
+            <p>Select the question document you want to convert.</p>
+          </article>
+
+          <article class="subject-card">
+            <i class="fa-solid fa-align-left"></i>
+            <h4>Extract Clean Text</h4>
+            <p>The system cleans the document before conversion.</p>
+          </article>
+
+          <article class="subject-card">
+            <i class="fa-solid fa-gears"></i>
+            <h4>Generate JSON</h4>
+            <p>The questions are converted into CBT JSON format.</p>
+          </article>
+
+          <article class="subject-card">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <h4>Save to Library</h4>
+            <p>The file is saved for the Uploads page to push to students.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary small" data-close="true">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JSON MODAL -->
+  <div id="convertJsonModal" class="modal hidden">
+    <div class="modal-backdrop" data-close="true"></div>
+
+    <div class="modal-card modal-code">
+      <div class="modal-header">
+        <h3>
+          <i class="fa-solid fa-code"></i>
+          Generated JSON Preview
+        </h3>
+
+        <button class="modal-close" data-close="true">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <pre id="convertJsonModalBody" class="json-pre pretty-scroll"></pre>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary small" data-close="true">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ____________________________________________________________
+     SAVE JSON TARGET MODAL
+____________________________________________________________ -->
+<div id="convertSaveTargetModal" class="modal hidden">
+  <div class="modal-backdrop" data-close="true"></div>
+
+  <div class="modal-card modal-large convert-save-target-card">
+    <div class="modal-header">
+      <div>
+        <h3>
+          <i class="fa-solid fa-floppy-disk"></i>
+          Choose Save Location
+        </h3>
+        <p>Select the exact year and class folder where this JSON should be saved.</p>
+      </div>
+
+      <button class="modal-close" data-close="true">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="convert-save-target-grid">
+        <label>
+          <span>Exam Year</span>
+          <select id="saveTargetYear" class="year-selector"></select>
+        </label>
+
+        <label>
+          <span>Class</span>
+          <select id="saveTargetClass" class="year-selector">
+            <option value="">Select Class</option>
+            <option value="JSS1">JSS1</option>
+            <option value="JSS2">JSS2</option>
+            <option value="JSS3">JSS3</option>
+            <option value="SS1">SS1</option>
+            <option value="SS2">SS2</option>
+            <option value="SS3">SS3</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Subject</span>
+          <input id="saveTargetSubject" class="convert-input" type="text">
+        </label>
+
+        <label>
+          <span>Overwrite Existing File?</span>
+          <select id="saveTargetOverwrite" class="year-selector">
+            <option value="1">Yes, overwrite</option>
+            <option value="0">No, block if file exists</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="convert-save-target-preview">
+        <i class="fa-solid fa-folder-tree"></i>
+        <span id="saveTargetPathPreview">static/subjects/YEAR/subjects-json/CLASS/subject_class.json</span>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary small" data-close="true">Cancel</button>
+
+      <button id="confirmSaveTargetBtn" class="btn-success small">
+        <i class="fa-solid fa-check"></i>
+        Save Here
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>

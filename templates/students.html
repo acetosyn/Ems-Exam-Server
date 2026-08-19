@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Student Dashboard | EMIS Central Exam</title>
 
+  <!-- Student metadata -->
   <meta name="student-name" content="{{ student.full_name }}">
   <meta name="student-admission" content="{{ student.admission_number }}">
+  <meta name="student-sex" content="{{ sex or student.sex or '' }}">
   <meta name="student-class" content="{{ class_arm or student.class }}">
   <meta name="student-class-arm" content="{{ class_arm or student.class_arm or student.class }}">
   <meta name="student-class-level" content="{{ class_level or class_category or student.class_category }}">
   <meta name="student-class-category" content="{{ class_level or class_category or student.class_category }}">
-  <meta name="student-stream" content="{{ student.stream or student.ss_stream or '' }}">
+  <meta name="student-stream" content="{{ stream or student.stream or student.ss_stream or '' }}">
   <meta name="exam-year" content="{{ year or '' }}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/students.css') }}">
 </head>
 
@@ -26,26 +37,35 @@
 
   <div class="dashboard-shell">
 
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
     <header class="dashboard-header">
+
       <div class="dashboard-header-left">
         <a href="{{ url_for('student_portal_bp.student_portal') }}" class="dashboard-brand">
-          <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo" class="dashboard-brand-logo">
+          <img
+            src="{{ url_for('static', filename='images/logo.jpg') }}"
+            alt="EMIS Logo"
+            class="dashboard-brand-logo"
+          >
           <span class="dashboard-brand-text"><strong>EMIS</strong> Central Exam</span>
         </a>
       </div>
 
       <div class="dashboard-header-right">
+
         <div class="dashboard-clock-wrap">
           <i class="fa-regular fa-clock"></i>
           <span id="liveClock">--:--:--</span>
         </div>
 
-        <button class="dashboard-icon-btn" id="notifBtn" title="Notifications">
+        <button class="dashboard-icon-btn" id="notifBtn" type="button" title="Notifications">
           <i class="fa-solid fa-bell"></i>
           <span class="notif-dot"></span>
         </button>
 
-        <button class="dashboard-icon-btn" id="themeToggle" title="Toggle Theme">
+        <button class="dashboard-icon-btn" id="themeToggle" type="button" title="Toggle Theme">
           <i class="fa-solid fa-sun"></i>
         </button>
 
@@ -53,19 +73,38 @@
           <i class="fa-solid fa-right-from-bracket"></i>
           <span>Logout</span>
         </a>
+
       </div>
+
     </header>
 
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
     <main class="dashboard-main">
 
+      <!-- ===================================================
+           HERO
+      ==================================================== -->
       <section class="dashboard-hero">
+
         <div class="dashboard-hero-content">
           <span class="hero-badge">Student Dashboard</span>
-          <h1>Welcome, <span>{{ student.full_name }}</span></h1>
-          <p>Review your candidate details, check available exams, and proceed to your examination environment.</p>
+
+          <h1>
+            Welcome,
+            <span>{{ student.full_name }}</span>
+          </h1>
+
+          <p>
+            Review your candidate details, check available exams,
+            and proceed to your examination environment.
+          </p>
         </div>
 
         <div class="dashboard-hero-actions">
+
           <button type="button" class="hero-action primary-action" id="openExamPortal">
             <i class="fa-solid fa-pen-to-square"></i>
             <span>Proceed to Exam</span>
@@ -80,51 +119,87 @@
             <i class="fa-solid fa-chart-line"></i>
             <span>Results</span>
           </a>
+
         </div>
+
       </section>
 
+
+      <!-- ===================================================
+           SUMMARY
+      ==================================================== -->
       <section class="dashboard-summary-grid">
+
         <article class="summary-card">
-          <div class="summary-icon blue"><i class="fa-solid fa-id-card"></i></div>
+          <div class="summary-icon blue">
+            <i class="fa-solid fa-id-card"></i>
+          </div>
+
           <div class="summary-text">
             <span>Admission Number</span>
             <strong>{{ student.admission_number }}</strong>
           </div>
         </article>
 
+
         <article class="summary-card">
-          <div class="summary-icon gold"><i class="fa-solid fa-school"></i></div>
+          <div class="summary-icon gold">
+            <i class="fa-solid fa-school"></i>
+          </div>
+
           <div class="summary-text">
             <span>Class Arm</span>
             <strong>{{ class_arm or student.class_arm or student.class }}</strong>
           </div>
         </article>
 
+
         <article class="summary-card">
-          <div class="summary-icon green"><i class="fa-solid fa-layer-group"></i></div>
+          <div class="summary-icon green">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+
           <div class="summary-text">
             <span>Class Level</span>
             <strong>{{ class_level or class_category or student.class_category }}</strong>
           </div>
         </article>
 
+
         <article class="summary-card">
-          <div class="summary-icon red"><i class="fa-solid fa-diagram-project"></i></div>
+          <div class="summary-icon red">
+            <i class="fa-solid fa-diagram-project"></i>
+          </div>
+
           <div class="summary-text">
             <span>Stream</span>
-            <strong>{{ student.stream or student.ss_stream or 'GENERAL' }}</strong>
+            <strong>{{ stream or student.stream or student.ss_stream or 'GENERAL' }}</strong>
           </div>
         </article>
+
       </section>
 
+
+      <!-- ===================================================
+           DASHBOARD GRID
+      ==================================================== -->
       <section class="dashboard-grid">
 
+
+        <!-- =================================================
+             CANDIDATE DETAILS
+        ================================================== -->
         <article class="dashboard-card profile-card">
+
           <div class="card-head">
-            <h2><i class="fa-solid fa-user-graduate"></i> Candidate Details</h2>
+            <h2>
+              <i class="fa-solid fa-user-graduate"></i>
+              Candidate Details
+            </h2>
           </div>
 
           <div class="candidate-profile">
+
             <div class="candidate-avatar">
               <i class="fa-solid fa-user"></i>
             </div>
@@ -133,9 +208,12 @@
               <h3>{{ student.full_name }}</h3>
               <p>EMIS Student Candidate</p>
             </div>
+
           </div>
 
+
           <div class="details-grid">
+
             <div class="detail-item">
               <span>Admission Number</span>
               <strong>{{ student.admission_number }}</strong>
@@ -157,6 +235,11 @@
             </div>
 
             <div class="detail-item">
+              <span>Sex</span>
+              <strong>{{ sex or student.sex or '—' }}</strong>
+            </div>
+
+            <div class="detail-item">
               <span>Phone</span>
               <strong>{{ student.phone if student.phone else '—' }}</strong>
             </div>
@@ -173,7 +256,7 @@
 
             <div class="detail-item">
               <span>Stream</span>
-              <strong>{{ student.stream or student.ss_stream or 'GENERAL' }}</strong>
+              <strong>{{ stream or student.stream or student.ss_stream or 'GENERAL' }}</strong>
             </div>
 
             <div class="detail-item">
@@ -185,19 +268,32 @@
               <span>System ID</span>
               <strong>{{ student.id }}</strong>
             </div>
+
           </div>
 
+
+          <!-- ===============================================
+               SUPPORT
+          ================================================ -->
           <div class="embedded-support">
+
             <div class="card-head support-head">
-              <h2><i class="fa-solid fa-headset"></i> Help & Support</h2>
+              <h2>
+                <i class="fa-solid fa-headset"></i>
+                Help & Support
+              </h2>
             </div>
 
             <div class="support-content">
+
               <p>
-                If you are experiencing difficulty accessing your exam, kindly contact the school ICT/admin support team immediately before your session begins.
+                If you are experiencing difficulty accessing your exam,
+                kindly contact the school ICT/admin support team immediately
+                before your session begins.
               </p>
 
               <div class="support-boxes">
+
                 <div class="support-box">
                   <span class="support-label">Portal</span>
                   <strong>EMIS Central Exam</strong>
@@ -207,22 +303,36 @@
                   <span class="support-label">Support Status</span>
                   <strong>Available</strong>
                 </div>
+
               </div>
 
               <button type="button" class="card-btn card-btn-outline" id="openSubjectsBtnAlt">
                 <i class="fa-solid fa-book"></i>
                 Check Subjects
               </button>
+
             </div>
+
           </div>
+
         </article>
 
+
+        <!-- =================================================
+             EXAM OVERVIEW
+        ================================================== -->
         <article class="dashboard-card exam-card">
+
           <div class="card-head">
-            <h2><i class="fa-solid fa-file-lines"></i> Exam Overview</h2>
+            <h2>
+              <i class="fa-solid fa-file-lines"></i>
+              Exam Overview
+            </h2>
           </div>
 
+
           <div class="overview-list">
+
             <div class="overview-row">
               <span>Exam Mode</span>
               <strong>Computer Based Test</strong>
@@ -235,7 +345,7 @@
 
             <div class="overview-row">
               <span>Candidate Status</span>
-              <strong>Eligible</strong>
+              <strong>{{ student.status or 'ACTIVE' }}</strong>
             </div>
 
             <div class="overview-row">
@@ -247,14 +357,18 @@
               <span>Class Arm</span>
               <strong>{{ class_arm or student.class_arm or student.class }}</strong>
             </div>
+
           </div>
+
 
           <div class="exam-status-banner">
             <i class="fa-solid fa-circle-check"></i>
             <span>Your account is ready for examination access.</span>
           </div>
 
+
           <div class="exam-card-actions">
+
             <button type="button" class="card-btn card-btn-primary" id="openExamPortalAlt">
               <i class="fa-solid fa-play"></i>
               Proceed to Exam
@@ -264,16 +378,24 @@
               <i class="fa-solid fa-book-open"></i>
               View Available Exams
             </button>
+
           </div>
 
+
           <div class="available-subjects-card" id="availableSubjectsCard">
-            <h4><i class="fa-solid fa-book-open"></i> Available Exams</h4>
+
+            <h4>
+              <i class="fa-solid fa-book-open"></i>
+              Available Exams
+            </h4>
+
             <p class="small-sub">
               Subjects assigned to your class arm:
               <strong>{{ class_arm or student.class_arm or student.class }}</strong>
             </p>
 
             <ul id="availableSubjectsList" class="subjects-list">
+
               {% if subjects %}
                 {% for subject in subjects %}
                   <li>{{ subject.upper() }}</li>
@@ -281,35 +403,80 @@
               {% else %}
                 <li class="empty">No subjects available yet.</li>
               {% endif %}
+
             </ul>
+
           </div>
+
         </article>
 
+
+        <!-- =================================================
+             INSTRUCTIONS
+        ================================================== -->
         <article class="dashboard-card instruction-card">
+
           <div class="card-head">
-            <h2><i class="fa-solid fa-circle-info"></i> Exam Instructions</h2>
+            <h2>
+              <i class="fa-solid fa-circle-info"></i>
+              Exam Instructions
+            </h2>
           </div>
 
           <ul class="instruction-list">
-            <li><i class="fa-solid fa-check"></i><span>Read each question carefully before selecting your answer.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Ensure your internet connection is stable before starting.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Do not switch tabs or leave the exam page during your exam.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Use Chrome, Edge, Safari, or another modern browser.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Contact your teacher or admin if your subject is not available.</span></li>
+
+            <li>
+              <i class="fa-solid fa-check"></i>
+              <span>Read each question carefully before selecting your answer.</span>
+            </li>
+
+            <li>
+              <i class="fa-solid fa-check"></i>
+              <span>Ensure your internet connection is stable before starting.</span>
+            </li>
+
+            <li>
+              <i class="fa-solid fa-check"></i>
+              <span>Do not switch tabs or leave the exam page during your exam.</span>
+            </li>
+
+            <li>
+              <i class="fa-solid fa-check"></i>
+              <span>Use Chrome, Edge, Safari, or another modern browser.</span>
+            </li>
+
+            <li>
+              <i class="fa-solid fa-check"></i>
+              <span>Contact your teacher or admin if your subject is not available.</span>
+            </li>
+
           </ul>
+
         </article>
 
       </section>
 
     </main>
 
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
     <footer class="student-footer">
-      <p>&copy; <span id="year"></span> EMIS Portal — Empowering Students for Success</p>
+      <p>
+        &copy; <span id="year"></span>
+        EMIS Portal — Empowering Students for Success
+      </p>
     </footer>
 
   </div>
 
+
+  <!-- =======================================================
+       EXAM SUBJECT MODAL
+  ======================================================== -->
   <div class="modal-overlay" id="examModal">
+
     <div class="modal-box">
 
       <button class="modal-close-btn" id="closeExamModalTop" type="button">
@@ -317,7 +484,8 @@
       </button>
 
       <h2 class="modal-title">
-        <i class="fa-solid fa-pen-to-square"></i> Go to Exam Portal
+        <i class="fa-solid fa-pen-to-square"></i>
+        Go to Exam Portal
       </h2>
 
       <p class="modal-subtitle">
@@ -326,27 +494,45 @@
       </p>
 
       <div class="form-group">
+
         <label for="subjectDropdown">Select Subject</label>
 
         <select id="subjectDropdown">
           <option value="">-- Select Subject --</option>
+
           {% for subject in subjects %}
             <option value="{{ subject.upper() }}">{{ subject.upper() }}</option>
           {% endfor %}
         </select>
+
       </div>
 
       <div class="modal-actions">
-        <button class="btn-secondary" id="refreshSubjectsBtn" type="button">Refresh Subjects</button>
-        <button class="btn-primary" id="startExamBtn" type="button" disabled>Go to Exam Portal</button>
-        <button class="btn-secondary" id="closeExamModal" type="button">Cancel</button>
+
+        <button class="btn-secondary" id="refreshSubjectsBtn" type="button">
+          Refresh Subjects
+        </button>
+
+        <button class="btn-primary" id="startExamBtn" type="button" disabled>
+          Go to Exam Portal
+        </button>
+
+        <button class="btn-secondary" id="closeExamModal" type="button">
+          Cancel
+        </button>
+
       </div>
 
     </div>
+
   </div>
 
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
   <script src="{{ url_for('static', filename='js/student-exams.js') }}"></script>
-  <!-- <script src="{{ url_for('static', filename='js/student-dashboard.js') }}"></script> -->
   <script src="{{ url_for('static', filename='js/students.js') }}"></script>
 
 </body>

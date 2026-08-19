@@ -1,7 +1,12 @@
 {
     "year": "2017",
+    "class_level": "JSS3",
     "class_category": "JSS3",
+    "class_arm": "JSS3",
+    "target_arm": "JSS3",
     "subjects": [
         "Mathematics"
-    ]
+    ],
+    "updated_at": "2026-06-30T13:14:52",
+    "updated_by": "admin"
 }

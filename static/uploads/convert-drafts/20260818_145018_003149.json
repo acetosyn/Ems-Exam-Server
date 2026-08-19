@@ -1,0 +1,1287 @@
+{
+  "draft_id": "20260818_145018_003149",
+  "created_at": "2026-08-18T14:50:18",
+  "source_filename": "maths.docx",
+  "year": "2000",
+  "subject": "Mathematics",
+  "class_category": "",
+  "term": null,
+  "term_label": null,
+  "question_count": 21,
+  "needs_review": 0,
+  "openai_usage": {
+    "input_tokens": 4988,
+    "output_tokens": 2432,
+    "total_tokens": 7420,
+    "estimated_cost_usd": 0.04895
+  },
+  "student_json": {
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "Mathematics",
+    "exam_title": "Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 120,
+    "class_category": "",
+    "questions": [
+      {
+        "id": 1,
+        "diagram": null,
+        "question": "Which of the following numbers is an odd number?",
+        "options": [
+          "A. 16",
+          "B. 24",
+          "C. 13",
+          "D. 10"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 2,
+        "diagram": null,
+        "question": "What is the place value of 7 in 3,745?",
+        "options": [
+          "A. 7",
+          "B. 70",
+          "C. 700",
+          "D. 7000"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 3,
+        "diagram": null,
+        "question": "Simplify: 25 + 37 + 18 = ?",
+        "options": [
+          "A. 70",
+          "B. 80",
+          "C. 90",
+          "D. 100"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 4,
+        "diagram": null,
+        "question": "Write 4,203 in words.",
+        "options": [
+          "A. Four thousand and two hundred and three",
+          "B. Four thousand, three",
+          "C. Four thousand and twenty-three",
+          "D. Four thousand, two hundred and thirty"
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 5,
+        "diagram": null,
+        "question": "Which of these numbers is divisible by 5?",
+        "options": [
+          "A. 42",
+          "B. 85",
+          "C. 63",
+          "D. 71"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 6,
+        "diagram": null,
+        "question": "Convert 3/5 to a decimal fraction.",
+        "options": [
+          "A. 0.2",
+          "B. 0.4",
+          "C. 0.6",
+          "D. 0.8"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 7,
+        "diagram": null,
+        "question": "Simplify: 2/3 + 1/6",
+        "options": [
+          "A. 1/2",
+          "B. 2/6",
+          "C. 5/6",
+          "D. 3/4"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 8,
+        "diagram": null,
+        "question": "Find the L.C.M of 3, 4, and 6.",
+        "options": [
+          "A. 6",
+          "B. 8",
+          "C. 10",
+          "D. 12"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 9,
+        "diagram": null,
+        "question": "The H.C.F of 12 and 18 is",
+        "options": [
+          "A. 2",
+          "B. 3",
+          "C. 4",
+          "D. 6"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 10,
+        "diagram": null,
+        "question": "Which of the following is a prime number?",
+        "options": [
+          "A. 9",
+          "B. 12",
+          "C. 11",
+          "D. 15"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 11,
+        "diagram": null,
+        "question": "Find the value of 7 × 9.",
+        "options": [
+          "A. 56",
+          "B. 61",
+          "C. 63",
+          "D. 72"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 12,
+        "diagram": null,
+        "question": "What is 4²?",
+        "options": [
+          "A. 6",
+          "B. 8",
+          "C. 12",
+          "D. 16"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 13,
+        "diagram": null,
+        "question": "Simplify: 8 × (3 + 2)",
+        "options": [
+          "A. 16",
+          "B. 24",
+          "C. 32",
+          "D. 40"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 14,
+        "diagram": null,
+        "question": "What is the product of 0.2 and 0.5?",
+        "options": [
+          "A. 0.1",
+          "B. 0.2",
+          "C. 0.3",
+          "D. 0.4"
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 15,
+        "diagram": null,
+        "question": "Simplify: 100 ÷ 4 × 2",
+        "options": [
+          "A. 10",
+          "B. 25",
+          "C. 50",
+          "D. 200"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 16,
+        "diagram": null,
+        "question": "What is the square root of 49?",
+        "options": [
+          "A. 6",
+          "B. 7",
+          "C. 8",
+          "D. 9"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 17,
+        "diagram": null,
+        "question": "Write ⅖ as a percentage.",
+        "options": [
+          "A. 20%",
+          "B. 30%",
+          "C. 40%",
+          "D. 50%"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 18,
+        "diagram": null,
+        "question": "Express 25% as a fraction in its simplest form.",
+        "options": [
+          "A. ¼",
+          "B. ½",
+          "C. ¾",
+          "D. ⅕"
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 19,
+        "diagram": null,
+        "question": "What is ⅓ of 27?",
+        "options": [
+          "A. 6",
+          "B. 8",
+          "C. 9",
+          "D. 12"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 20,
+        "diagram": null,
+        "question": "The sum of 2.45 and 1.8 is",
+        "options": [
+          "A. 3.15",
+          "B. 4.25",
+          "C. 4.35",
+          "D. 5.25"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 21,
+        "diagram": null,
+        "question": "Which of the following is a factor of 24?",
+        "options": [
+          "A. 5",
+          "B. 6",
+          "C. 7",
+          "D. 9"
+        ],
+        "correctOption": "B"
+      }
+    ],
+    "session": "2024/2025"
+  },
+  "full_json": {
+    "subject": "Mathematics",
+    "class_category": "",
+    "groups": [
+      {
+        "start_id": 1,
+        "end_id": 21,
+        "instruction": "ANSWER ALL QUESTIONS",
+        "passage": "",
+        "diagram": null,
+        "question_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": 1,
+        "diagram": null,
+        "question": "Which of the following numbers is an odd number?",
+        "options": [
+          "A. 16",
+          "B. 24",
+          "C. 13",
+          "D. 10"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 2,
+        "diagram": null,
+        "question": "What is the place value of 7 in 3,745?",
+        "options": [
+          "A. 7",
+          "B. 70",
+          "C. 700",
+          "D. 7000"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 3,
+        "diagram": null,
+        "question": "Simplify: 25 + 37 + 18 = ?",
+        "options": [
+          "A. 70",
+          "B. 80",
+          "C. 90",
+          "D. 100"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 4,
+        "diagram": null,
+        "question": "Write 4,203 in words.",
+        "options": [
+          "A. Four thousand and two hundred and three",
+          "B. Four thousand, three",
+          "C. Four thousand and twenty-three",
+          "D. Four thousand, two hundred and thirty"
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 5,
+        "diagram": null,
+        "question": "Which of these numbers is divisible by 5?",
+        "options": [
+          "A. 42",
+          "B. 85",
+          "C. 63",
+          "D. 71"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 6,
+        "diagram": null,
+        "question": "Convert 3/5 to a decimal fraction.",
+        "options": [
+          "A. 0.2",
+          "B. 0.4",
+          "C. 0.6",
+          "D. 0.8"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 7,
+        "diagram": null,
+        "question": "Simplify: 2/3 + 1/6",
+        "options": [
+          "A. 1/2",
+          "B. 2/6",
+          "C. 5/6",
+          "D. 3/4"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 8,
+        "diagram": null,
+        "question": "Find the L.C.M of 3, 4, and 6.",
+        "options": [
+          "A. 6",
+          "B. 8",
+          "C. 10",
+          "D. 12"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 9,
+        "diagram": null,
+        "question": "The H.C.F of 12 and 18 is",
+        "options": [
+          "A. 2",
+          "B. 3",
+          "C. 4",
+          "D. 6"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 10,
+        "diagram": null,
+        "question": "Which of the following is a prime number?",
+        "options": [
+          "A. 9",
+          "B. 12",
+          "C. 11",
+          "D. 15"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 11,
+        "diagram": null,
+        "question": "Find the value of 7 × 9.",
+        "options": [
+          "A. 56",
+          "B. 61",
+          "C. 63",
+          "D. 72"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 12,
+        "diagram": null,
+        "question": "What is 4²?",
+        "options": [
+          "A. 6",
+          "B. 8",
+          "C. 12",
+          "D. 16"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 13,
+        "diagram": null,
+        "question": "Simplify: 8 × (3 + 2)",
+        "options": [
+          "A. 16",
+          "B. 24",
+          "C. 32",
+          "D. 40"
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 14,
+        "diagram": null,
+        "question": "What is the product of 0.2 and 0.5?",
+        "options": [
+          "A. 0.1",
+          "B. 0.2",
+          "C. 0.3",
+          "D. 0.4"
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 15,
+        "diagram": null,
+        "question": "Simplify: 100 ÷ 4 × 2",
+        "options": [
+          "A. 10",
+          "B. 25",
+          "C. 50",
+          "D. 200"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 16,
+        "diagram": null,
+        "question": "What is the square root of 49?",
+        "options": [
+          "A. 6",
+          "B. 7",
+          "C. 8",
+          "D. 9"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 17,
+        "diagram": null,
+        "question": "Write ⅖ as a percentage.",
+        "options": [
+          "A. 20%",
+          "B. 30%",
+          "C. 40%",
+          "D. 50%"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 18,
+        "diagram": null,
+        "question": "Express 25% as a fraction in its simplest form.",
+        "options": [
+          "A. ¼",
+          "B. ½",
+          "C. ¾",
+          "D. ⅕"
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 19,
+        "diagram": null,
+        "question": "What is ⅓ of 27?",
+        "options": [
+          "A. 6",
+          "B. 8",
+          "C. 9",
+          "D. 12"
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 20,
+        "diagram": null,
+        "question": "The sum of 2.45 and 1.8 is",
+        "options": [
+          "A. 3.15",
+          "B. 4.25",
+          "C. 4.35",
+          "D. 5.25"
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 21,
+        "diagram": null,
+        "question": "Which of the following is a factor of 24?",
+        "options": [
+          "A. 5",
+          "B. 6",
+          "C. 7",
+          "D. 9"
+        ],
+        "correctOption": "B"
+      }
+    ]
+  },
+  "answer_report": [
+    {
+      "id": 1,
+      "question": "Which of the following numbers is an odd number?",
+      "options": [
+        "A. 16",
+        "B. 24",
+        "C. 13",
+        "D. 10"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 1,
+        "correctOption": "C",
+        "reason": "13 is the only odd number listed.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 1,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "13 is the only odd number."
+      }
+    },
+    {
+      "id": 2,
+      "question": "What is the place value of 7 in 3,745?",
+      "options": [
+        "A. 7",
+        "B. 70",
+        "C. 700",
+        "D. 7000"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 2,
+        "correctOption": "C",
+        "reason": "In 3,745, 7 is in the hundreds place, so its value is 700.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 2,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "In 3,745, 7 is in the hundreds place, so its value is 700."
+      }
+    },
+    {
+      "id": 3,
+      "question": "Simplify: 25 + 37 + 18 = ?",
+      "options": [
+        "A. 70",
+        "B. 80",
+        "C. 90",
+        "D. 100"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 3,
+        "correctOption": "B",
+        "reason": "25 + 37 + 18 = 80.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 3,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "25 + 37 + 18 = 80."
+      }
+    },
+    {
+      "id": 4,
+      "question": "Write 4,203 in words.",
+      "options": [
+        "A. Four thousand and two hundred and three",
+        "B. Four thousand, three",
+        "C. Four thousand and twenty-three",
+        "D. Four thousand, two hundred and thirty"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 4,
+        "correctOption": "A",
+        "reason": "4,203 is written as four thousand two hundred and three.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 4,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "4,203 is four thousand two hundred and three."
+      }
+    },
+    {
+      "id": 5,
+      "question": "Which of these numbers is divisible by 5?",
+      "options": [
+        "A. 42",
+        "B. 85",
+        "C. 63",
+        "D. 71"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 5,
+        "correctOption": "B",
+        "reason": "A number divisible by 5 ends in 0 or 5; 85 does.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 5,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A number divisible by 5 ends in 0 or 5; 85 does."
+      }
+    },
+    {
+      "id": 6,
+      "question": "Convert 3/5 to a decimal fraction.",
+      "options": [
+        "A. 0.2",
+        "B. 0.4",
+        "C. 0.6",
+        "D. 0.8"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 6,
+        "correctOption": "C",
+        "reason": "3/5 = 0.6.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 6,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "3/5 = 0.6."
+      }
+    },
+    {
+      "id": 7,
+      "question": "Simplify: 2/3 + 1/6",
+      "options": [
+        "A. 1/2",
+        "B. 2/6",
+        "C. 5/6",
+        "D. 3/4"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 7,
+        "correctOption": "C",
+        "reason": "2/3 = 4/6, and 4/6 + 1/6 = 5/6.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 7,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2/3 + 1/6 = 4/6 + 1/6 = 5/6."
+      }
+    },
+    {
+      "id": 8,
+      "question": "Find the L.C.M of 3, 4, and 6.",
+      "options": [
+        "A. 6",
+        "B. 8",
+        "C. 10",
+        "D. 12"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 8,
+        "correctOption": "D",
+        "reason": "The least common multiple of 3, 4, and 6 is 12.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 8,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The L.C.M of 3, 4, and 6 is 12."
+      }
+    },
+    {
+      "id": 9,
+      "question": "The H.C.F of 12 and 18 is",
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 6"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 9,
+        "correctOption": "D",
+        "reason": "The highest common factor of 12 and 18 is 6.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 9,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The H.C.F of 12 and 18 is 6."
+      }
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is a prime number?",
+      "options": [
+        "A. 9",
+        "B. 12",
+        "C. 11",
+        "D. 15"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 10,
+        "correctOption": "C",
+        "reason": "11 has exactly two factors, 1 and 11.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 10,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "11 is a prime number."
+      }
+    },
+    {
+      "id": 11,
+      "question": "Find the value of 7 × 9.",
+      "options": [
+        "A. 56",
+        "B. 61",
+        "C. 63",
+        "D. 72"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 11,
+        "correctOption": "C",
+        "reason": "7 × 9 = 63.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 11,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "7 × 9 = 63."
+      }
+    },
+    {
+      "id": 12,
+      "question": "What is 4²?",
+      "options": [
+        "A. 6",
+        "B. 8",
+        "C. 12",
+        "D. 16"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 12,
+        "correctOption": "D",
+        "reason": "4² means 4 × 4 = 16.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 12,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "4² = 16."
+      }
+    },
+    {
+      "id": 13,
+      "question": "Simplify: 8 × (3 + 2)",
+      "options": [
+        "A. 16",
+        "B. 24",
+        "C. 32",
+        "D. 40"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 13,
+        "correctOption": "D",
+        "reason": "3 + 2 = 5, then 8 × 5 = 40.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 13,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "3 + 2 = 5, then 8 × 5 = 40."
+      }
+    },
+    {
+      "id": 14,
+      "question": "What is the product of 0.2 and 0.5?",
+      "options": [
+        "A. 0.1",
+        "B. 0.2",
+        "C. 0.3",
+        "D. 0.4"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 14,
+        "correctOption": "A",
+        "reason": "0.2 × 0.5 = 0.1.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 14,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "0.2 × 0.5 = 0.1."
+      }
+    },
+    {
+      "id": 15,
+      "question": "Simplify: 100 ÷ 4 × 2",
+      "options": [
+        "A. 10",
+        "B. 25",
+        "C. 50",
+        "D. 200"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 15,
+        "correctOption": "C",
+        "reason": "Evaluate left to right: 100 ÷ 4 = 25, then 25 × 2 = 50.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 15,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "100 ÷ 4 × 2 = 25 × 2 = 50."
+      }
+    },
+    {
+      "id": 16,
+      "question": "What is the square root of 49?",
+      "options": [
+        "A. 6",
+        "B. 7",
+        "C. 8",
+        "D. 9"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 16,
+        "correctOption": "B",
+        "reason": "The square root of 49 is 7.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 16,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The square root of 49 is 7."
+      }
+    },
+    {
+      "id": 17,
+      "question": "Write ⅖ as a percentage.",
+      "options": [
+        "A. 20%",
+        "B. 30%",
+        "C. 40%",
+        "D. 50%"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 17,
+        "correctOption": "C",
+        "reason": "2/5 = 0.4 = 40%.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 17,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2/5 = 0.4 = 40%."
+      }
+    },
+    {
+      "id": 18,
+      "question": "Express 25% as a fraction in its simplest form.",
+      "options": [
+        "A. ¼",
+        "B. ½",
+        "C. ¾",
+        "D. ⅕"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 18,
+        "correctOption": "A",
+        "reason": "25% = 25/100 = 1/4.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 18,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "25% = 25/100 = 1/4."
+      }
+    },
+    {
+      "id": 19,
+      "question": "What is ⅓ of 27?",
+      "options": [
+        "A. 6",
+        "B. 8",
+        "C. 9",
+        "D. 12"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 19,
+        "correctOption": "C",
+        "reason": "One-third of 27 is 27 ÷ 3 = 9.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 19,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "1/3 of 27 is 9."
+      }
+    },
+    {
+      "id": 20,
+      "question": "The sum of 2.45 and 1.8 is",
+      "options": [
+        "A. 3.15",
+        "B. 4.25",
+        "C. 4.35",
+        "D. 5.25"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 20,
+        "correctOption": "B",
+        "reason": "2.45 + 1.8 = 4.25.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 20,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2.45 + 1.8 = 4.25."
+      }
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is a factor of 24?",
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 9"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 21,
+        "correctOption": "B",
+        "reason": "6 divides 24 exactly, so it is a factor.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 21,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "6 divides 24 exactly, so it is a factor."
+      }
+    }
+  ]
+}

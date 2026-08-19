@@ -88,9 +88,11 @@
       </div>
 
       <div class="stat-info">
-        <span>Total Candidates</span>
-        <strong id="statTotalStudents">0</strong>
-        <small>Registered for CBT</small>
+
+<span>Total Students</span>
+<strong id="statTotalStudents">0</strong>
+<small>Registered in students2026.csv</small>
+
       </div>
 
       <div class="stat-trend positive">
@@ -556,115 +558,350 @@
   </section>
 
 
-  <!-- ==========================================================
-       STUDENT ZONE
-  ========================================================== -->
-  <section id="panel-student" class="admin-card route-panel">
+<!-- ==========================================================
+     STUDENT ZONE
+========================================================== -->
+<section id="panel-student" class="admin-card route-panel">
 
-    <div class="section-header">
-      <div>
-        <span class="section-kicker">Student Monitoring</span>
-        <h2>
-          <i class="fa-solid fa-user-graduate"></i>
-          Student Zone
-        </h2>
-      </div>
-
-      <button id="refreshStudentPanelAlt" class="btn-secondary">
-        <i class="fa-solid fa-rotate"></i>
-        Refresh
-      </button>
+  <div class="section-header">
+    <div>
+      <span class="section-kicker">Student Monitoring</span>
+      <h2>
+        <i class="fa-solid fa-user-graduate"></i>
+        Student Zone
+      </h2>
     </div>
 
-    <p class="section-description">
-      Monitor candidate exam sessions, auto-marking progress, submitted answers,
-      generated scores, and PDF result exports.
-    </p>
+    <button id="refreshStudentPanelAlt" class="btn-secondary" type="button">
+      <i class="fa-solid fa-rotate"></i>
+      Refresh
+    </button>
+  </div>
 
-    <div class="student-zone-grid">
+  <p class="section-description">
+    Monitor current student activity using the unique admission number,
+    class level, exact class arm, sex, stream, exam status, and scores.
+  </p>
 
-      <div class="table-panel large">
-        <div class="mini-section-title">
-          <h3>Active Exams</h3>
-          <span>Live candidate sessions</span>
-        </div>
 
-        <div id="activeExamList" class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Student</th>
-                <th>Exam</th>
-                <th>Status</th>
-                <th>Score</th>
-              </tr>
-            </thead>
+  <!-- ========================================================
+       STUDENT DATABASE SNAPSHOT
+  ========================================================= -->
+  <div class="admin-stats-grid compact-stats">
 
-            <tbody id="studentExamTable">
-              <tr>
-                <td colspan="4" class="empty-cell">No ongoing exams</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <article class="admin-stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-users"></i>
       </div>
 
-      <aside class="side-summary-card">
-        <h3>Auto-Marking Summary</h3>
+      <div class="stat-info">
+        <span>Total Students</span>
+        <strong id="studentDatabaseTotal">0</strong>
+        <small>students2026.csv</small>
+      </div>
+    </article>
 
-        <div id="autoMarkSummary" class="summary-list">
-          <p>
-            <span>Last Batch</span>
-            <strong id="lastAutoBatch">—</strong>
-          </p>
 
-          <p>
-            <span>Processed</span>
-            <strong id="autoProcessed">0</strong>
-          </p>
+    <article class="admin-stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-user-check"></i>
+      </div>
 
-          <p>
-            <span>Average Score</span>
-            <strong id="autoAverage">--</strong>
-          </p>
+      <div class="stat-info">
+        <span>Active Students</span>
+        <strong id="studentActiveTotal">0</strong>
+        <small>Currently enrolled</small>
+      </div>
+    </article>
 
-          <small>Updates every 30 seconds</small>
-        </div>
 
-        <button id="forceMarking" type="button" class="btn-primary full-width">
-          <i class="fa-solid fa-bolt"></i>
-          Force Auto-Mark
+    <article class="admin-stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-mars"></i>
+      </div>
+
+      <div class="stat-info">
+        <span>Male</span>
+        <strong id="studentMaleTotal">0</strong>
+        <small>Registered students</small>
+      </div>
+    </article>
+
+
+    <article class="admin-stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-venus"></i>
+      </div>
+
+      <div class="stat-info">
+        <span>Female</span>
+        <strong id="studentFemaleTotal">0</strong>
+        <small>Registered students</small>
+      </div>
+    </article>
+
+  </div>
+
+
+  <!-- ========================================================
+       FILTERS
+  ========================================================= -->
+  <div class="sub-panel">
+
+    <div class="mini-section-title">
+      <h3>
+        <i class="fa-solid fa-filter"></i>
+        Student / Exam Filters
+      </h3>
+
+      <span>Filter current candidate activity</span>
+    </div>
+
+    <div class="form-grid three">
+
+      <div class="form-group">
+        <label class="form-label" for="studentFilterClassLevel">
+          Class Level
+        </label>
+
+        <select id="studentFilterClassLevel" class="form-input">
+          <option value="">All Classes</option>
+          <option value="JSS1">JSS1</option>
+          <option value="JSS2">JSS2</option>
+          <option value="JSS3">JSS3</option>
+          <option value="SS1">SS1</option>
+          <option value="SS2">SS2</option>
+          <option value="SS3">SS3</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label class="form-label" for="studentFilterClassArm">
+          Class Arm
+        </label>
+
+        <select id="studentFilterClassArm" class="form-input">
+          <option value="">All Arms</option>
+
+          <optgroup label="JSS1">
+            <option value="JSS1A">JSS1A</option>
+            <option value="JSS1B">JSS1B</option>
+            <option value="JSS1C">JSS1C</option>
+          </optgroup>
+
+          <optgroup label="JSS2">
+            <option value="JSS2A">JSS2A</option>
+            <option value="JSS2B">JSS2B</option>
+            <option value="JSS2C">JSS2C</option>
+          </optgroup>
+
+          <optgroup label="JSS3">
+            <option value="JSS3A">JSS3A</option>
+            <option value="JSS3B">JSS3B</option>
+            <option value="JSS3C">JSS3C</option>
+          </optgroup>
+
+          <optgroup label="SS1">
+            <option value="SS1_GOLD">SS1 GOLD</option>
+            <option value="SS1_SILVER">SS1 SILVER</option>
+            <option value="SS1_DIAMOND">SS1 DIAMOND</option>
+            <option value="SS1_B/C">SS1 B/C</option>
+          </optgroup>
+
+          <optgroup label="SS2">
+            <option value="SS2_GOLD">SS2 GOLD</option>
+            <option value="SS2_SILVER">SS2 SILVER</option>
+            <option value="SS2_DIAMOND">SS2 DIAMOND</option>
+            <option value="SS2_B/C">SS2 B/C</option>
+          </optgroup>
+
+          <optgroup label="SS3">
+            <option value="SS3_GOLD">SS3 GOLD</option>
+            <option value="SS3_SILVER">SS3 SILVER</option>
+            <option value="SS3_B/C">SS3 B/C</option>
+          </optgroup>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label class="form-label" for="studentFilterSex">
+          Sex
+        </label>
+
+        <select id="studentFilterSex" class="form-input">
+          <option value="">All</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    <div class="form-grid three">
+
+      <div class="form-group">
+        <label class="form-label" for="studentFilterStream">
+          Stream
+        </label>
+
+        <select id="studentFilterStream" class="form-input">
+          <option value="">All Streams</option>
+          <option value="SCIENCE">Science</option>
+          <option value="ART_COMMERCIAL">Art + Commercial</option>
+          <option value="GENERAL">General</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label class="form-label" for="studentSearchInput">
+          Search Student
+        </label>
+
+        <input
+          id="studentSearchInput"
+          type="search"
+          class="form-input"
+          placeholder="Admission no. or student name"
+        >
+      </div>
+
+
+      <div class="form-group action">
+        <button id="clearStudentFilters" type="button" class="btn-secondary full-width">
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+          Clear Filters
         </button>
-      </aside>
+      </div>
 
     </div>
 
-    <div class="sub-panel">
+  </div>
+
+
+  <!-- ========================================================
+       ACTIVE EXAMS
+  ========================================================= -->
+  <div class="student-zone-grid">
+
+    <div class="table-panel large">
+
       <div class="mini-section-title">
         <h3>
-          <i class="fa-solid fa-file-pdf"></i>
-          Export Results to PDF
+          <i class="fa-solid fa-display"></i>
+          Active Exams
         </h3>
-        <span>Generate downloadable reports</span>
+
+        <span>Live candidate sessions</span>
       </div>
 
-      <div class="button-row">
-        <button id="generatePDFBtn" type="button" class="btn-primary">
-          <i class="fa-solid fa-file-pdf"></i>
-          Generate PDF
-        </button>
+      <div id="activeExamList" class="table-wrap">
 
-        <button id="downloadAllPDF" type="button" class="btn-secondary">
-          <i class="fa-solid fa-download"></i>
-          Download All
-        </button>
+        <table>
+          <thead>
+            <tr>
+              <th>Admission No.</th>
+              <th>Student</th>
+              <th>Sex</th>
+              <th>Class Level</th>
+              <th>Class Arm</th>
+              <th>Stream</th>
+              <th>Exam</th>
+              <th>Status</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+
+          <tbody id="studentExamTable">
+            <tr>
+              <td colspan="9" class="empty-cell">
+                No ongoing exams
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
 
-      <div id="pdfStatus" class="status-message"></div>
     </div>
 
-  </section>
 
+    <aside class="side-summary-card">
+
+      <h3>Auto-Marking Summary</h3>
+
+      <div id="autoMarkSummary" class="summary-list">
+
+        <p>
+          <span>Last Batch</span>
+          <strong id="lastAutoBatch">—</strong>
+        </p>
+
+        <p>
+          <span>Processed</span>
+          <strong id="autoProcessed">0</strong>
+        </p>
+
+        <p>
+          <span>Average Score</span>
+          <strong id="autoAverage">--</strong>
+        </p>
+
+        <p>
+          <span>Pass Rate</span>
+          <strong id="autoPassRate">--</strong>
+        </p>
+
+        <small>Updates every 30 seconds</small>
+
+      </div>
+
+      <button id="forceMarking" type="button" class="btn-primary full-width">
+        <i class="fa-solid fa-bolt"></i>
+        Force Auto-Mark
+      </button>
+
+    </aside>
+
+  </div>
+
+
+  <!-- ========================================================
+       PDF EXPORT
+  ========================================================= -->
+  <div class="sub-panel">
+
+    <div class="mini-section-title">
+      <h3>
+        <i class="fa-solid fa-file-pdf"></i>
+        Export Results
+      </h3>
+
+      <span>Generate candidate or class reports</span>
+    </div>
+
+    <div class="button-row">
+
+      <button id="generatePDFBtn" type="button" class="btn-primary">
+        <i class="fa-solid fa-file-pdf"></i>
+        Generate PDF
+      </button>
+
+      <button id="downloadAllPDF" type="button" class="btn-secondary">
+        <i class="fa-solid fa-download"></i>
+        Download All
+      </button>
+
+    </div>
+
+    <div id="pdfStatus" class="status-message"></div>
+
+  </div>
+
+</section>
 
   <!-- ==========================================================
        UNIQUE ID GENERATOR
@@ -1152,75 +1389,378 @@
   </section>
 
 
-  <!-- ==========================================================
-       CREDENTIALS & RESULTS
-  ========================================================== -->
-  <section id="panel-credentials" class="admin-card route-panel">
+ <!-- ==========================================================
+     CREDENTIALS & EXAM RESULTS
+========================================================== -->
+<section id="panel-credentials" class="admin-card route-panel">
 
-    <div class="section-header">
-      <div>
-        <span class="section-kicker">Records</span>
-        <h2>
-          <i class="fa-solid fa-id-card"></i>
-          Credentials & Exam Results
-        </h2>
+  <div class="section-header">
+
+    <div>
+      <span class="section-kicker">Student Records</span>
+
+      <h2>
+        <i class="fa-solid fa-chart-column"></i>
+        Student Credentials & Exam Results
+      </h2>
+    </div>
+
+    <div class="button-row tight">
+
+      <button id="exportCredsBtn" type="button" class="btn-primary">
+        <i class="fa-solid fa-download"></i>
+        Export
+      </button>
+
+      <button id="clearCredsBtn" type="button" class="btn-danger-soft">
+        <i class="fa-solid fa-trash"></i>
+        Clear
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <p class="section-description">
+    Results are tied to the student's unique admission number.
+    Student sex, class level, exact class arm, stream, subject,
+    score, status, and submission details are displayed together.
+  </p>
+
+
+  <!-- ========================================================
+       RESULT SUMMARY
+  ========================================================= -->
+  <div class="admin-stats-grid compact-stats">
+
+    <article class="admin-stat-card">
+
+      <div class="stat-icon">
+        <i class="fa-solid fa-file-circle-check"></i>
       </div>
 
-      <div class="button-row tight">
-        <button id="exportCredsBtn" type="button" class="btn-primary">
-          <i class="fa-solid fa-download"></i>
-          Export
-        </button>
-
-        <button id="clearCredsBtn" type="button" class="btn-danger-soft">
-          <i class="fa-solid fa-trash"></i>
-          Clear
-        </button>
+      <div class="stat-info">
+        <span>Submitted</span>
+        <strong id="resultsSubmittedTotal">0</strong>
+        <small>Result records</small>
       </div>
+
+    </article>
+
+
+    <article class="admin-stat-card">
+
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div class="stat-info">
+        <span>Passed</span>
+        <strong id="resultsPassedTotal">0</strong>
+        <small>50% and above</small>
+      </div>
+
+    </article>
+
+
+    <article class="admin-stat-card">
+
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-xmark"></i>
+      </div>
+
+      <div class="stat-info">
+        <span>Failed</span>
+        <strong id="resultsFailedTotal">0</strong>
+        <small>Below 50%</small>
+      </div>
+
+    </article>
+
+
+    <article class="admin-stat-card">
+
+      <div class="stat-icon">
+        <i class="fa-solid fa-chart-line"></i>
+      </div>
+
+      <div class="stat-info">
+        <span>Average Score</span>
+        <strong id="resultsAverageScore">--</strong>
+        <small>Filtered records</small>
+      </div>
+
+    </article>
+
+  </div>
+
+
+  <!-- ========================================================
+       RESULT FILTERS
+  ========================================================= -->
+  <div class="sub-panel">
+
+    <div class="mini-section-title">
+
+      <h3>
+        <i class="fa-solid fa-filter"></i>
+        Result Filters
+      </h3>
+
+      <span>Search and narrow result records</span>
+
     </div>
 
-    <p class="section-description">
-      Generate login credentials, monitor submitted exam scores, and download result PDFs.
-    </p>
 
-    <div class="table-wrap result-table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Candidate ID</th>
-            <th>Name</th>
-            <th>Exam</th>
-            <th>Score</th>
-            <th>PDF</th>
-          </tr>
-        </thead>
+    <div class="form-grid three">
 
-        <tbody id="resultsTableBody">
-          <tr>
-            <td colspan="5" class="empty-cell">No results available.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="form-group">
+
+        <label class="form-label" for="resultFilterYear">
+          Exam Year
+        </label>
+
+        <select id="resultFilterYear" class="form-input">
+          <option value="">All Years</option>
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label" for="resultFilterClassLevel">
+          Class Level
+        </label>
+
+        <select id="resultFilterClassLevel" class="form-input">
+          <option value="">All Classes</option>
+          <option value="JSS1">JSS1</option>
+          <option value="JSS2">JSS2</option>
+          <option value="JSS3">JSS3</option>
+          <option value="SS1">SS1</option>
+          <option value="SS2">SS2</option>
+          <option value="SS3">SS3</option>
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label" for="resultFilterClassArm">
+          Class Arm
+        </label>
+
+        <select id="resultFilterClassArm" class="form-input">
+          <option value="">All Arms</option>
+
+          <option value="JSS1A">JSS1A</option>
+          <option value="JSS1B">JSS1B</option>
+          <option value="JSS1C">JSS1C</option>
+
+          <option value="JSS2A">JSS2A</option>
+          <option value="JSS2B">JSS2B</option>
+          <option value="JSS2C">JSS2C</option>
+
+          <option value="JSS3A">JSS3A</option>
+          <option value="JSS3B">JSS3B</option>
+          <option value="JSS3C">JSS3C</option>
+
+          <option value="SS1_GOLD">SS1 GOLD</option>
+          <option value="SS1_SILVER">SS1 SILVER</option>
+          <option value="SS1_DIAMOND">SS1 DIAMOND</option>
+          <option value="SS1_B/C">SS1 B/C</option>
+
+          <option value="SS2_GOLD">SS2 GOLD</option>
+          <option value="SS2_SILVER">SS2 SILVER</option>
+          <option value="SS2_DIAMOND">SS2 DIAMOND</option>
+          <option value="SS2_B/C">SS2 B/C</option>
+
+          <option value="SS3_GOLD">SS3 GOLD</option>
+          <option value="SS3_SILVER">SS3 SILVER</option>
+          <option value="SS3_B/C">SS3 B/C</option>
+        </select>
+
+      </div>
+
     </div>
 
-    <div class="button-row">
-      <button id="generateLoginCredsBtn" type="button" class="btn-accent">
-        <i class="fa-solid fa-user-lock"></i>
-        Generate Credentials
-      </button>
 
-      <button id="sendEmailCredsBtn" type="button" class="btn-primary">
-        <i class="fa-solid fa-envelope"></i>
-        Send Email
-      </button>
+    <div class="form-grid three">
 
-      <button id="revokeCredsBtn" type="button" class="btn-danger-soft">
-        <i class="fa-solid fa-ban"></i>
-        Revoke
-      </button>
+      <div class="form-group">
+
+        <label class="form-label" for="resultFilterSex">
+          Sex
+        </label>
+
+        <select id="resultFilterSex" class="form-input">
+          <option value="">All</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label" for="resultFilterStream">
+          Stream
+        </label>
+
+        <select id="resultFilterStream" class="form-input">
+          <option value="">All Streams</option>
+          <option value="SCIENCE">Science</option>
+          <option value="ART_COMMERCIAL">Art + Commercial</option>
+          <option value="GENERAL">General</option>
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label" for="resultFilterStatus">
+          Result Status
+        </label>
+
+        <select id="resultFilterStatus" class="form-input">
+          <option value="">All</option>
+          <option value="PASS">Pass</option>
+          <option value="FAIL">Fail</option>
+        </select>
+
+      </div>
+
     </div>
 
-  </section>
+
+    <div class="form-grid three">
+
+      <div class="form-group">
+
+        <label class="form-label" for="resultFilterSubject">
+          Subject
+        </label>
+
+        <input
+          id="resultFilterSubject"
+          type="search"
+          class="form-input"
+          placeholder="Search subject"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label" for="resultSearchStudent">
+          Student / Admission No.
+        </label>
+
+        <input
+          id="resultSearchStudent"
+          type="search"
+          class="form-input"
+          placeholder="std234 or student name"
+        >
+
+      </div>
+
+
+      <div class="form-group action">
+
+        <button id="clearResultFilters" type="button" class="btn-secondary full-width">
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+          Clear Filters
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================================================
+       RESULTS TABLE
+  ========================================================= -->
+  <div class="table-wrap result-table-wrap">
+
+    <table class="admin-results-table">
+
+      <thead>
+        <tr>
+          <th>Admission No.</th>
+          <th>Student Name</th>
+          <th>Sex</th>
+          <th>Class Level</th>
+          <th>Class Arm</th>
+          <th>Stream</th>
+          <th>Subject</th>
+          <th>Score</th>
+          <th>Correct</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Time</th>
+          <th>Submitted</th>
+          <th>PDF</th>
+        </tr>
+      </thead>
+
+      <tbody id="resultsTableBody">
+
+        <tr>
+          <td colspan="14" class="empty-cell">
+            No results available.
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- ========================================================
+       RESULT ACTIONS
+  ========================================================= -->
+  <div class="button-row">
+
+    <button id="generateLoginCredsBtn" type="button" class="btn-accent">
+      <i class="fa-solid fa-user-lock"></i>
+      Generate Credentials
+    </button>
+
+    <button id="sendEmailCredsBtn" type="button" class="btn-primary">
+      <i class="fa-solid fa-envelope"></i>
+      Send Email
+    </button>
+
+    <button id="exportFilteredResultsBtn" type="button" class="btn-secondary">
+      <i class="fa-solid fa-file-export"></i>
+      Export Filtered Results
+    </button>
+
+    <button id="revokeCredsBtn" type="button" class="btn-danger-soft">
+      <i class="fa-solid fa-ban"></i>
+      Revoke
+    </button>
+
+  </div>
+
+</section>
 
 
   <!-- ==========================================================

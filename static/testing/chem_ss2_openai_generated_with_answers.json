@@ -1,0 +1,608 @@
+{
+  "subject": "Chemistry",
+  "class": "SS2",
+  "session": "2024/2025",
+  "time_allowed_minutes": 120,
+  "questions": [
+    {
+      "id": 1,
+      "diagram": null,
+      "question": "C<sub>8</sub>H<sub>18</sub> will undergo the following reactions except",
+      "options": [
+        "A. cracking",
+        "B. combustion",
+        "C. substitution",
+        "D. addition"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "diagram": null,
+      "question": "One of the products of combustion of pentane in excess air is",
+      "options": [
+        "A. pentanol",
+        "B. pentene",
+        "C. nitrogen(II)oxide",
+        "D. carbon(IV)oxide"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "diagram": null,
+      "question": "The name of the compound CH<sub>3</sub>C(CH<sub>3</sub>)2CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub> is",
+      "options": [
+        "A. 2-methyl butane",
+        "B. 2, 2-dimethyl butane",
+        "C. 2-methyl pentane",
+        "D. 2, 2-dimethyl pentane"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "diagram": null,
+      "question": "When excess chlorine is mixed with ethane at room temperature, the product formed is",
+      "options": [
+        "A. 1,2-dichloroethane",
+        "B. 1,2-dichloroethene",
+        "C. 1,1-dichloroethane",
+        "D. 1,1-dicholoethene"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "diagram": null,
+      "question": "Which of the following compounds has/have the molecular formula C<sub>4</sub>H<sub>10</sub>? I. But-2-ene II. Butanol III. 2-methylpropane IV. Butane",
+      "options": [
+        "A. IV only",
+        "B. I and II only",
+        "C. III and IV only",
+        "D. I, II and III only"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "diagram": null,
+      "question": "What is the main type of reaction alkenes undergo?",
+      "options": [
+        "A. Addition",
+        "B. Condensation",
+        "C. Elimination",
+        "D. Substitution"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "diagram": null,
+      "question": "Ripening of fruits is hastened by using",
+      "options": [
+        "A. ethanol",
+        "B. ethene",
+        "C. ethane",
+        "D. ethyne"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "diagram": null,
+      "question": "When bromine is added to ethane at room temperature, the compound formed is",
+      "options": [
+        "A. 1,1-dibromoethane",
+        "B. 1,1-dibromoethene",
+        "C. 1,2-dibromoethane",
+        "D. 1,2-dibromoethene"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "diagram": null,
+      "question": "Ethane molecules can be added to one another to form a long chain compound called",
+      "options": [
+        "A. dimer",
+        "B. monomer",
+        "C. polymer",
+        "D. trimer"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "diagram": null,
+      "question": "Alkenes undergo the following reactions except",
+      "options": [
+        "A. addition",
+        "B. hydration",
+        "C. polymerization",
+        "D. substitution"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "diagram": null,
+      "question": "Ethane is produced from ethanol by",
+      "options": [
+        "A. decomposition",
+        "B. hydrolysis",
+        "C. ozonolysis",
+        "D. dehydration"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "diagram": null,
+      "question": "An organic compound which reacts readily with bromine to form a compound with the formula CH<sub>3</sub>CHBrCH<sub>2</sub>Br is",
+      "options": [
+        "A. ethane",
+        "B. propane",
+        "C. butane",
+        "D. propene"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "diagram": null,
+      "question": "Ethane undergoes mainly addition reactions because it is",
+      "options": [
+        "A. a gas",
+        "B. a hydrocarbon",
+        "C. unsaturation",
+        "D. easily polymerized"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "diagram": null,
+      "question": "The following gases decolorize bromine water except",
+      "options": [
+        "A. C<sub>2</sub>H<sub>6</sub>",
+        "B. C<sub>2</sub>H<sub>4</sub>",
+        "C. C<sub>2</sub>H<sub>2</sub>",
+        "D. C<sub>3</sub>H<sub>6</sub>"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "diagram": null,
+      "question": "An alkene may be converted to an alkane by",
+      "options": [
+        "A. halogenations",
+        "B. hydrolysis",
+        "C. dehydration",
+        "D. hydrogenation"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "diagram": null,
+      "question": "Geometric (cis-trans) isomerism is exhibited by",
+      "options": [
+        "A. C<sub>2</sub>H<sub>2</sub>Cl<sub>2</sub>",
+        "B. C<sub>2</sub>H<sub>5</sub>Cl",
+        "C. C<sub>4</sub>H<sub>10</sub>",
+        "D. C<sub>5</sub>H<sub>12</sub>"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "diagram": null,
+      "question": "Hydrogenation of butane yield",
+      "options": [
+        "A. butyne",
+        "B. butane",
+        "C. pentene",
+        "D. butanol"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "diagram": null,
+      "question": "The type of isomerism exhibited by cis and trans isomers is",
+      "options": [
+        "A. positional",
+        "B. geometrical",
+        "C. functional",
+        "D. optical"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "diagram": null,
+      "question": "When water is dropped on calcium carbide, the gaseous product is an",
+      "options": [
+        "A. alkane",
+        "B. alkene",
+        "C. alkyne",
+        "D. alkanol"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "diagram": null,
+      "question": "When alkynes are hydrogenated completely, they produce compounds with the general molecular formula",
+      "options": [
+        "A. CnHn",
+        "B. CnH<sub>2</sub>n+2",
+        "C. CnH<sub>2</sub>n",
+        "D. CnH<sub>2</sub>n-2"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "diagram": null,
+      "question": "The reactions of ethyne are mainly",
+      "options": [
+        "A. substitution reactions",
+        "B. addition reactions",
+        "C. addition polymerization",
+        "D. catalytic hydrogenation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "diagram": null,
+      "question": "Which of the following compounds will undergo addition reactions?",
+      "options": [
+        "A. Ethyne",
+        "B. Butane",
+        "C. Pentane",
+        "D. Tetrachloromethane"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "diagram": null,
+      "question": "Ethyne undergoes the following reactions except",
+      "options": [
+        "A. polymerization",
+        "B. addition",
+        "C. substitution",
+        "D. combustion"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "diagram": null,
+      "question": "Consider the reaction represented by the following equation C<sub>2</sub>H<sub>2</sub> + H<sub>2</sub> x Y. X and Y respectively are",
+      "options": [
+        "A. ethane and ethene",
+        "B. ethane and ethane",
+        "C. athyne and ethane",
+        "D. ethane and ethyne"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "diagram": null,
+      "question": "The complete hydrogenated of benzene gives",
+      "options": [
+        "A. cyclohexene",
+        "B. cyclohexane",
+        "C. hexane",
+        "D. hexane"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "diagram": null,
+      "question": "Which of the following organic compounds would decolourize bromine water?",
+      "options": [
+        "A. Benzene",
+        "B. Cyclobutane",
+        "C. Hexane",
+        "D. Pentane"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "diagram": null,
+      "question": "The complete hydrogenation of C<sub>6</sub>H<sub>6</sub> in the presence of nickel catalyst at 2000C gives",
+      "options": [
+        "A. C<sub>6</sub>H<sub>8</sub>",
+        "B. C<sub>6</sub>H<sub>10</sub>",
+        "C. C<sub>6</sub>H<sub>12</sub>",
+        "D. C<sub>6</sub>H<sub>14</sub>"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "diagram": null,
+      "question": "Which of the following organic compounds can undergo both addition and substitution reactions?",
+      "options": [
+        "A. Pentane",
+        "B. Benzene",
+        "C. Propane",
+        "D. Hexane"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "diagram": null,
+      "question": "One of the criteria for confirming the purity of benzene is to determine its",
+      "options": [
+        "A. heat capacity",
+        "B. boiling point",
+        "C. mass",
+        "D. colour"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "diagram": null,
+      "question": "Which of the following compounds is aromatic?",
+      "options": [
+        "A. Benzene",
+        "B. Cyclobutane",
+        "C. Cyclopentane",
+        "D. Hexane"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "diagram": null,
+      "question": "Which of the following reactions is common among organic compounds?",
+      "options": [
+        "A. Combustion",
+        "B. Addition",
+        "C. Substitution",
+        "D. Condensation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "diagram": null,
+      "question": "Which of the following exhibits resonance?",
+      "options": [
+        "A. Benzene",
+        "B. Butane",
+        "C. Pentene",
+        "D. Octane"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "diagram": null,
+      "question": "How many carbon atoms are there in a benzene ring?",
+      "options": [
+        "A. 4",
+        "B. 5",
+        "C. 6",
+        "D. 7"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "diagram": null,
+      "question": "Which of the following compounds has the same empirical formula as benzene?",
+      "options": [
+        "A. C<sub>2</sub>H<sub>2</sub>",
+        "B. C<sub>2</sub>H<sub>4</sub>",
+        "C. C<sub>2</sub>H<sub>6</sub>",
+        "D. C<sub>6</sub>H<sub>12</sub>"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "diagram": null,
+      "question": "Benzene produces more soot than ethane on burning because benzene",
+      "options": [
+        "A. has a higher molar mass",
+        "B. has a higher degree of unsaturation",
+        "C. undergoes both substitution and addition reactions",
+        "D. is a liquid at room temperature"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "diagram": null,
+      "question": "One of the products of combustion of butane in excess air is",
+      "options": [
+        "A. butanol",
+        "B. butane",
+        "C. nitrogen(II)oxide",
+        "D. carbon(IV)oxide"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "diagram": null,
+      "question": "Both ethene and ethane have the same",
+      "options": [
+        "A. density",
+        "B. general formula",
+        "C. boiling point",
+        "D. number of carbon atoms"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "diagram": null,
+      "question": "Substitution reaction is synonymous with",
+      "options": [
+        "A. alkenes",
+        "B. alkyne",
+        "C. alkanes",
+        "D. aromatic hydrocarbon"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "diagram": null,
+      "question": "Two compounds have the same molecular formula but different structures, they are",
+      "options": [
+        "A. allotropes",
+        "B. isomers",
+        "C. isotopes",
+        "D. isobers"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "diagram": null,
+      "question": "Propyne undergoes the following reactions except",
+      "options": [
+        "A. polymerization",
+        "B. addition",
+        "C. substitution",
+        "D. esterification"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 41,
+      "diagram": null,
+      "question": "The reactions of pentyne are mainly",
+      "options": [
+        "A. substitution reactions",
+        "B. addition reactions",
+        "C. addition polymerization",
+        "D. catalytic hydrogenation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "diagram": null,
+      "question": "The IUPAC nomenclature of the structure below is H H H H H C C C C H H Cl CH<sub>3</sub> H",
+      "options": [
+        "A. 2-chloro-3-methylbutane",
+        "B. 3-chloro-2-methylbutane",
+        "C. 3-methyl-2-chlorobutane",
+        "D. 1-chloro-2-methylbutane"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "diagram": null,
+      "question": "Which of the following compounds will undergo addition reactions?",
+      "options": [
+        "A. Ethyne",
+        "B. Butane",
+        "C. Pentane",
+        "D. Tetrachloromethane"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "diagram": null,
+      "question": "The most important member of alkene homologous series is",
+      "options": [
+        "A. prop-1-ene",
+        "B. but-1-ene",
+        "C. pent-1-ene",
+        "D. ethane"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "diagram": null,
+      "question": "The reaction between ethane and chlorine to form 1, 2-dicloroethane is",
+      "options": [
+        "A. oxidation",
+        "B. polymerization",
+        "C. addition",
+        "D. substitution"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 46,
+      "diagram": null,
+      "question": "Alkanes are used mainly",
+      "options": [
+        "A. in the production of plastics",
+        "B. as domestic and industrial fuels",
+        "C. in the textile industry",
+        "D. in the hydrogenation of oils"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "diagram": null,
+      "question": "Alkane react with the halogens mainly by",
+      "options": [
+        "A. oxidation",
+        "B. polymerization",
+        "C. addition",
+        "D. substitution"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "diagram": null,
+      "question": "Which of the following alkanes has the highest boiling point?",
+      "options": [
+        "A. Pentane",
+        "B. Ethane",
+        "C. Propane",
+        "D. Hexane"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "diagram": null,
+      "question": "How many carbon atoms are present in one molecule of 2-methylpropane?",
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "diagram": null,
+      "question": "Reactions undergone by compounds with the general formula CnH<sub>2</sub>n+2 is Name: | Class: Year 11(S.S 2) | Time Allowed: 2hours FOR MARKERS ONLY | FOR MARKERS ONLY | FOR MARKERS ONLY Sections in Paper | Scores Obtainable | Scores Obtained SECTION A - (Objectives)",
+      "options": [
+        "A. addition",
+        "B. etherification",
+        "C. substitution",
+        "D. dehydration"
+      ],
+      "correctOption": "C"
+    }
+  ]
+}

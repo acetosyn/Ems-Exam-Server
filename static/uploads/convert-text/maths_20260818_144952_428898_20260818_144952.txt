@@ -1,0 +1,200 @@
+SECTION A - : Objective Test
+Instruction: ANSWER ALL QUESTIONS in this section by choosing from the options lettered A-D. Each question carries equal marks.
+1. Which of the following numbers is an odd number?
+A. 16 B. 24
+C. 13 D. 10
+2. What is the place value of 7 in 3,745?
+A. 7 B. 70
+C. 700 D. 7000
+3. Simplify: 25 + 37 + 18 = ?
+A. 70 B. 80
+C. 90 D. 100
+4. Write 4,203 in words.
+A. Four thousand and two hundred and three
+B. Four thousand, three
+C. Four thousand and twenty-three
+D. Four thousand, two hundred and thirty
+5. Which of these numbers is divisible by 5?
+A. 42 B. 85
+C. 63 D. 71
+6. Convert 3/5 to a decimal fraction.
+A. 0.2 B. 0.4
+C. 0.6 D. 0.8
+7. Simplify: 2/3 + 1/6
+A. 1/2 B. 2/6
+C. 5/6 D. 3/4
+8. Find the L.C.M of 3, 4, and 6.
+A. 6 B. 8
+C. 10 D. 12
+9. The H.C.F of 12 and 18 is
+A. 2 B. 3
+C. 4 D. 6
+10. Which of the following is a prime number?
+A. 9 B. 12
+C. 11 D. 15
+11. Find the value of 7 × 9.
+A. 56 B. 61
+C. 63 D. 72
+12. What is 4²?
+A. 6 B. 8
+C. 12 D. 16
+13. Simplify: 8 × (3 + 2)
+A. 16 B. 24
+C. 32 D. 40
+14. What is the product of 0.2 and 0.5?
+A. 0.1 B. 0.2
+C. 0.3 D. 0.4
+15. Simplify: 100 ÷ 4 × 2
+A. 10 B. 25
+C. 50 D. 200
+16. What is the square root of 49?
+A. 6 B. 7
+C. 8 D. 9
+17. Write ⅖ as a percentage.
+A. 20% B. 30%
+C. 40% D. 50%
+18. Express 25% as a fraction in its simplest form.
+A. ¼ B. ½
+C. ¾ D. ⅕
+19. What is ⅓ of 27?
+A. 6 B. 8
+C. 9 D. 12
+20. The sum of 2.45 and 1.8 is
+A. 3.15 B. 4.25
+C. 4.35 D. 5.25
+21. Which of the following is a factor of 24?
+A. 5 B. 6
+C. 7 D. 9
+22. Write 0.08 as a fraction.
+A. 8/10
+B. 8/100
+C. 8/1000
+D. 8/10000
+23. Round 46.78 to the nearest whole number.
+A. 46 B. 47
+C. 48 D. 50
+24. The perimeter of a square is 20 cm. Find the length of one side.
+A. 2 cm B. 4 cm
+C. 5 cm D. 6 cm
+25. Find the area of a rectangle with length 6 cm and breadth 3 cm.
+A. 9 cm² B. 12 cm²
+C. 15 cm² D. 18 cm²
+26. Find the perimeter of a triangle with sides 5 cm, 6 cm, and 7 cm.
+A. 16 cm B. 17 cm
+C. 18 cm D. 19 cm
+27. How many sides has a hexagon?
+A. 5 B. 6
+C. 7 D. 8
+28. How many right angles make a straight line?
+A. 1 B. 2
+C. 3 D. 4
+29. What is the sum of the angles in a triangle?
+A. 90° B. 120°
+C. 180° D. 360°
+30. The face of a clock is a
+A. Triangle
+B. Circle
+C. Square
+D. Rectangle
+31. Which of the following is a cube number?
+A. 6 B. 8
+C. 10 D. 12
+32. What is the mode of 4, 5, 6, 5, 7, 5, 8?
+A. 4 B. 5
+C. 6 D. 8
+33. The mean of 10, 20, and 30 is
+A. 10 B. 15
+C. 20 D. 30
+34. How many months make a year?
+A. 10 B. 11
+C. 12 D. 13
+35. How many minutes make one hour?
+A. 30 B. 45
+C. 50 D. 60
+36. How many seconds are there in 2 minutes?
+A. 60 B. 90
+C. 100 D. 120
+37. Convert 1.5 metres to centimetres.
+A. 15 cm
+B. 150 cm
+C. 1500 cm
+D. 15,000 cm
+38. Find the simple interest on ₦2000 at 5% per annum for 2 years.
+A. ₦100 B. ₦150
+C. ₦200 D. ₦250
+39. A rectangle has a length of 10 cm and a breadth of 4 cm. Find its perimeter.
+A. 14 cm B. 20 cm
+C. 24 cm D. 28 cm
+40. The number of lines of symmetry in an equilateral triangle is
+A. 1 B. 2
+C. 3 D. 4
+41. Find the sum of the first five natural numbers.
+A. 10 B. 12
+C. 14 D. 15
+42. Which of these numbers is a multiple of 9?
+A. 27
+B. 25
+C. 18
+D. Both A and C
+43. What is ¾ of 16?
+A. 8 B. 10
+C. 12 D. 14
+44. Which of these shapes has all sides equal?
+A. Rectangle
+B. Rhombus
+C. Trapezium
+D. Kite
+45. A polygon with 8 sides is called
+A. Heptagon
+B. Octagon
+C. Nonagon
+D. Decagon
+46. Convert 2/10 to a decimal.
+A. 0.1 B. 0.2
+C. 0.3 D. 0.4
+47. Find the difference between 7.56 and 3.21.
+A. 3.25 B. 4.35
+C. 4.45 D. 4.55
+48. The sum of the angles in a quadrilateral is
+A. 90° B. 180°
+C. 270° D. 360°
+49. Which of these is a line of symmetry in a square?
+A. One B. Two
+C. Three D. Four
+50. How many faces has a cube?
+A. 4 B. 5
+C. 6 D. 8
+51. Which of the following is an even number?
+A. 13 B. 21
+C. 28 D. 35
+52. Write the Roman numeral for 14.
+A. XIV B. XV
+C. XVI D. XVII
+53. Convert 5000 metres to kilometres.
+A. 0.5 km B. 5 km
+C. 50 km D. 500 km
+54. What is the next number in the sequence: 2, 4, 6, 8, ___?
+A. 9 B. 10
+C. 11 D. 12
+55. The number between 29 and 31 is
+A. 28 B. 29.5
+C. 30 D. 31.5
+56. Find the area of a square with side 9 cm.
+A. 27 cm² B. 36 cm²
+C. 72 cm² D. 81 cm²
+57. 1000 millilitres make
+A. 1 litre
+B. 10 litres
+C. 100 litres
+D. 1000 litres
+58. What is ¾ + ¼?
+A. 1 B. 1½
+C. 2 D. ¾
+59. A decade is equal to
+A. 5 years
+B. 10 years
+C. 20 years
+D. 100 years
+60. How many zeroes are in one million?
+A. 4 B. 5
+C. 6 D. 7

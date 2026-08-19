@@ -1,0 +1,2839 @@
+{
+  "subject": "Chemistry",
+  "class_category": "SS2",
+  "source_file": "static\\testing\\chem_ss2.docx",
+  "tested_questions": 50,
+  "safe_answers": 32,
+  "needs_review": 18,
+  "expected_match_count": 14,
+  "models": {
+    "solver": "gpt-5.4",
+    "verifier": "gpt-5.4"
+  },
+  "usage": {
+    "input_tokens": 12325,
+    "output_tokens": 7903,
+    "total_tokens": 20228,
+    "estimated_cost_usd": 0.149358
+  },
+  "solver_result": {
+    "model": "gpt-5.4",
+    "answers": [
+      {
+        "id": 1,
+        "correctOption": "D",
+        "reason": "Octane is an alkane; alkanes undergo cracking, combustion and substitution, not addition.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 2,
+        "correctOption": "D",
+        "reason": "Complete combustion of pentane in excess air produces carbon(IV) oxide and water.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 3,
+        "correctOption": "D",
+        "reason": "The longest chain has 5 carbons with two methyl groups on carbon 2, so it is 2,2-dimethylpentane.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 4,
+        "correctOption": "C",
+        "reason": "Ethane reacts with chlorine by substitution, giving chloroethane then further substitution to 1,1-dichloroethane.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "Reaction of ethane with chlorine at room temperature usually requires UV light; options also ignore higher substitution products with excess chlorine."
+      },
+      {
+        "id": 5,
+        "correctOption": "C",
+        "reason": "2-methylpropane and butane both have molecular formula C4H10.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 6,
+        "correctOption": "A",
+        "reason": "Alkenes mainly undergo addition reactions because of the C=C double bond.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 7,
+        "correctOption": "B",
+        "reason": "Ethene is used to hasten fruit ripening.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 8,
+        "correctOption": "C",
+        "reason": "The intended reaction is bromine addition across a double bond to give 1,2-dibromoethane.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Ethane does not add bromine at room temperature; the question likely meant ethene."
+      },
+      {
+        "id": 9,
+        "correctOption": "C",
+        "reason": "A long chain compound formed by repeated joining of small molecules is a polymer.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Ethane does not polymerize by simple addition; the question likely meant ethene molecules."
+      },
+      {
+        "id": 10,
+        "correctOption": "D",
+        "reason": "Alkenes commonly undergo addition, hydration and polymerization, not substitution as their main reaction.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 11,
+        "correctOption": "D",
+        "reason": "Ethanol undergoes dehydration to form ethene.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Dehydration of ethanol gives ethene, not ethane; the question likely intended ethene."
+      },
+      {
+        "id": 12,
+        "correctOption": "D",
+        "reason": "Addition of bromine to propene gives CH3CHBrCH2Br.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 13,
+        "correctOption": "C",
+        "reason": "Addition reactions are characteristic of unsaturated compounds.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Ethane is saturated and mainly undergoes substitution, so the question likely meant ethene or another unsaturated hydrocarbon."
+      },
+      {
+        "id": 14,
+        "correctOption": "A",
+        "reason": "Ethane is saturated and does not decolorize bromine water, unlike unsaturated hydrocarbons.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 15,
+        "correctOption": "D",
+        "reason": "Hydrogenation adds hydrogen across the double bond to convert an alkene to an alkane.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 16,
+        "correctOption": "A",
+        "reason": "C2H2Cl2 can exist as cis-trans isomers when it is dichloroethene.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 17,
+        "correctOption": "B",
+        "reason": "Hydrogenation adds hydrogen; the saturated product corresponding to butane is butane.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Butane is already saturated and cannot be hydrogenated further; the question likely meant butene or butyne."
+      },
+      {
+        "id": 18,
+        "correctOption": "B",
+        "reason": "Cis-trans isomerism is geometrical isomerism.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 19,
+        "correctOption": "C",
+        "reason": "Calcium carbide reacts with water to produce ethyne, which is an alkyne.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 20,
+        "correctOption": "B",
+        "reason": "Complete hydrogenation of alkynes gives alkanes with general formula CnH2n+2.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 21,
+        "correctOption": "B",
+        "reason": "Ethyne mainly undergoes addition reactions because of its triple bond.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 22,
+        "correctOption": "A",
+        "reason": "Ethyne is unsaturated and undergoes addition reactions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 23,
+        "correctOption": "C",
+        "reason": "Ethyne commonly undergoes addition, polymerization and combustion, not substitution as a main reaction.",
+        "confidence": "medium",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 24,
+        "correctOption": "A",
+        "reason": "Hydrogenation of ethyne first gives ethene, and complete hydrogenation gives ethane.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "The equation and labels X and Y are malformed; the intended products are likely ethene and ethane."
+      },
+      {
+        "id": 25,
+        "correctOption": "B",
+        "reason": "Complete hydrogenation of benzene produces cyclohexane.",
+        "confidence": "high",
+        "possibleTypo": true,
+        "typoNote": "Question says 'hydrogenated' instead of 'hydrogenation', but intended meaning is clear."
+      },
+      {
+        "id": 26,
+        "correctOption": "A",
+        "reason": "Among the options, benzene is the only unsaturated/aromatic compound and is the likely intended answer.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Benzene does not normally decolourize bromine water without a catalyst; likely an option such as an alkene was omitted."
+      },
+      {
+        "id": 27,
+        "correctOption": "C",
+        "reason": "Complete hydrogenation of benzene gives cyclohexane with formula C6H12.",
+        "confidence": "high",
+        "possibleTypo": true,
+        "typoNote": "Temperature written as 2000C likely means 200°C."
+      },
+      {
+        "id": 28,
+        "correctOption": "B",
+        "reason": "Benzene mainly undergoes substitution but can also undergo addition under special conditions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 29,
+        "correctOption": "B",
+        "reason": "A pure liquid has a sharp boiling point, so boiling point helps confirm purity.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 30,
+        "correctOption": "A",
+        "reason": "Benzene is an aromatic compound.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 31,
+        "correctOption": "A",
+        "reason": "Combustion is common to most organic compounds.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 32,
+        "correctOption": "A",
+        "reason": "Benzene exhibits resonance due to delocalized electrons in the ring.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 33,
+        "correctOption": "C",
+        "reason": "A benzene ring contains 6 carbon atoms.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 34,
+        "correctOption": "A",
+        "reason": "Benzene has empirical formula CH, and C2H2 also simplifies to CH.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 35,
+        "correctOption": "B",
+        "reason": "Benzene has a higher carbon to hydrogen ratio and greater unsaturation, so it burns with more soot.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 36,
+        "correctOption": "D",
+        "reason": "Complete combustion of butane in excess air produces carbon(IV) oxide and water.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 37,
+        "correctOption": "D",
+        "reason": "Ethene and ethane both contain 2 carbon atoms.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 38,
+        "correctOption": "C",
+        "reason": "Substitution reaction is the characteristic reaction of alkanes at this level.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "The wording 'synonymous with' is awkward; aromatic hydrocarbons also commonly undergo substitution."
+      },
+      {
+        "id": 39,
+        "correctOption": "B",
+        "reason": "Compounds with the same molecular formula but different structures are isomers.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 40,
+        "correctOption": "D",
+        "reason": "Propyne undergoes addition and combustion and may polymerize, but not esterification.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 41,
+        "correctOption": "B",
+        "reason": "Pentyne is an alkyne, and alkynes mainly undergo addition reactions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 42,
+        "correctOption": "A",
+        "reason": "The intended structure corresponds to butane with chloro on carbon 2 and methyl on carbon 3, giving 2-chloro-3-methylbutane.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "The displayed structure is badly formatted and ambiguous; option A follows lowest locant with alphabetical priority."
+      },
+      {
+        "id": 43,
+        "correctOption": "A",
+        "reason": "Ethyne is unsaturated and undergoes addition reactions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 44,
+        "correctOption": "A",
+        "reason": "Among the given options, prop-1-ene is the alkene and is the likely intended important member after ethene was omitted.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "The most important alkene is usually ethene, but it is not listed; option D is ethane, not an alkene."
+      },
+      {
+        "id": 45,
+        "correctOption": "D",
+        "reason": "Reaction of ethane with chlorine is a substitution reaction.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "Ethane and chlorine do not form 1,2-dichloroethane directly by simple substitution; likely chloroethane or ethene was intended."
+      },
+      {
+        "id": 46,
+        "correctOption": "B",
+        "reason": "Alkanes are used mainly as domestic and industrial fuels.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 47,
+        "correctOption": "D",
+        "reason": "Alkanes react with halogens mainly by substitution.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 48,
+        "correctOption": "D",
+        "reason": "Boiling point increases with molecular size among these alkanes, so hexane is highest.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 49,
+        "correctOption": "C",
+        "reason": "2-methylpropane has 4 carbon atoms in total.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      {
+        "id": 50,
+        "correctOption": "C",
+        "reason": "CnH2n+2 is the general formula of alkanes, which mainly undergo substitution reactions.",
+        "confidence": "high",
+        "possibleTypo": true,
+        "typoNote": "The question text is corrupted by unrelated exam header content, but the formula clearly refers to alkanes."
+      }
+    ],
+    "usage": {
+      "input_tokens": 4347,
+      "output_tokens": 3487,
+      "total_tokens": 7834,
+      "estimated_cost_usd": 0.063173
+    }
+  },
+  "verifier_result": {
+    "model": "gpt-5.4",
+    "verified": [
+      {
+        "id": 1,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "C8H18 is an alkane; it undergoes combustion, cracking and substitution, but not addition."
+      },
+      {
+        "id": 2,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Complete combustion of pentane in excess air produces carbon(IV) oxide and water."
+      },
+      {
+        "id": 3,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The longest chain has 6 carbons, with two methyl groups on carbon 2, so the name is 2,2-dimethylhexane; since that is not listed, the item is unsafe."
+      },
+      {
+        "id": 4,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is chemically problematic: chlorination of ethane at room temperature typically requires UV light, and 'excess chlorine' would not safely lead to a single definite product.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "If forced, further substitution in ethane can give 1,1-dichloroethane, but the wording makes the item ambiguous."
+      },
+      {
+        "id": 5,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2-methylpropane and butane both have molecular formula C4H10."
+      },
+      {
+        "id": 6,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkenes mainly undergo addition reactions because of the C=C double bond."
+      },
+      {
+        "id": 7,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethene is used to hasten the ripening of fruits."
+      },
+      {
+        "id": 8,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question likely contains a typo: bromine adds to ethene, not ethane, at room temperature.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene.",
+        "finalExplanation": "The intended product is 1,2-dibromoethane from bromine addition to ethene, so the item is not safe as written."
+      },
+      {
+        "id": 9,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question likely contains a typo because ethane does not polymerize by simple addition.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene.",
+        "finalExplanation": "A long-chain product is called a polymer, but the monomer should be ethene, not ethane."
+      },
+      {
+        "id": 10,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkenes commonly undergo addition, hydration and polymerization; substitution is not their main reaction."
+      },
+      {
+        "id": 11,
+        "verifiedOption": "D",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is incorrect because dehydration of ethanol gives ethene, not ethane.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene.",
+        "finalExplanation": "The keyed option matches the usual preparation of ethene from ethanol, but the stated product is wrong."
+      },
+      {
+        "id": 12,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Propene reacts with bromine to form CH3CHBrCH2Br."
+      },
+      {
+        "id": 13,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is contradictory because ethane is saturated and does not mainly undergo addition reactions.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene or another unsaturated hydrocarbon.",
+        "finalExplanation": "Addition reactions are due to unsaturation, but that does not apply to ethane as written."
+      },
+      {
+        "id": 14,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "C2H6 is saturated and does not decolorize bromine water, unlike the unsaturated gases listed."
+      },
+      {
+        "id": 15,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Hydrogenation adds hydrogen across the double bond and converts an alkene to an alkane."
+      },
+      {
+        "id": 16,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "C2H2Cl2 can exist as dichloroethene, which shows cis-trans isomerism."
+      },
+      {
+        "id": 17,
+        "verifiedOption": "B",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is flawed because butane is already saturated and cannot be hydrogenated further.",
+        "typoDetected": true,
+        "typoNote": "Butane was likely intended to be butene or butyne.",
+        "finalExplanation": "If forced, the saturated product is butane, but the reactant makes the item invalid."
+      },
+      {
+        "id": 18,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Cis-trans isomerism is geometrical isomerism."
+      },
+      {
+        "id": 19,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Calcium carbide reacts with water to produce ethyne, which is an alkyne."
+      },
+      {
+        "id": 20,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Complete hydrogenation of alkynes gives alkanes with general formula CnH2n+2."
+      },
+      {
+        "id": 21,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethyne mainly undergoes addition reactions because of its triple bond."
+      },
+      {
+        "id": 22,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethyne is unsaturated and undergoes addition reactions."
+      },
+      {
+        "id": 23,
+        "verifiedOption": "C",
+        "confidence": "medium",
+        "needsReview": true,
+        "reviewReason": "Substitution can occur in terminal alkynes under some conditions, so the wording 'except' is somewhat broad.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "At this level, ethyne is mainly known for addition, polymerization and combustion, so substitution is the expected exception."
+      },
+      {
+        "id": 24,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Equation is malformed and the labels X and Y are unclear, making the item unsafe for automatic marking.",
+        "typoDetected": true,
+        "typoNote": "The reaction statement is badly written; intended sequence is likely ethyne to ethene to ethane.",
+        "finalExplanation": "Hydrogenation of ethyne first gives ethene and then ethane, but the printed equation is corrupted."
+      },
+      {
+        "id": 25,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": true,
+        "typoNote": "Wording should be 'complete hydrogenation' rather than 'complete hydrogenated'.",
+        "finalExplanation": "Complete hydrogenation of benzene gives cyclohexane."
+      },
+      {
+        "id": 26,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "No listed option normally decolourizes bromine water under standard school-test conditions; benzene does not without a catalyst.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The item appears to have a missing or wrong option, so it is unsafe."
+      },
+      {
+        "id": 27,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": true,
+        "reviewReason": "Temperature notation is malformed.",
+        "typoDetected": true,
+        "typoNote": "2000C likely means 200°C.",
+        "finalExplanation": "Complete hydrogenation of benzene gives cyclohexane, C6H12."
+      },
+      {
+        "id": 28,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene mainly undergoes substitution but can also undergo addition under special conditions."
+      },
+      {
+        "id": 29,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Purity of a liquid is commonly checked by its sharp boiling point."
+      },
+      {
+        "id": 30,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene is an aromatic compound."
+      },
+      {
+        "id": 31,
+        "verifiedOption": "A",
+        "confidence": "medium",
+        "needsReview": true,
+        "reviewReason": "More than one listed reaction type is common in organic chemistry, so the wording is broad.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Combustion is the most universally common among organic compounds, so it is the best answer."
+      },
+      {
+        "id": 32,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene exhibits resonance due to delocalized electrons in the ring."
+      },
+      {
+        "id": 33,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A benzene ring contains 6 carbon atoms."
+      },
+      {
+        "id": 34,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene has empirical formula CH, and C2H2 also simplifies to CH."
+      },
+      {
+        "id": 35,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene has a higher carbon-to-hydrogen ratio and greater unsaturation, so it burns with a sootier flame."
+      },
+      {
+        "id": 36,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Complete combustion of butane in excess air produces carbon(IV) oxide and water."
+      },
+      {
+        "id": 37,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethene and ethane both contain two carbon atoms."
+      },
+      {
+        "id": 38,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "The phrase 'synonymous with' is poor wording and aromatic hydrocarbons also characteristically undergo substitution.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "At this level, substitution is usually taught as the characteristic reaction of alkanes, but the wording is ambiguous."
+      },
+      {
+        "id": 39,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": true,
+        "typoNote": "Option D likely intended 'isobars'.",
+        "finalExplanation": "Compounds with the same molecular formula but different structures are isomers."
+      },
+      {
+        "id": 40,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Propyne undergoes addition and combustion and may polymerize, but not esterification."
+      },
+      {
+        "id": 41,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Pentyne is an alkyne, and alkynes mainly undergo addition reactions."
+      },
+      {
+        "id": 42,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Displayed structure is badly formatted and ambiguous, so the answer depends on interpretation.",
+        "typoDetected": true,
+        "typoNote": "The structural formula is corrupted.",
+        "finalExplanation": "The intended name appears to be 2-chloro-3-methylbutane, but the structure is not clearly readable."
+      },
+      {
+        "id": 43,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethyne is unsaturated and undergoes addition reactions."
+      },
+      {
+        "id": 44,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is flawed because the most important alkene is usually ethene, which is missing from the options.",
+        "typoDetected": true,
+        "typoNote": "Ethene was likely omitted.",
+        "finalExplanation": "Among the listed alkenes, prop-1-ene is the best available choice, but the item is not academically sound."
+      },
+      {
+        "id": 45,
+        "verifiedOption": "D",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Named product is wrong for ethane chlorination; 1,2-dichloroethane is formed by addition to ethene, not simple substitution of ethane.",
+        "typoDetected": true,
+        "typoNote": "Either the reactant should be ethene or the product should be chloroethane/1,1-dichloroethane.",
+        "finalExplanation": "The reaction type for ethane with chlorine is substitution, but the stated product makes the item unsafe."
+      },
+      {
+        "id": 46,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkanes are used mainly as domestic and industrial fuels."
+      },
+      {
+        "id": 47,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkanes react with halogens mainly by substitution."
+      },
+      {
+        "id": 48,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Among these alkanes, boiling point increases with molecular size, so hexane is highest."
+      },
+      {
+        "id": 49,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2-methylpropane contains 4 carbon atoms."
+      },
+      {
+        "id": 50,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": true,
+        "reviewReason": "Question contains severe document/header pollution, though the chemistry answer is still inferable.",
+        "typoDetected": true,
+        "typoNote": "Question text is corrupted by unrelated exam header content.",
+        "finalExplanation": "CnH2n+2 is the general formula of alkanes, whose characteristic reaction is substitution."
+      }
+    ],
+    "usage": {
+      "input_tokens": 7978,
+      "output_tokens": 4416,
+      "total_tokens": 12394,
+      "estimated_cost_usd": 0.086185
+    }
+  },
+  "final_report": [
+    {
+      "id": 1,
+      "question": "C<sub>8</sub>H<sub>18</sub> will undergo the following reactions except",
+      "options": [
+        "A. cracking",
+        "B. combustion",
+        "C. substitution",
+        "D. addition"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "D",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 1,
+        "correctOption": "D",
+        "reason": "Octane is an alkane; alkanes undergo cracking, combustion and substitution, not addition.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 1,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "C8H18 is an alkane; it undergoes combustion, cracking and substitution, but not addition."
+      }
+    },
+    {
+      "id": 2,
+      "question": "One of the products of combustion of pentane in excess air is",
+      "options": [
+        "A. pentanol",
+        "B. pentene",
+        "C. nitrogen(II)oxide",
+        "D. carbon(IV)oxide"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "D",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 2,
+        "correctOption": "D",
+        "reason": "Complete combustion of pentane in excess air produces carbon(IV) oxide and water.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 2,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Complete combustion of pentane in excess air produces carbon(IV) oxide and water."
+      }
+    },
+    {
+      "id": 3,
+      "question": "The name of the compound CH<sub>3</sub>C(CH<sub>3</sub>)2CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub> is",
+      "options": [
+        "A. 2-methyl butane",
+        "B. 2, 2-dimethyl butane",
+        "C. 2-methyl pentane",
+        "D. 2, 2-dimethyl pentane"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "D",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 3,
+        "correctOption": "D",
+        "reason": "The longest chain has 5 carbons with two methyl groups on carbon 2, so it is 2,2-dimethylpentane.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 3,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The longest chain has 6 carbons, with two methyl groups on carbon 2, so the name is 2,2-dimethylhexane; since that is not listed, the item is unsafe."
+      }
+    },
+    {
+      "id": 4,
+      "question": "When excess chlorine is mixed with ethane at room temperature, the product formed is",
+      "options": [
+        "A. 1,2-dichloroethane",
+        "B. 1,2-dichloroethene",
+        "C. 1,1-dichloroethane",
+        "D. 1,1-dicholoethene"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected.",
+        "Question is chemically problematic: chlorination of ethane at room temperature typically requires UV light, and 'excess chlorine' would not safely lead to a single definite product.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [
+        "Possible spelling typo detected: dicholo"
+      ],
+      "expected": "A",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 4,
+        "correctOption": "C",
+        "reason": "Ethane reacts with chlorine by substitution, giving chloroethane then further substitution to 1,1-dichloroethane.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "Reaction of ethane with chlorine at room temperature usually requires UV light; options also ignore higher substitution products with excess chlorine."
+      },
+      "verifierDetails": {
+        "id": 4,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is chemically problematic: chlorination of ethane at room temperature typically requires UV light, and 'excess chlorine' would not safely lead to a single definite product.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "If forced, further substitution in ethane can give 1,1-dichloroethane, but the wording makes the item ambiguous."
+      }
+    },
+    {
+      "id": 5,
+      "question": "Which of the following compounds has/have the molecular formula C<sub>4</sub>H<sub>10</sub>? I. But-2-ene II. Butanol III. 2-methylpropane IV. Butane",
+      "options": [
+        "A. IV only",
+        "B. I and II only",
+        "C. III and IV only",
+        "D. I, II and III only"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "C",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 5,
+        "correctOption": "C",
+        "reason": "2-methylpropane and butane both have molecular formula C4H10.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 5,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2-methylpropane and butane both have molecular formula C4H10."
+      }
+    },
+    {
+      "id": 6,
+      "question": "What is the main type of reaction alkenes undergo?",
+      "options": [
+        "A. Addition",
+        "B. Condensation",
+        "C. Elimination",
+        "D. Substitution"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "A",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 6,
+        "correctOption": "A",
+        "reason": "Alkenes mainly undergo addition reactions because of the C=C double bond.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 6,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkenes mainly undergo addition reactions because of the C=C double bond."
+      }
+    },
+    {
+      "id": 7,
+      "question": "Ripening of fruits is hastened by using",
+      "options": [
+        "A. ethanol",
+        "B. ethene",
+        "C. ethane",
+        "D. ethyne"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "B",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 7,
+        "correctOption": "B",
+        "reason": "Ethene is used to hasten fruit ripening.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 7,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethene is used to hasten the ripening of fruits."
+      }
+    },
+    {
+      "id": 8,
+      "question": "When bromine is added to ethane at room temperature, the compound formed is",
+      "options": [
+        "A. 1,1-dibromoethane",
+        "B. 1,1-dibromoethene",
+        "C. 1,2-dibromoethane",
+        "D. 1,2-dibromoethene"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Ethane does not readily add bromine at room temperature; likely meant ethene.",
+        "Possible typo or ambiguous wording detected.",
+        "Question likely contains a typo: bromine adds to ethene, not ethane, at room temperature.",
+        "Question mentions ethane but reaction pattern suggests ethene/unsaturation.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "C",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 8,
+        "correctOption": "C",
+        "reason": "The intended reaction is bromine addition across a double bond to give 1,2-dibromoethane.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Ethane does not add bromine at room temperature; the question likely meant ethene."
+      },
+      "verifierDetails": {
+        "id": 8,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question likely contains a typo: bromine adds to ethene, not ethane, at room temperature.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene.",
+        "finalExplanation": "The intended product is 1,2-dibromoethane from bromine addition to ethene, so the item is not safe as written."
+      }
+    },
+    {
+      "id": 9,
+      "question": "Ethane molecules can be added to one another to form a long chain compound called",
+      "options": [
+        "A. dimer",
+        "B. monomer",
+        "C. polymer",
+        "D. trimer"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Ethane does not polymerize into a long chain; likely meant ethene.",
+        "Possible typo or ambiguous wording detected.",
+        "Question likely contains a typo because ethane does not polymerize by simple addition.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "C",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 9,
+        "correctOption": "C",
+        "reason": "A long chain compound formed by repeated joining of small molecules is a polymer.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Ethane does not polymerize by simple addition; the question likely meant ethene molecules."
+      },
+      "verifierDetails": {
+        "id": 9,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question likely contains a typo because ethane does not polymerize by simple addition.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene.",
+        "finalExplanation": "A long-chain product is called a polymer, but the monomer should be ethene, not ethane."
+      }
+    },
+    {
+      "id": 10,
+      "question": "Alkenes undergo the following reactions except",
+      "options": [
+        "A. addition",
+        "B. hydration",
+        "C. polymerization",
+        "D. substitution"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "D",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 10,
+        "correctOption": "D",
+        "reason": "Alkenes commonly undergo addition, hydration and polymerization, not substitution as their main reaction.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 10,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkenes commonly undergo addition, hydration and polymerization; substitution is not their main reaction."
+      }
+    },
+    {
+      "id": 11,
+      "question": "Ethane is produced from ethanol by",
+      "options": [
+        "A. decomposition",
+        "B. hydrolysis",
+        "C. ozonolysis",
+        "D. dehydration"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": true,
+      "reviewReasons": [
+        "Dehydration of ethanol produces ethene, not ethane.",
+        "Possible typo or ambiguous wording detected.",
+        "Question is incorrect because dehydration of ethanol gives ethene, not ethane.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "D",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 11,
+        "correctOption": "D",
+        "reason": "Ethanol undergoes dehydration to form ethene.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Dehydration of ethanol gives ethene, not ethane; the question likely intended ethene."
+      },
+      "verifierDetails": {
+        "id": 11,
+        "verifiedOption": "D",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is incorrect because dehydration of ethanol gives ethene, not ethane.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene.",
+        "finalExplanation": "The keyed option matches the usual preparation of ethene from ethanol, but the stated product is wrong."
+      }
+    },
+    {
+      "id": 12,
+      "question": "An organic compound which reacts readily with bromine to form a compound with the formula CH<sub>3</sub>CHBrCH<sub>2</sub>Br is",
+      "options": [
+        "A. ethane",
+        "B. propane",
+        "C. butane",
+        "D. propene"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "D",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 12,
+        "correctOption": "D",
+        "reason": "Addition of bromine to propene gives CH3CHBrCH2Br.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 12,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Propene reacts with bromine to form CH3CHBrCH2Br."
+      }
+    },
+    {
+      "id": 13,
+      "question": "Ethane undergoes mainly addition reactions because it is",
+      "options": [
+        "A. a gas",
+        "B. a hydrocarbon",
+        "C. unsaturation",
+        "D. easily polymerized"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected.",
+        "Question is contradictory because ethane is saturated and does not mainly undergo addition reactions.",
+        "Question mentions ethane but reaction pattern suggests ethene/unsaturation.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "C",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 13,
+        "correctOption": "C",
+        "reason": "Addition reactions are characteristic of unsaturated compounds.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Ethane is saturated and mainly undergoes substitution, so the question likely meant ethene or another unsaturated hydrocarbon."
+      },
+      "verifierDetails": {
+        "id": 13,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is contradictory because ethane is saturated and does not mainly undergo addition reactions.",
+        "typoDetected": true,
+        "typoNote": "Ethane was likely intended to be ethene or another unsaturated hydrocarbon.",
+        "finalExplanation": "Addition reactions are due to unsaturation, but that does not apply to ethane as written."
+      }
+    },
+    {
+      "id": 14,
+      "question": "The following gases decolorize bromine water except",
+      "options": [
+        "A. C<sub>2</sub>H<sub>6</sub>",
+        "B. C<sub>2</sub>H<sub>4</sub>",
+        "C. C<sub>2</sub>H<sub>2</sub>",
+        "D. C<sub>3</sub>H<sub>6</sub>"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "A",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 14,
+        "correctOption": "A",
+        "reason": "Ethane is saturated and does not decolorize bromine water, unlike unsaturated hydrocarbons.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 14,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "C2H6 is saturated and does not decolorize bromine water, unlike the unsaturated gases listed."
+      }
+    },
+    {
+      "id": 15,
+      "question": "An alkene may be converted to an alkane by",
+      "options": [
+        "A. halogenations",
+        "B. hydrolysis",
+        "C. dehydration",
+        "D. hydrogenation"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [
+        "Possible spelling typo detected: halogenations"
+      ],
+      "expected": "D",
+      "expectedMatch": true,
+      "solverDetails": {
+        "id": 15,
+        "correctOption": "D",
+        "reason": "Hydrogenation adds hydrogen across the double bond to convert an alkene to an alkane.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 15,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Hydrogenation adds hydrogen across the double bond and converts an alkene to an alkane."
+      }
+    },
+    {
+      "id": 16,
+      "question": "Geometric (cis-trans) isomerism is exhibited by",
+      "options": [
+        "A. C<sub>2</sub>H<sub>2</sub>Cl<sub>2</sub>",
+        "B. C<sub>2</sub>H<sub>5</sub>Cl",
+        "C. C<sub>4</sub>H<sub>10</sub>",
+        "D. C<sub>5</sub>H<sub>12</sub>"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 16,
+        "correctOption": "A",
+        "reason": "C2H2Cl2 can exist as cis-trans isomers when it is dichloroethene.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 16,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "C2H2Cl2 can exist as dichloroethene, which shows cis-trans isomerism."
+      }
+    },
+    {
+      "id": 17,
+      "question": "Hydrogenation of butane yield",
+      "options": [
+        "A. butyne",
+        "B. butane",
+        "C. pentene",
+        "D. butanol"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": true,
+      "reviewReasons": [
+        "Butane is already saturated; hydrogenation wording may be wrong.",
+        "Possible typo or ambiguous wording detected.",
+        "Question is flawed because butane is already saturated and cannot be hydrogenated further.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 17,
+        "correctOption": "B",
+        "reason": "Hydrogenation adds hydrogen; the saturated product corresponding to butane is butane.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Butane is already saturated and cannot be hydrogenated further; the question likely meant butene or butyne."
+      },
+      "verifierDetails": {
+        "id": 17,
+        "verifiedOption": "B",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is flawed because butane is already saturated and cannot be hydrogenated further.",
+        "typoDetected": true,
+        "typoNote": "Butane was likely intended to be butene or butyne.",
+        "finalExplanation": "If forced, the saturated product is butane, but the reactant makes the item invalid."
+      }
+    },
+    {
+      "id": 18,
+      "question": "The type of isomerism exhibited by cis and trans isomers is",
+      "options": [
+        "A. positional",
+        "B. geometrical",
+        "C. functional",
+        "D. optical"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 18,
+        "correctOption": "B",
+        "reason": "Cis-trans isomerism is geometrical isomerism.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 18,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Cis-trans isomerism is geometrical isomerism."
+      }
+    },
+    {
+      "id": 19,
+      "question": "When water is dropped on calcium carbide, the gaseous product is an",
+      "options": [
+        "A. alkane",
+        "B. alkene",
+        "C. alkyne",
+        "D. alkanol"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 19,
+        "correctOption": "C",
+        "reason": "Calcium carbide reacts with water to produce ethyne, which is an alkyne.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 19,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Calcium carbide reacts with water to produce ethyne, which is an alkyne."
+      }
+    },
+    {
+      "id": 20,
+      "question": "When alkynes are hydrogenated completely, they produce compounds with the general molecular formula",
+      "options": [
+        "A. CnHn",
+        "B. CnH<sub>2</sub>n+2",
+        "C. CnH<sub>2</sub>n",
+        "D. CnH<sub>2</sub>n-2"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 20,
+        "correctOption": "B",
+        "reason": "Complete hydrogenation of alkynes gives alkanes with general formula CnH2n+2.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 20,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Complete hydrogenation of alkynes gives alkanes with general formula CnH2n+2."
+      }
+    },
+    {
+      "id": 21,
+      "question": "The reactions of ethyne are mainly",
+      "options": [
+        "A. substitution reactions",
+        "B. addition reactions",
+        "C. addition polymerization",
+        "D. catalytic hydrogenation"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 21,
+        "correctOption": "B",
+        "reason": "Ethyne mainly undergoes addition reactions because of its triple bond.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 21,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethyne mainly undergoes addition reactions because of its triple bond."
+      }
+    },
+    {
+      "id": 22,
+      "question": "Which of the following compounds will undergo addition reactions?",
+      "options": [
+        "A. Ethyne",
+        "B. Butane",
+        "C. Pentane",
+        "D. Tetrachloromethane"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 22,
+        "correctOption": "A",
+        "reason": "Ethyne is unsaturated and undergoes addition reactions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 22,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethyne is unsaturated and undergoes addition reactions."
+      }
+    },
+    {
+      "id": 23,
+      "question": "Ethyne undergoes the following reactions except",
+      "options": [
+        "A. polymerization",
+        "B. addition",
+        "C. substitution",
+        "D. combustion"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Solver confidence is not high.",
+        "Substitution can occur in terminal alkynes under some conditions, so the wording 'except' is somewhat broad.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 23,
+        "correctOption": "C",
+        "reason": "Ethyne commonly undergoes addition, polymerization and combustion, not substitution as a main reaction.",
+        "confidence": "medium",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 23,
+        "verifiedOption": "C",
+        "confidence": "medium",
+        "needsReview": true,
+        "reviewReason": "Substitution can occur in terminal alkynes under some conditions, so the wording 'except' is somewhat broad.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "At this level, ethyne is mainly known for addition, polymerization and combustion, so substitution is the expected exception."
+      }
+    },
+    {
+      "id": 24,
+      "question": "Consider the reaction represented by the following equation C<sub>2</sub>H<sub>2</sub> + H<sub>2</sub> x Y. X and Y respectively are",
+      "options": [
+        "A. ethane and ethene",
+        "B. ethane and ethane",
+        "C. athyne and ethane",
+        "D. ethane and ethyne"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": true,
+      "reviewReasons": [
+        "Equation is malformed and the labels X and Y are unclear, making the item unsafe for automatic marking.",
+        "Possible typo or ambiguous wording detected.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [
+        "Possible spelling typo detected: athyne"
+      ],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 24,
+        "correctOption": "A",
+        "reason": "Hydrogenation of ethyne first gives ethene, and complete hydrogenation gives ethane.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "The equation and labels X and Y are malformed; the intended products are likely ethene and ethane."
+      },
+      "verifierDetails": {
+        "id": 24,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Equation is malformed and the labels X and Y are unclear, making the item unsafe for automatic marking.",
+        "typoDetected": true,
+        "typoNote": "The reaction statement is badly written; intended sequence is likely ethyne to ethene to ethane.",
+        "finalExplanation": "Hydrogenation of ethyne first gives ethene and then ethane, but the printed equation is corrupted."
+      }
+    },
+    {
+      "id": 25,
+      "question": "The complete hydrogenated of benzene gives",
+      "options": [
+        "A. cyclohexene",
+        "B. cyclohexane",
+        "C. hexane",
+        "D. hexane"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected."
+      ],
+      "warnings": [
+        "Possible spelling typo detected: hydrogenated of"
+      ],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 25,
+        "correctOption": "B",
+        "reason": "Complete hydrogenation of benzene produces cyclohexane.",
+        "confidence": "high",
+        "possibleTypo": true,
+        "typoNote": "Question says 'hydrogenated' instead of 'hydrogenation', but intended meaning is clear."
+      },
+      "verifierDetails": {
+        "id": 25,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": true,
+        "typoNote": "Wording should be 'complete hydrogenation' rather than 'complete hydrogenated'.",
+        "finalExplanation": "Complete hydrogenation of benzene gives cyclohexane."
+      }
+    },
+    {
+      "id": 26,
+      "question": "Which of the following organic compounds would decolourize bromine water?",
+      "options": [
+        "A. Benzene",
+        "B. Cyclobutane",
+        "C. Hexane",
+        "D. Pentane"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": true,
+      "reviewReasons": [
+        "No listed option normally decolourizes bromine water under standard school-test conditions; benzene does not without a catalyst.",
+        "Possible typo or ambiguous wording detected.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 26,
+        "correctOption": "A",
+        "reason": "Among the options, benzene is the only unsaturated/aromatic compound and is the likely intended answer.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "Benzene does not normally decolourize bromine water without a catalyst; likely an option such as an alkene was omitted."
+      },
+      "verifierDetails": {
+        "id": 26,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "No listed option normally decolourizes bromine water under standard school-test conditions; benzene does not without a catalyst.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The item appears to have a missing or wrong option, so it is unsafe."
+      }
+    },
+    {
+      "id": 27,
+      "question": "The complete hydrogenation of C<sub>6</sub>H<sub>6</sub> in the presence of nickel catalyst at 2000C gives",
+      "options": [
+        "A. C<sub>6</sub>H<sub>8</sub>",
+        "B. C<sub>6</sub>H<sub>10</sub>",
+        "C. C<sub>6</sub>H<sub>12</sub>",
+        "D. C<sub>6</sub>H<sub>14</sub>"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected.",
+        "Temperature notation is malformed."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 27,
+        "correctOption": "C",
+        "reason": "Complete hydrogenation of benzene gives cyclohexane with formula C6H12.",
+        "confidence": "high",
+        "possibleTypo": true,
+        "typoNote": "Temperature written as 2000C likely means 200°C."
+      },
+      "verifierDetails": {
+        "id": 27,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": true,
+        "reviewReason": "Temperature notation is malformed.",
+        "typoDetected": true,
+        "typoNote": "2000C likely means 200°C.",
+        "finalExplanation": "Complete hydrogenation of benzene gives cyclohexane, C6H12."
+      }
+    },
+    {
+      "id": 28,
+      "question": "Which of the following organic compounds can undergo both addition and substitution reactions?",
+      "options": [
+        "A. Pentane",
+        "B. Benzene",
+        "C. Propane",
+        "D. Hexane"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 28,
+        "correctOption": "B",
+        "reason": "Benzene mainly undergoes substitution but can also undergo addition under special conditions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 28,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene mainly undergoes substitution but can also undergo addition under special conditions."
+      }
+    },
+    {
+      "id": 29,
+      "question": "One of the criteria for confirming the purity of benzene is to determine its",
+      "options": [
+        "A. heat capacity",
+        "B. boiling point",
+        "C. mass",
+        "D. colour"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 29,
+        "correctOption": "B",
+        "reason": "A pure liquid has a sharp boiling point, so boiling point helps confirm purity.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 29,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Purity of a liquid is commonly checked by its sharp boiling point."
+      }
+    },
+    {
+      "id": 30,
+      "question": "Which of the following compounds is aromatic?",
+      "options": [
+        "A. Benzene",
+        "B. Cyclobutane",
+        "C. Cyclopentane",
+        "D. Hexane"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 30,
+        "correctOption": "A",
+        "reason": "Benzene is an aromatic compound.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 30,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene is an aromatic compound."
+      }
+    },
+    {
+      "id": 31,
+      "question": "Which of the following reactions is common among organic compounds?",
+      "options": [
+        "A. Combustion",
+        "B. Addition",
+        "C. Substitution",
+        "D. Condensation"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": true,
+      "reviewReasons": [
+        "More than one listed reaction type is common in organic chemistry, so the wording is broad.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 31,
+        "correctOption": "A",
+        "reason": "Combustion is common to most organic compounds.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 31,
+        "verifiedOption": "A",
+        "confidence": "medium",
+        "needsReview": true,
+        "reviewReason": "More than one listed reaction type is common in organic chemistry, so the wording is broad.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Combustion is the most universally common among organic compounds, so it is the best answer."
+      }
+    },
+    {
+      "id": 32,
+      "question": "Which of the following exhibits resonance?",
+      "options": [
+        "A. Benzene",
+        "B. Butane",
+        "C. Pentene",
+        "D. Octane"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 32,
+        "correctOption": "A",
+        "reason": "Benzene exhibits resonance due to delocalized electrons in the ring.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 32,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene exhibits resonance due to delocalized electrons in the ring."
+      }
+    },
+    {
+      "id": 33,
+      "question": "How many carbon atoms are there in a benzene ring?",
+      "options": [
+        "A. 4",
+        "B. 5",
+        "C. 6",
+        "D. 7"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 33,
+        "correctOption": "C",
+        "reason": "A benzene ring contains 6 carbon atoms.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 33,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A benzene ring contains 6 carbon atoms."
+      }
+    },
+    {
+      "id": 34,
+      "question": "Which of the following compounds has the same empirical formula as benzene?",
+      "options": [
+        "A. C<sub>2</sub>H<sub>2</sub>",
+        "B. C<sub>2</sub>H<sub>4</sub>",
+        "C. C<sub>2</sub>H<sub>6</sub>",
+        "D. C<sub>6</sub>H<sub>12</sub>"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 34,
+        "correctOption": "A",
+        "reason": "Benzene has empirical formula CH, and C2H2 also simplifies to CH.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 34,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene has empirical formula CH, and C2H2 also simplifies to CH."
+      }
+    },
+    {
+      "id": 35,
+      "question": "Benzene produces more soot than ethane on burning because benzene",
+      "options": [
+        "A. has a higher molar mass",
+        "B. has a higher degree of unsaturation",
+        "C. undergoes both substitution and addition reactions",
+        "D. is a liquid at room temperature"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 35,
+        "correctOption": "B",
+        "reason": "Benzene has a higher carbon to hydrogen ratio and greater unsaturation, so it burns with more soot.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 35,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Benzene has a higher carbon-to-hydrogen ratio and greater unsaturation, so it burns with a sootier flame."
+      }
+    },
+    {
+      "id": 36,
+      "question": "One of the products of combustion of butane in excess air is",
+      "options": [
+        "A. butanol",
+        "B. butane",
+        "C. nitrogen(II)oxide",
+        "D. carbon(IV)oxide"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 36,
+        "correctOption": "D",
+        "reason": "Complete combustion of butane in excess air produces carbon(IV) oxide and water.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 36,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Complete combustion of butane in excess air produces carbon(IV) oxide and water."
+      }
+    },
+    {
+      "id": 37,
+      "question": "Both ethene and ethane have the same",
+      "options": [
+        "A. density",
+        "B. general formula",
+        "C. boiling point",
+        "D. number of carbon atoms"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 37,
+        "correctOption": "D",
+        "reason": "Ethene and ethane both contain 2 carbon atoms.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 37,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethene and ethane both contain two carbon atoms."
+      }
+    },
+    {
+      "id": 38,
+      "question": "Substitution reaction is synonymous with",
+      "options": [
+        "A. alkenes",
+        "B. alkyne",
+        "C. alkanes",
+        "D. aromatic hydrocarbon"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected.",
+        "Solver confidence is not high.",
+        "The phrase 'synonymous with' is poor wording and aromatic hydrocarbons also characteristically undergo substitution.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 38,
+        "correctOption": "C",
+        "reason": "Substitution reaction is the characteristic reaction of alkanes at this level.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "The wording 'synonymous with' is awkward; aromatic hydrocarbons also commonly undergo substitution."
+      },
+      "verifierDetails": {
+        "id": 38,
+        "verifiedOption": "C",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "The phrase 'synonymous with' is poor wording and aromatic hydrocarbons also characteristically undergo substitution.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "At this level, substitution is usually taught as the characteristic reaction of alkanes, but the wording is ambiguous."
+      }
+    },
+    {
+      "id": 39,
+      "question": "Two compounds have the same molecular formula but different structures, they are",
+      "options": [
+        "A. allotropes",
+        "B. isomers",
+        "C. isotopes",
+        "D. isobers"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected."
+      ],
+      "warnings": [
+        "Possible spelling typo detected: isobers"
+      ],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 39,
+        "correctOption": "B",
+        "reason": "Compounds with the same molecular formula but different structures are isomers.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 39,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": true,
+        "typoNote": "Option D likely intended 'isobars'.",
+        "finalExplanation": "Compounds with the same molecular formula but different structures are isomers."
+      }
+    },
+    {
+      "id": 40,
+      "question": "Propyne undergoes the following reactions except",
+      "options": [
+        "A. polymerization",
+        "B. addition",
+        "C. substitution",
+        "D. esterification"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 40,
+        "correctOption": "D",
+        "reason": "Propyne undergoes addition and combustion and may polymerize, but not esterification.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 40,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Propyne undergoes addition and combustion and may polymerize, but not esterification."
+      }
+    },
+    {
+      "id": 41,
+      "question": "The reactions of pentyne are mainly",
+      "options": [
+        "A. substitution reactions",
+        "B. addition reactions",
+        "C. addition polymerization",
+        "D. catalytic hydrogenation"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 41,
+        "correctOption": "B",
+        "reason": "Pentyne is an alkyne, and alkynes mainly undergo addition reactions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 41,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Pentyne is an alkyne, and alkynes mainly undergo addition reactions."
+      }
+    },
+    {
+      "id": 42,
+      "question": "The IUPAC nomenclature of the structure below is H H H H H C C C C H H Cl CH<sub>3</sub> H",
+      "options": [
+        "A. 2-chloro-3-methylbutane",
+        "B. 3-chloro-2-methylbutane",
+        "C. 3-methyl-2-chlorobutane",
+        "D. 1-chloro-2-methylbutane"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": true,
+      "reviewReasons": [
+        "Displayed structure is badly formatted and ambiguous, so the answer depends on interpretation.",
+        "Possible typo or ambiguous wording detected.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 42,
+        "correctOption": "A",
+        "reason": "The intended structure corresponds to butane with chloro on carbon 2 and methyl on carbon 3, giving 2-chloro-3-methylbutane.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "The displayed structure is badly formatted and ambiguous; option A follows lowest locant with alphabetical priority."
+      },
+      "verifierDetails": {
+        "id": 42,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Displayed structure is badly formatted and ambiguous, so the answer depends on interpretation.",
+        "typoDetected": true,
+        "typoNote": "The structural formula is corrupted.",
+        "finalExplanation": "The intended name appears to be 2-chloro-3-methylbutane, but the structure is not clearly readable."
+      }
+    },
+    {
+      "id": 43,
+      "question": "Which of the following compounds will undergo addition reactions?",
+      "options": [
+        "A. Ethyne",
+        "B. Butane",
+        "C. Pentane",
+        "D. Tetrachloromethane"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 43,
+        "correctOption": "A",
+        "reason": "Ethyne is unsaturated and undergoes addition reactions.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 43,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Ethyne is unsaturated and undergoes addition reactions."
+      }
+    },
+    {
+      "id": 44,
+      "question": "The most important member of alkene homologous series is",
+      "options": [
+        "A. prop-1-ene",
+        "B. but-1-ene",
+        "C. pent-1-ene",
+        "D. ethane"
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected.",
+        "Question is flawed because the most important alkene is usually ethene, which is missing from the options.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 44,
+        "correctOption": "A",
+        "reason": "Among the given options, prop-1-ene is the alkene and is the likely intended important member after ethene was omitted.",
+        "confidence": "low",
+        "possibleTypo": true,
+        "typoNote": "The most important alkene is usually ethene, but it is not listed; option D is ethane, not an alkene."
+      },
+      "verifierDetails": {
+        "id": 44,
+        "verifiedOption": "A",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Question is flawed because the most important alkene is usually ethene, which is missing from the options.",
+        "typoDetected": true,
+        "typoNote": "Ethene was likely omitted.",
+        "finalExplanation": "Among the listed alkenes, prop-1-ene is the best available choice, but the item is not academically sound."
+      }
+    },
+    {
+      "id": 45,
+      "question": "The reaction between ethane and chlorine to form 1, 2-dicloroethane is",
+      "options": [
+        "A. oxidation",
+        "B. polymerization",
+        "C. addition",
+        "D. substitution"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": true,
+      "reviewReasons": [
+        "Named product is wrong for ethane chlorination; 1,2-dichloroethane is formed by addition to ethene, not simple substitution of ethane.",
+        "Possible typo or ambiguous wording detected.",
+        "Solver confidence is not high.",
+        "Verifier confidence is not high."
+      ],
+      "warnings": [
+        "Possible spelling typo detected: dicloro"
+      ],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 45,
+        "correctOption": "D",
+        "reason": "Reaction of ethane with chlorine is a substitution reaction.",
+        "confidence": "medium",
+        "possibleTypo": true,
+        "typoNote": "Ethane and chlorine do not form 1,2-dichloroethane directly by simple substitution; likely chloroethane or ethene was intended."
+      },
+      "verifierDetails": {
+        "id": 45,
+        "verifiedOption": "D",
+        "confidence": "low",
+        "needsReview": true,
+        "reviewReason": "Named product is wrong for ethane chlorination; 1,2-dichloroethane is formed by addition to ethene, not simple substitution of ethane.",
+        "typoDetected": true,
+        "typoNote": "Either the reactant should be ethene or the product should be chloroethane/1,1-dichloroethane.",
+        "finalExplanation": "The reaction type for ethane with chlorine is substitution, but the stated product makes the item unsafe."
+      }
+    },
+    {
+      "id": 46,
+      "question": "Alkanes are used mainly",
+      "options": [
+        "A. in the production of plastics",
+        "B. as domestic and industrial fuels",
+        "C. in the textile industry",
+        "D. in the hydrogenation of oils"
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 46,
+        "correctOption": "B",
+        "reason": "Alkanes are used mainly as domestic and industrial fuels.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 46,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkanes are used mainly as domestic and industrial fuels."
+      }
+    },
+    {
+      "id": 47,
+      "question": "Alkane react with the halogens mainly by",
+      "options": [
+        "A. oxidation",
+        "B. polymerization",
+        "C. addition",
+        "D. substitution"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 47,
+        "correctOption": "D",
+        "reason": "Alkanes react with halogens mainly by substitution.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 47,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Alkanes react with halogens mainly by substitution."
+      }
+    },
+    {
+      "id": 48,
+      "question": "Which of the following alkanes has the highest boiling point?",
+      "options": [
+        "A. Pentane",
+        "B. Ethane",
+        "C. Propane",
+        "D. Hexane"
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 48,
+        "correctOption": "D",
+        "reason": "Boiling point increases with molecular size among these alkanes, so hexane is highest.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 48,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Among these alkanes, boiling point increases with molecular size, so hexane is highest."
+      }
+    },
+    {
+      "id": 49,
+      "question": "How many carbon atoms are present in one molecule of 2-methylpropane?",
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 5"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 49,
+        "correctOption": "C",
+        "reason": "2-methylpropane has 4 carbon atoms in total.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 49,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2-methylpropane contains 4 carbon atoms."
+      }
+    },
+    {
+      "id": 50,
+      "question": "Reactions undergone by compounds with the general formula CnH<sub>2</sub>n+2 is Name: | Class: Year 11(S.S 2) | Time Allowed: 2hours FOR MARKERS ONLY | FOR MARKERS ONLY | FOR MARKERS ONLY Sections in Paper | Scores Obtainable | Scores Obtained SECTION A - (Objectives)",
+      "options": [
+        "A. addition",
+        "B. etherification",
+        "C. substitution",
+        "D. dehydration"
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected.",
+        "Question appears polluted with document header/table text.",
+        "Question contains severe document/header pollution, though the chemistry answer is still inferable."
+      ],
+      "warnings": [],
+      "expected": "",
+      "expectedMatch": false,
+      "solverDetails": {
+        "id": 50,
+        "correctOption": "C",
+        "reason": "CnH2n+2 is the general formula of alkanes, which mainly undergo substitution reactions.",
+        "confidence": "high",
+        "possibleTypo": true,
+        "typoNote": "The question text is corrupted by unrelated exam header content, but the formula clearly refers to alkanes."
+      },
+      "verifierDetails": {
+        "id": 50,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": true,
+        "reviewReason": "Question contains severe document/header pollution, though the chemistry answer is still inferable.",
+        "typoDetected": true,
+        "typoNote": "Question text is corrupted by unrelated exam header content.",
+        "finalExplanation": "CnH2n+2 is the general formula of alkanes, whose characteristic reaction is substitution."
+      }
+    }
+  ]
+}

@@ -1,0 +1,3013 @@
+{
+  "draft_id": "20260818_145109_125561",
+  "created_at": "2026-08-18T14:51:09",
+  "source_filename": "maths.docx",
+  "year": "2000",
+  "subject": "Mathematics",
+  "class_category": "",
+  "term": null,
+  "term_label": null,
+  "question_count": 50,
+  "needs_review": 2,
+  "openai_usage": {
+    "input_tokens": 12057,
+    "output_tokens": 5752,
+    "total_tokens": 17809,
+    "estimated_cost_usd": 0.116422
+  },
+  "student_json": {
+    "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+    "subject": "Mathematics",
+    "exam_title": "Examination",
+    "instructions": "Answer all questions.",
+    "time_allowed_minutes": 120,
+    "class_category": "",
+    "questions": [
+      {
+        "id": 1,
+        "diagram": null,
+        "question": "Which of the following numbers is an odd number? A. 16 B. 24 C. 13 D. 10",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 2,
+        "diagram": null,
+        "question": "What is the place value of 7 in 3,745? A. 7 B. 70 C. 700 D. 7000",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 3,
+        "diagram": null,
+        "question": "Simplify: 25 + 37 + 18 = ? A. 70 B. 80 C. 90 D. 100",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 4,
+        "diagram": null,
+        "question": "Write 4,203 in words. A. Four thousand and two hundred and three B. Four thousand, three C. Four thousand and twenty-three D. Four thousand, two hundred and thirty",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 5,
+        "diagram": null,
+        "question": "Which of these numbers is divisible by 5? A. 42 B. 85 C. 63 D. 71",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 6,
+        "diagram": null,
+        "question": "Convert 3/5 to a decimal fraction. A. 0.2 B. 0.4 C. 0.6 D. 0.8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 7,
+        "diagram": null,
+        "question": "Simplify: 2/3 + 1/6 A. 1/2 B. 2/6 C. 5/6 D. 3/4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 8,
+        "diagram": null,
+        "question": "Find the L.C.M of 3, 4, and 6. A. 6 B. 8 C. 10 D. 12",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 9,
+        "diagram": null,
+        "question": "The H.C.F of 12 and 18 is A. 2 B. 3 C. 4 D. 6",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 10,
+        "diagram": null,
+        "question": "Which of the following is a prime number? A. 9 B. 12 C. 11 D. 15",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 11,
+        "diagram": null,
+        "question": "Find the value of 7 × 9. A. 56 B. 61 C. 63 D. 72",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 12,
+        "diagram": null,
+        "question": "What is 4²? A. 6 B. 8 C. 12 D. 16",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 13,
+        "diagram": null,
+        "question": "Simplify: 8 × (3 + 2) A. 16 B. 24 C. 32 D. 40",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 14,
+        "diagram": null,
+        "question": "What is the product of 0.2 and 0.5? A. 0.1 B. 0.2 C. 0.3 D. 0.4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 15,
+        "diagram": null,
+        "question": "Simplify: 100 ÷ 4 × 2 A. 10 B. 25 C. 50 D. 200",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 16,
+        "diagram": null,
+        "question": "What is the square root of 49? A. 6 B. 7 C. 8 D. 9",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 17,
+        "diagram": null,
+        "question": "Write ⅖ as a percentage. A. 20% B. 30% C. 40% D. 50%",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 18,
+        "diagram": null,
+        "question": "Express 25% as a fraction in its simplest form. A. ¼ B. ½ C. ¾ D. ⅕",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 19,
+        "diagram": null,
+        "question": "What is ⅓ of 27? A. 6 B. 8 C. 9 D. 12",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 20,
+        "diagram": null,
+        "question": "The sum of 2.45 and 1.8 is A. 3.15 B. 4.25 C. 4.35 D. 5.25",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 21,
+        "diagram": null,
+        "question": "Which of the following is a factor of 24? A. 5 B. 6 C. 7 D. 9",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 22,
+        "diagram": null,
+        "question": "Write 0.08 as a fraction. A. 8/10 B. 8/100 C. 8/1000 D. 8/10000",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 23,
+        "diagram": null,
+        "question": "Round 46.78 to the nearest whole number. A. 46 B. 47 C. 48 D. 50",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 24,
+        "diagram": null,
+        "question": "The perimeter of a square is 20 cm. Find the length of one side. A. 2 cm B. 4 cm C. 5 cm D. 6 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 25,
+        "diagram": null,
+        "question": "Find the area of a rectangle with length 6 cm and breadth 3 cm. A. 9 cm² B. 12 cm² C. 15 cm² D. 18 cm²",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 26,
+        "diagram": null,
+        "question": "Find the perimeter of a triangle with sides 5 cm, 6 cm, and 7 cm. A. 16 cm B. 17 cm C. 18 cm D. 19 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 27,
+        "diagram": null,
+        "question": "How many sides has a hexagon? A. 5 B. 6 C. 7 D. 8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 28,
+        "diagram": null,
+        "question": "How many right angles make a straight line? A. 1 B. 2 C. 3 D. 4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 29,
+        "diagram": null,
+        "question": "What is the sum of the angles in a triangle? A. 90° B. 120° C. 180° D. 360°",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 30,
+        "diagram": null,
+        "question": "The face of a clock is a A. Triangle B. Circle C. Square D. Rectangle",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 31,
+        "diagram": null,
+        "question": "Which of the following is a cube number? A. 6 B. 8 C. 10 D. 12",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 32,
+        "diagram": null,
+        "question": "What is the mode of 4, 5, 6, 5, 7, 5, 8? A. 4 B. 5 C. 6 D. 8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 33,
+        "diagram": null,
+        "question": "The mean of 10, 20, and 30 is A. 10 B. 15 C. 20 D. 30",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 34,
+        "diagram": null,
+        "question": "How many months make a year? A. 10 B. 11 C. 12 D. 13",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 35,
+        "diagram": null,
+        "question": "How many minutes make one hour? A. 30 B. 45 C. 50 D. 60",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 36,
+        "diagram": null,
+        "question": "How many seconds are there in 2 minutes? A. 60 B. 90 C. 100 D. 120",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 37,
+        "diagram": null,
+        "question": "Convert 1.5 metres to centimetres. A. 15 cm B. 150 cm C. 1500 cm D. 15,000 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 38,
+        "diagram": null,
+        "question": "Find the simple interest on ₦2000 at 5% per annum for 2 years. A. ₦100 B. ₦150 C. ₦200 D. ₦250",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 39,
+        "diagram": null,
+        "question": "A rectangle has a length of 10 cm and a breadth of 4 cm. Find its perimeter. A. 14 cm B. 20 cm C. 24 cm D. 28 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 40,
+        "diagram": null,
+        "question": "The number of lines of symmetry in an equilateral triangle is A. 1 B. 2 C. 3 D. 4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 41,
+        "diagram": null,
+        "question": "Find the sum of the first five natural numbers. A. 10 B. 12 C. 14 D. 15",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 42,
+        "diagram": null,
+        "question": "Which of these numbers is a multiple of 9? A. 27 B. 25 C. 18 D. Both A and C",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 43,
+        "diagram": null,
+        "question": "What is ¾ of 16? A. 8 B. 10 C. 12 D. 14",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 44,
+        "diagram": null,
+        "question": "Which of these shapes has all sides equal? A. Rectangle B. Rhombus C. Trapezium D. Kite",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 45,
+        "diagram": null,
+        "question": "A polygon with 8 sides is called A. Heptagon B. Octagon C. Nonagon D. Decagon",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 46,
+        "diagram": null,
+        "question": "Convert 2/10 to a decimal. A. 0.1 B. 0.2 C. 0.3 D. 0.4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 47,
+        "diagram": null,
+        "question": "Find the difference between 7.56 and 3.21. A. 3.25 B. 4.35 C. 4.45 D. 4.55",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 48,
+        "diagram": null,
+        "question": "The sum of the angles in a quadrilateral is A. 90° B. 180° C. 270° D. 360°",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 49,
+        "diagram": null,
+        "question": "Which of these is a line of symmetry in a square? A. One B. Two C. Three D. Four",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 50,
+        "diagram": null,
+        "question": "How many faces has a cube? A. 4 B. 5 C. 6 D. 8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      }
+    ],
+    "session": "2024/2025"
+  },
+  "full_json": {
+    "subject": "Mathematics",
+    "class_category": "",
+    "groups": [
+      {
+        "start_id": 1,
+        "end_id": 60,
+        "instruction": "ANSWER ALL QUESTIONS",
+        "passage": "",
+        "diagram": null,
+        "question_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": 1,
+        "diagram": null,
+        "question": "Which of the following numbers is an odd number? A. 16 B. 24 C. 13 D. 10",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 2,
+        "diagram": null,
+        "question": "What is the place value of 7 in 3,745? A. 7 B. 70 C. 700 D. 7000",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 3,
+        "diagram": null,
+        "question": "Simplify: 25 + 37 + 18 = ? A. 70 B. 80 C. 90 D. 100",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 4,
+        "diagram": null,
+        "question": "Write 4,203 in words. A. Four thousand and two hundred and three B. Four thousand, three C. Four thousand and twenty-three D. Four thousand, two hundred and thirty",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 5,
+        "diagram": null,
+        "question": "Which of these numbers is divisible by 5? A. 42 B. 85 C. 63 D. 71",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 6,
+        "diagram": null,
+        "question": "Convert 3/5 to a decimal fraction. A. 0.2 B. 0.4 C. 0.6 D. 0.8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 7,
+        "diagram": null,
+        "question": "Simplify: 2/3 + 1/6 A. 1/2 B. 2/6 C. 5/6 D. 3/4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 8,
+        "diagram": null,
+        "question": "Find the L.C.M of 3, 4, and 6. A. 6 B. 8 C. 10 D. 12",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 9,
+        "diagram": null,
+        "question": "The H.C.F of 12 and 18 is A. 2 B. 3 C. 4 D. 6",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 10,
+        "diagram": null,
+        "question": "Which of the following is a prime number? A. 9 B. 12 C. 11 D. 15",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 11,
+        "diagram": null,
+        "question": "Find the value of 7 × 9. A. 56 B. 61 C. 63 D. 72",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 12,
+        "diagram": null,
+        "question": "What is 4²? A. 6 B. 8 C. 12 D. 16",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 13,
+        "diagram": null,
+        "question": "Simplify: 8 × (3 + 2) A. 16 B. 24 C. 32 D. 40",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 14,
+        "diagram": null,
+        "question": "What is the product of 0.2 and 0.5? A. 0.1 B. 0.2 C. 0.3 D. 0.4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 15,
+        "diagram": null,
+        "question": "Simplify: 100 ÷ 4 × 2 A. 10 B. 25 C. 50 D. 200",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 16,
+        "diagram": null,
+        "question": "What is the square root of 49? A. 6 B. 7 C. 8 D. 9",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 17,
+        "diagram": null,
+        "question": "Write ⅖ as a percentage. A. 20% B. 30% C. 40% D. 50%",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 18,
+        "diagram": null,
+        "question": "Express 25% as a fraction in its simplest form. A. ¼ B. ½ C. ¾ D. ⅕",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "A"
+      },
+      {
+        "id": 19,
+        "diagram": null,
+        "question": "What is ⅓ of 27? A. 6 B. 8 C. 9 D. 12",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 20,
+        "diagram": null,
+        "question": "The sum of 2.45 and 1.8 is A. 3.15 B. 4.25 C. 4.35 D. 5.25",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 21,
+        "diagram": null,
+        "question": "Which of the following is a factor of 24? A. 5 B. 6 C. 7 D. 9",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 22,
+        "diagram": null,
+        "question": "Write 0.08 as a fraction. A. 8/10 B. 8/100 C. 8/1000 D. 8/10000",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 23,
+        "diagram": null,
+        "question": "Round 46.78 to the nearest whole number. A. 46 B. 47 C. 48 D. 50",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 24,
+        "diagram": null,
+        "question": "The perimeter of a square is 20 cm. Find the length of one side. A. 2 cm B. 4 cm C. 5 cm D. 6 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 25,
+        "diagram": null,
+        "question": "Find the area of a rectangle with length 6 cm and breadth 3 cm. A. 9 cm² B. 12 cm² C. 15 cm² D. 18 cm²",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 26,
+        "diagram": null,
+        "question": "Find the perimeter of a triangle with sides 5 cm, 6 cm, and 7 cm. A. 16 cm B. 17 cm C. 18 cm D. 19 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 27,
+        "diagram": null,
+        "question": "How many sides has a hexagon? A. 5 B. 6 C. 7 D. 8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 28,
+        "diagram": null,
+        "question": "How many right angles make a straight line? A. 1 B. 2 C. 3 D. 4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 29,
+        "diagram": null,
+        "question": "What is the sum of the angles in a triangle? A. 90° B. 120° C. 180° D. 360°",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 30,
+        "diagram": null,
+        "question": "The face of a clock is a A. Triangle B. Circle C. Square D. Rectangle",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 31,
+        "diagram": null,
+        "question": "Which of the following is a cube number? A. 6 B. 8 C. 10 D. 12",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 32,
+        "diagram": null,
+        "question": "What is the mode of 4, 5, 6, 5, 7, 5, 8? A. 4 B. 5 C. 6 D. 8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 33,
+        "diagram": null,
+        "question": "The mean of 10, 20, and 30 is A. 10 B. 15 C. 20 D. 30",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 34,
+        "diagram": null,
+        "question": "How many months make a year? A. 10 B. 11 C. 12 D. 13",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 35,
+        "diagram": null,
+        "question": "How many minutes make one hour? A. 30 B. 45 C. 50 D. 60",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 36,
+        "diagram": null,
+        "question": "How many seconds are there in 2 minutes? A. 60 B. 90 C. 100 D. 120",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 37,
+        "diagram": null,
+        "question": "Convert 1.5 metres to centimetres. A. 15 cm B. 150 cm C. 1500 cm D. 15,000 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 38,
+        "diagram": null,
+        "question": "Find the simple interest on ₦2000 at 5% per annum for 2 years. A. ₦100 B. ₦150 C. ₦200 D. ₦250",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 39,
+        "diagram": null,
+        "question": "A rectangle has a length of 10 cm and a breadth of 4 cm. Find its perimeter. A. 14 cm B. 20 cm C. 24 cm D. 28 cm",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 40,
+        "diagram": null,
+        "question": "The number of lines of symmetry in an equilateral triangle is A. 1 B. 2 C. 3 D. 4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 41,
+        "diagram": null,
+        "question": "Find the sum of the first five natural numbers. A. 10 B. 12 C. 14 D. 15",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 42,
+        "diagram": null,
+        "question": "Which of these numbers is a multiple of 9? A. 27 B. 25 C. 18 D. Both A and C",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 43,
+        "diagram": null,
+        "question": "What is ¾ of 16? A. 8 B. 10 C. 12 D. 14",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      },
+      {
+        "id": 44,
+        "diagram": null,
+        "question": "Which of these shapes has all sides equal? A. Rectangle B. Rhombus C. Trapezium D. Kite",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 45,
+        "diagram": null,
+        "question": "A polygon with 8 sides is called A. Heptagon B. Octagon C. Nonagon D. Decagon",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 46,
+        "diagram": null,
+        "question": "Convert 2/10 to a decimal. A. 0.1 B. 0.2 C. 0.3 D. 0.4",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 47,
+        "diagram": null,
+        "question": "Find the difference between 7.56 and 3.21. A. 3.25 B. 4.35 C. 4.45 D. 4.55",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "B"
+      },
+      {
+        "id": 48,
+        "diagram": null,
+        "question": "The sum of the angles in a quadrilateral is A. 90° B. 180° C. 270° D. 360°",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 49,
+        "diagram": null,
+        "question": "Which of these is a line of symmetry in a square? A. One B. Two C. Three D. Four",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "D"
+      },
+      {
+        "id": 50,
+        "diagram": null,
+        "question": "How many faces has a cube? A. 4 B. 5 C. 6 D. 8",
+        "options": [
+          "A. ",
+          "B. ",
+          "C. ",
+          "D. "
+        ],
+        "correctOption": "C"
+      }
+    ]
+  },
+  "answer_report": [
+    {
+      "id": 1,
+      "question": "Which of the following numbers is an odd number? A. 16 B. 24 C. 13 D. 10",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 1,
+        "correctOption": "C",
+        "reason": "13 is the only odd number listed.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 1,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "13 is the only odd number."
+      }
+    },
+    {
+      "id": 2,
+      "question": "What is the place value of 7 in 3,745? A. 7 B. 70 C. 700 D. 7000",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 2,
+        "correctOption": "C",
+        "reason": "In 3,745, 7 is in the hundreds place.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 2,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "In 3,745, 7 is in the hundreds place, so its value is 700."
+      }
+    },
+    {
+      "id": 3,
+      "question": "Simplify: 25 + 37 + 18 = ? A. 70 B. 80 C. 90 D. 100",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 3,
+        "correctOption": "B",
+        "reason": "25 + 37 + 18 = 80.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 3,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "25 + 37 + 18 = 80."
+      }
+    },
+    {
+      "id": 4,
+      "question": "Write 4,203 in words. A. Four thousand and two hundred and three B. Four thousand, three C. Four thousand and twenty-three D. Four thousand, two hundred and thirty",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 4,
+        "correctOption": "A",
+        "reason": "4,203 is written as four thousand two hundred and three.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 4,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "4,203 is written as four thousand two hundred and three."
+      }
+    },
+    {
+      "id": 5,
+      "question": "Which of these numbers is divisible by 5? A. 42 B. 85 C. 63 D. 71",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 5,
+        "correctOption": "B",
+        "reason": "Numbers divisible by 5 end in 0 or 5; 85 does.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 5,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "85 ends in 5, so it is divisible by 5."
+      }
+    },
+    {
+      "id": 6,
+      "question": "Convert 3/5 to a decimal fraction. A. 0.2 B. 0.4 C. 0.6 D. 0.8",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 6,
+        "correctOption": "C",
+        "reason": "3/5 = 0.6.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 6,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "3/5 = 0.6."
+      }
+    },
+    {
+      "id": 7,
+      "question": "Simplify: 2/3 + 1/6 A. 1/2 B. 2/6 C. 5/6 D. 3/4",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 7,
+        "correctOption": "C",
+        "reason": "2/3 = 4/6, so 4/6 + 1/6 = 5/6.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 7,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2/3 = 4/6, and 4/6 + 1/6 = 5/6."
+      }
+    },
+    {
+      "id": 8,
+      "question": "Find the L.C.M of 3, 4, and 6. A. 6 B. 8 C. 10 D. 12",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 8,
+        "correctOption": "D",
+        "reason": "The least common multiple of 3, 4, and 6 is 12.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 8,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The L.C.M of 3, 4, and 6 is 12."
+      }
+    },
+    {
+      "id": 9,
+      "question": "The H.C.F of 12 and 18 is A. 2 B. 3 C. 4 D. 6",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 9,
+        "correctOption": "D",
+        "reason": "The highest common factor of 12 and 18 is 6.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 9,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The H.C.F of 12 and 18 is 6."
+      }
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is a prime number? A. 9 B. 12 C. 11 D. 15",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 10,
+        "correctOption": "C",
+        "reason": "11 has exactly two factors, 1 and 11.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 10,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "11 is the only prime number listed."
+      }
+    },
+    {
+      "id": 11,
+      "question": "Find the value of 7 × 9. A. 56 B. 61 C. 63 D. 72",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 11,
+        "correctOption": "C",
+        "reason": "7 × 9 = 63.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 11,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "7 × 9 = 63."
+      }
+    },
+    {
+      "id": 12,
+      "question": "What is 4²? A. 6 B. 8 C. 12 D. 16",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 12,
+        "correctOption": "D",
+        "reason": "4² means 4 × 4 = 16.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 12,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "4² means 4 × 4 = 16."
+      }
+    },
+    {
+      "id": 13,
+      "question": "Simplify: 8 × (3 + 2) A. 16 B. 24 C. 32 D. 40",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 13,
+        "correctOption": "D",
+        "reason": "3 + 2 = 5, then 8 × 5 = 40.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 13,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "3 + 2 = 5, then 8 × 5 = 40."
+      }
+    },
+    {
+      "id": 14,
+      "question": "What is the product of 0.2 and 0.5? A. 0.1 B. 0.2 C. 0.3 D. 0.4",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 14,
+        "correctOption": "A",
+        "reason": "0.2 × 0.5 = 0.1.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 14,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "0.2 × 0.5 = 0.1."
+      }
+    },
+    {
+      "id": 15,
+      "question": "Simplify: 100 ÷ 4 × 2 A. 10 B. 25 C. 50 D. 200",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 15,
+        "correctOption": "C",
+        "reason": "100 ÷ 4 = 25, then 25 × 2 = 50.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 15,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "100 ÷ 4 × 2 = 25 × 2 = 50."
+      }
+    },
+    {
+      "id": 16,
+      "question": "What is the square root of 49? A. 6 B. 7 C. 8 D. 9",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 16,
+        "correctOption": "B",
+        "reason": "The square root of 49 is 7.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 16,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The square root of 49 is 7."
+      }
+    },
+    {
+      "id": 17,
+      "question": "Write ⅖ as a percentage. A. 20% B. 30% C. 40% D. 50%",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 17,
+        "correctOption": "C",
+        "reason": "2/5 = 0.4 = 40%.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 17,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2/5 = 0.4 = 40%."
+      }
+    },
+    {
+      "id": 18,
+      "question": "Express 25% as a fraction in its simplest form. A. ¼ B. ½ C. ¾ D. ⅕",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "A",
+      "verifierOption": "A",
+      "finalOption": "A",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 18,
+        "correctOption": "A",
+        "reason": "25% = 25/100 = 1/4.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 18,
+        "verifiedOption": "A",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "25% = 25/100 = 1/4."
+      }
+    },
+    {
+      "id": 19,
+      "question": "What is ⅓ of 27? A. 6 B. 8 C. 9 D. 12",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 19,
+        "correctOption": "C",
+        "reason": "1/3 of 27 is 27 ÷ 3 = 9.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 19,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "1/3 of 27 is 9."
+      }
+    },
+    {
+      "id": 20,
+      "question": "The sum of 2.45 and 1.8 is A. 3.15 B. 4.25 C. 4.35 D. 5.25",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 20,
+        "correctOption": "B",
+        "reason": "2.45 + 1.8 = 4.25.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 20,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2.45 + 1.8 = 4.25."
+      }
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is a factor of 24? A. 5 B. 6 C. 7 D. 9",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 21,
+        "correctOption": "B",
+        "reason": "24 ÷ 6 = 4, so 6 is a factor.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 21,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "6 divides 24 exactly, so it is a factor."
+      }
+    },
+    {
+      "id": 22,
+      "question": "Write 0.08 as a fraction. A. 8/10 B. 8/100 C. 8/1000 D. 8/10000",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 22,
+        "correctOption": "B",
+        "reason": "0.08 means 8 hundredths, or 8/100.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 22,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "0.08 means 8 hundredths, which is 8/100."
+      }
+    },
+    {
+      "id": 23,
+      "question": "Round 46.78 to the nearest whole number. A. 46 B. 47 C. 48 D. 50",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 23,
+        "correctOption": "B",
+        "reason": "46.78 rounds up to 47.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 23,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "46.78 rounds to 47."
+      }
+    },
+    {
+      "id": 24,
+      "question": "The perimeter of a square is 20 cm. Find the length of one side. A. 2 cm B. 4 cm C. 5 cm D. 6 cm",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 24,
+        "correctOption": "C",
+        "reason": "Each side of a square is perimeter ÷ 4 = 20 ÷ 4 = 5 cm.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 24,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Each side of the square is 20 ÷ 4 = 5 cm."
+      }
+    },
+    {
+      "id": 25,
+      "question": "Find the area of a rectangle with length 6 cm and breadth 3 cm. A. 9 cm² B. 12 cm² C. 15 cm² D. 18 cm²",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 25,
+        "correctOption": "D",
+        "reason": "Area = length × breadth = 6 × 3 = 18 cm².",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 25,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Area of the rectangle = 6 × 3 = 18 cm²."
+      }
+    },
+    {
+      "id": 26,
+      "question": "Find the perimeter of a triangle with sides 5 cm, 6 cm, and 7 cm. A. 16 cm B. 17 cm C. 18 cm D. 19 cm",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 26,
+        "correctOption": "C",
+        "reason": "Perimeter = 5 + 6 + 7 = 18 cm.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 26,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Perimeter = 5 + 6 + 7 = 18 cm."
+      }
+    },
+    {
+      "id": 27,
+      "question": "How many sides has a hexagon? A. 5 B. 6 C. 7 D. 8",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 27,
+        "correctOption": "B",
+        "reason": "A hexagon has 6 sides.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 27,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A hexagon has 6 sides."
+      }
+    },
+    {
+      "id": 28,
+      "question": "How many right angles make a straight line? A. 1 B. 2 C. 3 D. 4",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 28,
+        "correctOption": "B",
+        "reason": "A straight line is 180°, equal to two right angles.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 28,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A straight line is 180°, which equals two right angles."
+      }
+    },
+    {
+      "id": 29,
+      "question": "What is the sum of the angles in a triangle? A. 90° B. 120° C. 180° D. 360°",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 29,
+        "correctOption": "C",
+        "reason": "The angles in a triangle add up to 180°.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 29,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The angles in a triangle add up to 180°."
+      }
+    },
+    {
+      "id": 30,
+      "question": "The face of a clock is a A. Triangle B. Circle C. Square D. Rectangle",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 30,
+        "correctOption": "B",
+        "reason": "A clock face is circular.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 30,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The face of a clock is a circle."
+      }
+    },
+    {
+      "id": 31,
+      "question": "Which of the following is a cube number? A. 6 B. 8 C. 10 D. 12",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 31,
+        "correctOption": "B",
+        "reason": "8 = 2³, so it is a cube number.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 31,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "8 = 2³, so it is a cube number."
+      }
+    },
+    {
+      "id": 32,
+      "question": "What is the mode of 4, 5, 6, 5, 7, 5, 8? A. 4 B. 5 C. 6 D. 8",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 32,
+        "correctOption": "B",
+        "reason": "5 appears most often in the list.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 32,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "5 appears most often, so it is the mode."
+      }
+    },
+    {
+      "id": 33,
+      "question": "The mean of 10, 20, and 30 is A. 10 B. 15 C. 20 D. 30",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 33,
+        "correctOption": "C",
+        "reason": "Mean = (10 + 20 + 30) ÷ 3 = 20.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 33,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Mean = (10 + 20 + 30) ÷ 3 = 20."
+      }
+    },
+    {
+      "id": 34,
+      "question": "How many months make a year? A. 10 B. 11 C. 12 D. 13",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 34,
+        "correctOption": "C",
+        "reason": "One year has 12 months.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 34,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "One year has 12 months."
+      }
+    },
+    {
+      "id": 35,
+      "question": "How many minutes make one hour? A. 30 B. 45 C. 50 D. 60",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 35,
+        "correctOption": "D",
+        "reason": "One hour equals 60 minutes.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 35,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "One hour equals 60 minutes."
+      }
+    },
+    {
+      "id": 36,
+      "question": "How many seconds are there in 2 minutes? A. 60 B. 90 C. 100 D. 120",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 36,
+        "correctOption": "D",
+        "reason": "2 minutes = 2 × 60 = 120 seconds.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 36,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2 minutes = 120 seconds."
+      }
+    },
+    {
+      "id": 37,
+      "question": "Convert 1.5 metres to centimetres. A. 15 cm B. 150 cm C. 1500 cm D. 15,000 cm",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 37,
+        "correctOption": "B",
+        "reason": "1 metre = 100 cm, so 1.5 m = 150 cm.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 37,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "1.5 metres = 150 centimetres."
+      }
+    },
+    {
+      "id": 38,
+      "question": "Find the simple interest on ₦2000 at 5% per annum for 2 years. A. ₦100 B. ₦150 C. ₦200 D. ₦250",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 38,
+        "correctOption": "C",
+        "reason": "Simple interest = PRT/100 = 2000 × 5 × 2 / 100 = 200.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 38,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Simple interest = 2000 × 5 × 2 / 100 = ₦200."
+      }
+    },
+    {
+      "id": 39,
+      "question": "A rectangle has a length of 10 cm and a breadth of 4 cm. Find its perimeter. A. 14 cm B. 20 cm C. 24 cm D. 28 cm",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 39,
+        "correctOption": "D",
+        "reason": "Perimeter = 2(10 + 4) = 28 cm.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 39,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "Perimeter = 2(10 + 4) = 28 cm."
+      }
+    },
+    {
+      "id": 40,
+      "question": "The number of lines of symmetry in an equilateral triangle is A. 1 B. 2 C. 3 D. 4",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 40,
+        "correctOption": "C",
+        "reason": "An equilateral triangle has 3 lines of symmetry.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 40,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "An equilateral triangle has 3 lines of symmetry."
+      }
+    },
+    {
+      "id": 41,
+      "question": "Find the sum of the first five natural numbers. A. 10 B. 12 C. 14 D. 15",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 41,
+        "correctOption": "D",
+        "reason": "1 + 2 + 3 + 4 + 5 = 15.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 41,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "1 + 2 + 3 + 4 + 5 = 15."
+      }
+    },
+    {
+      "id": 42,
+      "question": "Which of these numbers is a multiple of 9? A. 27 B. 25 C. 18 D. Both A and C",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": true,
+      "reviewReasons": [
+        "Option D is a compound answer ('Both A and C'), which creates format ambiguity in a single-choice A-D system."
+      ],
+      "warnings": [],
+      "solverDetails": {
+        "id": 42,
+        "correctOption": "D",
+        "reason": "Both 27 and 18 are multiples of 9.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 42,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": true,
+        "reviewReason": "Option D is a compound answer ('Both A and C'), which creates format ambiguity in a single-choice A-D system.",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "27 and 18 are both multiples of 9, so 'Both A and C' is correct."
+      }
+    },
+    {
+      "id": 43,
+      "question": "What is ¾ of 16? A. 8 B. 10 C. 12 D. 14",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 43,
+        "correctOption": "C",
+        "reason": "3/4 of 16 = 12.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 43,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "3/4 of 16 is 12."
+      }
+    },
+    {
+      "id": 44,
+      "question": "Which of these shapes has all sides equal? A. Rectangle B. Rhombus C. Trapezium D. Kite",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 44,
+        "correctOption": "B",
+        "reason": "A rhombus has all sides equal.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 44,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A rhombus has all sides equal."
+      }
+    },
+    {
+      "id": 45,
+      "question": "A polygon with 8 sides is called A. Heptagon B. Octagon C. Nonagon D. Decagon",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 45,
+        "correctOption": "B",
+        "reason": "A polygon with 8 sides is an octagon.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 45,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A polygon with 8 sides is an octagon."
+      }
+    },
+    {
+      "id": 46,
+      "question": "Convert 2/10 to a decimal. A. 0.1 B. 0.2 C. 0.3 D. 0.4",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 46,
+        "correctOption": "B",
+        "reason": "2/10 = 0.2.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 46,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "2/10 = 0.2."
+      }
+    },
+    {
+      "id": 47,
+      "question": "Find the difference between 7.56 and 3.21. A. 3.25 B. 4.35 C. 4.45 D. 4.55",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "B",
+      "verifierOption": "B",
+      "finalOption": "B",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 47,
+        "correctOption": "B",
+        "reason": "7.56 - 3.21 = 4.35.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 47,
+        "verifiedOption": "B",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "7.56 - 3.21 = 4.35."
+      }
+    },
+    {
+      "id": 48,
+      "question": "The sum of the angles in a quadrilateral is A. 90° B. 180° C. 270° D. 360°",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 48,
+        "correctOption": "D",
+        "reason": "The interior angles of a quadrilateral sum to 360°.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 48,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "The angles in a quadrilateral sum to 360°."
+      }
+    },
+    {
+      "id": 49,
+      "question": "Which of these is a line of symmetry in a square? A. One B. Two C. Three D. Four",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "D",
+      "verifierOption": "D",
+      "finalOption": "D",
+      "needsReview": true,
+      "reviewReasons": [
+        "Possible typo or ambiguous wording detected.",
+        "The wording says 'is a line of symmetry' but the options give the number of lines of symmetry."
+      ],
+      "warnings": [],
+      "solverDetails": {
+        "id": 49,
+        "correctOption": "D",
+        "reason": "A square has 4 lines of symmetry.",
+        "confidence": "high",
+        "possibleTypo": true,
+        "typoNote": "Question says 'a line of symmetry' but options ask for the number of lines of symmetry."
+      },
+      "verifierDetails": {
+        "id": 49,
+        "verifiedOption": "D",
+        "confidence": "high",
+        "needsReview": true,
+        "reviewReason": "The wording says 'is a line of symmetry' but the options give the number of lines of symmetry.",
+        "typoDetected": true,
+        "typoNote": "Question likely meant 'How many lines of symmetry does a square have?'",
+        "finalExplanation": "A square has 4 lines of symmetry."
+      }
+    },
+    {
+      "id": 50,
+      "question": "How many faces has a cube? A. 4 B. 5 C. 6 D. 8",
+      "options": [
+        "A. ",
+        "B. ",
+        "C. ",
+        "D. "
+      ],
+      "solverOption": "C",
+      "verifierOption": "C",
+      "finalOption": "C",
+      "needsReview": false,
+      "reviewReasons": [],
+      "warnings": [],
+      "solverDetails": {
+        "id": 50,
+        "correctOption": "C",
+        "reason": "A cube has 6 faces.",
+        "confidence": "high",
+        "possibleTypo": false,
+        "typoNote": ""
+      },
+      "verifierDetails": {
+        "id": 50,
+        "verifiedOption": "C",
+        "confidence": "high",
+        "needsReview": false,
+        "reviewReason": "",
+        "typoDetected": false,
+        "typoNote": "",
+        "finalExplanation": "A cube has 6 faces."
+      }
+    }
+  ]
+}

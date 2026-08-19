@@ -1,280 +1,1127 @@
 # modules/student_lookup.py
 
 import csv
-import os
 import re
 import unicodedata
+from pathlib import Path
 
 from modules.class_config import (
-    STUDENT_CSV_FILES,
+    STUDENT_CSV_FILE,
     normalize_class_level,
     normalize_class_arm,
     get_ss_stream,
     is_valid_class,
+    is_valid_class_arm,
 )
 
 
+# =========================================================
+# PATHS
+# =========================================================
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STUDENT_DATABASE = (
+    BASE_DIR
+    / STUDENT_CSV_FILE
+)
+
+
+# =========================================================
+# LOGIN TEXT NORMALIZATION
+# =========================================================
+
 def normalize_login_text(value):
     """
-    Login-safe normalizer.
+    Normalize values used during student login.
 
     Examples:
-        Abdul-Mumin  -> abdulmumin
-        ABDUL MUMIN  -> abdulmumin
-        Abdul.Mumin  -> abdulmumin
-        O'Connor     -> oconnor
-        std-512      -> std512
+
+        Abdul-Mumin
+            -> abdulmumin
+
+        ABDUL MUMIN
+            -> abdulmumin
+
+        Abdul.Mumin
+            -> abdulmumin
+
+        O'Connor
+            -> oconnor
+
+        std-512
+            -> std512
+
+        STD 512
+            -> std512
     """
-    value = str(value or "").strip()
 
-    value = unicodedata.normalize("NFKD", value)
-    value = value.encode("ascii", "ignore").decode("ascii")
-
-    value = value.lower()
-    value = re.sub(r"[^a-z0-9]", "", value)
-
-    return value
-
-
-def clean_text(value):
-    return str(value or "").strip()
-
-
-def build_full_name(row):
-    return " ".join([
-        clean_text(row.get("Last_name")),
-        clean_text(row.get("First_name")),
-        clean_text(row.get("Other_names")),
-    ]).strip()
-
-
-def build_login_name_tokens(student):
-    """
-    Builds all acceptable name tokens for login.
-
-    A student can login with:
-      - first name
-      - last name / surname
-      - other name
-      - any individual part of the full name
-
-    All tokens are normalized.
-    """
-    tokens = set()
-
-    possible_values = [
-        student.get("first_name"),
-        student.get("last_name"),
-        student.get("other_names"),
-        student.get("full_name"),
-    ]
-
-    for value in possible_values:
-        raw = str(value or "").strip()
-
-        if not raw:
-            continue
-
-        normalized_whole = normalize_login_text(raw)
-        if normalized_whole:
-            tokens.add(normalized_whole)
-
-        for part in re.split(r"[\s,\-/_.']+", raw):
-            normalized_part = normalize_login_text(part)
-            if normalized_part:
-                tokens.add(normalized_part)
-
-    return tokens
-
-
-def student_name_matches(student, entered_name):
-    entered = normalize_login_text(entered_name)
-
-    if not entered:
-        return False
-
-    allowed_tokens = build_login_name_tokens(student)
-
-    return entered in allowed_tokens
-
-
-def normalize_csv_class_value(value):
-    """
-    Cleans class values coming from CSV.
-
-    Examples:
-        SS 1 GOLD  -> SS1_GOLD
-        SS1 GOLD   -> SS1_GOLD
-        SS 2B      -> SS2B
-        JSS 1A     -> JSS1A
-    """
-    value = str(value or "").upper().strip()
+    value = str(
+        value or ""
+    ).strip()
 
     if not value:
         return ""
 
-    value = value.replace("-", "_")
-    value = re.sub(r"\s+", " ", value)
+    value = unicodedata.normalize(
+        "NFKD",
+        value,
+    )
 
-    # SS science arms
-    value = re.sub(r"^(SS[123])\s+(GOLD|SILVER|DIAMOND)$", r"\1_\2", value)
-    value = re.sub(r"^(SS)\s+([123])\s+(GOLD|SILVER|DIAMOND)$", r"\1\2_\3", value)
+    value = (
+        value
+        .encode(
+            "ascii",
+            "ignore",
+        )
+        .decode(
+            "ascii"
+        )
+    )
 
-    # SS B arms
-    value = re.sub(r"^(SS)\s+([123])\s*B$", r"\1\2B", value)
-    value = re.sub(r"^(SS[123])\s*B$", r"\1B", value)
+    value = value.lower()
 
-    # JSS arms
-    value = re.sub(r"^(JSS)\s+([123])\s*([ABC])$", r"\1\2\3", value)
-    value = re.sub(r"^(JSS[123])\s*([ABC])$", r"\1\2", value)
+    value = re.sub(
+        r"[^a-z0-9]",
+        "",
+        value,
+    )
 
-    return value.replace(" ", "")
+    return value
 
 
-def normalize_class_category(value, fallback):
+# =========================================================
+# GENERIC TEXT CLEANER
+# =========================================================
+
+def clean_text(value):
+    return str(
+        value or ""
+    ).strip()
+
+
+# =========================================================
+# SEX NORMALIZATION
+# =========================================================
+
+def normalize_sex(value):
+    value = clean_text(
+        value
+    ).upper()
+
+    if value in {
+        "M",
+        "MALE",
+    }:
+        return "M"
+
+    if value in {
+        "F",
+        "FEMALE",
+    }:
+        return "F"
+
+    return value
+
+
+# =========================================================
+# STATUS NORMALIZATION
+# =========================================================
+
+def normalize_status(value):
     """
-    Converts/validates broad class category.
+    Existing students2026.csv may not yet contain Status.
+
+    Missing Status means ACTIVE.
+
+    Possible values:
+        ACTIVE
+        GRADUATED
+        LEFT
+    """
+
+    value = clean_text(
+        value
+    ).upper()
+
+    if not value:
+        return "ACTIVE"
+
+    return value
+
+
+# =========================================================
+# BUILD FULL NAME
+# =========================================================
+
+def build_full_name(row):
+    """
+    Standard name order:
+
+        Last_name First_name Other_names
+    """
+
+    parts = [
+        clean_text(
+            row.get("Last_name")
+        ),
+        clean_text(
+            row.get("First_name")
+        ),
+        clean_text(
+            row.get("Other_names")
+        ),
+    ]
+
+    return " ".join(
+        part
+        for part in parts
+        if part
+    ).strip()
+
+
+# =========================================================
+# LOGIN NAME TOKENS
+#
+# IMPORTANT:
+# The student may login using ONLY:
+#
+#   - First_name
+#   OR
+#   - Last_name
+#
+# Other_names is intentionally NOT accepted as a login name.
+# =========================================================
+
+def build_login_name_tokens(student):
+    """
+    Build valid student-login names.
+
+    Accepted:
+        First name
+        Last name / surname
+
+    Not accepted:
+        Other names
+        Full name
+        Random individual middle-name components
+
+    All comparisons are case-insensitive and punctuation-insensitive.
+    """
+
+    tokens = set()
+
+    possible_values = [
+        student.get(
+            "first_name"
+        ),
+        student.get(
+            "last_name"
+        ),
+    ]
+
+    for value in possible_values:
+
+        normalized = normalize_login_text(
+            value
+        )
+
+        if normalized:
+            tokens.add(
+                normalized
+            )
+
+    return tokens
+
+
+# =========================================================
+# STUDENT NAME MATCHING
+# =========================================================
+
+def student_name_matches(
+    student,
+    entered_name,
+):
+    """
+    Verify the name entered during login.
+
+    Login succeeds if entered_name matches either:
+
+        student.first_name
+        OR
+        student.last_name
+
+    Matching ignores:
+        capitalization
+        spaces
+        hyphens
+        apostrophes
+        dots
+        other punctuation
+    """
+
+    entered = normalize_login_text(
+        entered_name
+    )
+
+    if not entered:
+        return False
+
+    allowed_tokens = build_login_name_tokens(
+        student
+    )
+
+    return entered in allowed_tokens
+
+
+# =========================================================
+# ADMISSION NUMBER NORMALIZATION
+# =========================================================
+
+def normalize_admission_number(value):
+    """
+    Normalize admission numbers for comparison.
 
     Examples:
-        JSS1A      -> JSS1
-        JSS2B      -> JSS2
-        SS1_GOLD   -> SS1
-        SS2B       -> SS2
-        SS3_SILVER -> SS3
+
+        std001
+        STD001
+        std-001
+        std 001
+
+    all become:
+
+        std001
     """
-    value = normalize_csv_class_value(value)
-    fallback = normalize_csv_class_value(fallback)
 
-    class_level = normalize_class_level(value)
+    return normalize_login_text(
+        value
+    )
 
-    if class_level:
+
+# =========================================================
+# CLASS CATEGORY NORMALIZATION
+# =========================================================
+
+def normalize_class_category(
+    value,
+    fallback="",
+):
+    """
+    Convert any class/arm value to broad class level.
+
+    Examples:
+
+        JSS1A
+            -> JSS1
+
+        JSS2C
+            -> JSS2
+
+        SS1_GOLD
+            -> SS1
+
+        SS1_B/C
+            -> SS1
+
+        SS2B
+            -> SS2
+
+        SS2B&C
+            -> SS2
+    """
+
+    class_level = (
+        normalize_class_level(
+            value
+        )
+        or
+        normalize_class_level(
+            fallback
+        )
+    )
+
+    if (
+        class_level
+        and is_valid_class(
+            class_level
+        )
+    ):
         return class_level
-
-    fallback_level = normalize_class_level(fallback)
-
-    if fallback_level:
-        return fallback_level
-
-    if is_valid_class(value):
-        return value
 
     return ""
 
 
-def normalize_student_class_arm(class_value, class_category_value, fallback_class_category):
-    """
-    Returns exact class arm/category for the student.
+# =========================================================
+# EXACT STUDENT CLASS ARM
+# =========================================================
 
-    Priority:
-      1. Class column
-      2. Class_category column
-      3. CSV file fallback level
+def normalize_student_class_arm(
+    class_value,
+    class_category_value="",
+):
+    """
+    Return the student's exact normalized class arm.
 
     Examples:
-        Class = JSS1A       -> JSS1A
-        Class = SS1_GOLD    -> SS1_GOLD
-        Class = SS 2B       -> SS2B
-        Class_category = SS3 -> SS3
+
+        JSS1A
+            -> JSS1A
+
+        JSS2C
+            -> JSS2C
+
+        SS1_GOLD
+            -> SS1_GOLD
+
+        SS1B
+            -> SS1_B/C
+
+        SS1_B&C
+            -> SS1_B/C
+
+        SS2BC
+            -> SS2_B/C
+
+        SS3_B/C
+            -> SS3_B/C
     """
-    class_value = normalize_csv_class_value(class_value)
-    class_category_value = normalize_csv_class_value(class_category_value)
-    fallback_class_category = normalize_csv_class_value(fallback_class_category)
 
     broad_level = (
-        normalize_class_level(class_value)
-        or normalize_class_level(class_category_value)
-        or normalize_class_level(fallback_class_category)
+        normalize_class_level(
+            class_value
+        )
+        or
+        normalize_class_level(
+            class_category_value
+        )
     )
 
-    exact_arm = normalize_class_arm(class_value, broad_level)
+    if not broad_level:
+        return ""
 
-    if exact_arm and exact_arm != broad_level:
+    exact_arm = normalize_class_arm(
+        class_value,
+        broad_level,
+    )
+
+    if (
+        exact_arm
+        and is_valid_class_arm(
+            exact_arm
+        )
+    ):
         return exact_arm
 
-    exact_arm = normalize_class_arm(class_category_value, broad_level)
+    exact_arm = normalize_class_arm(
+        class_category_value,
+        broad_level,
+    )
 
-    if exact_arm:
+    if (
+        exact_arm
+        and is_valid_class_arm(
+            exact_arm
+        )
+    ):
         return exact_arm
 
-    exact_arm = normalize_class_arm(fallback_class_category, broad_level)
-
-    if exact_arm:
-        return exact_arm
-
-    return broad_level or ""
+    return broad_level
 
 
-def find_student_by_admission(admission_number):
-    admission_number = normalize_login_text(admission_number)
+# =========================================================
+# NORMALIZE STUDENT CSV ROW
+# =========================================================
+
+def normalize_student_row(row):
+    """
+    Convert a students2026.csv row into the standard
+    student object used by the rest of the application.
+    """
+
+    raw_class = clean_text(
+        row.get("Class")
+    )
+
+    raw_class_category = clean_text(
+        row.get("Class_category")
+    )
+
+    class_category = normalize_class_category(
+        raw_class_category
+        or raw_class
+    )
+
+    class_arm = normalize_student_class_arm(
+        raw_class,
+        raw_class_category,
+    )
+
+    if (
+        not class_category
+        and class_arm
+    ):
+        class_category = normalize_class_level(
+            class_arm
+        )
+
+    if not class_arm:
+        class_arm = class_category
+
+    full_name = build_full_name(
+        row
+    )
+
+    stream = get_ss_stream(
+        class_arm
+    )
+
+    status = normalize_status(
+        row.get("Status")
+    )
+
+    student = {
+        # -------------------------------------------------
+        # Identity
+        # -------------------------------------------------
+
+        "id":
+            clean_text(
+                row.get(
+                    "Admission_number"
+                )
+            ),
+
+        "admission_number":
+            clean_text(
+                row.get(
+                    "Admission_number"
+                )
+            ),
+
+        # -------------------------------------------------
+        # Name
+        # -------------------------------------------------
+
+        "last_name":
+            clean_text(
+                row.get(
+                    "Last_name"
+                )
+            ),
+
+        "first_name":
+            clean_text(
+                row.get(
+                    "First_name"
+                )
+            ),
+
+        "other_names":
+            clean_text(
+                row.get(
+                    "Other_names"
+                )
+            ),
+
+        "full_name":
+            full_name,
+
+        # -------------------------------------------------
+        # Contact
+        # -------------------------------------------------
+
+        "phone":
+            clean_text(
+                row.get(
+                    "Phone"
+                )
+            ),
+
+        # -------------------------------------------------
+        # Sex
+        # -------------------------------------------------
+
+        "sex":
+            normalize_sex(
+                row.get(
+                    "Sex"
+                )
+            ),
+
+        # -------------------------------------------------
+        # Exact class arm
+        #
+        # Examples:
+        # JSS1A
+        # JSS2B
+        # SS1_GOLD
+        # SS1_B/C
+        # -------------------------------------------------
+
+        "class":
+            class_arm,
+
+        "class_arm":
+            class_arm,
+
+        # -------------------------------------------------
+        # Broad class level
+        #
+        # Examples:
+        # JSS1
+        # JSS2
+        # SS1
+        # SS2
+        # -------------------------------------------------
+
+        "class_category":
+            class_category,
+
+        "class_level":
+            class_category,
+
+        # -------------------------------------------------
+        # Senior-school stream
+        #
+        # SCIENCE
+        # ART_COMMERCIAL
+        # GENERAL
+        # ""
+        # -------------------------------------------------
+
+        "stream":
+            stream,
+
+        "ss_stream":
+            stream,
+
+        # -------------------------------------------------
+        # Student lifecycle
+        # -------------------------------------------------
+
+        "status":
+            status,
+
+        "is_active":
+            status == "ACTIVE",
+
+        # -------------------------------------------------
+        # Raw database values
+        # Useful for admin/debugging.
+        # -------------------------------------------------
+
+        "raw_class":
+            raw_class,
+
+        "raw_class_category":
+            raw_class_category,
+    }
+
+    student[
+        "login_name_tokens"
+    ] = sorted(
+        build_login_name_tokens(
+            student
+        )
+    )
+
+    return student
+
+
+# =========================================================
+# READ STUDENT DATABASE
+# =========================================================
+
+def read_student_database():
+    """
+    Read every student from:
+
+        static/data/database/students2026.csv
+
+    Returns normalized student dictionaries.
+
+    This is now the SINGLE source of truth.
+    """
+
+    if not STUDENT_DATABASE.exists():
+        return []
+
+    students = []
+
+    with open(
+        STUDENT_DATABASE,
+        newline="",
+        encoding="utf-8-sig",
+    ) as file:
+
+        reader = csv.DictReader(
+            file
+        )
+
+        for row in reader:
+
+            admission = normalize_admission_number(
+                row.get(
+                    "Admission_number"
+                )
+            )
+
+            if not admission:
+                continue
+
+            student = normalize_student_row(
+                row
+            )
+
+            students.append(
+                student
+            )
+
+    return students
+
+
+# =========================================================
+# FIND STUDENT BY UNIQUE ADMISSION NUMBER
+# =========================================================
+
+def find_student_by_admission(
+    admission_number,
+):
+    """
+    Find a student using their unique std admission number.
+
+    Examples accepted:
+
+        std001
+        STD001
+        std-001
+        std 001
+
+    students2026.csv is the ONLY database searched.
+
+    Admission numbers are expected to be globally unique.
+
+    If no student matches:
+        returns None
+
+    If a duplicate admission number somehow exists:
+        returns None rather than authenticating the wrong student.
+    """
+
+    admission_number = normalize_admission_number(
+        admission_number
+    )
 
     if not admission_number:
         return None
 
-    for fallback_class_category, csv_path in STUDENT_CSV_FILES.items():
-        if not os.path.exists(csv_path):
-            continue
+    if not STUDENT_DATABASE.exists():
+        return None
 
-        with open(csv_path, newline="", encoding="utf-8-sig") as file:
-            reader = csv.DictReader(file)
+    matches = []
 
-            for row in reader:
-                csv_admission = normalize_login_text(row.get("Admission_number", ""))
+    with open(
+        STUDENT_DATABASE,
+        newline="",
+        encoding="utf-8-sig",
+    ) as file:
 
-                if csv_admission != admission_number:
-                    continue
+        reader = csv.DictReader(
+            file
+        )
 
-                raw_class = clean_text(row.get("Class"))
-                raw_class_category = clean_text(row.get("Class_category"))
+        for row in reader:
 
-                class_category = normalize_class_category(
-                    raw_class_category or raw_class,
-                    fallback_class_category
+            csv_admission = normalize_admission_number(
+                row.get(
+                    "Admission_number"
                 )
+            )
 
-                class_arm = normalize_student_class_arm(
-                    raw_class,
-                    raw_class_category,
-                    fallback_class_category
+            if (
+                csv_admission
+                != admission_number
+            ):
+                continue
+
+            matches.append(
+                normalize_student_row(
+                    row
                 )
+            )
 
-                if not class_category:
-                    class_category = normalize_class_level(class_arm)
+    # -----------------------------------------------------
+    # No match
+    # -----------------------------------------------------
 
-                if not class_arm:
-                    class_arm = class_category
+    if not matches:
+        return None
 
-                full_name = build_full_name(row)
-                stream = get_ss_stream(class_arm)
+    # -----------------------------------------------------
+    # Admission numbers MUST be unique.
+    #
+    # If database corruption somehow creates duplicates,
+    # fail safely instead of logging in the wrong student.
+    # -----------------------------------------------------
 
-                student = {
-                    "id": clean_text(row.get("Admission_number")),
-                    "admission_number": clean_text(row.get("Admission_number")),
-                    "last_name": clean_text(row.get("Last_name")),
-                    "first_name": clean_text(row.get("First_name")),
-                    "other_names": clean_text(row.get("Other_names")),
-                    "full_name": full_name,
-                    "phone": clean_text(row.get("Phone")),
+    if len(matches) > 1:
+        return None
 
-                    # Exact class arm e.g. JSS1A, SS1_GOLD, SS2B
-                    "class": class_arm,
-                    "class_arm": class_arm,
+    return matches[0]
 
-                    # Broad portal/exam class e.g. JSS1, SS1
-                    "class_category": class_category,
-                    "class_level": class_category,
 
-                    # SS stream awareness
-                    # SCIENCE / ART_COMMERCIAL / GENERAL / ""
-                    "stream": stream,
-                    "ss_stream": stream,
+# =========================================================
+# FIND ACTIVE STUDENT BY ADMISSION NUMBER
+# =========================================================
 
-                    # Raw CSV values for debugging/admin use
-                    "raw_class": raw_class,
-                    "raw_class_category": raw_class_category,
-                }
+def find_active_student_by_admission(
+    admission_number,
+):
+    """
+    Same as find_student_by_admission(), but prevents
+    GRADUATED / LEFT students from logging into the
+    active student portal.
+    """
 
-                student["login_name_tokens"] = sorted(build_login_name_tokens(student))
+    student = find_student_by_admission(
+        admission_number
+    )
 
-                return student
+    if not student:
+        return None
 
-    return None
+    if not student.get(
+        "is_active",
+        True,
+    ):
+        return None
+
+    return student
+
+
+# =========================================================
+# AUTHENTICATE STUDENT
+#
+# This is the recommended login helper.
+#
+# Student provides:
+#
+#   1. Unique admission number
+#   2. Either First_name OR Last_name
+#
+# =========================================================
+
+def authenticate_student(
+    admission_number,
+    entered_name,
+):
+    """
+    Authenticate an ACTIVE student.
+
+    Login requires:
+
+        Admission_number
+            AND
+
+        First_name
+            OR
+
+        Last_name
+
+    Example:
+
+        Admission:
+            std234
+
+        Student:
+            Last_name = ADEYEMI
+            First_name = FUAD
+
+        Both of these are valid:
+
+            std234 + FUAD
+
+            std234 + ADEYEMI
+
+    Other_names alone will NOT authenticate.
+    """
+
+    student = find_active_student_by_admission(
+        admission_number
+    )
+
+    if not student:
+        return None
+
+    if not student_name_matches(
+        student,
+        entered_name,
+    ):
+        return None
+
+    return student
+
+
+# =========================================================
+# CHECK ADMISSION NUMBER UNIQUENESS
+# =========================================================
+
+def admission_number_is_unique(
+    admission_number,
+):
+    """
+    Returns True only when exactly one student owns
+    the supplied admission number.
+
+    Useful for diagnostics/admin validation.
+    """
+
+    target = normalize_admission_number(
+        admission_number
+    )
+
+    if not target:
+        return False
+
+    if not STUDENT_DATABASE.exists():
+        return False
+
+    count = 0
+
+    with open(
+        STUDENT_DATABASE,
+        newline="",
+        encoding="utf-8-sig",
+    ) as file:
+
+        reader = csv.DictReader(
+            file
+        )
+
+        for row in reader:
+
+            current = normalize_admission_number(
+                row.get(
+                    "Admission_number"
+                )
+            )
+
+            if current == target:
+
+                count += 1
+
+                if count > 1:
+                    return False
+
+    return count == 1
+
+
+# =========================================================
+# DATABASE VALIDATION
+# =========================================================
+
+def validate_student_database():
+    """
+    Validate students2026.csv.
+
+    Useful for admin diagnostics or startup checks.
+
+    Returns:
+
+        {
+            "valid": True/False,
+            "total": ...,
+            "duplicate_admissions": [...],
+            "missing_admissions": ...,
+            "invalid_classes": [...],
+            "invalid_sex": [...],
+        }
+    """
+
+    result = {
+        "valid":
+            True,
+
+        "total":
+            0,
+
+        "duplicate_admissions":
+            [],
+
+        "missing_admissions":
+            0,
+
+        "invalid_classes":
+            [],
+
+        "invalid_sex":
+            [],
+    }
+
+    if not STUDENT_DATABASE.exists():
+
+        result["valid"] = False
+
+        result["error"] = (
+            f"Student database not found: "
+            f"{STUDENT_DATABASE}"
+        )
+
+        return result
+
+    admission_counts = {}
+
+    with open(
+        STUDENT_DATABASE,
+        newline="",
+        encoding="utf-8-sig",
+    ) as file:
+
+        reader = csv.DictReader(
+            file
+        )
+
+        for row in reader:
+
+            admission = normalize_admission_number(
+                row.get(
+                    "Admission_number"
+                )
+            )
+
+            if not admission:
+
+                result[
+                    "missing_admissions"
+                ] += 1
+
+                continue
+
+            result[
+                "total"
+            ] += 1
+
+            admission_counts[
+                admission
+            ] = (
+                admission_counts.get(
+                    admission,
+                    0,
+                )
+                + 1
+            )
+
+            class_category = normalize_class_category(
+                row.get(
+                    "Class_category"
+                )
+                or row.get(
+                    "Class"
+                )
+            )
+
+            class_arm = normalize_student_class_arm(
+                row.get(
+                    "Class"
+                ),
+                row.get(
+                    "Class_category"
+                ),
+            )
+
+            if (
+                not class_category
+                or not is_valid_class(
+                    class_category
+                )
+                or not class_arm
+                or not is_valid_class_arm(
+                    class_arm
+                )
+            ):
+
+                result[
+                    "invalid_classes"
+                ].append({
+                    "admission_number":
+                        clean_text(
+                            row.get(
+                                "Admission_number"
+                            )
+                        ),
+
+                    "class":
+                        clean_text(
+                            row.get(
+                                "Class"
+                            )
+                        ),
+
+                    "class_category":
+                        clean_text(
+                            row.get(
+                                "Class_category"
+                            )
+                        ),
+                })
+
+            sex = normalize_sex(
+                row.get(
+                    "Sex"
+                )
+            )
+
+            if sex not in {
+                "",
+                "M",
+                "F",
+            }:
+
+                result[
+                    "invalid_sex"
+                ].append({
+                    "admission_number":
+                        clean_text(
+                            row.get(
+                                "Admission_number"
+                            )
+                        ),
+
+                    "sex":
+                        clean_text(
+                            row.get(
+                                "Sex"
+                            )
+                        ),
+                })
+
+    result[
+        "duplicate_admissions"
+    ] = sorted([
+        admission
+        for admission, count
+        in admission_counts.items()
+        if count > 1
+    ])
+
+    if (
+        result[
+            "duplicate_admissions"
+        ]
+        or result[
+            "missing_admissions"
+        ]
+        or result[
+            "invalid_classes"
+        ]
+        or result[
+            "invalid_sex"
+        ]
+    ):
+
+        result[
+            "valid"
+        ] = False
+
+    return result

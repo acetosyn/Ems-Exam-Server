@@ -1,6 +1,6 @@
 /* ==========================================================
    EMIS TEACHER PAGE ROUTER — teacher_pageroutes.js
-   Dynamic module loader with premium spin loader
+   Dynamic module loader with CSS preloader to prevent raw page flash
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -70,26 +70,76 @@ document.addEventListener("DOMContentLoaded", () => {
     window.history.replaceState({}, "", url);
   }
 
+  function parseHTML(html) {
+    const temp = document.createElement("div");
+    temp.innerHTML = html;
+    return temp;
+  }
+
+  function preloadStyles(scope) {
+    const links = [...scope.querySelectorAll('link[rel="stylesheet"]')];
+
+    const loadPromises = links.map((oldLink) => {
+      const href = oldLink.getAttribute("href");
+      if (!href) return Promise.resolve();
+
+      const alreadyLoaded = [...document.querySelectorAll('link[rel="stylesheet"]')]
+        .some((link) => link.getAttribute("href") === href);
+
+      if (alreadyLoaded) {
+        oldLink.remove();
+        return Promise.resolve();
+      }
+
+      return new Promise((resolve) => {
+        const newLink = document.createElement("link");
+        newLink.rel = "stylesheet";
+        newLink.href = href;
+        newLink.dataset.dynamicTeacherStyle = "true";
+
+        newLink.onload = () => resolve();
+        newLink.onerror = () => resolve();
+
+        document.head.appendChild(newLink);
+        oldLink.remove();
+
+        setTimeout(resolve, 700);
+      });
+    });
+
+    return Promise.all(loadPromises);
+  }
+
   function reexecuteScripts(scope) {
     const externalScripts = scope.querySelectorAll("script[src]");
+
     externalScripts.forEach((oldScript) => {
       const src = oldScript.getAttribute("src");
       if (!src) return;
+
+      const existingDynamic = [...document.querySelectorAll("script[data-dynamic-teacher-script]")]
+        .find((script) => script.getAttribute("src") === src);
+
+      if (existingDynamic) existingDynamic.remove();
 
       const newScript = document.createElement("script");
       newScript.src = src;
       newScript.async = false;
       newScript.dataset.dynamicTeacherScript = "true";
       document.body.appendChild(newScript);
+
+      oldScript.remove();
     });
 
     const inlineScripts = scope.querySelectorAll("script:not([src])");
+
     inlineScripts.forEach((inline) => {
       try {
         const script = document.createElement("script");
         script.textContent = inline.textContent;
         document.body.appendChild(script);
         script.remove();
+        inline.remove();
       } catch (err) {
         console.error("Inline script error:", err);
       }
@@ -117,17 +167,35 @@ document.addEventListener("DOMContentLoaded", () => {
         window.EmisAvailableYears.reload();
       }
     }
+
+    if (page === "convert.html") {
+      const wrap = dynamicContainer.querySelector(".convert-wrapper");
+
+      if (wrap) {
+        wrap.__initialized__ = false;
+      }
+
+      if (window.EmisConvert?.initOnce) {
+        window.EmisConvert.initOnce(dynamicContainer);
+      }
+    }
   }
 
   async function loadTeacherPage(button, useCache = true) {
-    let page = normalizePage(button.dataset.page);
+    const page = normalizePage(button.dataset.page);
     const endpoint = `/admin/${routeName(page)}`;
 
     setActiveButton(button);
     updateUrl(page);
 
-    dynamicContainer.innerHTML = loaderHTML(`Loading ${routeName(page).replaceAll("_", " ")}...`);
-    dynamicContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    dynamicContainer.innerHTML = loaderHTML(
+      `Loading ${routeName(page).replaceAll("_", " ")}...`
+    );
+
+    dynamicContainer.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
 
     try {
       let html = "";
@@ -136,7 +204,9 @@ document.addEventListener("DOMContentLoaded", () => {
         html = routeCache.get(endpoint);
       } else {
         const response = await fetch(endpoint, {
-          headers: { "X-Requested-With": "fetch" },
+          headers: {
+            "X-Requested-With": "fetch",
+          },
           cache: "no-store",
         });
 
@@ -148,12 +218,23 @@ document.addEventListener("DOMContentLoaded", () => {
         routeCache.set(endpoint, html);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 280));
+      const parsed = parseHTML(html);
 
-      dynamicContainer.innerHTML = `<div class="teacher-route-content fade-slide-in">${html}</div>`;
+      await preloadStyles(parsed);
+
+      await new Promise((resolve) => setTimeout(resolve, 120));
+
+      dynamicContainer.innerHTML = `
+        <div class="teacher-route-content fade-slide-in">
+          ${parsed.innerHTML}
+        </div>
+      `;
 
       reexecuteScripts(dynamicContainer);
-      initLoadedModule(page);
+
+      setTimeout(() => {
+        initLoadedModule(page);
+      }, 80);
 
     } catch (error) {
       console.error("Teacher route load error:", error);

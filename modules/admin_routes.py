@@ -139,6 +139,11 @@ def admin_dashboard():
 def admin_teachers():
     return render_template("teachers.html", user_type=session.get("user_type"))
 
+@admin_bp.route("/admin/convert")
+@teacher_allowed
+def admin_convert():
+    return render_template("convert.html", user_type=session.get("user_type"), classes=CLASSES, class_arms=CLASS_ARMS)
+
 
 @admin_bp.route("/admin/students")
 @teacher_allowed
