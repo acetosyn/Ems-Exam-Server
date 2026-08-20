@@ -7,6 +7,14 @@ import json
 import time
 import uuid
 import sqlite3
+from datetime import datetime
+from io import BytesIO
+from flask import send_file
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
+from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.table import Table, TableStyleInfo
+from openpyxl.worksheet.page import PageMargins
 
 
 from openpyxl import Workbook, load_workbook
@@ -47,26 +55,34 @@ VALID_TERMS = (
 
 # ============================================================
 # REAL-TIME ADMIN NOTIFICATION QUEUE
+# Exact FIFO ordering, even when many students act together.
 # ============================================================
 
-ADMIN_NOTIFICATION_LIMIT = 500
+ADMIN_NOTIFICATION_LIMIT = 1000
 ADMIN_NOTIFICATIONS = deque(maxlen=ADMIN_NOTIFICATION_LIMIT)
 ADMIN_NOTIFICATION_LOCK = Lock()
+ADMIN_NOTIFICATION_SEQUENCE = 0
 
 
 def push_admin_notification(event_type, message="", payload=None):
+    global ADMIN_NOTIFICATION_SEQUENCE
+
     payload = payload if isinstance(payload, dict) else {}
 
-    event = {
-        "id": uuid.uuid4().hex,
-        "type": str(event_type or "notification").strip().lower(),
-        "message": str(message or "").strip(),
-        "payload": payload,
-        "created_at": int(time.time()),
-        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-    }
-
     with ADMIN_NOTIFICATION_LOCK:
+        ADMIN_NOTIFICATION_SEQUENCE += 1
+        sequence = ADMIN_NOTIFICATION_SEQUENCE
+
+        event = {
+            "id": uuid.uuid4().hex,
+            "sequence": sequence,
+            "type": str(event_type or "notification").strip().lower(),
+            "message": str(message or "").strip(),
+            "payload": payload,
+            "created_at": int(time.time() * 1000),
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3] if "datetime" in globals() else time.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
         ADMIN_NOTIFICATIONS.append(event)
 
     return event
@@ -996,7 +1012,96 @@ def get_output_headers():
 
 
 # ============================================================
+# STUDENT NOTIFICATION — EXAM START
+# Called by exam-core.js only after questions load + timer starts
+# ============================================================
+
+@api_bp.route("/api/notifications/notify/exam_start", methods=["POST"])
+def notify_exam_start():
+    if str(session.get("user_type", "")).lower() != "student":
+        return jsonify({"error": "Unauthorized"}), 403
+
+    data = request.get_json(silent=True) or {}
+    student = session.get("student") if isinstance(session.get("student"), dict) else {}
+
+    student_name = str(data.get("student_name") or session.get("student_name") or student.get("full_name") or "Student").strip()
+    admission_number = str(data.get("admission_number") or session.get("admission_number") or student.get("admission_number") or "").strip()
+
+    payload = {
+        "student_name": student_name,
+        "full_name": student_name,
+        "admission_number": admission_number,
+        "student_id": admission_number,
+        "class_category": data.get("class_category") or session.get("class_category") or student.get("class_category") or "",
+        "class_level": data.get("class_level") or session.get("class_level") or student.get("class_level") or "",
+        "class_arm": data.get("class_arm") or session.get("class_arm") or student.get("class_arm") or "",
+        "subject": data.get("subject") or session.get("selected_subject") or "",
+        "year": str(data.get("year") or session.get("selected_year") or ""),
+        "term": normalize_term(data.get("term") or session.get("selected_term") or ""),
+        "term_label": data.get("term_label") or "",
+        "started_at": data.get("started_at") or "",
+    }
+
+    event = push_admin_notification("exam_start", f"{student_name} started {payload['subject'] or 'an examination'}.", payload)
+
+    print("[NOTIFICATION] EXAM START:", event["sequence"], admission_number, payload["subject"])
+
+    return jsonify({"status": "ok", "notification": event}), 200
+
+
+
+
+# ============================================================
+# STUDENT NOTIFICATION — EXAM END
+# Called by exam-core.js when exam is submitted / timed out
+# ============================================================
+
+@api_bp.route("/api/notifications/notify/exam_end", methods=["POST"])
+def notify_exam_end():
+    if str(session.get("user_type", "")).lower() != "student":
+        return jsonify({"error": "Unauthorized"}), 403
+
+    data = request.get_json(silent=True) or {}
+    student = session.get("student") if isinstance(session.get("student"), dict) else {}
+
+    student_name = str(data.get("student_name") or session.get("student_name") or student.get("full_name") or "Student").strip()
+    admission_number = str(data.get("admission_number") or session.get("admission_number") or student.get("admission_number") or "").strip()
+    status = str(data.get("status") or "completed").strip().lower()
+
+    payload = {
+        "student_name": student_name,
+        "full_name": student_name,
+        "admission_number": admission_number,
+        "student_id": admission_number,
+        "class_category": data.get("class_category") or session.get("class_category") or student.get("class_category") or "",
+        "class_level": data.get("class_level") or session.get("class_level") or student.get("class_level") or "",
+        "class_arm": data.get("class_arm") or session.get("class_arm") or student.get("class_arm") or "",
+        "subject": data.get("subject") or session.get("selected_subject") or "",
+        "year": str(data.get("year") or session.get("selected_year") or ""),
+        "term": normalize_term(data.get("term") or session.get("selected_term") or ""),
+        "term_label": data.get("term_label") or "",
+        "score": data.get("score", ""),
+        "total_questions": data.get("total_questions", ""),
+        "flagged": data.get("flagged", 0),
+        "submitted_at": data.get("submitted_at") or "",
+        "status": status,
+    }
+
+    event_type = "timeout" if status in {"timeout", "timed_out"} else "exam_end"
+    event_message = f"{student_name}'s examination timed out." if event_type == "timeout" else f"{student_name} submitted {payload['subject'] or 'an examination'}."
+
+    event = push_admin_notification(event_type, event_message, payload)
+
+    print("[NOTIFICATION] EXAM END:", event["sequence"], admission_number, payload["subject"], status)
+
+    return jsonify({"status": "ok", "notification": event}), 200
+
+
+
+
+# ============================================================
 # REAL-TIME NOTIFICATIONS — FETCH
+# Uses sequence instead of timestamp for exact FIFO delivery.
 # ============================================================
 
 @api_bp.route("/api/notifications/fetch", methods=["GET"])
@@ -1005,22 +1110,33 @@ def fetch_admin_notifications():
         return jsonify({"error": "Unauthorized", "notifications": []}), 403
 
     try:
-        since = int(float(request.args.get("since", 0) or 0))
+        since_sequence = int(request.args.get("since_sequence", 0) or 0)
     except (TypeError, ValueError):
-        since = 0
+        since_sequence = 0
 
     with ADMIN_NOTIFICATION_LOCK:
-        notifications = list(ADMIN_NOTIFICATIONS)
+        notifications = [dict(item) for item in ADMIN_NOTIFICATIONS]
 
-    if since > 0:
-        notifications = [item for item in notifications if int(item.get("created_at", 0) or 0) > since]
+    if since_sequence > 0:
+        notifications = [item for item in notifications if int(item.get("sequence", 0) or 0) > since_sequence]
 
-    return jsonify({"notifications": notifications, "count": len(notifications), "latest": max([int(item.get("created_at", 0) or 0) for item in notifications], default=since)}), 200
+    notifications.sort(key=lambda item: int(item.get("sequence", 0) or 0))
 
+    latest_sequence = max([int(item.get("sequence", 0) or 0) for item in notifications], default=since_sequence)
 
+    return jsonify({
+        "notifications": notifications,
+        "count": len(notifications),
+        "latest_sequence": latest_sequence,
+    }), 200
 
 # ============================================================
 # REAL-TIME NOTIFICATIONS — SERVER SENT EVENTS
+# ============================================================
+
+# ============================================================
+# REAL-TIME NOTIFICATIONS — SERVER SENT EVENTS
+# Exact FIFO delivery + polling-safe reconciliation
 # ============================================================
 
 @api_bp.route("/api/notifications/stream")
@@ -1028,35 +1144,33 @@ def stream_admin_notifications():
     if not can_view_results():
         return jsonify({"error": "Unauthorized"}), 403
 
+    try:
+        starting_sequence = int(request.args.get("since_sequence", 0) or 0)
+    except (TypeError, ValueError):
+        starting_sequence = 0
+
     @stream_with_context
     def event_stream():
-        last_seen_ids = set()
+        last_sequence = starting_sequence
 
-        with ADMIN_NOTIFICATION_LOCK:
-            for item in ADMIN_NOTIFICATIONS:
-                if item.get("id"):
-                    last_seen_ids.add(item["id"])
-
-        yield "event: connected\ndata: {\"status\":\"connected\"}\n\n"
+        yield f'event: connected\ndata: {json.dumps({"status": "connected", "sequence": last_sequence})}\n\n'
 
         while True:
-            new_events = []
-
             with ADMIN_NOTIFICATION_LOCK:
-                for item in ADMIN_NOTIFICATIONS:
-                    event_id = item.get("id")
+                new_events = [dict(item) for item in ADMIN_NOTIFICATIONS if int(item.get("sequence", 0) or 0) > last_sequence]
 
-                    if event_id and event_id not in last_seen_ids:
-                        last_seen_ids.add(event_id)
-                        new_events.append(dict(item))
+            new_events.sort(key=lambda item: int(item.get("sequence", 0) or 0))
 
             for item in new_events:
+                sequence = int(item.get("sequence", 0) or 0)
+                last_sequence = max(last_sequence, sequence)
                 yield f"event: notification\ndata: {json.dumps(item, ensure_ascii=False)}\n\n"
 
             yield ": keepalive\n\n"
-            time.sleep(2)
+            time.sleep(1)
 
-    return Response(event_stream(), mimetype="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no", "Connection": "keep-alive"})
+    return Response(event_stream(), mimetype="text/event-stream", headers={"Cache-Control": "no-cache, no-transform", "X-Accel-Buffering": "no", "Connection": "keep-alive"})
+
 
 # ============================================================
 # 1. GET AVAILABLE YEARS
@@ -2399,3 +2513,349 @@ def api_update_academic_settings():
             "success": False,
             "error": str(error),
         }), 500
+
+
+
+# ============================================================
+# PROFESSIONAL RESULTS EXCEL EXPORT
+# Creates a real Microsoft Excel .xlsx workbook
+# ============================================================
+
+@api_bp.route("/api/results/export/excel", methods=["POST"])
+def export_results_excel():
+    if not can_view_results():
+        return jsonify({"error": "Unauthorized"}), 403
+
+    data = request.get_json(silent=True) or {}
+    records = data.get("results", [])
+
+    if not isinstance(records, list) or not records:
+        return jsonify({"error": "No results supplied for export"}), 400
+
+    filters = data.get("filters", {}) if isinstance(data.get("filters"), dict) else {}
+    generated_at = datetime.now().strftime("%d %B %Y, %I:%M %p")
+
+    def value(row, *keys, default=""):
+        for key in keys:
+            if key in row and row.get(key) not in (None, ""):
+                return row.get(key)
+        return default
+
+    def normalize_term_label(raw):
+        text = str(raw or "").strip().upper().replace("_", " ").replace("-", " ")
+
+        if text in {"FIRST", "FIRST TERM", "1", "1ST", "1ST TERM"}:
+            return "1st Term"
+
+        if text in {"SECOND", "SECOND TERM", "2", "2ND", "2ND TERM"}:
+            return "2nd Term"
+
+        if text in {"THIRD", "THIRD TERM", "3", "3RD", "3RD TERM"}:
+            return "3rd Term"
+
+        return str(raw or "").strip()
+
+    def numeric_score(row):
+        raw = value(row, "Score (%)", "Score Number", "score", "score_percentage", "percentage", default=0)
+
+        try:
+            return float(str(raw).replace("%", "").strip())
+        except (TypeError, ValueError):
+            return 0.0
+
+    def result_status(row):
+        explicit = str(value(row, "Status", "status", default="")).strip().upper()
+
+        if explicit in {"PASS", "FAIL"}:
+            return explicit
+
+        return "PASS" if numeric_score(row) >= 50 else "FAIL"
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Examination Results"
+    ws.sheet_view.showGridLines = False
+
+    # ========================================================
+    # COLOURS / STYLES
+    # ========================================================
+
+    dark = "17324D"
+    teal = "0F766E"
+    teal_light = "E7F5F3"
+    header_fill = "334155"
+    border_colour = "D5DEE8"
+    soft_fill = "F8FAFC"
+    green = "15803D"
+    green_fill = "DCFCE7"
+    red = "B91C1C"
+    red_fill = "FEE2E2"
+    gold = "B7791F"
+    gold_fill = "FEF3C7"
+    white = "FFFFFF"
+    text = "17202A"
+    muted = "64748B"
+
+    thin = Side(style="thin", color=border_colour)
+    cell_border = Border(left=thin, right=thin, top=thin, bottom=thin)
+
+    # ========================================================
+    # DOCUMENT TITLE
+    # ========================================================
+
+    headers = ["S/N", "Student Name", "Admission No", "Year", "Class Level", "Class Arm", "Term", "Subject", "Score (%)", "Correct", "Total", "Status", "Time Taken", "Submitted At", "Session"]
+    total_columns = len(headers)
+
+    ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=total_columns)
+    title_cell = ws.cell(row=1, column=1, value="EMIS CBT — EXAMINATION RESULTS")
+    title_cell.font = Font(name="Calibri", size=18, bold=True, color=white)
+    title_cell.fill = PatternFill("solid", fgColor=dark)
+    title_cell.alignment = Alignment(horizontal="left", vertical="center")
+    ws.row_dimensions[1].height = 32
+
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=total_columns)
+    subtitle_cell = ws.cell(row=2, column=1, value="Official Examination Results Report")
+    subtitle_cell.font = Font(name="Calibri", size=12, bold=True, color=teal)
+    subtitle_cell.alignment = Alignment(horizontal="left", vertical="center")
+    ws.row_dimensions[2].height = 23
+
+    # ========================================================
+    # FILTER / REPORT INFORMATION
+    # ========================================================
+
+    year_filter = str(filters.get("year") or "All Years")
+    class_filter = str(filters.get("class") or "All Classes")
+    term_filter = normalize_term_label(filters.get("term")) or "All Terms"
+    subject_filter = str(filters.get("subject") or "All Subjects")
+    session_filter = str(filters.get("session") or "All Sessions")
+
+    report_info = [
+        ("Academic Year", year_filter),
+        ("Class", class_filter),
+        ("Term", term_filter),
+        ("Subject", subject_filter),
+        ("Session", session_filter),
+        ("Generated", generated_at),
+    ]
+
+    info_row = 4
+
+    for index, (label, content) in enumerate(report_info):
+        start_column = 1 + ((index % 3) * 5)
+        row = info_row + (index // 3)
+
+        ws.cell(row=row, column=start_column, value=label).font = Font(name="Calibri", size=10, bold=True, color=muted)
+        ws.cell(row=row, column=start_column + 1, value=content).font = Font(name="Calibri", size=11, bold=True, color=text)
+
+        ws.merge_cells(start_row=row, start_column=start_column + 1, end_row=row, end_column=start_column + 3)
+
+    # ========================================================
+    # SUMMARY
+    # ========================================================
+
+    scores = [numeric_score(row) for row in records]
+    pass_count = sum(1 for row in records if result_status(row) == "PASS")
+    fail_count = len(records) - pass_count
+    average_score = sum(scores) / len(scores) if scores else 0
+    highest_score = max(scores) if scores else 0
+
+    summary_row = 7
+
+    summary_items = [
+        ("TOTAL RESULTS", len(records), teal, teal_light),
+        ("PASS", pass_count, green, green_fill),
+        ("FAIL", fail_count, red, red_fill),
+        ("AVERAGE SCORE", f"{average_score:.1f}%", gold, gold_fill),
+        ("HIGHEST SCORE", f"{highest_score:.1f}%", teal, teal_light),
+    ]
+
+    summary_width = 3
+
+    for index, (label, summary_value, font_colour, fill_colour) in enumerate(summary_items):
+        start_column = 1 + (index * summary_width)
+        end_column = min(start_column + summary_width - 1, total_columns)
+
+        ws.merge_cells(start_row=summary_row, start_column=start_column, end_row=summary_row, end_column=end_column)
+        ws.merge_cells(start_row=summary_row + 1, start_column=start_column, end_row=summary_row + 1, end_column=end_column)
+
+        label_cell = ws.cell(row=summary_row, column=start_column, value=label)
+        value_cell = ws.cell(row=summary_row + 1, column=start_column, value=summary_value)
+
+        label_cell.font = Font(name="Calibri", size=9, bold=True, color=muted)
+        value_cell.font = Font(name="Calibri", size=15, bold=True, color=font_colour)
+
+        label_cell.fill = PatternFill("solid", fgColor=fill_colour)
+        value_cell.fill = PatternFill("solid", fgColor=fill_colour)
+
+        label_cell.alignment = Alignment(horizontal="center", vertical="center")
+        value_cell.alignment = Alignment(horizontal="center", vertical="center")
+
+        for row_number in (summary_row, summary_row + 1):
+            for column_number in range(start_column, end_column + 1):
+                ws.cell(row=row_number, column=column_number).border = cell_border
+
+    ws.row_dimensions[summary_row].height = 19
+    ws.row_dimensions[summary_row + 1].height = 28
+
+    # ========================================================
+    # TABLE HEADER
+    # ========================================================
+
+    header_row = 11
+
+    for column_index, heading in enumerate(headers, start=1):
+        cell = ws.cell(row=header_row, column=column_index, value=heading)
+        cell.font = Font(name="Calibri", size=11, bold=True, color=white)
+        cell.fill = PatternFill("solid", fgColor=header_fill)
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = cell_border
+
+    ws.row_dimensions[header_row].height = 28
+
+    # ========================================================
+    # RESULT ROWS
+    # ========================================================
+
+    first_data_row = header_row + 1
+
+    for serial, row in enumerate(records, start=1):
+        excel_row = header_row + serial
+
+        student_name = str(value(row, "Student Name", "full_name", "student_name", default="Unknown Student")).strip()
+        admission = str(value(row, "Admission No", "admission_number", "student_id", default="")).strip()
+        year = str(value(row, "Year", "year", default="")).strip()
+        class_level = str(value(row, "Class Level", "Class Category", "class_level", "class_category", default="")).strip()
+        class_arm = str(value(row, "Class Arm", "class_arm", "Class", "class", default=class_level)).strip()
+        term = normalize_term_label(value(row, "Term", "term", "Term Label", default=""))
+        subject = str(value(row, "Subject", "subject", "Subject Folder", "subject_folder", default="")).replace("_", " ").upper().strip()
+        score = numeric_score(row)
+        correct = value(row, "Correct", "correct", default=0)
+        total = value(row, "Total", "total", default=0)
+        status = result_status(row)
+        time_taken = value(row, "Time Taken", "time_taken", "timeTaken", default="")
+        submitted_at = value(row, "Submitted At", "submitted_at", "submittedAt", default="")
+        session_value = value(row, "Session", "session", "Academic Session", "academic_session", default="")
+
+        values = [serial, student_name, admission, year, class_level, class_arm, term, subject, score / 100, correct, total, status, time_taken, submitted_at, session_value]
+
+        row_fill = PatternFill("solid", fgColor=soft_fill if serial % 2 == 0 else white)
+
+        for column_index, content in enumerate(values, start=1):
+            cell = ws.cell(row=excel_row, column=column_index, value=content)
+            cell.font = Font(name="Calibri", size=11, color=text)
+            cell.fill = row_fill
+            cell.border = cell_border
+            cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=False)
+
+        # Student name: larger + bold
+        name_cell = ws.cell(row=excel_row, column=2)
+        name_cell.font = Font(name="Calibri", size=12, bold=True, color=dark)
+
+        # Admission / class information
+        for column_index in [1, 3, 4, 5, 6, 7, 10, 11, 12]:
+            ws.cell(row=excel_row, column=column_index).alignment = Alignment(horizontal="center", vertical="center")
+
+        # Subject
+        ws.cell(row=excel_row, column=8).font = Font(name="Calibri", size=11, bold=True, color=text)
+
+        # SCORE — highly visible
+        score_cell = ws.cell(row=excel_row, column=9)
+        score_cell.number_format = "0.0%"
+        score_cell.font = Font(name="Calibri", size=13, bold=True, color=green if score >= 50 else red)
+        score_cell.alignment = Alignment(horizontal="center", vertical="center")
+        score_cell.fill = PatternFill("solid", fgColor=green_fill if score >= 50 else red_fill)
+
+        # STATUS
+        status_cell = ws.cell(row=excel_row, column=12)
+        status_cell.font = Font(name="Calibri", size=11, bold=True, color=green if status == "PASS" else red)
+        status_cell.fill = PatternFill("solid", fgColor=green_fill if status == "PASS" else red_fill)
+
+        ws.row_dimensions[excel_row].height = 25
+
+    last_data_row = header_row + len(records)
+
+    # ========================================================
+    # EXCEL TABLE
+    # ========================================================
+
+    table_reference = f"A{header_row}:O{last_data_row}"
+
+    result_table = Table(displayName="EMISResultsTable", ref=table_reference)
+    result_table.tableStyleInfo = TableStyleInfo(name="TableStyleMedium2", showFirstColumn=False, showLastColumn=False, showRowStripes=False, showColumnStripes=False)
+
+    ws.add_table(result_table)
+
+    # ========================================================
+    # COLUMN WIDTHS
+    # ========================================================
+
+    widths = {
+        "A": 7,
+        "B": 28,
+        "C": 16,
+        "D": 10,
+        "E": 13,
+        "F": 15,
+        "G": 13,
+        "H": 24,
+        "I": 13,
+        "J": 10,
+        "K": 10,
+        "L": 12,
+        "M": 14,
+        "N": 22,
+        "O": 16,
+    }
+
+    for column, width in widths.items():
+        ws.column_dimensions[column].width = width
+
+    # ========================================================
+    # FREEZE / FILTER / VIEW
+    # ========================================================
+
+    ws.freeze_panes = f"A{first_data_row}"
+    ws.auto_filter.ref = table_reference
+
+    ws.sheet_view.zoomScale = 90
+    ws.sheet_view.zoomScaleNormal = 90
+
+    # ========================================================
+    # PROFESSIONAL A4 PRINT SETTINGS
+    # ========================================================
+
+    ws.page_setup.paperSize = ws.PAPERSIZE_A4
+    ws.page_setup.orientation = ws.ORIENTATION_LANDSCAPE
+    ws.page_setup.fitToWidth = 1
+    ws.page_setup.fitToHeight = 0
+    ws.sheet_properties.pageSetUpPr.fitToPage = True
+
+    ws.page_margins = PageMargins(left=0.25, right=0.25, top=0.45, bottom=0.45, header=0.2, footer=0.2)
+
+    ws.print_title_rows = f"{header_row}:{header_row}"
+    ws.print_area = f"A1:O{last_data_row}"
+
+    ws.oddHeader.center.text = "&BEMIS CBT — EXAMINATION RESULTS"
+    ws.oddHeader.center.size = 10
+
+    ws.oddFooter.left.text = "EMIS CBT"
+    ws.oddFooter.center.text = "Page &P of &N"
+    ws.oddFooter.right.text = "Generated &D"
+
+    ws.sheet_properties.outlinePr.summaryBelow = True
+
+    # ========================================================
+    # SAVE WORKBOOK
+    # ========================================================
+
+    output = BytesIO()
+    wb.save(output)
+    output.seek(0)
+
+    year_name = str(filters.get("year") or "all_years").replace("/", "-").replace(" ", "_")
+    class_name = str(filters.get("class") or "all_classes").replace("/", "-").replace(" ", "_")
+    term_name = str(filters.get("term") or "all_terms").replace("/", "-").replace(" ", "_")
+
+    filename = f"EMIS_Results_{year_name}_{class_name}_{term_name}_{datetime.now().strftime('%Y-%m-%d')}.xlsx"
+
+    return send_file(output, as_attachment=True, download_name=filename, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")

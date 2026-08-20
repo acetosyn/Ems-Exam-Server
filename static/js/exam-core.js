@@ -1199,15 +1199,12 @@ window.closeEndExam = function () {
   }
 };
 
-
 // ======================================================
 // SUBMIT EXAM
 // ======================================================
 
 window.submitExam = async function (timeUp = false) {
-  if (window.__examFinished) {
-    return;
-  }
+  if (window.__examFinished) return;
 
   if (!window.examData || !window.realQuestionIndices.length) {
     examFlash("Exam data is not ready.", "danger");
@@ -1218,6 +1215,7 @@ window.submitExam = async function (timeUp = false) {
 
   if (window.examTimer) {
     clearInterval(window.examTimer);
+    window.examTimer = null;
   }
 
   const realIndices = window.realQuestionIndices;
@@ -1229,15 +1227,10 @@ window.submitExam = async function (timeUp = false) {
     const question = window.examData.questions[trueIndex];
     const userAnswer = window.userAnswers[trueIndex];
 
-    if (userAnswer && userAnswer.index === question.correctIndex) {
-      correct++;
-    }
+    if (userAnswer && userAnswer.index === question.correctIndex) correct++;
   });
 
-  const answered = realIndices.filter(
-    (index) => Boolean(window.userAnswers[index])
-  ).length;
-
+  const answered = realIndices.filter((index) => Boolean(window.userAnswers[index])).length;
   const incorrect = total - correct;
   const skipped = total - answered;
   const rawScore = correct;
@@ -1287,90 +1280,82 @@ window.submitExam = async function (timeUp = false) {
 
     submittedAt: new Date().toISOString(),
 
-    status: timeUp
-      ? "timeout"
-      : "completed"
+    status: timeUp ? "timeout" : "completed"
   };
 
   // ====================================================
-  // EXAM END NOTIFICATION
+  // SUBMIT RESULT
+  //
+  // IMPORTANT:
+  // /submit_exam is now the authoritative submission flow.
+  // It saves the result and the backend sends:
+  //
+  //   exam_end / timeout
+  //   result_available
+  //
+  // exam-core.js must NOT separately send exam_end,
+  // otherwise duplicate submission events are created.
   // ====================================================
 
   try {
-    const notifyBody = {
-      student_name: getMetaContent("student-name"),
-      admission_number: getMetaContent("student-admission"),
-
-      class_category: runtimeMeta.classLevel,
-      class_level: runtimeMeta.classLevel,
-      class_arm: runtimeMeta.classArm,
-
+    console.log("[exam-core] Submitting examination:", {
       subject: payload.subject,
-
-      score: rawScore,
-      total_questions: total,
-      flagged: flaggedQuestionsDetailed.length,
-
-      year: runtimeMeta.year,
-
-      term: runtimeMeta.term || null,
-      term_label: runtimeMeta.term ? termLabel(runtimeMeta.term) : null,
-
-      submitted_at: payload.submittedAt,
-      status: payload.status
-    };
-
-    await fetch("/api/notifications/notify/exam_end", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(notifyBody)
+      year: payload.year,
+      class_level: payload.class_level,
+      class_arm: payload.class_arm,
+      term: payload.term,
+      status: payload.status,
+      score: payload.score,
+      total: payload.total
     });
 
-  } catch (error) {
-    console.error("Failed to send exam_end notification:", error);
-  }
-
-  // ====================================================
-  // SUBMIT RESULT
-  // ====================================================
-
-  try {
     const response = await fetch("/submit_exam", {
       method: "POST",
+      credentials: "same-origin",
+      cache: "no-store",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify(payload)
     });
 
-    if (!response.ok) {
-      const output = await response.json().catch(() => ({}));
+    const output = await response.json().catch(() => ({}));
 
+    if (!response.ok) {
       throw new Error(
         output.error ||
         `Submit failed (${response.status})`
       );
     }
 
+    console.log(
+      "[exam-core] Examination result submitted successfully:",
+      output
+    );
+
     try {
       sessionStorage.removeItem(SS_KEY);
       localStorage.removeItem(LS_EXAM_LOCK);
-    } catch {}
+    } catch (storageError) {
+      console.warn("[exam-core] Could not clear local exam state:", storageError);
+    }
 
     location.replace("/result");
 
   } catch (error) {
     window.__examFinished = false;
 
+    console.error(
+      "[exam-core] Submit exam error:",
+      error
+    );
+
     examFlash(
       error.message ||
       "Unable to submit exam. Please contact admin.",
       "danger"
     );
-
-    console.error("Submit exam error:", error);
 
     if (window.timeRemaining > 0 && !timeUp) {
       startTimer();
@@ -1833,61 +1818,121 @@ window.startTimer = function () {
   }, 1000);
 };
 
-
 // ======================================================
 // START EXAM
 // ======================================================
 
 window.startExam = async function () {
-  if (window.examStarted) {
-    return;
-  }
+  if (window.examStarted) return;
 
   window.examStarted = true;
 
   const loadingOverlay = $("#loadingOverlay");
 
   try {
-    if (loadingOverlay) {
-      loadingOverlay.classList.remove("hidden");
-    }
+    if (loadingOverlay) loadingOverlay.classList.remove("hidden");
 
     document.body.classList.add("exam-started");
 
     const modal = $("#instructionsModal");
-
-    if (modal) {
-      modal.classList.add("hidden");
-      modal.style.display = "none";
-    }
+    if (modal) { modal.classList.add("hidden"); modal.style.display = "none"; }
 
     const examInterface = $("#examInterface");
+    if (examInterface) examInterface.classList.remove("hidden");
 
-    if (examInterface) {
-      examInterface.classList.remove("hidden");
-    }
+    // ==================================================
+    // LOAD EXAM FIRST
+    // Notification must not fire if questions fail to load.
+    // ==================================================
 
     await loadExamData(true);
 
-    window.examStartTime = Date.now();
+    // ==================================================
+    // REAL EXAM START
+    // ==================================================
 
+    window.examStartTime = Date.now();
     startTimer();
+
+    // ==================================================
+    // REAL-TIME EXAM START NOTIFICATION
+    //
+    // Fires only after:
+    //   1. Exam data loads successfully
+    //   2. Timer starts
+    //
+    // Notification failure must NOT stop the exam.
+    // ==================================================
+
+    try {
+      const runtimeMeta = getExamRuntimeMeta(
+        getMetaContent("exam-subject"),
+        getMetaContent("student-class-level", "student-class-category")
+      );
+
+      const notifyBody = {
+        student_name: getMetaContent("student-name"),
+        admission_number: getMetaContent("student-admission"),
+
+        class_category: runtimeMeta.classLevel,
+        class_level: runtimeMeta.classLevel,
+        class_arm: runtimeMeta.classArm,
+
+        subject: String(runtimeMeta.subject || "").trim().toUpperCase(),
+        year: runtimeMeta.year,
+
+        term: runtimeMeta.term || null,
+        term_label: runtimeMeta.term ? termLabel(runtimeMeta.term) : null,
+
+        started_at: new Date().toISOString()
+      };
+
+      console.log("[exam-core] Sending exam_start notification:", notifyBody);
+
+      const notificationResponse = await fetch("/api/notifications/notify/exam_start", {
+        method: "POST",
+        credentials: "same-origin",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(notifyBody)
+      });
+
+      const notificationResult = await notificationResponse.json().catch(() => ({}));
+
+      if (!notificationResponse.ok) {
+        console.error(
+          "[exam-core] exam_start notification rejected:",
+          notificationResponse.status,
+          notificationResult
+        );
+      } else {
+        console.log(
+          "[exam-core] exam_start notification sent:",
+          notificationResult
+        );
+      }
+
+    } catch (notificationError) {
+      console.error(
+        "[exam-core] Failed to send exam_start notification:",
+        notificationError
+      );
+    }
+
+    // ==================================================
+    // SHOW ACTIVE EXAM CONTROLS
+    // ==================================================
 
     const timerBlock = $("#examTimer");
     const fullscreenBtn = $("#fullscreenBtn");
     const studentBlock = $(".exam-topbar-student");
 
-    if (timerBlock) {
-      timerBlock.classList.remove("hidden");
-    }
-
-    if (fullscreenBtn) {
-      fullscreenBtn.classList.remove("hidden");
-    }
-
-    if (studentBlock) {
-      studentBlock.classList.remove("hidden");
-    }
+    if (timerBlock) timerBlock.classList.remove("hidden");
+    if (fullscreenBtn) fullscreenBtn.classList.remove("hidden");
+    if (studentBlock) studentBlock.classList.remove("hidden");
 
     console.log(
       "[exam-core] Exam started successfully:",
@@ -1901,19 +1946,19 @@ window.startExam = async function () {
     );
 
     window.examStarted = false;
+    window.examStartTime = null;
 
-    document.body.classList.remove(
-      "exam-started"
-    );
-
-    const examInterface = $("#examInterface");
-
-    if (examInterface) {
-      examInterface.classList.add("hidden");
+    if (window.examTimer) {
+      clearInterval(window.examTimer);
+      window.examTimer = null;
     }
 
-    const modal = $("#instructionsModal");
+    document.body.classList.remove("exam-started");
 
+    const examInterface = $("#examInterface");
+    if (examInterface) examInterface.classList.add("hidden");
+
+    const modal = $("#instructionsModal");
     if (modal) {
       modal.classList.remove("hidden");
       modal.style.display = "";
@@ -1925,9 +1970,7 @@ window.startExam = async function () {
     );
 
   } finally {
-    if (loadingOverlay) {
-      loadingOverlay.classList.add("hidden");
-    }
+    if (loadingOverlay) loadingOverlay.classList.add("hidden");
   }
 };
 

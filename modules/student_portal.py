@@ -661,7 +661,6 @@ def exam_dashboard():
         exam_submitted=session.get("exam_submitted", already_written),
     )
 
-
 # =========================================================
 # START EXAM
 # =========================================================
@@ -685,6 +684,10 @@ def start_exam():
 
     class_level, class_arm = get_student_class_meta(student)
 
+    # =====================================================
+    # JSS TERM RESOLUTION
+    # =====================================================
+
     if str(class_level or "").upper().startswith("JSS"):
         if not term:
             term = get_active_term_for_target(class_arm, class_level)
@@ -693,26 +696,32 @@ def start_exam():
             term = get_active_term_for_target(class_level, class_level)
 
         if not term:
-            print("[START EXAM ERROR] Missing JSS term:", {
-                "subject": subject,
-                "year": year,
-                "class_level": class_level,
-                "class_arm": class_arm,
-            })
-
+            print("[START EXAM ERROR] Missing JSS term:", {"subject": subject, "year": year, "class_level": class_level, "class_arm": class_arm})
             return redirect(url_for("student_portal_bp.exam_dashboard", subject=subject, year=year))
 
-    session["selected_term"] = term
-    session["exam_started"] = True
+    else:
+        term = ""
 
-    notify_exam_event(
-        "exam_start",
-        student,
-        f"{get_student_full_name(student)} started {subject}.",
-        subject=subject,
-        year=year,
-        term=term,
-    )
+    # =====================================================
+    # PREPARE EXAM SESSION
+    #
+    # IMPORTANT:
+    # Do NOT send exam_start notification here.
+    # This route only admits the student into the exam page.
+    #
+    # exam-core.js will POST the real exam_start event only
+    # after questions successfully load and the timer begins.
+    # =====================================================
+
+    session["selected_subject"] = subject
+    session["selected_year"] = str(year)
+    session["selected_class_level"] = class_level
+    session["selected_class_arm"] = class_arm
+    session["selected_term"] = term
+
+    # Keep this False here because the actual exam has not
+    # started yet. JS starts it after successful question load.
+    session["exam_started"] = False
 
     return redirect(url_for("student_portal_bp.exam", subject=subject, year=year, term=term))
 

@@ -1,31 +1,52 @@
 /* static/js/admin_notifications.js */
 /* ============================================================
-   EMIS ADMIN FLOATING REAL-TIME NOTIFICATION ENGINE
+   EMIS ADMIN PREMIUM REAL-TIME NOTIFICATION ENGINE
 
-   Features:
-   - Uses Server-Sent Events when available
-   - Falls back to polling automatically
-   - Poll reconciliation every 7 seconds
-   - Sliding notification card every 7 seconds
-   - No activity = no card displayed
-   - Handles login, exam start, submission, timeout
-   - Ready for result_pending / result_available events
-   - Deduplicates repeated events
-   - Keeps latest event per student/activity
-   - Refreshes Admin Results when exam/result activity changes
-   - Supports JSS term metadata
-   ============================================================ */
+   CORE RULES
+   ------------------------------------------------------------
+   - One notification card at a time
+   - Exact backend sequence / FIFO ordering
+   - Different students = first come, first served
+   - Same student = controlled lifecycle supersession
+   - Login -> Exam Start -> Processing -> Submit -> Result
+   - Every event appears 15 times
+   - Approx. 7 seconds between appearance START times
+   - SSE primary transport
+   - Polling reconciliation fallback
+
+   IMPORTANT SUBMISSION RULE
+   ------------------------------------------------------------
+   - Login may be superseded by Exam Start
+   - Exam Start may be superseded by Submit
+   - Result Pending may be superseded by Submit
+   - Result Available MUST NOT suppress Exam Submitted
+   - Exam Submitted gets all 15 appearances first
+   - Result Available then gets its own 15 appearances
+
+   PREMIUM FEATURES
+   ------------------------------------------------------------
+   1. 15x notification reminder
+   2. Hover-to-pause while teacher is reading
+   3. Browser-tab unread activity counter
+   4. SSE connection-health tracking
+   5. Queue-pressure / queue-count tracking
+   6. Stale bootstrap-event protection
+   7. Exponential SSE reconnect
+   8. Exact backend sequence ordering
+   9. Controlled same-student lifecycle preemption
+   10. Diagnostics API via window.EmisAdminNotifications
+============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
-  console.log("%c[admin_notifications.js] EMIS Floating Live Notifications Engine Started", "color:#0f766e;font-weight:bold;");
+  console.log("%c[admin_notifications.js] EMIS Premium FIFO Notification Engine Started", "color:#0f766e;font-weight:bold;");
 
   const $ = (id) => document.getElementById(id);
 
   /* ============================================================
      DOM
-     ============================================================ */
+  ============================================================ */
 
   const host = $("liveNotificationHost");
   const card = $("liveNotificationCard");
@@ -42,44 +63,62 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-
   /* ============================================================
      CONFIG
-     ============================================================ */
+  ============================================================ */
 
   const POLL_INTERVAL = 7000;
-  const ROTATION_INTERVAL = 7000;
-  const DISPLAY_DURATION = 5600;
-  const EXIT_DURATION = 550;
-  const MAX_NOTIFICATIONS = 60;
+  const FLASH_INTERVAL = 7000;
+  const DISPLAY_DURATION = 4800;
+  const EXIT_DURATION = 500;
+  const BETWEEN_EVENTS_DELAY = 700;
 
-  let allNotifications = [];
-  let notificationQueue = [];
-  let knownNotificationKeys = new Set();
-  let dismissedKeys = new Set();
+  const REPEAT_COUNT = 15;
+  const MAX_QUEUE = 500;
+  const BOOTSTRAP_MAX_AGE = 45000;
 
-  let lastEventTime = 0;
+  const SSE_RECONNECT_MIN = 2000;
+  const SSE_RECONNECT_MAX = 30000;
+
+  /* ============================================================
+     STATE
+  ============================================================ */
+
+  let pendingQueue = [];
+  let knownKeys = new Set();
+
   let currentNotification = null;
   let currentNotificationKey = "";
+  let currentRepeatCount = 0;
+  let currentAppearanceStartedAt = 0;
+
+  let lastSequence = 0;
+  let unreadWhileHidden = 0;
 
   let eventSource = null;
   let pollTimer = null;
-  let rotationTimer = null;
   let hideTimer = null;
+  let repeatTimer = null;
+  let nextTimer = null;
+  let reconnectTimer = null;
 
   let isShowing = false;
   let isPolling = false;
+  let isHovered = false;
+  let pendingFinishAfterHover = false;
   let sseConnected = false;
   let refreshCooldown = false;
 
+  let reconnectAttempts = 0;
+  let droppedQueueItems = 0;
+
+  const originalDocumentTitle = document.title;
 
   /* ============================================================
      BASIC HELPERS
-     ============================================================ */
+  ============================================================ */
 
-  function safeText(value) {
-    return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-  }
+  function safeText(value) { return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
 
   function upper(value) { return String(value ?? "").trim().toUpperCase(); }
 
@@ -107,155 +146,211 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getPayload(notif) { return notif?.payload && typeof notif.payload === "object" ? notif.payload : {}; }
 
+  function getSequence(notif) {
+    const sequence = Number(notif?.sequence || 0);
+    return Number.isFinite(sequence) ? sequence : 0;
+  }
 
   /* ============================================================
      PAYLOAD HELPERS
-     ============================================================ */
+  ============================================================ */
 
-  function getAdmission(payload) {
-    return payload.admission_number || payload.admission_no || payload["Admission No"] || payload.admission || payload.student_id || "";
-  }
+  function getAdmission(payload) { return payload.admission_number || payload.admission_no || payload["Admission No"] || payload.admission || payload.student_id || ""; }
 
-  function getStudentName(payload) {
-    return payload.student_name || payload.full_name || payload["Student Name"] || payload.student || payload.name || "Student";
-  }
+  function getStudentName(payload) { return payload.student_name || payload.full_name || payload["Student Name"] || payload.student || payload.name || "Student"; }
 
-  function getSubject(payload) {
-    return payload.subject || payload.subject_folder || payload.Subject || payload["Subject Folder"] || "";
-  }
+  function getSubject(payload) { return payload.subject || payload.subject_folder || payload.Subject || payload["Subject Folder"] || ""; }
 
-  function getYear(payload) {
-    return payload.year || payload.Year || payload.exam_year || "";
-  }
+  function getYear(payload) { return payload.year || payload.Year || payload.exam_year || ""; }
 
-  function getClass(payload) {
-    return payload.class_arm || payload["Class Arm"] || payload.class_name || payload.class_category || payload["Class Category"] || payload.class || payload.Class || "";
-  }
+  function getClass(payload) { return payload.class_arm || payload["Class Arm"] || payload.class_name || payload.class_category || payload["Class Category"] || payload.class || payload.Class || ""; }
 
-  function getClassLevel(payload) {
-    return payload.class_level || payload["Class Level"] || payload.class_category || payload["Class Category"] || payload.class || payload.Class || "";
-  }
-
-  function getTerm(payload) {
-    return normalizeTerm(payload.term || payload.Term || payload.term_name || payload["Term Label"] || "");
-  }
+  function getTerm(payload) { return normalizeTerm(payload.term || payload.Term || payload.term_name || payload["Term Label"] || ""); }
 
   function getScore(payload) {
     const value = payload.score ?? payload["Score (%)"] ?? payload.score_percentage ?? "";
     return String(value ?? "").replace("%", "").trim();
   }
 
-  function getStatus(payload) {
-    return upper(payload.status || payload.Status || payload.result_status || "");
-  }
-
+  function getStatus(payload) { return upper(payload.status || payload.Status || payload.result_status || ""); }
 
   /* ============================================================
-     EVENT TYPE NORMALIZATION
-     ============================================================ */
+     EVENT TYPE
+  ============================================================ */
 
   function getEventType(notif) {
     const payload = getPayload(notif);
     const rawType = String(notif?.type || "").trim().toLowerCase().replaceAll("-", "_").replaceAll(" ", "_");
     const status = String(payload.status || payload.result_status || "").trim().toLowerCase();
 
-    if (rawType === "login" || rawType === "student_login") return "login";
-
+    if (["login", "student_login"].includes(rawType)) return "login";
     if (["exam_start", "exam_started", "start_exam"].includes(rawType)) return "exam_start";
 
     if (["exam_end", "exam_submit", "exam_submitted", "exam_submission", "submit_exam"].includes(rawType)) {
-      if (status === "timeout" || status === "timed_out") return "timeout";
+      if (["timeout", "timed_out"].includes(status)) return "timeout";
       return "exam_end";
     }
 
     if (["timeout", "exam_timeout", "exam_timed_out"].includes(rawType)) return "timeout";
-
     if (["result_pending", "pending_result", "result_processing"].includes(rawType)) return "result_pending";
-
     if (["result_available", "result_ready", "result_generated", "result_published"].includes(rawType)) return "result_available";
 
     return rawType || "notification";
   }
 
+  /* ============================================================
+     LIFECYCLE STAGE
+  ============================================================ */
+
+  function eventStage(notif) {
+    const type = getEventType(notif);
+
+    if (type === "login") return 10;
+    if (type === "exam_start") return 20;
+    if (type === "result_pending") return 30;
+    if (type === "exam_end" || type === "timeout") return 40;
+    if (type === "result_available") return 50;
+
+    return 5;
+  }
 
   /* ============================================================
-     EVENT IDENTIFIERS
-     ============================================================ */
+     IDENTIFIERS
+  ============================================================ */
 
   function getNotificationKey(notif) {
     if (notif?.id !== undefined && notif?.id !== null && String(notif.id).trim()) return String(notif.id);
 
     const payload = getPayload(notif);
-    const type = getEventType(notif);
-    const admission = upper(getAdmission(payload)) || "UNKNOWN";
-    const subject = upper(getSubject(payload));
-    const year = String(getYear(payload) || "");
-    const term = getTerm(payload);
-    const timestamp = notif?.timestamp || payload.timestamp || notif?.created_at || "";
 
-    return `${type}:${admission}:${subject}:${year}:${term}:${timestamp}`;
+    return [
+      getEventType(notif),
+      upper(getAdmission(payload)) || "UNKNOWN",
+      upper(getSubject(payload)),
+      String(getYear(payload) || ""),
+      getTerm(payload),
+      getSequence(notif),
+      notif?.timestamp || ""
+    ].join(":");
   }
 
-  function getDedupeKey(notif) {
+  function getStudentKey(notif) {
     const payload = getPayload(notif);
-    const type = getEventType(notif);
-    const admission = upper(getAdmission(payload)) || "UNKNOWN";
-    const subject = upper(getSubject(payload));
-    const year = String(getYear(payload) || "");
-    const term = getTerm(payload);
+    const admission = upper(getAdmission(payload));
 
-    if (type === "login") return `login:${admission}`;
-    if (type === "exam_start") return `exam_start:${admission}:${subject}:${year}:${term}`;
-    if (type === "exam_end") return `exam_end:${admission}:${subject}:${year}:${term}`;
-    if (type === "timeout") return `timeout:${admission}:${subject}:${year}:${term}`;
-    if (type === "result_pending") return `result_pending:${admission}:${subject}:${year}:${term}`;
-    if (type === "result_available") return `result_available:${admission}:${subject}:${year}:${term}`;
+    if (admission) return admission;
 
-    return getNotificationKey(notif);
+    return upper(getStudentName(payload)) || "UNKNOWN-STUDENT";
   }
-
 
   /* ============================================================
-     EVENT TIME
-     ============================================================ */
+     CONTROLLED SUPERSESSION RULES
+  ============================================================ */
+
+  function canSupersede(oldNotif, newNotif) {
+    if (!oldNotif || !newNotif) return false;
+    if (getStudentKey(oldNotif) !== getStudentKey(newNotif)) return false;
+
+    const oldType = getEventType(oldNotif);
+    const newType = getEventType(newNotif);
+
+    if (newType === "exam_start" && oldType === "login") return true;
+
+    if (newType === "result_pending" && ["login", "exam_start"].includes(oldType)) return true;
+
+    if (["exam_end", "timeout"].includes(newType) && ["login", "exam_start", "result_pending"].includes(oldType)) return true;
+
+    if (newType === "result_available" && ["exam_end", "timeout"].includes(oldType)) return false;
+
+    return false;
+  }
+
+  /* ============================================================
+     TIME
+  ============================================================ */
 
   function eventNumericTime(notif) {
     const created = Number(notif?.created_at || 0);
-    if (Number.isFinite(created) && created > 0) return created;
+
+    if (Number.isFinite(created) && created > 0) return created > 100000000000 ? created : created * 1000;
 
     const parsed = Date.parse(notif?.timestamp || "");
-    if (Number.isFinite(parsed)) return Math.floor(parsed / 1000);
 
-    return 0;
+    return Number.isFinite(parsed) ? parsed : 0;
   }
 
   function relativeTime(notif) {
-    const created = eventNumericTime(notif);
+    const createdMs = eventNumericTime(notif);
 
-    if (created > 0) {
-      const createdMs = created > 100000000000 ? created : created * 1000;
-      const seconds = Math.max(0, Math.floor((Date.now() - createdMs) / 1000));
+    if (!createdMs) return notif?.timestamp || "";
 
-      if (seconds < 10) return "Just now";
-      if (seconds < 60) return `${seconds}s ago`;
+    const seconds = Math.max(0, Math.floor((Date.now() - createdMs) / 1000));
 
-      const minutes = Math.floor(seconds / 60);
-      if (minutes < 60) return `${minutes}m ago`;
+    if (seconds < 10) return "Just now";
+    if (seconds < 60) return `${seconds}s ago`;
 
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return `${hours}h ago`;
+    const minutes = Math.floor(seconds / 60);
 
-      const days = Math.floor(hours / 24);
-      if (days < 7) return `${days}d ago`;
-    }
+    if (minutes < 60) return `${minutes}m ago`;
 
-    return notif?.timestamp || "";
+    const hours = Math.floor(minutes / 60);
+
+    if (hours < 24) return `${hours}h ago`;
+
+    return `${Math.floor(hours / 24)}d ago`;
   }
 
+  /* ============================================================
+     CONNECTION HEALTH
+  ============================================================ */
+
+  function setConnectionState(state) {
+    host.dataset.connection = state;
+    card.dataset.connection = state;
+
+    window.dispatchEvent(new CustomEvent("emis:notification-connection", {
+      detail: { state, connected: state === "connected", reconnectAttempts }
+    }));
+  }
 
   /* ============================================================
-     CARD PRESENTATION
-     ============================================================ */
+     QUEUE PRESSURE
+  ============================================================ */
+
+  function updateQueueState() {
+    const queueLength = pendingQueue.length + (currentNotification ? 1 : 0);
+
+    host.dataset.queueCount = String(queueLength);
+    host.dataset.queuePressure = queueLength >= 50 ? "high" : queueLength >= 15 ? "medium" : "normal";
+
+    window.dispatchEvent(new CustomEvent("emis:notification-queue", {
+      detail: { pending: pendingQueue.length, current: Boolean(currentNotification), total: queueLength, dropped: droppedQueueItems }
+    }));
+  }
+
+  /* ============================================================
+     TAB TITLE UNREAD
+  ============================================================ */
+
+  function updateDocumentTitle() {
+    document.title = unreadWhileHidden > 0 ? `(${unreadWhileHidden}) ${originalDocumentTitle}` : originalDocumentTitle;
+  }
+
+  function registerHiddenActivity() {
+    if (!document.hidden) return;
+
+    unreadWhileHidden++;
+    updateDocumentTitle();
+  }
+
+  function clearHiddenActivity() {
+    unreadWhileHidden = 0;
+    updateDocumentTitle();
+  }
+
+  /* ============================================================
+     PRESENTATION
+  ============================================================ */
 
   function getPresentation(notif) {
     const payload = getPayload(notif);
@@ -266,82 +361,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const score = getScore(payload);
     const status = getStatus(payload);
 
-    if (type === "login") {
-      return {
-        type: "login",
-        label: "Student Login",
-        icon: "fa-user-check",
-        title: `${student} logged in`,
-        message: notif.message || "Student successfully accessed the CBT examination portal."
-      };
-    }
+    if (type === "login") return { type, label: "Student Login", icon: "fa-user-check", title: `${student} logged in`, message: notif.message || "Student successfully accessed the CBT examination portal." };
 
-    if (type === "exam_start") {
-      return {
-        type: "exam_start",
-        label: "Exam Started",
-        icon: "fa-file-pen",
-        title: `${student} started ${subject || "an examination"}`,
-        message: notif.message || "A new examination session is currently in progress."
-      };
-    }
+    if (type === "exam_start") return { type, label: "Exam Started", icon: "fa-file-pen", title: `${student} started ${subject || "an examination"}`, message: notif.message || "The student's examination session is now in progress." };
 
-    if (type === "exam_end") {
-      return {
-        type: "exam_end",
-        label: "Exam Submitted",
-        icon: "fa-flag-checkered",
-        title: `${student} submitted ${subject || "an examination"}`,
-        message: notif.message || "The examination was successfully completed and submitted."
-      };
-    }
+    if (type === "result_pending") return { type, label: "Processing Result", icon: "fa-hourglass-half", title: `${student}'s result is processing`, message: notif.message || "The submitted examination result is currently being processed." };
 
-    if (type === "timeout") {
-      return {
-        type: "timeout",
-        label: "Exam Timeout",
-        icon: "fa-clock",
-        title: `${student}'s examination ended`,
-        message: notif.message || "The examination session ended because the allocated time expired."
-      };
-    }
+    if (type === "exam_end") return { type, label: "Exam Submitted", icon: "fa-flag-checkered", title: `${student} submitted ${subject || "an examination"}`, message: notif.message || "The examination was successfully completed and submitted." };
 
-    if (type === "result_pending") {
-      return {
-        type: "result_pending",
-        label: "Result Pending",
-        icon: "fa-hourglass-half",
-        title: `${student}'s result is pending`,
-        message: notif.message || "The examination result is currently awaiting processing."
-      };
-    }
+    if (type === "timeout") return { type, label: "Exam Timeout", icon: "fa-clock", title: `${student}'s examination ended`, message: notif.message || "The examination ended because the allocated time expired." };
 
     if (type === "result_available") {
       const scoreText = score ? ` Score: ${score}%.` : "";
       const statusText = status ? ` Status: ${status}.` : "";
 
-      return {
-        type: "result_available",
-        label: "Result Available",
-        icon: "fa-circle-check",
-        title: `${student}'s result is available`,
-        message: notif.message || `A new examination result is now available.${scoreText}${statusText}`
-      };
+      return { type, label: "Result Available", icon: "fa-circle-check", title: `${student}'s result is available`, message: notif.message || `A new examination result is now available.${scoreText}${statusText}` };
     }
 
-    return {
-      type: "notification",
-      label: "Live Activity",
-      icon: "fa-bell",
-      title: student,
-      message: notif.message || payload.message || "New examination activity received."
-    };
+    return { type: "notification", label: "Live Activity", icon: "fa-bell", title: student, message: notif.message || payload.message || "New examination activity received." };
   }
 
-
   /* ============================================================
-     CARD META CHIPS
-     ============================================================ */
+     META
+  ============================================================ */
 
   function buildMeta(notif) {
     const payload = getPayload(notif);
@@ -362,10 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return values.slice(0, 5);
   }
 
-
   /* ============================================================
      RESULTS REFRESH
-     ============================================================ */
+  ============================================================ */
 
   function triggerResultsRefresh(notif) {
     const type = getEventType(notif);
@@ -374,120 +415,138 @@ document.addEventListener("DOMContentLoaded", () => {
     if (refreshCooldown) return;
 
     refreshCooldown = true;
-    setTimeout(() => { refreshCooldown = false; }, 3500);
 
-    if (typeof window.refreshAdminResults === "function") {
-      window.refreshAdminResults({ silent: true });
-      return;
-    }
+    setTimeout(() => { refreshCooldown = false; }, 3000);
 
-    if (typeof window.loadAllResults === "function") {
-      window.loadAllResults({ silent: true });
-      return;
-    }
+    if (typeof window.refreshAdminResults === "function") return window.refreshAdminResults({ silent: true });
+    if (typeof window.loadAllResults === "function") return window.loadAllResults({ silent: true });
 
     window.dispatchEvent(new CustomEvent("emis:result-submitted", { detail: notif }));
   }
 
+  /* ============================================================
+     FIFO SORT
+  ============================================================ */
+
+  function sortQueue() {
+    pendingQueue.sort((a, b) => {
+      const sequenceA = getSequence(a);
+      const sequenceB = getSequence(b);
+
+      if (sequenceA && sequenceB && sequenceA !== sequenceB) return sequenceA - sequenceB;
+
+      return eventNumericTime(a) - eventNumericTime(b);
+    });
+  }
 
   /* ============================================================
-     ADD / UPDATE NOTIFICATION
-     ============================================================ */
+     REMOVE ONLY TRULY OBSOLETE EVENTS
+  ============================================================ */
 
-  function addNotification(notif, fromLive = false) {
+  function removeSupersededPendingEvents(notif) {
+    pendingQueue = pendingQueue.filter((queued) => !canSupersede(queued, notif));
+  }
+
+  /* ============================================================
+     ADD EVENT
+  ============================================================ */
+
+  function addNotification(notif, fromLive = false, bootstrap = false) {
     if (!notif || !notif.type) return false;
 
-    const uniqueKey = getNotificationKey(notif);
+    const key = getNotificationKey(notif);
 
-    if (knownNotificationKeys.has(uniqueKey)) return false;
+    if (knownKeys.has(key)) return false;
 
-    knownNotificationKeys.add(uniqueKey);
-    allNotifications.push(notif);
+    knownKeys.add(key);
 
-    const created = eventNumericTime(notif);
-    if (created > lastEventTime) lastEventTime = created;
+    const sequence = getSequence(notif);
 
-    if (allNotifications.length > 500) allNotifications = allNotifications.slice(-500);
+    if (sequence > lastSequence) lastSequence = sequence;
 
-    rebuildNotificationQueue();
+    if (bootstrap) {
+      const created = eventNumericTime(notif);
+      const age = created ? Date.now() - created : Infinity;
 
-    if (fromLive) {
-      triggerResultsRefresh(notif);
-
-      if (!isShowing) showNextNotification();
+      if (!Number.isFinite(age) || age > BOOTSTRAP_MAX_AGE) return true;
     }
+
+    registerHiddenActivity();
+    removeSupersededPendingEvents(notif);
+
+    const shouldPreemptCurrent = Boolean(
+  fromLive &&
+  currentNotification &&
+  (
+    getStudentKey(currentNotification) !== getStudentKey(notif) ||
+    canSupersede(currentNotification, notif)
+  )
+);
+
+    if (shouldPreemptCurrent) {
+      pendingQueue.unshift(notif);
+
+      if (fromLive) triggerResultsRefresh(notif);
+
+      updateQueueState();
+      preemptCurrentNotification();
+
+      return true;
+    }
+    pendingQueue.push(notif);
+
+    if (pendingQueue.length > MAX_QUEUE) {
+      const overflow = pendingQueue.length - MAX_QUEUE;
+
+      pendingQueue.splice(0, overflow);
+      droppedQueueItems += overflow;
+
+      console.warn(`[admin_notifications] Queue overflow: ${overflow} old event(s) dropped.`);
+    }
+
+    sortQueue();
+
+    if (fromLive) triggerResultsRefresh(notif);
+
+    updateQueueState();
+
+    if (!isShowing && !currentNotification) showNextNotification();
 
     return true;
   }
 
-
   /* ============================================================
-     BUILD DEDUPED ROTATION QUEUE
-     ============================================================ */
+     SHOW CARD
+  ============================================================ */
 
-  function rebuildNotificationQueue() {
-    const latestMap = new Map();
-
-    [...allNotifications]
-      .sort((a, b) => eventNumericTime(a) - eventNumericTime(b))
-      .forEach((notif) => latestMap.set(getDedupeKey(notif), notif));
-
-    notificationQueue = [...latestMap.values()]
-      .sort((a, b) => eventNumericTime(b) - eventNumericTime(a))
-      .filter((notif) => !dismissedKeys.has(getNotificationKey(notif)))
-      .slice(0, MAX_NOTIFICATIONS);
-  }
-
-
-  /* ============================================================
-     FIND NEXT CARD
-     ============================================================ */
-
-  function getNextNotification() {
-    rebuildNotificationQueue();
-
-    if (!notificationQueue.length) return null;
-
-    if (!currentNotificationKey) return notificationQueue[0];
-
-    const currentIndex = notificationQueue.findIndex((notif) => getNotificationKey(notif) === currentNotificationKey);
-
-    if (currentIndex < 0) return notificationQueue[0];
-
-    const nextIndex = (currentIndex + 1) % notificationQueue.length;
-
-    return notificationQueue[nextIndex];
-  }
-
-
-  /* ============================================================
-     SHOW NOTIFICATION CARD
-     ============================================================ */
-
-  function showNotification(notif) {
-    if (!notif) {
-      hideNotification(true);
-      return;
-    }
+  function showNotification(notif, isRepeat = false) {
+    if (!notif) return;
 
     clearTimeout(hideTimer);
+    clearTimeout(repeatTimer);
+    clearTimeout(nextTimer);
 
     const presentation = getPresentation(notif);
     const chips = buildMeta(notif);
-    const key = getNotificationKey(notif);
 
     currentNotification = notif;
-    currentNotificationKey = key;
+    currentNotificationKey = getNotificationKey(notif);
+
+    if (!isRepeat) currentRepeatCount = 1;
+
+    currentAppearanceStartedAt = Date.now();
+    pendingFinishAfterHover = false;
     isShowing = true;
 
     card.dataset.type = presentation.type;
+    card.dataset.repeat = String(currentRepeatCount);
+    card.dataset.repeatTotal = String(REPEAT_COUNT);
 
     if (icon) icon.innerHTML = `<i class="fa-solid ${safeText(presentation.icon)}"></i>`;
     if (typeLabel) typeLabel.textContent = presentation.label;
     if (title) title.textContent = presentation.title;
     if (message) message.textContent = presentation.message;
     if (time) time.textContent = relativeTime(notif);
-
     if (meta) meta.innerHTML = chips.map((value) => `<span>${safeText(value)}</span>`).join("");
 
     card.classList.remove("is-visible", "is-leaving");
@@ -496,22 +555,108 @@ document.addEventListener("DOMContentLoaded", () => {
 
     card.classList.add("is-visible");
 
-    hideTimer = setTimeout(() => hideNotification(false), DISPLAY_DURATION);
+    updateQueueState();
+
+    console.log(`[admin_notifications] Showing ${currentRepeatCount}/${REPEAT_COUNT}:`, presentation.type, currentNotificationKey);
+
+    hideTimer = setTimeout(() => {
+      if (isHovered) {
+        pendingFinishAfterHover = true;
+        return;
+      }
+
+      finishAppearance();
+    }, DISPLAY_DURATION);
   }
 
-
   /* ============================================================
-     HIDE NOTIFICATION CARD
-     ============================================================ */
+     FINISH ONE APPEARANCE
+  ============================================================ */
 
-  function hideNotification(immediate = false) {
+  function finishAppearance() {
     clearTimeout(hideTimer);
 
-    if (!isShowing && !card.classList.contains("is-visible")) return;
+    if (!currentNotification || !isShowing) return;
 
-    if (immediate) {
-      card.classList.remove("is-visible", "is-leaving");
+    if (isHovered) {
+      pendingFinishAfterHover = true;
+      return;
+    }
+
+    pendingFinishAfterHover = false;
+
+    card.classList.remove("is-visible");
+    card.classList.add("is-leaving");
+
+    setTimeout(() => {
+      card.classList.remove("is-leaving");
       isShowing = false;
+
+      if (currentRepeatCount < REPEAT_COUNT) {
+        currentRepeatCount++;
+
+        const elapsedSinceAppearanceStart = Date.now() - currentAppearanceStartedAt;
+        const waitForNextAppearance = Math.max(250, FLASH_INTERVAL - elapsedSinceAppearanceStart);
+
+        repeatTimer = setTimeout(() => {
+          if (!currentNotification) return;
+
+          showNotification(currentNotification, true);
+        }, waitForNextAppearance);
+
+        return;
+      }
+
+      currentNotification = null;
+      currentNotificationKey = "";
+      currentRepeatCount = 0;
+      currentAppearanceStartedAt = 0;
+
+      updateQueueState();
+
+      nextTimer = setTimeout(() => showNextNotification(), BETWEEN_EVENTS_DELAY);
+
+    }, EXIT_DURATION);
+  }
+
+  /* ============================================================
+     NEXT FIFO EVENT
+  ============================================================ */
+
+  function showNextNotification() {
+    if (isShowing || currentNotification) return;
+
+    sortQueue();
+
+    const next = pendingQueue.shift();
+
+    if (!next) {
+      card.classList.remove("is-visible", "is-leaving");
+
+      currentNotification = null;
+      currentNotificationKey = "";
+      currentRepeatCount = 0;
+
+      updateQueueState();
+      return;
+    }
+
+    updateQueueState();
+    showNotification(next, false);
+  }
+
+  /* ============================================================
+     PREEMPT CURRENT EVENT
+  ============================================================ */
+
+  function preemptCurrentNotification() {
+    clearTimeout(hideTimer);
+    clearTimeout(repeatTimer);
+    clearTimeout(nextTimer);
+
+    if (!currentNotification) {
+      isShowing = false;
+      showNextNotification();
       return;
     }
 
@@ -520,40 +665,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       card.classList.remove("is-leaving");
+
+      currentNotification = null;
+      currentNotificationKey = "";
+      currentRepeatCount = 0;
+      currentAppearanceStartedAt = 0;
+
       isShowing = false;
+
+      updateQueueState();
+      showNextNotification();
+
     }, EXIT_DURATION);
   }
 
+  /* ============================================================
+     HOVER TO PAUSE
+  ============================================================ */
+
+  card.addEventListener("mouseenter", () => {
+    isHovered = true;
+    card.dataset.paused = "true";
+  });
+
+  card.addEventListener("mouseleave", () => {
+    isHovered = false;
+    card.dataset.paused = "false";
+
+    if (pendingFinishAfterHover) finishAppearance();
+  });
 
   /* ============================================================
-     ROTATE NOTIFICATION
-     ============================================================ */
-
-  function showNextNotification() {
-    const next = getNextNotification();
-
-    if (!next) {
-      hideNotification(true);
-      currentNotification = null;
-      currentNotificationKey = "";
-      return;
-    }
-
-    if (isShowing) {
-      hideNotification(false);
-
-      setTimeout(() => showNotification(next), EXIT_DURATION + 100);
-
-      return;
-    }
-
-    showNotification(next);
-  }
-
-
-  /* ============================================================
-     FETCH NOTIFICATIONS
-     ============================================================ */
+     FETCH
+  ============================================================ */
 
   async function fetchNotifications(initial = false) {
     if (isPolling) return;
@@ -561,40 +705,44 @@ document.addEventListener("DOMContentLoaded", () => {
     isPolling = true;
 
     try {
-      const url = initial || !lastEventTime ? "/api/notifications/fetch" : `/api/notifications/fetch?since=${encodeURIComponent(lastEventTime)}`;
+      const url = initial || !lastSequence
+        ? "/api/notifications/fetch"
+        : `/api/notifications/fetch?since_sequence=${encodeURIComponent(lastSequence)}`;
 
-      const res = await fetch(url, {
+      const response = await fetch(url, {
         method: "GET",
         credentials: "same-origin",
         cache: "no-store",
         headers: { Accept: "application/json" }
       });
 
-      if (!res.ok) {
-        console.warn("[admin_notifications] Notification fetch failed:", res.status);
+      if (!response.ok) {
+        console.warn("[admin_notifications] Notification fetch failed:", response.status);
         return;
       }
 
-      const data = await res.json();
+      const data = await response.json();
 
       if (data.error) {
-        console.warn("[admin_notifications] Server notification error:", data.error);
+        console.warn("[admin_notifications] Notification server error:", data.error);
         return;
       }
 
       const notifications = Array.isArray(data.notifications) ? data.notifications : [];
-      let addedCount = 0;
 
-      notifications.forEach((notif) => {
-        if (addNotification(notif, !initial)) addedCount++;
+      notifications.sort((a, b) => {
+        const sequenceDifference = getSequence(a) - getSequence(b);
+
+        return sequenceDifference || eventNumericTime(a) - eventNumericTime(b);
       });
 
-      rebuildNotificationQueue();
+      notifications.forEach((notif) => addNotification(notif, !initial, initial));
 
-      if (initial && notificationQueue.length && !isShowing) showNextNotification();
-      if (!notificationQueue.length) hideNotification(true);
+      const serverLatest = Number(data.latest_sequence || 0);
 
-      if (!initial && addedCount > 0) console.log(`[admin_notifications] ${addedCount} new notification(s) received.`);
+      if (serverLatest > lastSequence) lastSequence = serverLatest;
+
+      updateQueueState();
 
     } catch (error) {
       console.error("[admin_notifications] Fetch failed:", error);
@@ -604,10 +752,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
   /* ============================================================
-     SERVER-SENT EVENTS
-     ============================================================ */
+     SSE
+  ============================================================ */
 
   function closeEventStream() {
     if (!eventSource) return;
@@ -617,57 +764,78 @@ document.addEventListener("DOMContentLoaded", () => {
     sseConnected = false;
   }
 
-  function startEventStream() {
-    if (!window.EventSource) {
-      console.warn("[admin_notifications] EventSource unsupported. Polling mode enabled.");
-      return;
-    }
+  function scheduleSseReconnect() {
+    clearTimeout(reconnectTimer);
 
-    if (eventSource) return;
+    reconnectAttempts++;
+
+    const delay = Math.min(
+      SSE_RECONNECT_MAX,
+      SSE_RECONNECT_MIN * Math.pow(2, Math.min(reconnectAttempts - 1, 4))
+    );
+
+    setConnectionState("reconnecting");
+
+    reconnectTimer = setTimeout(() => {
+      if (!document.hidden) startEventStream();
+    }, delay);
+
+    console.warn(`[admin_notifications] SSE reconnect scheduled in ${delay}ms.`);
+  }
+
+  function startEventStream() {
+    if (!window.EventSource || eventSource) return;
+
+    clearTimeout(reconnectTimer);
+    setConnectionState("connecting");
 
     try {
-      eventSource = new EventSource("/api/notifications/stream");
+      eventSource = new EventSource(`/api/notifications/stream?since_sequence=${encodeURIComponent(lastSequence)}`);
 
       eventSource.addEventListener("connected", () => {
         sseConnected = true;
+        reconnectAttempts = 0;
+
+        setConnectionState("connected");
+
         console.log("[admin_notifications] SSE connected.");
       });
 
       eventSource.addEventListener("notification", (event) => {
         try {
           const notif = JSON.parse(event.data);
-          addNotification(notif, true);
+
+          addNotification(notif, true, false);
 
         } catch (error) {
-          console.error("[admin_notifications] Invalid SSE notification:", error);
+          console.error("[admin_notifications] Invalid SSE payload:", error);
         }
       });
 
       eventSource.onopen = () => {
         sseConnected = true;
+        reconnectAttempts = 0;
+        setConnectionState("connected");
       };
 
       eventSource.onerror = () => {
-        if (sseConnected) console.warn("[admin_notifications] SSE connection lost. Polling will continue.");
-
         sseConnected = false;
-        closeEventStream();
 
-        setTimeout(() => {
-          if (!document.hidden) startEventStream();
-        }, 10000);
+        closeEventStream();
+        scheduleSseReconnect();
       };
 
     } catch (error) {
       console.error("[admin_notifications] Could not start SSE:", error);
+
       closeEventStream();
+      scheduleSseReconnect();
     }
   }
 
-
   /* ============================================================
-     POLLING
-     ============================================================ */
+     POLLING FALLBACK
+  ============================================================ */
 
   function startPolling() {
     if (pollTimer) clearInterval(pollTimer);
@@ -677,109 +845,161 @@ document.addEventListener("DOMContentLoaded", () => {
     }, POLL_INTERVAL);
   }
 
-
   /* ============================================================
-     CARD ROTATION
-     ============================================================ */
-
-  function startRotation() {
-    if (rotationTimer) clearInterval(rotationTimer);
-
-    rotationTimer = setInterval(() => {
-      if (document.hidden) return;
-      if (!notificationQueue.length) return;
-
-      showNextNotification();
-    }, ROTATION_INTERVAL);
-  }
-
-
-  /* ============================================================
-     MANUAL DISMISS
-     ============================================================ */
+     MANUAL CLOSE
+  ============================================================ */
 
   closeBtn?.addEventListener("click", () => {
-    if (currentNotificationKey) dismissedKeys.add(currentNotificationKey);
+    clearTimeout(hideTimer);
+    clearTimeout(repeatTimer);
+    clearTimeout(nextTimer);
 
-    hideNotification(false);
+    if (!currentNotification) return;
+
+    card.classList.remove("is-visible");
+    card.classList.add("is-leaving");
 
     setTimeout(() => {
+      card.classList.remove("is-leaving");
+
       currentNotification = null;
       currentNotificationKey = "";
+      currentRepeatCount = 0;
+      currentAppearanceStartedAt = 0;
 
-      rebuildNotificationQueue();
+      isShowing = false;
+      isHovered = false;
+      pendingFinishAfterHover = false;
 
-      if (notificationQueue.length) showNextNotification();
-    }, EXIT_DURATION + 150);
+      updateQueueState();
+      showNextNotification();
+
+    }, EXIT_DURATION);
   });
 
-
   /* ============================================================
-     VISIBILITY
-     ============================================================ */
+     TAB VISIBILITY
+  ============================================================ */
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) return;
+
+    clearHiddenActivity();
 
     fetchNotifications(false);
 
     if (!eventSource) startEventStream();
 
-    if (notificationQueue.length && !isShowing) showNextNotification();
+    if (!isShowing && !currentNotification && pendingQueue.length) showNextNotification();
   });
 
-
   /* ============================================================
-     PAGE CLEANUP
-     ============================================================ */
+     ONLINE / OFFLINE
+  ============================================================ */
 
-  window.addEventListener("beforeunload", () => {
-    if (pollTimer) clearInterval(pollTimer);
-    if (rotationTimer) clearInterval(rotationTimer);
-    if (hideTimer) clearTimeout(hideTimer);
+  window.addEventListener("online", () => {
+    setConnectionState("connecting");
 
+    fetchNotifications(false);
+
+    if (!eventSource) startEventStream();
+  });
+
+  window.addEventListener("offline", () => {
+    setConnectionState("offline");
     closeEventStream();
   });
 
+  /* ============================================================
+     CLEANUP
+  ============================================================ */
+
+  window.addEventListener("beforeunload", () => {
+    if (pollTimer) clearInterval(pollTimer);
+
+    clearTimeout(hideTimer);
+    clearTimeout(repeatTimer);
+    clearTimeout(nextTimer);
+    clearTimeout(reconnectTimer);
+
+    closeEventStream();
+
+    document.title = originalDocumentTitle;
+  });
 
   /* ============================================================
-     OPTIONAL GLOBAL API
-     Useful if another script wants to create an admin notice.
-     ============================================================ */
+     GLOBAL API
+  ============================================================ */
 
   window.EmisAdminNotifications = {
     refresh: () => fetchNotifications(false),
 
-    push: (notification) => addNotification(notification, true),
+    push: (notification) => addNotification(notification, true, false),
 
     showNext: () => showNextNotification(),
 
+    queueLength: () => pendingQueue.length,
+
+    state: () => ({
+      pending: pendingQueue.length,
+      current: currentNotification,
+      currentType: currentNotification ? getEventType(currentNotification) : null,
+      repeat: currentRepeatCount,
+      repeatTotal: REPEAT_COUNT,
+      lastSequence,
+      sseConnected,
+      reconnectAttempts,
+      unreadWhileHidden,
+      droppedQueueItems
+    }),
+
+    reconnect: () => {
+      closeEventStream();
+      reconnectAttempts = 0;
+      startEventStream();
+    },
+
     clear: () => {
-      allNotifications = [];
-      notificationQueue = [];
-      knownNotificationKeys.clear();
-      dismissedKeys.clear();
+      pendingQueue = [];
+      knownKeys.clear();
 
       currentNotification = null;
       currentNotificationKey = "";
+      currentRepeatCount = 0;
+      currentAppearanceStartedAt = 0;
 
-      hideNotification(true);
+      clearTimeout(hideTimer);
+      clearTimeout(repeatTimer);
+      clearTimeout(nextTimer);
+
+      isShowing = false;
+      isHovered = false;
+      pendingFinishAfterHover = false;
+
+      card.classList.remove("is-visible", "is-leaving");
+
+      clearHiddenActivity();
+      updateQueueState();
     }
   };
 
-
   /* ============================================================
      INITIALIZE
-     ============================================================ */
+  ============================================================ */
 
   async function initNotifications() {
+    setConnectionState(navigator.onLine ? "connecting" : "offline");
+    updateQueueState();
+
     await fetchNotifications(true);
 
-    startEventStream();
-    startPolling();
-    startRotation();
+    if (navigator.onLine) startEventStream();
 
-    console.log(`[admin_notifications] Ready with ${notificationQueue.length} active notification(s).`);
+    startPolling();
+
+    if (!isShowing && !currentNotification && pendingQueue.length) showNextNotification();
+
+    console.log(`[admin_notifications] Premium FIFO engine ready. Queue: ${pendingQueue.length}, repeat: ${REPEAT_COUNT}x.`);
   }
 
   initNotifications();

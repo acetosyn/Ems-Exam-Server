@@ -65,6 +65,30 @@
     </div>
 
   </header>
+  <!-- =========================================================
+     FLOATING REAL-TIME ACTIVITY NOTIFICATION
+========================================================== -->
+<div id="liveNotificationHost" class="live-notification-host" aria-live="polite" aria-atomic="true">
+  <article id="liveNotificationCard" class="live-notification-card" role="status">
+    <div id="liveNotificationIcon" class="live-notification-icon"><i class="fa-solid fa-bell"></i></div>
+
+    <div class="live-notification-content">
+      <div class="live-notification-topline">
+        <span id="liveNotificationType" class="live-notification-type">Live Activity</span>
+        <span id="liveNotificationTime" class="live-notification-time"></span>
+      </div>
+
+      <strong id="liveNotificationTitle" class="live-notification-title"></strong>
+      <p id="liveNotificationMessage" class="live-notification-message"></p>
+
+      <div id="liveNotificationMeta" class="live-notification-meta"></div>
+    </div>
+
+    <button id="liveNotificationClose" class="live-notification-close" type="button" aria-label="Dismiss notification"><i class="fa-solid fa-xmark"></i></button>
+
+    <span class="live-notification-progress"></span>
+  </article>
+</div>
 
 
   <!-- =========================================================
@@ -1291,30 +1315,7 @@
   </details>
 
 
-<!-- =========================================================
-     FLOATING REAL-TIME ACTIVITY NOTIFICATION
-========================================================== -->
-<div id="liveNotificationHost" class="live-notification-host" aria-live="polite" aria-atomic="true">
-  <article id="liveNotificationCard" class="live-notification-card" role="status">
-    <div id="liveNotificationIcon" class="live-notification-icon"><i class="fa-solid fa-bell"></i></div>
 
-    <div class="live-notification-content">
-      <div class="live-notification-topline">
-        <span id="liveNotificationType" class="live-notification-type">Live Activity</span>
-        <span id="liveNotificationTime" class="live-notification-time"></span>
-      </div>
-
-      <strong id="liveNotificationTitle" class="live-notification-title"></strong>
-      <p id="liveNotificationMessage" class="live-notification-message"></p>
-
-      <div id="liveNotificationMeta" class="live-notification-meta"></div>
-    </div>
-
-    <button id="liveNotificationClose" class="live-notification-close" type="button" aria-label="Dismiss notification"><i class="fa-solid fa-xmark"></i></button>
-
-    <span class="live-notification-progress"></span>
-  </article>
-</div>
 
   <!-- =========================================================
        DELETE CONFIRMATION MODAL
