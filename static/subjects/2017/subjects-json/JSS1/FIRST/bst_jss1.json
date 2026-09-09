@@ -1,0 +1,657 @@
+{
+  "subject": "BST",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Animals without backbone are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Backbone animals",
+        "B. Invertebrates",
+        "C. Molluscs",
+        "D. Vertebrates"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "A room where scientists carry out their experiments is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Laboratory",
+        "B. Experiment",
+        "C. Theatre",
+        "D. Hospital"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "The word “science” is derived from ________.",
+      "diagram": null,
+      "options": [
+        "A. Latin",
+        "B. Greek",
+        "C. Chinese",
+        "D. American"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "The branch of science that deals with the study of energy and how it acts with matter is ________.",
+      "diagram": null,
+      "options": [
+        "A. Biology",
+        "B. Physics",
+        "C. Chemistry",
+        "D. Geography"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Which of these cell organelles is absent in plant cells?",
+      "diagram": null,
+      "options": [
+        "A. Lysosomes",
+        "B. Chloroplast",
+        "C. Cell wall",
+        "D. Vacuole"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "All these are scientific methods EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Humility",
+        "B. Communication",
+        "C. Predicting",
+        "D. Sorting"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "________ is formed after fertilization.",
+      "diagram": null,
+      "options": [
+        "A. Baby",
+        "B. Zygote",
+        "C. Foetus",
+        "D. Gametes"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "________ is the structure of respiration in mammals and birds.",
+      "diagram": null,
+      "options": [
+        "A. Gills",
+        "B. Lungs",
+        "C. Stomata",
+        "D. Lenticels"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "________ makes an organism behave or react in a certain way.",
+      "diagram": null,
+      "options": [
+        "A. Nastism",
+        "B. Stimulus",
+        "C. Response",
+        "D. Tropism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "Activities of living things are controlled by the ________.",
+      "diagram": null,
+      "options": [
+        "A. Mitochondrion",
+        "B. Nucleus",
+        "C. Cell wall",
+        "D. Ribosome"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "A permanent increase in size and weight of an organism is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Nastism",
+        "B. Enlargement",
+        "C. Growth",
+        "D. Reduction"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "The cell was discovered in which year?",
+      "diagram": null,
+      "options": [
+        "A. 1965",
+        "B. 1665",
+        "C. 1765",
+        "D. 1995"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "All of these are examples of stimuli EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Hand shake",
+        "B. Turgor pressure",
+        "C. Hug",
+        "D. Rest"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "The tiny structures found inside the cell are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Organelles",
+        "B. Cell structures",
+        "C. Organs",
+        "D. Tissue"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "________ is the non-directional movement made by parts of stationary plants in response to stimuli.",
+      "diagram": null,
+      "options": [
+        "A. Tropism",
+        "B. Geotropism",
+        "C. Nastism",
+        "D. Hydrotropism"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "Animals that eat both plants and animals are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Herbivores",
+        "B. Omnivores",
+        "C. Carnivores",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "All these are excretory organs or structures EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Kidney",
+        "B. Stomata",
+        "C. Skin",
+        "D. Liver"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Plants carry out ________ nutrition.",
+      "diagram": null,
+      "options": [
+        "A. Heterotrophic",
+        "B. Autotrophic",
+        "C. Holozoic",
+        "D. None"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "A group of cells performing similar functions is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Organ",
+        "B. Tissue",
+        "C. System",
+        "D. Cell"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "All of these organelles or structures are found in both plant and animal cells EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Ribosome",
+        "B. Cell wall",
+        "C. Nucleus",
+        "D. Vacuole"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Plants respond ________ to stimulus.",
+      "diagram": null,
+      "options": [
+        "A. Slowly",
+        "B. Quickly",
+        "C. Speedily",
+        "D. Immediately"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Growth in plants is ________.",
+      "diagram": null,
+      "options": [
+        "A. All round",
+        "B. Apical",
+        "C. Intercellular",
+        "D. Lenticel"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following might result from poor hygiene of the teeth?",
+      "diagram": null,
+      "options": [
+        "A. Toothache",
+        "B. Tooth decay",
+        "C. Extracting the bad tooth",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "The advantages of personal hygiene include the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. High self-esteem",
+        "B. Low productivity",
+        "C. Disease reduction",
+        "D. Reduction of medical expenditure"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "All these are importance of adequate nutrition EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Keeps us alive",
+        "B. Causes dwarfism",
+        "C. Helps in the repair of damaged cells and organs",
+        "D. Keeps us healthy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "Deficiency of iodine leads to ________.",
+      "diagram": null,
+      "options": [
+        "A. Beri-beri",
+        "B. Goitre",
+        "C. Rickets",
+        "D. Kwashiorkor"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "________ makes up about 90% of blood plasma.",
+      "diagram": null,
+      "options": [
+        "A. Water",
+        "B. White blood cells",
+        "C. Red blood cells",
+        "D. Platelets"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Green plants are able to manufacture their own food during photosynthesis; they are said to be ________.",
+      "diagram": null,
+      "options": [
+        "A. Autotrophic",
+        "B. Phototrophic",
+        "C. Saprophytic",
+        "D. Heterotrophic"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "The process by which metabolic waste is removed from the body of an organism is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Respiration",
+        "B. Excretion",
+        "C. Sensitivity",
+        "D. Removal"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "The response of organisms to gravity is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Geotropism",
+        "B. Phototropism",
+        "C. Chemotropism",
+        "D. Hydrotropism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "________ is the control centre of the cell.",
+      "diagram": null,
+      "options": [
+        "A. Nucleus",
+        "B. Mitochondria",
+        "C. Chloroplast",
+        "D. Ribosome"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "________ is the outer covering of the plant cell.",
+      "diagram": null,
+      "options": [
+        "A. Mitochondrion",
+        "B. Cell wall",
+        "C. Cell sap",
+        "D. Cell membrane"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following is NOT a characteristic of living things?",
+      "diagram": null,
+      "options": [
+        "A. Reproduction",
+        "B. Insensitivity",
+        "C. Feeding",
+        "D. Excretion"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following is a source of political power?",
+      "diagram": null,
+      "options": [
+        "A. Gerrymandering",
+        "B. Election",
+        "C. Filibuster",
+        "D. Immunity"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "________ is the process by which living organisms break down food to release energy.",
+      "diagram": null,
+      "options": [
+        "A. Cellular respiration",
+        "B. External respiration",
+        "C. Sexual reproduction",
+        "D. Asexual reproduction"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "A small green-coloured structure located in the cytoplasm of a plant cell is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Chloroplast",
+        "B. Chlorophyll",
+        "C. Mitochondria",
+        "D. Nucleus"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "________ is responsible for the development of strong and healthy teeth in man.",
+      "diagram": null,
+      "options": [
+        "A. Iodine",
+        "B. Calcium",
+        "C. Magnesium",
+        "D. Iron"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "________ is the union between the male and female gametes to produce a zygote.",
+      "diagram": null,
+      "options": [
+        "A. Fertilization",
+        "B. Conception",
+        "C. Binary fusion",
+        "D. Bisexual reproduction"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "________ is the place where experiments take place.",
+      "diagram": null,
+      "options": [
+        "A. Experiment office",
+        "B. Laboratory",
+        "C. Scientific room",
+        "D. Microscope"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "Moss is an example of a ________.",
+      "diagram": null,
+      "options": [
+        "A. Seed-bearing plant",
+        "B. Non-vascular plant",
+        "C. Vascular plant",
+        "D. Fungus"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "Plasmodium is classified as a ________.",
+      "diagram": null,
+      "options": [
+        "A. Virus",
+        "B. Protozoan",
+        "C. Bacterium",
+        "D. Fungus"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "________ is an example of a reptile.",
+      "diagram": null,
+      "options": [
+        "A. Lizard",
+        "B. Toad",
+        "C. Frog",
+        "D. Bird"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "Which of the following is NOT an example of a dicot plant?",
+      "diagram": null,
+      "options": [
+        "A. Beans",
+        "B. Maize",
+        "C. Avocado",
+        "D. Orange"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "Reptiles breathe with ________.",
+      "diagram": null,
+      "options": [
+        "A. Lungs",
+        "B. Gills",
+        "C. Liver",
+        "D. Cells"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "An instrument used to observe very small organisms which are not visible to the naked eye is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Periscope",
+        "B. Microscope",
+        "C. Telescope",
+        "D. Stethoscope"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Which of the following food groups is the best source of energy?",
+      "diagram": null,
+      "options": [
+        "A. Cassava, yam and rice",
+        "B. Orange, pineapple and apple",
+        "C. Beans, yam and vegetable",
+        "D. Pawpaw, maize and Fanta"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "The study of microorganisms is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Microbiology",
+        "B. Botany",
+        "C. Physics",
+        "D. Cytology"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "Which of the following is a vertebrate?",
+      "diagram": null,
+      "options": [
+        "A. Toad",
+        "B. Millipede",
+        "C. Prawn",
+        "D. Earthworm"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "How many classes of food are contained in an adequate diet?",
+      "diagram": null,
+      "options": [
+        "A. 9",
+        "B. 7",
+        "C. 8",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "Production of offspring is another name for ________.",
+      "diagram": null,
+      "options": [
+        "A. Reproduction",
+        "B. Fertilization",
+        "C. Egestion",
+        "D. Indigestion"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B & C - SUBJECTIVES / ESSAY",
+    "instruction": "SECTION B: Answer all five (5) subjective questions. SECTION C: Answer all questions in the essay section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "SECTION B - SUBJECTIVE 1\n________ is the cell organelle that stores genetic information.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "SECTION B - SUBJECTIVE 2\nThe green colouring matter in plants is called ________.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "SECTION B - SUBJECTIVE 3\n________ is the site for protein synthesis.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "SECTION B - SUBJECTIVE 4\nThe cell was discovered by a scientist called ________.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "SECTION B - SUBJECTIVE 5\n________ is the living material found inside the cell.",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "SECTION C - ESSAY 1\n(a) What is scientific method?\n(b) State three importance of science.\n(c) Mention four scientific attitudes.",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "SECTION C - ESSAY 2\n(a) Define a cell.\n(b) In a tabular form, state two differences between plant and animal cells.\n(c) Draw a well-labelled diagram of a plant cell.",
+        "diagram": null
+      },
+      {
+        "id": 8,
+        "question": "SECTION C - ESSAY 3\n(a) Mention three cell organelles and state one function of each.\n(b) Mention two consequences of poor hygiene.\n(c) Mention four food nutrients and state one function of each.\n(d) Name one cleaning agent used in cleaning the kitchen.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "class_category": "JSS1"
+}

@@ -1,0 +1,522 @@
+{
+  "subject": "Business Studies",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Factors of production are the _________ used in producing goods and services.",
+      "diagram": null,
+      "options": [
+        "A. outputs",
+        "B. inputs",
+        "C. raw materials",
+        "D. refined materials"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "The following are factors of production EXCEPT _________.",
+      "diagram": null,
+      "options": [
+        "A. tables",
+        "B. labour",
+        "C. land",
+        "D. capital"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Money, machines and buildings are classified as _________.",
+      "diagram": null,
+      "options": [
+        "A. labour",
+        "B. land",
+        "C. entrepreneur",
+        "D. capital"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "The _________ takes business risks and organises the other factors of production.",
+      "diagram": null,
+      "options": [
+        "A. capital",
+        "B. labour",
+        "C. entrepreneur",
+        "D. land"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "The reward for labour is _________.",
+      "diagram": null,
+      "options": [
+        "A. extra work",
+        "B. interest",
+        "C. rest",
+        "D. wages or salaries"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "_________ is provided by nature.",
+      "diagram": null,
+      "options": [
+        "A. Money",
+        "B. Capital",
+        "C. Land",
+        "D. Education"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "All the following are types of occupation EXCEPT _________.",
+      "diagram": null,
+      "options": [
+        "A. farming",
+        "B. singing",
+        "C. money",
+        "D. trading"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "All the following are factors which influence the choice of occupation EXCEPT _________.",
+      "diagram": null,
+      "options": [
+        "A. education",
+        "B. family background",
+        "C. trading",
+        "D. talent"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "A business that makes false claims about its products lacks _________.",
+      "diagram": null,
+      "options": [
+        "A. impartiality",
+        "B. character",
+        "C. truthfulness",
+        "D. attitude"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "The owner of a business must be _________ in behaviour.",
+      "diagram": null,
+      "options": [
+        "A. consistent",
+        "B. irregular",
+        "C. irrational",
+        "D. intolerable"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "A business which is honest has a _________ reputation.",
+      "diagram": null,
+      "options": [
+        "A. indifferent",
+        "B. bad",
+        "C. good",
+        "D. mistaken"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "Equity, openness and impartiality are attributes of _________.",
+      "diagram": null,
+      "options": [
+        "A. greed",
+        "B. foul play",
+        "C. corruption",
+        "D. fair play"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "Some business owners lie in order to cover up their _________.",
+      "diagram": null,
+      "options": [
+        "A. opportunities",
+        "B. power",
+        "C. weaknesses",
+        "D. strengths"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Many business owners lie in the hope that their customers _________.",
+      "diagram": null,
+      "options": [
+        "A. will find out",
+        "B. will be angry",
+        "C. will not find out",
+        "D. will revolt"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "In most countries, children below the age of _________ cannot buy alcoholic drinks.",
+      "diagram": null,
+      "options": [
+        "A. 40",
+        "B. 50",
+        "C. 18",
+        "D. 45"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "It is _________ to transport petrol using bicycles or ordinary cars.",
+      "diagram": null,
+      "options": [
+        "A. sensible",
+        "B. safe",
+        "C. unethical",
+        "D. ethical"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "It is an offence to _________ chemicals.",
+      "diagram": null,
+      "options": [
+        "A. sell",
+        "B. keep",
+        "C. adulterate",
+        "D. buy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Which of the following regulates the use and sale of chemicals in Nigeria?",
+      "diagram": null,
+      "options": [
+        "A. LASTMA",
+        "B. ICAN",
+        "C. MAN",
+        "D. NAFDAC"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "A _________ is an artificially purified substance which can change form.",
+      "diagram": null,
+      "options": [
+        "A. mixture",
+        "B. spirit",
+        "C. chemical",
+        "D. material"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following occupations is classified under extractive industry?",
+      "diagram": null,
+      "options": [
+        "A. Cattle rearing",
+        "B. Singing",
+        "C. Tailoring",
+        "D. Printing"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following workers is engaged in a construction occupation?",
+      "diagram": null,
+      "options": [
+        "A. Train driver",
+        "B. Shop assistant",
+        "C. Miner",
+        "D. Mason"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "Carpentry is an activity classified under _________.",
+      "diagram": null,
+      "options": [
+        "A. extractive occupation",
+        "B. tertiary occupation",
+        "C. commercial occupation",
+        "D. constructive occupation"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following persons is engaged in a commercial occupation?",
+      "diagram": null,
+      "options": [
+        "A. A bricklayer",
+        "B. An engineer",
+        "C. An insurance broker",
+        "D. A barber"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "The four main factors of production are land, labour, capital and _________.",
+      "diagram": null,
+      "options": [
+        "A. consumption",
+        "B. entrepreneur",
+        "C. transport",
+        "D. occupation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "The reward for the use of land in production is called _________.",
+      "diagram": null,
+      "options": [
+        "A. rent",
+        "B. salary",
+        "C. profit",
+        "D. interest"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "The reward for capital is called _________.",
+      "diagram": null,
+      "options": [
+        "A. rent",
+        "B. wages",
+        "C. interest",
+        "D. salary"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "The reward received by an entrepreneur for taking business risks is _________.",
+      "diagram": null,
+      "options": [
+        "A. profit",
+        "B. rent",
+        "C. wages",
+        "D. pension"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is an example of labour?",
+      "diagram": null,
+      "options": [
+        "A. A factory building",
+        "B. A teacher working in a school",
+        "C. A piece of land",
+        "D. A sewing machine"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "An occupation is an activity a person engages in mainly to _________.",
+      "diagram": null,
+      "options": [
+        "A. waste time",
+        "B. earn a living",
+        "C. avoid work",
+        "D. entertain friends"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "Which of the following may influence a person's choice of occupation?",
+      "diagram": null,
+      "options": [
+        "A. Education",
+        "B. Talent",
+        "C. Family background",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "Truthfulness in business helps to build _________.",
+      "diagram": null,
+      "options": [
+        "A. customer trust",
+        "B. dishonesty",
+        "C. corruption",
+        "D. poor reputation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "A business owner who treats all customers equally is showing _________.",
+      "diagram": null,
+      "options": [
+        "A. partiality",
+        "B. impartiality",
+        "C. dishonesty",
+        "D. greed"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following is an example of unethical business behaviour?",
+      "diagram": null,
+      "options": [
+        "A. Giving correct information about a product",
+        "B. Selling adulterated chemicals",
+        "C. Treating customers fairly",
+        "D. Keeping accurate records"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "NAFDAC helps to protect consumers by regulating _________.",
+      "diagram": null,
+      "options": [
+        "A. food, drugs and related products",
+        "B. school uniforms",
+        "C. road construction",
+        "D. bank accounts"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "Fishing is classified as an _________ occupation.",
+      "diagram": null,
+      "options": [
+        "A. extractive",
+        "B. constructive",
+        "C. commercial",
+        "D. clerical"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Mining is an example of _________ occupation.",
+      "diagram": null,
+      "options": [
+        "A. commercial",
+        "B. extractive",
+        "C. constructive",
+        "D. personal service"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "A bricklayer is mainly engaged in _________ occupation.",
+      "diagram": null,
+      "options": [
+        "A. extractive",
+        "B. constructive",
+        "C. commercial",
+        "D. clerical"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "An insurance broker is mainly engaged in a _________ occupation.",
+      "diagram": null,
+      "options": [
+        "A. commercial",
+        "B. extractive",
+        "C. farming",
+        "D. construction"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Which of the following is NOT an ethical quality in business?",
+      "diagram": null,
+      "options": [
+        "A. Honesty",
+        "B. Fair play",
+        "C. Truthfulness",
+        "D. Deception"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "A good business reputation can lead to increased _________.",
+      "diagram": null,
+      "options": [
+        "A. customer patronage",
+        "B. dishonesty",
+        "C. customer complaints",
+        "D. corruption"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer only three (3) questions in this section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) What are factors of production?\n(b) List the four factors of production.\n(c) State the reward for each factor of production.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Define occupation.\n(b) Mention four factors that may influence a person's choice of occupation.\n(c) Give two examples each of extractive, constructive and commercial occupations.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) What is business ethics?\n(b) Explain truthfulness, fairness and impartiality in business.\n(c) State four benefits of honesty in business.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) What is a chemical?\n(b) State two dangers of improper handling or adulteration of chemicals.\n(c) What is the full meaning of NAFDAC and state one of its functions?",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) Explain the meaning of extractive occupation.\n(b) Explain constructive occupation.\n(c) Explain commercial occupation and give three examples.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "SECOND",
+  "term_label": "2nd Term",
+  "class_category": "JSS1"
+}

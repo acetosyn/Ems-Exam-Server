@@ -7,8 +7,9 @@
     "term": "FIRST",
     "term_label": "1st Term",
     "subjects": [
-        "Mathematics"
+        "Mathematics",
+        "English Language"
     ],
-    "updated_at": "2026-08-18T16:49:31",
+    "updated_at": "2026-09-08T15:54:29",
     "updated_by": "admin"
 }

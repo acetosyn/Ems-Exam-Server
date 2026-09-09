@@ -1,0 +1,522 @@
+{
+  "subject": "Mathematics",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Write two thousand, seven hundred and nine in Roman numerals.",
+      "diagram": null,
+      "options": [
+        "A. MMDCICX",
+        "B. MMCDCIX",
+        "C. MMDCCIX",
+        "D. MMCCDIX"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "What is the sum of the binary numbers 1101₂, 1110₂ and 1001₂?",
+      "diagram": null,
+      "options": [
+        "A. 100000₂",
+        "B. 100010₂",
+        "C. 100100₂",
+        "D. 100110₂"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Find the value of (101₂)².",
+      "diagram": null,
+      "options": [
+        "A. 10001₂",
+        "B. 10111₂",
+        "C. 11001₂",
+        "D. 11011₂"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Express 32% as a fraction.",
+      "diagram": null,
+      "options": [
+        "A. 2/25",
+        "B. 4/25",
+        "C. 6/25",
+        "D. 8/25"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "Write in figures: fifty-three million, eight hundred thousand and thirteen.",
+      "diagram": null,
+      "options": [
+        "A. 53,800,013",
+        "B. 5,380,013",
+        "C. 53,80,13",
+        "D. 530,813"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "Approximate 5364 to 3 significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 536",
+        "B. 5300",
+        "C. 5360",
+        "D. 5370"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "24350 rounded to the nearest thousand is ________.",
+      "diagram": null,
+      "options": [
+        "A. 24000",
+        "B. 24350",
+        "C. 20000",
+        "D. 25000"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "178.4673 rounded to 2 decimal places is ________.",
+      "diagram": null,
+      "options": [
+        "A. 178.00",
+        "B. 178.47",
+        "C. 178.46",
+        "D. 170.47"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Round 0.007081 correct to 2 significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 0.01",
+        "B. 0.0070",
+        "C. 0.0071",
+        "D. 0.00708"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "What is the value of the digit 7 in the number 624.97?",
+      "diagram": null,
+      "options": [
+        "A. 7 hundreds",
+        "B. 7 tens",
+        "C. 7 hundredths",
+        "D. 7 tenths"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "What is the place value of 5 in the figure 35296?",
+      "diagram": null,
+      "options": [
+        "A. 500000",
+        "B. 50000",
+        "C. 5000",
+        "D. 500"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "Evaluate 1001₂ - 110₂.",
+      "diagram": null,
+      "options": [
+        "A. 11₂",
+        "B. 101₂",
+        "C. 111₂",
+        "D. 10₂"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Calculate 1011₂ × 11₂.",
+      "diagram": null,
+      "options": [
+        "A. 10011₂",
+        "B. 100001₂",
+        "C. 11101₂",
+        "D. 10001₂"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Convert the denary number 45 to a number in binary.",
+      "diagram": null,
+      "options": [
+        "A. 101101₂",
+        "B. 11010₂",
+        "C. 11011011₂",
+        "D. 10010₂"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Add 1110₂ + 111₂.",
+      "diagram": null,
+      "options": [
+        "A. 11010₂",
+        "B. 10101₂",
+        "C. 101001₂",
+        "D. 10011₂"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Simplify 11₂ + 111₂ + 1101₂.",
+      "diagram": null,
+      "options": [
+        "A. 10101₂",
+        "B. 10111₂",
+        "C. 11011₂",
+        "D. 11101₂"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "Convert 78₁₀ to a number in base two.",
+      "diagram": null,
+      "options": [
+        "A. 11100110₂",
+        "B. 11000111₂",
+        "C. 1001111₂",
+        "D. 1001110₂"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Simplify 6 - (-12).",
+      "diagram": null,
+      "options": [
+        "A. -8",
+        "B. -18",
+        "C. 8",
+        "D. 18"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "10 more than x is _____________.",
+      "diagram": null,
+      "options": [
+        "A. 10x",
+        "B. 10x + x",
+        "C. x + 10",
+        "D. 10 - x"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Multiply y by itself. The answer is __________.",
+      "diagram": null,
+      "options": [
+        "A. 2y",
+        "B. y²",
+        "C. 2y²",
+        "D. 2y³"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "If x + 5 = 50, what is the value of x?",
+      "diagram": null,
+      "options": [
+        "A. 45",
+        "B. 52",
+        "C. 55",
+        "D. -55"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "If 5 is added to a number, the result is 17. What is the number?",
+      "diagram": null,
+      "options": [
+        "A. 12",
+        "B. 22",
+        "C. 17",
+        "D. 5x"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "If x + 15 = 25, then x = __________.",
+      "diagram": null,
+      "options": [
+        "A. 15",
+        "B. 25",
+        "C. 5",
+        "D. 10"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Evaluate x - 18 + x when x = 9.",
+      "diagram": null,
+      "options": [
+        "A. 9",
+        "B. 18",
+        "C. 0",
+        "D. -9"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "Express 20% as a decimal number.",
+      "diagram": null,
+      "options": [
+        "A. 2.00",
+        "B. 0.5",
+        "C. 0.2",
+        "D. 0.02"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Convert 77₁₀ to a number in base two.",
+      "diagram": null,
+      "options": [
+        "A. 1111111₂",
+        "B. 1111101₂",
+        "C. 1111011₂",
+        "D. 1001101₂"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "Express 6561 as a product of primes in index form.",
+      "diagram": null,
+      "options": [
+        "A. 3⁶",
+        "B. 3⁷",
+        "C. 3⁸",
+        "D. 3⁹"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Yemi saves ₦150 daily. How much will he save in two weeks?",
+      "diagram": null,
+      "options": [
+        "A. ₦300",
+        "B. ₦1,050",
+        "C. ₦1,500",
+        "D. ₦2,100"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "The value of the digit 1 in 12345 is _____________.",
+      "diagram": null,
+      "options": [
+        "A. one unit",
+        "B. one hundred",
+        "C. one thousand",
+        "D. ten thousand"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 30,
+      "question": "Olu saves ₦700 daily. How much will he save in 15 days?",
+      "diagram": null,
+      "options": [
+        "A. ₦950",
+        "B. ₦10,500",
+        "C. ₦1,200",
+        "D. ₦1,050"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "Convert 4₁₀ to base two.",
+      "diagram": null,
+      "options": [
+        "A. 10₂",
+        "B. 100₂",
+        "C. 1000₂",
+        "D. 10000₂"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "Evaluate 101₂ + 101₂.",
+      "diagram": null,
+      "options": [
+        "A. 1010₂",
+        "B. 1100₂",
+        "C. 111₂",
+        "D. 1111₂"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Which of these is an improper fraction?",
+      "diagram": null,
+      "options": [
+        "A. 31/7",
+        "B. 6/7",
+        "C. 4/5",
+        "D. 2/3"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "Express 40% as a decimal number.",
+      "diagram": null,
+      "options": [
+        "A. 0.02",
+        "B. 0.20",
+        "C. 0.40",
+        "D. 4.00"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "List the prime factors of 150.",
+      "diagram": null,
+      "options": [
+        "A. 2, 5, 15",
+        "B. 2, 3, 10",
+        "C. 3, 5, 10",
+        "D. 2, 3, 5"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "Correct 45775 to 1 significant figure.",
+      "diagram": null,
+      "options": [
+        "A. 50,000",
+        "B. 5,000",
+        "C. 500",
+        "D. 50"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "________ divides a circle into equal parts.",
+      "diagram": null,
+      "options": [
+        "A. Arc",
+        "B. Chord",
+        "C. Diameter",
+        "D. Radius"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "A prime number has only two factors, which are ___________ and ___________.",
+      "diagram": null,
+      "options": [
+        "A. 1 and any other number",
+        "B. 2 and 3",
+        "C. 1 and 2",
+        "D. itself and 1"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "The result of the expansion of 5(2x - 3) is __________________.",
+      "diagram": null,
+      "options": [
+        "A. 10x - 15",
+        "B. 10x - 3",
+        "C. 7x - 15",
+        "D. 10x + 15"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "The coefficient of x in the expression 7 - 9x is _______________.",
+      "diagram": null,
+      "options": [
+        "A. 7",
+        "B. 9",
+        "C. -9",
+        "D. -7"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer three questions only from this section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "a. Calculate the value of 5.766 + 81.34 and give your answer correct to 3 significant figures (3 s.f.).\nb. Round off 450,789 to the nearest hundred (nearest 100).\nc. Give 16.8695 correct to 2 decimal places (2 d.p.).\nd. Subtract 79p from £3.25.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "a. Write 356₈ in expanded form.\nb. Evaluate 11001₂ - 111₂, leaving your answer in binary.\nc. What is the sum of 1011₂ and 10011₂?\nd. Multiply 1011₂ by 101₂.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "a. Convert the binary number 1110011₂ to a base ten number.\nb. Convert the decimal number 59 to a binary number.\nc. Round off 258.909 to the nearest whole number.\nd. Calculate the value of 425 × 24 and give your answer correct to 3 significant figures (3 s.f.).",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "a. Solve for x in the equation 5x - 4 = 16.\nb. Solve the equation 10 - 2x = 3x + 25.\nc. If x = 3, y = 2 and z = 2, evaluate z(5x - y).\nd. Simplify 5x + 2y + 7x - y.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "a. If p = -2, q = 5 and r = 10, evaluate 2p + 5q + 10r.\nb. Solve the equation 7 - 2y = 3.\nc. Samuel thinks of a number. He multiplies it by 5 and adds 3 to the answer. If the result is 13, what is the number he thinks of?\nd. Solve the equation 9x - 20 = 8 - 5x.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "SECOND",
+  "term_label": "2nd Term",
+  "class_category": "JSS1"
+}

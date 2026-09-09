@@ -1,0 +1,762 @@
+{
+  "subject": "P.H.E",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "An aspect of education that deals with the total development of an individual is ________.",
+      "diagram": null,
+      "options": [
+        "A. Physical fitness",
+        "B. Physical education",
+        "C. Health practice",
+        "D. Health education"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following events is NOT associated with measuring tapes?",
+      "diagram": null,
+      "options": [
+        "A. High jump",
+        "B. Long jump",
+        "C. Discus throw",
+        "D. Shot-put throw"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Engagement in recreational activities must be enjoyable, satisfactory and ________.",
+      "diagram": null,
+      "options": [
+        "A. Rewarding",
+        "B. Voluntarily",
+        "C. Skillful",
+        "D. Talented"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "A vertical jumping event where the jumper is expected to use a long pole for jumping is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Pole vault",
+        "B. High jump",
+        "C. High vault",
+        "D. Triple jump"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Which of these is NOT an area of physical education?",
+      "diagram": null,
+      "options": [
+        "A. Safety education",
+        "B. Environmental Science",
+        "C. Aquatic sports",
+        "D. Gymnastics"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "During physical activities, the body utilizes oxygen for ________.",
+      "diagram": null,
+      "options": [
+        "A. Respiration",
+        "B. Flexibility",
+        "C. Endurance",
+        "D. Co-ordination"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "The activities which we perform during leisure time are said to be ________.",
+      "diagram": null,
+      "options": [
+        "A. Recreational",
+        "B. Recessional",
+        "C. Educational",
+        "D. Stressful"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "A stadium is a good example of a ________ in physical education.",
+      "diagram": null,
+      "options": [
+        "A. Facility",
+        "B. Sporting material",
+        "C. Equipment",
+        "D. Event area"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "The ability of one to carry out his or her daily tasks without undue tiredness is called physical ________.",
+      "diagram": null,
+      "options": [
+        "A. Fitness",
+        "B. Activity",
+        "C. Exercise",
+        "D. Education"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "How many lanes has a standard track?",
+      "diagram": null,
+      "options": [
+        "A. 6–8 lanes",
+        "B. 5 lanes",
+        "C. 10–12 lanes",
+        "D. 4–6 lanes"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is an indoor recreational activity?",
+      "diagram": null,
+      "options": [
+        "A. Cycling",
+        "B. Hiking",
+        "C. Camping",
+        "D. Ludo"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "Somersault and tumbling are types of ________.",
+      "diagram": null,
+      "options": [
+        "A. Athletics",
+        "B. Gymnastics",
+        "C. Dance",
+        "D. Swimming"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "The ability of the body to make a quick and controlled movement in a precise direction is ________.",
+      "diagram": null,
+      "options": [
+        "A. Balance",
+        "B. Flexibility",
+        "C. Power",
+        "D. Agility"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "The Olympic Games started in ________.",
+      "diagram": null,
+      "options": [
+        "A. 77AC",
+        "B. 706BC",
+        "C. 776BC",
+        "D. 1800"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "Physical activities are meant for ________.",
+      "diagram": null,
+      "options": [
+        "A. Elderly",
+        "B. Youths",
+        "C. All ages",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "Which of the following is odd?",
+      "diagram": null,
+      "options": [
+        "A. 200m",
+        "B. Marathon",
+        "C. 400m",
+        "D. Relay race"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "One importance of physical education is that ________.",
+      "diagram": null,
+      "options": [
+        "A. It hinders knowledge",
+        "B. It reduces skill acquisition",
+        "C. It enhances skill acquisition",
+        "D. It promotes indiscipline"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "The Olympic Games take place every ________ years.",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 5",
+        "C. 4",
+        "D. 2"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "Western medicine was introduced to Nigeria in ________.",
+      "diagram": null,
+      "options": [
+        "A. 1820",
+        "B. 1950",
+        "C. 1860",
+        "D. 1885"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "All these are field events EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Discus",
+        "B. High jump",
+        "C. Hurdle",
+        "D. Javelin"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "Among these, which event uses the stop board?",
+      "diagram": null,
+      "options": [
+        "A. Pole vault",
+        "B. Discus",
+        "C. Shot put",
+        "D. Track event"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "The levels of learning in education include the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Cognitive",
+        "B. Psychomotor",
+        "C. Physiology",
+        "D. Affective"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "The first Nigerian to be trained as a physical education specialist is ________.",
+      "diagram": null,
+      "options": [
+        "A. Isaac Johnson",
+        "B. Walter Clopton",
+        "C. James Harding",
+        "D. Isaac Akioye"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "The runway in pole vault is ________.",
+      "diagram": null,
+      "options": [
+        "A. 40m–50m",
+        "B. 45cm–50cm",
+        "C. 40m–45m",
+        "D. 40cm–45cm"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "Health education means ________.",
+      "diagram": null,
+      "options": [
+        "A. Prevention of diseases",
+        "B. Various physical activities",
+        "C. Teaching of healthy living",
+        "D. Eating for development"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "The ability of the joint to move during physical activities is referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. Muscular endurance",
+        "B. Stamina",
+        "C. Accuracy",
+        "D. Flexibility"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "The weight of shot put for men's competition is ________.",
+      "diagram": null,
+      "options": [
+        "A. 7kg",
+        "B. 1.5kg",
+        "C. 4–4.5kg",
+        "D. 2kg"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Modern physical education was established by ________ at ________ in Nigeria.",
+      "diagram": null,
+      "options": [
+        "A. CCM at Lagos",
+        "B. ACMS at Ibadan",
+        "C. CMS at Ikeja",
+        "D. SMAC at Ibadan"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "To the Greeks, physical education was for training the ________.",
+      "diagram": null,
+      "options": [
+        "A. Soul",
+        "B. Spirit",
+        "C. Body and mind",
+        "D. Youth"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "The vaulting pole is made of ________.",
+      "diagram": null,
+      "options": [
+        "A. Carbon fiber",
+        "B. Metal",
+        "C. Wood",
+        "D. Aluminum"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "A person who mixes freely with others is said to be ________.",
+      "diagram": null,
+      "options": [
+        "A. Emotional",
+        "B. Social",
+        "C. Physical",
+        "D. Mental"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "The most important objective of physical education is ________.",
+      "diagram": null,
+      "options": [
+        "A. To make the body weak",
+        "B. To destroy the body cells",
+        "C. To discourage sportsmen and women",
+        "D. None of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "A well-adjusted person is able to control his or her ________ in most situations.",
+      "diagram": null,
+      "options": [
+        "A. Emotion",
+        "B. Activity",
+        "C. Maturity",
+        "D. Social"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following is NOT a branch of physical education?",
+      "diagram": null,
+      "options": [
+        "A. Gymnastics",
+        "B. Aquatics",
+        "C. Recreation",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 35,
+      "question": "One of the following is an objective of physical education.",
+      "diagram": null,
+      "options": [
+        "A. To digress from sport",
+        "B. To attract many people during sport to cause trouble",
+        "C. To promote unity among students",
+        "D. To cause hooliganism during sport"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "The following are pioneers of physical education in Nigeria EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Sunday Oliseh",
+        "B. T.A. Adedeji",
+        "C. H.J. Ekperijin",
+        "D. Funsho Adelolu"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "The ability to perform one's work without undue fatigue and still have enough energy for social life is ________.",
+      "diagram": null,
+      "options": [
+        "A. Emotional fitness",
+        "B. Physical fitness",
+        "C. Abundant energy",
+        "D. Social fitness"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "The following are components of physical fitness EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Longevity",
+        "B. Flexibility",
+        "C. Agility",
+        "D. Muscular strength"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Which of the following best describes physical fitness?",
+      "diagram": null,
+      "options": [
+        "A. Run very fast",
+        "B. Perform work",
+        "C. Stand life problems",
+        "D. Lift heavy load"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "Which of these is NOT a component of physical fitness?",
+      "diagram": null,
+      "options": [
+        "A. Height",
+        "B. Strength",
+        "C. Flexibility",
+        "D. Agility"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "The ability to perform any activity well is referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. Fitness",
+        "B. Handicappers",
+        "C. Stamina",
+        "D. Accuracy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Which of these is NOT among the common methods of sewage disposal?",
+      "diagram": null,
+      "options": [
+        "A. Water system",
+        "B. Open dump",
+        "C. Latrine",
+        "D. Sewage system"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "Which among these is NOT a method of refuse disposal?",
+      "diagram": null,
+      "options": [
+        "A. Incineration",
+        "B. Pit hole latrine",
+        "C. Open dump",
+        "D. Sanitary landfills"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "Sewage primarily means ________.",
+      "diagram": null,
+      "options": [
+        "A. Solid waste",
+        "B. Soluble waste",
+        "C. Liquid waste",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "Water for drinking purposes must have the following qualities EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Clean",
+        "B. Odourless",
+        "C. Dirty",
+        "D. Tasteless"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Water may be hard or ________.",
+      "diagram": null,
+      "options": [
+        "A. Hard",
+        "B. Soft",
+        "C. Light",
+        "D. Heavy"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "Which of the following is a source of surface water?",
+      "diagram": null,
+      "options": [
+        "A. Tap water",
+        "B. Lakes, ponds and streams",
+        "C. River water",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "The following exercises improve muscular strength and endurance EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Climbing",
+        "B. Leg press",
+        "C. Eating",
+        "D. Squatting"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "The ability of the heart and lungs to function efficiently and supply needed oxygen and nutrients according to the demand of working muscles is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Flexibility endurance",
+        "B. Cardio-respiratory endurance",
+        "C. Muscular endurance",
+        "D. Balance"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "W.H.O is an acronym for ________.",
+      "diagram": null,
+      "options": [
+        "A. World House Organization",
+        "B. World Health Organization",
+        "C. World Honour Overview",
+        "D. World Hindu Organ"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 51,
+      "question": "A state of well-being of the mind in which an individual is aware of himself and his environment is ________.",
+      "diagram": null,
+      "options": [
+        "A. Physical health",
+        "B. Social health",
+        "C. Mental health",
+        "D. Freedom health"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 52,
+      "question": "The process by which physical, physiological and mental characteristics are transmitted from parents to children is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Gene",
+        "B. Heredity",
+        "C. Hormone",
+        "D. Morphology"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 53,
+      "question": "Recreational activities are for ________.",
+      "diagram": null,
+      "options": [
+        "A. All ages",
+        "B. Persons between 7–25 years",
+        "C. Sick persons and students",
+        "D. Students only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 54,
+      "question": "A state of complete physical, mental and social well-being is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Heal",
+        "B. Disease",
+        "C. Health",
+        "D. Sickness"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 55,
+      "question": "Freedom from diseases, ability to endure, strength and agility are visible signs of ________.",
+      "diagram": null,
+      "options": [
+        "A. Physical fitness",
+        "B. Physical alertness",
+        "C. Physical superiority",
+        "D. Physical sensibility"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 56,
+      "question": "The following are ways that bad lifestyle affects our health EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Body abuse",
+        "B. Malnutrition",
+        "C. Unsafe sex",
+        "D. Discipline"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 57,
+      "question": "These are methods of disposing sewage EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Water system",
+        "B. Open dump",
+        "C. Latrine",
+        "D. Paper system"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 58,
+      "question": "Refuse refers to unwanted ________.",
+      "diagram": null,
+      "options": [
+        "A. Liquid waste",
+        "B. Solid waste",
+        "C. Water waste",
+        "D. Sludgy waste"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 59,
+      "question": "________ means illness or disorderliness of the body and mind.",
+      "diagram": null,
+      "options": [
+        "A. Physical education",
+        "B. Health",
+        "C. Disease",
+        "D. Physical fitness"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 60,
+      "question": "________ is the ability to move easily at the joint.",
+      "diagram": null,
+      "options": [
+        "A. Agility",
+        "B. Flexibility",
+        "C. Speed",
+        "D. Muscular strength"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - ESSAY / THEORY",
+    "instruction": "Answer all five (5) questions in this section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Define the following:\n(i) Physical\n(ii) Education\n(iii) Physical Education\n(b) Mention four objectives of Physical Education.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Define the following:\n(i) Fitness\n(ii) Physical Fitness\n(b) Mention the components of physical fitness.\n(c) List four branches of Physical Education.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Define the following:\n(i) Refuse disposal\n(ii) Sewage disposal\n(b) Itemize any three methods of sewage disposal.\n(c) Mention three methods of refuse disposal.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) List three sources of water supply.\n(b) Mention four qualities of good water.\n(c) State three treatments of water before supply.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) Define the following:\n(i) Health\n(ii) Health Education\n(b) Mention four branches of Health Education.\n(c) State two importance of Health Education.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "class_category": "JSS1"
+}

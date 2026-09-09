@@ -1,0 +1,757 @@
+{
+  "subject": "Mathematics",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Simplify 3/5 + 1/2 - 1/3.",
+      "diagram": null,
+      "options": [
+        "A. 23/30",
+        "B. 4/5",
+        "C. 5/6",
+        "D. 9/10"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Find the H.C.F. of 18, 12 and 24.",
+      "diagram": null,
+      "options": [
+        "A. 8",
+        "B. 6",
+        "C. 4",
+        "D. 3"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "Find the area of a triangle with base 35 cm and height 20 cm.",
+      "diagram": null,
+      "options": [
+        "A. 70 cm²",
+        "B. 150 cm²",
+        "C. 175 cm²",
+        "D. 350 cm²"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "What is the value of x when 6x - 8 = 16?",
+      "diagram": null,
+      "options": [
+        "A. 36",
+        "B. 24",
+        "C. 6",
+        "D. 4"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "An angle that is more than 0° but less than 90° is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Straight angle",
+        "B. Obtuse angle",
+        "C. Acute angle",
+        "D. Reflex angle"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Find the area of a parallelogram whose base is 2.5 m and height is 50 m.",
+      "diagram": null,
+      "options": [
+        "A. 35 m²",
+        "B. 28 m²",
+        "C. 125 m²",
+        "D. 100 m²"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "A villager has 6m sheep and 5n goats. He sells 3m sheep and 2n goats. How many animals is he left with?",
+      "diagram": null,
+      "options": [
+        "A. 3m + 3n",
+        "B. 3m - 3n",
+        "C. 3m + 2n",
+        "D. 9m + 7n"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "A straight line which cuts two or more parallel lines is called a ___________.",
+      "diagram": null,
+      "options": [
+        "A. divisor",
+        "B. tangent",
+        "C. transversal",
+        "D. bisector"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "Given that a, b and c are the angles in a triangle and a:b:c = 4:3:2, find the value of (a - c).",
+      "diagram": null,
+      "options": [
+        "A. 20°",
+        "B. 40°",
+        "C. 60°",
+        "D. 80°"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "The length of a rectangle is 10 cm. If its perimeter is 28 cm, find the area.",
+      "diagram": null,
+      "options": [
+        "A. 80 cm²",
+        "B. 60 cm²",
+        "C. 40 cm²",
+        "D. 30 cm²"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following figures does not have a line of symmetry?",
+      "diagram": null,
+      "options": [
+        "A. Rhombus",
+        "B. Kite",
+        "C. Parallelogram",
+        "D. Rectangle"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "Express 7.35 as a mixed number.",
+      "diagram": null,
+      "options": [
+        "A. 6 7/20",
+        "B. 7 7/20",
+        "C. 8 7/20",
+        "D. 9 7/25"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "How many pieces of string, each 2.5 cm long, can be obtained from a 2 m string?",
+      "diagram": null,
+      "options": [
+        "A. 40",
+        "B. 60",
+        "C. 80",
+        "D. 100"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "A piece of string is 30 cm long. If the string is used to form an equilateral triangle, what is the length of each side?",
+      "diagram": null,
+      "options": [
+        "A. 45 cm",
+        "B. 40 cm",
+        "C. 15 cm",
+        "D. 10 cm"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Which of the following angles is complementary to 36°?",
+      "diagram": null,
+      "options": [
+        "A. 54°",
+        "B. 64°",
+        "C. 74°",
+        "D. 144°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "The value of 3 in 24.635 is ________.",
+      "diagram": null,
+      "options": [
+        "A. 3 units",
+        "B. 3 tenths",
+        "C. 3 hundredths",
+        "D. 3 thousandths"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "Express the number 1,075 in Roman numerals.",
+      "diagram": null,
+      "options": [
+        "A. MLXXV",
+        "B. MDXXV",
+        "C. MCLXXV",
+        "D. MDCLXXV"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Find the simple interest on ₦720.00 for 3½ years at 5½% per annum.",
+      "diagram": null,
+      "options": [
+        "A. ₦108.00",
+        "B. ₦138.00",
+        "C. ₦138.60",
+        "D. ₦180.00"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "All these are reflex angles EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. 275°",
+        "B. 210°",
+        "C. 190°",
+        "D. 117°"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "question": "One of the base angles of an isosceles triangle is 50°. Find the other two angles of the triangle.",
+      "diagram": null,
+      "options": [
+        "A. 50° and 40°",
+        "B. 50° and 80°",
+        "C. 50° and 130°",
+        "D. 50° and 110°"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "What is the value of 9 in the number 579,303?",
+      "diagram": null,
+      "options": [
+        "A. 9",
+        "B. 90",
+        "C. 900",
+        "D. 9000"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "Calculate the fourth angle of a quadrilateral whose other three angles are 58°, 117° and 122°.",
+      "diagram": null,
+      "options": [
+        "A. 43°",
+        "B. 53°",
+        "C. 63°",
+        "D. 73°"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "Eight people share a prize and receive ₦125 each. How much would each have received if there had been only five prize winners?",
+      "diagram": null,
+      "options": [
+        "A. ₦150",
+        "B. ₦200",
+        "C. ₦240",
+        "D. ₦250"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "If the diagonals of a rhombus are 4 cm and 8 cm, find the area.",
+      "diagram": null,
+      "options": [
+        "A. 32 cm²",
+        "B. 16 cm²",
+        "C. 12 cm²",
+        "D. 4 cm²"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "If the area of a trapezium is 210 cm² and the parallel bases are 21 cm and 39 cm in length, what is the perpendicular height?",
+      "diagram": null,
+      "options": [
+        "A. 7 cm",
+        "B. 9 cm",
+        "C. 10 cm",
+        "D. 11 cm"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "Express 234 as a product of its prime factors.",
+      "diagram": null,
+      "options": [
+        "A. 2 × 3 × 13",
+        "B. 2 × 3² × 13",
+        "C. 2² × 3 × 13",
+        "D. 2² × 3² × 13"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Which of the following is a Pythagorean triple?",
+      "diagram": null,
+      "options": [
+        "A. 5, 12, 14",
+        "B. 8, 12, 15",
+        "C. 8, 15, 17",
+        "D. 8, 12, 17"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "The perpendicular bisector of a straight line cuts the line at an angle of ________.",
+      "diagram": null,
+      "options": [
+        "A. 90°",
+        "B. 60°",
+        "C. 30°",
+        "D. 25°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "A boarding school has sufficient food for 600 students for 2 weeks. How long would the food last if an additional 200 students are admitted?",
+      "diagram": null,
+      "options": [
+        "A. 1½ weeks",
+        "B. 2½ weeks",
+        "C. 2¼ weeks",
+        "D. 2 weeks"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "How many prime numbers are there between 50 and 60?",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "Find the diameter of a circle whose circumference is 88 cm. Take π = 22/7.",
+      "diagram": null,
+      "options": [
+        "A. 14 cm",
+        "B. 21 cm",
+        "C. 28 cm",
+        "D. 35 cm"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "The area of a trapezium is 36 m². The height is 9 m and one of the parallel sides is 5 m. Calculate the length of the other parallel side.",
+      "diagram": null,
+      "options": [
+        "A. 2.5 m",
+        "B. 3 m",
+        "C. 3.5 m",
+        "D. 4 m"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "A flagpole 6.3 m long is driven 1.4 m into the ground. What fraction of the pole is above the ground?",
+      "diagram": null,
+      "options": [
+        "A. 2/9",
+        "B. 2/7",
+        "C. 2/5",
+        "D. 7/9"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "The area of a triangle is 90 cm² and the base is 12 cm. What is the perpendicular height?",
+      "diagram": null,
+      "options": [
+        "A. 15 cm",
+        "B. 16 cm",
+        "C. 17 cm",
+        "D. 19 cm"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "A family arrives home at 01:10 after a journey that took 7½ hours. At what time on the previous day did their journey start?",
+      "diagram": null,
+      "options": [
+        "A. 15:30",
+        "B. 16:40",
+        "C. 17:40",
+        "D. 18:40"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Chairs in a hall are arranged in 35 rows of 18 chairs. How many rows would there be with 21 chairs to a row?",
+      "diagram": null,
+      "options": [
+        "A. 40 rows",
+        "B. 36 rows",
+        "C. 34 rows",
+        "D. 30 rows"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "question": "At which of these times is the angle between the minute hand and the hour hand of a clock equal to 150°?",
+      "diagram": null,
+      "options": [
+        "A. 9 p.m.",
+        "B. 8 p.m.",
+        "C. 6 p.m.",
+        "D. 5 p.m."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "A circle has a radius of 9 cm. The expression 18π cm represents the ________.",
+      "diagram": null,
+      "options": [
+        "A. volume",
+        "B. area",
+        "C. circumference",
+        "D. chord"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "If two angles are complementary to each other, then each angle is ________.",
+      "diagram": null,
+      "options": [
+        "A. an obtuse angle",
+        "B. a right angle",
+        "C. an acute angle",
+        "D. a reflex angle"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Find the L.C.M. of 224 and 168.",
+      "diagram": null,
+      "options": [
+        "A. 84",
+        "B. 96",
+        "C. 224",
+        "D. 672"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 41,
+      "question": "Express 0.24 as a fraction in its lowest terms.",
+      "diagram": null,
+      "options": [
+        "A. 1/25",
+        "B. 1/24",
+        "C. 4/25",
+        "D. 6/25"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "The area of a rhombus is 48 cm². If one of its diagonals is 8 cm, find the length of the other diagonal.",
+      "diagram": null,
+      "options": [
+        "A. 6 cm",
+        "B. 8 cm",
+        "C. 10 cm",
+        "D. 12 cm"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "If one side of a square is 0.05 m, find the perimeter of the square.",
+      "diagram": null,
+      "options": [
+        "A. 50 cm",
+        "B. 40 cm",
+        "C. 30 cm",
+        "D. 20 cm"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "question": "A certain number of students were to share 160 mangoes. Five students left and the rest shared the mangoes, with each of them getting eight mangoes. How many students were present originally?",
+      "diagram": null,
+      "options": [
+        "A. 40",
+        "B. 32",
+        "C. 25",
+        "D. 20"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "Which of the following is NOT a plane shape?",
+      "diagram": null,
+      "options": [
+        "A. Kite",
+        "B. Scalene triangle",
+        "C. Circle",
+        "D. Prism"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 46,
+      "question": "What day will it be 2021 hours after 20:21 on Monday?",
+      "diagram": null,
+      "options": [
+        "A. Thursday",
+        "B. Wednesday",
+        "C. Tuesday",
+        "D. Friday"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "There are 39 boys and 23 girls in a dance group. Every week, 6 boys and 8 girls join the group and no one leaves the group. What is the total number of people in the dance group in the week when the number of boys equals the number of girls?",
+      "diagram": null,
+      "options": [
+        "A. 184",
+        "B. 174",
+        "C. 164",
+        "D. 154"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Ibe starts to read a 290-page book on a Sunday. He reads four pages every day except on Sundays when he reads 25 pages. How many days does it take him to finish the book?",
+      "diagram": null,
+      "options": [
+        "A. 41",
+        "B. 40",
+        "C. 35",
+        "D. 12"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "How many lines of symmetry does a kite have?",
+      "diagram": null,
+      "options": [
+        "A. 0",
+        "B. 1",
+        "C. 2",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "In the number 7730, the 7 in the thousands place is _______ times the value of the 7 in the hundreds place.",
+      "diagram": null,
+      "options": [
+        "A. 10",
+        "B. 100",
+        "C. 1,000",
+        "D. 10,000"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 51,
+      "question": "Find the sum of the prime numbers between 20 and 36.",
+      "diagram": null,
+      "options": [
+        "A. 60",
+        "B. 110",
+        "C. 83",
+        "D. 52"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 52,
+      "question": "Find the value of x: 2/5 = x/25.",
+      "diagram": null,
+      "options": [
+        "A. 10",
+        "B. 15",
+        "C. 20",
+        "D. 25"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 53,
+      "question": "Find 15% of 200.",
+      "diagram": null,
+      "options": [
+        "A. 60",
+        "B. 45",
+        "C. 30",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 54,
+      "question": "The numbers 1, 3, 5, X, 9, 11, Y form a certain pattern. Find (X + Y).",
+      "diagram": null,
+      "options": [
+        "A. 20",
+        "B. 23",
+        "C. 24",
+        "D. 27"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 55,
+      "question": "If the width of a rectangle is 4 cm and its length is three times the width, find the area of the rectangle.",
+      "diagram": null,
+      "options": [
+        "A. 24 cm²",
+        "B. 30 cm²",
+        "C. 32 cm²",
+        "D. 48 cm²"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 56,
+      "question": "A boy is 1500 days old. How old will he be on his next birthday?",
+      "diagram": null,
+      "options": [
+        "A. 3 years",
+        "B. 4 years",
+        "C. 5 years",
+        "D. 6 years"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 57,
+      "question": "Which of the following CANNOT be expressed as the product of two prime numbers?",
+      "diagram": null,
+      "options": [
+        "A. 21",
+        "B. 35",
+        "C. 61",
+        "D. 77"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 58,
+      "question": "How many seconds are there in 1 day, 2 hours and 14 minutes?",
+      "diagram": null,
+      "options": [
+        "A. 78,660",
+        "B. 86,560",
+        "C. 89,440",
+        "D. 94,440"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 59,
+      "question": "Express 45/100 as a decimal.",
+      "diagram": null,
+      "options": [
+        "A. 0.45",
+        "B. 4.5",
+        "C. 0.0045",
+        "D. 45.00"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 60,
+      "question": "The number of all divisors of 100 is equal to ________.",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 7",
+        "C. 8",
+        "D. 9"
+      ],
+      "correctOption": "D"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer all four (4) questions in this section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "The angles of a quadrilateral are 20°, 2x°, 100° and 140°. Find the value of x.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "The length of a rectangle is three times the width. If the perimeter is 36 cm, calculate the width.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(i) Simplify 3.72 × 0.025.\n(ii) A boy is paid ₦200.00 for a five-day job. Calculate his monthly payment, assuming that every month is 30 days.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "Two triangles P and Q have sides 4 cm, 5 cm, 11 cm and 18 cm, 22 cm, 24 cm respectively. Find the ratio of the perimeter of P to the perimeter of Q.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "THIRD",
+  "term_label": "3rd Term",
+  "class_category": "JSS1"
+}

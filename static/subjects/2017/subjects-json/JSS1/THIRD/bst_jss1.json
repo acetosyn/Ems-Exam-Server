@@ -1,0 +1,762 @@
+{
+  "subject": "BST",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 90,
+  "questions": [
+    {
+      "id": 1,
+      "question": "The two types of reproduction are ________.",
+      "diagram": null,
+      "options": [
+        "A. Synthetic and authentic",
+        "B. Sexual and bisexual",
+        "C. Sexual and asexual",
+        "D. Asexual and bisexual"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "The following are parts of the female reproductive system EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Breast",
+        "B. Cervix",
+        "C. Womb",
+        "D. Vagina"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "________ is the contamination of our environment with dirty, poisonous, dangerous or hazardous substances.",
+      "diagram": null,
+      "options": [
+        "A. Pollution",
+        "B. Contamination",
+        "C. Pollutants",
+        "D. Home disturbance"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "The following are examples of air pollutants EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Smoke",
+        "B. Sulphur dioxide",
+        "C. Dust",
+        "D. Water"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "Which of the following can cause land pollution?",
+      "diagram": null,
+      "options": [
+        "A. Water",
+        "B. Refuse",
+        "C. Dust",
+        "D. Smoke"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "The following are ways of controlling water pollution EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Creating good drainage systems",
+        "B. Proper disposal of sewage",
+        "C. Preventing oil spillage",
+        "D. Dumping untreated sewage into water bodies"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Persistent sores and other serious infections may occur when a person's immune system is severely weakened by ________.",
+      "diagram": null,
+      "options": [
+        "A. Pregnancy",
+        "B. Severe headache",
+        "C. Toilet infection",
+        "D. HIV/AIDS"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "The correct full meaning of STI is ________.",
+      "diagram": null,
+      "options": [
+        "A. Spiritually Terminated Identity",
+        "B. Sexually Trampled Infection",
+        "C. Sexually Transmitted Induction",
+        "D. Sexually Transmitted Infection"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "Which of the following is the best way for young people to prevent sexually transmitted infections?",
+      "diagram": null,
+      "options": [
+        "A. Public enlightenment",
+        "B. Abstinence",
+        "C. Early treatment of identified cases",
+        "D. Immunization against every STI"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "The following may be symptoms associated with advanced HIV infection EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Fever",
+        "B. Frequent tiredness",
+        "C. Weight loss",
+        "D. Protruded stomach"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following statements is true about HIV?",
+      "diagram": null,
+      "options": [
+        "A. HIV can always be completely cured",
+        "B. HIV can be transmitted by hugging",
+        "C. HIV is the cause of every fever",
+        "D. An infected pregnant woman can transmit the virus to her baby"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "HIV can be transmitted through the following ways EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Handshake",
+        "B. Sexual intercourse",
+        "C. Use of contaminated sharp objects",
+        "D. Transfusion of infected blood"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Gonorrhoea is caused by ________.",
+      "diagram": null,
+      "options": [
+        "A. Neisseria gonorrhoeae",
+        "B. Chlamydia trachomatis",
+        "C. Syphilis",
+        "D. Virus"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "Pesticides and herbicides may be responsible for which type of pollution when they contaminate the soil?",
+      "diagram": null,
+      "options": [
+        "A. Air pollution",
+        "B. Water pollution",
+        "C. Land pollution",
+        "D. Noise pollution"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "The following are control measures for air pollution EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Locating industries away from densely populated areas",
+        "B. Educating people on the dangers of air pollution",
+        "C. Keeping houses well ventilated",
+        "D. Allowing bush burning"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "A person living with HIV can always be identified by looking at his or her face.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. Maybe",
+        "D. Don't know"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "The ability to do work is referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. Power",
+        "B. Energy",
+        "C. Work",
+        "D. Food"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "The following are natural sources of energy EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Battery",
+        "B. Food",
+        "C. Sun",
+        "D. Wind"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "The SI unit of energy is ________.",
+      "diagram": null,
+      "options": [
+        "A. Joule",
+        "B. Watt",
+        "C. Work",
+        "D. Ability"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Which of these devices converts electrical energy mainly into kinetic energy?",
+      "diagram": null,
+      "options": [
+        "A. Electric bell",
+        "B. Telephone",
+        "C. Electric fan",
+        "D. Motor car"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "________ energy comes from resources that can be naturally replaced as they are used.",
+      "diagram": null,
+      "options": [
+        "A. Renewable",
+        "B. Non-renewable",
+        "C. Chemical",
+        "D. Nuclear"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "The type of pollution commonly associated with respiratory disorders is ________.",
+      "diagram": null,
+      "options": [
+        "A. Land pollution",
+        "B. Air pollution",
+        "C. Noise pollution",
+        "D. Water pollution"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "An electric pressing iron converts electrical energy into ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Chemical",
+        "B. Heat",
+        "C. Kinetic",
+        "D. Sound"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "The kind of energy stored in the food we eat is called ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Chemical",
+        "B. Electrical",
+        "C. Sound",
+        "D. Light"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "The organ in the female reproductive system which houses the developing baby until birth is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Ovary",
+        "B. Uterus",
+        "C. Cervix",
+        "D. Vagina"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "A bicycle dynamo converts ________ energy into electrical energy, which can then produce light.",
+      "diagram": null,
+      "options": [
+        "A. Mechanical",
+        "B. Chemical",
+        "C. Heat",
+        "D. Sound"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "The type of reproduction practised by humans is ________ reproduction.",
+      "diagram": null,
+      "options": [
+        "A. Asexual",
+        "B. Sexual",
+        "C. Vegetative",
+        "D. Budding"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "The male sex cell is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Ovum",
+        "B. Sperm",
+        "C. Zygote",
+        "D. Embryo"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Dirty, poisonous, dangerous or hazardous substances that contaminate the environment are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Pollutants",
+        "B. Organisms",
+        "C. Nutrients",
+        "D. Minerals"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The release of harmful or poisonous gases into the atmosphere causes ________ pollution.",
+      "diagram": null,
+      "options": [
+        "A. Land",
+        "B. Water",
+        "C. Air",
+        "D. Noise"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Which of the following is the female sex cell?",
+      "diagram": null,
+      "options": [
+        "A. Sperm",
+        "B. Ovum",
+        "C. Zygote",
+        "D. Embryo"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "The fusion of male and female gametes is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Fertilization",
+        "B. Pollination",
+        "C. Respiration",
+        "D. Germination"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "The product formed immediately after fertilization is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Gamete",
+        "B. Zygote",
+        "C. Sperm",
+        "D. Ovum"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following is an example of asexual reproduction?",
+      "diagram": null,
+      "options": [
+        "A. Budding in yeast",
+        "B. Fertilization in humans",
+        "C. Mating in goats",
+        "D. Fusion of gametes"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "Which organ produces the female reproductive cells?",
+      "diagram": null,
+      "options": [
+        "A. Uterus",
+        "B. Ovary",
+        "C. Cervix",
+        "D. Vagina"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "Which of the following is NOT a type of environmental pollution?",
+      "diagram": null,
+      "options": [
+        "A. Air pollution",
+        "B. Water pollution",
+        "C. Land pollution",
+        "D. Food digestion"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "question": "Oil spillage mainly affects ________.",
+      "diagram": null,
+      "options": [
+        "A. Water and land",
+        "B. Only sunlight",
+        "C. Only sound",
+        "D. Electricity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Dumping refuse into rivers can cause ________.",
+      "diagram": null,
+      "options": [
+        "A. Water pollution",
+        "B. Light pollution",
+        "C. Energy conservation",
+        "D. Photosynthesis"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "One effective way of controlling land pollution is ________.",
+      "diagram": null,
+      "options": [
+        "A. Proper waste disposal",
+        "B. Dumping refuse on roads",
+        "C. Burning plastics everywhere",
+        "D. Pouring chemicals on farmland"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "Bush burning contributes mainly to ________.",
+      "diagram": null,
+      "options": [
+        "A. Air pollution",
+        "B. Water purification",
+        "C. Energy conservation",
+        "D. Improved sanitation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "Which of the following is an example of a sexually transmitted infection?",
+      "diagram": null,
+      "options": [
+        "A. Gonorrhoea",
+        "B. Malaria",
+        "C. Measles",
+        "D. Common cold"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Which of the following does NOT transmit HIV?",
+      "diagram": null,
+      "options": [
+        "A. Sharing contaminated needles",
+        "B. Transfusion of infected blood",
+        "C. Hugging an infected person",
+        "D. Transmission from an infected mother to her baby"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "Sharing unsterilized sharp objects can increase the risk of transmitting ________.",
+      "diagram": null,
+      "options": [
+        "A. HIV",
+        "B. Hunger",
+        "C. Headache",
+        "D. Tooth decay"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "Which of the following is a responsible way of preventing the spread of infections?",
+      "diagram": null,
+      "options": [
+        "A. Sharing sharp objects",
+        "B. Using sterilized medical equipment",
+        "C. Ignoring medical advice",
+        "D. Sharing needles"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "A person cannot know another person's HIV status simply by ________.",
+      "diagram": null,
+      "options": [
+        "A. Looking at the person's appearance",
+        "B. Medical testing",
+        "C. Laboratory screening",
+        "D. Proper diagnosis"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 46,
+      "question": "Energy from the sun is called ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Solar",
+        "B. Wind",
+        "C. Chemical",
+        "D. Sound"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "Which of the following is a renewable source of energy?",
+      "diagram": null,
+      "options": [
+        "A. Coal",
+        "B. Petroleum",
+        "C. Wind",
+        "D. Natural gas"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 48,
+      "question": "Which of the following is a non-renewable source of energy?",
+      "diagram": null,
+      "options": [
+        "A. Sunlight",
+        "B. Wind",
+        "C. Petroleum",
+        "D. Flowing water"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "An electric bulb converts electrical energy mainly into ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Light",
+        "B. Chemical",
+        "C. Mechanical",
+        "D. Potential"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "A generator converts mechanical energy into ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Electrical",
+        "B. Chemical",
+        "C. Sound",
+        "D. Nuclear"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 51,
+      "question": "A loudspeaker converts electrical energy mainly into ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Sound",
+        "B. Chemical",
+        "C. Solar",
+        "D. Potential"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 52,
+      "question": "The energy possessed by a moving object is called ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Kinetic",
+        "B. Potential",
+        "C. Chemical",
+        "D. Solar"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 53,
+      "question": "Energy stored in an object because of its position is called ________ energy.",
+      "diagram": null,
+      "options": [
+        "A. Potential",
+        "B. Kinetic",
+        "C. Sound",
+        "D. Light"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 54,
+      "question": "The law of conservation of energy states that energy cannot be ________.",
+      "diagram": null,
+      "options": [
+        "A. Created or destroyed",
+        "B. Converted from one form to another",
+        "C. Used to do work",
+        "D. Transferred"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 55,
+      "question": "Which of the following is a use of energy in the home?",
+      "diagram": null,
+      "options": [
+        "A. Cooking",
+        "B. Sleeping",
+        "C. Standing",
+        "D. Watching an unplugged television"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 56,
+      "question": "Coal, crude oil and natural gas are examples of ________ sources of energy.",
+      "diagram": null,
+      "options": [
+        "A. Non-renewable",
+        "B. Renewable",
+        "C. Solar",
+        "D. Wind"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 57,
+      "question": "Which of the following can help conserve energy?",
+      "diagram": null,
+      "options": [
+        "A. Switching off electrical appliances when not in use",
+        "B. Leaving lights on throughout the day",
+        "C. Wasting fuel",
+        "D. Keeping unused appliances running"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 58,
+      "question": "Which of the following is a land pollutant?",
+      "diagram": null,
+      "options": [
+        "A. Plastic waste",
+        "B. Clean water",
+        "C. Fresh air",
+        "D. Sunlight"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 59,
+      "question": "Untreated sewage discharged into a river may lead to ________.",
+      "diagram": null,
+      "options": [
+        "A. Water pollution",
+        "B. Better water quality",
+        "C. Cleaner surroundings",
+        "D. Increased oxygen in the water"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 60,
+      "question": "Which of the following practices helps to keep the environment clean?",
+      "diagram": null,
+      "options": [
+        "A. Proper disposal of waste",
+        "B. Dumping refuse in drains",
+        "C. Pouring oil into rivers",
+        "D. Burning waste indiscriminately"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Attempt any three (3) questions in this section. All questions carry equal marks. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) What is pollution? (2 marks)\n(b) List the three types of pollution and explain any two. (5 marks)\n(c) List three examples of sexually transmitted infections that you know. (3 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) What are pollutants? (2 marks)\n(b) Highlight three effects of water pollution. (3 marks)\n(c) Enumerate three causes of air pollution. (3 marks)\n(d) Identify two ways of controlling land pollution. (2 marks)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) What is STI? (2 marks)\n(b) List two consequences of STIs. (2 marks)\n(c) Define air pollution. (2 marks)\n(d) State four ways through which HIV can be transmitted. (4 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) Define energy. (2 marks)\n(b) State the law of conservation of energy. (2 marks)\n(c) Mention three uses of energy. (3 marks)\n(d) List three land or soil pollutants. (3 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) What are non-renewable sources of energy? (2 marks)\n(b) What is oil spillage? (2 marks)\n(c) State three effects of land pollution. (3 marks)\n(d) State three ways of preventing HIV infection. (3 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "THIRD",
+  "term_label": "3rd Term",
+  "class_category": "JSS1"
+}

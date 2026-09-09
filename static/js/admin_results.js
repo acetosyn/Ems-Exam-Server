@@ -1,6 +1,7 @@
 // static/js/admin_results.js
 // ============================================================
-// EMIS ADMIN RESULTS — TERM-AWARE RESULTS MANAGEMENT
+// EMIS ADMIN RESULTS — OBJECTIVE + ESSAY / THEORY MANAGEMENT
+// Term-aware JSS • Flat SS • Student roster essay entry
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,12 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     reloadTableBtn: $("reloadTableBtn"), clearFiltersBtn: $("clearFiltersBtn"), resultsTable: $("resultsTable"), resultsBody: $("resultsBody"),
     selectAllRows: $("selectAllRows"), selectedCountBadge: $("selectedCountBadge"), tableSubtitle: $("tableSubtitle"),
-    paginationInfo: $("paginationInfo"), pagination: $("pagination"), rowsPerPage: $("rowsPerPage"), columnToggleBtn: $("columnToggleBtn"),
-    columnMenu: $("columnMenu"), resetColumnsBtn: $("resetColumnsBtn"), toggleCompactBtn: $("toggleCompactBtn"),
+    paginationInfo: $("paginationInfo"), pagination: $("pagination"), rowsPerPage: $("rowsPerPage"),
+    columnToggleBtn: $("columnToggleBtn"), columnMenu: $("columnMenu"), resetColumnsBtn: $("resetColumnsBtn"), toggleCompactBtn: $("toggleCompactBtn"),
     activeFilterChips: $("activeFilterChips"), filteredResultCount: $("filteredResultCount"),
 
-    deleteSelectedBtn: $("deleteSelectedBtn"), printSelectedBtn: $("printSelectedBtn"), exportAllExcelBtn: $("exportAllExcelBtn"),
-    exportCsvBtn: $("exportCsvBtn"), printAllPdfBtn: $("printAllPdfBtn"),
+    deleteSelectedBtn: $("deleteSelectedBtn"), printSelectedBtn: $("printSelectedBtn"),
+    exportAllExcelBtn: $("exportAllExcelBtn"), exportCsvBtn: $("exportCsvBtn"), printAllPdfBtn: $("printAllPdfBtn"),
+
+    essayScoresBtn: $("essayScoresBtn"), openEssayScoresBtn: $("openEssayScoresBtn"),
 
     deleteModal: $("deleteModal"), cancelDeleteBtn: $("cancelDeleteBtn"), confirmDeleteBtn: $("confirmDeleteBtn"),
 
@@ -35,7 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     statTotalResults: $("statTotalResults"), statPassRate: $("statPassRate"), statAvgScore: $("statAvgScore"), statSubjects: $("statSubjects"),
     avgTimeTaken: $("avgTimeTaken"), topPerformerName: $("topPerformerName"), topPerformerMeta: $("topPerformerMeta"),
-    highestScore: $("highestScore"), lowestScore: $("lowestScore")
+    highestScore: $("highestScore"), lowestScore: $("lowestScore"),
+
+    essayScoreModal: $("essayScoreModal"), essayScoreBackdrop: $("essayScoreBackdrop"), essayScoreCloseBtn: $("essayScoreCloseBtn"),
+    cancelEssayScoresBtn: $("cancelEssayScoresBtn"), saveEssayScoresBtn: $("saveEssayScoresBtn"), clearEssayChangesBtn: $("clearEssayChangesBtn"),
+
+    essayAvailabilityBadge: $("essayAvailabilityBadge"), essayContextYear: $("essayContextYear"), essayContextClass: $("essayContextClass"),
+    essayContextTermWrap: $("essayContextTermWrap"), essayContextTerm: $("essayContextTerm"), essayContextSubject: $("essayContextSubject"),
+    essayObjectiveMax: $("essayObjectiveMax"), essayMaximumScore: $("essayMaximumScore"), essayHeaderMax: $("essayHeaderMax"),
+
+    essayStudentSearch: $("essayStudentSearch"), clearEssaySearchBtn: $("clearEssaySearchBtn"), essayPendingOnly: $("essayPendingOnly"),
+    essayStudentCount: $("essayStudentCount"), essayScoreBody: $("essayScoreBody"), essayUnsavedCount: $("essayUnsavedCount")
   };
 
 
@@ -45,13 +58,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const DEFAULT_TERMS = ["FIRST", "SECOND", "THIRD"];
   const TERM_LABELS = { FIRST: "1st Term", SECOND: "2nd Term", THIRD: "3rd Term" };
-  const COLUMN_ORDER = ["select", "student", "admission", "year", "class", "term", "subject", "score", "status", "time", "date", "actions"];
+
+  const COLUMN_ORDER = [
+    "select", "student", "admission", "year", "class", "term", "subject",
+    "objective", "essay", "total", "status", "time", "date", "actions"
+  ];
 
   const state = {
-    allResults: [], filteredResults: [], selectedKeys: new Set(), currentPage: 1,
-    rowsPerPage: Number(els.rowsPerPage?.value || 20), sortKey: "date", sortDirection: "desc",
-    statusView: "all", compact: false, currentSummaryRow: null, pendingDeleteRows: null,
-    visibleColumns: new Set(COLUMN_ORDER), loadToken: 0, loading: false
+    allResults: [], filteredResults: [], selectedKeys: new Set(),
+    currentPage: 1, rowsPerPage: Number(els.rowsPerPage?.value || 20),
+    sortKey: "date", sortDirection: "desc", statusView: "all", compact: false,
+    currentSummaryRow: null, pendingDeleteRows: null, visibleColumns: new Set(COLUMN_ORDER),
+    loadToken: 0, loading: false,
+
+    essay: {
+      year: "", classLevel: "", term: "", subject: "", arm: "all",
+      objectiveMax: 60, essayMax: 40, totalMax: 100, available: true,
+      students: [], filteredStudents: [], changes: new Map(), originalScores: new Map(),
+      search: "", pendingOnly: false, loading: false
+    }
   };
 
 
@@ -65,26 +90,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function normalizeText(value) { return String(value ?? "").trim().toLowerCase(); }
   function normalizeUpper(value) { return String(value ?? "").trim().toUpperCase(); }
-
-  function normalizeTerm(value) {
-    const raw = normalizeUpper(value).replaceAll("_", " ").replaceAll("-", " ").replace(/\s+/g, " ");
-    const aliases = {
-      FIRST: "FIRST", "FIRST TERM": "FIRST", "TERM 1": "FIRST", "TERM ONE": "FIRST", "1": "FIRST", "1ST": "FIRST", "1ST TERM": "FIRST",
-      SECOND: "SECOND", "SECOND TERM": "SECOND", "TERM 2": "SECOND", "TERM TWO": "SECOND", "2": "SECOND", "2ND": "SECOND", "2ND TERM": "SECOND",
-      THIRD: "THIRD", "THIRD TERM": "THIRD", "TERM 3": "THIRD", "TERM THREE": "THIRD", "3": "THIRD", "3RD": "THIRD", "3RD TERM": "THIRD"
-    };
-    return aliases[raw] || "";
-  }
-
-  function termLabel(value) { return TERM_LABELS[normalizeTerm(value)] || ""; }
+  function formatClassLabel(value) { return String(value || "").replaceAll("_", " ").replace(/\s+/g, " ").trim().toUpperCase(); }
   function formatSubject(value) { return String(value || "").replaceAll("_", " ").replace(/\s+/g, " ").trim().toUpperCase(); }
-  function formatClassLabel(value) { return String(value || "").replaceAll("_", " ").trim().toUpperCase(); }
   function isJssClass(value) { return normalizeUpper(value).startsWith("JSS"); }
   function isSsClass(value) { return normalizeUpper(value).startsWith("SS"); }
 
   function parseNumber(value, fallback = 0) {
     const number = Number.parseFloat(String(value ?? "").replace("%", "").trim());
     return Number.isFinite(number) ? number : fallback;
+  }
+
+  function parseNullableNumber(value) {
+    if (value === null || value === undefined || String(value).trim() === "") return null;
+    const number = Number.parseFloat(String(value).replace("%", "").trim());
+    return Number.isFinite(number) ? number : null;
+  }
+
+  function roundScore(value, decimals = 2) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return 0;
+    const factor = 10 ** decimals;
+    return Math.round((number + Number.EPSILON) * factor) / factor;
+  }
+
+  function scoreText(value, decimals = 2) {
+    if (value === null || value === undefined || !Number.isFinite(Number(value))) return "—";
+    const number = roundScore(Number(value), decimals);
+    return Number.isInteger(number) ? String(number) : String(number).replace(/0+$/, "").replace(/\.$/, "");
+  }
+
+  function boolValue(value, fallback = false) {
+    if (typeof value === "boolean") return value;
+    if (value === 1 || value === "1") return true;
+    if (value === 0 || value === "0") return false;
+
+    const raw = normalizeText(value);
+    if (["true", "yes", "y", "available", "present"].includes(raw)) return true;
+    if (["false", "no", "n", "none", "absent", "not available"].includes(raw)) return false;
+
+    return fallback;
   }
 
   function compareValues(a, b) {
@@ -102,6 +146,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (element) element.textContent = value ?? "";
   }
 
+  function normalizeTerm(value) {
+    const raw = normalizeUpper(value).replaceAll("_", " ").replaceAll("-", " ").replace(/\s+/g, " ");
+
+    const aliases = {
+      FIRST: "FIRST", "FIRST TERM": "FIRST", "TERM 1": "FIRST", "TERM ONE": "FIRST", "1": "FIRST", "1ST": "FIRST", "1ST TERM": "FIRST",
+      SECOND: "SECOND", "SECOND TERM": "SECOND", "TERM 2": "SECOND", "TERM TWO": "SECOND", "2": "SECOND", "2ND": "SECOND", "2ND TERM": "SECOND",
+      THIRD: "THIRD", "THIRD TERM": "THIRD", "TERM 3": "THIRD", "TERM THREE": "THIRD", "3": "THIRD", "3RD": "THIRD", "3RD TERM": "THIRD"
+    };
+
+    return aliases[raw] || "";
+  }
+
+  function termLabel(value) { return TERM_LABELS[normalizeTerm(value)] || ""; }
+
 
   // ==========================================================
   // 4. TOAST
@@ -113,27 +171,32 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!stack) {
       stack = document.createElement("div");
       stack.className = "ar-toast-stack";
+
       Object.assign(stack.style, {
-        position: "fixed", right: "20px", bottom: "20px", zIndex: "10050", display: "grid",
-        gap: "8px", maxWidth: "370px"
+        position: "fixed", right: "20px", bottom: "20px", zIndex: "10050",
+        display: "grid", gap: "8px", maxWidth: "390px"
       });
+
       document.body.appendChild(stack);
     }
 
     const palette = {
-      success: ["#166534", "#ecfdf3", "#bbf7d0"], error: ["#991b1b", "#fff1f2", "#fecdd3"],
-      warning: ["#92400e", "#fffbeb", "#fde68a"], info: ["#115e59", "#f0fdfa", "#99f6e4"]
+      success: ["#166534", "#ecfdf3", "#bbf7d0"],
+      error: ["#991b1b", "#fff1f2", "#fecdd3"],
+      warning: ["#92400e", "#fffbeb", "#fde68a"],
+      info: ["#115e59", "#f0fdfa", "#99f6e4"]
     };
 
     const [color, background, border] = palette[type] || palette.info;
     const toast = document.createElement("div");
+
     toast.textContent = message;
 
     Object.assign(toast.style, {
-      padding: "11px 13px", border: `1px solid ${border}`, borderRadius: "10px", color, background,
-      boxShadow: "0 10px 28px rgba(15,23,42,.14)", fontSize: "14px", fontWeight: "700",
-      lineHeight: "1.4", opacity: "0", transform: "translateY(8px)",
-      transition: "opacity .18s ease, transform .18s ease"
+      padding: "11px 13px", border: `1px solid ${border}`, borderRadius: "10px",
+      color, background, boxShadow: "0 10px 28px rgba(15,23,42,.14)",
+      fontSize: "14px", fontWeight: "700", lineHeight: "1.4",
+      opacity: "0", transform: "translateY(8px)", transition: "opacity .18s ease, transform .18s ease"
     });
 
     stack.appendChild(toast);
@@ -147,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
       toast.style.opacity = "0";
       toast.style.transform = "translateY(8px)";
       setTimeout(() => toast.remove(), 220);
-    }, 3200);
+    }, 3400);
   }
 
 
@@ -158,14 +221,22 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchJson(url, options = {}) {
     const response = await fetch(url, {
       credentials: "same-origin",
-      headers: { Accept: "application/json", ...(options.body ? { "Content-Type": "application/json" } : {}), ...(options.headers || {}) },
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+        ...(options.body ? { "Content-Type": "application/json" } : {}),
+        ...(options.headers || {})
+      },
       ...options
     });
 
     let data = {};
-    try { data = await response.json(); } catch { data = {}; }
+
+    try { data = await response.json(); }
+    catch { data = {}; }
 
     if (!response.ok) throw new Error(data.error || data.message || `Request failed (${response.status})`);
+
     return data;
   }
 
@@ -181,17 +252,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     link.href = url;
     link.download = filename;
+
     document.body.appendChild(link);
     link.click();
     link.remove();
 
-    setTimeout(() => URL.revokeObjectURL(url), 500);
+    setTimeout(() => URL.revokeObjectURL(url), 700);
   }
 
   function exportFilename(extension) {
-    const year = els.yearSelector?.value || "all-years";
-    const cls = els.classSelector?.value || "all-classes";
-    const term = els.termSelector?.value || "all-terms";
+    const year = selectedYear() || "all-years";
+    const cls = selectedClass() || "all-classes";
+    const term = selectedTerm() || "all-terms";
     const date = new Date().toISOString().slice(0, 10);
 
     return `emis_results_${year}_${cls}_${term}_${date}.${extension}`.replaceAll(" ", "_").toLowerCase();
@@ -202,34 +274,149 @@ document.addEventListener("DOMContentLoaded", () => {
   // 7. RESULT FIELD HELPERS
   // ==========================================================
 
-  function getScore(row) { return parseNumber(row?.["Score (%)"] ?? row?.["Score Number"] ?? row?.score ?? 0); }
-
-  function getStatus(row) {
-    const explicit = normalizeUpper(row?.Status ?? row?.status);
-    if (explicit === "PASS" || explicit === "FAIL") return explicit;
-    return getScore(row) >= 50 ? "PASS" : "FAIL";
-  }
-
-  function getStudentName(row) { return String(row?.["Student Name"] ?? row?.full_name ?? row?.student_name ?? "Unknown Student").trim(); }
-  function getAdmission(row) { return String(row?.["Admission No"] ?? row?.admission_number ?? row?.student_id ?? "").trim(); }
+  function getStudentName(row) { return String(row?.["Student Name"] ?? row?.full_name ?? row?.student_name ?? row?.name ?? "Unknown Student").trim(); }
+  function getAdmission(row) { return String(row?.["Admission No"] ?? row?.Admission_number ?? row?.admission_number ?? row?.student_id ?? "").trim(); }
   function getYear(row) { return String(row?.Year ?? row?.year ?? "").trim(); }
 
   function getClassLevel(row) {
-    return String(row?.["Class Level"] ?? row?.["Class Category"] ?? row?.class_category ?? row?.class_level ?? row?.Class ?? "").trim().toUpperCase();
+    return String(
+      row?.["Class Level"] ?? row?.["Class Category"] ?? row?.class_category ??
+      row?.class_level ?? row?.Class_category ?? row?.classCategory ?? row?.Class ?? ""
+    ).trim().toUpperCase();
   }
 
   function getClassArm(row) {
-    return String(row?.["Class Arm"] ?? row?.class_arm ?? row?.Class ?? getClassLevel(row)).trim().toUpperCase();
+    return String(row?.["Class Arm"] ?? row?.class_arm ?? row?.classArm ?? row?.Class ?? getClassLevel(row)).trim().toUpperCase();
   }
 
   function getClass(row) { return getClassArm(row) || getClassLevel(row); }
   function getClassCategory(row) { return getClassLevel(row); }
-  function getTerm(row) { return normalizeTerm(row?.Term ?? row?.term ?? row?.["Term Label"]); }
-  function getTermLabel(row) { return row?.["Term Label"] || termLabel(getTerm(row)); }
-  function getSubject(row) { return String(row?.Subject ?? row?.subject ?? row?.["Subject Folder"] ?? "").trim(); }
+
+  function getTerm(row) { return normalizeTerm(row?.Term ?? row?.term ?? row?.["Term Label"] ?? row?.term_label); }
+  function getTermLabel(row) { return row?.["Term Label"] ?? row?.term_label ?? termLabel(getTerm(row)); }
+
+  function getSubject(row) { return String(row?.Subject ?? row?.subject ?? row?.["Subject Folder"] ?? row?.subject_folder ?? "").trim(); }
   function getSubjectFolder(row) { return String(row?.["Subject Folder"] ?? row?.subject_folder ?? row?.Subject ?? row?.subject ?? "").trim(); }
-  function getCorrect(row) { return row?.Correct ?? row?.correct ?? 0; }
-  function getTotal(row) { return row?.Total ?? row?.total ?? 0; }
+
+  function getCorrect(row) { return parseNumber(row?.Correct ?? row?.correct ?? row?.correct_answers ?? 0); }
+  function getQuestionTotal(row) { return parseNumber(row?.Total ?? row?.total ?? row?.total_questions ?? row?.question_count ?? 0); }
+
+  function getObjectivePercentage(row) {
+    const explicit = parseNullableNumber(
+      row?.objective_percentage ?? row?.objective_percent ?? row?.["Objective Percentage"] ??
+      row?.["Score (%)"] ?? row?.["Score Number"] ?? row?.score_percentage ?? row?.percentage ?? row?.score
+    );
+
+    if (explicit !== null) return roundScore(explicit);
+
+    const correct = getCorrect(row);
+    const total = getQuestionTotal(row);
+
+    return total > 0 ? roundScore((correct / total) * 100) : 0;
+  }
+
+  function getEssayAvailable(row) {
+    const explicit = row?.essay_available ?? row?.has_essay ?? row?.hasEssay ?? row?.essay_present ?? row?.theory_present;
+
+    if (explicit !== undefined && explicit !== null && explicit !== "") return boolValue(explicit);
+
+    const essayScore = parseNullableNumber(row?.essay_score ?? row?.theory_score ?? row?.["Essay Score"] ?? row?.["Theory Score"]);
+    const essayMax = parseNullableNumber(row?.essay_max ?? row?.theory_max ?? row?.["Essay Max"]);
+
+    return essayScore !== null || (essayMax !== null && essayMax > 0);
+  }
+
+  function getObjectiveMax(row) {
+    const explicit = parseNullableNumber(row?.objective_max ?? row?.objective_weight ?? row?.["Objective Max"]);
+    if (explicit !== null && explicit > 0) return explicit;
+
+    return getEssayAvailable(row) ? 60 : 100;
+  }
+
+  function getEssayMax(row) {
+    const explicit = parseNullableNumber(row?.essay_max ?? row?.theory_max ?? row?.essay_weight ?? row?.["Essay Max"]);
+    if (explicit !== null && explicit >= 0) return explicit;
+
+    return getEssayAvailable(row) ? 40 : 0;
+  }
+
+  function getObjectiveScore(row) {
+    const explicit = parseNullableNumber(
+      row?.objective_score ?? row?.objective_mark ?? row?.["Objective Score"] ?? row?.["Objective Mark"]
+    );
+
+    if (explicit !== null) return roundScore(explicit);
+
+    const objectiveMax = getObjectiveMax(row);
+    const correct = getCorrect(row);
+    const totalQuestions = getQuestionTotal(row);
+
+    if (totalQuestions > 0) return roundScore((correct / totalQuestions) * objectiveMax);
+
+    return roundScore((getObjectivePercentage(row) / 100) * objectiveMax);
+  }
+
+  function getEssayScore(row) {
+    const score = parseNullableNumber(
+      row?.essay_score ?? row?.theory_score ?? row?.["Essay Score"] ?? row?.["Theory Score"]
+    );
+
+    return score === null ? null : roundScore(score);
+  }
+
+  function getFinalScore(row) {
+    const explicit = parseNullableNumber(
+      row?.final_score ?? row?.combined_score ?? row?.total_score ??
+      row?.["Final Score"] ?? row?.["Combined Score"]
+    );
+
+    if (explicit !== null) return roundScore(explicit);
+
+    const objective = getObjectiveScore(row);
+
+    if (!getEssayAvailable(row)) return roundScore(objective);
+
+    const essay = getEssayScore(row);
+    if (essay === null) return null;
+
+    return roundScore(objective + essay);
+  }
+
+  function getScore(row) {
+    const finalScore = getFinalScore(row);
+    if (finalScore !== null) return finalScore;
+
+    return getObjectivePercentage(row);
+  }
+
+  function getResultState(row) {
+    const hasObjective = getQuestionTotal(row) > 0 || parseNullableNumber(row?.objective_score ?? row?.["Score (%)"] ?? row?.score) !== null;
+    const essayAvailable = getEssayAvailable(row);
+    const essayScore = getEssayScore(row);
+
+    if (!essayAvailable) return hasObjective ? "COMPLETE" : "PENDING";
+    if (hasObjective && essayScore !== null) return "COMPLETE";
+    if (hasObjective && essayScore === null) return "AWAITING ESSAY";
+    if (!hasObjective && essayScore !== null) return "AWAITING OBJECTIVE";
+
+    return "PENDING";
+  }
+
+  function getStatus(row) {
+    const resultState = getResultState(row);
+    const finalScore = getFinalScore(row);
+
+    if (resultState !== "COMPLETE" || finalScore === null) return "PENDING";
+
+    const explicit = normalizeUpper(row?.final_status ?? row?.Status ?? row?.status);
+
+    if (explicit === "PASS" || explicit === "FAIL") {
+      if (row?.final_status !== undefined || !getEssayAvailable(row)) return explicit;
+    }
+
+    return finalScore >= 50 ? "PASS" : "FAIL";
+  }
+
   function getTime(row) { return row?.["Time Taken"] ?? row?.time_taken ?? row?.timeTaken ?? ""; }
   function getSubmittedAt(row) { return row?.["Submitted At"] ?? row?.submitted_at ?? row?.submittedAt ?? ""; }
 
@@ -246,14 +433,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 8. TIME HELPERS
+  // 8. SCORE DISPLAY HELPERS
+  // ==========================================================
+
+  function objectiveDisplay(row) {
+    const score = getObjectiveScore(row);
+    const max = getObjectiveMax(row);
+    const correct = getCorrect(row);
+    const total = getQuestionTotal(row);
+
+    return {
+      score, max, text: `${scoreText(score)} / ${scoreText(max)}`,
+      raw: total > 0 ? `${scoreText(correct)} / ${scoreText(total)} questions` : `${scoreText(getObjectivePercentage(row))}% CBT`
+    };
+  }
+
+  function essayDisplay(row) {
+    if (!getEssayAvailable(row)) return { available: false, score: null, max: 0, text: "N/A", state: "No Essay" };
+
+    const score = getEssayScore(row);
+    const max = getEssayMax(row);
+
+    return {
+      available: true, score, max,
+      text: score === null ? "Pending" : `${scoreText(score)} / ${scoreText(max)}`,
+      state: score === null ? "Not Entered" : "Entered"
+    };
+  }
+
+  function totalDisplay(row) {
+    const score = getFinalScore(row);
+    const stateValue = getResultState(row);
+
+    return {
+      score,
+      text: score === null ? "Pending" : `${scoreText(score)} / 100`,
+      state: stateValue
+    };
+  }
+
+
+  // ==========================================================
+  // 9. TIME HELPERS
   // ==========================================================
 
   function getTimeSeconds(row) {
     const value = getTime(row);
+
     if (typeof value === "number" && Number.isFinite(value)) return value;
 
     const raw = String(value || "").trim().toLowerCase();
+
     if (!raw) return NaN;
     if (/^\d+(\.\d+)?$/.test(raw)) return Number.parseFloat(raw);
 
@@ -262,12 +492,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (hms && (hms[1] || hms[2] || hms[3])) return Number(hms[1] || 0) * 3600 + Number(hms[2] || 0) * 60 + Number(hms[3] || 0);
 
     const colon = raw.split(":").map(Number);
+
     if (colon.every(Number.isFinite)) {
       if (colon.length === 3) return colon[0] * 3600 + colon[1] * 60 + colon[2];
       if (colon.length === 2) return colon[0] * 60 + colon[1];
     }
 
     const numeric = Number.parseFloat(raw);
+
     return Number.isFinite(numeric) ? numeric : NaN;
   }
 
@@ -275,6 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!Number.isFinite(totalSeconds)) return "—";
 
     const seconds = Math.max(0, Math.round(totalSeconds));
+
     if (seconds < 60) return `${seconds} sec`;
 
     const minutes = Math.floor(seconds / 60);
@@ -283,12 +516,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (minutes < 60) return remaining ? `${minutes}m ${remaining}s` : `${minutes} min`;
 
     const hours = Math.floor(minutes / 60);
+
     return `${hours}h ${minutes % 60}m`;
   }
 
 
   // ==========================================================
-  // 9. TABLE STATES
+  // 10. TABLE STATES
   // ==========================================================
 
   function setLoading(message = "Loading examination results") {
@@ -296,7 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     els.resultsBody.innerHTML = `
       <tr>
-        <td colspan="12" class="table-placeholder">
+        <td colspan="14" class="table-placeholder">
           <span class="table-placeholder-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
           <strong>${escapeHtml(message)}</strong>
           <span>Please wait while EMIS reads the result repository.</span>
@@ -312,7 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     els.resultsBody.innerHTML = `
       <tr>
-        <td colspan="12" class="table-placeholder">
+        <td colspan="14" class="table-placeholder">
           <span class="table-placeholder-icon"><i class="fa-solid fa-folder-open"></i></span>
           <strong>${escapeHtml(message)}</strong>
           <span>${escapeHtml(subtext)}</span>
@@ -323,7 +557,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 10. CURRENT FILTER VALUES
+  // 11. CURRENT FILTER VALUES
   // ==========================================================
 
   function selectedYear() { return els.yearSelector?.value || "all"; }
@@ -333,7 +567,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 11. TERM UI
+  // 12. TERM UI
   // ==========================================================
 
   function updateTermUi() {
@@ -377,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 12. TERM OPTIONS
+  // 13. TERM OPTIONS
   // ==========================================================
 
   function populateTermOptions(terms, preserve = true) {
@@ -392,12 +626,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     values.forEach((term) => {
       const option = document.createElement("option");
+
       option.value = term;
       option.textContent = TERM_LABELS[term] || term;
+
       els.termSelector.appendChild(option);
     });
 
     const exists = [...els.termSelector.options].some((option) => option.value === previous);
+
     els.termSelector.value = exists ? previous : "all";
   }
 
@@ -407,12 +644,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const year = selectedYear();
     const cls = selectedClass();
 
-    if (!isJssClass(cls)) {
-      populateTermOptions(DEFAULT_TERMS);
-      return;
-    }
-
-    if (year === "all") {
+    if (!isJssClass(cls) || year === "all") {
       populateTermOptions(DEFAULT_TERMS);
       return;
     }
@@ -428,7 +660,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 13. SUBJECT OPTIONS
+  // 14. SUBJECT OPTIONS
   // ==========================================================
 
   function populateSubjectOptions(subjects, preserve = true) {
@@ -436,19 +668,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const previous = preserve ? els.subjectSelector.value : "all";
 
-    const uniqueSubjects = [...new Set((subjects || []).map(String).map((value) => value.trim()).filter(Boolean))]
-      .sort((a, b) => formatSubject(a).localeCompare(formatSubject(b)));
+    const uniqueSubjects = [...new Set(
+      (subjects || []).map(String).map((value) => value.trim()).filter(Boolean)
+    )].sort((a, b) => formatSubject(a).localeCompare(formatSubject(b)));
 
     els.subjectSelector.innerHTML = `<option value="all">All Subjects</option>`;
 
     uniqueSubjects.forEach((subject) => {
       const option = document.createElement("option");
+
       option.value = subject;
       option.textContent = formatSubject(subject);
+
       els.subjectSelector.appendChild(option);
     });
 
     const match = [...els.subjectSelector.options].find((option) => normalizeText(option.value) === normalizeText(previous));
+
     els.subjectSelector.value = match ? match.value : "all";
   }
 
@@ -463,11 +699,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isJssClass(cls) && term === "all") return false;
 
     const params = new URLSearchParams({ year, class: cls });
+
     if (isJssClass(cls)) params.set("term", term);
 
     try {
       const data = await fetchJson(`/api/results/subjects?${params.toString()}`);
+
       populateSubjectOptions(Array.isArray(data.subjects) ? data.subjects : []);
+
       return true;
     } catch (error) {
       console.error("SUBJECT LOAD ERROR:", error);
@@ -482,7 +721,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 14. CLASS ARMS
+  // 15. CLASS ARMS
   // ==========================================================
 
   function rebuildClassArms() {
@@ -502,46 +741,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     arms.forEach((arm) => {
       const option = document.createElement("option");
+
       option.value = arm;
       option.textContent = formatClassLabel(arm);
+
       els.classArmSelector.appendChild(option);
     });
 
     const exists = [...els.classArmSelector.options].some((option) => option.value === current);
+
     els.classArmSelector.value = exists ? current : "all";
   }
 
 
   // ==========================================================
-  // 15. SESSION OPTIONS
+  // 16. SESSION OPTIONS
   // ==========================================================
 
   function rebuildSessions() {
     if (!els.sessionSelector) return;
 
     const current = els.sessionSelector.value || "all";
-    const sessions = [...new Set(state.allResults.map(getSession).filter(Boolean))]
-      .sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
+
+    const sessions = [...new Set(
+      state.allResults.map(getSession).filter(Boolean)
+    )].sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
 
     els.sessionSelector.innerHTML = `<option value="all">All Sessions</option>`;
 
     sessions.forEach((session) => {
       const option = document.createElement("option");
+
       option.value = session;
       option.textContent = session;
+
       els.sessionSelector.appendChild(option);
     });
 
     const exists = [...els.sessionSelector.options].some((option) => option.value === current);
+
     els.sessionSelector.value = exists ? current : "all";
 
     const field = els.sessionSelector.closest(".session-filter");
+
     if (field) field.hidden = sessions.length === 0;
   }
 
 
   // ==========================================================
-  // 16. SERVER RESULTS QUERY
+  // 17. SERVER RESULTS QUERY
   // ==========================================================
 
   function buildResultsUrl() {
@@ -561,7 +809,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 17. LOAD RESULTS
+  // 18. LOAD RESULTS
   // ==========================================================
 
   async function loadAllResults({ silent = false } = {}) {
@@ -569,12 +817,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     state.loading = true;
     state.selectedKeys.clear();
+
     updateSelectionUi();
 
     if (!silent) setLoading("Loading examination results");
 
     try {
       const data = await fetchJson(buildResultsUrl());
+
       if (token !== state.loadToken) return;
 
       state.allResults = Array.isArray(data.results) ? data.results : [];
@@ -583,6 +833,7 @@ document.addEventListener("DOMContentLoaded", () => {
       rebuildSessions();
 
       const subjectLoadedFromApi = await loadSubjectsFromApi();
+
       if (!subjectLoadedFromApi) rebuildSubjectsFromLoadedResults();
 
       applyFilters({ resetPage: true });
@@ -615,7 +866,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 18. CLIENT FILTERS
+  // 19. CLIENT FILTERS
   // ==========================================================
 
   function applyFilters({ resetPage = true } = {}) {
@@ -632,8 +883,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const searchable = normalizeText([
         getStudentName(row), getAdmission(row), getYear(row), getClassLevel(row), getClassArm(row),
-        getTerm(row), getTermLabel(row), getSubject(row), getSubjectFolder(row), getScore(row),
-        getStatus(row), getTime(row), getSubmittedAt(row), getSession(row)
+        getTerm(row), getTermLabel(row), getSubject(row), getSubjectFolder(row),
+        getObjectiveScore(row), getEssayScore(row), getFinalScore(row),
+        rowStatus, getResultState(row), getTime(row), getSubmittedAt(row), getSession(row)
       ].join(" "));
 
       const armOk = arm === "ALL" || rowArm === arm;
@@ -650,6 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (resetPage) state.currentPage = 1;
 
     const loadedKeys = new Set(state.allResults.map(getStableKey));
+
     state.selectedKeys = new Set([...state.selectedKeys].filter((key) => loadedKeys.has(key)));
 
     renderTable();
@@ -660,7 +913,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 19. SORTING
+  // 20. SORTING
   // ==========================================================
 
   function sortValue(row, key) {
@@ -671,7 +924,11 @@ document.addEventListener("DOMContentLoaded", () => {
       case "class": return getClass(row);
       case "term": return DEFAULT_TERMS.indexOf(getTerm(row));
       case "subject": return formatSubject(getSubject(row));
-      case "score": return getScore(row);
+
+      case "objective": return getObjectiveScore(row);
+      case "essay": return getEssayScore(row) ?? -1;
+      case "total": return getFinalScore(row) ?? -1;
+
       case "status": return getStatus(row);
       case "time": return getTimeSeconds(row);
 
@@ -689,7 +946,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     state.filteredResults.sort((rowA, rowB) => {
       const result = compareValues(sortValue(rowA, state.sortKey), sortValue(rowB, state.sortKey));
+
       if (result !== 0) return result * direction;
+
       return getStudentName(rowA).localeCompare(getStudentName(rowB));
     });
   }
@@ -700,10 +959,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (state.sortKey === key) state.sortDirection = state.sortDirection === "asc" ? "desc" : "asc";
     else {
       state.sortKey = key;
-      state.sortDirection = key === "date" || key === "score" ? "desc" : "asc";
+      state.sortDirection = ["date", "objective", "essay", "total"].includes(key) ? "desc" : "asc";
     }
 
     sortFilteredResults();
+
     state.currentPage = 1;
 
     renderTable();
@@ -713,21 +973,27 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateSortIcons() {
     $$(".results-table th.sortable").forEach((th) => {
       const icon = th.querySelector("i");
+
       if (!icon) return;
 
       const active = th.dataset.sort === state.sortKey;
 
-      icon.className = active ? `fa-solid ${state.sortDirection === "asc" ? "fa-sort-up" : "fa-sort-down"}` : "fa-solid fa-sort";
+      icon.className = active
+        ? `fa-solid ${state.sortDirection === "asc" ? "fa-sort-up" : "fa-sort-down"}`
+        : "fa-solid fa-sort";
+
       th.setAttribute("aria-sort", active ? (state.sortDirection === "asc" ? "ascending" : "descending") : "none");
     });
   }
 
 
   // ==========================================================
-  // 20. PAGINATION
+  // 21. PAGINATION
   // ==========================================================
 
-  function totalPages() { return Math.max(1, Math.ceil(state.filteredResults.length / state.rowsPerPage)); }
+  function totalPages() {
+    return Math.max(1, Math.ceil(state.filteredResults.length / state.rowsPerPage));
+  }
 
   function pageSlice() {
     const pages = totalPages();
@@ -744,6 +1010,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!els.pagination) return;
 
     const pages = totalPages();
+
     els.pagination.innerHTML = "";
 
     if (!state.filteredResults.length || pages <= 1) return;
@@ -755,10 +1022,12 @@ document.addEventListener("DOMContentLoaded", () => {
       button.className = options.active ? "active" : "";
       button.innerHTML = label;
       button.disabled = Boolean(options.disabled);
+
       button.setAttribute("aria-label", options.ariaLabel || `Page ${page}`);
 
       button.addEventListener("click", () => {
         state.currentPage = page;
+
         renderTable();
 
         document.querySelector(".results-table-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -767,13 +1036,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return button;
     };
 
-    els.pagination.appendChild(makeButton(
-      '<i class="fa-solid fa-chevron-left"></i>',
-      Math.max(1, state.currentPage - 1),
-      { disabled: state.currentPage === 1, ariaLabel: "Previous page" }
-    ));
+    els.pagination.appendChild(
+      makeButton('<i class="fa-solid fa-chevron-left"></i>', Math.max(1, state.currentPage - 1), {
+        disabled: state.currentPage === 1,
+        ariaLabel: "Previous page"
+      })
+    );
 
-    const candidates = new Set([1, pages, state.currentPage - 2, state.currentPage - 1, state.currentPage, state.currentPage + 1, state.currentPage + 2]);
+    const candidates = new Set([
+      1, pages,
+      state.currentPage - 2, state.currentPage - 1,
+      state.currentPage,
+      state.currentPage + 1, state.currentPage + 2
+    ]);
 
     const pageNumbers = [...candidates].filter((page) => page >= 1 && page <= pages).sort((a, b) => a - b);
 
@@ -782,26 +1057,35 @@ document.addEventListener("DOMContentLoaded", () => {
     pageNumbers.forEach((page) => {
       if (previous && page - previous > 1) {
         const ellipsis = document.createElement("span");
+
         ellipsis.textContent = "…";
         ellipsis.style.padding = "0 4px";
         ellipsis.style.color = "#667085";
+
         els.pagination.appendChild(ellipsis);
       }
 
-      els.pagination.appendChild(makeButton(String(page), page, { active: page === state.currentPage, ariaLabel: `Go to page ${page}` }));
+      els.pagination.appendChild(
+        makeButton(String(page), page, {
+          active: page === state.currentPage,
+          ariaLabel: `Go to page ${page}`
+        })
+      );
+
       previous = page;
     });
 
-    els.pagination.appendChild(makeButton(
-      '<i class="fa-solid fa-chevron-right"></i>',
-      Math.min(pages, state.currentPage + 1),
-      { disabled: state.currentPage === pages, ariaLabel: "Next page" }
-    ));
+    els.pagination.appendChild(
+      makeButton('<i class="fa-solid fa-chevron-right"></i>', Math.min(pages, state.currentPage + 1), {
+        disabled: state.currentPage === pages,
+        ariaLabel: "Next page"
+      })
+    );
   }
 
 
   // ==========================================================
-  // 21. TABLE VIEW DESCRIPTION
+  // 22. CURRENT VIEW DESCRIPTION
   // ==========================================================
 
   function describeCurrentView() {
@@ -813,12 +1097,39 @@ document.addEventListener("DOMContentLoaded", () => {
     if ((selectedClass() === "all" || isJssClass(selectedClass())) && selectedTerm() !== "all") parts.push(termLabel(selectedTerm()));
     if (selectedSubject() !== "all") parts.push(formatSubject(selectedSubject()));
 
-    return parts.length ? `Showing ${parts.join(" • ")} examination results.` : "Showing all available examination results.";
+    return parts.length
+      ? `Showing ${parts.join(" • ")} examination results.`
+      : "Showing all available examination results.";
   }
 
 
   // ==========================================================
-  // 22. TABLE RENDERING
+  // 23. STATUS HTML
+  // ==========================================================
+
+  function resultStatusHtml(row) {
+    const status = getStatus(row);
+    const resultState = getResultState(row);
+
+    if (status === "PASS") {
+      return `<span class="status-pass"><i class="fa-solid fa-check"></i> PASS</span>`;
+    }
+
+    if (status === "FAIL") {
+      return `<span class="status-fail"><i class="fa-solid fa-xmark"></i> FAIL</span>`;
+    }
+
+    let label = "Pending";
+
+    if (resultState === "AWAITING ESSAY") label = "Awaiting Essay";
+    if (resultState === "AWAITING OBJECTIVE") label = "Awaiting Objective";
+
+    return `<span class="status-pending"><i class="fa-solid fa-clock"></i> ${escapeHtml(label)}</span>`;
+  }
+
+
+  // ==========================================================
+  // 24. TABLE RENDERING
   // ==========================================================
 
   function renderTable() {
@@ -851,10 +1162,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const classArm = getClass(row);
       const term = getTerm(row);
       const subject = formatSubject(getSubject(row));
-      const score = getScore(row);
-      const correct = getCorrect(row);
-      const total = getTotal(row);
-      const status = getStatus(row);
+
+      const objective = objectiveDisplay(row);
+      const essay = essayDisplay(row);
+      const total = totalDisplay(row);
+
       const time = getTime(row);
       const date = getSubmittedAt(row);
       const checked = state.selectedKeys.has(key);
@@ -885,17 +1197,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <td data-column-name="subject"><strong>${escapeHtml(subject || "—")}</strong></td>
 
-          <td class="score-cell" data-column-name="score">
-            ${escapeHtml(Number.isInteger(score) ? score : score.toFixed(1))}%
-            <span class="student-meta">${escapeHtml(correct)} / ${escapeHtml(total)}</span>
+          <td class="score-cell objective-score-cell" data-column-name="objective">
+            <strong>${escapeHtml(objective.text)}</strong>
+            <span class="student-meta">${escapeHtml(objective.raw)}</span>
           </td>
 
-          <td data-column-name="status">
-            <span class="${status === "PASS" ? "status-pass" : "status-fail"}">
-              <i class="fa-solid ${status === "PASS" ? "fa-check" : "fa-xmark"}"></i>
-              ${escapeHtml(status)}
-            </span>
+          <td class="score-cell essay-score-cell" data-column-name="essay">
+            ${
+              !essay.available
+                ? `<span class="score-na">N/A</span><span class="student-meta">No essay</span>`
+                : essay.score === null
+                  ? `<span class="score-pending">Pending</span><span class="student-meta">Out of ${escapeHtml(essay.max)}</span>`
+                  : `<strong>${escapeHtml(essay.text)}</strong><span class="student-meta">Teacher scored</span>`
+            }
           </td>
+
+          <td class="score-cell final-score-cell" data-column-name="total">
+            ${
+              total.score === null
+                ? `<span class="score-pending">Pending</span><span class="student-meta">${escapeHtml(total.state.replaceAll("_", " "))}</span>`
+                : `<strong>${escapeHtml(total.text)}</strong><span class="student-meta">Final score</span>`
+            }
+          </td>
+
+          <td data-column-name="status">${resultStatusHtml(row)}</td>
 
           <td data-column-name="time">${escapeHtml(time || "—")}</td>
           <td data-column-name="date">${escapeHtml(date || "—")}</td>
@@ -930,13 +1255,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 23. TABLE ROW EVENTS
+  // 25. TABLE ROW EVENTS
   // ==========================================================
 
   function bindRenderedRowEvents() {
     $$(".row-check").forEach((checkbox) => {
       checkbox.addEventListener("change", () => {
         const key = checkbox.dataset.key;
+
         if (!key) return;
 
         if (checkbox.checked) state.selectedKeys.add(key);
@@ -949,6 +1275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $$(".view-result-btn").forEach((button) => {
       button.addEventListener("click", () => {
         const row = state.filteredResults[Number(button.dataset.index)];
+
         if (row) openSummary(row);
       });
     });
@@ -956,9 +1283,11 @@ document.addEventListener("DOMContentLoaded", () => {
     $$(".delete-row-btn").forEach((button) => {
       button.addEventListener("click", () => {
         const row = state.filteredResults[Number(button.dataset.index)];
+
         if (!row) return;
 
         state.pendingDeleteRows = [row];
+
         openDeleteModal([row]);
       });
     });
@@ -968,6 +1297,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.target.closest("button, input, a")) return;
 
         const row = state.filteredResults[Number(rowElement.dataset.resultIndex)];
+
         if (row) openSummary(row);
       });
     });
@@ -975,7 +1305,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 24. SELECTION
+  // 26. SELECTION
   // ==========================================================
 
   function currentPageRows() { return pageSlice().rows; }
@@ -1013,7 +1343,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 25. ACTIVE FILTER CHIPS
+  // 27. ACTIVE FILTER CHIPS
   // ==========================================================
 
   function renderActiveFilters() {
@@ -1025,20 +1355,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (selectedClass() !== "all") chips.push(["Class", selectedClass()]);
 
     const arm = els.classArmSelector?.value || "all";
+
     if (arm !== "all") chips.push(["Arm", formatClassLabel(arm)]);
 
-    if ((selectedClass() === "all" || isJssClass(selectedClass())) && selectedTerm() !== "all") chips.push(["Term", termLabel(selectedTerm())]);
+   if ((selectedClass() === "all" || isJssClass(selectedClass())) && selectedTerm() !== "all") chips.push(["Term", termLabel(selectedTerm())]);
     if (selectedSubject() !== "all") chips.push(["Subject", formatSubject(selectedSubject())]);
 
     const status = els.statusFilter?.value || "";
-    if (status) chips.push(["Status", status]);
 
+    if (status) chips.push(["Status", status]);
     if (state.statusView !== "all") chips.push(["Quick View", state.statusView]);
 
     const session = els.sessionSelector?.value || "all";
+
     if (session !== "all") chips.push(["Session", session]);
 
     const query = els.globalSearch?.value?.trim();
+
     if (query) chips.push(["Search", query]);
 
     if (!chips.length) {
@@ -1046,26 +1379,32 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    els.activeFilterChips.innerHTML = chips.map(([label, value]) => `<span class="filter-chip">${escapeHtml(label)}: ${escapeHtml(value)}</span>`).join("");
+    els.activeFilterChips.innerHTML = chips
+      .map(([label, value]) => `<span class="filter-chip">${escapeHtml(label)}: ${escapeHtml(value)}</span>`)
+      .join("");
   }
 
 
   // ==========================================================
-  // 26. STATISTICS
+  // 28. STATISTICS
   // ==========================================================
 
   function updateStats(rows) {
-    const total = rows.length;
-    const scores = rows.map(getScore);
-    const passCount = rows.filter((row) => getStatus(row) === "PASS").length;
-    const passRate = total ? Math.round((passCount / total) * 100) : 0;
-    const averageScore = total ? Math.round(scores.reduce((sum, score) => sum + score, 0) / total) : 0;
+    const completed = rows.filter((row) => getFinalScore(row) !== null);
+    const scores = completed.map(getFinalScore).filter((score) => Number.isFinite(score));
 
-    const subjects = new Set(rows.map((row) => normalizeText(getSubjectFolder(row) || getSubject(row))).filter(Boolean));
+    const total = rows.length;
+    const passCount = completed.filter((row) => getStatus(row) === "PASS").length;
+    const passRate = completed.length ? Math.round((passCount / completed.length) * 100) : 0;
+    const averageScore = scores.length ? roundScore(scores.reduce((sum, score) => sum + score, 0) / scores.length, 1) : 0;
+
+    const subjects = new Set(
+      rows.map((row) => normalizeText(getSubjectFolder(row) || getSubject(row))).filter(Boolean)
+    );
 
     safeSetText(els.statTotalResults, total);
-    safeSetText(els.statPassRate, `${passRate}%`);
-    safeSetText(els.statAvgScore, `${averageScore}%`);
+    safeSetText(els.statPassRate, `${scoreText(passRate)}%`);
+    safeSetText(els.statAvgScore, `${scoreText(averageScore)}%`);
     safeSetText(els.statSubjects, subjects.size);
 
     const validTimes = rows.map(getTimeSeconds).filter(Number.isFinite);
@@ -1073,22 +1412,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     safeSetText(els.avgTimeTaken, formatSeconds(averageTime));
 
-    if (!total) {
+    if (!scores.length) {
       safeSetText(els.topPerformerName, "—");
-      safeSetText(els.topPerformerMeta, "No result data");
+      safeSetText(els.topPerformerMeta, "No completed result data");
       safeSetText(els.highestScore, "0%");
       safeSetText(els.lowestScore, "0%");
       return;
     }
 
-    const ranked = [...rows].sort((a, b) => {
-      const scoreDiff = getScore(b) - getScore(a);
+    const ranked = [...completed].sort((a, b) => {
+      const scoreDiff = (getFinalScore(b) ?? -1) - (getFinalScore(a) ?? -1);
+
       if (scoreDiff !== 0) return scoreDiff;
 
       const timeA = getTimeSeconds(a);
       const timeB = getTimeSeconds(b);
 
       if (Number.isFinite(timeA) && Number.isFinite(timeB)) return timeA - timeB;
+
       return getStudentName(a).localeCompare(getStudentName(b));
     });
 
@@ -1098,18 +1439,18 @@ document.addEventListener("DOMContentLoaded", () => {
       getClass(top),
       getTerm(top) ? termLabel(getTerm(top)) : "",
       formatSubject(getSubject(top)),
-      `${getScore(top)}%`
+      `${scoreText(getFinalScore(top))}%`
     ].filter(Boolean).join(" • ");
 
     safeSetText(els.topPerformerName, getStudentName(top));
     safeSetText(els.topPerformerMeta, topMeta);
-    safeSetText(els.highestScore, `${Math.max(...scores)}%`);
-    safeSetText(els.lowestScore, `${Math.min(...scores)}%`);
+    safeSetText(els.highestScore, `${scoreText(Math.max(...scores))}%`);
+    safeSetText(els.lowestScore, `${scoreText(Math.min(...scores))}%`);
   }
 
 
   // ==========================================================
-  // 27. COLUMN VISIBILITY
+  // 29. COLUMN VISIBILITY
   // ==========================================================
 
   function applyColumnVisibility() {
@@ -1142,13 +1483,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function resetColumns() {
     state.visibleColumns = new Set(COLUMN_ORDER);
+
     syncColumnCheckboxes();
     applyColumnVisibility();
   }
 
 
   // ==========================================================
-  // 28. DELETE MODAL
+  // 30. DELETE MODAL
   // ==========================================================
 
   function openDeleteModal(rows = null) {
@@ -1166,19 +1508,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (title) title.textContent = records.length === 1 ? "Delete this result?" : `Delete ${records.length} selected results?`;
 
     els.deleteModal?.classList.remove("hidden");
+
     document.body.style.overflow = "hidden";
   }
 
   function closeDeleteModal() {
     els.deleteModal?.classList.add("hidden");
+
     state.pendingDeleteRows = null;
 
-    if (!els.adminPrintSummary?.classList.contains("show")) document.body.style.overflow = "";
+    if (
+      !els.adminPrintSummary?.classList.contains("show") &&
+      els.essayScoreModal?.classList.contains("hidden")
+    ) {
+      document.body.style.overflow = "";
+    }
   }
 
 
   // ==========================================================
-  // 29. TERM-AWARE DELETE PAYLOAD
+  // 31. DELETE PAYLOAD
   // ==========================================================
 
   function buildDeletePayload(rows) {
@@ -1224,7 +1573,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const deleted = Number(data.deleted ?? records.length);
 
       showToast(
-        data.message ? `${data.message}${Number.isFinite(deleted) ? ` (${deleted})` : ""}` : `${deleted} result(s) deleted.`,
+        data.message
+          ? `${data.message}${Number.isFinite(deleted) ? ` (${deleted})` : ""}`
+          : `${deleted} result(s) deleted.`,
         "success"
       );
 
@@ -1248,15 +1599,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 30. RESULT DETAILS MODAL
+  // 32. RESULT DETAILS MODAL
   // ==========================================================
 
   function setSummaryStatus(status) {
     const badge = $("ap_status");
+
     if (!badge) return;
 
     badge.textContent = status || "—";
-    badge.style.background = status === "PASS" ? "#15803d" : status === "FAIL" ? "#c62828" : "#0f766e";
+
+    if (status === "PASS") badge.style.background = "#15803d";
+    else if (status === "FAIL") badge.style.background = "#c62828";
+    else badge.style.background = "#b7791f";
   }
 
   function openSummary(row) {
@@ -1264,9 +1619,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     state.currentSummaryRow = row;
 
-    const total = Number(getTotal(row)) || 0;
-    const correct = Number(getCorrect(row)) || 0;
-    const accuracy = total ? Math.round((correct / total) * 100) : Math.round(getScore(row));
+    const objective = objectiveDisplay(row);
+    const essay = essayDisplay(row);
+    const total = totalDisplay(row);
+
+    const totalQuestions = getQuestionTotal(row);
+    const correct = getCorrect(row);
+    const accuracy = totalQuestions ? roundScore((correct / totalQuestions) * 100, 1) : getObjectivePercentage(row);
 
     safeSetText("ap_studentName", getStudentName(row) || "—");
     safeSetText("ap_studentID", getAdmission(row) || "—");
@@ -1279,11 +1638,22 @@ document.addEventListener("DOMContentLoaded", () => {
     safeSetText("ap_term", getTerm(row) ? termLabel(getTerm(row)) : "Not Applicable");
 
     safeSetText("ap_subject", formatSubject(getSubject(row)) || "—");
-    safeSetText("ap_percent", `${getScore(row)}%`);
-    safeSetText("ap_rawScore", `${correct} / ${total}`);
-    safeSetText("ap_correct", correct);
-    safeSetText("ap_total", total);
-    safeSetText("ap_accuracy", `${accuracy}%`);
+
+    safeSetText("ap_objectiveScore", objective.text);
+    safeSetText("ap_objectiveRaw", objective.raw);
+
+    safeSetText("ap_essayScore", essay.available ? essay.text : "N/A");
+    safeSetText("ap_essayState", essay.available ? essay.state : "No essay section");
+
+    safeSetText("ap_finalScore", total.text);
+
+    // Existing hidden compatibility fields.
+    safeSetText("ap_percent", total.score === null ? "Pending" : `${scoreText(total.score)}%`);
+    safeSetText("ap_rawScore", `${scoreText(correct)} / ${scoreText(totalQuestions)}`);
+    safeSetText("ap_accuracy", `${scoreText(accuracy)}%`);
+
+    safeSetText("ap_correct", scoreText(correct));
+    safeSetText("ap_total", scoreText(totalQuestions));
     safeSetText("ap_time", getTime(row) || "—");
     safeSetText("ap_date", getSubmittedAt(row) || "—");
 
@@ -1305,7 +1675,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     state.currentSummaryRow = null;
 
-    if (els.deleteModal?.classList.contains("hidden")) document.body.style.overflow = "";
+    if (
+      els.deleteModal?.classList.contains("hidden") &&
+      els.essayScoreModal?.classList.contains("hidden")
+    ) {
+      document.body.style.overflow = "";
+    }
   }
 
   function printCurrentSummary() {
@@ -1317,9 +1692,886 @@ document.addEventListener("DOMContentLoaded", () => {
     window.print();
   }
 
+// ==========================================================
+// 33. ESSAY MODAL CONTEXT
+// ==========================================================
+
+function validateEssayContext() {
+  let year = selectedYear();
+  let classLevel = selectedClass();
+  let subject = selectedSubject();
+  let term = selectedTerm();
+  let arm = els.classArmSelector?.value || "all";
+
+  // ----------------------------------------------------------
+  // AUTO-DETECT FROM CURRENT VISIBLE RESULTS
+  // ----------------------------------------------------------
+
+  const visibleRows = Array.isArray(state.filteredResults) ? state.filteredResults : [];
+
+  const years = [...new Set(visibleRows.map(getYear).filter(Boolean))];
+  const classes = [...new Set(visibleRows.map(getClassLevel).filter(Boolean))];
+  const subjects = [...new Set(visibleRows.map((row) => getSubjectFolder(row) || getSubject(row)).filter(Boolean))];
+  const terms = [...new Set(visibleRows.map(getTerm).filter(Boolean))];
+  const arms = [...new Set(visibleRows.map(getClassArm).filter(Boolean))];
+
+  if (year === "all" && years.length === 1) year = years[0];
+  if (classLevel === "all" && classes.length === 1) classLevel = classes[0];
+  if (subject === "all" && subjects.length === 1) subject = subjects[0];
+  if (term === "all" && terms.length === 1) term = terms[0];
+  if (arm === "all" && arms.length === 1) arm = arms[0];
+
+  // ----------------------------------------------------------
+  // VALIDATION
+  // ----------------------------------------------------------
+
+  if (!year || year === "all") {
+    return {
+      ok: false,
+      message: years.length > 1
+        ? "More than one examination year is currently displayed. Please narrow the results to one year before entering essay scores."
+        : "No examination year could be detected from the current results."
+    };
+  }
+
+  if (!classLevel || classLevel === "all") {
+    return {
+      ok: false,
+      message: classes.length > 1
+        ? "More than one class is currently displayed. Please narrow the results to one class before entering essay scores."
+        : "No class could be detected from the current results."
+    };
+  }
+
+  if (!subject || subject === "all") {
+    return {
+      ok: false,
+      message: subjects.length > 1
+        ? "More than one subject is currently displayed. Please narrow the results to one subject before entering essay scores."
+        : "No subject could be detected from the current results."
+    };
+  }
+
+  if (isJssClass(classLevel) && (!term || term === "all")) {
+    return {
+      ok: false,
+      message: terms.length > 1
+        ? `More than one term is currently displayed for ${classLevel}. Please narrow the results to one term before entering essay scores.`
+        : `No term could be detected for ${classLevel}.`
+    };
+  }
+
+  return {
+    ok: true,
+    year,
+    classLevel,
+    term: isJssClass(classLevel) ? term : "",
+    subject,
+    arm
+  };
+}
+
+function resetEssayState() {
+  state.essay.students = [];
+  state.essay.filteredStudents = [];
+  state.essay.changes = new Map();
+  state.essay.originalScores = new Map();
+  state.essay.search = "";
+  state.essay.pendingOnly = false;
+
+  if (els.essayStudentSearch) els.essayStudentSearch.value = "";
+  if (els.essayPendingOnly) els.essayPendingOnly.checked = false;
+
+  updateEssayUnsavedCount();
+}
+
+function setEssayContextUi() {
+  const essay = state.essay;
+
+  safeSetText(els.essayContextYear, essay.year || "—");
+  safeSetText(els.essayContextClass, essay.classLevel || "—");
+  safeSetText(els.essayContextTerm, essay.term ? termLabel(essay.term) : "Not Applicable");
+  safeSetText(els.essayContextSubject, formatSubject(essay.subject) || "—");
+
+  if (els.essayContextTermWrap) els.essayContextTermWrap.classList.toggle("hidden", !essay.term);
+
+  safeSetText(els.essayObjectiveMax, scoreText(essay.objectiveMax));
+  safeSetText(els.essayMaximumScore, scoreText(essay.essayMax));
+  safeSetText(els.essayHeaderMax, scoreText(essay.essayMax));
+
+  if (els.essayAvailabilityBadge) {
+    els.essayAvailabilityBadge.classList.toggle("available", essay.available);
+    els.essayAvailabilityBadge.classList.toggle("unavailable", !essay.available);
+
+    els.essayAvailabilityBadge.innerHTML = essay.available
+      ? `<i class="fa-solid fa-circle-check"></i> Essay Available`
+      : `<i class="fa-solid fa-circle-xmark"></i> No Essay`;
+  }
+}
+
+
+// ==========================================================
+// 34. ESSAY API URL
+// ==========================================================
+
+function buildEssayUrl() {
+  const params = new URLSearchParams({
+    year: state.essay.year,
+    class: state.essay.classLevel,
+    subject: state.essay.subject
+  });
+
+  if (state.essay.term) params.set("term", state.essay.term);
+  if (state.essay.arm && state.essay.arm !== "all") params.set("arm", state.essay.arm);
+
+  return `/api/results/essay?${params.toString()}`;
+}
+
+
+// ==========================================================
+// 35. ESSAY STUDENT NORMALIZATION
+// ==========================================================
+
+function normalizeEssayStudent(student) {
+  const admission = String(
+    student?.admission_number ??
+    student?.Admission_number ??
+    student?.["Admission No"] ??
+    student?.student_id ??
+    ""
+  ).trim();
+
+  const firstName = String(student?.first_name ?? student?.First_name ?? "").trim();
+  const lastName = String(student?.last_name ?? student?.Last_name ?? "").trim();
+  const otherNames = String(student?.other_names ?? student?.Other_names ?? "").trim();
+
+  const suppliedName = String(
+    student?.student_name ??
+    student?.full_name ??
+    student?.["Student Name"] ??
+    student?.name ??
+    ""
+  ).trim();
+
+  const name = suppliedName || [lastName, firstName, otherNames].filter(Boolean).join(" ");
+
+  const classArm = String(
+    student?.class_arm ??
+    student?.Class ??
+    student?.class_name ??
+    student?.student_class ??
+    state.essay.classLevel
+  ).trim().toUpperCase();
+
+  const objectiveCorrect = parseNullableNumber(
+    student?.objective_correct ??
+    student?.correct ??
+    student?.Correct
+  );
+
+  const objectiveTotal = parseNullableNumber(
+    student?.objective_total ??
+    student?.total_questions ??
+    student?.Total
+  );
+
+  let objectiveScore = parseNullableNumber(
+    student?.objective_score ??
+    student?.objective_mark ??
+    student?.["Objective Score"] ??
+    student?.["Objective Mark"]
+  );
+
+  if (objectiveScore === null && objectiveCorrect !== null && objectiveTotal !== null && objectiveTotal > 0) {
+    objectiveScore = roundScore((objectiveCorrect / objectiveTotal) * state.essay.objectiveMax);
+  }
+
+  const essayScore = parseNullableNumber(
+    student?.essay_score ??
+    student?.theory_score ??
+    student?.["Essay Score"] ??
+    student?.["Theory Score"]
+  );
+
+  const hasObjective = boolValue(
+    student?.has_objective,
+    objectiveScore !== null || (objectiveCorrect !== null && objectiveTotal !== null && objectiveTotal > 0)
+  );
+
+  return {
+    ...student,
+    admission_number: admission,
+    student_name: name || admission || "Unknown Student",
+    class_arm: classArm,
+    objective_score: objectiveScore,
+    objective_correct: objectiveCorrect,
+    objective_total: objectiveTotal,
+    essay_score: essayScore === null ? null : roundScore(essayScore),
+    has_objective: hasObjective,
+    essay_saved: boolValue(student?.essay_saved, essayScore !== null)
+  };
+}
+
+function essayStudentKey(student) {
+  return normalizeUpper(student.admission_number || student.student_name);
+}
+
 
   // ==========================================================
-  // 31. PRINT SELECTED
+  // 36. OPEN / CLOSE ESSAY MODAL
+  // ==========================================================
+
+  async function openEssayScoreManager() {
+    const context = validateEssayContext();
+
+    if (!context.ok) {
+      showToast(context.message, "warning");
+      return;
+    }
+
+    resetEssayState();
+
+    state.essay.year = context.year;
+    state.essay.classLevel = context.classLevel;
+    state.essay.term = context.term;
+    state.essay.subject = context.subject;
+    state.essay.arm = context.arm;
+    state.essay.objectiveMax = 60;
+    state.essay.essayMax = 40;
+    state.essay.totalMax = 100;
+    state.essay.available = true;
+
+    setEssayContextUi();
+
+    els.essayScoreModal?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+
+    await loadEssayStudents();
+  }
+
+  function closeEssayScoreManager(force = false) {
+    if (!force && state.essay.changes.size > 0) {
+      const confirmed = window.confirm(
+        `${state.essay.changes.size} essay score change(s) have not been saved.\n\nClose without saving?`
+      );
+
+      if (!confirmed) return;
+    }
+
+    els.essayScoreModal?.classList.add("hidden");
+
+    resetEssayState();
+
+    if (
+      !els.adminPrintSummary?.classList.contains("show") &&
+      els.deleteModal?.classList.contains("hidden")
+    ) {
+      document.body.style.overflow = "";
+    }
+  }
+
+
+  // ==========================================================
+  // 37. ESSAY MODAL STATES
+  // ==========================================================
+
+  function setEssayLoading() {
+    if (!els.essayScoreBody) return;
+
+    els.essayScoreBody.innerHTML = `
+      <tr>
+        <td colspan="8" class="essay-score-placeholder">
+          <span class="essay-placeholder-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
+          <strong>Loading class register</strong>
+          <span>Reading students and existing essay scores...</span>
+        </td>
+      </tr>
+    `;
+  }
+
+  function setEssayEmpty(title = "No students found", message = "No students were found for this class.") {
+    if (!els.essayScoreBody) return;
+
+    els.essayScoreBody.innerHTML = `
+      <tr>
+        <td colspan="8" class="essay-score-placeholder">
+          <span class="essay-placeholder-icon"><i class="fa-solid fa-user-slash"></i></span>
+          <strong>${escapeHtml(title)}</strong>
+          <span>${escapeHtml(message)}</span>
+        </td>
+      </tr>
+    `;
+  }
+
+  function setEssayError(message) {
+    if (!els.essayScoreBody) return;
+
+    els.essayScoreBody.innerHTML = `
+      <tr>
+        <td colspan="8" class="essay-score-placeholder">
+          <span class="essay-placeholder-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+          <strong>Could not load essay scores</strong>
+          <span>${escapeHtml(message)}</span>
+        </td>
+      </tr>
+    `;
+  }
+
+
+  // ==========================================================
+  // 38. LOAD ESSAY STUDENTS
+  // ==========================================================
+
+  async function loadEssayStudents() {
+    state.essay.loading = true;
+
+    setEssayLoading();
+
+    try {
+      const data = await fetchJson(buildEssayUrl());
+
+      state.essay.objectiveMax = parseNumber(data.objective_max ?? data.objective_weight, 60);
+      state.essay.essayMax = parseNumber(data.essay_max ?? data.essay_weight, 40);
+      state.essay.totalMax = parseNumber(data.total_max, 100);
+
+      if (state.essay.objectiveMax <= 0) state.essay.objectiveMax = 60;
+      if (state.essay.essayMax < 0) state.essay.essayMax = 40;
+
+      state.essay.available = data.essay_available === undefined
+        ? true
+        : boolValue(data.essay_available, true);
+
+      const records = Array.isArray(data.students)
+        ? data.students
+        : Array.isArray(data.results)
+          ? data.results
+          : [];
+
+      state.essay.students = records.map(normalizeEssayStudent);
+
+      state.essay.originalScores.clear();
+
+      state.essay.students.forEach((student) => {
+        state.essay.originalScores.set(essayStudentKey(student), student.essay_score);
+      });
+
+      setEssayContextUi();
+      filterEssayStudents();
+
+      if (!state.essay.available) {
+        showToast("This examination has no essay / theory section.", "warning");
+      }
+
+    } catch (error) {
+      console.error("ESSAY SCORE LOAD ERROR:", error);
+
+      state.essay.students = [];
+      state.essay.filteredStudents = [];
+
+      setEssayError(
+        error.message ||
+        "The essay result backend is not connected yet."
+      );
+
+      /*
+       * During development, objective-result students can still be
+       * displayed as a fallback. The final essay_results.py endpoint
+       * will replace this with the complete class database roster.
+       */
+      const fallback = buildEssayFallbackFromLoadedResults();
+
+      if (fallback.length) {
+        state.essay.students = fallback;
+        filterEssayStudents();
+
+        showToast(
+          "Essay API is not connected yet. Showing students with existing objective results only.",
+          "warning"
+        );
+      } else {
+        showToast(error.message || "Could not load class register.", "error");
+      }
+
+    } finally {
+      state.essay.loading = false;
+    }
+  }
+
+  function buildEssayFallbackFromLoadedResults() {
+    const seen = new Set();
+    const records = [];
+
+    state.allResults.forEach((row) => {
+      if (String(getYear(row)) !== String(state.essay.year)) return;
+      if (getClassLevel(row) !== state.essay.classLevel) return;
+
+      if (state.essay.term && getTerm(row) !== state.essay.term) return;
+
+      const subjectMatches =
+        normalizeText(getSubject(row)) === normalizeText(state.essay.subject) ||
+        normalizeText(getSubjectFolder(row)) === normalizeText(state.essay.subject);
+
+      if (!subjectMatches) return;
+
+      if (state.essay.arm !== "all" && normalizeUpper(getClassArm(row)) !== normalizeUpper(state.essay.arm)) return;
+
+      const admission = getAdmission(row);
+      const key = normalizeUpper(admission || getStudentName(row));
+
+      if (seen.has(key)) return;
+
+      seen.add(key);
+
+      records.push(normalizeEssayStudent({
+        admission_number: admission,
+        student_name: getStudentName(row),
+        class_arm: getClassArm(row),
+        objective_score: getObjectiveScore(row),
+        objective_correct: getCorrect(row),
+        objective_total: getQuestionTotal(row),
+        has_objective: true,
+        essay_score: getEssayScore(row)
+      }));
+    });
+
+    return records;
+  }
+
+
+  // ==========================================================
+  // 39. ESSAY STUDENT FILTER
+  // ==========================================================
+
+  function filterEssayStudents() {
+    const search = normalizeText(els.essayStudentSearch?.value || "");
+    const pendingOnly = Boolean(els.essayPendingOnly?.checked);
+
+    state.essay.search = search;
+    state.essay.pendingOnly = pendingOnly;
+
+    state.essay.filteredStudents = state.essay.students.filter((student) => {
+      const key = essayStudentKey(student);
+      const currentScore = state.essay.changes.has(key)
+        ? state.essay.changes.get(key)
+        : student.essay_score;
+
+      const searchable = normalizeText([
+        student.student_name,
+        student.admission_number,
+        student.class_arm
+      ].join(" "));
+
+      const searchOk = !search || searchable.includes(search);
+      const pendingOk = !pendingOnly || currentScore === null || currentScore === undefined || currentScore === "";
+
+      return searchOk && pendingOk;
+    });
+
+    renderEssayStudents();
+  }
+
+
+  // ==========================================================
+  // 40. ESSAY RESULT CALCULATION
+  // ==========================================================
+
+  function calculateEssayStudentTotal(student, essayScore) {
+    if (!student.has_objective || student.objective_score === null) return null;
+    if (essayScore === null || essayScore === undefined || essayScore === "") return null;
+
+    return roundScore(Number(student.objective_score) + Number(essayScore));
+  }
+
+  function essayStudentStatus(student, essayScore) {
+    const hasObjective = Boolean(student.has_objective && student.objective_score !== null);
+    const hasEssay = essayScore !== null && essayScore !== undefined && essayScore !== "";
+
+    if (hasObjective && hasEssay) return "COMPLETE";
+    if (hasObjective && !hasEssay) return "AWAITING ESSAY";
+    if (!hasObjective && hasEssay) return "AWAITING OBJECTIVE";
+
+    return "PENDING";
+  }
+
+
+  // ==========================================================
+  // 41. RENDER ESSAY STUDENTS
+  // ==========================================================
+
+  function renderEssayStudents() {
+    if (!els.essayScoreBody) return;
+
+    const students = state.essay.filteredStudents;
+
+    safeSetText(els.essayStudentCount, students.length);
+
+    if (!students.length) {
+      setEssayEmpty(
+        state.essay.students.length ? "No matching students" : "No students found",
+        state.essay.students.length
+          ? "Try changing the search or pending filter."
+          : "No student records were returned for this class."
+      );
+
+      return;
+    }
+
+    els.essayScoreBody.innerHTML = students.map((student, index) => {
+      const key = essayStudentKey(student);
+
+      const essayScore = state.essay.changes.has(key)
+        ? state.essay.changes.get(key)
+        : student.essay_score;
+
+      const total = calculateEssayStudentTotal(student, essayScore);
+      const status = essayStudentStatus(student, essayScore);
+
+      const objectiveHtml = student.has_objective && student.objective_score !== null
+        ? `
+          <strong>${escapeHtml(scoreText(student.objective_score))} / ${escapeHtml(scoreText(state.essay.objectiveMax))}</strong>
+          <span class="essay-cell-meta">${
+            student.objective_total
+              ? `${escapeHtml(scoreText(student.objective_correct))} / ${escapeHtml(scoreText(student.objective_total))} questions`
+              : "Objective available"
+          }</span>
+        `
+        : `
+          <span class="essay-pending-value">Pending</span>
+          <span class="essay-cell-meta">CBT not submitted</span>
+        `;
+
+      const totalHtml = total !== null
+        ? `
+          <strong>${escapeHtml(scoreText(total))} / 100</strong>
+          <span class="essay-cell-meta">${total >= 50 ? "Pass" : "Fail"}</span>
+        `
+        : `
+          <span class="essay-pending-value">Pending</span>
+          <span class="essay-cell-meta">${
+            status === "AWAITING OBJECTIVE"
+              ? "Awaiting objective"
+              : status === "AWAITING ESSAY"
+                ? "Awaiting essay"
+                : "Incomplete"
+          }</span>
+        `;
+
+      let statusLabel = "Pending";
+      let statusClass = "pending";
+
+      if (status === "COMPLETE") {
+        statusLabel = "Complete";
+        statusClass = "complete";
+      } else if (status === "AWAITING ESSAY") {
+        statusLabel = "Essay Pending";
+        statusClass = "essay-pending";
+      } else if (status === "AWAITING OBJECTIVE") {
+        statusLabel = "OBJ Pending";
+        statusClass = "objective-pending";
+      }
+
+      return `
+        <tr data-essay-key="${escapeHtml(key)}">
+          <td class="essay-number-col">${index + 1}</td>
+
+          <td>
+            <div class="essay-student-cell">
+              <span class="essay-student-avatar">${escapeHtml((student.student_name || "?").charAt(0).toUpperCase())}</span>
+              <div>
+                <strong>${escapeHtml(student.student_name)}</strong>
+                <span>${escapeHtml(student.admission_number || "No admission number")}</span>
+              </div>
+            </div>
+          </td>
+
+          <td>${escapeHtml(student.admission_number || "—")}</td>
+          <td><span class="class-badge">${escapeHtml(formatClassLabel(student.class_arm) || "—")}</span></td>
+
+          <td class="essay-objective-cell">${objectiveHtml}</td>
+
+          <td class="essay-entry-cell">
+            ${
+              state.essay.available
+                ? `
+                  <div class="essay-input-wrap">
+                    <input
+                      class="essay-score-input"
+                      type="number"
+                      inputmode="decimal"
+                      step="0.25"
+                      min="0"
+                      max="${escapeHtml(state.essay.essayMax)}"
+                      data-key="${escapeHtml(key)}"
+                      value="${essayScore === null || essayScore === undefined ? "" : escapeHtml(scoreText(essayScore))}"
+                      placeholder="—"
+                      aria-label="Essay score for ${escapeHtml(student.student_name)}"
+                    >
+                    <span>/ ${escapeHtml(scoreText(state.essay.essayMax))}</span>
+                  </div>
+                `
+                : `<span class="score-na">N/A</span>`
+            }
+          </td>
+
+          <td class="essay-total-cell">${totalHtml}</td>
+
+          <td>
+            <span class="essay-row-status ${escapeHtml(statusClass)}">
+              ${escapeHtml(statusLabel)}
+            </span>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    bindEssayInputs();
+  }
+
+
+  // ==========================================================
+  // 42. ESSAY INPUT EVENTS
+  // ==========================================================
+
+  function bindEssayInputs() {
+    $$(".essay-score-input", els.essayScoreBody).forEach((input) => {
+      input.addEventListener("input", () => handleEssayInput(input));
+
+      input.addEventListener("blur", () => {
+        if (!input.value.trim()) return;
+
+        const value = Number.parseFloat(input.value);
+
+        if (Number.isFinite(value)) input.value = scoreText(roundScore(value));
+      });
+    });
+  }
+
+  function handleEssayInput(input) {
+    const key = normalizeUpper(input.dataset.key || "");
+
+    if (!key) return;
+
+    const raw = input.value.trim();
+    const student = state.essay.students.find((item) => essayStudentKey(item) === key);
+
+    if (!student) return;
+
+    let value = null;
+
+    if (raw !== "") {
+      value = Number.parseFloat(raw);
+
+      if (!Number.isFinite(value)) {
+        input.classList.add("invalid");
+        return;
+      }
+
+      if (value < 0 || value > state.essay.essayMax) {
+        input.classList.add("invalid");
+        showToast(`Essay score must be between 0 and ${scoreText(state.essay.essayMax)}.`, "warning");
+        return;
+      }
+
+      value = roundScore(value);
+    }
+
+    input.classList.remove("invalid");
+
+    const original = state.essay.originalScores.get(key) ?? null;
+
+    if (
+      (original === null && value === null) ||
+      (original !== null && value !== null && Number(original) === Number(value))
+    ) {
+      state.essay.changes.delete(key);
+    } else {
+      state.essay.changes.set(key, value);
+    }
+
+    updateEssayUnsavedCount();
+
+    /*
+     * Re-render so combined total and row state update immediately.
+     * Keep focus on the edited student afterwards.
+     */
+    renderEssayStudents();
+
+    const newInput = $(`.essay-score-input[data-key="${CSS.escape(key)}"]`);
+
+    if (newInput) {
+      newInput.focus();
+      try { newInput.setSelectionRange(newInput.value.length, newInput.value.length); } catch {}
+    }
+  }
+
+  function updateEssayUnsavedCount() {
+    safeSetText(els.essayUnsavedCount, state.essay.changes.size);
+
+    if (els.saveEssayScoresBtn) els.saveEssayScoresBtn.disabled = state.essay.changes.size === 0 || !state.essay.available;
+  }
+
+
+  // ==========================================================
+  // 43. RESET ESSAY CHANGES
+  // ==========================================================
+
+  function resetEssayChanges() {
+    if (!state.essay.changes.size) {
+      showToast("There are no unsaved essay score changes.", "info");
+      return;
+    }
+
+    state.essay.changes.clear();
+
+    renderEssayStudents();
+    updateEssayUnsavedCount();
+
+    showToast("Unsaved essay score changes were reset.", "success");
+  }
+
+
+  // ==========================================================
+  // 44. SAVE ESSAY SCORES
+  // ==========================================================
+
+  async function saveEssayScores() {
+    if (!state.essay.available) {
+      showToast("This examination does not contain an essay section.", "warning");
+      return;
+    }
+
+    if (!state.essay.changes.size) {
+      showToast("No essay score changes to save.", "info");
+      return;
+    }
+
+    const scores = [];
+
+    for (const [key, score] of state.essay.changes.entries()) {
+      const student = state.essay.students.find((item) => essayStudentKey(item) === key);
+
+      if (!student) continue;
+
+      if (score !== null && (Number(score) < 0 || Number(score) > state.essay.essayMax)) {
+        showToast(
+          `${student.student_name}: score must be between 0 and ${scoreText(state.essay.essayMax)}.`,
+          "error"
+        );
+        return;
+      }
+
+      scores.push({
+        admission_number: student.admission_number,
+        student_name: student.student_name,
+        class_arm: student.class_arm,
+        score
+      });
+    }
+
+    if (!scores.length) return;
+
+    const payload = {
+      year: state.essay.year,
+      class: state.essay.classLevel,
+      class_level: state.essay.classLevel,
+      arm: state.essay.arm === "all" ? "" : state.essay.arm,
+      term: state.essay.term,
+      subject: state.essay.subject,
+
+      objective_max: state.essay.objectiveMax,
+      essay_max: state.essay.essayMax,
+      total_max: state.essay.totalMax,
+
+      scores
+    };
+
+    const button = els.saveEssayScoresBtn;
+    const text = button?.querySelector(".btn-text");
+    const spinner = button?.querySelector(".btn-spinner");
+
+    if (button) button.disabled = true;
+
+    text?.classList.add("hidden");
+    spinner?.classList.remove("hidden");
+
+    try {
+      const data = await fetchJson("/api/results/essay/save", {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+
+      const savedCount = Number(data.saved_count ?? data.updated ?? scores.length);
+
+      showToast(`${savedCount} essay score${savedCount === 1 ? "" : "s"} saved successfully.`, "success");
+
+      state.essay.changes.clear();
+
+      await loadEssayStudents();
+      await loadAllResults({ silent: true });
+
+      window.dispatchEvent(new CustomEvent("emis:essay-scores-changed", {
+        detail: {
+          year: state.essay.year,
+          class: state.essay.classLevel,
+          term: state.essay.term,
+          subject: state.essay.subject
+        }
+      }));
+
+    } catch (error) {
+      console.error("ESSAY SAVE ERROR:", error);
+
+      showToast(
+        error.message || "Could not save essay scores. The essay backend may not be connected yet.",
+        "error"
+      );
+
+    } finally {
+      if (button) button.disabled = state.essay.changes.size === 0;
+
+      text?.classList.remove("hidden");
+      spinner?.classList.add("hidden");
+    }
+  }
+
+
+  // ==========================================================
+  // 45. ESSAY SEARCH / FILTER EVENTS
+  // ==========================================================
+
+  const filterEssaySearch = debounce(() => filterEssayStudents(), 120);
+
+  els.essayStudentSearch?.addEventListener("input", filterEssaySearch);
+
+  els.clearEssaySearchBtn?.addEventListener("click", () => {
+    if (!els.essayStudentSearch) return;
+
+    els.essayStudentSearch.value = "";
+    els.essayStudentSearch.focus();
+
+    filterEssayStudents();
+  });
+
+  els.essayPendingOnly?.addEventListener("change", filterEssayStudents);
+
+
+  // ==========================================================
+  // 46. ESSAY MODAL EVENTS
+  // ==========================================================
+
+  els.essayScoresBtn?.addEventListener("click", openEssayScoreManager);
+  els.openEssayScoresBtn?.addEventListener("click", openEssayScoreManager);
+
+  els.essayScoreCloseBtn?.addEventListener("click", () => closeEssayScoreManager());
+  els.cancelEssayScoresBtn?.addEventListener("click", () => closeEssayScoreManager());
+  els.essayScoreBackdrop?.addEventListener("click", () => closeEssayScoreManager());
+
+  els.clearEssayChangesBtn?.addEventListener("click", resetEssayChanges);
+  els.saveEssayScoresBtn?.addEventListener("click", saveEssayScores);
+
+
+  // ==========================================================
+  // 47. PRINT SELECTED
   // ==========================================================
 
   function printSelected() {
@@ -1332,7 +2584,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (records.length === 1) {
       openSummary(records[0]);
+
       setTimeout(() => window.print(), 250);
+
       return;
     }
 
@@ -1350,7 +2604,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 32. RESULT LIST PRINT
+  // 48. RESULT LIST PRINT
   // ==========================================================
 
   function printResultList(records, title) {
@@ -1363,26 +2617,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const includeTerm = records.some((row) => Boolean(getTerm(row)));
 
-    const rows = records.map((row, index) => `
-      <tr>
-        <td>${index + 1}</td>
-        <td>${escapeHtml(getStudentName(row))}</td>
-        <td>${escapeHtml(getAdmission(row))}</td>
-        <td>${escapeHtml(getYear(row))}</td>
-        <td>${escapeHtml(getClass(row))}</td>
-        ${includeTerm ? `<td>${escapeHtml(getTerm(row) ? termLabel(getTerm(row)) : "—")}</td>` : ""}
-        <td>${escapeHtml(formatSubject(getSubject(row)))}</td>
-        <td>${escapeHtml(getCorrect(row))}/${escapeHtml(getTotal(row))}</td>
-        <td>${escapeHtml(getScore(row))}%</td>
-        <td>${escapeHtml(getStatus(row))}</td>
-        <td>${escapeHtml(getTime(row) || "—")}</td>
-        <td>${escapeHtml(getSubmittedAt(row) || "—")}</td>
-      </tr>
-    `).join("");
+    const rows = records.map((row, index) => {
+      const objective = objectiveDisplay(row);
+      const essay = essayDisplay(row);
+      const total = totalDisplay(row);
+
+      return `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${escapeHtml(getStudentName(row))}</td>
+          <td>${escapeHtml(getAdmission(row))}</td>
+          <td>${escapeHtml(getYear(row))}</td>
+          <td>${escapeHtml(getClass(row))}</td>
+          ${includeTerm ? `<td>${escapeHtml(getTerm(row) ? termLabel(getTerm(row)) : "—")}</td>` : ""}
+          <td>${escapeHtml(formatSubject(getSubject(row)))}</td>
+          <td>${escapeHtml(objective.text)}</td>
+          <td>${escapeHtml(essay.text)}</td>
+          <td>${escapeHtml(total.text)}</td>
+          <td>${escapeHtml(getStatus(row))}</td>
+          <td>${escapeHtml(getTime(row) || "—")}</td>
+          <td>${escapeHtml(getSubmittedAt(row) || "—")}</td>
+        </tr>
+      `;
+    }).join("");
 
     popup.document.write(`
       <!DOCTYPE html>
-
       <html>
         <head>
           <meta charset="UTF-8">
@@ -1391,56 +2651,23 @@ document.addEventListener("DOMContentLoaded", () => {
           <style>
             * { box-sizing: border-box; }
 
-            body {
-              margin: 0;
-              padding: 24px;
-              font-family: Arial, sans-serif;
-              color: #17202a;
-            }
+            body { margin: 0; padding: 24px; font-family: Arial, sans-serif; color: #17202a; }
 
-            .print-head {
-              margin-bottom: 16px;
-              padding-bottom: 12px;
-              border-bottom: 3px solid #0f766e;
-            }
+            .print-head { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 3px solid #0f766e; }
 
-            h1 {
-              margin: 0;
-              font-size: 22px;
-            }
+            h1 { margin: 0; font-size: 22px; }
 
-            p {
-              margin: 5px 0 0;
-              color: #667085;
-              font-size: 12px;
-            }
+            p { margin: 5px 0 0; color: #667085; font-size: 12px; }
 
-            table {
-              width: 100%;
-              border-collapse: collapse;
-              font-size: 10px;
-            }
+            table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
 
-            th {
-              padding: 8px;
-              color: #fff;
-              background: #334155;
-              text-align: left;
-            }
+            th { padding: 8px; color: #fff; background: #334155; text-align: left; }
 
-            td {
-              padding: 7px;
-              border: 1px solid #d9e0e7;
-            }
+            td { padding: 7px; border: 1px solid #d9e0e7; }
 
-            tr:nth-child(even) td {
-              background: #f8fafc;
-            }
+            tr:nth-child(even) td { background: #f8fafc; }
 
-            @page {
-              size: landscape;
-              margin: 12mm;
-            }
+            @page { size: landscape; margin: 10mm; }
           </style>
         </head>
 
@@ -1460,8 +2687,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <th>Class</th>
                 ${includeTerm ? "<th>Term</th>" : ""}
                 <th>Subject</th>
-                <th>Raw</th>
-                <th>Score</th>
+                <th>Objective</th>
+                <th>Essay</th>
+                <th>Total</th>
                 <th>Status</th>
                 <th>Time</th>
                 <th>Date</th>
@@ -1482,7 +2710,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 33. EXPORT DATA
+  // 49. EXPORT DATA
   // ==========================================================
 
   function exportRows() { return state.filteredResults; }
@@ -1496,10 +2724,20 @@ document.addEventListener("DOMContentLoaded", () => {
       ["Class Arm", getClassArm],
       ["Term", (row) => getTerm(row) ? termLabel(getTerm(row)) : ""],
       ["Subject", (row) => formatSubject(getSubject(row))],
-      ["Score (%)", getScore],
-      ["Correct", getCorrect],
-      ["Total", getTotal],
+
+      ["Objective Score", (row) => getObjectiveScore(row)],
+      ["Objective Max", (row) => getObjectiveMax(row)],
+      ["Objective Correct", getCorrect],
+      ["Objective Questions", getQuestionTotal],
+
+      ["Essay Score", (row) => getEssayScore(row) ?? ""],
+      ["Essay Max", (row) => getEssayAvailable(row) ? getEssayMax(row) : ""],
+
+      ["Final Score", (row) => getFinalScore(row) ?? ""],
+      ["Final Max", () => 100],
+
       ["Status", getStatus],
+      ["Result State", getResultState],
       ["Time Taken", getTime],
       ["Submitted At", getSubmittedAt],
       ["Session", getSession]
@@ -1508,7 +2746,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 34. CSV EXPORT
+  // 50. CSV EXPORT
   // ==========================================================
 
   function exportCsv() {
@@ -1520,6 +2758,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const columns = exportColumns();
+
     const escapeCsv = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
 
     const csv = [
@@ -1534,8 +2773,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 35. PROFESSIONAL EXCEL EXPORT
-  // Real .xlsx workbook generated by backend / OpenPyXL
+  // 51. PROFESSIONAL EXCEL EXPORT
   // ==========================================================
 
   async function exportExcelCompatible() {
@@ -1555,8 +2793,43 @@ document.addEventListener("DOMContentLoaded", () => {
         button.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Preparing...</span>`;
       }
 
+      const normalizedRecords = records.map((row) => ({
+        ...row,
+
+        "Student Name": getStudentName(row),
+        "Admission No": getAdmission(row),
+        Year: getYear(row),
+
+        "Class Level": getClassLevel(row),
+        "Class Arm": getClassArm(row),
+
+        Term: getTerm(row) ? termLabel(getTerm(row)) : "",
+        Subject: formatSubject(getSubject(row)),
+
+        "Objective Score": getObjectiveScore(row),
+        "Objective Max": getObjectiveMax(row),
+
+        "Essay Score": getEssayScore(row),
+        "Essay Max": getEssayAvailable(row) ? getEssayMax(row) : null,
+
+        "Final Score": getFinalScore(row),
+        "Final Max": 100,
+
+        "Score (%)": getFinalScore(row) ?? getObjectivePercentage(row),
+
+        Correct: getCorrect(row),
+        Total: getQuestionTotal(row),
+
+        Status: getStatus(row),
+        "Result State": getResultState(row),
+
+        "Time Taken": getTime(row),
+        "Submitted At": getSubmittedAt(row),
+        Session: getSession(row)
+      }));
+
       const exportData = {
-        results: records,
+        results: normalizedRecords,
 
         filters: {
           year: selectedYear() === "all" ? "All Years" : selectedYear(),
@@ -1572,47 +2845,40 @@ document.addEventListener("DOMContentLoaded", () => {
             ? "All Sessions"
             : els.sessionSelector?.value || "All Sessions",
 
-          status: els.statusFilter?.value
-            || (state.statusView !== "all" ? state.statusView : "All Status")
+          status: els.statusFilter?.value || (state.statusView !== "all" ? state.statusView : "All Status")
         }
       };
-
-      console.log("[admin_results] Generating professional Excel workbook:", {
-        results: records.length,
-        filters: exportData.filters
-      });
 
       const response = await fetch("/api/results/export/excel", {
         method: "POST",
         credentials: "same-origin",
         cache: "no-store",
+
         headers: {
           "Content-Type": "application/json",
           Accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         },
+
         body: JSON.stringify(exportData)
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        let errorMessage = `Export failed (${response.status})`;
 
-        throw new Error(
-          errorData.error ||
-          errorData.message ||
-          `Excel export failed (${response.status})`
-        );
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch {}
+
+        throw new Error(errorMessage);
       }
 
       const blob = await response.blob();
       const disposition = response.headers.get("Content-Disposition") || "";
 
-      let filename = exportFilename("xlsx");
+      const filenameMatch = disposition.match(/filename="?([^"]+)"?/i);
 
-      const utfFilename = disposition.match(/filename\*=UTF-8''([^;]+)/i);
-      const normalFilename = disposition.match(/filename="?([^";]+)"?/i);
-
-      if (utfFilename?.[1]) filename = decodeURIComponent(utfFilename[1]);
-      else if (normalFilename?.[1]) filename = normalFilename[1];
+      const filename = filenameMatch?.[1] || exportFilename("xlsx");
 
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -1628,16 +2894,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       showToast(`Professional Excel report exported — ${records.length} result(s).`, "success");
 
-      console.log("[admin_results] Excel workbook downloaded:", filename);
-
     } catch (error) {
       console.error("EXCEL EXPORT ERROR:", error);
 
-      showToast(
-        error.message ||
-        "Could not generate the Excel report.",
-        "error"
-      );
+      showToast(error.message || "Could not generate the Excel report.", "error");
 
     } finally {
       if (button) {
@@ -1647,8 +2907,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+
   // ==========================================================
-  // 36. RESET FILTERS
+  // 52. RESET FILTERS
   // ==========================================================
 
   async function clearFilters() {
@@ -1673,6 +2934,7 @@ document.addEventListener("DOMContentLoaded", () => {
     state.selectedKeys.clear();
 
     populateTermOptions(DEFAULT_TERMS, false);
+
     updateTermUi();
     syncClassPills();
     syncStatusTabs();
@@ -1682,7 +2944,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 37. CLASS PILLS
+  // 53. CLASS PILLS
   // ==========================================================
 
   function syncClassPills() {
@@ -1695,7 +2957,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 38. STATUS TABS
+  // 54. STATUS TABS
   // ==========================================================
 
   function syncStatusTabs() {
@@ -1706,7 +2968,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 39. COLUMN MENU
+  // 55. COLUMN MENU
   // ==========================================================
 
   function closeColumnMenu() {
@@ -1727,7 +2989,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 40. YEAR CHANGE
+  // 56. FILTER CHANGE HANDLERS
   // ==========================================================
 
   async function handleYearChange() {
@@ -1740,11 +3002,6 @@ document.addEventListener("DOMContentLoaded", () => {
     await loadAvailableTerms();
     await loadAllResults();
   }
-
-
-  // ==========================================================
-  // 41. CLASS CHANGE
-  // ==========================================================
 
   async function handleClassChange() {
     state.currentPage = 1;
@@ -1760,11 +3017,6 @@ document.addEventListener("DOMContentLoaded", () => {
     await loadAllResults();
   }
 
-
-  // ==========================================================
-  // 42. TERM CHANGE
-  // ==========================================================
-
   async function handleTermChange() {
     state.currentPage = 1;
     state.selectedKeys.clear();
@@ -1773,11 +3025,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     await loadAllResults();
   }
-
-
-  // ==========================================================
-  // 43. SUBJECT CHANGE
-  // ==========================================================
 
   async function handleSubjectChange() {
     state.currentPage = 1;
@@ -1788,7 +3035,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 44. MAIN FILTER EVENTS
+  // 57. MAIN FILTER EVENTS
   // ==========================================================
 
   els.reloadTableBtn?.addEventListener("click", () => loadAllResults());
@@ -1804,13 +3051,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   els.statusFilter?.addEventListener("change", () => {
     state.statusView = "all";
+
     syncStatusTabs();
     applyFilters();
   });
 
 
   // ==========================================================
-  // 45. SEARCH
+  // 58. SEARCH
   // ==========================================================
 
   const applySearch = debounce(() => applyFilters(), 180);
@@ -1828,7 +3076,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 46. CLASS QUICK BUTTONS
+  // 59. CLASS QUICK BUTTONS
   // ==========================================================
 
   $$(".class-pill").forEach((pill) => {
@@ -1843,7 +3091,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 47. QUICK PASS / FAIL TABS
+  // 60. QUICK PASS / FAIL TABS
   // ==========================================================
 
   $$(".view-tab[data-status-view]").forEach((tab) => {
@@ -1859,7 +3107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 48. SORT EVENTS
+  // 61. SORT EVENTS
   // ==========================================================
 
   $$(".results-table th.sortable").forEach((th) => {
@@ -1868,7 +3116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 49. ROWS PER PAGE
+  // 62. ROWS PER PAGE
   // ==========================================================
 
   els.rowsPerPage?.addEventListener("change", () => {
@@ -1882,7 +3130,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 50. SELECT ALL CURRENT PAGE
+  // 63. SELECT ALL CURRENT PAGE
   // ==========================================================
 
   els.selectAllRows?.addEventListener("change", () => {
@@ -1891,7 +3139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 51. COLUMN MANAGER EVENTS
+  // 64. COLUMN MANAGER EVENTS
   // ==========================================================
 
   els.columnToggleBtn?.addEventListener("click", (event) => {
@@ -1902,7 +3150,9 @@ document.addEventListener("DOMContentLoaded", () => {
   els.columnMenu?.addEventListener("click", (event) => event.stopPropagation());
 
   $$("#columnMenu input[data-column]").forEach((checkbox) => {
-    checkbox.addEventListener("change", () => setColumnVisible(checkbox.dataset.column, checkbox.checked));
+    checkbox.addEventListener("change", () => {
+      setColumnVisible(checkbox.dataset.column, checkbox.checked);
+    });
   });
 
   els.resetColumnsBtn?.addEventListener("click", resetColumns);
@@ -1913,7 +3163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 52. COMPACT TABLE
+  // 65. COMPACT TABLE
   // ==========================================================
 
   els.toggleCompactBtn?.addEventListener("click", () => {
@@ -1930,7 +3180,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 53. DELETE EVENTS
+  // 66. DELETE EVENTS
   // ==========================================================
 
   els.deleteSelectedBtn?.addEventListener("click", () => openDeleteModal());
@@ -1943,7 +3193,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 54. PRINT / EXPORT EVENTS
+  // 67. PRINT / EXPORT EVENTS
   // ==========================================================
 
   els.printSelectedBtn?.addEventListener("click", printSelected);
@@ -1953,7 +3203,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 55. SUMMARY EVENTS
+  // 68. SUMMARY EVENTS
   // ==========================================================
 
   els.summaryCloseBtn?.addEventListener("click", closeSummary);
@@ -1965,11 +3215,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 56. KEYBOARD SHORTCUTS
+  // 69. KEYBOARD SHORTCUTS
   // ==========================================================
 
   document.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      if (!els.essayScoreModal?.classList.contains("hidden")) return;
+
       event.preventDefault();
 
       els.globalSearch?.focus();
@@ -1979,6 +3231,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (event.key !== "Escape") return;
+
+    if (els.essayScoreModal && !els.essayScoreModal.classList.contains("hidden")) {
+      closeEssayScoreManager();
+      return;
+    }
 
     if (els.adminPrintSummary?.classList.contains("show")) {
       closeSummary();
@@ -1995,18 +3252,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ==========================================================
-  // 57. EXTERNAL REFRESH HOOKS
+  // 70. EXTERNAL REFRESH HOOKS
   // ==========================================================
 
   window.loadAllResults = loadAllResults;
   window.refreshAdminResults = loadAllResults;
+  window.openEssayScoreManager = openEssayScoreManager;
 
   window.addEventListener("emis:result-submitted", () => loadAllResults({ silent: true }));
   window.addEventListener("emis:results-changed", () => loadAllResults({ silent: true }));
+  window.addEventListener("emis:essay-scores-changed", () => loadAllResults({ silent: true }));
 
 
   // ==========================================================
-  // 58. INITIALIZE
+  // 71. INITIALIZE
   // ==========================================================
 
   async function init() {
@@ -2018,6 +3277,7 @@ document.addEventListener("DOMContentLoaded", () => {
     syncColumnCheckboxes();
     updateSelectionUi();
     updateSortIcons();
+    updateEssayUnsavedCount();
 
     await loadAvailableTerms();
     await loadAllResults();

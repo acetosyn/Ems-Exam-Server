@@ -1,0 +1,772 @@
+{
+  "subject": "English Language",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Identify the part of speech of the word 'homework' in the sentence: I didn't do my homework because I was ill.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Verb",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Identify the part of speech of the word 'lie' in the sentence: She told a lie because she was afraid.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Verb",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Identify the part of speech of the word 'brightness' in the sentence: She chose the cloth because of its brightness.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Verb",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Identify the part of speech of the word 'new' in the sentence: My uncle bought a new car yesterday.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Verb",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "Identify the part of speech of the word 'quickly' in the sentence: The boy ran quickly to school.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Verb",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Identify the part of speech of the word 'beautiful' in the sentence: The girl is beautiful.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Verb",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Identify the part of speech of the word 'laughed' in the sentence: My friend laughed at the joke.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Verb",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Identify the part of speech of the word 'under' in the sentence: The cat is hiding under the table.",
+      "diagram": null,
+      "options": [
+        "A. Verb",
+        "B. Preposition",
+        "C. Adverb",
+        "D. Conjunction"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Identify the part of speech of the word 'and' in the sentence: They sang and danced happily.",
+      "diagram": null,
+      "options": [
+        "A. Noun",
+        "B. Conjunction",
+        "C. Adverb",
+        "D. Adjective"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "Identify the part of speech of the word 'me' in the sentence: The teacher gave me a book.",
+      "diagram": null,
+      "options": [
+        "A. Verb",
+        "B. Noun",
+        "C. Adverb",
+        "D. Pronoun"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Locusts are insects that feed on ________.",
+      "diagram": null,
+      "options": [
+        "A. plants",
+        "B. animals",
+        "C. stones",
+        "D. water"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "They are very ________ creatures.",
+      "diagram": null,
+      "options": [
+        "A. destructive",
+        "B. friendly",
+        "C. quiet",
+        "D. playful"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "They are regarded as man's oldest enemies because, by destroying farmlands, they cause great suffering, starvation and ________.",
+      "diagram": null,
+      "options": [
+        "A. joy",
+        "B. famine",
+        "C. comfort",
+        "D. harvest"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Locusts eat anything ________.",
+      "diagram": null,
+      "options": [
+        "A. green",
+        "B. black",
+        "C. soft",
+        "D. hard"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "They fly during warm, dry days when their body ________ is high.",
+      "diagram": null,
+      "options": [
+        "A. temperature",
+        "B. colour",
+        "C. feeling",
+        "D. shape"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "Choose the word that does NOT rhyme with the others.",
+      "diagram": null,
+      "options": [
+        "A. jaw",
+        "B. joy",
+        "C. toy",
+        "D. boy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Choose the word that does NOT rhyme with the others.",
+      "diagram": null,
+      "options": [
+        "A. call",
+        "B. tall",
+        "C. fall",
+        "D. coil"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Choose the word that does NOT rhyme with the others.",
+      "diagram": null,
+      "options": [
+        "A. noise",
+        "B. boys",
+        "C. toys",
+        "D. rays"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "Choose the word that does NOT rhyme with the others.",
+      "diagram": null,
+      "options": [
+        "A. join",
+        "B. coin",
+        "C. loin",
+        "D. boot"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "question": "Choose the word that does NOT rhyme with the others.",
+      "diagram": null,
+      "options": [
+        "A. gown",
+        "B. town",
+        "C. dawn",
+        "D. down"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "I met my cousin ________ Lagos.",
+      "diagram": null,
+      "options": [
+        "A. on",
+        "B. in",
+        "C. at",
+        "D. for"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "I will see you ________ Saturday.",
+      "diagram": null,
+      "options": [
+        "A. on",
+        "B. at",
+        "C. in",
+        "D. by"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "We'll be ________ Nigeria next year.",
+      "diagram": null,
+      "options": [
+        "A. in",
+        "B. on",
+        "C. at",
+        "D. into"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "My birthday is ________ the 8th of July.",
+      "diagram": null,
+      "options": [
+        "A. at",
+        "B. in",
+        "C. on",
+        "D. by"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "I live ________ No. 3 Adaramola Street.",
+      "diagram": null,
+      "options": [
+        "A. in",
+        "B. on",
+        "C. at",
+        "D. by"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "The doctor said, \"See you ________ two months.\"",
+      "diagram": null,
+      "options": [
+        "A. in",
+        "B. on",
+        "C. at",
+        "D. by"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "I was ________ bed when I heard the knock.",
+      "diagram": null,
+      "options": [
+        "A. at",
+        "B. on",
+        "C. in",
+        "D. for"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "I am travelling to Abuja ________ Saturday.",
+      "diagram": null,
+      "options": [
+        "A. on",
+        "B. in",
+        "C. at",
+        "D. by"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "I am ________ the party I told you about.",
+      "diagram": null,
+      "options": [
+        "A. at",
+        "B. in",
+        "C. on",
+        "D. for"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "My school was established ________ 1931.",
+      "diagram": null,
+      "options": [
+        "A. in",
+        "B. on",
+        "C. at",
+        "D. by"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "She only ________ the words, and they were difficult to hear.",
+      "diagram": null,
+      "options": [
+        "A. rolled",
+        "B. nested",
+        "C. silvered",
+        "D. breathed"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 32,
+      "question": "The great waves ________ towards the shore as the wind grew strong.",
+      "diagram": null,
+      "options": [
+        "A. rolled",
+        "B. nested",
+        "C. breathed",
+        "D. silvered"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Bisi went for a walk in the light of the ________ moon.",
+      "diagram": null,
+      "options": [
+        "A. western",
+        "B. silver",
+        "C. rolled",
+        "D. nested"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Emeka found two birds ________ in the kola nut tree.",
+      "diagram": null,
+      "options": [
+        "A. nested",
+        "B. rolled",
+        "C. breathed",
+        "D. silvered"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "The northern part of the country has a temperate climate but the ________ part is hot and wet.",
+      "diagram": null,
+      "options": [
+        "A. western",
+        "B. eastern",
+        "C. central",
+        "D. northern"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "The child ________ the entire bottle of water before I came in. (drink)",
+      "diagram": null,
+      "options": [
+        "A. drank",
+        "B. drunk",
+        "C. drinking",
+        "D. drinks"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Ojo has ________ many plans before the chairman. (lay)",
+      "diagram": null,
+      "options": [
+        "A. laid",
+        "B. lain",
+        "C. layed",
+        "D. lays"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "His mother, together with his sister, ________ in the bakery. (work)",
+      "diagram": null,
+      "options": [
+        "A. work",
+        "B. works",
+        "C. working",
+        "D. worked"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Neither the back tyre of the bicycle nor the brakes ________ good. (be)",
+      "diagram": null,
+      "options": [
+        "A. is",
+        "B. are",
+        "C. were",
+        "D. be"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "All the girls but Biola ________ in Ibadan. (live)",
+      "diagram": null,
+      "options": [
+        "A. live",
+        "B. lives",
+        "C. living",
+        "D. lived"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "Choose the correct plural form of 'foot'.",
+      "diagram": null,
+      "options": [
+        "A. feets",
+        "B. foots",
+        "C. feet",
+        "D. foote"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "Choose the correct plural form of 'ox'.",
+      "diagram": null,
+      "options": [
+        "A. oxs",
+        "B. oxen",
+        "C. oxes",
+        "D. oxies"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "Choose the correct plural form of 'proof'.",
+      "diagram": null,
+      "options": [
+        "A. proofs",
+        "B. proves",
+        "C. prooves",
+        "D. proofes"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "Choose the correct plural form of 'prisoner of war'.",
+      "diagram": null,
+      "options": [
+        "A. prisoners of war",
+        "B. prisoner of wars",
+        "C. prisoners of wars",
+        "D. prisoners of war's"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "Choose the correct plural form of 'louse'.",
+      "diagram": null,
+      "options": [
+        "A. louses",
+        "B. lousen",
+        "C. lice",
+        "D. lices"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Choose the correct adverb form of 'wonder'.",
+      "diagram": null,
+      "options": [
+        "A. wonderly",
+        "B. wonderfully",
+        "C. wondering",
+        "D. wonderous"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "Choose the correct adverb form of 'comfort'.",
+      "diagram": null,
+      "options": [
+        "A. comfortly",
+        "B. comfortably",
+        "C. comfortingly",
+        "D. comfortous"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Choose the correct adverb form of 'surprise'.",
+      "diagram": null,
+      "options": [
+        "A. surprisingly",
+        "B. surprisedly",
+        "C. surprisal",
+        "D. surpriseful"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "Choose the correct adverb form of 'joke'.",
+      "diagram": null,
+      "options": [
+        "A. jokingly",
+        "B. jokely",
+        "C. jokedly",
+        "D. jokious"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Choose the correct adverb form of 'laugh'.",
+      "diagram": null,
+      "options": [
+        "A. laughingly",
+        "B. laughly",
+        "C. laughfully",
+        "D. laughy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 51,
+      "question": "The plural of 'child' is ________.",
+      "diagram": null,
+      "options": [
+        "A. childs",
+        "B. childes",
+        "C. children",
+        "D. childers"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 52,
+      "question": "The opposite of 'cheap' is ________.",
+      "diagram": null,
+      "options": [
+        "A. low",
+        "B. expensive",
+        "C. small",
+        "D. big"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 53,
+      "question": "The comparative form of 'beautiful' is ________.",
+      "diagram": null,
+      "options": [
+        "A. beautifuller",
+        "B. more beautiful",
+        "C. most beautiful",
+        "D. very beautiful"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 54,
+      "question": "The past tense of 'teach' is ________.",
+      "diagram": null,
+      "options": [
+        "A. teached",
+        "B. taught",
+        "C. teach",
+        "D. teaching"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 55,
+      "question": "The feminine of 'nephew' is ________.",
+      "diagram": null,
+      "options": [
+        "A. niece",
+        "B. sister",
+        "C. cousin",
+        "D. aunt"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 56,
+      "question": "A word opposite in meaning to another is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. synonym",
+        "B. antonym",
+        "C. homonym",
+        "D. pronoun"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 57,
+      "question": "Which of these sentences is correct?",
+      "diagram": null,
+      "options": [
+        "A. He go to school every day.",
+        "B. He goes to school every day.",
+        "C. He going to school every day.",
+        "D. He gone to school every day."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 58,
+      "question": "The baby cried ________ when her mother left.",
+      "diagram": null,
+      "options": [
+        "A. loud",
+        "B. loudly",
+        "C. louder",
+        "D. louding"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 59,
+      "question": "Which of the following is a question tag?",
+      "diagram": null,
+      "options": [
+        "A. however",
+        "B. because",
+        "C. isn't he?",
+        "D. although"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 60,
+      "question": "The plural of 'goose' is ________.",
+      "diagram": null,
+      "options": [
+        "A. gooses",
+        "B. goose",
+        "C. geese",
+        "D. geeses"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer only five (5) questions in this section. At least one question must be chosen from the Writing/Essay group. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "ESSAY / WRITING: Write a composition of about 180–220 words on the topic: \"The Causes of Road Accidents on Nigerian Roads.\"",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "ESSAY / WRITING: Write a letter of about 150–180 words to your sister who has just moved to another state to live with an uncle. Advise her on how to behave well, stay safe, and make good use of her time.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "ESSAY / WRITING: Write a story of about 200–250 words that ends with the sentence: \"It was a day I will never forget.\"",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "GRAMMAR: Change the verbs in brackets to the correct form to complete each sentence. Write the correct form on the answer sheet.\n(a) The boy (write) a letter to his father yesterday.\n(b) She (go) to school before the rain started.\n(c) They (play) football when I saw them.\n(d) My brother (finish) his homework already.\n(e) The teacher (teach) us English every day.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "GRAMMAR: Give the plural form of each of the following nouns:\n(a) man\n(b) tooth\n(c) sheep\n(d) crisis\n(e) mango",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "LITERATURE-IN-ENGLISH: Read the extract from \"Ugonna the School Dropout\" provided by the teacher or centre and discuss the major themes and the setting of the story. Write about 120–160 words.",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "LITERATURE-IN-ENGLISH: Explain any three of the following literary terms with one example each: Metaphor, Simile, Personification, Irony, Hyperbole. Write about 40–60 words for each term you choose.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "class_category": "JSS1"
+}

@@ -20,12 +20,10 @@
 
   <meta name="student-name" content="{{ student.full_name or '' }}">
   <meta name="student-admission" content="{{ student.admission_number or '' }}">
-
   <meta name="student-class-level" content="{{ class_level or class_category or student.class_level or student.class_category or '' }}">
   <meta name="student-class-category" content="{{ class_level or class_category or student.class_category or student.class_level or '' }}">
   <meta name="student-class-arm" content="{{ class_arm or student.class_arm or student.class or class_level or '' }}">
   <meta name="student-class" content="{{ class_arm or student.class_arm or student.class or class_level or class_category or '' }}">
-
   <meta name="exam-subject" content="{{ subject or '' }}">
   <meta name="exam-year" content="{{ year or '' }}">
 
@@ -39,12 +37,11 @@
 
   <title>EMIS Exam Portal | {{ subject or 'Exam' }}</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_gen.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_spec.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/hour-glass.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_gen.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_spec.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/hour-glass.css') }}">
 </head>
-
 
 <body class="exam-body {% if exam_started %}exam-started{% endif %}">
 
@@ -54,18 +51,13 @@
 
   <header class="exam-appbar">
     <div class="exam-brand">
-      <div class="brand-mark">
-        <i class="fa-solid fa-graduation-cap"></i>
-      </div>
+      <div class="brand-mark"><i class="fa-solid fa-graduation-cap"></i></div>
 
       <div>
         <h1>EMIS Exam Portal</h1>
-
         <p>
           {{ subject }} • {{ year }}
-          {% if active_term or term %}
-            • {{ term_label or active_term or term }}
-          {% endif %}
+          {% if active_term or term %} • {{ term_label or active_term or term }}{% endif %}
         </p>
       </div>
     </div>
@@ -73,27 +65,14 @@
     <div class="exam-appbar-actions">
       <div class="exam-date-time-chip">
         <i class="fa-regular fa-calendar"></i>
-
-        <div>
-          <span id="examCurrentDate">Loading date...</span>
-          <strong id="examCurrentTime">--:--:--</strong>
-        </div>
+        <div><span id="examCurrentDate">Loading date...</span><strong id="examCurrentTime">--:--:--</strong></div>
       </div>
 
-      <button class="icon-btn" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
-        <i class="fa-solid fa-moon"></i>
-      </button>
-
-      <a href="{{ url_for('user_bp.logout') }}" class="logout-btn" title="Logout">
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </a>
-
-      <div class="student-dp" title="{{ student.full_name }}">
-        {{ (student.full_name or '?')[:1] }}
-      </div>
+      <button class="icon-btn" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <a href="{{ url_for('user_bp.logout') }}" class="logout-btn" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+      <div class="student-dp" title="{{ student.full_name }}">{{ (student.full_name or '?')[:1] }}</div>
     </div>
   </header>
-
 
   <!-- =====================================================
        EXAM CONTROL BAR
@@ -102,42 +81,25 @@
   <section class="exam-controlbar">
     <div id="examSubjectTitle" class="exam-subject-pill {% if not exam_started %}hidden{% endif %}">
       <i class="fa-solid fa-book-open"></i>
-
       <span>
         {{ subject }}
-        {% if active_term or term %}
-          • {{ term_label or active_term or term }}
-        {% endif %}
+        {% if active_term or term %} • {{ term_label or active_term or term }}{% endif %}
       </span>
     </div>
 
     <div class="exam-control-right">
       <div class="hourglass-card {% if not exam_started %}hidden{% endif %}">
-        <div class="hourglass">
-          <div class="hg-top"></div>
-          <div class="hg-bottom"></div>
-        </div>
+        <div class="hourglass"><div class="hg-top"></div><div class="hg-bottom"></div></div>
       </div>
 
       <div id="examTimer" class="exam-topbar-timer {% if not exam_started %}hidden{% endif %}">
         <i class="fa-solid fa-hourglass-half"></i>
-
-        <div>
-          <small>Countdown</small>
-          <span id="timerDisplay">00:00</span>
-        </div>
+        <div><small>Countdown</small><span id="timerDisplay">00:00</span></div>
       </div>
 
       <div class="exam-topbar-student exam-student-chip {% if not exam_started %}hidden{% endif %}">
         <i class="fa-solid fa-user"></i>
-
-        <span>
-          {{ student.full_name }}
-
-          {% if class_arm %}
-            • {{ class_arm }}
-          {% endif %}
-        </span>
+        <span>{{ student.full_name }}{% if class_arm %} • {{ class_arm }}{% endif %}</span>
       </div>
 
       <button id="fullscreenBtn" class="fullscreen-btn {% if not exam_started %}hidden{% endif %}" type="button" title="Fullscreen" aria-label="Enter fullscreen">
@@ -145,7 +107,6 @@
       </button>
     </div>
   </section>
-
 
   <!-- =====================================================
        EXAM INSTRUCTIONS MODAL
@@ -161,39 +122,33 @@
       <header class="modal-head instr-head">
         <div>
           <span class="modal-kicker">Secure Exam Mode</span>
-
-          <h2>
-            <i class="fas fa-clipboard-list"></i>
-            Exam Instructions
-          </h2>
+          <h2><i class="fas fa-clipboard-list"></i> Exam Instructions</h2>
+          <p class="subtitle">Read carefully before starting your exam.</p>
 
           <p class="subtitle">
-            Read carefully before starting your exam.
-          </p>
-
-          <p class="subtitle">
-            <strong>{{ subject }}</strong>
-            • {{ class_arm or class_level }}
-            • {{ year }}
-
-            {% if active_term or term %}
-              • {{ term_label or active_term or term }}
-            {% endif %}
+            <strong>{{ subject }}</strong> • {{ class_arm or class_level }} • {{ year }}
+            {% if active_term or term %} • {{ term_label or active_term or term }}{% endif %}
           </p>
         </div>
 
-        <div class="exam-duration-badge">
-          <i class="fas fa-clock"></i>
-          {{ exam_duration|default(60) }} minutes
-        </div>
+        <div class="exam-duration-badge"><i class="fas fa-clock"></i> {{ exam_duration|default(60) }} minutes</div>
       </header>
-
 
       <div class="instructions-grid">
 
         <div class="instruction-card">
-          <i class="fas fa-book-open instr-icon"></i>
-          <p>This exam contains <b>multiple-choice questions</b>.</p>
+          <i class="fas fa-layer-group instr-icon"></i>
+          <p>The examination contains <b>Section A – Objective</b> and <b>Section B – Theory</b>.</p>
+        </div>
+
+        <div class="instruction-card">
+          <i class="fas fa-list-ol instr-icon"></i>
+          <p>For Section A, select the most appropriate option <b>A–D</b>.</p>
+        </div>
+
+        <div class="instruction-card">
+          <i class="fas fa-pen-to-square instr-icon"></i>
+          <p>Section B theory questions will be displayed on screen. Write your answers on the <b>answer booklet provided</b>.</p>
         </div>
 
         <div class="instruction-card danger">
@@ -203,47 +158,38 @@
 
         <div class="instruction-card">
           <i class="fas fa-check-double instr-icon"></i>
-          <p>You can only answer each question once.</p>
-        </div>
-
-        <div class="instruction-card">
-          <i class="fas fa-list-ol instr-icon"></i>
-          <p>Select the most appropriate option A–D.</p>
+          <p>You can only answer each objective question once.</p>
         </div>
 
         <div class="instruction-card">
           <i class="fas fa-flag instr-icon"></i>
-          <p>You may flag questions for review.</p>
+          <p>You may flag objective questions for review before submitting.</p>
         </div>
 
         <div class="instruction-card">
           <i class="fas fa-wifi instr-icon"></i>
-          <p>Ensure your internet connection is stable.</p>
+          <p>Ensure your internet connection is stable throughout the examination.</p>
         </div>
 
         <div class="instruction-card success">
           <i class="fas fa-paper-plane instr-icon"></i>
-          <p>Submit only after you have completed the exam.</p>
+          <p>Submit only after completing both sections and checking your work.</p>
         </div>
 
       </div>
 
-
       <footer class="modal-foot">
         <a href="{{ url_for('student_portal_bp.student_portal') }}" class="btn-secondary">
-          <i class="fa-solid fa-arrow-left"></i>
-          Back
+          <i class="fa-solid fa-arrow-left"></i> Back
         </a>
 
         <button id="startExamBtn" class="btn-primary" type="button">
-          <i class="fa-solid fa-rocket"></i>
-          Start Exam
+          <i class="fa-solid fa-rocket"></i> Start Exam
         </button>
       </footer>
 
     </div>
   </div>
-
 
   <!-- =====================================================
        MAIN EXAM INTERFACE
@@ -259,12 +205,10 @@
 
       <div class="sidebar-title">
         <h3>Exam Progress</h3>
-        <span>Live tracking</span>
+        <span id="examSectionStatus">Section A • Objective</span>
       </div>
 
-
       <div class="progress-overview">
-
         <div class="counts">
 
           <div class="count-block">
@@ -284,35 +228,15 @@
 
         </div>
 
-
-        <div class="progress-line">
-          <div id="progressBar" class="progress-fill"></div>
-        </div>
-
-        <div id="progressText" class="progress-text">
-          0% Complete
-        </div>
-
+        <div class="progress-line"><div id="progressBar" class="progress-fill"></div></div>
+        <div id="progressText" class="progress-text">0% Complete</div>
       </div>
-
 
       <div class="legend-row">
-        <span>
-          <i class="legend-dot answered"></i>
-          Answered
-        </span>
-
-        <span>
-          <i class="legend-dot flagged"></i>
-          Flagged
-        </span>
-
-        <span>
-          <i class="legend-dot current"></i>
-          Current
-        </span>
+        <span><i class="legend-dot answered"></i> Answered</span>
+        <span><i class="legend-dot flagged"></i> Flagged</span>
+        <span><i class="legend-dot current"></i> Current</span>
       </div>
-
 
       <div class="sidebar-section">
         <h4 class="nav-title">Question Navigation</h4>
@@ -322,108 +246,146 @@
         </div>
 
         <div class="sidebar-actions">
-
           <button onclick="showSummary()" class="btn-secondary small w-full" type="button">
-            <i class="fa-solid fa-list-check"></i>
-            Review Summary
+            <i class="fa-solid fa-list-check"></i> Review Summary
           </button>
 
           <button class="btn-hint small w-full" type="button" disabled aria-disabled="true">
             <i class="fa-solid fa-circle-info"></i>
-            Scroll to last question to submit exam
+            Complete Section A before proceeding to Section B
           </button>
-
         </div>
       </div>
 
-
       <div class="sidebar-footer">
-        <p class="muted small">
-          <i class="fa-solid fa-keyboard"></i>
-          Use ← → keys to navigate
-        </p>
+        <p class="muted small"><i class="fa-solid fa-keyboard"></i> Use ← → keys to navigate</p>
 
         {% if active_term or term %}
-          <p class="muted small">
-            <i class="fa-solid fa-calendar-days"></i>
-            {{ term_label or active_term or term }}
-          </p>
+          <p class="muted small"><i class="fa-solid fa-calendar-days"></i> {{ term_label or active_term or term }}</p>
         {% endif %}
       </div>
 
     </aside>
 
-
     <!-- ===================================================
-         QUESTION AREA
+         MAIN EXAM AREA
     ==================================================== -->
 
     <main class="exam-main">
 
-      <div class="question-header">
+      <!-- =================================================
+           SECTION A — OBJECTIVE
+      ================================================== -->
 
-        <div>
-          <span class="question-label">
-            Current Question
-          </span>
+      <section id="objectiveSection" class="objective-section">
 
-          <h2 class="q-h2">
-            Question
-            <span id="currentQuestionNumber">1</span>
+        <div class="question-header">
+          <div>
+            <span class="question-label">Section A • Objective</span>
 
-            <small>
-              / <span id="totalQuestions">0</span>
-            </small>
-          </h2>
+            <h2 class="q-h2">
+              Question <span id="currentQuestionNumber">1</span>
+              <small>/ <span id="totalQuestions">0</span></small>
+            </h2>
+          </div>
+
+          <button id="flagBtn" class="flag-btn" type="button" onclick="toggleFlag()">
+            <i class="fa-solid fa-flag"></i>
+            <span id="flagText">Flag</span>
+          </button>
         </div>
 
+        <section class="question-stage">
+          <div id="questionSlider" class="question-slider">
 
-        <button id="flagBtn" class="flag-btn" type="button" onclick="toggleFlag()">
-          <i class="fa-solid fa-flag"></i>
-          <span id="flagText">Flag</span>
-        </button>
+            <article class="question-card" tabindex="0">
+              <div class="question-body">
 
-      </div>
+                <!-- Section-specific MCQ instruction -->
+                <div id="sectionInstructionBox" class="section-instruction-card hidden"></div>
 
+                <!-- Passage -->
+                <div id="passageBlock" class="passage-block" style="display:none;"></div>
 
-      <section class="question-stage">
+                <!-- Question + options injected by exam-core.js -->
+                <div id="questionContent" class="question-text"></div>
 
-        <div id="questionSlider" class="question-slider">
+                <!-- Retained for compatibility with older exam scripts -->
+                <ul id="answerList" class="answers-list"></ul>
 
-          <article class="question-card" tabindex="0">
+              </div>
 
-            <div class="question-body">
+              <div class="question-foot">
+                <button id="prevBtn" class="btn-ghost" type="button" disabled onclick="previousQuestion()">
+                  <i class="fa-solid fa-arrow-left"></i> Previous
+                </button>
 
-              <!-- Section-specific instruction -->
-              <div id="sectionInstructionBox" class="section-instruction-card hidden"></div>
+                <button id="nextBtn" class="btn-primary" type="button" onclick="nextQuestion()">
+                  Next <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </article>
 
-              <!-- Passage -->
-              <div id="passageBlock" class="passage-block" style="display:none;"></div>
+          </div>
+        </section>
 
-              <!-- Question + options are injected by exam-core.js -->
-              <div id="questionContent" class="question-text"></div>
+      </section>
 
-              <!-- Retained for compatibility with older exam scripts -->
-              <ul id="answerList" class="answers-list"></ul>
+      <!-- =================================================
+           SECTION B — THEORY / ESSAY
+           DISPLAY ONLY — STUDENTS WRITE ON PAPER
+      ================================================== -->
 
-            </div>
+      <section id="essaySection" class="essay-section hidden">
 
+        <div class="essay-header">
+          <div>
+            <span class="question-label">Written Examination</span>
+            <h2 id="essayTitle" class="essay-title">SECTION B - THEORY</h2>
+          </div>
 
-            <div class="question-foot">
+          <div class="essay-written-badge">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>Answer on Paper</span>
+          </div>
+        </div>
 
-              <button id="prevBtn" class="btn-ghost" type="button" disabled onclick="previousQuestion()">
-                <i class="fa-solid fa-arrow-left"></i>
-                Previous
-              </button>
+        <div class="essay-notice">
+          <i class="fa-solid fa-circle-info"></i>
+          <div>
+            <strong>Section B Instructions</strong>
+            <p>Your answers must be written on the physical answer booklet provided. No theory answer is entered into this portal.</p>
+          </div>
+        </div>
 
-              <button id="nextBtn" class="btn-primary" type="button" onclick="nextQuestion()">
-                Next
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
+        <div id="essayInstruction" class="essay-instruction"></div>
 
-            </div>
+        <!-- Essay questions injected by exam-core.js -->
+        <div id="essayQuestions" class="essay-question-list"></div>
 
-          </article>
+        <!-- Shown by JS when JSON contains no essay questions -->
+        <div id="essayEmptyState" class="essay-empty hidden">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <h3>No Essay Questions Available</h3>
+          <p>No Section B theory questions were found for this examination. Please contact the Administrator.</p>
+        </div>
+
+        <div class="essay-actions">
+
+          <button id="backToObjectiveBtn" class="btn-ghost" type="button" onclick="returnToObjectiveSection()">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Section A
+          </button>
+
+          <button id="essayReviewBtn" class="btn-secondary" type="button" onclick="showSummary()">
+            <i class="fa-solid fa-list-check"></i>
+            Review Objective
+          </button>
+
+          <button id="essaySubmitBtn" class="btn-primary" type="button" onclick="endExam()">
+            Submit Exam
+            <i class="fa-solid fa-check"></i>
+          </button>
 
         </div>
 
@@ -433,118 +395,82 @@
 
   </div>
 
-
   <!-- =====================================================
        REVIEW SUMMARY MODAL
   ====================================================== -->
 
   <div id="summaryModal" class="modal-backdrop hidden">
-
     <div class="modal-card small">
 
       <div class="modal-head">
-
         <div>
-          <h2>
-            <i class="fa-solid fa-list-check"></i>
-            Exam Summary
-          </h2>
-
-          <p class="subtitle">
-            Review your progress before submission.
-          </p>
+          <h2><i class="fa-solid fa-list-check"></i> Exam Summary</h2>
+          <p class="subtitle">Review your Section A progress before final submission.</p>
         </div>
 
-        <button onclick="closeSummary()" class="close-x" type="button" aria-label="Close summary">
-          ✕
-        </button>
-
+        <button onclick="closeSummary()" class="close-x" type="button" aria-label="Close summary">✕</button>
       </div>
-
 
       <div id="summaryContent" class="modal-body"></div>
 
-
       <div class="modal-foot">
+        <button onclick="closeSummary()" class="btn-secondary" type="button">Continue</button>
 
-        <button onclick="closeSummary()" class="btn-secondary" type="button">
-          Continue
+        <button onclick="openEssaySection()" class="btn-primary" type="button">
+          <i class="fa-solid fa-arrow-right"></i>
+          Section B
         </button>
-
-        <button onclick="submitExam()" class="btn-success" type="button">
-          Submit Exam
-        </button>
-
       </div>
 
     </div>
-
   </div>
-
 
   <!-- =====================================================
        END EXAM CONFIRMATION
   ====================================================== -->
 
   <div id="endExamModal" class="modal-backdrop hidden">
-
     <div class="modal-card small">
 
       <div class="modal-head">
-
         <div>
-          <h2>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            Confirm End Exam
-          </h2>
-
-          <p class="subtitle">
-            This action cannot be reversed.
-          </p>
+          <h2><i class="fa-solid fa-triangle-exclamation"></i> Confirm End Exam</h2>
+          <p class="subtitle">This action cannot be reversed.</p>
         </div>
 
-        <button onclick="closeEndExam()" class="close-x" type="button" aria-label="Close confirmation">
-          ✕
-        </button>
-
+        <button onclick="closeEndExam()" class="close-x" type="button" aria-label="Close confirmation">✕</button>
       </div>
-
 
       <div class="modal-body">
         <p id="endExamMessage"></p>
+
+        <div class="exam-final-reminder">
+          <i class="fa-solid fa-pen"></i>
+          <span>Ensure you have completed your written Section B answers on the answer booklet before submitting.</span>
+        </div>
       </div>
 
-
       <div class="modal-foot">
-
-        <button onclick="closeEndExam()" class="btn-secondary" type="button">
-          No, Continue
-        </button>
+        <button onclick="closeEndExam()" class="btn-secondary" type="button">No, Continue</button>
 
         <button onclick="submitExam(false)" class="btn-danger" type="button">
           Yes, End Exam
         </button>
-
       </div>
 
     </div>
-
   </div>
-
 
   <!-- =====================================================
        LOADING OVERLAY
   ====================================================== -->
 
   <div id="loadingOverlay" class="loading-overlay hidden">
-
     <div class="loader-card">
       <div class="spinner"></div>
       <span>Loading exam...</span>
     </div>
-
   </div>
-
 
   <!-- =====================================================
        EXAM SCRIPTS

@@ -1,0 +1,769 @@
+{
+  "subject": "History",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "History can be defined as _________.",
+      "diagram": null,
+      "options": [
+        "A. Any story that is properly told",
+        "B. The study of stories",
+        "C. The study of past events as they relate to man",
+        "D. The study of man-made stories"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "A narration that is not factual is called _________.",
+      "diagram": null,
+      "options": [
+        "A. Story",
+        "B. History",
+        "C. Biography",
+        "D. True life story"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "A story can be defined as ________.",
+      "diagram": null,
+      "options": [
+        "A. Any account of an event whether fiction or non-fiction",
+        "B. A non-fiction account of an event",
+        "C. A fiction account of an event",
+        "D. The study of past events as they relate to man"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "A major difference between history and storytelling is that ________.",
+      "diagram": null,
+      "options": [
+        "A. History is factual, while storytelling is factual",
+        "B. History is factual while storytelling may be non-factual",
+        "C. History is fictional, while storytelling is non-fictional",
+        "D. History does not require evidence, while storytelling does"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Which of the following are categories of historical sources?",
+      "diagram": null,
+      "options": [
+        "A. Primary, secondary and university sources",
+        "B. Nursery, primary and secondary sources",
+        "C. Primary, secondary and tertiary sources",
+        "D. Nursery, secondary and tertiary sources"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following are examples of secondary sources?",
+      "diagram": null,
+      "options": [
+        "A. Legends, archival materials and textbooks",
+        "B. Original autobiographies, travel guides and non-monographs",
+        "C. Monographs, textbooks and journals",
+        "D. Archival materials, textbooks and journals"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "The following are correct definitions of oral traditions EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Testimonies concerning the past transmitted from one generation to another over a period of time",
+        "B. Documentary evidence transmitted from one person to another",
+        "C. Unwritten messages whose preservation is entrusted to the memories of successive generations",
+        "D. Words transmitted orally from one person to another over a period of time"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "The following are examples of oral traditions EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Memoirs",
+        "B. Legends",
+        "C. Praise songs",
+        "D. Proverbs"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "The following are correct descriptions of artefacts EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Things made by people of past generations that can tell us something about them",
+        "B. Stone tools, pottery vessels, metal weapons, buttons, jewellery and clothing",
+        "C. Objects that are created in recent times",
+        "D. Tools or works of art, especially objects of archaeological interest"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "A place where aged materials, especially documents and photographs, are stored and preserved is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. Archive",
+        "B. Material store",
+        "C. Library",
+        "D. History store"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "________ is a collection of peer-reviewed articles.",
+      "diagram": null,
+      "options": [
+        "A. A standard book",
+        "B. A textbook",
+        "C. A journal",
+        "D. A workbook"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "________ are books written by one or more authors.",
+      "diagram": null,
+      "options": [
+        "A. Journals",
+        "B. Biographies",
+        "C. Authored books",
+        "D. Autobiographies"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is NOT a type of history?",
+      "diagram": null,
+      "options": [
+        "A. Social history",
+        "B. Botanical history",
+        "C. Medical history",
+        "D. Political history"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "History is the study of ________ events that happened.",
+      "diagram": null,
+      "options": [
+        "A. Imaginary",
+        "B. International",
+        "C. Local",
+        "D. Real"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "A short book or detailed study of a particular subject is known as a ________.",
+      "diagram": null,
+      "options": [
+        "A. Memoir",
+        "B. Monograph",
+        "C. Biography",
+        "D. Textbook"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "________ is a set of books that gives information on many aspects of different subjects.",
+      "diagram": null,
+      "options": [
+        "A. Encyclopedia",
+        "B. Textbook",
+        "C. Biography",
+        "D. Magazine"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Arewa House Archives is located in ________.",
+      "diagram": null,
+      "options": [
+        "A. Lagos",
+        "B. Kano",
+        "C. Kaduna",
+        "D. Benin City"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Which of these is an archaeological site in Nigeria?",
+      "diagram": null,
+      "options": [
+        "A. Ibadan",
+        "B. Port Harcourt",
+        "C. Sokoto",
+        "D. Daima"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "An example of a monument is ________.",
+      "diagram": null,
+      "options": [
+        "A. Bone tool",
+        "B. Shrine",
+        "C. Iron tool",
+        "D. Wooden tool"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "Objects made and used by man in the past are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Artefacts",
+        "B. Articles",
+        "C. Folklores",
+        "D. Legends"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "Stories about animals and people told with the aim of teaching the culture of a particular people are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Folklores",
+        "B. Legends",
+        "C. Myths",
+        "D. Oral traditions"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following is generally regarded as a secondary source of history?",
+      "diagram": null,
+      "options": [
+        "A. Diaries",
+        "B. Documentaries",
+        "C. Letters",
+        "D. Oral tradition"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following is NOT an importance of history to an individual?",
+      "diagram": null,
+      "options": [
+        "A. Actualizing self-discovery",
+        "B. Encouraging loyalty to the state",
+        "C. Enhancing one's life",
+        "D. Enhancing societal development"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Societies celebrate their heroes and heroines because ________.",
+      "diagram": null,
+      "options": [
+        "A. Of their good deeds",
+        "B. Of their wealth",
+        "C. Of their high social classes",
+        "D. They could not meet them alive"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "History is important to society in the following ways EXCEPT that it helps ________.",
+      "diagram": null,
+      "options": [
+        "A. To guard against repetition of past mistakes",
+        "B. In leadership training",
+        "C. In identity discovery",
+        "D. In encouraging ethnic rivalry"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "The findings of Nok Culture were mostly of human and animal ________.",
+      "diagram": null,
+      "options": [
+        "A. Bones",
+        "B. Heads",
+        "C. Skins",
+        "D. Feet"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Which of these statements is NOT correct about the importance of history to man?",
+      "diagram": null,
+      "options": [
+        "A. History deepens people's knowledge about their society",
+        "B. History enables an individual to recognize his or her potentials",
+        "C. History helps people to avoid repeating past mistakes",
+        "D. History helps people to know the truth about their past"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "The pleasure in knowing the past and shaping one's imagination about the present and future is associated with ________.",
+      "diagram": null,
+      "options": [
+        "A. Civic Education",
+        "B. Government",
+        "C. History",
+        "D. Social Studies"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "Ife and Nok artists showed their interest in making ________ figurines.",
+      "diagram": null,
+      "options": [
+        "A. Animal",
+        "B. Building",
+        "C. Human",
+        "D. Plant"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "All the following are government publications EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Commission of inquiry report",
+        "B. White paper",
+        "C. Gazette",
+        "D. Publication"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "An account of someone's life written by someone else is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Biography",
+        "B. Historical account",
+        "C. Autobiography",
+        "D. Ghost writing"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "Biographies are examples of ________ sources of history.",
+      "diagram": null,
+      "options": [
+        "A. Nursery",
+        "B. Primary",
+        "C. Secondary",
+        "D. Tertiary"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "Autobiographies are examples of ________ sources.",
+      "diagram": null,
+      "options": [
+        "A. Nursery",
+        "B. Primary",
+        "C. Secondary",
+        "D. Tertiary"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "The story of a person written by himself or herself is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Unauthorized biography",
+        "B. Collective biography",
+        "C. Autobiography",
+        "D. Biography subject"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "________ is a short message used for internal communication in an organization.",
+      "diagram": null,
+      "options": [
+        "A. A memorandum",
+        "B. A memoranda",
+        "C. A news report",
+        "D. A bulletin"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "________ are buildings where artefacts and other historical materials are preserved and displayed.",
+      "diagram": null,
+      "options": [
+        "A. Museums",
+        "B. Libraries",
+        "C. Exhibitions",
+        "D. Stores"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "A place where books and digitized literature are kept as collections is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Library",
+        "B. Store",
+        "C. Market",
+        "D. Warehouse"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Those sources which tell us about history are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Historical sources",
+        "B. Philosophical sources",
+        "C. Sociological sources",
+        "D. Mythological sources"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "The source of history which gives first-hand information about an event is called a ________ source.",
+      "diagram": null,
+      "options": [
+        "A. Primary",
+        "B. Secondary",
+        "C. Tertiary",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "A ________ refers to a group of people that live in a political community under one government.",
+      "diagram": null,
+      "options": [
+        "A. Group",
+        "B. Politicians",
+        "C. State",
+        "D. Town"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "A centralized state can be defined as a territory that is governed by a ________ central authority.",
+      "diagram": null,
+      "options": [
+        "A. Single",
+        "B. Double",
+        "C. Multiple"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Which of the following is NOT a characteristic of a centralized state?",
+      "diagram": null,
+      "options": [
+        "A. Singular executive",
+        "B. Flexible constitution",
+        "C. Double constitution"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "The centralized states and kingdoms which existed between 500–1800 A.D. include the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Oyo",
+        "B. Ghana",
+        "C. Benin"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "________ had one of the longest-lasting dynasties in African history.",
+      "diagram": null,
+      "options": [
+        "A. Kanem-Bornu",
+        "B. Oyo Empire",
+        "C. Benin Empire"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "The Sefawa dynasty lasted for about ________ years.",
+      "diagram": null,
+      "options": [
+        "A. 1200",
+        "B. 1000",
+        "C. 100"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "________ established and consolidated the second Kanuri Empire.",
+      "diagram": null,
+      "options": [
+        "A. Mai Ali Ghaji",
+        "B. Yerima",
+        "C. Galadima"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "Which of the following does NOT belong to the Hausa states?",
+      "diagram": null,
+      "options": [
+        "A. Abuja",
+        "B. Kano",
+        "C. Lagos",
+        "D. Katsina"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 48,
+      "question": "At the apex of the political structure in a Hausa state was the ________.",
+      "diagram": null,
+      "options": [
+        "A. Dongari",
+        "B. Galadima",
+        "C. Sarkin"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "________ was the famous woman ruler associated with Zazzau who reigned in a male-dominated society.",
+      "diagram": null,
+      "options": [
+        "A. Queen Amina",
+        "B. Queen Zaria",
+        "C. Queen Sarafina"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "The state was well-watered by Rivers Niger and Kaduna, which encouraged ________.",
+      "diagram": null,
+      "options": [
+        "A. Palm oil and oil",
+        "B. Art and craft",
+        "C. Farming and fishing"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 51,
+      "question": "________, the son of an Igala prince, was the founder of the Nupe state.",
+      "diagram": null,
+      "options": [
+        "A. Jubrin",
+        "B. Tsoede",
+        "C. Etsu"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 52,
+      "question": "The first Fulani Etsu of Nupe Kingdom ruled the Nupe Kingdom from ________.",
+      "diagram": null,
+      "options": [
+        "A. Bida",
+        "B. Zaria",
+        "C. Kano"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 53,
+      "question": "The Igala Kingdom was founded by Abutu-Eje in the ________ century.",
+      "diagram": null,
+      "options": [
+        "A. 17th",
+        "B. 16th",
+        "C. 15th"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 54,
+      "question": "The ________ Kingdom was administered by nine high officials called the Igala Mela, who were custodians of the sacred Earth shrine.",
+      "diagram": null,
+      "options": [
+        "A. Benin",
+        "B. Oyo",
+        "C. Igala"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 55,
+      "question": "________ is one of the Niger-Benue confluence states.",
+      "diagram": null,
+      "options": [
+        "A. Hausa",
+        "B. Igala",
+        "C. Eko"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 56,
+      "question": "The major source of income of the Jukun during the period covered was the ________.",
+      "diagram": null,
+      "options": [
+        "A. Market oil",
+        "B. Palm wine",
+        "C. Slave trade"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 57,
+      "question": "The ________ people practised divine kingship, and their king, the Aku, was regarded as sacred and surrounded by taboos.",
+      "diagram": null,
+      "options": [
+        "A. Jukun",
+        "B. Igala",
+        "C. Hausa"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 58,
+      "question": "The Oyo Empire was founded by ________.",
+      "diagram": null,
+      "options": [
+        "A. Yorubas",
+        "B. Ooni",
+        "C. Oranmiyan"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 59,
+      "question": "The Alaafin ruled with a council of seven called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Oyomesi",
+        "B. Bashorun",
+        "C. Ogboni"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 60,
+      "question": "________ is referred to as the father of History.",
+      "diagram": null,
+      "options": [
+        "A. The historian",
+        "B. Herodotus",
+        "C. The storyteller",
+        "D. The teacher"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - ESSAY / THEORY",
+    "instruction": "Answer the required questions from the parts as directed by your teacher. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "PART 1 - QUESTION 1\n(a) Define centralization.\n(b) Explain the meaning of centralized states.\n(c) Identify the characteristics of centralized states.\n(d) Mention three examples of centralized states in pre-colonial Nigeria.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "PART 1 - QUESTION 2\n(a) State the factors that influence the formation of states.\n(b) Explain the origin of the Kanem and Borno Empire.\n(c) Explain its structure and organization.\n(d) State the factors that led to the rise of the second Kanuri Empire.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "PART 2 - QUESTION 1\n(a) State the meaning of History.\n(b) List eight (8) types of History and explain two.\n(c) State two (2) importance each of History to:\n(i) Individual\n(ii) Nation\n(iii) Society.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "PART 2 - QUESTION 2\n(a) Give three (3) differences between History and storytelling in tabular form.\n(b) Write three (3) similarities between History and storytelling.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "PART 2 - QUESTION 3\nHistorical sources are classified into three (3) categories. Mention them.",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "PART 2 - QUESTION 4\n(a) Define Museum.\n(b) Mention types of Museum that you know and explain them.\n(c) Mention five (5) museums in Nigeria.",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "PART 3 - QUESTION 1\n(a) Define centralization.\n(b) State the factors that influence the formation of states.\n(c) Explain the origin of the Kanem and Borno Empire.\n(d) State the factors that led to the rise of the second Kanuri Empire.",
+        "diagram": null
+      },
+      {
+        "id": 8,
+        "question": "PART 3 - QUESTION 2\n(a) Discuss the Nupe Kingdom.\n(b) What role did Islam play in the development of the Hausa states?\n(c) Write notes on the relationship between Ife and the Benin Empire.",
+        "diagram": null
+      },
+      {
+        "id": 9,
+        "question": "PART 3 - QUESTION 3\n(a) Discuss the relationship between the Igbos and the Niger Delta city-states in the pre-colonial era.\n(b) State any two significance of Igbo-Ukwu culture to Nigerian history.\n(c) State the differences between Ife and Benin Kingdom in the pre-colonial period.",
+        "diagram": null
+      },
+      {
+        "id": 10,
+        "question": "PART 3 - QUESTION 4\n(a) State three differences between the Oyo Empire and Nupe Kingdom.\n(b) Explain culture and customs.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "THIRD",
+  "term_label": "3rd Term",
+  "class_category": "JSS1"
+}

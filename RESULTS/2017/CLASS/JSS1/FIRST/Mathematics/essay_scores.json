@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "year": "2017",
+  "class_level": "JSS1",
+  "term": "FIRST",
+  "subject": "Mathematics",
+  "objective_max": 60,
+  "essay_max": 40,
+  "total_max": 100,
+  "scores": {
+    "STD007": {
+      "admission_number": "std007",
+      "student_name": "Adeyemi Hafeez Harith",
+      "class_arm": "JSS1A",
+      "score": 21,
+      "updated_at": "2026-09-08 14:51:07",
+      "updated_by": "admin"
+    }
+  },
+  "class_category": "JSS1",
+  "term_label": "1st Term",
+  "updated_at": "2026-09-08 14:51:07"
+}

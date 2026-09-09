@@ -36,6 +36,8 @@ window.currentQuestionIndex = 0;
 window.userAnswers = {};
 window.lockedQuestions = new Set();
 window.flaggedQuestions = new Set();
+window.essayData = null;
+window.examSection = "objective";
 
 window.examTimer = null;
 window.timeRemaining = 0;
@@ -302,50 +304,35 @@ function parseInstructionText(text) {
 
 // ======================================================
 // CORRECT ANSWER RESOLVER
+// Supports A-D, A-E, labelled answers and numeric indexes.
 // ======================================================
 
 function getCorrectIndex(question) {
-  if (!question || typeof question !== "object") {
-    return -1;
-  }
-
-  if (typeof question.correctIndex === "number") {
-    return question.correctIndex;
-  }
+  if (!question || typeof question !== "object") return -1;
+  if (typeof question.correctIndex === "number") return question.correctIndex;
 
   const raw = question.correctOption || question.correct_option || question.answer || question.correctAnswer || question.correct_answer || "";
-
-  if (raw === null || raw === undefined || raw === "") {
-    return -1;
-  }
+  if (raw === null || raw === undefined || raw === "") return -1;
 
   const cleaned = String(raw).trim().toUpperCase();
 
-  if (/^[A-D]$/.test(cleaned)) {
-    return cleaned.charCodeAt(0) - 65;
-  }
+  // Letter answers: A, B, C, D, E
+  if (/^[A-E]$/.test(cleaned)) return cleaned.charCodeAt(0) - 65;
 
-  const letterMatch = cleaned.match(/^([A-D])[\.\)\-:\s]/);
+  // Labelled answers: A. Answer, B) Answer, C - Answer, D: Answer, E Answer
+  const letterMatch = cleaned.match(/^([A-E])[\.\)\-:\s]/);
+  if (letterMatch) return letterMatch[1].charCodeAt(0) - 65;
 
-  if (letterMatch) {
-    return letterMatch[1].charCodeAt(0) - 65;
-  }
-
+  // Numeric answers: 0-4 or 1-5
   const optionIndex = Number(cleaned);
 
   if (!Number.isNaN(optionIndex)) {
-    if (optionIndex >= 0 && optionIndex <= 3) {
-      return optionIndex;
-    }
-
-    if (optionIndex >= 1 && optionIndex <= 4) {
-      return optionIndex - 1;
-    }
+    if (optionIndex >= 0 && optionIndex <= 4) return optionIndex;
+    if (optionIndex >= 1 && optionIndex <= 5) return optionIndex - 1;
   }
 
   return -1;
 }
-
 
 // ======================================================
 // FULL EMIS SUBJECT RESOLVER
@@ -816,6 +803,35 @@ function normalizeExamQuestion(question, index) {
 }
 
 
+
+
+// ======================================================
+// NORMALIZE ESSAY / THEORY DATA
+// ======================================================
+
+function normalizeEssayData(essay) {
+  const source = essay && typeof essay === "object" && !Array.isArray(essay) ? essay : {};
+  const questions = Array.isArray(source.questions) ? source.questions : [];
+
+  return {
+    title: String(source.title || "SECTION B - THEORY").trim(),
+    instruction: String(source.instruction || "Answer the questions on the answer booklet provided.").trim(),
+    questions: questions.map((question, index) => {
+      const q = question && typeof question === "object" ? question : {};
+
+      return {
+        ...q,
+        id: q.id ?? index + 1,
+        question: String(q.question || q.text || "").trim(),
+        diagram: q.diagram || q.image || null
+      };
+    }).filter(question => question.question || question.diagram)
+  };
+}
+
+
+
+
 // ======================================================
 // LOAD EXAM DATA
 // ======================================================
@@ -823,22 +839,14 @@ function normalizeExamQuestion(question, index) {
 window.loadExamData = async function (quiet = false) {
   try {
     const subjectMeta = $('meta[name="exam-subject"]');
+    const classMeta = $('meta[name="student-class-level"]') || $('meta[name="student-class-category"]') || $('meta[name="student-class"]');
 
-    const classMeta =
-      $('meta[name="student-class-level"]') ||
-      $('meta[name="student-class-category"]') ||
-      $('meta[name="student-class"]');
-
-    if (!subjectMeta || !classMeta) {
-      throw new Error("Missing subject/class metadata.");
-    }
+    if (!subjectMeta || !classMeta) throw new Error("Missing subject/class metadata.");
 
     const subject = String(subjectMeta.content || "").trim();
     const classCategory = String(classMeta.content || "").trim();
 
-    if (!subject) {
-      throw new Error("Missing exam subject metadata.");
-    }
+    if (!subject) throw new Error("Missing exam subject metadata.");
 
     const runtimeMeta = getExamRuntimeMeta(subject, classCategory);
     const candidates = buildExamJSONCandidates(subject, classCategory);
@@ -854,18 +862,11 @@ window.loadExamData = async function (quiet = false) {
     console.log("Candidates  :", candidates);
     console.log("============================================================\n");
 
-    if (!runtimeMeta.classLevel) {
-      throw new Error("Unable to determine student's class level.");
-    }
-
-    if (runtimeMeta.termAware && !runtimeMeta.term) {
-      throw new Error(`${runtimeMeta.classLevel} exam term is missing.`);
-    }
+    if (!runtimeMeta.classLevel) throw new Error("Unable to determine student's class level.");
+    if (runtimeMeta.termAware && !runtimeMeta.term) throw new Error(`${runtimeMeta.classLevel} exam term is missing.`);
 
     if (!candidates.length) {
-      throw new Error(
-        "No valid exam JSON path could be resolved. Check year, class arm, term and subject."
-      );
+      throw new Error("No valid exam JSON path could be resolved. Check year, class arm, term and subject.");
     }
 
     const loaded = await fetchFirstWorkingJSON(candidates);
@@ -875,13 +876,31 @@ window.loadExamData = async function (quiet = false) {
 
     console.log("✅ Exam JSON loaded successfully:", loaded.url);
 
-    const rawQuestions = Array.isArray(rawData.questions)
-      ? rawData.questions
-      : [];
+    // ==================================================
+    // SECTION A — OBJECTIVE QUESTIONS
+    // ==================================================
+
+    const rawQuestions = Array.isArray(rawData.questions) ? rawData.questions : [];
 
     rawData.questions = rawQuestions.map(
       (question, index) => normalizeExamQuestion(question, index)
     );
+
+    // ==================================================
+    // SECTION B — THEORY / ESSAY
+    // ==================================================
+
+    window.essayData = normalizeEssayData(rawData.essay);
+    window.examSection = "objective";
+
+    console.log("[exam-core] Essay section loaded:", {
+      title: window.essayData?.title || "SECTION B - THEORY",
+      questions: window.essayData?.questions?.length || 0
+    });
+
+    // ==================================================
+    // SHUFFLE OBJECTIVE QUESTIONS
+    // ==================================================
 
     window.examData =
       typeof shuffleQuestions === "function"
@@ -893,7 +912,7 @@ window.loadExamData = async function (quiet = false) {
     }
 
     // ==================================================
-    // REAL QUESTIONS
+    // REAL OBJECTIVE QUESTIONS
     // ==================================================
 
     window.realQuestionIndices = [];
@@ -902,9 +921,10 @@ window.loadExamData = async function (quiet = false) {
       const hasOptions =
         Array.isArray(question.options) &&
         question.options.some(
-          (option) => option !== null &&
-                      option !== undefined &&
-                      String(option).trim() !== ""
+          (option) =>
+            option !== null &&
+            option !== undefined &&
+            String(option).trim() !== ""
         );
 
       if (!question.isInstruction && hasOptions) {
@@ -912,12 +932,17 @@ window.loadExamData = async function (quiet = false) {
       }
     });
 
+    const totalReal = window.realQuestionIndices.length;
+
+    if (!totalReal) {
+      throw new Error("No valid multiple-choice questions found in exam JSON.");
+    }
+
     // ==================================================
-    // SECTION INSTRUCTIONS
+    // OBJECTIVE SECTION INSTRUCTIONS
     // ==================================================
 
     window.sectionInstructions = {};
-
     let currentSectionMeta = null;
 
     window.examData.questions.forEach((question, index) => {
@@ -931,11 +956,17 @@ window.loadExamData = async function (quiet = false) {
       }
     });
 
-    const totalReal = window.realQuestionIndices.length;
+    // ==================================================
+    // RESET SECTION UI
+    // ==================================================
 
-    if (!totalReal) {
-      throw new Error("No valid multiple-choice questions found in exam JSON.");
-    }
+    const objectiveSection = $("#objectiveSection");
+    const essaySection = $("#essaySection");
+    const sectionStatus = $("#examSectionStatus");
+
+    if (objectiveSection) objectiveSection.classList.remove("hidden");
+    if (essaySection) essaySection.classList.add("hidden");
+    if (sectionStatus) sectionStatus.textContent = "Section A • Objective";
 
     // ==================================================
     // EXAM HEADER
@@ -954,7 +985,7 @@ window.loadExamData = async function (quiet = false) {
         </span>
 
         <span class="exam-question-count">
-          • ${totalReal} QUESTION${totalReal === 1 ? "" : "S"}${termText}
+          • SECTION A • ${totalReal} QUESTION${totalReal === 1 ? "" : "S"}${termText}
         </span>
       `;
 
@@ -995,11 +1026,18 @@ window.loadExamData = async function (quiet = false) {
     // INITIAL QUESTION
     // ==================================================
 
-    loadQuestion(window.realQuestionIndices[0]);
+    window.currentQuestionIndex = window.realQuestionIndices[0];
 
+    loadQuestion(window.currentQuestionIndex);
     updateProgress();
     updateQuestionNavigation();
     updateNavigationButtons();
+
+    console.log("[exam-core] Exam ready:", {
+      objectiveQuestions: totalReal,
+      essayQuestions: window.essayData?.questions?.length || 0,
+      section: window.examSection
+    });
 
   } catch (error) {
     console.error("❌ loadExamData error:", error);
@@ -1021,18 +1059,16 @@ window.loadExamData = async function (quiet = false) {
 
     console.error("[exam-core] Failed runtime metadata:", runtime);
 
-    const message =
-      "Unable to load exam questions. Please contact your teacher or admin.";
+    const message = "Unable to load exam questions. Please contact your teacher or admin.";
 
     examFlash(message, "danger");
 
-    if (!quiet) {
-      console.error(message);
-    }
+    if (!quiet) console.error(message);
 
     throw error;
   }
 };
+
 
 
 // ======================================================
@@ -1087,7 +1123,6 @@ window.updateProgress = function () {
   }
 };
 
-
 // ======================================================
 // NAVIGATION BUTTONS
 // ======================================================
@@ -1096,26 +1131,21 @@ window.updateNavigationButtons = function () {
   const previous = $("#prevBtn");
   const next = $("#nextBtn");
 
-  if (!window.realQuestionIndices?.length) {
-    return;
-  }
+  if (!window.realQuestionIndices?.length) return;
 
   const firstRealIndex = window.realQuestionIndices[0];
   const lastRealIndex = window.realQuestionIndices[window.realQuestionIndices.length - 1];
 
-  if (previous) {
-    previous.disabled = window.currentQuestionIndex === firstRealIndex;
-  }
+  if (previous) previous.disabled = window.currentQuestionIndex === firstRealIndex;
 
   if (next) {
     const isLast = window.currentQuestionIndex === lastRealIndex;
 
     next.innerHTML = isLast
-      ? `Submit <i class="fa-solid fa-paper-plane"></i>`
+      ? `Section B <i class="fa-solid fa-arrow-right"></i>`
       : `Next <i class="fa-solid fa-arrow-right"></i>`;
   }
 };
-
 
 // ======================================================
 // QUESTION NAVIGATION GRID
@@ -1156,6 +1186,162 @@ window.updateQuestionNavigation = function () {
 
   updateProgress();
 };
+
+
+
+
+// ======================================================
+// SECTION B — THEORY / ESSAY
+// ======================================================
+
+window.renderEssaySection = function () {
+  const essay = window.essayData || normalizeEssayData(null);
+  const questions = Array.isArray(essay.questions) ? essay.questions : [];
+
+  const titleEl = $("#essayTitle");
+  const instructionEl = $("#essayInstruction");
+  const questionsEl = $("#essayQuestions");
+  const emptyEl = $("#essayEmptyState");
+
+  if (titleEl) titleEl.textContent = essay.title || "SECTION B - THEORY";
+
+  if (instructionEl) {
+    instructionEl.textContent = essay.instruction || "";
+    instructionEl.classList.toggle("hidden", !essay.instruction);
+  }
+
+  if (!questions.length) {
+    if (questionsEl) {
+      questionsEl.innerHTML = "";
+      questionsEl.classList.add("hidden");
+    }
+
+    if (emptyEl) emptyEl.classList.remove("hidden");
+    return;
+  }
+
+  if (emptyEl) emptyEl.classList.add("hidden");
+  if (!questionsEl) return;
+
+  questionsEl.classList.remove("hidden");
+
+  questionsEl.innerHTML = questions.map((question, index) => {
+    const number = question.id ?? index + 1;
+
+    const diagramHTML = question.diagram ? `
+      <img
+        src="${escapeHTMLGlobal(question.diagram)}"
+        class="essay-diagram"
+        alt="Theory question ${escapeHTMLGlobal(number)} diagram"
+        loading="lazy">
+    ` : "";
+
+    return `
+      <article class="essay-question">
+        <div class="essay-question-number">${escapeHTMLGlobal(number)}</div>
+
+        <div class="essay-question-content">
+          <p>${escapeHTMLGlobal(question.question)}</p>
+          ${diagramHTML}
+        </div>
+      </article>
+    `;
+  }).join("");
+};
+
+
+window.openEssaySection = function () {
+  const objectiveSection = $("#objectiveSection");
+  const essaySection = $("#essaySection");
+  const sectionStatus = $("#examSectionStatus");
+  const subjectTitle = $("#examSubjectTitle");
+
+  window.examSection = "essay";
+
+  if (objectiveSection) objectiveSection.classList.add("hidden");
+  if (essaySection) essaySection.classList.remove("hidden");
+  if (sectionStatus) sectionStatus.textContent = "Section B • Theory";
+
+  if (subjectTitle) {
+    const runtimeMeta = getExamRuntimeMeta(
+      getMetaContent("exam-subject"),
+      getMetaContent("student-class-level", "student-class-category")
+    );
+
+    const termText = runtimeMeta.term
+      ? ` • ${termLabel(runtimeMeta.term).toUpperCase()}`
+      : "";
+
+    subjectTitle.innerHTML = `
+      <span class="exam-subject-pill">
+        ${escapeHTMLGlobal(String(runtimeMeta.subject || "").toUpperCase())}
+      </span>
+
+      <span class="exam-question-count">
+        • SECTION B • THEORY${termText}
+      </span>
+    `;
+  }
+
+  renderEssaySection();
+
+  const summaryModal = $("#summaryModal");
+  if (summaryModal) summaryModal.classList.add("hidden");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+
+window.returnToObjectiveSection = function () {
+  const objectiveSection = $("#objectiveSection");
+  const essaySection = $("#essaySection");
+  const sectionStatus = $("#examSectionStatus");
+  const subjectTitle = $("#examSubjectTitle");
+
+  window.examSection = "objective";
+
+  if (essaySection) essaySection.classList.add("hidden");
+  if (objectiveSection) objectiveSection.classList.remove("hidden");
+  if (sectionStatus) sectionStatus.textContent = "Section A • Objective";
+
+  if (subjectTitle) {
+    const runtimeMeta = getExamRuntimeMeta(
+      getMetaContent("exam-subject"),
+      getMetaContent("student-class-level", "student-class-category")
+    );
+
+    const totalReal = window.realQuestionIndices.length;
+
+    const termText = runtimeMeta.term
+      ? ` • ${termLabel(runtimeMeta.term).toUpperCase()}`
+      : "";
+
+    subjectTitle.innerHTML = `
+      <span class="exam-subject-pill">
+        ${escapeHTMLGlobal(String(runtimeMeta.subject || "").toUpperCase())}
+      </span>
+
+      <span class="exam-question-count">
+        • SECTION A • ${totalReal} QUESTION${totalReal === 1 ? "" : "S"}${termText}
+      </span>
+    `;
+  }
+
+  if (window.realQuestionIndices?.length) {
+    const validCurrent = window.realQuestionIndices.includes(window.currentQuestionIndex);
+
+    if (!validCurrent) {
+      window.currentQuestionIndex =
+        window.realQuestionIndices[window.realQuestionIndices.length - 1];
+    }
+
+    loadQuestion(window.currentQuestionIndex);
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+
 
 
 // ======================================================
@@ -1622,13 +1808,8 @@ window.loadQuestion = function (index) {
 window.selectOption = function (optionIndex) {
   const questionIndex = window.currentQuestionIndex;
 
-  if (!window.examData?.questions?.[questionIndex]) {
-    return;
-  }
-
-  if (window.lockedQuestions.has(questionIndex)) {
-    return;
-  }
+  if (!window.examData?.questions?.[questionIndex]) return;
+  if (window.lockedQuestions.has(questionIndex)) return;
 
   const question = window.examData.questions[questionIndex];
   const correctIndex = question.correctIndex;
@@ -1642,11 +1823,7 @@ window.selectOption = function (optionIndex) {
 
   $$(".option-btn").forEach((button) => {
     button.disabled = true;
-
-    button.classList.toggle(
-      "selected",
-      Number(button.dataset.optionIndex) === optionIndex
-    );
+    button.classList.toggle("selected", Number(button.dataset.optionIndex) === optionIndex);
   });
 
   updateProgress();
@@ -1657,32 +1834,21 @@ window.selectOption = function (optionIndex) {
   // ====================================================
 
   setTimeout(() => {
-    if (window.__examFinished) {
+    if (window.__examFinished) return;
+
+    const position = window.realQuestionIndices.indexOf(window.currentQuestionIndex);
+
+    if (position >= 0 && position < window.realQuestionIndices.length - 1) {
+      loadQuestion(window.realQuestionIndices[position + 1]);
       return;
     }
 
-    const position = window.realQuestionIndices.indexOf(
-      window.currentQuestionIndex
-    );
-
-    if (
-      position >= 0 &&
-      position < window.realQuestionIndices.length - 1
-    ) {
-      loadQuestion(
-        window.realQuestionIndices[position + 1]
-      );
-
-      return;
-    }
-
-    // Last question: do NOT silently submit.
-    // Open confirmation instead.
-    endExam();
+    // Last objective question completed.
+    // Continue to Section B instead of ending the exam.
+    openEssaySection();
 
   }, 650);
 };
-
 
 // ======================================================
 // PREVIOUS QUESTION
@@ -1710,26 +1876,16 @@ window.previousQuestion = function () {
 // ======================================================
 
 window.nextQuestion = function () {
-  if (!window.realQuestionIndices?.length) {
+  if (!window.realQuestionIndices?.length) return;
+
+  const position = window.realQuestionIndices.indexOf(window.currentQuestionIndex);
+
+  if (position >= 0 && position < window.realQuestionIndices.length - 1) {
+    loadQuestion(window.realQuestionIndices[position + 1]);
     return;
   }
 
-  const position = window.realQuestionIndices.indexOf(
-    window.currentQuestionIndex
-  );
-
-  if (
-    position >= 0 &&
-    position < window.realQuestionIndices.length - 1
-  ) {
-    loadQuestion(
-      window.realQuestionIndices[position + 1]
-    );
-
-    return;
-  }
-
-  endExam();
+  openEssaySection();
 };
 
 
@@ -2073,51 +2229,31 @@ document.addEventListener("DOMContentLoaded", () => {
 // ======================================================
 
 document.addEventListener("keydown", (event) => {
-  if (
-    !window.examStarted ||
-    window.__examFinished
-  ) {
-    return;
-  }
+  if (!window.examStarted || window.__examFinished) return;
 
-  const tag = String(
-    event.target?.tagName || ""
-  ).toUpperCase();
+  // Section B is display-only, so disable objective arrow navigation here.
+  if (window.examSection === "essay") return;
 
-  if (
-    tag === "INPUT" ||
-    tag === "TEXTAREA" ||
-    tag === "SELECT"
-  ) {
-    return;
-  }
+  const tag = String(event.target?.tagName || "").toUpperCase();
 
-  const realQuestions =
-    window.realQuestionIndices;
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-  if (!realQuestions?.length) {
-    return;
-  }
+  const realQuestions = window.realQuestionIndices;
 
-  const position = realQuestions.indexOf(
-    window.currentQuestionIndex
-  );
+  if (!realQuestions?.length) return;
+
+  const position = realQuestions.indexOf(window.currentQuestionIndex);
 
   if (event.key === "ArrowLeft") {
     event.preventDefault();
-
     previousQuestion();
-
     return;
   }
 
   if (event.key === "ArrowRight") {
     event.preventDefault();
 
-    if (
-      position <
-      realQuestions.length - 1
-    ) {
+    if (position < realQuestions.length - 1) {
       nextQuestion();
     }
   }

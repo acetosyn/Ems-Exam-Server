@@ -1,0 +1,3 @@
+﻿Timestamp,Action,From,To,Count,Admissions,Admin,Note
+2026-09-03 12:58:49,ADD_STUDENT,,JSS1,1,std549,admin,Admission source: new. Class arm: JSS1B. Arm source: automatic. Backup: 20260903_125848_320798_add_student_std549
+2026-09-03 13:00:01,DELETE_STUDENT,JSS1,REMOVED,1,std549,admin,Student left/was removed from active database. Admission numbers were NOT released. Backup: 20260903_130000_506179_delete_students_JSS1

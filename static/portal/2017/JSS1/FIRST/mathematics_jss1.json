@@ -725,6 +725,37 @@
             "correctOption": "C"
         }
     ],
+    "essay": {
+        "title": "SECTION B - THEORY",
+        "instruction": "Answer any four questions. Write your answers clearly on the answer booklet provided.",
+        "questions": [
+            {
+                "id": 1,
+                "question": "Express 0.375 as a fraction in its simplest form.",
+                "diagram": null
+            },
+            {
+                "id": 2,
+                "question": "Find the H.C.F. and L.C.M. of 24, 36 and 48.",
+                "diagram": null
+            },
+            {
+                "id": 3,
+                "question": "A rectangular field is 25 m long and 18 m wide. Calculate its perimeter and area.",
+                "diagram": null
+            },
+            {
+                "id": 4,
+                "question": "Simplify: 3/4 + 5/8 - 1/2.",
+                "diagram": null
+            },
+            {
+                "id": 5,
+                "question": "A trader bought an item for ₦4,500 and sold it for ₦5,400. Calculate the percentage profit.",
+                "diagram": null
+            }
+        ]
+    },
     "term": "FIRST",
     "term_label": "1st Term",
     "class_category": "JSS1"

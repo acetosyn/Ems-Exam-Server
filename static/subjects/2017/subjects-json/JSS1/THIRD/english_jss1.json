@@ -1,0 +1,772 @@
+{
+  "subject": "English Language",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "passage": "COMPREHENSION - PASSAGE 1\n\nAda loves to read. Every evening after school, she would sit quietly in a corner of her room with a storybook. Her father encouraged her by buying her new books every month. One day, Ada found a book about animals in the forest. She was excited to learn about lions, elephants, and monkeys. Her favorite was the lion because it is brave.",
+      "question": "What does Ada love to do?",
+      "diagram": null,
+      "options": [
+        "A. Sing songs",
+        "B. Read books",
+        "C. Play football",
+        "D. Write stories"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "passage": "COMPREHENSION - PASSAGE 1\n\nAda loves to read. Every evening after school, she would sit quietly in a corner of her room with a storybook. Her father encouraged her by buying her new books every month. One day, Ada found a book about animals in the forest. She was excited to learn about lions, elephants, and monkeys. Her favorite was the lion because it is brave.",
+      "question": "When does Ada usually read?",
+      "diagram": null,
+      "options": [
+        "A. In the morning",
+        "B. During lunch",
+        "C. In the evening",
+        "D. At midnight"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "passage": "COMPREHENSION - PASSAGE 1\n\nAda loves to read. Every evening after school, she would sit quietly in a corner of her room with a storybook. Her father encouraged her by buying her new books every month. One day, Ada found a book about animals in the forest. She was excited to learn about lions, elephants, and monkeys. Her favorite was the lion because it is brave.",
+      "question": "Who supports Ada's reading habit?",
+      "diagram": null,
+      "options": [
+        "A. Her mother",
+        "B. Her sister",
+        "C. Her teacher",
+        "D. Her father"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "passage": "COMPREHENSION - PASSAGE 1\n\nAda loves to read. Every evening after school, she would sit quietly in a corner of her room with a storybook. Her father encouraged her by buying her new books every month. One day, Ada found a book about animals in the forest. She was excited to learn about lions, elephants, and monkeys. Her favorite was the lion because it is brave.",
+      "question": "Which animal does Ada like the most?",
+      "diagram": null,
+      "options": [
+        "A. Monkey",
+        "B. Elephant",
+        "C. Lion",
+        "D. Snake"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "passage": "COMPREHENSION - PASSAGE 1\n\nAda loves to read. Every evening after school, she would sit quietly in a corner of her room with a storybook. Her father encouraged her by buying her new books every month. One day, Ada found a book about animals in the forest. She was excited to learn about lions, elephants, and monkeys. Her favorite was the lion because it is brave.",
+      "question": "Why does Ada like the lion?",
+      "diagram": null,
+      "options": [
+        "A. It is gentle",
+        "B. It is tall",
+        "C. It is brave",
+        "D. It is funny"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "The girl ________ to school every day.",
+      "diagram": null,
+      "options": [
+        "A. go",
+        "B. goes",
+        "C. going",
+        "D. gone"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "I ________ a letter last night.",
+      "diagram": null,
+      "options": [
+        "A. write",
+        "B. wrote",
+        "C. written",
+        "D. writing"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Emeka and I ________ playing football.",
+      "diagram": null,
+      "options": [
+        "A. is",
+        "B. am",
+        "C. are",
+        "D. was"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "She ________ not want to come with us.",
+      "diagram": null,
+      "options": [
+        "A. do",
+        "B. does",
+        "C. did",
+        "D. doing"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "There ________ many birds on the tree.",
+      "diagram": null,
+      "options": [
+        "A. is",
+        "B. are",
+        "C. was",
+        "D. be"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "The children ________ in the field now.",
+      "diagram": null,
+      "options": [
+        "A. play",
+        "B. are playing",
+        "C. played",
+        "D. playing"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "We ________ going to the zoo tomorrow.",
+      "diagram": null,
+      "options": [
+        "A. was",
+        "B. is",
+        "C. are",
+        "D. be"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "I have never ________ a lion before.",
+      "diagram": null,
+      "options": [
+        "A. see",
+        "B. saw",
+        "C. seen",
+        "D. seeing"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "They ________ to the market yesterday.",
+      "diagram": null,
+      "options": [
+        "A. goes",
+        "B. went",
+        "C. gone",
+        "D. going"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "My brother ________ very well.",
+      "diagram": null,
+      "options": [
+        "A. sings",
+        "B. sing",
+        "C. sang",
+        "D. singing"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "A person who teaches in school is a ________.",
+      "diagram": null,
+      "options": [
+        "A. driver",
+        "B. teacher",
+        "C. farmer",
+        "D. baker"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "A place where books are kept is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. church",
+        "B. hospital",
+        "C. library",
+        "D. market"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "A person who treats sick people is a ________.",
+      "diagram": null,
+      "options": [
+        "A. teacher",
+        "B. driver",
+        "C. nurse",
+        "D. doctor"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "A baby dog is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. kitten",
+        "B. cub",
+        "C. puppy",
+        "D. calf"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "A place where people buy and sell is a ________.",
+      "diagram": null,
+      "options": [
+        "A. church",
+        "B. market",
+        "C. library",
+        "D. school"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "I was very ________ when I saw my result.",
+      "diagram": null,
+      "options": [
+        "A. happy",
+        "B. happiness",
+        "C. happily",
+        "D. happier"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "That man is the ________ of the school.",
+      "diagram": null,
+      "options": [
+        "A. drive",
+        "B. head",
+        "C. captain",
+        "D. principal"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "My father bought a new car, ________ he?",
+      "diagram": null,
+      "options": [
+        "A. did",
+        "B. didn't",
+        "C. doesn't",
+        "D. does"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "If I see him, I ________ tell him.",
+      "diagram": null,
+      "options": [
+        "A. will",
+        "B. shall",
+        "C. can",
+        "D. must"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "He ran ________ fast that I could not catch him.",
+      "diagram": null,
+      "options": [
+        "A. too",
+        "B. very",
+        "C. so",
+        "D. more"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "The man kicked the bucket. This means he ________.",
+      "diagram": null,
+      "options": [
+        "A. broke a bucket",
+        "B. went to the market",
+        "C. died",
+        "D. became angry"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "The new boy is the teacher's pet. This means the boy ________.",
+      "diagram": null,
+      "options": [
+        "A. brings pets to school",
+        "B. is loved by the teacher",
+        "C. teaches others",
+        "D. is very quiet"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "She always puts her nose in other people's business. This means she is ________.",
+      "diagram": null,
+      "options": [
+        "A. curious",
+        "B. nosy",
+        "C. rude",
+        "D. kind"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "He hit the nail on the head. This means he ________.",
+      "diagram": null,
+      "options": [
+        "A. hit something",
+        "B. made a good point",
+        "C. used a hammer",
+        "D. was careless"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "To let the cat out of the bag means to ________.",
+      "diagram": null,
+      "options": [
+        "A. carry a cat",
+        "B. run away",
+        "C. reveal a secret",
+        "D. become afraid"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Which of the following is correctly spelled?",
+      "diagram": null,
+      "options": [
+        "A. beleive",
+        "B. believe",
+        "C. believ",
+        "D. beleev"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "Choose the correct spelling.",
+      "diagram": null,
+      "options": [
+        "A. inteligent",
+        "B. intelligent",
+        "C. intaligent",
+        "D. intelijent"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Choose the correct spelling.",
+      "diagram": null,
+      "options": [
+        "A. Febuary",
+        "B. February",
+        "C. Febraury",
+        "D. Fabruary"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Choose the correct spelling.",
+      "diagram": null,
+      "options": [
+        "A. enviroment",
+        "B. envaironment",
+        "C. environment",
+        "D. envirolment"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Which of these is correctly spelled?",
+      "diagram": null,
+      "options": [
+        "A. occurence",
+        "B. ocurrence",
+        "C. occurrence",
+        "D. occurrance"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Which sentence is correctly punctuated?",
+      "diagram": null,
+      "options": [
+        "A. where is your book",
+        "B. Where is your book",
+        "C. Where is your book?",
+        "D. where is your book."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Which punctuation mark ends a question?",
+      "diagram": null,
+      "options": [
+        "A. Comma",
+        "B. Full stop",
+        "C. Apostrophe",
+        "D. Question mark"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 38,
+      "question": "Select the sentence with correct punctuation.",
+      "diagram": null,
+      "options": [
+        "A. James Mary and Joy are friends.",
+        "B. James, Mary and Joy are friends.",
+        "C. James Mary, and Joy are friends.",
+        "D. James, Mary, and Joy are friends."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Which sentence is correctly punctuated?",
+      "diagram": null,
+      "options": [
+        "A. I came I saw I conquered.",
+        "B. I came I saw, I conquered.",
+        "C. I came, I saw, I conquered.",
+        "D. I came I saw. I conquered."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Choose the correct punctuation marks used for direct speech.",
+      "diagram": null,
+      "options": [
+        "A. .",
+        "B. ?",
+        "C. ,",
+        "D. “ ”"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 41,
+      "passage": "COMPREHENSION - PASSAGE 2\n\nLast Saturday, we went to the village to see grandma. She cooked delicious food and told us stories. At night, we sat around a fire and sang songs. It was a wonderful time.",
+      "question": "When did they go to the village?",
+      "diagram": null,
+      "options": [
+        "A. Last Sunday",
+        "B. Last Saturday",
+        "C. On Monday",
+        "D. Yesterday"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "passage": "COMPREHENSION - PASSAGE 2\n\nLast Saturday, we went to the village to see grandma. She cooked delicious food and told us stories. At night, we sat around a fire and sang songs. It was a wonderful time.",
+      "question": "Who did they go to see?",
+      "diagram": null,
+      "options": [
+        "A. Uncle",
+        "B. Aunt",
+        "C. Father",
+        "D. Grandma"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "passage": "COMPREHENSION - PASSAGE 2\n\nLast Saturday, we went to the village to see grandma. She cooked delicious food and told us stories. At night, we sat around a fire and sang songs. It was a wonderful time.",
+      "question": "What did grandma do?",
+      "diagram": null,
+      "options": [
+        "A. Watched TV",
+        "B. Told stories",
+        "C. Danced",
+        "D. Went out"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "passage": "COMPREHENSION - PASSAGE 2\n\nLast Saturday, we went to the village to see grandma. She cooked delicious food and told us stories. At night, we sat around a fire and sang songs. It was a wonderful time.",
+      "question": "Where did they sit at night?",
+      "diagram": null,
+      "options": [
+        "A. In the house",
+        "B. Under a tree",
+        "C. Around a fire",
+        "D. On the roof"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "passage": "COMPREHENSION - PASSAGE 2\n\nLast Saturday, we went to the village to see grandma. She cooked delicious food and told us stories. At night, we sat around a fire and sang songs. It was a wonderful time.",
+      "question": "How was the time they spent?",
+      "diagram": null,
+      "options": [
+        "A. Boring",
+        "B. Sad",
+        "C. Wonderful",
+        "D. Funny"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "The opposite of 'strong' is ________.",
+      "diagram": null,
+      "options": [
+        "A. weak",
+        "B. firm",
+        "C. great",
+        "D. bold"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "The opposite of 'early' is ________.",
+      "diagram": null,
+      "options": [
+        "A. punctual",
+        "B. late",
+        "C. soon",
+        "D. fast"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "The synonym of 'happy' is ________.",
+      "diagram": null,
+      "options": [
+        "A. sad",
+        "B. joyful",
+        "C. tired",
+        "D. angry"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "The synonym of 'begin' is ________.",
+      "diagram": null,
+      "options": [
+        "A. end",
+        "B. start",
+        "C. go",
+        "D. play"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "The opposite of 'short' is ________.",
+      "diagram": null,
+      "options": [
+        "A. big",
+        "B. tall",
+        "C. long",
+        "D. huge"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 51,
+      "question": "We ________ to school every morning.",
+      "diagram": null,
+      "options": [
+        "A. walks",
+        "B. walked",
+        "C. walk",
+        "D. walking"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 52,
+      "question": "The sun ________ in the east.",
+      "diagram": null,
+      "options": [
+        "A. rise",
+        "B. rises",
+        "C. rose",
+        "D. rising"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 53,
+      "question": "I saw the man who ________ the accident.",
+      "diagram": null,
+      "options": [
+        "A. cause",
+        "B. causes",
+        "C. caused",
+        "D. causing"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 54,
+      "question": "If I were you, I ________ go there.",
+      "diagram": null,
+      "options": [
+        "A. will",
+        "B. shall",
+        "C. would",
+        "D. must"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 55,
+      "question": "They ________ playing when I arrived.",
+      "diagram": null,
+      "options": [
+        "A. was",
+        "B. were",
+        "C. is",
+        "D. are"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 56,
+      "question": "A noun is the name of a ________.",
+      "diagram": null,
+      "options": [
+        "A. verb",
+        "B. doing word",
+        "C. person, place or thing",
+        "D. pronoun"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 57,
+      "question": "A verb shows ________.",
+      "diagram": null,
+      "options": [
+        "A. a name",
+        "B. an object",
+        "C. a place",
+        "D. an action"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 58,
+      "question": "Which one is a pronoun?",
+      "diagram": null,
+      "options": [
+        "A. boy",
+        "B. girl",
+        "C. he",
+        "D. table"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 59,
+      "question": "The plural of 'child' is ________.",
+      "diagram": null,
+      "options": [
+        "A. childs",
+        "B. children",
+        "C. childes",
+        "D. childen"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 60,
+      "question": "Which sentence is correct?",
+      "diagram": null,
+      "options": [
+        "A. I am going to the market.",
+        "B. I is going to the market.",
+        "C. I are going to the market.",
+        "D. I going to the market."
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - ESSAY",
+    "instruction": "Answer only two (2) questions in this section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Write a letter to your friend telling him or her about your new school and what you like most about it.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "Write a composition on the topic: “A Day I Will Never Forget.”",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "Describe your best teacher. Mention his or her name, the subject he or she teaches, and why you like the teacher.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "Write a story that ends with the sentence: “I was so happy it ended well.”",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "Describe a market you have visited. Mention what people do there and how the place looks.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "THIRD",
+  "term_label": "3rd Term",
+  "class_category": "JSS1"
+}

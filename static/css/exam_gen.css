@@ -1197,3 +1197,494 @@ a:focus-visible,
 
   .question-card { border: 0; box-shadow: none; }
 }
+
+
+
+
+/* ==========================================================
+   31. SECTION B — THEORY / ESSAY
+========================================================== */
+
+.essay-section {
+  min-width: 0;
+  width: 100%;
+}
+
+
+/* ==========================================================
+   SECTION HEADER
+========================================================== */
+
+.essay-header {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(255,255,255,.98), rgba(246,250,252,.98));
+  box-shadow: 0 6px 22px rgba(15,23,42,.06);
+}
+
+.essay-title {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: clamp(1.3rem, 2vw, 1.65rem);
+  line-height: 1.2;
+  font-weight: 950;
+  letter-spacing: -.025em;
+}
+
+.essay-written-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #b9ddd9;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: .82rem;
+  font-weight: 900;
+  box-shadow: 0 3px 10px rgba(15,118,110,.07);
+}
+
+
+/* ==========================================================
+   SECTION B NOTICE
+========================================================== */
+
+.essay-notice {
+  display: grid;
+  grid-template-columns: 44px minmax(0,1fr);
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 14px;
+  padding: 16px 18px;
+  border: 1px solid #c8d9e9;
+  border-left: 5px solid var(--primary);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f5fafc, #eef7f7);
+  box-shadow: 0 4px 16px rgba(15,118,110,.04);
+}
+
+.essay-notice > i {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.essay-notice strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-strong);
+  font-size: .95rem;
+  line-height: 1.35;
+  font-weight: 950;
+}
+
+.essay-notice p {
+  margin: 0;
+  color: #526174;
+  font-size: .9rem;
+  line-height: 1.6;
+  font-weight: 680;
+}
+
+
+/* ==========================================================
+   THEORY INSTRUCTION
+========================================================== */
+
+.essay-instruction {
+  margin-bottom: 14px;
+  padding: 16px 18px;
+  border: 1px solid #ead28b;
+  border-left: 5px solid var(--warning);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fffaf0, #fff6df);
+  color: #6f4a0a;
+  font-size: .95rem;
+  line-height: 1.65;
+  font-weight: 820;
+  box-shadow: 0 4px 14px rgba(183,121,31,.05);
+}
+
+.essay-instruction:empty {
+  display: none;
+}
+
+
+/* ==========================================================
+   QUESTION LIST
+========================================================== */
+
+.essay-question-list {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff, #fafcfd);
+  box-shadow: 0 12px 32px rgba(15,23,42,.07);
+}
+
+
+/* ==========================================================
+   INDIVIDUAL THEORY QUESTION
+========================================================== */
+
+.essay-question {
+  display: grid;
+  grid-template-columns: 52px minmax(0,1fr);
+  gap: 18px;
+  align-items: start;
+  min-height: 92px;
+  padding: 20px 22px;
+  border: 1px solid #dce3ea;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(15,23,42,.035);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.essay-question:hover {
+  border-color: #b8d7d3;
+  box-shadow: 0 8px 22px rgba(15,118,110,.07);
+  transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   QUESTION NUMBER
+========================================================== */
+
+.essay-question-number {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 950;
+  box-shadow: 0 8px 18px rgba(15,118,110,.18);
+}
+
+
+/* ==========================================================
+   QUESTION TEXT
+========================================================== */
+
+.essay-question-content {
+  min-width: 0;
+}
+
+.essay-question-content p {
+  margin: 6px 0 0;
+  color: #101827;
+  font-size: clamp(1.08rem, 1.5vw, 1.24rem);
+  line-height: 1.75;
+  font-weight: 720;
+  letter-spacing: -.01em;
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================================
+   ESSAY DIAGRAM
+========================================================== */
+
+.essay-diagram {
+  display: block;
+  max-width: min(760px, 100%);
+  height: auto;
+  margin-top: 16px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(15,23,42,.05);
+}
+
+
+/* ==========================================================
+   EMPTY ESSAY STATE
+========================================================== */
+
+.essay-empty {
+  padding: 46px 24px;
+  border: 1px dashed #e1b0b0;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #fff6f6, var(--danger-soft));
+  text-align: center;
+}
+
+.essay-empty > i {
+  margin-bottom: 12px;
+  color: var(--danger);
+  font-size: 2rem;
+}
+
+.essay-empty h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 1.12rem;
+  line-height: 1.35;
+  font-weight: 950;
+}
+
+.essay-empty p {
+  max-width: 620px;
+  margin: 8px auto 0;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+
+/* ==========================================================
+   SECTION ACTIONS
+========================================================== */
+
+.essay-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 7px 20px rgba(15,23,42,.05);
+}
+
+.essay-actions button {
+  min-height: 44px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-weight: 850;
+}
+
+
+/* ==========================================================
+   FINAL REMINDER
+========================================================== */
+
+.exam-final-reminder {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid #ead28b;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #fff9e8, #fff5d8);
+  color: #6f4a0a;
+  font-size: .88rem;
+  line-height: 1.6;
+  font-weight: 760;
+}
+
+.exam-final-reminder i {
+  margin-top: 3px;
+  color: var(--warning);
+  font-size: .95rem;
+}
+
+
+/* ==========================================================
+   SECTION B — TABLET
+========================================================== */
+
+@media (max-width: 980px) {
+  .essay-header { min-height: 76px; padding: 16px 18px; }
+  .essay-title { font-size: 1.35rem; }
+  .essay-question-list { gap: 14px; padding: 16px; }
+  .essay-question { grid-template-columns: 48px minmax(0,1fr); gap: 16px; padding: 18px 19px; }
+  .essay-question-number { width: 44px; height: 44px; }
+  .essay-question-content p { font-size: 1.05rem; line-height: 1.7; }
+  .essay-actions { flex-wrap: wrap; }
+}
+
+
+/* ==========================================================
+   SECTION B — MOBILE
+========================================================== */
+
+@media (max-width: 700px) {
+  .essay-header {
+    min-height: 70px;
+    padding: 14px 15px;
+    gap: 12px;
+  }
+
+  .essay-title { font-size: 1.18rem; }
+  .essay-written-badge { padding: 8px 10px; font-size: .74rem; }
+
+  .essay-notice {
+    grid-template-columns: 38px minmax(0,1fr);
+    gap: 11px;
+    padding: 13px 14px;
+  }
+
+  .essay-notice > i { width: 38px; height: 38px; }
+  .essay-notice strong { font-size: .88rem; }
+  .essay-notice p { font-size: .83rem; line-height: 1.55; }
+
+  .essay-instruction {
+    padding: 13px 14px;
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+
+  .essay-question-list {
+    gap: 10px;
+    padding: 11px;
+    border-radius: 17px;
+  }
+
+  .essay-question {
+    grid-template-columns: 40px minmax(0,1fr);
+    gap: 12px;
+    min-height: 78px;
+    padding: 14px 15px;
+    border-radius: 13px;
+  }
+
+  .essay-question-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    font-size: .84rem;
+  }
+
+  .essay-question-content p {
+    margin-top: 3px;
+    font-size: .98rem;
+    line-height: 1.65;
+  }
+
+  .essay-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 13px;
+  }
+
+  .essay-actions #essaySubmitBtn {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* ==========================================================
+   SECTION B — SMALL PHONE
+========================================================== */
+
+@media (max-width: 470px) {
+  .essay-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .essay-written-badge { width: max-content; }
+
+  .essay-notice {
+    grid-template-columns: 34px minmax(0,1fr);
+  }
+
+  .essay-notice > i {
+    width: 34px;
+    height: 34px;
+  }
+
+  .essay-question {
+    grid-template-columns: 36px minmax(0,1fr);
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .essay-question-number {
+    width: 34px;
+    height: 34px;
+    font-size: .78rem;
+  }
+
+  .essay-question-content p {
+    font-size: .94rem;
+    line-height: 1.62;
+  }
+
+  .essay-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .essay-actions #essaySubmitBtn {
+    grid-column: auto;
+  }
+
+  .essay-actions > * {
+    width: 100%;
+  }
+}
+
+
+
+/* ==========================================================
+   PASSAGE READABILITY PATCH — LARGE & STUDENT FRIENDLY
+========================================================== */
+
+.passage-block { font-family: Inter, "Segoe UI", Arial, sans-serif; font-size: 1.18rem; line-height: 1.85; font-weight: 650; color: #1f2d3d; letter-spacing: .003em; }
+
+.passage-block p,
+.passage-block div,
+.passage-block span { font: inherit; line-height: inherit; color: inherit; }
+
+@media (max-width: 980px) {
+  .passage-block { font-size: 1.12rem; line-height: 1.8; }
+}
+
+@media (max-width: 700px) {
+  .passage-block { font-size: 1.08rem; line-height: 1.78; padding: 16px 17px; }
+}
+
+
+
+
+
+/* ==========================================================
+   OPTION READABILITY PATCH — LARGE & STUDENT FRIENDLY
+========================================================== */
+
+.option-btn { min-height: 66px; grid-template-columns: 44px minmax(0,1fr); gap: 15px; padding: 12px 17px; }
+
+.option-text { font-size: 1.08rem; line-height: 1.55; font-weight: 700; color: inherit; }
+
+.option-letter,
+.option-label { width: 39px; height: 39px; font-size: .86rem; font-weight: 900; }
+
+@media (max-width: 980px) {
+  .option-btn { min-height: 63px; grid-template-columns: 42px minmax(0,1fr); gap: 13px; }
+  .option-text { font-size: 1.04rem; }
+}
+
+@media (max-width: 700px) {
+  .option-btn { min-height: 60px; grid-template-columns: 39px minmax(0,1fr); gap: 11px; padding: 10px 12px; }
+  .option-text { font-size: 1rem; line-height: 1.5; }
+  .option-letter,
+  .option-label { width: 36px; height: 36px; font-size: .82rem; }
+}

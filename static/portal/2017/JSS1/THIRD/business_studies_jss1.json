@@ -1,0 +1,522 @@
+{
+    "subject": "Business Studies",
+    "class": "JSS1",
+    "session": "2016/2017",
+    "time_allowed_minutes": 120,
+    "questions": [
+        {
+            "id": 1,
+            "question": "_________ is the distribution and exchange of goods and services.",
+            "diagram": null,
+            "options": [
+                "A. Insurance",
+                "B. Commerce",
+                "C. Banking",
+                "D. Book-keeping"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 2,
+            "question": "Which of the following persons is NOT an office worker?",
+            "diagram": null,
+            "options": [
+                "A. Receptionist",
+                "B. Hawker",
+                "C. Messenger",
+                "D. Accountant"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 3,
+            "question": "Commercial services are broadly divided into ________ and ________.",
+            "diagram": null,
+            "options": [
+                "A. Direct and indirect",
+                "B. Directory",
+                "C. Direct and various",
+                "D. Diverse and direct"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 4,
+            "question": "An aid to trade that compensates when there is loss of life or property is ________.",
+            "diagram": null,
+            "options": [
+                "A. Banking",
+                "B. Insurance",
+                "C. Advertising",
+                "D. Warehousing"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 5,
+            "question": "Which of the following is NOT a reward for being truthful?",
+            "diagram": null,
+            "options": [
+                "A. Good reputation",
+                "B. Bad reputation",
+                "C. Promotion",
+                "D. Useful suggestion"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 6,
+            "question": "The two major divisions of trade are ________ and ________.",
+            "diagram": null,
+            "options": [
+                "A. Commerce and industry",
+                "B. Home trade and foreign trade",
+                "C. Import and export",
+                "D. Wholesale and retail"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 7,
+            "question": "Keeping records of all members of staff including their transfers, promotions and appraisals is a function of the ________ department.",
+            "diagram": null,
+            "options": [
+                "A. Production",
+                "B. Personnel",
+                "C. Sales",
+                "D. Transport"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 8,
+            "question": "Which of the following is NOT a professional associated with Business Studies?",
+            "diagram": null,
+            "options": [
+                "A. Banker",
+                "B. Secretary",
+                "C. Lawyer",
+                "D. Economist"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 9,
+            "question": "A company gets the following as rewards for adhering to honesty in business EXCEPT ________.",
+            "diagram": null,
+            "options": [
+                "A. Good customer relationship",
+                "B. Loyalty of people",
+                "C. Patronage of customers",
+                "D. Dubious business dealings"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 10,
+            "question": "The act of passing information from one place to another is called ________.",
+            "diagram": null,
+            "options": [
+                "A. Transport",
+                "B. Insurance",
+                "C. Communication",
+                "D. Warehousing"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 11,
+            "question": "Import and export are components of ________.",
+            "diagram": null,
+            "options": [
+                "A. Home trade",
+                "B. Distribution",
+                "C. Commerce",
+                "D. Foreign trade"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 12,
+            "question": "All human efforts, whether physical or mental, directed towards the production of wealth are known as ________.",
+            "diagram": null,
+            "options": [
+                "A. Land",
+                "B. Labour",
+                "C. Capital",
+                "D. Entrepreneur"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 13,
+            "question": "All chemicals sold in Nigeria must be registered with ________.",
+            "diagram": null,
+            "options": [
+                "A. NBTE",
+                "B. NABTEB",
+                "C. NAFDAC",
+                "D. House of Assembly"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 14,
+            "question": "Keeping a person in check or on guard to ensure that rules and regulations are being followed is known as ________.",
+            "diagram": null,
+            "options": [
+                "A. Acknowledging",
+                "B. Knowing",
+                "C. Showing off",
+                "D. Monitoring"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 15,
+            "question": "All the following are forms of business organisation EXCEPT ________.",
+            "diagram": null,
+            "options": [
+                "A. Co-operative society",
+                "B. Partnership",
+                "C. Public or private company",
+                "D. Nigeria Labour Congress"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 16,
+            "question": "The production of goods and supply of services require ________.",
+            "diagram": null,
+            "options": [
+                "A. Land, labour, management and money",
+                "B. Land, labour, money and raw materials",
+                "C. Land, labour, cash and enterprise",
+                "D. Land, labour, capital and entrepreneurs"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 17,
+            "question": "Ethics refers to ________.",
+            "diagram": null,
+            "options": [
+                "A. Values of the school",
+                "B. Values and rules of a school",
+                "C. Values, rules and behaviour that govern people",
+                "D. Values and rules governing school examinations"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 18,
+            "question": "All the following are factors that may cause people to steal or tell lies EXCEPT ________.",
+            "diagram": null,
+            "options": [
+                "A. To cover up bad behaviour",
+                "B. Dishonesty",
+                "C. To become popular",
+                "D. To save face over a promise not kept"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 19,
+            "question": "The following are extractive occupations EXCEPT ________.",
+            "diagram": null,
+            "options": [
+                "A. Agriculture",
+                "B. Oil drilling",
+                "C. Teaching",
+                "D. Fishing"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 20,
+            "question": "All the following are features of an entrepreneur EXCEPT ________.",
+            "diagram": null,
+            "options": [
+                "A. Brings the capital",
+                "B. Is a fixed asset",
+                "C. Determines what is to be produced",
+                "D. Employs labour"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 21,
+            "question": "A consumer must derive ________ from every good used.",
+            "diagram": null,
+            "options": [
+                "A. Joy",
+                "B. Satisfaction",
+                "C. Asset",
+                "D. Product"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 22,
+            "question": "An entrepreneur must be able to ________ for the business.",
+            "diagram": null,
+            "options": [
+                "A. Cry",
+                "B. Undertake risk",
+                "C. Write",
+                "D. Jump"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 23,
+            "question": "________ is the reward of an entrepreneur.",
+            "diagram": null,
+            "options": [
+                "A. Salaries or wages",
+                "B. Rent",
+                "C. Profit",
+                "D. Interest"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 24,
+            "question": "Entrepreneurship brings about ________ in the economy.",
+            "diagram": null,
+            "options": [
+                "A. Growth",
+                "B. Building",
+                "C. Books",
+                "D. Laws"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 25,
+            "question": "If chemicals are not properly handled, they could cause the following EXCEPT ________.",
+            "diagram": null,
+            "options": [
+                "A. Harm",
+                "B. Happiness",
+                "C. Burns",
+                "D. Death"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 26,
+            "question": "Which of the following occupations is against the law of Nigeria?",
+            "diagram": null,
+            "options": [
+                "A. Farming",
+                "B. Teaching",
+                "C. Smuggling",
+                "D. Trading"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 27,
+            "question": "Which of the following industries takes raw materials from the earth?",
+            "diagram": null,
+            "options": [
+                "A. Distribution",
+                "B. Manufacturing",
+                "C. Extractive",
+                "D. Construction"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 28,
+            "question": "The money paid to an employee for services rendered is called ________.",
+            "diagram": null,
+            "options": [
+                "A. Rent",
+                "B. Commission",
+                "C. Gain",
+                "D. Salaries or wages"
+            ],
+            "correctOption": "D"
+        },
+        {
+            "id": 29,
+            "question": "Machines are called capital goods because ________.",
+            "diagram": null,
+            "options": [
+                "A. They are not easy to get",
+                "B. They help in the production of other goods",
+                "C. They are very cheap",
+                "D. They are difficult to move"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 30,
+            "question": "Buying and selling of goods is known as ________.",
+            "diagram": null,
+            "options": [
+                "A. Distribution",
+                "B. Trade",
+                "C. Exchange",
+                "D. Economics"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 31,
+            "question": "A person who buys goods and services for personal use is called a ________.",
+            "diagram": null,
+            "options": [
+                "A. Producer",
+                "B. Consumer",
+                "C. Wholesaler",
+                "D. Entrepreneur"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 32,
+            "question": "A business owned and controlled by one person is called ________.",
+            "diagram": null,
+            "options": [
+                "A. Partnership",
+                "B. Public company",
+                "C. Sole proprietorship",
+                "D. Co-operative society"
+            ],
+            "correctOption": "C"
+        },
+        {
+            "id": 33,
+            "question": "A business owned by two or more persons who agree to operate together is called ________.",
+            "diagram": null,
+            "options": [
+                "A. Partnership",
+                "B. Sole proprietorship",
+                "C. Trade union",
+                "D. Public corporation"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 34,
+            "question": "Which of the following is an advantage of sole proprietorship?",
+            "diagram": null,
+            "options": [
+                "A. Slow decision-making",
+                "B. Easy decision-making",
+                "C. Large number of owners",
+                "D. Compulsory sharing of profit"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 35,
+            "question": "Which of the following is a characteristic of partnership?",
+            "diagram": null,
+            "options": [
+                "A. It must have only one owner",
+                "B. Profits and losses may be shared among partners",
+                "C. It cannot engage in business",
+                "D. It has no agreement between owners"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 36,
+            "question": "The process of recording financial transactions of a business is called ________.",
+            "diagram": null,
+            "options": [
+                "A. Book-keeping",
+                "B. Insurance",
+                "C. Transport",
+                "D. Advertising"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 37,
+            "question": "Which of the following is an example of a direct service?",
+            "diagram": null,
+            "options": [
+                "A. Barbering",
+                "B. Warehousing",
+                "C. Banking",
+                "D. Insurance"
+            ],
+            "correctOption": "A"
+        },
+        {
+            "id": 38,
+            "question": "Which of the following is an example of an indirect commercial service?",
+            "diagram": null,
+            "options": [
+                "A. Hairdressing",
+                "B. Banking",
+                "C. Teaching",
+                "D. Tailoring"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 39,
+            "question": "One major importance of entrepreneurship is that it creates ________.",
+            "diagram": null,
+            "options": [
+                "A. Unemployment",
+                "B. Employment opportunities",
+                "C. Dishonesty",
+                "D. Scarcity of goods"
+            ],
+            "correctOption": "B"
+        },
+        {
+            "id": 40,
+            "question": "Which factor of production includes natural resources such as forests, rivers and minerals?",
+            "diagram": null,
+            "options": [
+                "A. Labour",
+                "B. Capital",
+                "C. Land",
+                "D. Entrepreneur"
+            ],
+            "correctOption": "C"
+        }
+    ],
+    "essay": {
+        "title": "SECTION B - THEORY",
+        "instruction": "Answer any three (3) questions in this section. Write your answers clearly on the answer booklet provided.",
+        "questions": [
+            {
+                "id": 1,
+                "question": "(a) Define occupation.\n(b) List and explain four factors which affect occupation.\n(c) Differentiate between direct and indirect services.",
+                "diagram": null
+            },
+            {
+                "id": 2,
+                "question": "(a) What is truthfulness in business?\n(b) List and explain four attributes of being truthful.\n(c) Outline four factors that cause people to lie.",
+                "diagram": null
+            },
+            {
+                "id": 3,
+                "question": "(a) Define entrepreneurship.\n(b) List four importance of entrepreneurship.\n(c) Outline five successful entrepreneurs in Nigeria.",
+                "diagram": null
+            },
+            {
+                "id": 4,
+                "question": "(a) Define sole proprietorship.\n(b) Define partnership.\n(c) State four advantages of sole proprietorship.\n(d) List four characteristics of partnership.",
+                "diagram": null
+            },
+            {
+                "id": 5,
+                "question": "Explain in detail any four (4) of the following:\n(i) Consumer\n(ii) Capital\n(iii) Land\n(iv) Book-keeping\n(v) Entrepreneur",
+                "diagram": null
+            }
+        ]
+    },
+    "term": "THIRD",
+    "term_label": "3rd Term",
+    "class_category": "JSS1"
+}

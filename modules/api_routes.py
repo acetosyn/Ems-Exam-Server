@@ -15,29 +15,18 @@ from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.page import PageMargins
-
-
+import re
 from openpyxl import Workbook, load_workbook
 
-from modules.supabase_results import (
-    get_academic_settings,
-    update_academic_settings,
-)
+from modules.supabase_results import (get_academic_settings, update_academic_settings)
 
-from modules.excel_manager import (
-    read_results,
-    get_excel_path,
-    EXPECTED_HEADERS,
-    repair_missing_headers,
-)
+from modules.excel_manager import (read_results, get_excel_path, EXPECTED_HEADERS,repair_missing_headers)
 
-from modules.class_config import (
-    SUPPORTED_CLASSES,
-    normalize_class_level,
-)
-
+from modules.class_config import ( SUPPORTED_CLASSES, normalize_class_level,)
+from modules.essay_results import register_essay_routes, enrich_results_with_essay
 
 api_bp = Blueprint("api_bp", __name__)
+register_essay_routes(api_bp)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 RESULTS_DIR = BASE_DIR / "RESULTS"
@@ -755,6 +744,43 @@ def get_terms_for_class(
     )
 
 
+
+# ============================================================
+# HELPER — GET SUBJECTS FROM EXAM JSON LIBRARY
+# ============================================================
+
+def get_library_subjects(year, class_cat, term=""):
+    class_cat = normalize_class(class_cat)
+
+    subject_root = BASE_DIR / "static" / "subjects" / str(year) / "subjects-json" / class_cat
+
+    if is_jss_class(class_cat):
+        term = normalize_term(term)
+        if not term: return []
+
+        subject_root = subject_root / term
+
+    if not subject_root.exists(): return []
+
+    subjects = []
+
+    for path in subject_root.glob("*.json"):
+        if path.name.lower() == "pushed_subjects.json": continue
+
+        try:
+            with path.open("r", encoding="utf-8-sig") as file:
+                data = json.load(file)
+
+            subject = str(data.get("subject") or path.stem).strip()
+
+            if subject: subjects.append(subject)
+
+        except Exception as error:
+            print(f"Could not read subject JSON [{path}]: {error}")
+
+    return sorted(set(subjects), key=str.lower)
+
+
 # ============================================================
 # HELPER — GET SUBJECT FOLDERS
 # ============================================================
@@ -1323,48 +1349,41 @@ def get_terms_for_year_and_class():
 
 @api_bp.route("/api/results/subjects")
 def get_subjects_for_class_and_year():
-    if not can_view_results():
+    if not can_view_results(): return jsonify({"error": "Unauthorized"}), 403
+
+    year = request.args.get("year", "").strip()
+    class_cat = normalize_class(request.args.get("class", ""))
+
+    if not year or not class_cat: return jsonify({"subjects": []})
+
+    term = get_requested_term(class_cat)
+
+    if is_jss_class(class_cat) and not term:
         return jsonify({
-            "error": "Unauthorized"
-        }), 403
-
-    year = request.args.get(
-        "year",
-        "",
-    ).strip()
-
-    class_cat = normalize_class(
-        request.args.get(
-            "class",
-            "",
-        )
-    )
-
-    if not year or not class_cat:
-        return jsonify({
-            "subjects": []
+            "subjects": [],
+            "year": year,
+            "class": class_cat,
+            "term": "",
+            "requires_term": True,
         })
 
-    term = get_requested_term(
-        class_cat
-    )
+    result_subjects = get_subject_folders(year, class_cat, term)
+    library_subjects = get_library_subjects(year, class_cat, term)
 
-    subjects = get_subject_folders(
-        year,
-        class_cat,
-        term,
-    )
+    subjects = {}
+
+    for subject in [*result_subjects, *library_subjects]:
+        key = re.sub(r"[^a-z0-9]+", "", str(subject).lower())
+
+        if key and key not in subjects: subjects[key] = subject
 
     return jsonify({
-        "subjects": subjects,
+        "subjects": sorted(subjects.values(), key=str.lower),
         "year": year,
         "class": class_cat,
         "term": term,
-        "requires_term": is_jss_class(
-            class_cat
-        ),
+        "requires_term": is_jss_class(class_cat),
     })
-
 
 # ============================================================
 # 5. LOAD RESULTS
@@ -1655,69 +1674,26 @@ def api_get_results():
 
 @api_bp.route("/api/results/all")
 def api_get_all_results():
-    if not can_view_results():
-        return jsonify({
-            "error": "Unauthorized",
-            "results": [],
-        }), 403
+    if not can_view_results(): return jsonify({"error": "Unauthorized", "results": []}), 403
 
-    year_filter = request.args.get(
-        "year",
-        "all",
-    ).strip()
+    year_filter = request.args.get("year", "all").strip()
+    class_filter_raw = request.args.get("class", "all").strip()
+    subject_filter = request.args.get("subject", "all").strip()
+    term_filter_raw = request.args.get("term", "all").strip()
 
-    class_filter_raw = request.args.get(
-        "class",
-        "all",
-    ).strip()
-
-    subject_filter = request.args.get(
-        "subject",
-        "all",
-    ).strip()
-
-    term_filter_raw = request.args.get(
-        "term",
-        "all",
-    ).strip()
-
-    class_filter = (
-        normalize_class(
-            class_filter_raw
-        )
-        if class_filter_raw.lower() != "all"
-        else "all"
-    )
-
-    term_filter = (
-        normalize_term(
-            term_filter_raw
-        )
-        if term_filter_raw.lower() != "all"
-        else "all"
-    )
+    class_filter = normalize_class(class_filter_raw) if class_filter_raw.lower() != "all" else "all"
+    term_filter = normalize_term(term_filter_raw) if term_filter_raw.lower() != "all" else "all"
 
     if not RESULTS_DIR.exists():
         return jsonify({
             "results": [],
-            "summary": {
-                "total": 0,
-                "years": [],
-                "classes": [],
-                "terms": [],
-                "subjects": [],
-            },
-        })
+            "summary": {"total": 0, "years": [], "classes": [], "terms": [], "subjects": []},
+        }), 200
 
     all_results = []
-
-    years_found = set()
-    classes_found = set()
-    terms_found = set()
-    subjects_found = set()
+    years_found, classes_found, terms_found, subjects_found = set(), set(), set(), set()
 
     for info in iter_result_files():
-
         year = info["year"]
         class_cat = info["class"]
         term = info["term"]
@@ -1725,132 +1701,71 @@ def api_get_all_results():
         excel_path = info["path"]
 
         # ----------------------------------------------------
-        # YEAR FILTER
+        # FILTERS
         # ----------------------------------------------------
 
-        if (
-            year_filter
-            and year_filter.lower() != "all"
-            and year != year_filter
-        ):
+        if year_filter and year_filter.lower() != "all" and year != year_filter: continue
+        if class_filter and class_filter != "all" and class_cat != class_filter: continue
+        if term_filter != "all" and is_jss_class(class_cat) and term != term_filter: continue
+
+        if subject_filter and subject_filter.lower() != "all" and subject_filter.lower() not in subject_name.lower():
             continue
 
         # ----------------------------------------------------
-        # CLASS FILTER
+        # READ OBJECTIVE RESULT FILE
         # ----------------------------------------------------
-
-        if (
-            class_filter
-            and class_filter != "all"
-            and class_cat != class_filter
-        ):
-            continue
-
-        # ----------------------------------------------------
-        # TERM FILTER
-        # ----------------------------------------------------
-
-        if (
-            term_filter != "all"
-            and is_jss_class(class_cat)
-            and term != term_filter
-        ):
-            continue
-
-        # ----------------------------------------------------
-        # SUBJECT FILTER
-        # ----------------------------------------------------
-
-        if (
-            subject_filter
-            and subject_filter.lower() != "all"
-            and subject_filter.lower()
-            not in subject_name.lower()
-        ):
-            continue
 
         try:
-            records = read_excel_file_direct(
-                excel_path
-            )
-
+            records = read_excel_file_direct(excel_path)
         except Exception as error:
-            print(
-                f"Could not read {excel_path}: "
-                f"{error}"
-            )
-
+            print(f"Could not read {excel_path}: {error}")
             continue
 
+        # ----------------------------------------------------
+        # NORMALIZE EXISTING OBJECTIVE RECORDS
+        # ----------------------------------------------------
+
         for record in records:
-            normalize_result_record(
-                record,
-                class_cat,
-                subject_name,
-                year,
-                term,
-            )
+            normalize_result_record(record, class_cat, subject_name, year, term)
 
-            all_results.append(
-                record
-            )
+        # ----------------------------------------------------
+        # MERGE ESSAY / THEORY SCORES + FINAL TOTAL
+        # ----------------------------------------------------
 
-            years_found.add(
-                year
-            )
+        try:
+            enrich_results_with_essay(records, class_cat, subject_name, year, term)
+        except Exception as error:
+            print(f"ESSAY RESULT ENRICH ERROR [{year}/{class_cat}/{term or 'NO TERM'}/{subject_name}]: {error}")
 
-            classes_found.add(
-                class_cat
-            )
+        # ----------------------------------------------------
+        # ADD TO ADMIN RESULT RESPONSE
+        # ----------------------------------------------------
 
-            if term:
-                terms_found.add(
-                    term
-                )
+        all_results.extend(records)
 
-            subjects_found.add(
-                subject_name
-            )
+        if records:
+            years_found.add(year)
+            classes_found.add(class_cat)
+            subjects_found.add(subject_name)
 
-    all_results.sort(
-        key=lambda record: str(
-            record.get(
-                "Submitted At",
-                "",
-            )
-        ),
-        reverse=True,
-    )
+            if term: terms_found.add(term)
+
+    # --------------------------------------------------------
+    # SORT — NEWEST OBJECTIVE SUBMISSION FIRST
+    # --------------------------------------------------------
+
+    all_results.sort(key=lambda record: str(record.get("Submitted At", "")), reverse=True)
 
     return jsonify({
-        "results": clean_records(
-            all_results
-        ),
+        "results": clean_records(all_results),
         "summary": {
-            "total": len(
-                all_results
-            ),
-            "years": sorted(
-                years_found,
-                reverse=True,
-            ),
-            "classes": sorted(
-                classes_found
-            ),
-            "terms": sorted(
-                terms_found,
-                key=lambda value: (
-                    VALID_TERMS.index(value)
-                    if value in VALID_TERMS
-                    else 999
-                ),
-            ),
-            "subjects": sorted(
-                subjects_found
-            ),
+            "total": len(all_results),
+            "years": sorted(years_found, reverse=True),
+            "classes": sorted(classes_found),
+            "terms": sorted(terms_found, key=lambda value: VALID_TERMS.index(value) if value in VALID_TERMS else 999),
+            "subjects": sorted(subjects_found),
         },
     }), 200
-
 
 # ============================================================
 # 8. DELETE SELECTED RESULT RECORDS

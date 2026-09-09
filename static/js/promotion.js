@@ -1,908 +1,790 @@
-// static/js/promotion.js
-// EMIS Promotion Manager v4 — fixed loading + upgraded table manager
+// MODULE: Promotion Manager Frontend — Promotion, repetition, SS3 graduation and graduate archive
 
 document.addEventListener("DOMContentLoaded", () => {
-  const $ = (id) => document.getElementById(id);
 
-  const VALID_CLASSES = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3", "GRADUATED", "LEFT"];
+    // =========================================================
+    // REQUIRE STUDENT DATABASE MODULE
+    // =========================================================
+    const DB = window.EMISStudentDB;
 
-  const els = {
-    summaryGrid: $("summaryGrid"),
-    fromClass: $("fromClass"),
-    toClass: $("toClass"),
-    destinationArm: $("destinationArm"),
-    promotionMode: $("promotionMode"),
-    statusFilter: $("statusFilter"),
-    armFilter: $("armFilter"),
-    pageSize: $("pageSize"),
-    sortStudents: $("sortStudents"),
-
-    refreshBtn: $("refreshBtn"),
-    loadStudentsBtn: $("loadStudentsBtn"),
-    selectAllBtn: $("selectAllBtn"),
-    clearSelectionBtn: $("clearSelectionBtn"),
-    previewPromotionBtn: $("previewPromotionBtn"),
-    promoteBtn: $("promoteBtn"),
-    deleteSelectedBtn: $("deleteSelectedBtn"),
-
-    openAddStudentBtn: $("openAddStudentBtn"),
-    openBulkEditBtn: $("openBulkEditBtn"),
-    exportClassBtn: $("exportClassBtn"),
-    backupNowBtn: $("backupNowBtn"),
-    viewGraduatedBtn: $("viewGraduatedBtn"),
-    viewLeftBtn: $("viewLeftBtn"),
-
-    studentsBody: $("studentsBody"),
-    studentSearch: $("studentSearch"),
-    selectedBadge: $("selectedBadge"),
-    tableStatusBadge: $("tableStatusBadge"),
-    recordCountText: $("recordCountText"),
-    currentViewText: $("currentViewText"),
-    masterCheck: $("masterCheck"),
-    prevPageBtn: $("prevPageBtn"),
-    nextPageBtn: $("nextPageBtn"),
-    pageInfo: $("pageInfo"),
-
-    importForm: $("importForm"),
-    csvFile: $("csvFile"),
-    fileName: $("fileName"),
-
-    logsList: $("logsList"),
-    selectedPreviewList: $("selectedPreviewList"),
-
-    confirmModal: $("confirmModal"),
-    confirmText: $("confirmText"),
-    cancelConfirmBtn: $("cancelConfirmBtn"),
-    confirmActionBtn: $("confirmActionBtn"),
-
-    previewModal: $("previewModal"),
-    previewBody: $("previewBody"),
-    closePreviewBtn: $("closePreviewBtn"),
-    cancelPreviewBtn: $("cancelPreviewBtn"),
-    confirmPreviewApplyBtn: $("confirmPreviewApplyBtn"),
-
-    studentDetailsModal: $("studentDetailsModal"),
-    studentDetailsBody: $("studentDetailsBody"),
-    closeStudentDetailsBtn: $("closeStudentDetailsBtn"),
-    closeDetailsActionBtn: $("closeDetailsActionBtn"),
-    editFromDetailsBtn: $("editFromDetailsBtn"),
-
-    studentFormModal: $("studentFormModal"),
-    studentRecordForm: $("studentRecordForm"),
-    studentFormTitle: $("studentFormTitle"),
-    closeStudentFormBtn: $("closeStudentFormBtn"),
-    cancelStudentFormBtn: $("cancelStudentFormBtn"),
-    editingAdmission: $("editingAdmission"),
-    formAdmission: $("formAdmission"),
-    formLastName: $("formLastName"),
-    formFirstName: $("formFirstName"),
-    formOtherNames: $("formOtherNames"),
-    formPhone: $("formPhone"),
-    formClass: $("formClass"),
-    formClassCategory: $("formClassCategory"),
-    formStatus: $("formStatus")
-  };
-
-  const nextMap = {
-    JSS1: "JSS2",
-    JSS2: "JSS3",
-    JSS3: "SS1",
-    SS1: "SS2",
-    SS2: "SS3",
-    SS3: "GRADUATED"
-  };
-
-  let students = [];
-  let selected = new Set();
-  let currentPage = 1;
-  let currentStudent = null;
-  let pendingAction = null;
-
-  init();
-
-  function init() {
-    forceDefaultClass();
-    setDefaultDestination();
-    bindEvents();
-    refreshAll();
-  }
-
-  function forceDefaultClass() {
-    if (els.fromClass && !els.fromClass.value) els.fromClass.value = "JSS1";
-    if (els.toClass && !els.toClass.value) els.toClass.value = nextMap[els.fromClass.value] || "JSS2";
-    if ($("targetClass") && !$("targetClass").value) $("targetClass").value = "JSS1";
-  }
-
-  function bindEvents() {
-    els.refreshBtn?.addEventListener("click", () => refreshAll());
-    els.loadStudentsBtn?.addEventListener("click", () => loadStudents());
-
-    els.fromClass?.addEventListener("change", () => {
-      if (!els.fromClass.value) els.fromClass.value = "JSS1";
-      setDefaultDestination();
-      clearSelection(false);
-      loadStudents();
-    });
-
-    els.toClass?.addEventListener("change", () => {
-      if (!els.toClass.value) setDefaultDestination();
-    });
-
-    [els.statusFilter, els.armFilter, els.pageSize, els.sortStudents].forEach((el) => {
-      el?.addEventListener("change", () => {
-        currentPage = 1;
-        renderStudents();
-      });
-    });
-
-    els.studentSearch?.addEventListener("input", () => {
-      currentPage = 1;
-      renderStudents();
-    });
-
-    els.selectAllBtn?.addEventListener("click", () => selectAllVisible());
-    els.clearSelectionBtn?.addEventListener("click", () => clearSelection());
-    els.previewPromotionBtn?.addEventListener("click", () => openPreview());
-    els.promoteBtn?.addEventListener("click", () => openPromotionConfirm());
-    els.deleteSelectedBtn?.addEventListener("click", () => openDeleteConfirm());
-
-    els.masterCheck?.addEventListener("change", () => {
-      els.masterCheck.checked ? selectAllVisible() : clearSelection();
-    });
-
-    els.prevPageBtn?.addEventListener("click", () => {
-      currentPage = Math.max(1, currentPage - 1);
-      renderStudents();
-    });
-
-    els.nextPageBtn?.addEventListener("click", () => {
-      currentPage += 1;
-      renderStudents();
-    });
-
-    els.openAddStudentBtn?.addEventListener("click", () => openStudentForm());
-    els.openBulkEditBtn?.addEventListener("click", () => openBulkEdit());
-    els.exportClassBtn?.addEventListener("click", () => exportCurrentClass());
-    els.backupNowBtn?.addEventListener("click", () => backupCurrentClass());
-    els.viewGraduatedBtn?.addEventListener("click", () => loadSpecialClass("GRADUATED"));
-    els.viewLeftBtn?.addEventListener("click", () => loadSpecialClass("LEFT"));
-
-    els.cancelConfirmBtn?.addEventListener("click", () => closeConfirm());
-    els.confirmActionBtn?.addEventListener("click", () => runPendingAction());
-
-    els.confirmModal?.addEventListener("click", (event) => {
-      if (event.target === els.confirmModal) closeConfirm();
-    });
-
-    els.closePreviewBtn?.addEventListener("click", () => closePreview());
-    els.cancelPreviewBtn?.addEventListener("click", () => closePreview());
-    els.confirmPreviewApplyBtn?.addEventListener("click", () => {
-      closePreview();
-      openPromotionConfirm();
-    });
-
-    els.closeStudentDetailsBtn?.addEventListener("click", () => closeStudentDetails());
-    els.closeDetailsActionBtn?.addEventListener("click", () => closeStudentDetails());
-    els.editFromDetailsBtn?.addEventListener("click", () => {
-      if (currentStudent) {
-        closeStudentDetails();
-        openStudentForm(currentStudent);
-      }
-    });
-
-    els.closeStudentFormBtn?.addEventListener("click", () => closeStudentForm());
-    els.cancelStudentFormBtn?.addEventListener("click", () => closeStudentForm());
-    els.studentRecordForm?.addEventListener("submit", saveStudentRecord);
-
-    els.csvFile?.addEventListener("change", () => {
-      const file = els.csvFile.files?.[0];
-      els.fileName.textContent = file ? file.name : "No file selected";
-    });
-
-    els.importForm?.addEventListener("submit", handleImport);
-  }
-
-  function setDefaultDestination() {
-    if (!els.fromClass || !els.toClass) return;
-    els.toClass.value = nextMap[els.fromClass.value] || "JSS2";
-  }
-
-  async function refreshAll() {
-    await loadSummary();
-    await loadStudents();
-    await loadLogs();
-  }
-
-  async function api(url, options = {}) {
-    const response = await fetch(url, options);
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok || data.success === false) {
-      throw new Error(data.message || "Request failed.");
+    if (!DB) {
+        console.error("Promotion Manager: student_database.js must be loaded before promotion.js.");
+        return;
     }
 
-    return data;
-  }
 
-  async function loadSummary() {
-    try {
-      const data = await api("/api/promotion/summary");
-      renderSummary(data.summary || {});
-    } catch (error) {
-      els.summaryGrid.innerHTML = `
-        <article class="summary-card loading-card">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <span>${escapeHtml(error.message)}</span>
-        </article>
-      `;
-    }
-  }
+    // =========================================================
+    // SHARED HELPERS
+    // =========================================================
+    const $ = (id) => document.getElementById(id);
 
-  function renderSummary(summary) {
-    const order = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3", "GRADUATED", "LEFT"];
+    const {
+        state,
+        api,
+        CLASS_ARMS,
+        selectedStudents,
+        clearSelection,
+        loadSummary,
+        loadStudents,
+        loadLogs,
+        openStudentDetails,
+        openConfirmation,
+        forceCloseConfirmation,
+        showModal,
+        hideModal,
+        showToast,
+        fullName,
+        displayClass,
+        normalizeAdmission,
+        normalize,
+        escapeHtml
+    } = DB;
 
-    els.summaryGrid.innerHTML = order.map((cls) => {
-      const item = summary[cls] || { total: 0, active: 0 };
 
-      return `
-        <article class="summary-card" data-class="${cls}">
-          <span>${escapeHtml(cls)}</span>
-          <strong>${item.total || 0}</strong>
-          <span>${["GRADUATED", "LEFT"].includes(cls) ? "Records" : `Active: ${item.active || 0}`}</span>
-        </article>
-      `;
-    }).join("");
+    // =========================================================
+    // PROMOTION PATH
+    // =========================================================
+    const NEXT_CLASS = {
+        JSS1: "JSS2",
+        JSS2: "JSS3",
+        JSS3: "SS1",
+        SS1: "SS2",
+        SS2: "SS3",
+        SS3: "GRADUATED"
+    };
 
-    document.querySelectorAll(".summary-card[data-class]").forEach((card) => {
-      card.addEventListener("click", () => loadSpecialClass(card.dataset.class));
-    });
-  }
 
-  async function loadSpecialClass(cls) {
-    if (!VALID_CLASSES.includes(cls)) cls = "JSS1";
+    // =========================================================
+    // DOM ELEMENTS
+    // =========================================================
+    const els = {
 
-    if (["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"].includes(cls) && els.fromClass) {
-      els.fromClass.value = cls;
-      setDefaultDestination();
-    }
+        // PROMOTION ACTIONS
+        promoteSelectedBtn: $("promoteSelectedBtn"),
+        repeatSelectedBtn: $("repeatSelectedBtn"),
 
-    selected.clear();
-    currentPage = 1;
-    await loadStudents(cls);
-  }
+        // DESTINATION ARM
+        destinationArmOverlay: $("destinationArmOverlay"),
+        destinationArmModal: $("destinationArmModal"),
+        destinationArmTitle: $("destinationArmTitle"),
+        destinationArmDescription: $("destinationArmDescription"),
+        destinationArmSelector: $("destinationArmSelector"),
+        destinationStudentSummary: $("destinationStudentSummary"),
+        cancelDestinationArmBtn: $("cancelDestinationArmBtn"),
+        confirmDestinationArmBtn: $("confirmDestinationArmBtn"),
 
-  function resolveClass(value) {
-    if (typeof value === "string" && VALID_CLASSES.includes(value)) return value;
+        // PREVIEW
+        previewOverlay: $("previewOverlay"),
+        previewModal: $("previewModal"),
+        previewModalTitle: $("previewModalTitle"),
+        closePreviewBtn: $("closePreviewBtn"),
+        cancelPreviewBtn: $("cancelPreviewBtn"),
+        previewAction: $("previewAction"),
+        previewSourceClass: $("previewSourceClass"),
+        previewDestinationClass: $("previewDestinationClass"),
+        previewStudentCount: $("previewStudentCount"),
+        previewBody: $("previewBody"),
+        confirmPreviewApplyBtn: $("confirmPreviewApplyBtn"),
 
-    const selectedClass = els.fromClass?.value || "JSS1";
+        // GRADUATES
+        viewGraduatesBtn: $("viewGraduatesBtn"),
+        graduatesOverlay: $("graduatesOverlay"),
+        graduatesModal: $("graduatesModal"),
+        closeGraduatesBtn: $("closeGraduatesBtn"),
+        graduateSearch: $("graduateSearch"),
+        graduateYearFilter: $("graduateYearFilter"),
+        graduatesBody: $("graduatesBody"),
+        graduatesCount: $("graduatesCount"),
+        graduatesPagination: $("graduatesPagination")
+    };
 
-    if (VALID_CLASSES.includes(selectedClass)) return selectedClass;
 
-    return "JSS1";
-  }
+    // =========================================================
+    // LOCAL STATE
+    // =========================================================
+    const promotionState = {
+        destinationContext: null,
+        pendingPreview: null,
 
-  async function loadStudents(forcedClass = "") {
-    const cls = resolveClass(forcedClass);
+        graduates: [],
+        graduatePage: 1,
+        graduateRowsPerPage: 15
+    };
 
-    setTableStatus("Loading...");
-    els.studentsBody.innerHTML = skeletonRows();
 
-    try {
-      const data = await api(`/api/promotion/students?class=${encodeURIComponent(cls)}`);
+    // =========================================================
+    // INITIALIZE
+    // =========================================================
+    init();
 
-      students = Array.isArray(data.students) ? data.students : [];
-      selected.clear();
-      currentPage = 1;
-
-      renderStudents();
-      updateSelectedBadge();
-      updateSelectedPreview();
-      setTableStatus(`${students.length} loaded`);
-    } catch (error) {
-      students = [];
-      els.studentsBody.innerHTML = `
-        <tr>
-          <td colspan="7" class="empty-cell">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <strong>Could not load students</strong>
-            <span>${escapeHtml(error.message)}</span>
-          </td>
-        </tr>
-      `;
-      setTableStatus("Error");
-      updateTableInfo(0, 0);
-    }
-  }
-
-  function getFilteredStudents() {
-    const query = normalize(els.studentSearch?.value || "");
-    const status = normalize(els.statusFilter?.value || "");
-    const arm = normalize(els.armFilter?.value || "");
-    const sort = els.sortStudents?.value || "name";
-
-    const list = students.filter((student) => {
-      const studentStatus = normalize(student.Status || "ACTIVE");
-      const studentClass = normalize(student.Class || "");
-
-      const text = normalize([
-        student.Admission_number,
-        student.Last_name,
-        student.First_name,
-        student.Other_names,
-        student.Phone,
-        student.Class,
-        student.Class_category,
-        student.Status || "ACTIVE"
-      ].join(" "));
-
-      const statusOk = !status || studentStatus === status;
-      const armOk = !arm || studentClass.endsWith(arm);
-      const searchOk = !query || text.includes(query);
-
-      return statusOk && armOk && searchOk;
-    });
-
-    list.sort((a, b) => sortValue(a, sort).localeCompare(sortValue(b, sort)));
-
-    return list;
-  }
-
-  function sortValue(student, sort) {
-    if (sort === "admission") return normalize(student.Admission_number);
-    if (sort === "class") return normalize(student.Class);
-    if (sort === "status") return normalize(student.Status || "ACTIVE");
-
-    return normalize(`${student.Last_name} ${student.First_name} ${student.Other_names}`);
-  }
-
-  function renderStudents() {
-    const filtered = getFilteredStudents();
-    const pageSize = Number(els.pageSize?.value || 25);
-    const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-
-    currentPage = Math.min(currentPage, totalPages);
-
-    const start = (currentPage - 1) * pageSize;
-    const pageRows = filtered.slice(start, start + pageSize);
-
-    updateTableInfo(filtered.length, students.length);
-
-    if (!pageRows.length) {
-      els.studentsBody.innerHTML = `
-        <tr>
-          <td colspan="7" class="empty-cell">
-            <i class="fa-solid fa-folder-open"></i>
-            <strong>No students found</strong>
-            <span>No student matches your current view.</span>
-          </td>
-        </tr>
-      `;
-      updatePagination(totalPages);
-      return;
+    function init() {
+        bindEvents();
     }
 
-    els.studentsBody.innerHTML = pageRows.map((student) => studentRow(student)).join("");
 
-    bindStudentRows();
-    updatePagination(totalPages);
-    updateSelectedPreview();
-  }
+    // =========================================================
+    // EVENTS
+    // =========================================================
+    function bindEvents() {
 
-  function studentRow(student) {
-    const admission = student.Admission_number || "";
-    const key = admission.toLowerCase();
-    const fullName = [student.Last_name, student.First_name, student.Other_names].filter(Boolean).join(" ");
-    const status = student.Status || "ACTIVE";
+        // PROMOTION / REPETITION
+        els.promoteSelectedBtn?.addEventListener("click", startPromotionAction);
+        els.repeatSelectedBtn?.addEventListener("click", startRepeatAction);
 
-    return `
-      <tr class="${selected.has(key) ? "is-selected" : ""}">
-        <td>
-          <input
-            type="checkbox"
-            class="student-check"
-            data-admission="${escapeHtml(admission)}"
-            ${selected.has(key) ? "checked" : ""}
-          >
-        </td>
+        // DESTINATION ARM
+        els.cancelDestinationArmBtn?.addEventListener("click", closeDestinationArmModal);
+        els.destinationArmOverlay?.addEventListener("click", closeDestinationArmModal);
+        els.confirmDestinationArmBtn?.addEventListener("click", confirmDestinationArm);
 
-        <td>
-          <div class="student-name">${escapeHtml(fullName || "Unknown Student")}</div>
-          <div class="student-sub">${escapeHtml(student.Last_name || "")} ${escapeHtml(student.First_name || "")}</div>
-        </td>
+        // PREVIEW
+        els.closePreviewBtn?.addEventListener("click", closePreview);
+        els.cancelPreviewBtn?.addEventListener("click", closePreview);
+        els.previewOverlay?.addEventListener("click", closePreview);
+        els.confirmPreviewApplyBtn?.addEventListener("click", previewContinue);
 
-        <td>${escapeHtml(admission || "—")}</td>
-        <td>${escapeHtml(student.Class || "—")}</td>
-        <td><span class="status-pill ${escapeHtml(status.toLowerCase())}">${escapeHtml(status)}</span></td>
-        <td>${escapeHtml(student.Phone || "—")}</td>
+        // GRADUATES
+        els.viewGraduatesBtn?.addEventListener("click", openGraduates);
+        els.closeGraduatesBtn?.addEventListener("click", closeGraduates);
+        els.graduatesOverlay?.addEventListener("click", closeGraduates);
 
-        <td>
-          <div class="row-actions">
-            <button class="row-action-btn view-student" data-admission="${escapeHtml(admission)}" title="View">
-              <i class="fa-solid fa-eye"></i>
-            </button>
+        els.graduateSearch?.addEventListener("input", () => {
+            promotionState.graduatePage = 1;
+            renderGraduates();
+        });
 
-            <button class="row-action-btn edit-student" data-admission="${escapeHtml(admission)}" title="Edit">
-              <i class="fa-solid fa-pen"></i>
-            </button>
+        els.graduateYearFilter?.addEventListener("change", () => {
+            promotionState.graduatePage = 1;
+            renderGraduates();
+        });
 
-            <button class="row-action-btn danger delete-student" data-admission="${escapeHtml(admission)}" title="Delete">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        </td>
-      </tr>
-    `;
-  }
+        // ESCAPE
+        document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape") return;
 
-  function bindStudentRows() {
-    document.querySelectorAll(".student-check").forEach((box) => {
-      box.addEventListener("change", () => {
-        const key = String(box.dataset.admission || "").toLowerCase();
-
-        if (box.checked) selected.add(key);
-        else selected.delete(key);
-
-        updateSelectedBadge();
-        updateSelectedPreview();
-        renderStudents();
-      });
-    });
-
-    document.querySelectorAll(".view-student").forEach((button) => {
-      button.addEventListener("click", () => {
-        const student = findStudent(button.dataset.admission);
-        if (student) openStudentDetails(student);
-      });
-    });
-
-    document.querySelectorAll(".edit-student").forEach((button) => {
-      button.addEventListener("click", () => {
-        const student = findStudent(button.dataset.admission);
-        if (student) openStudentForm(student);
-      });
-    });
-
-    document.querySelectorAll(".delete-student").forEach((button) => {
-      button.addEventListener("click", () => {
-        selected.clear();
-        selected.add(String(button.dataset.admission || "").toLowerCase());
-        updateSelectedBadge();
-        openDeleteConfirm();
-      });
-    });
-  }
-
-  function findStudent(admission) {
-    const key = String(admission || "").toLowerCase();
-    return students.find((student) => String(student.Admission_number || "").toLowerCase() === key);
-  }
-
-  function selectAllVisible() {
-    getFilteredStudents().forEach((student) => {
-      if (student.Admission_number) selected.add(String(student.Admission_number).toLowerCase());
-    });
-
-    updateSelectedBadge();
-    updateSelectedPreview();
-    renderStudents();
-  }
-
-  function clearSelection(shouldRender = true) {
-    selected.clear();
-
-    if (els.masterCheck) els.masterCheck.checked = false;
-
-    updateSelectedBadge();
-    updateSelectedPreview();
-
-    if (shouldRender) renderStudents();
-  }
-
-  function updateSelectedBadge() {
-    if (els.selectedBadge) els.selectedBadge.textContent = `${selected.size} selected`;
-  }
-
-  function updateSelectedPreview() {
-    if (!els.selectedPreviewList) return;
-
-    const selectedRows = students.filter((student) =>
-      selected.has(String(student.Admission_number || "").toLowerCase())
-    );
-
-    if (!selectedRows.length) {
-      els.selectedPreviewList.innerHTML = `
-        <div class="log-empty">
-          <i class="fa-solid fa-user-check"></i>
-          No selected student yet.
-        </div>
-      `;
-      return;
+            closeDestinationArmModal();
+            closePreview();
+            closeGraduates();
+        });
     }
 
-    const visible = selectedRows.slice(0, 8);
 
-    els.selectedPreviewList.innerHTML = visible.map((student) => `
-      <div class="selected-preview-item">
-        <strong>${escapeHtml([student.Last_name, student.First_name, student.Other_names].filter(Boolean).join(" "))}</strong>
-        <p>${escapeHtml(student.Admission_number)} • ${escapeHtml(student.Class)}</p>
-        <span>${escapeHtml(student.Status || "ACTIVE")}</span>
-      </div>
-    `).join("") + (
-      selectedRows.length > 8
-        ? `<div class="log-empty">+${selectedRows.length - 8} more selected</div>`
-        : ""
-    );
-  }
+    // =========================================================
+    // PROMOTION START
+    // =========================================================
+    function startPromotionAction() {
+        const students = selectedStudents();
 
-  function updatePagination(totalPages) {
-    if (els.pageInfo) els.pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-
-    if (els.prevPageBtn) els.prevPageBtn.disabled = currentPage <= 1;
-    if (els.nextPageBtn) els.nextPageBtn.disabled = currentPage >= totalPages;
-  }
-
-  function updateTableInfo(filtered, total) {
-    if (els.recordCountText) {
-      els.recordCountText.innerHTML = `<i class="fa-solid fa-list"></i> ${filtered} of ${total} records`;
-    }
-
-    if (els.currentViewText) {
-      els.currentViewText.innerHTML = `<i class="fa-solid fa-filter"></i> ${filterLabel()}`;
-    }
-  }
-
-  function filterLabel() {
-    const parts = [];
-
-    if (els.studentSearch?.value) parts.push("Search");
-    if (els.statusFilter?.value) parts.push(els.statusFilter.value);
-    if (els.armFilter?.value) parts.push(`Arm ${els.armFilter.value}`);
-
-    return parts.length ? parts.join(" • ") : "No active filter";
-  }
-
-  function setTableStatus(text) {
-    if (els.tableStatusBadge) els.tableStatusBadge.textContent = text;
-  }
-
-  function openPreview() {
-    const rows = selectedRows();
-
-    if (!rows.length && els.promotionMode.value !== "all") {
-      showToast("Please select at least one student.", "warning");
-      return;
-    }
-
-    const count = els.promotionMode.value === "all" ? students.length : rows.length;
-
-    els.previewBody.innerHTML = `
-      <div class="pm-details-grid">
-        <div class="pm-detail-item"><span>From</span><strong>${escapeHtml(els.fromClass.value)}</strong></div>
-        <div class="pm-detail-item"><span>To</span><strong>${escapeHtml(els.toClass.value)}</strong></div>
-        <div class="pm-detail-item"><span>Mode</span><strong>${escapeHtml(els.promotionMode.value)}</strong></div>
-        <div class="pm-detail-item"><span>Students</span><strong>${count}</strong></div>
-      </div>
-    `;
-
-    els.previewModal?.classList.remove("hidden");
-  }
-
-  function closePreview() {
-    els.previewModal?.classList.add("hidden");
-  }
-
-  function selectedRows() {
-    return students.filter((student) =>
-      selected.has(String(student.Admission_number || "").toLowerCase())
-    );
-  }
-
-  function openPromotionConfirm() {
-    const mode = els.promotionMode.value;
-    const count = mode === "all" ? students.length : selected.size;
-
-    if (!els.fromClass.value || !els.toClass.value) {
-      showToast("Please choose source and destination class.", "warning");
-      return;
-    }
-
-    if (!students.length) {
-      showToast("No students loaded.", "warning");
-      return;
-    }
-
-    if (mode !== "all" && !selected.size) {
-      showToast("Please select at least one student.", "warning");
-      return;
-    }
-
-    els.confirmText.textContent =
-      `Move ${count} student(s) from ${els.fromClass.value} to ${els.toClass.value}? A backup will be created first.`;
-
-    pendingAction = applyPromotion;
-    els.confirmModal.classList.remove("hidden");
-  }
-
-  function openDeleteConfirm() {
-    if (!selected.size) {
-      showToast("Please select student(s) to delete.", "warning");
-      return;
-    }
-
-    els.confirmText.textContent =
-      `Delete ${selected.size} selected student record(s)? A backup will be created first.`;
-
-    pendingAction = deleteSelectedStudents;
-    els.confirmModal.classList.remove("hidden");
-  }
-
-  function closeConfirm() {
-    els.confirmModal.classList.add("hidden");
-    pendingAction = null;
-  }
-
-  async function runPendingAction() {
-    if (typeof pendingAction === "function") await pendingAction();
-  }
-
-  async function applyPromotion() {
-    setConfirmLoading(true);
-
-    try {
-      const data = await api("/api/promotion/promote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from_class: els.fromClass.value,
-          to_class: els.toClass.value,
-          mode: els.promotionMode.value,
-          destination_arm: els.destinationArm.value.trim(),
-          admissions: Array.from(selected),
-          note: "Promotion Manager action"
-        })
-      });
-
-      showToast(data.message, "success");
-      closeConfirm();
-      await refreshAll();
-    } catch (error) {
-      showToast(error.message, "error");
-    } finally {
-      setConfirmLoading(false);
-    }
-  }
-
-  async function deleteSelectedStudents() {
-    setConfirmLoading(true);
-
-    try {
-      const data = await api("/api/promotion/delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          class_category: els.fromClass.value,
-          admissions: Array.from(selected)
-        })
-      });
-
-      showToast(data.message, "success");
-      closeConfirm();
-      await refreshAll();
-    } catch (error) {
-      showToast(error.message, "error");
-    } finally {
-      setConfirmLoading(false);
-    }
-  }
-
-  function setConfirmLoading(loading) {
-    els.confirmActionBtn.disabled = loading;
-    els.confirmActionBtn.textContent = loading ? "Processing..." : "Yes, Continue";
-  }
-
-  function openStudentDetails(student) {
-    currentStudent = student;
-
-    els.studentDetailsBody.innerHTML = `
-      <div class="pm-details-grid">
-        <div class="pm-detail-item"><span>Admission</span><strong>${escapeHtml(student.Admission_number)}</strong></div>
-        <div class="pm-detail-item"><span>Full Name</span><strong>${escapeHtml([student.Last_name, student.First_name, student.Other_names].filter(Boolean).join(" "))}</strong></div>
-        <div class="pm-detail-item"><span>Class</span><strong>${escapeHtml(student.Class)}</strong></div>
-        <div class="pm-detail-item"><span>Category</span><strong>${escapeHtml(student.Class_category)}</strong></div>
-        <div class="pm-detail-item"><span>Status</span><strong>${escapeHtml(student.Status || "ACTIVE")}</strong></div>
-        <div class="pm-detail-item"><span>Phone</span><strong>${escapeHtml(student.Phone || "—")}</strong></div>
-      </div>
-    `;
-
-    els.studentDetailsModal.classList.remove("hidden");
-  }
-
-  function closeStudentDetails() {
-    els.studentDetailsModal.classList.add("hidden");
-    currentStudent = null;
-  }
-
-  function openStudentForm(student = null) {
-    els.studentRecordForm.reset();
-
-    if (student) {
-      els.studentFormTitle.textContent = "Edit Student";
-      els.editingAdmission.value = student.Admission_number || "";
-      els.formAdmission.value = student.Admission_number || "";
-      els.formLastName.value = student.Last_name || "";
-      els.formFirstName.value = student.First_name || "";
-      els.formOtherNames.value = student.Other_names || "";
-      els.formPhone.value = student.Phone || "";
-      els.formClass.value = student.Class || "";
-      els.formClassCategory.value = student.Class_category || els.fromClass.value || "JSS1";
-      els.formStatus.value = student.Status || "ACTIVE";
-    } else {
-      els.studentFormTitle.textContent = "Add Student";
-      els.editingAdmission.value = "";
-      els.formClassCategory.value = els.fromClass.value || "JSS1";
-      els.formClass.value = `${els.formClassCategory.value}A`;
-      els.formStatus.value = "ACTIVE";
-    }
-
-    els.studentFormModal.classList.remove("hidden");
-  }
-
-  function closeStudentForm() {
-    els.studentFormModal.classList.add("hidden");
-  }
-
-  async function saveStudentRecord(event) {
-    event.preventDefault();
-
-    try {
-      const payload = {
-        original_admission: els.editingAdmission.value,
-        student: {
-          Admission_number: els.formAdmission.value.trim(),
-          Last_name: els.formLastName.value.trim(),
-          First_name: els.formFirstName.value.trim(),
-          Other_names: els.formOtherNames.value.trim(),
-          Phone: els.formPhone.value.trim(),
-          Class: els.formClass.value.trim(),
-          Class_category: els.formClassCategory.value,
-          Status: els.formStatus.value
+        if (!students.length) {
+            showToast("Select at least one student first.", "warning");
+            return;
         }
-      };
 
-      const data = await api("/api/promotion/student/save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+        // -----------------------------------------------------
+        // SS3 → GRADUATION
+        // -----------------------------------------------------
+        if (state.currentClass === "SS3") {
+            openActionPreview({
+                type: "graduate",
+                action: "Graduate",
+                source: "SS3",
+                destination: "Graduate Archive",
+                students,
+                destinationClasses: {}
+            });
 
-      showToast(data.message, "success");
-      closeStudentForm();
+            return;
+        }
 
-      if (els.fromClass) els.fromClass.value = payload.student.Class_category;
+        const destination = NEXT_CLASS[state.currentClass];
 
-      await refreshAll();
-    } catch (error) {
-      showToast(error.message, "error");
-    }
-  }
+        if (!destination) {
+            showToast("No promotion destination is configured for this class.", "error");
+            return;
+        }
 
-  function openBulkEdit() {
-    if (!selected.size) {
-      showToast("Select students first before bulk edit.", "warning");
-      return;
-    }
+        // -----------------------------------------------------
+        // JSS3 → SS1
+        //
+        // SS1 stream / arm must be selected manually.
+        // -----------------------------------------------------
+        if (state.currentClass === "JSS3") {
+            openDestinationArmModal(students, destination, students);
+            return;
+        }
 
-    showToast("Bulk edit ready. Use the destination/mode controls to move selected records.", "info");
-  }
+        // -----------------------------------------------------
+        // SS2 → SS3
+        //
+        // If an SS2 arm has no compatible SS3 destination,
+        // request manual placement.
+        // -----------------------------------------------------
+        if (state.currentClass === "SS2") {
+            const needsPlacement = students.filter((student) => {
+                const expectedDestination = automaticDestinationArm(student, destination);
+                return !expectedDestination;
+            });
 
-  function exportCurrentClass() {
-    const cls = resolveClass();
-    window.location.href = `/api/promotion/export?class=${encodeURIComponent(cls)}`;
-  }
+            if (needsPlacement.length) {
+                openDestinationArmModal(students, destination, needsPlacement);
+                return;
+            }
+        }
 
-  async function backupCurrentClass() {
-    try {
-      const data = await api("/api/promotion/backup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ class_category: resolveClass() })
-      });
-
-      showToast(data.message, "success");
-      await loadLogs();
-    } catch (error) {
-      showToast(error.message, "error");
-    }
-  }
-
-  async function handleImport(event) {
-    event.preventDefault();
-
-    if (!els.csvFile.files?.length) {
-      showToast("Please choose a CSV file.", "warning");
-      return;
-    }
-
-    const formData = new FormData(els.importForm);
-
-    try {
-      const data = await api("/api/promotion/import", {
-        method: "POST",
-        body: formData
-      });
-
-      showToast(data.message, "success");
-      els.importForm.reset();
-      els.fileName.textContent = "No file selected";
-      await refreshAll();
-    } catch (error) {
-      showToast(error.message, "error");
-    }
-  }
-
-  async function loadLogs() {
-    try {
-      const data = await api("/api/promotion/logs");
-      renderLogs(data.logs || []);
-    } catch (error) {
-      els.logsList.innerHTML = `<div class="log-empty">${escapeHtml(error.message)}</div>`;
-    }
-  }
-
-  function renderLogs(logs) {
-    if (!logs.length) {
-      els.logsList.innerHTML = `
-        <div class="log-empty">
-          <i class="fa-solid fa-clock"></i>
-          No promotion action yet.
-        </div>
-      `;
-      return;
+        // -----------------------------------------------------
+        // NORMAL AUTOMATIC PROMOTION
+        // -----------------------------------------------------
+        openActionPreview({
+            type: "promote",
+            action: "Promote",
+            source: state.currentClass,
+            destination,
+            students,
+            destinationClasses: {}
+        });
     }
 
-    els.logsList.innerHTML = logs.map((log) => `
-      <div class="log-item">
-        <strong>${escapeHtml(log.Action || "ACTION")}</strong>
-        <p>${escapeHtml(log.From || "—")} → ${escapeHtml(log.To || "—")} • ${escapeHtml(log.Count || "0")} student(s)</p>
-        <span>${escapeHtml(log.Timestamp || "")} by ${escapeHtml(log.Admin || "Admin")}</span>
-      </div>
-    `).join("");
-  }
 
-  function skeletonRows() {
-    return Array.from({ length: 6 }).map(() => `
-      <tr>
-        <td colspan="7"><div class="table-skeleton"></div></td>
-      </tr>
-    `).join("");
-  }
+    // =========================================================
+    // DESTINATION ARM
+    // =========================================================
+    function openDestinationArmModal(allStudents, destination, affectedStudents) {
+        const arms = CLASS_ARMS[destination] || [];
 
-  function showToast(message, type = "info") {
-    const root = document.getElementById("toastRoot");
-    const toast = document.createElement("div");
+        promotionState.destinationContext = {
+            allStudents,
+            affectedStudents,
+            source: state.currentClass,
+            destination
+        };
 
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
+        if (els.destinationArmTitle) els.destinationArmTitle.textContent = `${state.currentClass} → ${destination}`;
 
-    root.appendChild(toast);
+        if (els.destinationArmDescription) {
+            els.destinationArmDescription.textContent = state.currentClass === "JSS3"
+                ? `Select the ${destination} arm these ${allStudents.length} student(s) should enter.`
+                : `${affectedStudents.length} selected student(s) cannot be mapped automatically. Select their ${destination} destination arm.`;
+        }
 
-    setTimeout(() => {
-      toast.style.opacity = "0";
-      toast.style.transform = "translateY(8px) scale(0.96)";
-      setTimeout(() => toast.remove(), 250);
-    }, 3600);
-  }
+        if (els.destinationStudentSummary) {
+            els.destinationStudentSummary.textContent = `${affectedStudents.length} student${affectedStudents.length === 1 ? "" : "s"} require destination placement`;
+        }
 
-  function normalize(value) {
-    return String(value || "").toLowerCase().trim();
-  }
+        if (els.destinationArmSelector) {
+            els.destinationArmSelector.innerHTML = `
+                <option value="">Select destination arm</option>
+                ${arms.map((arm) => `<option value="${escapeHtml(arm)}">${escapeHtml(displayClass(arm))}</option>`).join("")}
+            `;
+        }
 
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
+        showModal(els.destinationArmModal, els.destinationArmOverlay);
+    }
+
+
+    function closeDestinationArmModal() {
+        promotionState.destinationContext = null;
+        hideModal(els.destinationArmModal, els.destinationArmOverlay);
+    }
+
+
+    function confirmDestinationArm() {
+        const context = promotionState.destinationContext;
+        const selectedArm = els.destinationArmSelector?.value || "";
+
+        if (!context) return;
+
+        if (!selectedArm) {
+            showToast("Select a destination class arm.", "warning");
+            return;
+        }
+
+        const destinationClasses = {};
+
+        context.affectedStudents.forEach((student) => {
+            destinationClasses[student.Admission_number] = selectedArm;
+        });
+
+        hideModal(els.destinationArmModal, els.destinationArmOverlay);
+
+        promotionState.destinationContext = null;
+
+        openActionPreview({
+            type: "promote",
+            action: "Promote",
+            source: context.source,
+            destination: context.destination,
+            students: context.allStudents,
+            destinationClasses
+        });
+    }
+
+
+    // =========================================================
+    // REPETITION
+    // =========================================================
+    function startRepeatAction() {
+        const students = selectedStudents();
+
+        if (!students.length) {
+            showToast("Select at least one student first.", "warning");
+            return;
+        }
+
+        openActionPreview({
+            type: "repeat",
+            action: "Repeat",
+            source: state.currentClass,
+            destination: state.currentClass,
+            students,
+            destinationClasses: {}
+        });
+    }
+
+
+    // =========================================================
+    // ACTION PREVIEW
+    // =========================================================
+    function openActionPreview(context) {
+        promotionState.pendingPreview = context;
+
+        if (els.previewModalTitle) els.previewModalTitle.textContent = `${context.action} Preview`;
+        if (els.previewAction) els.previewAction.textContent = context.action;
+        if (els.previewSourceClass) els.previewSourceClass.textContent = context.source;
+        if (els.previewDestinationClass) els.previewDestinationClass.textContent = context.destination;
+        if (els.previewStudentCount) els.previewStudentCount.textContent = context.students.length;
+
+        if (els.previewBody) {
+            els.previewBody.innerHTML = context.students.map((student) => {
+                const explicitDestination = context.destinationClasses?.[student.Admission_number];
+
+                const destinationText = context.type === "repeat"
+                    ? displayClass(student.Class)
+                    : context.type === "graduate"
+                        ? "Graduate Archive"
+                        : explicitDestination
+                            ? displayClass(explicitDestination)
+                            : getAutomaticDestinationLabel(student, context.destination);
+
+                return `
+                    <div class="action-preview-item">
+                        <div>
+                            <strong>${escapeHtml(fullName(student))}</strong>
+                            <span>${escapeHtml(student.Admission_number)}</span>
+                        </div>
+
+                        <span>
+                            ${escapeHtml(displayClass(student.Class))}
+                            <i class="fa-solid fa-arrow-right"></i>
+                            ${escapeHtml(destinationText)}
+                        </span>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        showModal(els.previewModal, els.previewOverlay);
+    }
+
+
+    function automaticDestinationArm(student, destination) {
+        const source = student.Class_category || "";
+        const sourceArm = student.Class || "";
+
+        if (source.startsWith("JSS") && destination.startsWith("JSS")) {
+            const suffix = sourceArm.replace(source, "");
+            const candidate = `${destination}${suffix}`;
+
+            return CLASS_ARMS[destination]?.includes(candidate)
+                ? candidate
+                : "";
+        }
+
+        if (source.startsWith("SS") && destination.startsWith("SS")) {
+            const suffix = sourceArm.replace(source, "");
+            const candidate = `${destination}${suffix}`;
+
+            return CLASS_ARMS[destination]?.includes(candidate)
+                ? candidate
+                : "";
+        }
+
+        return "";
+    }
+
+
+    function getAutomaticDestinationLabel(student, destination) {
+        if (!destination || destination === "GRADUATED") return "Graduate Archive";
+
+        const destinationArm = automaticDestinationArm(student, destination);
+
+        return destinationArm
+            ? displayClass(destinationArm)
+            : destination;
+    }
+
+
+    function closePreview() {
+        promotionState.pendingPreview = null;
+        hideModal(els.previewModal, els.previewOverlay);
+    }
+
+
+    // =========================================================
+    // PREVIEW CONTINUE
+    // =========================================================
+    function previewContinue() {
+        const context = promotionState.pendingPreview;
+
+        if (!context) return;
+
+        hideModal(els.previewModal, els.previewOverlay);
+        promotionState.pendingPreview = null;
+
+        // PROMOTION
+        if (context.type === "promote") {
+            openConfirmation({
+                label: "Confirm Promotion",
+                title: `Promote ${context.students.length} student${context.students.length === 1 ? "" : "s"}?`,
+                text: `${context.source} students will move to ${context.destination}. The live CSV and Excel databases will be synchronized automatically.`,
+                students: context.students,
+                type: "primary",
+                action: () => applyPromotion(context)
+            });
+
+            return;
+        }
+
+        // REPETITION
+        if (context.type === "repeat") {
+            openConfirmation({
+                label: "Confirm Repetition",
+                title: `Repeat ${context.students.length} student${context.students.length === 1 ? "" : "s"}?`,
+                text: `The selected student${context.students.length === 1 ? "" : "s"} will remain in ${context.source}.`,
+                students: context.students,
+                type: "warning",
+                action: () => applyRepeat(context)
+            });
+
+            return;
+        }
+
+        // GRADUATION
+        if (context.type === "graduate") {
+            openConfirmation({
+                label: "Confirm Graduation",
+                title: `Graduate ${context.students.length} SS3 student${context.students.length === 1 ? "" : "s"}?`,
+                text: "The selected student(s) will be archived, removed from the active database, and their admission numbers released for future new students.",
+                students: context.students,
+                type: "graduate",
+                action: () => applyGraduation(context)
+            });
+        }
+    }
+
+
+    // =========================================================
+    // APPLY PROMOTION
+    // =========================================================
+    async function applyPromotion(context) {
+        try {
+            const data = await api("/api/promotion/promote", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({
+                    class_category: context.source,
+                    admissions: context.students.map((student) => student.Admission_number),
+                    destination_classes: context.destinationClasses || {}
+                })
+            });
+
+            forceCloseConfirmation();
+
+            showToast(data.message, "success");
+            clearSelection(false);
+
+            await Promise.allSettled([
+                loadSummary(),
+                loadStudents(),
+                loadLogs()
+            ]);
+
+            document.dispatchEvent(new CustomEvent("emis:promotion-completed", {
+                detail: data
+            }));
+
+        } catch (error) {
+            showToast(error.message, "error");
+        }
+    }
+
+
+    // =========================================================
+    // APPLY REPETITION
+    // =========================================================
+    async function applyRepeat(context) {
+        try {
+            const data = await api("/api/promotion/repeat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({
+                    class_category: context.source,
+                    admissions: context.students.map((student) => student.Admission_number),
+                    note: "Student retained in current class"
+                })
+            });
+
+            forceCloseConfirmation();
+
+            showToast(data.message, "success");
+            clearSelection(false);
+
+            await Promise.allSettled([
+                loadStudents(),
+                loadLogs()
+            ]);
+
+            document.dispatchEvent(new CustomEvent("emis:repetition-completed", {
+                detail: data
+            }));
+
+        } catch (error) {
+            showToast(error.message, "error");
+        }
+    }
+
+
+    // =========================================================
+    // APPLY GRADUATION
+    // =========================================================
+    async function applyGraduation(context) {
+        try {
+            const data = await api("/api/promotion/graduate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({
+                    class_category: "SS3",
+                    admissions: context.students.map((student) => student.Admission_number)
+                })
+            });
+
+            forceCloseConfirmation();
+
+            let message = data.message || "Graduation completed successfully.";
+
+            if (Array.isArray(data.released_admission_numbers) && data.released_admission_numbers.length) {
+                message += ` Released admission number${data.released_admission_numbers.length === 1 ? "" : "s"}: ${data.released_admission_numbers.join(", ")}.`;
+            }
+
+            showToast(message, "success");
+            clearSelection(false);
+
+            await Promise.allSettled([
+                loadSummary(),
+                loadStudents(),
+                loadLogs()
+            ]);
+
+            document.dispatchEvent(new CustomEvent("emis:graduation-completed", {
+                detail: data
+            }));
+
+        } catch (error) {
+            showToast(error.message, "error");
+        }
+    }
+
+
+    // =========================================================
+    // GRADUATE ARCHIVE
+    // =========================================================
+    async function openGraduates() {
+        showModal(els.graduatesModal, els.graduatesOverlay);
+
+        if (els.graduatesBody) els.graduatesBody.innerHTML = loadingGraduateRow();
+
+        try {
+            const data = await api("/api/promotion/graduates");
+
+            promotionState.graduates = Array.isArray(data.graduates) ? data.graduates : [];
+            promotionState.graduatePage = 1;
+
+            populateGraduateYears(data.summary || {});
+            renderGraduates();
+
+        } catch (error) {
+            promotionState.graduates = [];
+
+            if (els.graduatesBody) {
+                els.graduatesBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="table-placeholder">
+                            <strong>Could not load graduates</strong>
+                            <span>${escapeHtml(error.message)}</span>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+    }
+
+
+    function closeGraduates() {
+        hideModal(els.graduatesModal, els.graduatesOverlay);
+    }
+
+
+    function populateGraduateYears(summary) {
+        if (!els.graduateYearFilter) return;
+
+        const years = Object.keys(summary.years || {}).sort((a, b) => Number(b) - Number(a));
+
+        els.graduateYearFilter.innerHTML = `
+            <option value="all">All Years</option>
+            ${years.map((year) => `<option value="${escapeHtml(year)}">${escapeHtml(year)}</option>`).join("")}
+        `;
+    }
+
+
+    function getFilteredGraduates() {
+        const query = normalize(els.graduateSearch?.value);
+        const year = els.graduateYearFilter?.value || "all";
+
+        return promotionState.graduates.filter((graduate) => {
+            if (year !== "all" && String(graduate.Graduation_year || "") !== year) return false;
+            if (!query) return true;
+
+            return normalize([
+                graduate.Admission_number,
+                graduate.Last_name,
+                graduate.First_name,
+                graduate.Other_names,
+                graduate.Class,
+                graduate.Academic_session,
+                graduate.Graduation_year
+            ].join(" ")).includes(query);
+        });
+    }
+
+
+    function renderGraduates() {
+        if (!els.graduatesBody) return;
+
+        const filtered = getFilteredGraduates();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / promotionState.graduateRowsPerPage));
+
+        promotionState.graduatePage = Math.min(promotionState.graduatePage, totalPages);
+
+        const start = (promotionState.graduatePage - 1) * promotionState.graduateRowsPerPage;
+        const pageRows = filtered.slice(start, start + promotionState.graduateRowsPerPage);
+
+        if (!pageRows.length) {
+            els.graduatesBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="table-placeholder">
+                        <span class="table-placeholder-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                        <strong>No graduates found</strong>
+                        <span>No archived graduate matches this search.</span>
+                    </td>
+                </tr>
+            `;
+
+        } else {
+            els.graduatesBody.innerHTML = pageRows.map((graduate) => `
+                <tr>
+                    <td>
+                        <strong>${escapeHtml(fullName(graduate))}</strong>
+                        <span>${escapeHtml(graduate.Academic_session || "")}</span>
+                    </td>
+
+                    <td>${escapeHtml(graduate.Admission_number || "—")}</td>
+                    <td>${escapeHtml(displayClass(graduate.Class || "—"))}</td>
+                    <td>${escapeHtml(graduate.Sex || "—")}</td>
+                    <td>${escapeHtml(graduate.Graduation_date || "—")}</td>
+
+                    <td>
+                        <button class="row-action-btn graduate-view-btn" data-admission="${escapeHtml(graduate.Admission_number)}" type="button" title="View graduate">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+
+            document.querySelectorAll(".graduate-view-btn").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const graduate = promotionState.graduates.find((item) => normalizeAdmission(item.Admission_number) === normalizeAdmission(button.dataset.admission));
+
+                    if (graduate) {
+                        closeGraduates();
+                        openStudentDetails(graduate);
+                    }
+                });
+            });
+        }
+
+        if (els.graduatesCount) els.graduatesCount.textContent = `${filtered.length} graduate${filtered.length === 1 ? "" : "s"}`;
+
+        renderGraduatePagination(filtered.length, totalPages);
+    }
+
+
+    function renderGraduatePagination(totalRows, totalPages) {
+        if (!els.graduatesPagination) return;
+
+        if (!totalRows || totalPages <= 1) {
+            els.graduatesPagination.innerHTML = "";
+            return;
+        }
+
+        els.graduatesPagination.innerHTML = `
+            <button type="button" data-graduate-page="${promotionState.graduatePage - 1}" ${promotionState.graduatePage <= 1 ? "disabled" : ""}>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <span>${promotionState.graduatePage} / ${totalPages}</span>
+
+            <button type="button" data-graduate-page="${promotionState.graduatePage + 1}" ${promotionState.graduatePage >= totalPages ? "disabled" : ""}>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        `;
+
+        els.graduatesPagination.querySelectorAll("button[data-graduate-page]").forEach((button) => {
+            button.addEventListener("click", () => {
+                const page = Number(button.dataset.graduatePage);
+
+                if (page < 1 || page > totalPages) return;
+
+                promotionState.graduatePage = page;
+                renderGraduates();
+            });
+        });
+    }
+
+
+    function loadingGraduateRow() {
+        return `
+            <tr>
+                <td colspan="6" class="table-placeholder">
+                    <span class="table-placeholder-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                    <strong>Loading graduation archive</strong>
+                    <span>Please wait...</span>
+                </td>
+            </tr>
+        `;
+    }
+
+
+    // =========================================================
+    // PUBLIC PROMOTION API
+    // =========================================================
+    window.EMISPromotion = {
+        NEXT_CLASS,
+        state: promotionState,
+
+        startPromotionAction,
+        startRepeatAction,
+        openGraduates
+    };
+
 });

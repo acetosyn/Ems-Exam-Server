@@ -1,22 +1,14 @@
-# modules/admin_routes.py
+# MODULE: Admin Routes — Admin/teacher authentication, dashboards and protected administrative pages
 
-from flask import Blueprint, request, session, redirect, url_for, jsonify, render_template, flash
+import os
+import csv
 from functools import wraps
 from pathlib import Path
-import csv
 
-from engine import (
-    generate_teacher_ids,
-    get_all_teachers,
-    validate_teacher_login,
-    delete_teacher_from_db
-)
+from flask import Blueprint, request, session, redirect, url_for, jsonify, render_template, flash
 
-from modules.promotion_manager import (
-    CLASSES,
-    DESTINATIONS,
-    CLASS_ARMS,
-)
+from engine import generate_teacher_ids, get_all_teachers, validate_teacher_login, delete_teacher_from_db
+from modules.class_config import SUPPORTED_CLASSES, CLASS_ARMS_BY_LEVEL
 
 import user_exam
 
@@ -27,28 +19,37 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 LOGS_DIR = BASE_DIR / "logs"
 LOGS_DIR.mkdir(exist_ok=True)
 
+CLASSES = list(SUPPORTED_CLASSES)
+CLASS_ARMS = CLASS_ARMS_BY_LEVEL
+
 
 # ==========================================================
 # DECORATORS
 # ==========================================================
 def admin_only(view_func):
     """Restrict access to admin users only."""
+
     @wraps(view_func)
     def wrapper(*args, **kwargs):
         if session.get("user_type") != "admin":
             flash("Access Restricted — Admin privileges required.", "error")
             return redirect(url_for("admin_bp.admin_login"))
+
         return view_func(*args, **kwargs)
+
     return wrapper
 
 
 def teacher_allowed(view_func):
     """Allow both admin and teacher; block unauthenticated."""
+
     @wraps(view_func)
     def wrapper(*args, **kwargs):
         if session.get("user_type") not in ["admin", "teacher"]:
             return redirect(url_for("admin_bp.admin_login"))
+
         return view_func(*args, **kwargs)
+
     return wrapper
 
 
@@ -57,13 +58,14 @@ def teacher_allowed(view_func):
 # ==========================================================
 @admin_bp.route("/admin_login", methods=["GET", "POST"])
 def admin_login():
-    from app import ADMIN_USERNAME, ADMIN_PASSWORD
-
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "").strip()
 
-        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        admin_username = os.getenv("ADMIN_USERNAME", "").strip()
+        admin_password = os.getenv("ADMIN_PASSWORD", "").strip()
+
+        if admin_username and admin_password and username == admin_username and password == admin_password:
             session.clear()
             session["user_type"] = "admin"
             session["username"] = username
@@ -77,10 +79,7 @@ def admin_login():
             session["username"] = username
             return redirect(url_for("admin_bp.admin_teachers"))
 
-        return render_template(
-            "admin_login.html",
-            error="Invalid Username or Password"
-        )
+        return render_template("admin_login.html", error="Invalid Username or Password")
 
     return render_template("admin_login.html")
 
@@ -109,9 +108,9 @@ def generate_teacher_ids_api():
 
         return jsonify({"teachers": get_all_teachers()})
 
-    except Exception as e:
-        print("Error generating IDs:", e)
-        return jsonify({"error": str(e)}), 500
+    except Exception as error:
+        print("Error generating IDs:", error)
+        return jsonify({"error": str(error)}), 500
 
 
 @admin_bp.route("/delete_teacher_id/<int:teacher_id>", methods=["DELETE"])
@@ -120,8 +119,9 @@ def delete_teacher_id(teacher_id):
     try:
         success = delete_teacher_from_db(teacher_id)
         return jsonify({"success": success})
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+
+    except Exception as error:
+        return jsonify({"success": False, "error": str(error)}), 500
 
 
 # ==========================================================
@@ -138,6 +138,7 @@ def admin_dashboard():
 @teacher_allowed
 def admin_teachers():
     return render_template("teachers.html", user_type=session.get("user_type"))
+
 
 @admin_bp.route("/admin/convert")
 @teacher_allowed
@@ -181,13 +182,7 @@ def admin_third_party():
 @admin_bp.route("/admin/promotion")
 @admin_only
 def admin_promotion():
-    return render_template(
-        "promotion.html",
-        user_type="admin",
-        classes=CLASSES,
-        destinations=DESTINATIONS,
-        class_arms=CLASS_ARMS,
-    )
+    return render_template("promotion.html", user_type="admin", classes=CLASSES, class_arms=CLASS_ARMS)
 
 
 @admin_bp.route("/admin/settings")
@@ -223,8 +218,8 @@ def view_credentials():
     creds = []
 
     try:
-        with open(latest, "r", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
+        with open(latest, "r", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
 
             for row in reader:
                 creds.append({
@@ -232,8 +227,8 @@ def view_credentials():
                     "password": row.get("password", "").strip()
                 })
 
-    except Exception as e:
-        print(f"Error reading credentials file: {e}")
+    except Exception as error:
+        print(f"Error reading credentials file: {error}")
 
     return jsonify({"credentials": creds})
 
@@ -248,28 +243,25 @@ def view_results():
 
     try:
         results = user_exam.get_exam_results() or []
-    except Exception as e:
-        print(f"DB fetch failed: {e}")
+    except Exception as error:
+        print(f"DB fetch failed: {error}")
 
     if not results:
         files = sorted(LOGS_DIR.glob("exam_results_*.csv"), reverse=True)
 
         for file in files:
             try:
-                with open(file, "r", encoding="utf-8") as f:
-                    reader = csv.DictReader(f)
+                with open(file, "r", encoding="utf-8") as result_file:
+                    reader = csv.DictReader(result_file)
 
                     for row in reader:
-                        cleaned = {
-                            k.strip(): (v or "").strip()
-                            for k, v in row.items()
-                        }
+                        cleaned = {key.strip(): (value or "").strip() for key, value in row.items()}
                         results.append(cleaned)
 
-            except Exception as e:
-                print(f"Error reading {file.name}: {e}")
+            except Exception as error:
+                print(f"Error reading {file.name}: {error}")
 
-    results.sort(key=lambda r: r.get("submitted_at", ""), reverse=True)
+    results.sort(key=lambda row: row.get("submitted_at", ""), reverse=True)
 
     return jsonify({"results": results})
 
@@ -280,10 +272,7 @@ def view_results():
 @admin_bp.route("/admin/results")
 @teacher_allowed
 def admin_results():
-    return render_template(
-        "admin_results.html",
-        user_type=session.get("user_type")
-    )
+    return render_template("admin_results.html", user_type=session.get("user_type"))
 
 
 # ==========================================================

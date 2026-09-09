@@ -5,10 +5,7 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
 
-<div class="uploads-wrapper fade-in"
-     data-user-role="{{ user_type|default('admin') }}"
-     data-classes='{{ classes|tojson if classes is defined else "[]" }}'
-     data-class-arms='{{ class_arms|tojson if class_arms is defined else "{}" }}'>
+<div class="uploads-wrapper fade-in" data-user-role="{{ user_type|default('admin') }}" data-classes='{{ classes|tojson if classes is defined else "[]" }}' data-class-arms='{{ class_arms|tojson if class_arms is defined else "{}" }}'>
 
   <!-- ============================================================
        PAGE HEADER
@@ -17,35 +14,27 @@
     <div class="uploads-header-main">
 
       <div class="uploads-title-block">
-        <span class="uploads-kicker">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-          EMIS CBT
-        </span>
-
+        <span class="uploads-kicker"><i class="fa-solid fa-cloud-arrow-up"></i> EMIS CBT</span>
         <h1>Past Question Library</h1>
-        <p>Upload, organise and assign examination questions.</p>
+        <p>Upload, organise, review and assign examination questions.</p>
       </div>
 
       <div class="uploads-header-actions">
+
         <div class="mode-badge" data-role="{{ user_type|default('admin') }}">
           {% if user_type == 'teacher' %}
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <span>Teacher</span>
+            <i class="fa-solid fa-chalkboard-user"></i><span>Teacher</span>
           {% else %}
-            <i class="fa-solid fa-shield-halved"></i>
-            <span>Administrator</span>
+            <i class="fa-solid fa-shield-halved"></i><span>Administrator</span>
           {% endif %}
         </div>
 
-        <button id="btnViewSubjects" class="btn-soft" type="button">
-          <i class="fa-solid fa-folder-open"></i>
-          Repository
-        </button>
+        <button id="btnViewSubjects" class="btn-soft" type="button"><i class="fa-solid fa-folder-open"></i> Repository</button>
 
-        <button id="refreshUploads" class="icon-action" type="button"
-                title="Refresh library" aria-label="Refresh library">
+        <button id="refreshUploads" class="icon-action" type="button" title="Refresh library" aria-label="Refresh library">
           <i class="fa-solid fa-rotate"></i>
         </button>
+
       </div>
 
     </div>
@@ -59,52 +48,33 @@
 
     <div class="status-item">
       <span class="status-icon"><i class="fa-solid fa-calendar-days"></i></span>
-
-      <div>
-        <small>Year</small>
-        <strong id="statSelectedYear">—</strong>
-      </div>
+      <div><small>Year</small><strong id="statSelectedYear">—</strong></div>
     </div>
 
     <div class="status-divider"></div>
 
     <div class="status-item">
       <span class="status-icon"><i class="fa-solid fa-folder-tree"></i></span>
-
-      <div>
-        <small>Files</small>
-        <strong id="statLoadedFiles">0</strong>
-      </div>
+      <div><small>Files</small><strong id="statLoadedFiles">0</strong></div>
     </div>
 
     <div class="status-divider"></div>
 
     <div class="status-item">
       <span class="status-icon"><i class="fa-solid fa-list-check"></i></span>
-
-      <div>
-        <small>Selected</small>
-        <strong id="pushCount">0</strong>
-      </div>
+      <div><small>Selected</small><strong id="pushCount">0</strong></div>
     </div>
 
     <div class="status-divider"></div>
 
     <div class="status-item">
       <span class="status-icon"><i class="fa-solid fa-location-arrow"></i></span>
-
-      <div>
-        <small>Target</small>
-        <strong id="statTargetArm">—</strong>
-      </div>
+      <div><small>Target</small><strong id="statTargetArm">—</strong></div>
     </div>
 
     <div class="status-years">
       <span class="status-years-label">Available</span>
-
-      <div id="availableYearsList" class="available-years-list">
-        <span class="year-loading">Loading…</span>
-      </div>
+      <div id="availableYearsList" class="available-years-list"><span class="year-loading">Loading…</span></div>
     </div>
 
   </section>
@@ -115,6 +85,7 @@
   ============================================================= -->
   <section class="uploads-workspace">
 
+
     <!-- ========================================================
          STEP 1 — UPLOAD
     ========================================================= -->
@@ -122,88 +93,58 @@
 
       <div class="workspace-step-header">
         <div class="step-number">01</div>
-
-        <div class="step-heading">
-          <span>Upload</span>
-          <h2>Add DOCX</h2>
-        </div>
-
-        <span class="step-icon">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-        </span>
+        <div class="step-heading"><span>Upload</span><h2>Add DOCX</h2></div>
+        <span class="step-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span>
       </div>
 
 
       <!-- DROP ZONE -->
       <div class="upload-dropzone" id="uploadDropZone">
+
         <input type="file" id="uploadInputSingle" hidden accept=".docx">
         <input type="file" id="uploadInputMulti" hidden accept=".docx" multiple>
 
         <div class="upload-dropzone-content">
-          <div class="upload-drop-icon">
-            <i class="fa-solid fa-file-word"></i>
-          </div>
+
+          <div class="upload-drop-icon"><i class="fa-solid fa-file-word"></i></div>
 
           <strong>Drop DOCX here</strong>
           <small>or browse files</small>
 
           <div class="upload-picker-actions">
-            <button id="chooseSingle" class="btn-primary compact" type="button">
-              <i class="fa-solid fa-file"></i>
-              One
-            </button>
-
-            <button id="chooseMulti" class="btn-secondary compact" type="button">
-              <i class="fa-solid fa-layer-group"></i>
-              Multiple
-            </button>
+            <button id="chooseSingle" class="btn-primary compact" type="button"><i class="fa-solid fa-file"></i> One</button>
+            <button id="chooseMulti" class="btn-secondary compact" type="button"><i class="fa-solid fa-layer-group"></i> Multiple</button>
           </div>
+
         </div>
       </div>
 
 
       <!-- SELECTED FILES -->
       <div class="selected-files-block">
-        <div class="compact-block-header">
-          <span>
-            <i class="fa-solid fa-paperclip"></i>
-            Files
-          </span>
 
+        <div class="compact-block-header">
+          <span><i class="fa-solid fa-paperclip"></i> Files</span>
           <strong id="selectedCount" class="count-badge">0</strong>
         </div>
 
         <ul id="fileList" class="file-list pretty-scroll"></ul>
+        <div id="noSelectedFiles" class="compact-empty-state">No files selected</div>
 
-        <div id="noSelectedFiles" class="compact-empty-state">
-          No files selected
-        </div>
       </div>
 
 
       <!-- UPLOAD ACTIONS -->
       <div class="panel-actions">
-        <button id="startUpload" class="btn-primary full" type="button">
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-          Convert
-        </button>
-
-        <button id="clearUploads" class="btn-ghost full" type="button">
-          <i class="fa-solid fa-xmark"></i>
-          Clear
-        </button>
+        <button id="startUpload" class="btn-primary full" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Convert</button>
+        <button id="clearUploads" class="btn-ghost full" type="button"><i class="fa-solid fa-xmark"></i> Clear</button>
       </div>
 
 
       <!-- PROGRESS -->
       <div id="uploadProgress" class="upload-progress hidden">
-        <div class="progress-track">
-          <div id="uploadProgressBar" class="progress-bar"></div>
-        </div>
-
-        <span id="uploadProgressLabel" class="progress-label">
-          Processing…
-        </span>
+        <div class="progress-track"><div id="uploadProgressBar" class="progress-bar"></div></div>
+        <span id="uploadProgressLabel" class="progress-label">Processing…</span>
       </div>
 
     </aside>
@@ -219,11 +160,7 @@
 
         <div class="workspace-step-header library-step-header">
           <div class="step-number">02</div>
-
-          <div class="step-heading">
-            <span>Repository</span>
-            <h2>Exam Library</h2>
-          </div>
+          <div class="step-heading"><span>Repository</span><h2>Exam Library</h2></div>
         </div>
 
 
@@ -234,26 +171,20 @@
 
             <select id="yearSelectorUploads" aria-label="Select examination year">
               <option value="" disabled selected>Year</option>
-
               {% for y in range(2026, 2012, -1) %}
                 <option value="{{ y }}">{{ y }}</option>
               {% endfor %}
             </select>
           </div>
 
+          <button id="selectAllVisible" class="btn-soft compact" type="button"><i class="fa-solid fa-check-double"></i> Select Visible</button>
 
-          <button id="selectAllVisible" class="btn-soft compact" type="button">
-            <i class="fa-solid fa-check-double"></i>
-            Select Visible
-          </button>
-
-
-          <button id="clearQueue" class="icon-action" type="button"
-                  title="Clear selection" aria-label="Clear selection">
+          <button id="clearQueue" class="icon-action" type="button" title="Clear selection" aria-label="Clear selection">
             <i class="fa-solid fa-broom"></i>
           </button>
 
         </div>
+
       </div>
 
 
@@ -262,41 +193,17 @@
       ======================================================= -->
       <div class="class-navigation">
 
-        <button class="class-pill active" data-class="ALL" type="button">
-          All
-        </button>
+        <button class="class-pill active" data-class="ALL" type="button">All</button>
 
-        <button class="class-pill" data-class="JSS1"
-                data-term-aware="true" type="button">
-          JSS1
-        </button>
-
-        <button class="class-pill" data-class="JSS2"
-                data-term-aware="true" type="button">
-          JSS2
-        </button>
-
-        <button class="class-pill" data-class="JSS3"
-                data-term-aware="true" type="button">
-          JSS3
-        </button>
+        <button class="class-pill" data-class="JSS1" data-term-aware="true" type="button">JSS1</button>
+        <button class="class-pill" data-class="JSS2" data-term-aware="true" type="button">JSS2</button>
+        <button class="class-pill" data-class="JSS3" data-term-aware="true" type="button">JSS3</button>
 
         <span class="class-nav-divider"></span>
 
-        <button class="class-pill" data-class="SS1"
-                data-term-aware="false" type="button">
-          SS1
-        </button>
-
-        <button class="class-pill" data-class="SS2"
-                data-term-aware="false" type="button">
-          SS2
-        </button>
-
-        <button class="class-pill" data-class="SS3"
-                data-term-aware="false" type="button">
-          SS3
-        </button>
+        <button class="class-pill" data-class="SS1" data-term-aware="false" type="button">SS1</button>
+        <button class="class-pill" data-class="SS2" data-term-aware="false" type="button">SS2</button>
+        <button class="class-pill" data-class="SS3" data-term-aware="false" type="button">SS3</button>
 
       </div>
 
@@ -304,30 +211,15 @@
       <!-- ======================================================
            TERM FILTER
       ======================================================= -->
-      <div id="termFilterBar" class="term-filter-bar hidden"
-           aria-label="Term filter">
+      <div id="termFilterBar" class="term-filter-bar hidden" aria-label="Term filter">
 
-        <div class="term-filter-title">
-          <i class="fa-solid fa-calendar-week"></i>
-          <span>Term</span>
-        </div>
+        <div class="term-filter-title"><i class="fa-solid fa-calendar-week"></i><span>Term</span></div>
 
         <div class="term-filter-options">
-          <button class="term-pill active" data-term="ALL" type="button">
-            All
-          </button>
-
-          <button class="term-pill" data-term="FIRST" type="button">
-            1st Term
-          </button>
-
-          <button class="term-pill" data-term="SECOND" type="button">
-            2nd Term
-          </button>
-
-          <button class="term-pill" data-term="THIRD" type="button">
-            3rd Term
-          </button>
+          <button class="term-pill active" data-term="ALL" type="button">All</button>
+          <button class="term-pill" data-term="FIRST" type="button">1st Term</button>
+          <button class="term-pill" data-term="SECOND" type="button">2nd Term</button>
+          <button class="term-pill" data-term="THIRD" type="button">3rd Term</button>
         </div>
 
       </div>
@@ -341,8 +233,7 @@
         <div class="subject-filter-box">
           <i class="fa-solid fa-book-open"></i>
 
-          <select id="subjectFilterUploads" class="subject-filter-select"
-                  aria-label="Filter subjects">
+          <select id="subjectFilterUploads" class="subject-filter-select" aria-label="Filter subjects">
             <option value="ALL">All Subjects</option>
           </select>
         </div>
@@ -351,12 +242,9 @@
         <div class="search-bar">
           <i class="fa-solid fa-magnifying-glass"></i>
 
-          <input id="searchUploads" type="search"
-                 autocomplete="off"
-                 placeholder="Search subject or filename...">
+          <input id="searchUploads" type="search" autocomplete="off" placeholder="Search subject or filename...">
 
-          <button id="clearUploadSearch" class="search-clear hidden"
-                  type="button" aria-label="Clear search">
+          <button id="clearUploadSearch" class="search-clear hidden" type="button" aria-label="Clear search">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -371,19 +259,11 @@
 
         <div class="library-summary-left">
           <span id="libraryResultCount">0 files</span>
-
-          <span id="activeClassIndicator" class="summary-chip">
-            All Classes
-          </span>
-
-          <span id="activeTermIndicator" class="summary-chip term-chip hidden">
-            All Terms
-          </span>
+          <span id="activeClassIndicator" class="summary-chip">All Classes</span>
+          <span id="activeTermIndicator" class="summary-chip term-chip hidden">All Terms</span>
         </div>
 
-        <div class="library-summary-right">
-          <span id="librarySelectionSummary">0 selected</span>
-        </div>
+        <div class="library-summary-right"><span id="librarySelectionSummary">0 selected</span></div>
 
       </div>
 
@@ -397,37 +277,41 @@
 
           <thead>
             <tr>
+
               <th class="check-column">
-                <input type="checkbox" id="checkAllUploads"
-                       aria-label="Select all files">
+                <input type="checkbox" id="checkAllUploads" aria-label="Select all files">
               </th>
 
               <th>Exam File</th>
               <th>Subject</th>
               <th>Class</th>
               <th class="term-column">Term</th>
-              <th>Questions</th>
+
+              <!-- NEW -->
+              <th class="objective-column">Objective</th>
+              <th class="theory-column">Theory / Essay</th>
+
               <th>Status</th>
               <th class="actions-column">Actions</th>
+
             </tr>
           </thead>
 
 
           <tbody id="uploadedTable">
+
             <tr>
-              <td colspan="8" class="empty">
+              <td colspan="9" class="empty">
 
                 <div class="table-empty-state">
-                  <span class="table-empty-icon">
-                    <i class="fa-solid fa-folder-open"></i>
-                  </span>
-
+                  <span class="table-empty-icon"><i class="fa-solid fa-folder-open"></i></span>
                   <strong>Select an exam year</strong>
                   <small>Question files will appear here.</small>
                 </div>
 
               </td>
             </tr>
+
           </tbody>
 
         </table>
@@ -444,21 +328,12 @@
 
       <div class="workspace-step-header">
         <div class="step-number">03</div>
-
-        <div class="step-heading">
-          <span>Publish</span>
-          <h2>Push Target</h2>
-        </div>
-
-        <span class="step-icon">
-          <i class="fa-solid fa-paper-plane"></i>
-        </span>
+        <div class="step-heading"><span>Publish</span><h2>Push Target</h2></div>
+        <span class="step-icon"><i class="fa-solid fa-paper-plane"></i></span>
       </div>
 
 
-      <!-- ======================================================
-           PUSH FORM
-      ======================================================= -->
+      <!-- PUSH FORM -->
       <div class="push-form">
 
         <div class="form-field">
@@ -537,36 +412,22 @@
       <div class="portal-summary">
 
         <div class="portal-summary-top">
-          <div class="portal-icon">
-            <i class="fa-solid fa-database"></i>
-          </div>
+          <div class="portal-icon"><i class="fa-solid fa-database"></i></div>
 
           <div class="portal-meta">
             <small>Ready to Push</small>
-
-            <strong>
-              <span id="pushCountSide">0</span>
-              subjects
-            </strong>
+            <strong><span id="pushCountSide">0</span> subjects</strong>
           </div>
         </div>
 
 
         <div class="portal-target-preview">
 
-          <span>
-            <i class="fa-solid fa-calendar"></i>
-            <b id="activeYearLabel">—</b>
-          </span>
-
-          <span>
-            <i class="fa-solid fa-users"></i>
-            <b id="activeTargetLabel">—</b>
-          </span>
+          <span><i class="fa-solid fa-calendar"></i><b id="activeYearLabel">—</b></span>
+          <span><i class="fa-solid fa-users"></i><b id="activeTargetLabel">—</b></span>
 
           <span id="activeTermLabelWrap" class="hidden">
-            <i class="fa-solid fa-calendar-week"></i>
-            <b id="activeTermLabel">—</b>
+            <i class="fa-solid fa-calendar-week"></i><b id="activeTermLabel">—</b>
           </span>
 
         </div>
@@ -574,30 +435,19 @@
       </div>
 
 
-      <!-- ======================================================
-           PUSH ACTIONS
-      ======================================================= -->
+      <!-- PUSH ACTIONS -->
       <div class="push-actions">
 
-        <button id="pushSelectedToPortal"
-                class="btn-primary full push-main-action"
-                type="button">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-          Push Selected
+        <button id="pushSelectedToPortal" class="btn-primary full push-main-action" type="button">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Push Selected
         </button>
 
-        <button id="viewPortalJSON"
-                class="btn-secondary full"
-                type="button">
-          <i class="fa-solid fa-code"></i>
-          Portal JSON
+        <button id="viewPortalJSON" class="btn-secondary full" type="button">
+          <i class="fa-solid fa-code"></i> Portal JSON
         </button>
 
-        <button id="clearPortalSubjects"
-                class="btn-danger-soft full"
-                type="button">
-          <i class="fa-solid fa-trash-can"></i>
-          Clear Target
+        <button id="clearPortalSubjects" class="btn-danger-soft full" type="button">
+          <i class="fa-solid fa-trash-can"></i> Clear Target
         </button>
 
       </div>
@@ -609,18 +459,13 @@
       <div class="mini-preview-card">
 
         <div class="mini-preview-header">
-          <span>
-            <i class="fa-solid fa-eye"></i>
-            Preview
-          </span>
 
-          <button id="openFullPreviewModal"
-                  class="mini-icon-button"
-                  type="button"
-                  title="Open full preview"
-                  aria-label="Open full preview">
+          <span><i class="fa-solid fa-eye"></i> Preview</span>
+
+          <button id="openFullPreviewModal" class="mini-icon-button" type="button" title="Open full preview" aria-label="Open full preview">
             <i class="fa-solid fa-expand"></i>
           </button>
+
         </div>
 
 
@@ -628,14 +473,12 @@
           <span id="previewSubjectPill">—</span>
           <span id="previewVersionPill">—</span>
           <span id="previewQuestionCountPill">—</span>
+          <span id="previewEssayStatusPill">—</span>
         </div>
 
 
-        <div id="latestPreviewBody"
-             class="preview-body pretty-scroll">
-          <p class="preview-placeholder">
-            Select a file to preview.
-          </p>
+        <div id="latestPreviewBody" class="preview-body pretty-scroll">
+          <p class="preview-placeholder">Select a file to preview.</p>
         </div>
 
       </div>
@@ -657,21 +500,20 @@
         <h2>Active Exam Assignments</h2>
       </div>
 
-      <button id="refreshPortalMap"
-              class="icon-text-button"
-              type="button">
-        <i class="fa-solid fa-rotate"></i>
-        Refresh
+      <button id="refreshPortalMap" class="icon-text-button" type="button">
+        <i class="fa-solid fa-rotate"></i> Refresh
       </button>
 
     </div>
 
 
     <div id="portalMapGrid" class="portal-map-grid">
+
       <div class="empty-map">
         <i class="fa-solid fa-diagram-project"></i>
         <p>No assignments loaded.</p>
       </div>
+
     </div>
 
   </section>
@@ -689,18 +531,14 @@
         <h2>Activity</h2>
       </div>
 
-      <button id="clearPortalLog"
-              class="icon-text-button"
-              type="button">
-        <i class="fa-solid fa-eraser"></i>
-        Clear
+      <button id="clearPortalLog" class="icon-text-button" type="button">
+        <i class="fa-solid fa-eraser"></i> Clear
       </button>
 
     </div>
 
 
-    <div id="portalLogBody"
-         class="log-body pretty-scroll">
+    <div id="portalLogBody" class="log-body pretty-scroll">
       <p class="log-placeholder">No recent activity.</p>
     </div>
 
@@ -710,11 +548,7 @@
   <!-- ============================================================
        SUBJECT REPOSITORY MODAL
   ============================================================= -->
-  <div id="subjectsModal"
-       class="modal hidden"
-       role="dialog"
-       aria-modal="true"
-       aria-labelledby="subjectsModalTitle">
+  <div id="subjectsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="subjectsModalTitle">
 
     <div class="modal-backdrop" data-close="true"></div>
 
@@ -730,8 +564,7 @@
 
         <div class="modal-header-actions">
 
-          <select id="subjectsModalYear"
-                  class="year-selector small-year">
+          <select id="subjectsModalYear" class="year-selector small-year">
             <option value="" disabled selected>Year</option>
 
             {% for y in range(2026, 2012, -1) %}
@@ -739,27 +572,15 @@
             {% endfor %}
           </select>
 
-
-          <button id="btnRefreshSubjects"
-                  class="btn-secondary small"
-                  type="button">
-            <i class="fa-solid fa-rotate"></i>
-            Refresh
+          <button id="btnRefreshSubjects" class="btn-secondary small" type="button">
+            <i class="fa-solid fa-rotate"></i> Refresh
           </button>
 
-
-          <button id="btnPushAllSubjects"
-                  class="btn-primary small"
-                  type="button">
-            <i class="fa-solid fa-check-double"></i>
-            Select Visible
+          <button id="btnPushAllSubjects" class="btn-primary small" type="button">
+            <i class="fa-solid fa-check-double"></i> Select Visible
           </button>
 
-
-          <button class="modal-close"
-                  data-close="true"
-                  type="button"
-                  aria-label="Close modal">
+          <button class="modal-close" data-close="true" type="button" aria-label="Close modal">
             <i class="fa-solid fa-xmark"></i>
           </button>
 
@@ -770,11 +591,9 @@
 
       <div class="modal-body subjects-modal-body">
 
-        <div id="subjectsCardsContainer"
-             class="subjects-grid"></div>
+        <div id="subjectsCardsContainer" class="subjects-grid"></div>
 
-        <div id="subjectsEmptyState"
-             class="empty-state hidden">
+        <div id="subjectsEmptyState" class="empty-state hidden">
           <i class="fa-solid fa-folder-open"></i>
           <p>No subjects found.</p>
         </div>
@@ -783,24 +602,18 @@
 
 
       <div class="modal-footer">
-        <button class="btn-secondary small"
-                data-close="true"
-                type="button">
-          Close
-        </button>
+        <button class="btn-secondary small" data-close="true" type="button">Close</button>
       </div>
 
     </div>
+
   </div>
 
 
   <!-- ============================================================
        PUSH CLASS CONFIRMATION MODAL
   ============================================================= -->
-  <div id="pushClassModal"
-       class="modal hidden"
-       role="dialog"
-       aria-modal="true">
+  <div id="pushClassModal" class="modal hidden" role="dialog" aria-modal="true">
 
     <div class="modal-backdrop" data-close="true"></div>
 
@@ -813,10 +626,7 @@
           <h3>Push Exams</h3>
         </div>
 
-        <button class="modal-close"
-                data-close="true"
-                type="button"
-                aria-label="Close modal">
+        <button class="modal-close" data-close="true" type="button" aria-label="Close modal">
           <i class="fa-solid fa-xmark"></i>
         </button>
 
@@ -826,30 +636,11 @@
       <div class="modal-body">
 
         <div class="confirm-summary">
-          <p>
-            <span>Year</span>
-            <strong id="confirmPushYear">—</strong>
-          </p>
-
-          <p>
-            <span>Class</span>
-            <strong id="confirmPushClass">—</strong>
-          </p>
-
-          <p id="confirmPushTermRow" class="hidden">
-            <span>Term</span>
-            <strong id="confirmPushTerm">—</strong>
-          </p>
-
-          <p>
-            <span>Arm</span>
-            <strong id="confirmPushArm">—</strong>
-          </p>
-
-          <p>
-            <span>Subjects</span>
-            <strong id="confirmPushCount">0</strong>
-          </p>
+          <p><span>Year</span><strong id="confirmPushYear">—</strong></p>
+          <p><span>Class</span><strong id="confirmPushClass">—</strong></p>
+          <p id="confirmPushTermRow" class="hidden"><span>Term</span><strong id="confirmPushTerm">—</strong></p>
+          <p><span>Arm</span><strong id="confirmPushArm">—</strong></p>
+          <p><span>Subjects</span><strong id="confirmPushCount">0</strong></p>
         </div>
 
         <p id="chosenPushClass" class="chosen-class hidden"></p>
@@ -859,33 +650,23 @@
 
       <div class="modal-footer">
 
-        <button id="btnConfirmPush"
-                class="btn-primary disabled"
-                type="button"
-                disabled>
-          <i class="fa-solid fa-check"></i>
-          Confirm
+        <button id="btnConfirmPush" class="btn-primary disabled" type="button" disabled>
+          <i class="fa-solid fa-check"></i> Confirm
         </button>
 
-        <button class="btn-secondary"
-                data-close="true"
-                type="button">
-          Cancel
-        </button>
+        <button class="btn-secondary" data-close="true" type="button">Cancel</button>
 
       </div>
 
     </div>
+
   </div>
 
 
   <!-- ============================================================
        CLEAR PORTAL TARGET MODAL
   ============================================================= -->
-  <div id="clearPortalModal"
-       class="modal hidden"
-       role="dialog"
-       aria-modal="true">
+  <div id="clearPortalModal" class="modal hidden" role="dialog" aria-modal="true">
 
     <div class="modal-backdrop" data-close="true"></div>
 
@@ -898,10 +679,7 @@
           <h3>Clear Target</h3>
         </div>
 
-        <button class="modal-close"
-                data-close="true"
-                type="button"
-                aria-label="Close modal">
+        <button class="modal-close" data-close="true" type="button" aria-label="Close modal">
           <i class="fa-solid fa-xmark"></i>
         </button>
 
@@ -927,8 +705,7 @@
           </div>
 
 
-          <div id="clearTermField"
-               class="form-field hidden">
+          <div id="clearTermField" class="form-field hidden">
 
             <label for="clearTermSelector">Term</label>
 
@@ -938,6 +715,7 @@
               <option value="SECOND">2nd Term</option>
               <option value="THIRD">3rd Term</option>
             </select>
+
           </div>
 
 
@@ -950,19 +728,12 @@
           </div>
 
 
-          <button id="confirmClearTarget"
-                  class="btn-danger full"
-                  type="button">
-            <i class="fa-solid fa-trash-can"></i>
-            Clear Target
+          <button id="confirmClearTarget" class="btn-danger full" type="button">
+            <i class="fa-solid fa-trash-can"></i> Clear Target
           </button>
 
-
-          <button id="confirmClearAllTargets"
-                  class="btn-danger-soft full"
-                  type="button">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            Clear Everything
+          <button id="confirmClearAllTargets" class="btn-danger-soft full" type="button">
+            <i class="fa-solid fa-triangle-exclamation"></i> Clear Everything
           </button>
 
         </div>
@@ -971,38 +742,27 @@
 
 
       <div class="modal-footer">
-        <button class="btn-secondary"
-                data-close="true"
-                type="button">
-          Close
-        </button>
+        <button class="btn-secondary" data-close="true" type="button">Close</button>
       </div>
 
     </div>
+
   </div>
 
 
   <!-- ============================================================
        FINAL PUSH CONFIRMATION
   ============================================================= -->
-  <div id="pushConfirmModal"
-       class="push-confirm-modal hidden"
-       role="dialog"
-       aria-modal="true">
+  <div id="pushConfirmModal" class="push-confirm-modal hidden" role="dialog" aria-modal="true">
 
     <div class="push-confirm-backdrop"></div>
 
     <div class="push-confirm-card">
 
-      <div class="push-confirm-icon">
-        <i class="fa-solid fa-paper-plane"></i>
-      </div>
+      <div class="push-confirm-icon"><i class="fa-solid fa-paper-plane"></i></div>
 
       <h3>Ready to Push?</h3>
-
-      <p id="pushConfirmText">
-        Confirm this portal assignment.
-      </p>
+      <p id="pushConfirmText">Confirm this portal assignment.</p>
 
       <div class="push-confirm-summary">
         <span id="pushConfirmYear">Year: —</span>
@@ -1013,32 +773,23 @@
 
       <div class="push-confirm-actions">
 
-        <button id="cancelPushConfirm"
-                class="btn-secondary"
-                type="button">
-          Cancel
-        </button>
+        <button id="cancelPushConfirm" class="btn-secondary" type="button">Cancel</button>
 
-        <button id="acceptPushConfirm"
-                class="btn-primary"
-                type="button">
-          <i class="fa-solid fa-check"></i>
-          Push
+        <button id="acceptPushConfirm" class="btn-primary" type="button">
+          <i class="fa-solid fa-check"></i> Push
         </button>
 
       </div>
 
     </div>
+
   </div>
 
 
   <!-- ============================================================
        JSON PREVIEW MODAL
   ============================================================= -->
-  <div id="jsonPreviewModal"
-       class="modal hidden"
-       role="dialog"
-       aria-modal="true">
+  <div id="jsonPreviewModal" class="modal hidden" role="dialog" aria-modal="true">
 
     <div class="modal-backdrop" data-close="true"></div>
 
@@ -1051,31 +802,45 @@
           <h3 id="jsonPreviewTitle">JSON Preview</h3>
         </div>
 
-        <button class="modal-close"
-                data-close="true"
-                type="button"
-                aria-label="Close modal">
+        <button class="modal-close" data-close="true" type="button" aria-label="Close modal">
           <i class="fa-solid fa-xmark"></i>
         </button>
 
       </div>
 
 
+      <!-- NEW PREVIEW SUMMARY -->
+      <div class="json-preview-summary">
+
+        <div class="json-preview-stat">
+          <span>Objective</span>
+          <strong id="jsonPreviewObjectiveCount">—</strong>
+        </div>
+
+        <div class="json-preview-stat">
+          <span>Theory</span>
+          <strong id="jsonPreviewEssayCount">—</strong>
+        </div>
+
+        <div class="json-preview-stat">
+          <span>Essay Status</span>
+          <strong id="jsonPreviewEssayStatus">—</strong>
+        </div>
+
+      </div>
+
+
       <div class="modal-body">
-        <pre id="jsonPreviewBody"
-             class="json-pre pretty-scroll"></pre>
+        <pre id="jsonPreviewBody" class="json-pre pretty-scroll"></pre>
       </div>
 
 
       <div class="modal-footer">
-        <button class="btn-secondary small"
-                data-close="true"
-                type="button">
-          Close
-        </button>
+        <button class="btn-secondary small" data-close="true" type="button">Close</button>
       </div>
 
     </div>
+
   </div>
 
 </div>

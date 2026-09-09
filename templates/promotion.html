@@ -3,120 +3,126 @@
 {% block title %}EMIS — Promotion Manager{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=3">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=1">
 {% endblock %}
 
 {% block content %}
 
 <div class="promotion-page fade-in">
 
-  <!-- ================= HERO ================= -->
-  <section class="promotion-hero">
-    <div>
-      <span class="hero-kicker">
-        <i class="fa-solid fa-users-gear"></i>
-        Student Records
-      </span>
+  <!-- =========================================================
+       PAGE HEADER
+  ========================================================== -->
+  <header class="promotion-header">
 
-      <h1>Promotion Manager</h1>
+    <div class="promotion-header-main">
+      <div class="promotion-header-icon"><i class="fa-solid fa-users-gear"></i></div>
 
-      <p>
-        Promote, move, graduate, import, edit, preview, filter, and manage student CSV records safely.
-      </p>
-    </div>
-
-    <div class="hero-actions">
-      <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="pm-btn pm-btn-light">
-        <i class="fa-solid fa-arrow-left"></i>
-        Dashboard
-      </a>
-
-      <button id="refreshBtn" class="pm-btn pm-btn-primary">
-        <i class="fa-solid fa-rotate"></i>
-        Refresh
-      </button>
-    </div>
-  </section>
-
-
-  <!-- ================= SUMMARY ================= -->
-  <section class="summary-grid" id="summaryGrid">
-    <article class="summary-card loading-card">
-      <i class="fa-solid fa-spinner fa-spin"></i>
-      <span>Loading class summary...</span>
-    </article>
-  </section>
-
-
-  <!-- ================= QUICK TOOLS ================= -->
-  <section class="promotion-panel pm-tools-panel">
-    <header class="panel-head">
-      <div>
-        <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Student Database Tools</h2>
-        <p>Fast actions for filtering, exporting, backing up, adding, editing, and reviewing students.</p>
-      </div>
-    </header>
-
-    <div class="pm-tools-grid">
-      <button id="openAddStudentBtn" class="pm-tool-card">
-        <i class="fa-solid fa-user-plus"></i>
-        <strong>Add Student</strong>
-        <span>Create a new student record</span>
-      </button>
-
-      <button id="openBulkEditBtn" class="pm-tool-card">
-        <i class="fa-solid fa-pen-to-square"></i>
-        <strong>Bulk Edit</strong>
-        <span>Edit selected records</span>
-      </button>
-
-      <button id="exportClassBtn" class="pm-tool-card">
-        <i class="fa-solid fa-file-export"></i>
-        <strong>Export Class</strong>
-        <span>Download current class CSV</span>
-      </button>
-
-      <button id="backupNowBtn" class="pm-tool-card">
-        <i class="fa-solid fa-database"></i>
-        <strong>Backup Now</strong>
-        <span>Create instant backup</span>
-      </button>
-
-      <button id="viewGraduatedBtn" class="pm-tool-card">
-        <i class="fa-solid fa-user-graduate"></i>
-        <strong>Graduated</strong>
-        <span>View SS3 graduates</span>
-      </button>
-
-      <button id="viewLeftBtn" class="pm-tool-card">
-        <i class="fa-solid fa-user-minus"></i>
-        <strong>Left School</strong>
-        <span>View inactive records</span>
-      </button>
-    </div>
-  </section>
-
-
-  <!-- ================= MAIN GRID ================= -->
-  <section class="manager-grid">
-
-    <!-- ================= TABLE MANAGER ================= -->
-    <article class="promotion-panel">
-      <header class="panel-head">
-        <div>
-          <h2><i class="fa-solid fa-arrow-up-right-dots"></i> Promote / Move Students</h2>
-          <p>Select a source class, load students, choose records, then apply promotion or movement.</p>
+      <div class="promotion-header-copy">
+        <div class="promotion-header-title-row">
+          <h1>Promotion Manager</h1>
+          <span class="promotion-live-badge"><span class="live-dot"></span> Live Database</span>
         </div>
 
-        <span id="tableStatusBadge" class="selected-badge">Ready</span>
-      </header>
+        <p>Manage student records, class progression, repetition and graduation.</p>
+      </div>
+    </div>
+
+    <div class="promotion-header-actions">
+      <button id="openAddStudentBtn" class="pm-btn pm-btn-primary" type="button">
+        <i class="fa-solid fa-user-plus"></i><span>Add Student</span>
+      </button>
+
+      <button id="refreshBtn" class="pm-btn pm-btn-secondary" type="button">
+        <i class="fa-solid fa-rotate"></i><span>Refresh</span>
+      </button>
+
+      <button id="backupNowBtn" class="pm-btn pm-btn-secondary" type="button">
+        <i class="fa-solid fa-database"></i><span>Backup</span>
+      </button>
+
+      <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="pm-btn pm-btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i><span>Dashboard</span>
+      </a>
+    </div>
+
+  </header>
 
 
-      <!-- FILTER CONTROLS -->
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="fromClass">From Class</label>
-          <select id="fromClass">
+  <!-- =========================================================
+       CLASS OVERVIEW
+  ========================================================== -->
+  <section class="promotion-overview" id="summaryGrid" aria-label="Student class overview">
+
+    <article class="overview-card class-summary-card active" data-class="JSS1" tabindex="0" role="button">
+      <span class="overview-icon jss"><i class="fa-solid fa-users"></i></span>
+      <div class="overview-content"><span>JSS1 Students</span><strong id="summaryJSS1">0</strong></div>
+    </article>
+
+    <article class="overview-card class-summary-card" data-class="JSS2" tabindex="0" role="button">
+      <span class="overview-icon jss"><i class="fa-solid fa-users"></i></span>
+      <div class="overview-content"><span>JSS2 Students</span><strong id="summaryJSS2">0</strong></div>
+    </article>
+
+    <article class="overview-card class-summary-card" data-class="JSS3" tabindex="0" role="button">
+      <span class="overview-icon jss"><i class="fa-solid fa-users"></i></span>
+      <div class="overview-content"><span>JSS3 Students</span><strong id="summaryJSS3">0</strong></div>
+    </article>
+
+    <article class="overview-card class-summary-card" data-class="SS1" tabindex="0" role="button">
+      <span class="overview-icon ss"><i class="fa-solid fa-user-graduate"></i></span>
+      <div class="overview-content"><span>SS1 Students</span><strong id="summarySS1">0</strong></div>
+    </article>
+
+    <article class="overview-card class-summary-card" data-class="SS2" tabindex="0" role="button">
+      <span class="overview-icon ss"><i class="fa-solid fa-user-graduate"></i></span>
+      <div class="overview-content"><span>SS2 Students</span><strong id="summarySS2">0</strong></div>
+    </article>
+
+    <article class="overview-card class-summary-card" data-class="SS3" tabindex="0" role="button">
+      <span class="overview-icon ss"><i class="fa-solid fa-graduation-cap"></i></span>
+      <div class="overview-content"><span>SS3 Students</span><strong id="summarySS3">0</strong></div>
+    </article>
+
+  </section>
+
+
+  <!-- =========================================================
+       STUDENT DATABASE FILTERS
+  ========================================================== -->
+  <section class="promotion-filter-panel">
+
+    <div class="filter-panel-header">
+
+      <div class="filter-panel-title">
+        <span class="section-icon"><i class="fa-solid fa-sliders"></i></span>
+
+        <div>
+          <h2>Student Database</h2>
+          <p>Select a class and locate the students you want to manage.</p>
+        </div>
+      </div>
+
+      <div class="class-pills" id="classPills" aria-label="Quick class selection">
+        <button class="class-pill jss active" data-class="JSS1" type="button">JSS1</button>
+        <button class="class-pill jss" data-class="JSS2" type="button">JSS2</button>
+        <button class="class-pill jss" data-class="JSS3" type="button">JSS3</button>
+        <button class="class-pill ss" data-class="SS1" type="button">SS1</button>
+        <button class="class-pill ss" data-class="SS2" type="button">SS2</button>
+        <button class="class-pill ss" data-class="SS3" type="button">SS3</button>
+      </div>
+
+    </div>
+
+
+    <!-- FILTER CONTROLS -->
+    <div class="promotion-filter-grid">
+
+      <div class="filter-field">
+        <label for="classSelector"><i class="fa-solid fa-graduation-cap"></i> Class</label>
+
+        <div class="filter-control-wrap">
+          <select id="classSelector" class="filter-control">
             <option value="JSS1" selected>JSS1</option>
             <option value="JSS2">JSS2</option>
             <option value="JSS3">JSS3</option>
@@ -124,441 +130,881 @@
             <option value="SS2">SS2</option>
             <option value="SS3">SS3</option>
           </select>
-        </div>
 
-        <div class="form-group">
-          <label for="toClass">To Destination</label>
-          <select id="toClass">
-            <option value="JSS1">JSS1</option>
-            <option value="JSS2" selected>JSS2</option>
-            <option value="JSS3">JSS3</option>
-            <option value="SS1">SS1</option>
-            <option value="SS2">SS2</option>
-            <option value="SS3">SS3</option>
-            <option value="GRADUATED">GRADUATED</option>
-            <option value="LEFT">LEFT</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="destinationArm">Destination Arm</label>
-          <input id="destinationArm" type="text" placeholder="A, B, C, GOLD">
-        </div>
-
-        <div class="form-group">
-          <label for="promotionMode">Mode</label>
-          <select id="promotionMode">
-            <option value="selected">Selected students only</option>
-            <option value="all">Entire loaded class</option>
-          </select>
+          <i class="fa-solid fa-chevron-down select-arrow"></i>
         </div>
       </div>
 
 
-      <!-- ADVANCED FILTERS -->
-      <div class="form-grid pm-filter-grid">
-        <div class="form-group">
-          <label for="statusFilter">Status</label>
-          <select id="statusFilter">
-            <option value="">All Status</option>
-            <option value="ACTIVE">Active</option>
-            <option value="GRADUATED">Graduated</option>
-            <option value="LEFT">Left</option>
-            <option value="REPEATED">Repeated</option>
-            <option value="TRANSFERRED">Transferred</option>
-          </select>
-        </div>
+      <div class="filter-field">
+        <label for="classArmSelector"><i class="fa-solid fa-users"></i> Class Arm</label>
 
-        <div class="form-group">
-          <label for="armFilter">Class Arm</label>
-          <select id="armFilter">
-            <option value="">All Arms</option>
-            <option value="A">Arm A</option>
-            <option value="B">Arm B</option>
-            <option value="C">Arm C</option>
-            <option value="GOLD">Gold</option>
-            <option value="SILVER">Silver</option>
+        <div class="filter-control-wrap">
+          <select id="classArmSelector" class="filter-control">
+            <option value="all" selected>All Arms</option>
           </select>
-        </div>
 
-        <div class="form-group">
-          <label for="pageSize">Rows Per Page</label>
-          <select id="pageSize">
-            <option value="10">10 rows</option>
-            <option value="25">25 rows</option>
-            <option value="50" selected>50 rows</option>
-            <option value="100">100 rows</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="sortStudents">Sort By</label>
-          <select id="sortStudents">
-            <option value="name">Name</option>
-            <option value="admission">Admission No</option>
-            <option value="class">Class</option>
-            <option value="status">Status</option>
-          </select>
+          <i class="fa-solid fa-chevron-down select-arrow"></i>
         </div>
       </div>
 
 
-      <!-- ACTIONS -->
-      <div class="action-strip">
-        <button id="loadStudentsBtn" class="pm-btn pm-btn-primary" type="button">
-          <i class="fa-solid fa-users"></i>
-          Load Students
-        </button>
+      <div class="filter-field">
+        <label for="sortStudents"><i class="fa-solid fa-arrow-down-a-z"></i> Sort By</label>
 
-        <button id="selectAllBtn" class="pm-btn pm-btn-light" type="button">
-          <i class="fa-solid fa-check-double"></i>
-          Select All
-        </button>
+        <div class="filter-control-wrap">
+          <select id="sortStudents" class="filter-control">
+            <option value="name" selected>Name</option>
+            <option value="admission">Admission Number</option>
+            <option value="class">Class Arm</option>
+            <option value="sex">Sex</option>
+          </select>
 
-        <button id="clearSelectionBtn" class="pm-btn pm-btn-light" type="button">
-          <i class="fa-solid fa-eraser"></i>
-          Clear
-        </button>
-
-        <button id="previewPromotionBtn" class="pm-btn pm-btn-light" type="button">
-          <i class="fa-solid fa-eye"></i>
-          Preview
-        </button>
-
-        <button id="promoteBtn" class="pm-btn pm-btn-success" type="button">
-          <i class="fa-solid fa-arrow-up"></i>
-          Apply
-        </button>
-
-        <button id="deleteSelectedBtn" class="pm-btn pm-btn-danger" type="button">
-          <i class="fa-solid fa-trash"></i>
-          Delete
-        </button>
+          <i class="fa-solid fa-chevron-down select-arrow"></i>
+        </div>
       </div>
 
 
-      <!-- SEARCH -->
-      <div class="search-row">
-        <div class="search-box">
+      <div class="filter-field search-filter-field">
+        <label for="studentSearch"><i class="fa-solid fa-magnifying-glass"></i> Search Students</label>
+
+        <div class="promotion-search-box">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="studentSearch" type="text" placeholder="Search by name, admission number, phone, class...">
-        </div>
 
-        <span id="selectedBadge" class="selected-badge">0 selected</span>
-      </div>
+          <input id="studentSearch" type="search" autocomplete="off" placeholder="Name, admission number, phone or class...">
 
-      <!-- MINI TABLE INFO -->
-      <div class="pm-table-info">
-        <span id="recordCountText">
-          <i class="fa-solid fa-list"></i>
-          0 records loaded
-        </span>
-
-        <span id="currentViewText">
-          <i class="fa-solid fa-filter"></i>
-          No active filter
-        </span>
-      </div>
-
-
-      <!-- TABLE -->
-      <div class="table-wrap">
-        <table id="studentsTable">
-          <thead>
-            <tr>
-              <th><input type="checkbox" id="masterCheck"></th>
-              <th data-sort="name">Student</th>
-              <th data-sort="admission">Admission</th>
-              <th data-sort="class">Class</th>
-              <th data-sort="status">Status</th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody id="studentsBody">
-            <tr>
-              <td colspan="7" class="empty-cell">
-                <i class="fa-solid fa-folder-open"></i>
-                <strong>No students loaded</strong>
-                <span>Select a class and click Load Students.</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-      <!-- PAGINATION -->
-      <div class="pm-pagination">
-        <button id="prevPageBtn" class="pm-btn pm-btn-light">
-          <i class="fa-solid fa-chevron-left"></i>
-          Previous
-        </button>
-
-        <span id="pageInfo">Page 1 of 1</span>
-
-        <button id="nextPageBtn" class="pm-btn pm-btn-light">
-          Next
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-    </article>
-
-
-    <!-- ================= RIGHT COLUMN ================= -->
-    <aside class="side-column">
-
-      <!-- IMPORT -->
-      <article class="promotion-panel compact-panel">
-        <header class="panel-head">
-          <div>
-            <h2><i class="fa-solid fa-file-import"></i> Import CSV</h2>
-            <p>Upload a fresh student list into any class.</p>
-          </div>
-        </header>
-
-        <form id="importForm" class="import-form" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="targetClass">Target Class</label>
-            <select id="targetClass" name="target_class">
-              <option value="">Select target class</option>
-              {% for cls in classes %}
-                <option value="{{ cls }}">{{ cls }}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="importMode">Import Mode</label>
-            <select id="importMode" name="mode">
-              <option value="append">Append new students only</option>
-              <option value="replace">Replace class CSV</option>
-              <option value="merge">Merge and update duplicates</option>
-            </select>
-          </div>
-
-          <div class="file-drop">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
-            <strong>Choose CSV file</strong>
-            <span id="fileName">No file selected</span>
-            <input id="csvFile" name="csv_file" type="file" accept=".csv" required>
-          </div>
-
-          <button class="pm-btn pm-btn-primary full-width" type="submit">
-            <i class="fa-solid fa-upload"></i>
-            Import Students
+          <button id="clearSearchBtn" class="clear-search-btn" type="button" aria-label="Clear search" title="Clear search">
+            <i class="fa-solid fa-xmark"></i>
           </button>
-        </form>
-      </article>
-
-
-      <!-- SELECTED PREVIEW -->
-      <article class="promotion-panel compact-panel">
-        <header class="panel-head">
-          <div>
-            <h2><i class="fa-solid fa-clipboard-check"></i> Selected Preview</h2>
-            <p>Quick view of selected students before applying changes.</p>
-          </div>
-        </header>
-
-        <div id="selectedPreviewList" class="logs-list">
-          <div class="log-empty">
-            <i class="fa-solid fa-user-check"></i>
-            No selected student yet.
-          </div>
         </div>
-      </article>
+      </div>
+
+    </div>
 
 
-      <!-- LOGS -->
-      <article class="promotion-panel compact-panel">
-        <header class="panel-head">
-          <div>
-            <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Actions</h2>
-            <p>Promotion, graduation, movement, import, edit, and delete logs.</p>
-          </div>
-        </header>
+    <!-- ACTIVE FILTERS -->
+    <div class="active-filter-bar">
+      <div id="activeFilterChips" class="active-filter-chips">
+        <span class="filter-chip">JSS1</span>
+        <span class="filter-chip">All Arms</span>
+      </div>
 
-        <div id="logsList" class="logs-list">
-          <div class="log-empty">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            Loading logs...
-          </div>
-        </div>
-      </article>
-
-    </aside>
+      <strong id="filteredStudentCount" class="filtered-result-count">0 students</strong>
+    </div>
 
   </section>
 
+
+  <!-- =========================================================
+       MAIN STUDENT TABLE
+  ========================================================== -->
+  <section class="promotion-table-panel">
+
+    <header class="promotion-table-header">
+
+      <div class="promotion-table-heading">
+        <span class="section-icon table-icon"><i class="fa-solid fa-table-list"></i></span>
+
+        <div>
+          <div class="table-heading-line">
+            <h2 id="studentTableTitle">JSS1 Students</h2>
+            <span class="table-live-badge"><span></span> Live Data</span>
+          </div>
+
+          <p id="tableSubtitle">Loading JSS1 student records...</p>
+        </div>
+      </div>
+
+
+      <div class="promotion-table-tools">
+
+        <button id="viewGraduatesBtn" class="table-tool-btn" type="button" title="View graduated students">
+          <i class="fa-solid fa-graduation-cap"></i><span>Graduates</span>
+        </button>
+
+
+        <div class="rows-per-page-control">
+          <label for="rowsPerPage">Rows</label>
+
+          <select id="rowsPerPage">
+            <option value="10">10</option>
+            <option value="20" selected>20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+
+
+        <div class="column-manager">
+
+          <button id="columnToggleBtn" class="table-tool-btn" type="button" title="Choose visible columns" aria-expanded="false">
+            <i class="fa-solid fa-table-columns"></i><span>Columns</span>
+          </button>
+
+          <div id="columnMenu" class="column-menu hidden">
+
+            <div class="column-menu-header">
+              <strong>Visible Columns</strong>
+              <button id="resetColumnsBtn" type="button">Reset</button>
+            </div>
+
+            <label><input type="checkbox" data-column="student" checked> Student</label>
+            <label><input type="checkbox" data-column="admission" checked> Admission</label>
+            <label><input type="checkbox" data-column="sex" checked> Sex</label>
+            <label><input type="checkbox" data-column="class" checked> Class</label>
+            <label><input type="checkbox" data-column="category" checked> Category</label>
+            <label><input type="checkbox" data-column="phone" checked> Phone</label>
+
+          </div>
+
+        </div>
+
+
+        <button id="toggleCompactBtn" class="table-tool-btn" type="button" title="Toggle compact table">
+          <i class="fa-solid fa-compress"></i><span>Compact</span>
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- =======================================================
+         SELECTION / ACTION TOOLBAR
+    ======================================================== -->
+    <div class="promotion-action-toolbar">
+
+      <div class="promotion-action-left">
+
+        <div class="selected-summary">
+          <span class="selected-summary-icon"><i class="fa-solid fa-check"></i></span>
+
+          <div>
+            <span>Selected</span>
+            <strong id="selectedCountBadge">0 selected</strong>
+          </div>
+        </div>
+
+
+        <div class="action-divider"></div>
+
+
+        <button id="promoteSelectedBtn" class="pm-btn pm-btn-promote" type="button" disabled>
+          <i id="promoteButtonIcon" class="fa-solid fa-arrow-up"></i>
+          <span id="promoteButtonText">Promote</span>
+        </button>
+
+
+        <button id="repeatSelectedBtn" class="pm-btn pm-btn-secondary" type="button" disabled>
+          <i class="fa-solid fa-rotate-left"></i><span>Repeat</span>
+        </button>
+
+
+        <button id="clearSelectionBtn" class="pm-btn pm-btn-secondary" type="button" disabled>
+          <i class="fa-solid fa-xmark"></i><span>Clear</span>
+        </button>
+
+
+        <button id="deleteSelectedBtn" class="pm-btn pm-btn-danger-soft" type="button" disabled>
+          <i class="fa-solid fa-user-minus"></i><span>Delete</span>
+        </button>
+
+      </div>
+
+
+      <div class="promotion-action-right">
+
+        <span class="export-label">Export:</span>
+
+        <button id="exportClassBtn" class="export-btn excel" type="button" title="Export current class to Excel">
+          <i class="fa-solid fa-file-excel"></i><span>Excel</span>
+        </button>
+
+        <button id="exportClassCsvBtn" class="export-btn csv" type="button" title="Export current class to CSV">
+          <i class="fa-solid fa-file-csv"></i><span>CSV</span>
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-scroll-hint">
+      <i class="fa-solid fa-arrows-left-right"></i>
+      Scroll sideways to view all columns.
+    </div>
+
+
+    <!-- =======================================================
+         STUDENT TABLE
+    ======================================================== -->
+    <div class="promotion-table-scroll">
+
+      <table class="promotion-table" id="studentsTable">
+
+        <thead>
+          <tr>
+
+            <th class="select-col" data-column-name="select">
+              <input type="checkbox" id="masterCheck" aria-label="Select all visible students">
+            </th>
+
+            <th class="sortable" data-sort="name" data-column-name="student">
+              <button type="button"><span>Student</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="admission" data-column-name="admission">
+              <button type="button"><span>Admission</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="sex" data-column-name="sex">
+              <button type="button"><span>Sex</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="class" data-column-name="class">
+              <button type="button"><span>Class</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="category" data-column-name="category">
+              <button type="button"><span>Category</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th data-column-name="phone">Phone</th>
+
+            <th class="actions-col">Actions</th>
+
+          </tr>
+        </thead>
+
+
+        <tbody id="studentsBody">
+          <tr>
+            <td colspan="8" class="table-placeholder">
+              <span class="table-placeholder-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
+              <strong>Loading student database</strong>
+              <span>Please wait...</span>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- TABLE FOOTER -->
+    <footer class="promotion-table-footer">
+
+      <div class="pagination-summary">
+        <span class="pagination-status-dot"></span>
+        <span id="paginationInfo">Showing 0 students</span>
+      </div>
+
+      <div id="pagination" class="pagination"></div>
+
+    </footer>
+
+  </section>
+
+
+  <!-- =========================================================
+       DATABASE ACTIVITY
+  ========================================================== -->
+  <details class="promotion-activity-panel">
+
+    <summary>
+
+      <div class="activity-summary-left">
+        <span class="activity-summary-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
+
+        <div>
+          <strong>Student Database Activity</strong>
+          <span>Recent additions, promotions, repetitions, graduations and deletions</span>
+        </div>
+      </div>
+
+      <span class="activity-summary-action">
+        <span class="activity-live-dot"></span>
+        History
+        <i class="fa-solid fa-chevron-down"></i>
+      </span>
+
+    </summary>
+
+
+    <div class="promotion-activity-content">
+
+      <div id="logsList" class="promotion-log-list">
+
+        <div class="activity-empty">
+          <span class="empty-activity-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
+          <strong>Loading activity</strong>
+          <span>Recent student database actions will appear here.</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </details>
+
 </div>
 
 
-<!-- ================= STUDENT DETAILS MODAL ================= -->
-<div id="studentDetailsModal" class="pm-modal-backdrop hidden">
-  <div class="pm-modal-card pm-wide-modal">
-    <button type="button" class="pm-modal-close" id="closeStudentDetailsBtn">
+<!-- ===========================================================
+     STUDENT DETAILS
+============================================================ -->
+<div id="studentDetailsOverlay" class="pm-overlay"></div>
+
+<section id="studentDetailsModal" class="student-details-modal" role="dialog" aria-modal="true" aria-labelledby="studentDetailsTitle">
+
+  <header class="student-modal-header">
+
+    <div class="student-modal-brand">
+      <span class="student-modal-header-icon"><i class="fa-solid fa-id-card"></i></span>
+
+      <div>
+        <span>EMIS Student Database</span>
+        <h2 id="studentDetailsTitle">Student Details</h2>
+      </div>
+    </div>
+
+    <button id="closeStudentDetailsBtn" class="modal-close-btn" type="button" aria-label="Close student details">
       <i class="fa-solid fa-xmark"></i>
     </button>
 
-    <div class="modal-icon">
-      <i class="fa-solid fa-user-graduate"></i>
+  </header>
+
+
+  <section class="student-details-profile">
+
+    <span class="student-details-avatar"><i class="fa-solid fa-user-graduate"></i></span>
+
+    <div class="student-details-profile-info">
+      <span>Student</span>
+      <strong id="detailsStudentName">—</strong>
+      <p id="detailsStudentAdmission">—</p>
     </div>
 
-    <h3>Student Details</h3>
+    <span id="detailsClassBadge" class="student-class-badge">—</span>
 
-    <div id="studentDetailsBody" class="pm-details-body">
-      Loading student details...
+  </section>
+
+
+  <div id="studentDetailsBody" class="student-details-grid">
+
+    <div class="student-detail-item">
+      <span>Admission Number</span>
+      <strong id="detailsAdmissionNumber">—</strong>
     </div>
 
-    <div class="modal-actions">
-      <button id="editFromDetailsBtn" class="pm-btn pm-btn-primary">
-        <i class="fa-solid fa-pen"></i>
-        Edit
-      </button>
-
-      <button id="closeDetailsActionBtn" class="pm-btn pm-btn-light">
-        Close
-      </button>
+    <div class="student-detail-item">
+      <span>Last Name</span>
+      <strong id="detailsLastName">—</strong>
     </div>
+
+    <div class="student-detail-item">
+      <span>First Name</span>
+      <strong id="detailsFirstName">—</strong>
+    </div>
+
+    <div class="student-detail-item">
+      <span>Other Names</span>
+      <strong id="detailsOtherNames">—</strong>
+    </div>
+
+    <div class="student-detail-item">
+      <span>Sex</span>
+      <strong id="detailsSex">—</strong>
+    </div>
+
+    <div class="student-detail-item">
+      <span>Phone</span>
+      <strong id="detailsPhone">—</strong>
+    </div>
+
+    <div class="student-detail-item">
+      <span>Class</span>
+      <strong id="detailsClass">—</strong>
+    </div>
+
+    <div class="student-detail-item">
+      <span>Class Category</span>
+      <strong id="detailsCategory">—</strong>
+    </div>
+
   </div>
-</div>
 
 
-<!-- ================= ADD / EDIT STUDENT MODAL ================= -->
-<div id="studentFormModal" class="pm-modal-backdrop hidden">
-  <div class="pm-modal-card pm-wide-modal">
-    <button type="button" class="pm-modal-close" id="closeStudentFormBtn">
-      <i class="fa-solid fa-xmark"></i>
+  <footer class="student-modal-footer">
+
+    <button id="closeDetailsActionBtn" class="pm-btn pm-btn-secondary" type="button">Close</button>
+
+    <button id="editFromDetailsBtn" class="pm-btn pm-btn-primary" type="button">
+      <i class="fa-solid fa-pen"></i> Edit Student
     </button>
 
-    <div class="modal-icon">
-      <i class="fa-solid fa-user-pen"></i>
+  </footer>
+
+</section>
+
+<!-- ===========================================================
+     ADD / EDIT STUDENT
+============================================================ -->
+<div id="studentFormOverlay" class="pm-overlay" aria-hidden="true"></div>
+
+<section id="studentFormModal" class="student-form-modal" role="dialog" aria-modal="true"
+  aria-hidden="true" aria-labelledby="studentFormTitle">
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+  <header class="student-modal-header">
+    <div class="student-modal-brand">
+      <span class="student-modal-header-icon">
+        <i class="fa-solid fa-user-plus"></i>
+      </span>
+
+      <div>
+        <span>EMIS Student Database</span>
+        <h2 id="studentFormTitle">Add Student</h2>
+      </div>
     </div>
 
-    <h3 id="studentFormTitle">Add Student</h3>
+    <button id="closeStudentFormBtn" class="modal-close-btn" type="button" aria-label="Close student form">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </header>
 
-    <form id="studentRecordForm" class="pm-student-form">
-      <input type="hidden" id="editingAdmission">
+  <!-- =======================================================
+       FORM
+  ======================================================== -->
+  <form id="studentRecordForm" class="student-record-form" autocomplete="off">
 
-      <div class="form-grid pm-modal-form-grid">
-        <div class="form-group">
+    <!-- Existing admission number when editing -->
+    <input type="hidden" id="editingAdmission" value="">
+
+    <!-- =====================================================
+         ADMISSION NUMBER
+    ====================================================== -->
+    <section class="student-form-section admission-section">
+      <div class="student-form-section-title">
+        <span><i class="fa-solid fa-id-badge"></i></span>
+
+        <div>
+          <h3>Admission Number</h3>
+          <p>EMIS automatically assigns a unique admission number when the student is saved.</p>
+        </div>
+      </div>
+
+      <div class="student-form-grid single-field">
+        <div class="form-field">
           <label for="formAdmission">Admission Number</label>
-          <input id="formAdmission" type="text" required placeholder="std1001">
+
+          <div class="readonly-field-wrap">
+            <input id="formAdmission" type="text" readonly value="" placeholder="Assigned automatically on save">
+
+            <span class="auto-field-badge">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Auto
+            </span>
+          </div>
+
+          <small id="admissionNumberHelp" class="form-field-help">
+            No admission number needs to be entered manually.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PERSONAL INFORMATION
+    ====================================================== -->
+    <section class="student-form-section">
+      <div class="student-form-section-title">
+        <span><i class="fa-solid fa-user"></i></span>
+
+        <div>
+          <h3>Student Information</h3>
+          <p>Enter the student's official personal details.</p>
+        </div>
+      </div>
+
+      <div class="student-form-grid">
+
+        <!-- LAST NAME -->
+        <div class="form-field">
+          <label for="formLastName">
+            Last Name <span class="required-mark">*</span>
+          </label>
+
+          <input id="formLastName" type="text" required maxlength="80" placeholder="Surname">
         </div>
 
-        <div class="form-group">
-          <label for="formLastName">Last Name</label>
-          <input id="formLastName" type="text" required placeholder="Surname">
+        <!-- FIRST NAME -->
+        <div class="form-field">
+          <label for="formFirstName">
+            First Name <span class="required-mark">*</span>
+          </label>
+
+          <input id="formFirstName" type="text" required maxlength="80" placeholder="First name">
         </div>
 
-        <div class="form-group">
-          <label for="formFirstName">First Name</label>
-          <input id="formFirstName" type="text" required placeholder="First name">
-        </div>
-
-        <div class="form-group">
+        <!-- OTHER NAMES -->
+        <div class="form-field">
           <label for="formOtherNames">Other Names</label>
-          <input id="formOtherNames" type="text" placeholder="Other names">
+          <input id="formOtherNames" type="text" maxlength="120" placeholder="Middle or other names">
         </div>
 
-        <div class="form-group">
+        <!-- PHONE -->
+        <div class="form-field">
           <label for="formPhone">Phone</label>
-          <input id="formPhone" type="text" placeholder="080...">
+          <input id="formPhone" type="tel" inputmode="tel" maxlength="20" placeholder="080...">
         </div>
 
-        <div class="form-group">
-          <label for="formClass">Class</label>
-          <input id="formClass" type="text" required placeholder="JSS1A">
+        <!-- SEX -->
+        <div class="form-field">
+          <label for="formSex">
+            Sex <span class="required-mark">*</span>
+          </label>
+
+          <div class="form-select-wrap">
+            <select id="formSex" required>
+              <option value="">Select sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="formClassCategory">Class Category</label>
-          <select id="formClassCategory" required>
-            {% for cls in classes %}
-              <option value="{{ cls }}">{{ cls }}</option>
-            {% endfor %}
-          </select>
-        </div>
+      </div>
+    </section>
 
-        <div class="form-group">
-          <label for="formStatus">Status</label>
-          <select id="formStatus">
-            <option value="ACTIVE">ACTIVE</option>
-            <option value="REPEATED">REPEATED</option>
-            <option value="TRANSFERRED">TRANSFERRED</option>
-            <option value="GRADUATED">GRADUATED</option>
-            <option value="LEFT">LEFT</option>
-          </select>
+    <!-- =====================================================
+         CLASS PLACEMENT
+    ====================================================== -->
+    <section class="student-form-section">
+      <div class="student-form-section-title">
+        <span><i class="fa-solid fa-school"></i></span>
+
+        <div>
+          <h3>Class Placement</h3>
+          <p>Select the student's class level. The class arm can be selected manually or assigned automatically.</p>
         </div>
       </div>
 
-      <div class="modal-actions">
-        <button type="button" id="cancelStudentFormBtn" class="pm-btn pm-btn-light">
-          Cancel
-        </button>
+      <div class="student-form-grid">
 
-        <button type="submit" class="pm-btn pm-btn-success">
-          <i class="fa-solid fa-floppy-disk"></i>
-          Save Student
-        </button>
+        <!-- CLASS LEVEL -->
+        <div class="form-field">
+          <label for="formClassCategory">
+            Class <span class="required-mark">*</span>
+          </label>
+
+          <div class="form-select-wrap">
+            <select id="formClassCategory" required>
+              <option value="">Select class</option>
+              <option value="JSS1">JSS1</option>
+              <option value="JSS2">JSS2</option>
+              <option value="JSS3">JSS3</option>
+              <option value="SS1">SS1</option>
+              <option value="SS2">SS2</option>
+              <option value="SS3">SS3</option>
+            </select>
+
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+
+        <!-- CLASS ARM -->
+        <div class="form-field">
+          <label for="formClass">
+            Class Arm <span class="optional-field-mark">Optional</span>
+          </label>
+
+          <div class="form-select-wrap">
+            <select id="formClass" disabled>
+              <option value="">Select class first</option>
+            </select>
+
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+
+          <small class="form-field-help">
+            Leave as <strong>Automatic Assignment</strong> and EMIS will choose an available class arm.
+          </small>
+        </div>
+
       </div>
-    </form>
+
+      <!-- AUTOMATIC PLACEMENT INFO -->
+      <div class="class-assignment-info">
+        <span class="class-assignment-info-icon">
+          <i class="fa-solid fa-circle-info"></i>
+        </span>
+
+        <div>
+          <strong>Automatic Placement</strong>
+          <span>If no class arm is selected, EMIS will assign the student to an appropriate arm automatically.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SAVE STUDENT
+    ====================================================== -->
+    <footer class="student-modal-footer">
+      <button type="button" id="cancelStudentFormBtn" class="pm-btn pm-btn-secondary">
+        <i class="fa-solid fa-xmark"></i>
+        <span>Cancel</span>
+      </button>
+
+      <button type="submit" id="saveStudentBtn" class="pm-btn pm-btn-primary">
+        <i class="fa-solid fa-user-plus"></i>
+        <span>Add Student</span>
+      </button>
+    </footer>
+
+  </form>
+</section>
+
+
+<!-- ===========================================================
+     DESTINATION ARM
+============================================================ -->
+<div id="destinationArmOverlay" class="pm-overlay"></div>
+
+<section id="destinationArmModal" class="pm-dialog-modal" role="dialog" aria-modal="true" aria-labelledby="destinationArmTitle">
+
+  <header class="dialog-modal-header">
+
+    <span class="dialog-modal-icon"><i class="fa-solid fa-route"></i></span>
+
+    <div>
+      <span>Promotion Placement</span>
+      <h3 id="destinationArmTitle">Select Destination Class</h3>
+    </div>
+
+  </header>
+
+
+  <div class="dialog-modal-body">
+
+    <p id="destinationArmDescription">
+      Select the class arm these students should enter after promotion.
+    </p>
+
+    <div class="form-field">
+      <label for="destinationArmSelector">Destination Class Arm</label>
+
+      <div class="form-select-wrap">
+        <select id="destinationArmSelector">
+          <option value="">Select destination arm</option>
+        </select>
+
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div id="destinationStudentSummary" class="dialog-selection-summary">0 students selected</div>
+
   </div>
-</div>
 
 
-<!-- ================= PREVIEW MODAL ================= -->
-<div id="previewModal" class="pm-modal-backdrop hidden">
-  <div class="pm-modal-card pm-wide-modal">
-    <button type="button" class="pm-modal-close" id="closePreviewBtn">
+  <footer class="dialog-modal-footer">
+
+    <button id="cancelDestinationArmBtn" class="pm-btn pm-btn-secondary" type="button">Cancel</button>
+
+    <button id="confirmDestinationArmBtn" class="pm-btn pm-btn-primary" type="button">
+      <i class="fa-solid fa-arrow-up"></i> Continue Promotion
+    </button>
+
+  </footer>
+
+</section>
+
+
+<!-- ===========================================================
+     ACTION PREVIEW
+============================================================ -->
+<div id="previewOverlay" class="pm-overlay"></div>
+
+<section id="previewModal" class="action-preview-modal" role="dialog" aria-modal="true" aria-labelledby="previewModalTitle">
+
+  <header class="student-modal-header">
+
+    <div class="student-modal-brand">
+      <span class="student-modal-header-icon"><i class="fa-solid fa-clipboard-check"></i></span>
+
+      <div>
+        <span>Review Changes</span>
+        <h2 id="previewModalTitle">Promotion Preview</h2>
+      </div>
+    </div>
+
+    <button id="closePreviewBtn" class="modal-close-btn" type="button" aria-label="Close preview">
       <i class="fa-solid fa-xmark"></i>
     </button>
 
-    <div class="modal-icon">
-      <i class="fa-solid fa-eye"></i>
-    </div>
+  </header>
 
-    <h3>Promotion Preview</h3>
 
-    <div id="previewBody" class="pm-details-body">
-      No preview yet.
-    </div>
+  <div class="action-preview-summary">
 
-    <div class="modal-actions">
-      <button id="cancelPreviewBtn" class="pm-btn pm-btn-light">Cancel</button>
-      <button id="confirmPreviewApplyBtn" class="pm-btn pm-btn-success">
-        Apply Changes
-      </button>
-    </div>
+    <article><span>Action</span><strong id="previewAction">—</strong></article>
+    <article><span>From</span><strong id="previewSourceClass">—</strong></article>
+    <article><span>Destination</span><strong id="previewDestinationClass">—</strong></article>
+    <article><span>Students</span><strong id="previewStudentCount">0</strong></article>
+
   </div>
-</div>
 
 
-<!-- ================= CONFIRM MODAL ================= -->
-<div id="confirmModal" class="pm-modal-backdrop hidden">
-  <div class="pm-modal-card">
-    <div class="modal-icon">
+  <div id="previewBody" class="action-preview-list">
+    No students selected.
+  </div>
+
+
+  <footer class="student-modal-footer">
+
+    <button id="cancelPreviewBtn" class="pm-btn pm-btn-secondary" type="button">Cancel</button>
+
+    <button id="confirmPreviewApplyBtn" class="pm-btn pm-btn-primary" type="button">
+      <i class="fa-solid fa-check"></i> Confirm Action
+    </button>
+
+  </footer>
+
+</section>
+
+
+<!-- ===========================================================
+     GRADUATION ARCHIVE
+============================================================ -->
+<div id="graduatesOverlay" class="pm-overlay"></div>
+
+<section id="graduatesModal" class="graduates-modal" role="dialog" aria-modal="true" aria-labelledby="graduatesModalTitle">
+
+  <header class="student-modal-header">
+
+    <div class="student-modal-brand">
+      <span class="student-modal-header-icon graduate-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+
+      <div>
+        <span>EMIS Graduate Archive</span>
+        <h2 id="graduatesModalTitle">Graduated Students</h2>
+      </div>
+    </div>
+
+    <button id="closeGraduatesBtn" class="modal-close-btn" type="button" aria-label="Close graduation archive">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+  </header>
+
+
+  <div class="graduates-toolbar">
+
+    <div class="graduates-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="graduateSearch" type="search" autocomplete="off" placeholder="Search graduate or admission number...">
+    </div>
+
+    <div class="form-select-wrap graduates-year-wrap">
+      <select id="graduateYearFilter">
+        <option value="all">All Years</option>
+      </select>
+
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+  </div>
+
+
+  <div class="graduates-table-scroll">
+
+    <table class="graduates-table" id="graduatesTable">
+
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Admission</th>
+          <th>Last Class</th>
+          <th>Sex</th>
+          <th>Graduated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody id="graduatesBody">
+        <tr>
+          <td colspan="6" class="table-placeholder">
+            <span class="table-placeholder-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
+            <strong>Loading graduation archive</strong>
+            <span>Please wait...</span>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <footer class="graduates-footer">
+    <span id="graduatesCount">0 graduates</span>
+    <div id="graduatesPagination" class="pagination"></div>
+  </footer>
+
+</section>
+
+
+<!-- ===========================================================
+     CONFIRMATION MODAL
+============================================================ -->
+<div id="confirmModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+
+  <div class="confirmation-modal-card">
+
+    <span id="confirmModalIcon" class="confirmation-modal-icon">
       <i class="fa-solid fa-triangle-exclamation"></i>
+    </span>
+
+
+    <div class="confirmation-modal-copy">
+      <span id="confirmModalLabel" class="confirmation-modal-label">Confirm Action</span>
+      <h3 id="confirmModalTitle">Continue with this action?</h3>
+      <p id="confirmText">Please confirm before continuing.</p>
     </div>
 
-    <h3>Confirm Action</h3>
-    <p id="confirmText">Are you sure?</p>
 
-    <div class="modal-actions">
-      <button id="cancelConfirmBtn" class="pm-btn pm-btn-light">Cancel</button>
-      <button id="confirmActionBtn" class="pm-btn pm-btn-success">
-        Yes, Continue
+    <div id="confirmStudentList" class="confirmation-student-list hidden"></div>
+
+
+    <div class="confirmation-modal-actions">
+
+      <button id="cancelConfirmBtn" class="pm-btn pm-btn-secondary" type="button">Cancel</button>
+
+      <button id="confirmActionBtn" class="pm-btn pm-btn-primary" type="button">
+        <span class="btn-text"><i class="fa-solid fa-check"></i> Continue</span>
+        <span class="btn-spinner hidden"></span>
       </button>
+
     </div>
+
   </div>
+
 </div>
 
-<div id="toastRoot" class="toast-root"></div>
+
+<!-- ===========================================================
+     TOASTS
+============================================================ -->
+<div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/promotion.js') }}?v=6"></script>
+<script src="{{ url_for('static', filename='js/student_database.js') }}?v=1"></script>
+<script src="{{ url_for('static', filename='js/promotion.js') }}?v=8"></script>
 {% endblock %}

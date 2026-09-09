@@ -3,10 +3,7 @@
 {% block title %}EMIS — Examination Results{% endblock %}
 
 {% block styles %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/admin_results.css') }}"
->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_results.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -17,145 +14,79 @@
        PAGE HEADER
   ========================================================== -->
   <header class="results-header">
-
     <div class="results-header-main">
-
-      <div class="results-header-icon">
-        <i class="fa-solid fa-chart-column"></i>
-      </div>
+      <div class="results-header-icon"><i class="fa-solid fa-chart-column"></i></div>
 
       <div class="results-header-copy">
         <div class="results-header-title-row">
           <h1>Examination Results</h1>
-
-          <span class="results-live-badge">
-            <span class="live-dot"></span>
-            Live
-          </span>
+          <span class="results-live-badge"><span class="live-dot"></span> Live</span>
         </div>
 
-        <p>
-          Review, filter and manage student examination results.
-        </p>
+        <p>Review objective results, enter theory scores and manage complete examination records.</p>
       </div>
-
     </div>
-
 
     <div class="results-header-actions">
-
-      <button
-        id="reloadTableBtn"
-        class="ar-btn ar-btn-primary"
-        type="button"
-      >
-        <i class="fa-solid fa-rotate"></i>
-        <span>Refresh</span>
-      </button>
-
-      <button
-        id="clearFiltersBtn"
-        class="ar-btn ar-btn-secondary"
-        type="button"
-      >
-        <i class="fa-solid fa-filter-circle-xmark"></i>
-        <span>Reset Filters</span>
-      </button>
-
+      <button id="essayScoresBtn" class="ar-btn ar-btn-essay" type="button"><i class="fa-solid fa-pen-to-square"></i><span>Essay Scores</span></button>
+      <button id="reloadTableBtn" class="ar-btn ar-btn-primary" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button>
+      <button id="clearFiltersBtn" class="ar-btn ar-btn-secondary" type="button"><i class="fa-solid fa-filter-circle-xmark"></i><span>Reset Filters</span></button>
     </div>
-
   </header>
-  <!-- =========================================================
-     FLOATING REAL-TIME ACTIVITY NOTIFICATION
-========================================================== -->
-<div id="liveNotificationHost" class="live-notification-host" aria-live="polite" aria-atomic="true">
-  <article id="liveNotificationCard" class="live-notification-card" role="status">
-    <div id="liveNotificationIcon" class="live-notification-icon"><i class="fa-solid fa-bell"></i></div>
 
-    <div class="live-notification-content">
-      <div class="live-notification-topline">
-        <span id="liveNotificationType" class="live-notification-type">Live Activity</span>
-        <span id="liveNotificationTime" class="live-notification-time"></span>
+
+  <!-- =========================================================
+       FLOATING REAL-TIME ACTIVITY
+  ========================================================== -->
+  <div id="liveNotificationHost" class="live-notification-host" aria-live="polite" aria-atomic="true">
+    <article id="liveNotificationCard" class="live-notification-card" role="status">
+      <div id="liveNotificationIcon" class="live-notification-icon"><i class="fa-solid fa-bell"></i></div>
+
+      <div class="live-notification-content">
+        <div class="live-notification-topline">
+          <span id="liveNotificationType" class="live-notification-type">Live Activity</span>
+          <span id="liveNotificationTime" class="live-notification-time"></span>
+        </div>
+
+        <strong id="liveNotificationTitle" class="live-notification-title"></strong>
+        <p id="liveNotificationMessage" class="live-notification-message"></p>
+        <div id="liveNotificationMeta" class="live-notification-meta"></div>
       </div>
 
-      <strong id="liveNotificationTitle" class="live-notification-title"></strong>
-      <p id="liveNotificationMessage" class="live-notification-message"></p>
-
-      <div id="liveNotificationMeta" class="live-notification-meta"></div>
-    </div>
-
-    <button id="liveNotificationClose" class="live-notification-close" type="button" aria-label="Dismiss notification"><i class="fa-solid fa-xmark"></i></button>
-
-    <span class="live-notification-progress"></span>
-  </article>
-</div>
+      <button id="liveNotificationClose" class="live-notification-close" type="button" aria-label="Dismiss notification"><i class="fa-solid fa-xmark"></i></button>
+      <span class="live-notification-progress"></span>
+    </article>
+  </div>
 
 
   <!-- =========================================================
        QUICK OVERVIEW
   ========================================================== -->
-  <section
-    class="results-overview"
-    aria-label="Results overview"
-  >
+  <section class="results-overview" aria-label="Results overview">
 
     <article class="overview-card">
-      <span class="overview-icon total">
-        <i class="fa-solid fa-file-lines"></i>
-      </span>
-
-      <div class="overview-content">
-        <span>Total Results</span>
-        <strong id="statTotalResults">0</strong>
-      </div>
+      <span class="overview-icon total"><i class="fa-solid fa-file-lines"></i></span>
+      <div class="overview-content"><span>Total Results</span><strong id="statTotalResults">0</strong></div>
     </article>
 
-
     <article class="overview-card">
-      <span class="overview-icon pass">
-        <i class="fa-solid fa-circle-check"></i>
-      </span>
-
-      <div class="overview-content">
-        <span>Pass Rate</span>
-        <strong id="statPassRate">0%</strong>
-      </div>
+      <span class="overview-icon pass"><i class="fa-solid fa-circle-check"></i></span>
+      <div class="overview-content"><span>Pass Rate</span><strong id="statPassRate">0%</strong></div>
     </article>
 
-
     <article class="overview-card">
-      <span class="overview-icon average">
-        <i class="fa-solid fa-chart-line"></i>
-      </span>
-
-      <div class="overview-content">
-        <span>Average</span>
-        <strong id="statAvgScore">0%</strong>
-      </div>
+      <span class="overview-icon average"><i class="fa-solid fa-chart-line"></i></span>
+      <div class="overview-content"><span>Average</span><strong id="statAvgScore">0%</strong></div>
     </article>
 
-
     <article class="overview-card">
-      <span class="overview-icon subject">
-        <i class="fa-solid fa-book-open"></i>
-      </span>
-
-      <div class="overview-content">
-        <span>Subjects</span>
-        <strong id="statSubjects">0</strong>
-      </div>
+      <span class="overview-icon subject"><i class="fa-solid fa-book-open"></i></span>
+      <div class="overview-content"><span>Subjects</span><strong id="statSubjects">0</strong></div>
     </article>
 
-
     <article class="overview-card">
-      <span class="overview-icon time">
-        <i class="fa-solid fa-stopwatch"></i>
-      </span>
-
-      <div class="overview-content">
-        <span>Average Time</span>
-        <strong id="avgTimeTaken">—</strong>
-      </div>
+      <span class="overview-icon time"><i class="fa-solid fa-stopwatch"></i></span>
+      <div class="overview-content"><span>Average Time</span><strong id="avgTimeTaken">—</strong></div>
     </article>
 
   </section>
@@ -167,373 +98,123 @@
   <section class="results-filter-panel">
 
     <div class="filter-panel-header">
-
       <div class="filter-panel-title">
-        <span class="section-icon">
-          <i class="fa-solid fa-sliders"></i>
-        </span>
-
-        <div>
-          <h2>Find Results</h2>
-          <p>Select the examination records you want to view.</p>
-        </div>
+        <span class="section-icon"><i class="fa-solid fa-sliders"></i></span>
+        <div><h2>Find Results</h2><p>Select the examination records you want to view.</p></div>
       </div>
 
-
-      <!-- QUICK CLASS SWITCHER -->
-      <div
-        class="class-pills"
-        id="classPills"
-        aria-label="Quick class filters"
-      >
-
-        <button
-          class="class-pill active"
-          data-class="all"
-          type="button"
-        >
-          All
-        </button>
-
-        <button
-          class="class-pill jss"
-          data-class="JSS1"
-          type="button"
-        >
-          JSS1
-        </button>
-
-        <button
-          class="class-pill jss"
-          data-class="JSS2"
-          type="button"
-        >
-          JSS2
-        </button>
-
-        <button
-          class="class-pill jss"
-          data-class="JSS3"
-          type="button"
-        >
-          JSS3
-        </button>
-
-        <button
-          class="class-pill ss"
-          data-class="SS1"
-          type="button"
-        >
-          SS1
-        </button>
-
-        <button
-          class="class-pill ss"
-          data-class="SS2"
-          type="button"
-        >
-          SS2
-        </button>
-
-        <button
-          class="class-pill ss"
-          data-class="SS3"
-          type="button"
-        >
-          SS3
-        </button>
-
+      <div class="class-pills" id="classPills" aria-label="Quick class filters">
+        <button class="class-pill active" data-class="all" type="button">All</button>
+        <button class="class-pill jss" data-class="JSS1" type="button">JSS1</button>
+        <button class="class-pill jss" data-class="JSS2" type="button">JSS2</button>
+        <button class="class-pill jss" data-class="JSS3" type="button">JSS3</button>
+        <button class="class-pill ss" data-class="SS1" type="button">SS1</button>
+        <button class="class-pill ss" data-class="SS2" type="button">SS2</button>
+        <button class="class-pill ss" data-class="SS3" type="button">SS3</button>
       </div>
-
     </div>
 
 
-    <!-- =======================================================
-         FILTER CONTROLS
-    ======================================================== -->
     <div class="results-filter-grid">
 
       <!-- YEAR -->
       <div class="filter-field">
-
-        <label for="yearSelector">
-          <i class="fa-regular fa-calendar"></i>
-          Academic Year
-        </label>
-
+        <label for="yearSelector"><i class="fa-regular fa-calendar"></i> Academic Year</label>
         <div class="filter-control-wrap">
-
-          <select
-            id="yearSelector"
-            class="filter-control"
-          >
-            <option value="all" selected>
-              All Years
-            </option>
-
-            {% for y in range(2025, 2046) %}
-            <option value="{{ y }}">
-              {{ y }}
-            </option>
-            {% endfor %}
+          <select id="yearSelector" class="filter-control">
+            <option value="all" selected>All Years</option>
+            {% for y in range(2025, 2046) %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
           </select>
-
           <i class="fa-solid fa-chevron-down select-arrow"></i>
-
         </div>
-
       </div>
 
 
       <!-- CLASS -->
       <div class="filter-field">
-
-        <label for="classSelector">
-          <i class="fa-solid fa-graduation-cap"></i>
-          Class
-        </label>
-
+        <label for="classSelector"><i class="fa-solid fa-graduation-cap"></i> Class</label>
         <div class="filter-control-wrap">
-
-          <select
-            id="classSelector"
-            class="filter-control"
-          >
-            <option value="all" selected>
-              All Classes
-            </option>
-
-            <option value="JSS1">JSS1</option>
-            <option value="JSS2">JSS2</option>
-            <option value="JSS3">JSS3</option>
-
-            <option value="SS1">SS1</option>
-            <option value="SS2">SS2</option>
-            <option value="SS3">SS3</option>
+          <select id="classSelector" class="filter-control">
+            <option value="all" selected>All Classes</option>
+            <option value="JSS1">JSS1</option><option value="JSS2">JSS2</option><option value="JSS3">JSS3</option>
+            <option value="SS1">SS1</option><option value="SS2">SS2</option><option value="SS3">SS3</option>
           </select>
-
           <i class="fa-solid fa-chevron-down select-arrow"></i>
-
         </div>
-
       </div>
 
 
-      <!-- CLASS ARM -->
+      <!-- ARM -->
       <div class="filter-field">
-
-        <label for="classArmSelector">
-          <i class="fa-solid fa-users"></i>
-          Class Arm
-        </label>
-
+        <label for="classArmSelector"><i class="fa-solid fa-users"></i> Class Arm</label>
         <div class="filter-control-wrap">
-
-          <select
-            id="classArmSelector"
-            class="filter-control"
-          >
-            <option value="all" selected>
-              All Arms
-            </option>
-          </select>
-
+          <select id="classArmSelector" class="filter-control"><option value="all" selected>All Arms</option></select>
           <i class="fa-solid fa-chevron-down select-arrow"></i>
-
         </div>
-
       </div>
 
 
       <!-- TERM -->
-      <div
-        class="filter-field term-filter-group"
-        id="termFilterGroup"
-      >
-
-        <label for="termSelector">
-          <i class="fa-solid fa-calendar-check"></i>
-          Term
-
-          <span
-            class="term-requirement-badge"
-            id="termRequirementBadge"
-          >
-            JSS
-          </span>
-        </label>
-
+      <div class="filter-field term-filter-group" id="termFilterGroup">
+        <label for="termSelector"><i class="fa-solid fa-calendar-check"></i> Term <span class="term-requirement-badge" id="termRequirementBadge">JSS</span></label>
         <div class="filter-control-wrap">
-
-          <select
-            id="termSelector"
-            class="filter-control"
-          >
-            <option value="all" selected>
-              All Terms
-            </option>
-
-            <option value="FIRST">
-              1st Term
-            </option>
-
-            <option value="SECOND">
-              2nd Term
-            </option>
-
-            <option value="THIRD">
-              3rd Term
-            </option>
+          <select id="termSelector" class="filter-control">
+            <option value="all" selected>All Terms</option>
+            <option value="FIRST">1st Term</option><option value="SECOND">2nd Term</option><option value="THIRD">3rd Term</option>
           </select>
-
           <i class="fa-solid fa-chevron-down select-arrow"></i>
-
         </div>
-
       </div>
 
 
       <!-- SUBJECT -->
       <div class="filter-field">
-
-        <label for="subjectSelector">
-          <i class="fa-solid fa-book"></i>
-          Subject
-        </label>
-
+        <label for="subjectSelector"><i class="fa-solid fa-book"></i> Subject</label>
         <div class="filter-control-wrap">
-
-          <select
-            id="subjectSelector"
-            class="filter-control"
-          >
-            <option value="all" selected>
-              All Subjects
-            </option>
-          </select>
-
+          <select id="subjectSelector" class="filter-control"><option value="all" selected>All Subjects</option></select>
           <i class="fa-solid fa-chevron-down select-arrow"></i>
-
         </div>
-
       </div>
 
 
       <!-- STATUS -->
       <div class="filter-field">
-
-        <label for="statusFilter">
-          <i class="fa-solid fa-chart-simple"></i>
-          Result Status
-        </label>
-
+        <label for="statusFilter"><i class="fa-solid fa-chart-simple"></i> Result Status</label>
         <div class="filter-control-wrap">
-
-          <select
-            id="statusFilter"
-            class="filter-control"
-          >
-            <option value="">
-              All Status
-            </option>
-
-            <option value="PASS">
-              Passed
-            </option>
-
-            <option value="FAIL">
-              Failed
-            </option>
+          <select id="statusFilter" class="filter-control">
+            <option value="">All Status</option><option value="PASS">Passed</option><option value="FAIL">Failed</option>
           </select>
-
           <i class="fa-solid fa-chevron-down select-arrow"></i>
-
         </div>
-
       </div>
 
 
       <!-- SESSION -->
       <div class="filter-field session-filter">
-
-        <label for="sessionSelector">
-          <i class="fa-solid fa-school"></i>
-          Session
-        </label>
-
+        <label for="sessionSelector"><i class="fa-solid fa-school"></i> Session</label>
         <div class="filter-control-wrap">
-
-          <select
-            id="sessionSelector"
-            class="filter-control"
-          >
-            <option value="all" selected>
-              All Sessions
-            </option>
-          </select>
-
+          <select id="sessionSelector" class="filter-control"><option value="all" selected>All Sessions</option></select>
           <i class="fa-solid fa-chevron-down select-arrow"></i>
-
         </div>
-
       </div>
 
 
       <!-- SEARCH -->
       <div class="filter-field search-filter-field">
-
-        <label for="globalSearch">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          Search
-        </label>
-
+        <label for="globalSearch"><i class="fa-solid fa-magnifying-glass"></i> Search</label>
         <div class="results-search-box">
-
           <i class="fa-solid fa-magnifying-glass"></i>
-
-          <input
-            id="globalSearch"
-            type="search"
-            autocomplete="off"
-            placeholder="Search student, admission number, subject..."
-          >
-
-          <button
-            id="clearSearchBtn"
-            class="clear-search-btn"
-            type="button"
-            aria-label="Clear search"
-            title="Clear search"
-          >
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-
+          <input id="globalSearch" type="search" autocomplete="off" placeholder="Search student, admission number, subject...">
+          <button id="clearSearchBtn" class="clear-search-btn" type="button" aria-label="Clear search" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
         </div>
-
       </div>
 
     </div>
 
 
-    <!-- ACTIVE FILTERS -->
     <div class="active-filter-bar">
-
-      <div
-        id="activeFilterChips"
-        class="active-filter-chips"
-      >
-        <span class="filter-chip">
-          All Results
-        </span>
-      </div>
-
-      <strong
-        id="filteredResultCount"
-        class="filtered-result-count"
-      >
-        0 records
-      </strong>
-
+      <div id="activeFilterChips" class="active-filter-chips"><span class="filter-chip">All Results</span></div>
+      <strong id="filteredResultCount" class="filtered-result-count">0 records</strong>
     </div>
 
   </section>
@@ -544,336 +225,137 @@
   ========================================================== -->
   <section class="results-table-panel">
 
-    <!-- TABLE HEADER -->
     <header class="results-table-header">
-
       <div class="results-table-heading">
-
-        <span class="section-icon table-icon">
-          <i class="fa-solid fa-table-list"></i>
-        </span>
+        <span class="section-icon table-icon"><i class="fa-solid fa-table-list"></i></span>
 
         <div>
           <div class="table-heading-line">
-
             <h2>Results</h2>
-
-            <span class="table-live-badge">
-              <span></span>
-              Live Data
-            </span>
-
+            <span class="table-live-badge"><span></span> Live Data</span>
           </div>
 
-          <p id="tableSubtitle">
-            Loading examination records...
-          </p>
+          <p id="tableSubtitle">Loading examination records...</p>
         </div>
-
       </div>
 
 
       <div class="results-table-tools">
 
-        <!-- QUICK STATUS FILTER -->
-        <div
-          class="result-view-tabs"
-          aria-label="Result status filter"
-        >
-
-          <button
-            class="view-tab active"
-            data-status-view="all"
-            type="button"
-          >
-            All
-          </button>
-
-          <button
-            class="view-tab"
-            data-status-view="PASS"
-            type="button"
-          >
-            Passed
-          </button>
-
-          <button
-            class="view-tab"
-            data-status-view="FAIL"
-            type="button"
-          >
-            Failed
-          </button>
-
+        <div class="result-view-tabs" aria-label="Result status filter">
+          <button class="view-tab active" data-status-view="all" type="button">All</button>
+          <button class="view-tab" data-status-view="PASS" type="button">Passed</button>
+          <button class="view-tab" data-status-view="FAIL" type="button">Failed</button>
         </div>
 
-
-        <!-- ROW COUNT -->
         <div class="rows-per-page-control">
-
-          <label for="rowsPerPage">
-            Rows
-          </label>
-
-          <select id="rowsPerPage">
-            <option value="10">10</option>
-
-            <option
-              value="20"
-              selected
-            >
-              20
-            </option>
-
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-
+          <label for="rowsPerPage">Rows</label>
+          <select id="rowsPerPage"><option value="10">10</option><option value="20" selected>20</option><option value="50">50</option><option value="100">100</option></select>
         </div>
 
 
         <!-- COLUMN MANAGER -->
         <div class="column-manager">
 
-          <button
-            id="columnToggleBtn"
-            class="table-tool-btn"
-            type="button"
-            title="Choose visible columns"
-            aria-expanded="false"
-          >
-            <i class="fa-solid fa-table-columns"></i>
-            <span>Columns</span>
+          <button id="columnToggleBtn" class="table-tool-btn" type="button" title="Choose visible columns" aria-expanded="false">
+            <i class="fa-solid fa-table-columns"></i><span>Columns</span>
           </button>
 
+          <div id="columnMenu" class="column-menu hidden">
 
-          <div
-            id="columnMenu"
-            class="column-menu hidden"
-          >
+            <div class="column-menu-header"><strong>Visible Columns</strong><button id="resetColumnsBtn" type="button">Reset</button></div>
 
-            <div class="column-menu-header">
-              <strong>Visible Columns</strong>
+            <label><input type="checkbox" data-column="student" checked> Student</label>
+            <label><input type="checkbox" data-column="admission" checked> Admission</label>
+            <label><input type="checkbox" data-column="year" checked> Year</label>
+            <label><input type="checkbox" data-column="class" checked> Class</label>
+            <label><input type="checkbox" data-column="term" checked> Term</label>
+            <label><input type="checkbox" data-column="subject" checked> Subject</label>
 
-              <button
-                id="resetColumnsBtn"
-                type="button"
-              >
-                Reset
-              </button>
-            </div>
+            <div class="column-menu-divider"></div>
 
+            <label class="column-score-option"><input type="checkbox" data-column="objective" checked> Objective</label>
+            <label class="column-score-option"><input type="checkbox" data-column="essay" checked> Essay</label>
+            <label class="column-score-option"><input type="checkbox" data-column="total" checked> Total</label>
 
-            <label>
-              <input
-                type="checkbox"
-                data-column="student"
-                checked
-              >
-              Student
-            </label>
+            <div class="column-menu-divider"></div>
 
-            <label>
-              <input
-                type="checkbox"
-                data-column="admission"
-                checked
-              >
-              Admission
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="year"
-                checked
-              >
-              Year
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="class"
-                checked
-              >
-              Class
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="term"
-                checked
-              >
-              Term
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="subject"
-                checked
-              >
-              Subject
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="score"
-                checked
-              >
-              Score
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="status"
-                checked
-              >
-              Status
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="time"
-                checked
-              >
-              Time
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                data-column="date"
-                checked
-              >
-              Date
-            </label>
+            <label><input type="checkbox" data-column="status" checked> Status</label>
+            <label><input type="checkbox" data-column="time" checked> Time</label>
+            <label><input type="checkbox" data-column="date" checked> Date</label>
 
           </div>
-
         </div>
 
-
-        <button
-          id="toggleCompactBtn"
-          class="table-tool-btn"
-          type="button"
-          title="Toggle compact table"
-        >
-          <i class="fa-solid fa-compress"></i>
-          <span>Compact</span>
-        </button>
+        <button id="toggleCompactBtn" class="table-tool-btn" type="button" title="Toggle compact table"><i class="fa-solid fa-compress"></i><span>Compact</span></button>
 
       </div>
-
     </header>
 
 
     <!-- =======================================================
-         SELECTION / EXPORT TOOLBAR
+         SCORE MODE INFORMATION
+    ======================================================== -->
+    <div class="result-score-guide">
+      <div class="score-guide-item objective">
+        <span class="score-guide-icon"><i class="fa-solid fa-list-check"></i></span>
+        <div><small>Objective</small><strong>Automatically Scored</strong></div>
+      </div>
+
+      <span class="score-guide-plus"><i class="fa-solid fa-plus"></i></span>
+
+      <div class="score-guide-item essay">
+        <span class="score-guide-icon"><i class="fa-solid fa-pen-nib"></i></span>
+        <div><small>Essay / Theory</small><strong>Teacher Scored</strong></div>
+      </div>
+
+      <span class="score-guide-equals"><i class="fa-solid fa-equals"></i></span>
+
+      <div class="score-guide-item total">
+        <span class="score-guide-icon"><i class="fa-solid fa-calculator"></i></span>
+        <div><small>Final Result</small><strong>Automatically Calculated</strong></div>
+      </div>
+
+      <div class="score-guide-note"><i class="fa-solid fa-circle-info"></i><span>Default weighting: Objective 60 + Essay 40 = 100</span></div>
+    </div>
+
+
+    <!-- =======================================================
+         ACTION / EXPORT TOOLBAR
     ======================================================== -->
     <div class="results-action-toolbar">
 
       <div class="results-action-left">
 
         <div class="selected-summary">
-
-          <span class="selected-summary-icon">
-            <i class="fa-solid fa-check"></i>
-          </span>
-
-          <div>
-            <span>Selected</span>
-
-            <strong id="selectedCountBadge">
-              0 selected
-            </strong>
-          </div>
-
+          <span class="selected-summary-icon"><i class="fa-solid fa-check"></i></span>
+          <div><span>Selected</span><strong id="selectedCountBadge">0 selected</strong></div>
         </div>
-
 
         <div class="action-divider"></div>
 
-
-        <button
-          id="deleteSelectedBtn"
-          class="ar-btn ar-btn-danger-soft"
-          type="button"
-          disabled
-        >
-          <i class="fa-solid fa-trash-can"></i>
-          <span>Delete</span>
+        <button id="openEssayScoresBtn" class="ar-btn ar-btn-essay-soft" type="button">
+          <i class="fa-solid fa-pen-to-square"></i><span>Enter Essay Scores</span>
         </button>
 
-
-        <button
-          id="printSelectedBtn"
-          class="ar-btn ar-btn-secondary"
-          type="button"
-          disabled
-        >
-          <i class="fa-solid fa-print"></i>
-          <span>Print Selected</span>
-        </button>
+        <button id="deleteSelectedBtn" class="ar-btn ar-btn-danger-soft" type="button" disabled><i class="fa-solid fa-trash-can"></i><span>Delete</span></button>
+        <button id="printSelectedBtn" class="ar-btn ar-btn-secondary" type="button" disabled><i class="fa-solid fa-print"></i><span>Print Selected</span></button>
 
       </div>
 
 
       <div class="results-action-right">
+        <span class="export-label">Export:</span>
 
-        <span class="export-label">
-          Export:
-        </span>
-
-
-        <button
-          id="exportAllExcelBtn"
-          class="export-btn excel"
-          type="button"
-          title="Export to Excel"
-        >
-          <i class="fa-solid fa-file-excel"></i>
-          <span>Excel</span>
-        </button>
-
-
-        <button
-          id="exportCsvBtn"
-          class="export-btn csv"
-          type="button"
-          title="Export CSV"
-        >
-          <i class="fa-solid fa-file-csv"></i>
-          <span>CSV</span>
-        </button>
-
-
-        <button
-          id="printAllPdfBtn"
-          class="export-btn pdf"
-          type="button"
-          title="Print or save as PDF"
-        >
-          <i class="fa-solid fa-file-pdf"></i>
-          <span>PDF</span>
-        </button>
-
+        <button id="exportAllExcelBtn" class="export-btn excel" type="button" title="Export to Excel"><i class="fa-solid fa-file-excel"></i><span>Excel</span></button>
+        <button id="exportCsvBtn" class="export-btn csv" type="button" title="Export CSV"><i class="fa-solid fa-file-csv"></i><span>CSV</span></button>
+        <button id="printAllPdfBtn" class="export-btn pdf" type="button" title="Print or save as PDF"><i class="fa-solid fa-file-pdf"></i><span>PDF</span></button>
       </div>
 
     </div>
 
 
-    <!-- MOBILE HINT -->
-    <div class="table-scroll-hint">
-      <i class="fa-solid fa-arrows-left-right"></i>
-      Scroll sideways to view all columns.
-    </div>
+    <div class="table-scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Scroll sideways to view all columns.</div>
 
 
     <!-- =======================================================
@@ -881,177 +363,82 @@
     ======================================================== -->
     <div class="results-table-scroll">
 
-      <table
-        class="results-table"
-        id="resultsTable"
-      >
+      <table class="results-table" id="resultsTable">
 
         <thead>
           <tr>
 
-            <th
-              class="select-col"
-              data-column-name="select"
-            >
-              <input
-                type="checkbox"
-                id="selectAllRows"
-                aria-label="Select all visible results"
-              >
+            <th class="select-col" data-column-name="select"><input type="checkbox" id="selectAllRows" aria-label="Select all visible results"></th>
+
+            <th class="sortable" data-sort="student" data-column-name="student">
+              <button type="button"><span>Student</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="admission" data-column-name="admission">
+              <button type="button"><span>Admission</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="year" data-column-name="year">
+              <button type="button"><span>Year</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="class" data-column-name="class">
+              <button type="button"><span>Class</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable term-column" data-sort="term" data-column-name="term">
+              <button type="button"><span>Term</span><i class="fa-solid fa-sort"></i></button>
+            </th>
+
+            <th class="sortable" data-sort="subject" data-column-name="subject">
+              <button type="button"><span>Subject</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
 
-            <th
-              class="sortable"
-              data-sort="student"
-              data-column-name="student"
-            >
-              <button type="button">
-                <span>Student</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
+            <!-- OBJECTIVE -->
+            <th class="sortable objective-score-col" data-sort="objective" data-column-name="objective">
+              <button type="button"><span>Objective</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
 
-            <th
-              class="sortable"
-              data-sort="admission"
-              data-column-name="admission"
-            >
-              <button type="button">
-                <span>Admission</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
+            <!-- ESSAY -->
+            <th class="sortable essay-score-col" data-sort="essay" data-column-name="essay">
+              <button type="button"><span>Essay</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
 
-            <th
-              class="sortable"
-              data-sort="year"
-              data-column-name="year"
-            >
-              <button type="button">
-                <span>Year</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
+            <!-- FINAL TOTAL -->
+            <th class="sortable final-score-col" data-sort="total" data-column-name="total">
+              <button type="button"><span>Total</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
 
-            <th
-              class="sortable"
-              data-sort="class"
-              data-column-name="class"
-            >
-              <button type="button">
-                <span>Class</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
+            <th class="sortable" data-sort="status" data-column-name="status">
+              <button type="button"><span>Status</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
-
-            <th
-              class="sortable term-column"
-              data-sort="term"
-              data-column-name="term"
-            >
-              <button type="button">
-                <span>Term</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
+            <th class="sortable" data-sort="time" data-column-name="time">
+              <button type="button"><span>Time</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
-
-            <th
-              class="sortable"
-              data-sort="subject"
-              data-column-name="subject"
-            >
-              <button type="button">
-                <span>Subject</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
+            <th class="sortable" data-sort="date" data-column-name="date">
+              <button type="button"><span>Date</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
-
-            <th
-              class="sortable score-col"
-              data-sort="score"
-              data-column-name="score"
-            >
-              <button type="button">
-                <span>Score</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
-            </th>
-
-
-            <th
-              class="sortable"
-              data-sort="status"
-              data-column-name="status"
-            >
-              <button type="button">
-                <span>Status</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
-            </th>
-
-
-            <th
-              class="sortable"
-              data-sort="time"
-              data-column-name="time"
-            >
-              <button type="button">
-                <span>Time</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
-            </th>
-
-
-            <th
-              class="sortable"
-              data-sort="date"
-              data-column-name="date"
-            >
-              <button type="button">
-                <span>Date</span>
-                <i class="fa-solid fa-sort"></i>
-              </button>
-            </th>
-
-
-            <th class="actions-col">
-              Actions
-            </th>
+            <th class="actions-col" data-column-name="actions">Actions</th>
 
           </tr>
         </thead>
 
 
         <tbody id="resultsBody">
-
           <tr>
-            <td
-              colspan="12"
-              class="table-placeholder"
-            >
-
-              <span class="table-placeholder-icon">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-              </span>
-
-              <strong>
-                Loading examination results
-              </strong>
-
-              <span>
-                Please wait...
-              </span>
-
+            <td colspan="14" class="table-placeholder">
+              <span class="table-placeholder-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
+              <strong>Loading examination results</strong>
+              <span>Please wait...</span>
             </td>
           </tr>
-
         </tbody>
 
       </table>
@@ -1059,27 +446,9 @@
     </div>
 
 
-    <!-- =======================================================
-         TABLE FOOTER
-    ======================================================== -->
     <footer class="results-table-footer">
-
-      <div class="pagination-summary">
-
-        <span class="pagination-status-dot"></span>
-
-        <span id="paginationInfo">
-          Showing 0 results
-        </span>
-
-      </div>
-
-
-      <div
-        id="pagination"
-        class="pagination"
-      ></div>
-
+      <div class="pagination-summary"><span class="pagination-status-dot"></span><span id="paginationInfo">Showing 0 results</span></div>
+      <div id="pagination" class="pagination"></div>
     </footer>
 
   </section>
@@ -1091,91 +460,28 @@
   <section class="result-insights">
 
     <div class="result-insights-header">
-
-      <div>
-        <span class="section-eyebrow">
-          Current View
-        </span>
-
-        <h2>
-          Performance Summary
-        </h2>
-      </div>
-
-      <span class="insights-note">
-        Based on active filters
-      </span>
-
+      <div><span class="section-eyebrow">Current View</span><h2>Performance Summary</h2></div>
+      <span class="insights-note">Based on active filters</span>
     </div>
-
 
     <div class="result-insights-grid">
 
-      <!-- TOP PERFORMER -->
       <article class="result-insight-card top-performer">
-
-        <span class="result-insight-icon">
-          <i class="fa-solid fa-trophy"></i>
-        </span>
-
-        <div class="result-insight-content">
-
-          <span>Top Performer</span>
-
-          <strong id="topPerformerName">
-            —
-          </strong>
-
-          <p id="topPerformerMeta">
-            No result data
-          </p>
-
-        </div>
-
+        <span class="result-insight-icon"><i class="fa-solid fa-trophy"></i></span>
+        <div class="result-insight-content"><span>Top Performer</span><strong id="topPerformerName">—</strong><p id="topPerformerMeta">No result data</p></div>
       </article>
 
-
-      <!-- HIGHEST -->
       <article class="result-insight-card">
-
-        <span class="result-insight-icon highest">
-          <i class="fa-solid fa-arrow-trend-up"></i>
-        </span>
-
-        <div class="result-insight-content">
-
-          <span>Highest Score</span>
-
-          <strong id="highestScore">
-            0%
-          </strong>
-
-        </div>
-
+        <span class="result-insight-icon highest"><i class="fa-solid fa-arrow-trend-up"></i></span>
+        <div class="result-insight-content"><span>Highest Score</span><strong id="highestScore">0%</strong></div>
       </article>
 
-
-      <!-- LOWEST -->
       <article class="result-insight-card">
-
-        <span class="result-insight-icon lowest">
-          <i class="fa-solid fa-arrow-trend-down"></i>
-        </span>
-
-        <div class="result-insight-content">
-
-          <span>Lowest Score</span>
-
-          <strong id="lowestScore">
-            0%
-          </strong>
-
-        </div>
-
+        <span class="result-insight-icon lowest"><i class="fa-solid fa-arrow-trend-down"></i></span>
+        <div class="result-insight-content"><span>Lowest Score</span><strong id="lowestScore">0%</strong></div>
       </article>
 
     </div>
-
   </section>
 
 
@@ -1185,129 +491,44 @@
   <details class="results-activity-panel">
 
     <summary>
-
       <div class="activity-summary-left">
-
-        <span class="activity-summary-icon">
-          <i class="fa-solid fa-signal"></i>
-        </span>
-
-        <div>
-          <strong>
-            Live Student & Exam Activity
-          </strong>
-
-          <span>
-            Login and examination events
-          </span>
-        </div>
-
+        <span class="activity-summary-icon"><i class="fa-solid fa-signal"></i></span>
+        <div><strong>Live Student & Exam Activity</strong><span>Login and examination events</span></div>
       </div>
 
-
-      <span class="activity-summary-action">
-        <span class="activity-live-dot"></span>
-        Live
-
-        <i class="fa-solid fa-chevron-down"></i>
-      </span>
-
+      <span class="activity-summary-action"><span class="activity-live-dot"></span> Live <i class="fa-solid fa-chevron-down"></i></span>
     </summary>
 
 
     <div class="activity-grid">
 
-      <!-- LOGIN ACTIVITY -->
-      <article
-        class="activity-card"
-        id="loginNotifCard"
-      >
-
+      <article class="activity-card" id="loginNotifCard">
         <header>
-
-          <div>
-            <h3>Student Logins</h3>
-            <p>Recent portal access</p>
-          </div>
-
-          <span class="activity-live-badge">
-            <i></i>
-            Live
-          </span>
-
+          <div><h3>Student Logins</h3><p>Recent portal access</p></div>
+          <span class="activity-live-badge"><i></i> Live</span>
         </header>
 
-
-        <ul
-          class="emis-notif-list"
-          id="loginNotifList"
-        >
-
+        <ul class="emis-notif-list" id="loginNotifList">
           <li class="emis-notif-empty">
-
-            <span class="empty-activity-icon">
-              <i class="fa-solid fa-user-clock"></i>
-            </span>
-
-            <strong>
-              No login activity
-            </strong>
-
-            <span>
-              New student logins will appear here.
-            </span>
-
+            <span class="empty-activity-icon"><i class="fa-solid fa-user-clock"></i></span>
+            <strong>No login activity</strong><span>New student logins will appear here.</span>
           </li>
-
         </ul>
-
       </article>
 
 
-      <!-- EXAM ACTIVITY -->
-      <article
-        class="activity-card"
-        id="examNotifCard"
-      >
-
+      <article class="activity-card" id="examNotifCard">
         <header>
-
-          <div>
-            <h3>Exam Activity</h3>
-            <p>Starts and submissions</p>
-          </div>
-
-          <span class="activity-live-badge">
-            <i></i>
-            Realtime
-          </span>
-
+          <div><h3>Exam Activity</h3><p>Starts and submissions</p></div>
+          <span class="activity-live-badge"><i></i> Realtime</span>
         </header>
 
-
-        <ul
-          class="emis-notif-list"
-          id="examNotifList"
-        >
-
+        <ul class="emis-notif-list" id="examNotifList">
           <li class="emis-notif-empty">
-
-            <span class="empty-activity-icon">
-              <i class="fa-solid fa-file-circle-check"></i>
-            </span>
-
-            <strong>
-              No exam activity
-            </strong>
-
-            <span>
-              Examination events will appear here.
-            </span>
-
+            <span class="empty-activity-icon"><i class="fa-solid fa-file-circle-check"></i></span>
+            <strong>No exam activity</strong><span>Examination events will appear here.</span>
           </li>
-
         </ul>
-
       </article>
 
     </div>
@@ -1315,70 +536,222 @@
   </details>
 
 
+  <!-- =========================================================
+       THEORY / ESSAY SCORE ENTRY MODAL
+  ========================================================== -->
+  <div id="essayScoreModal" class="essay-score-modal hidden" role="dialog" aria-modal="true" aria-labelledby="essayScoreModalTitle">
+
+    <div id="essayScoreBackdrop" class="essay-score-backdrop"></div>
+
+    <section class="essay-score-card">
+
+      <!-- HEADER -->
+      <header class="essay-score-header">
+
+        <div class="essay-score-heading">
+          <span class="essay-score-header-icon"><i class="fa-solid fa-pen-nib"></i></span>
+
+          <div>
+            <span class="essay-score-eyebrow">Teacher Assessment</span>
+
+            <div class="essay-score-title-line">
+              <h2 id="essayScoreModalTitle">Theory / Essay Scores</h2>
+              <span id="essayAvailabilityBadge" class="essay-availability-badge available"><i class="fa-solid fa-circle-check"></i> Essay Available</span>
+            </div>
+
+            <p>Enter theory marks for students in the selected examination. Decimal scores are supported.</p>
+          </div>
+        </div>
+
+        <button id="essayScoreCloseBtn" class="essay-modal-close" type="button" aria-label="Close essay score entry"><i class="fa-solid fa-xmark"></i></button>
+
+      </header>
+
+
+      <!-- CONTEXT -->
+      <section class="essay-context-bar">
+
+        <div class="essay-context-main">
+          <span class="essay-context-label">Scoring</span>
+
+          <div class="essay-context-chips">
+            <span class="essay-context-chip"><i class="fa-solid fa-calendar"></i><b id="essayContextYear">—</b></span>
+            <span class="essay-context-chip"><i class="fa-solid fa-graduation-cap"></i><b id="essayContextClass">—</b></span>
+            <span class="essay-context-chip" id="essayContextTermWrap"><i class="fa-solid fa-calendar-week"></i><b id="essayContextTerm">—</b></span>
+            <span class="essay-context-chip subject"><i class="fa-solid fa-book"></i><b id="essayContextSubject">—</b></span>
+          </div>
+        </div>
+
+
+        <div class="essay-weighting-summary">
+
+          <div class="essay-weight-box objective">
+            <span>Objective</span>
+            <strong><b id="essayObjectiveMax">60</b> marks</strong>
+          </div>
+
+          <span class="weight-symbol">+</span>
+
+          <div class="essay-weight-box theory">
+            <span>Essay</span>
+            <strong><b id="essayMaximumScore">40</b> marks</strong>
+          </div>
+
+          <span class="weight-symbol">=</span>
+
+          <div class="essay-weight-box final">
+            <span>Total</span>
+            <strong>100 marks</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- INFORMATION -->
+      <div class="essay-score-information">
+        <span class="essay-info-icon"><i class="fa-solid fa-circle-info"></i></span>
+
+        <div>
+          <strong>Objective scores are normalized automatically.</strong>
+          <p>A paper may contain 60, 80 or 100 objective questions. EMIS converts the student's raw objective performance to the configured objective mark before combining it with the essay score.</p>
+        </div>
+      </div>
+
+
+      <!-- MODAL TOOLBAR -->
+      <div class="essay-score-toolbar">
+
+        <div class="essay-student-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="essayStudentSearch" type="search" autocomplete="off" placeholder="Search student name or admission number...">
+          <button id="clearEssaySearchBtn" type="button" aria-label="Clear essay search"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+
+        <div class="essay-toolbar-options">
+
+          <label class="essay-toggle-option">
+            <input id="essayPendingOnly" type="checkbox">
+            <span class="essay-toggle-ui"></span>
+            <span>Pending only</span>
+          </label>
+
+          <div class="essay-roster-count">
+            <i class="fa-solid fa-users"></i>
+            <span><b id="essayStudentCount">0</b> students</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- STUDENT SCORE TABLE -->
+      <div class="essay-score-table-wrap pretty-scroll">
+
+        <table class="essay-score-table">
+
+          <thead>
+            <tr>
+              <th class="essay-number-col">#</th>
+              <th>Student</th>
+              <th>Admission</th>
+              <th>Arm</th>
+              <th class="essay-objective-col">Objective</th>
+              <th class="essay-entry-col">Essay / <span id="essayHeaderMax">40</span></th>
+              <th class="essay-total-col">Combined Total</th>
+              <th class="essay-state-col">Status</th>
+            </tr>
+          </thead>
+
+
+          <tbody id="essayScoreBody">
+
+            <tr>
+              <td colspan="8" class="essay-score-placeholder">
+                <span class="essay-placeholder-icon"><i class="fa-solid fa-user-group"></i></span>
+                <strong>Select an exact year, class and subject</strong>
+                <span>The student class register will be loaded here for essay score entry.</span>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- LEGEND -->
+      <div class="essay-score-legend">
+        <span><i class="fa-solid fa-circle essay-legend-dot objective"></i> Objective submitted</span>
+        <span><i class="fa-solid fa-circle essay-legend-dot essay"></i> Essay entered</span>
+        <span><i class="fa-solid fa-circle essay-legend-dot pending"></i> Awaiting objective</span>
+        <span><i class="fa-solid fa-circle essay-legend-dot complete"></i> Complete result</span>
+      </div>
+
+
+      <!-- FOOTER -->
+      <footer class="essay-score-footer">
+
+        <div class="essay-save-summary">
+          <span class="essay-save-summary-icon"><i class="fa-solid fa-floppy-disk"></i></span>
+
+          <div>
+            <small>Unsaved Changes</small>
+            <strong><span id="essayUnsavedCount">0</span> score(s)</strong>
+          </div>
+        </div>
+
+
+        <div class="essay-score-footer-actions">
+
+          <button id="clearEssayChangesBtn" class="ar-btn ar-btn-secondary" type="button">
+            <i class="fa-solid fa-arrow-rotate-left"></i><span>Reset Changes</span>
+          </button>
+
+           <button id="cancelEssayScoresBtn" class="ar-btn ar-btn-secondary" type="button">
+    <i class="fa-solid fa-xmark"></i><span>Close</span>
+            </button>
+
+          <button id="saveEssayScoresBtn" class="ar-btn ar-btn-essay-save" type="button">
+            <span class="btn-text"><i class="fa-solid fa-floppy-disk"></i> Save Essay Scores</span>
+            <span class="btn-spinner hidden"><i class="fa-solid fa-spinner fa-spin"></i></span>
+          </button>
+
+        </div>
+
+      </footer>
+
+    </section>
+
+  </div>
 
 
   <!-- =========================================================
        DELETE CONFIRMATION MODAL
   ========================================================== -->
-  <div
-    id="deleteModal"
-    class="modal-backdrop hidden"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="deleteModalTitle"
-  >
+  <div id="deleteModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
 
     <div class="delete-modal-card">
 
-      <span class="delete-modal-icon">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-      </span>
-
+      <span class="delete-modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
 
       <div class="delete-modal-copy">
-
-        <span class="delete-modal-label">
-          Permanent Action
-        </span>
-
-        <h3 id="deleteModalTitle">
-          Delete selected results?
-        </h3>
-
-        <p>
-          The selected examination records will be permanently
-          removed. This action cannot be undone.
-        </p>
-
+        <span class="delete-modal-label">Permanent Action</span>
+        <h3 id="deleteModalTitle">Delete selected results?</h3>
+        <p>The selected examination records will be permanently removed. This action cannot be undone.</p>
       </div>
 
-
       <div class="delete-modal-actions">
+        <button id="cancelDeleteBtn" class="ar-btn ar-btn-secondary" type="button">Cancel</button>
 
-        <button
-          id="cancelDeleteBtn"
-          class="ar-btn ar-btn-secondary"
-          type="button"
-        >
-          Cancel
-        </button>
-
-
-        <button
-          id="confirmDeleteBtn"
-          class="ar-btn ar-btn-danger"
-          type="button"
-        >
-
-          <span class="btn-text">
-            <i class="fa-solid fa-trash-can"></i>
-            Delete Results
-          </span>
-
+        <button id="confirmDeleteBtn" class="ar-btn ar-btn-danger" type="button">
+          <span class="btn-text"><i class="fa-solid fa-trash-can"></i> Delete Results</span>
           <span class="btn-spinner hidden"></span>
-
         </button>
-
       </div>
 
     </div>
@@ -1389,68 +762,31 @@
 
 
 <!-- ===========================================================
-     RESULT VIEW OVERLAY
+     RESULT DETAILS OVERLAY
 ============================================================ -->
-<div
-  id="summaryOverlay"
-  class="summary-overlay"
-></div>
+<div id="summaryOverlay" class="summary-overlay"></div>
 
 
 <!-- ===========================================================
      RESULT DETAILS MODAL
 ============================================================ -->
-<section
-  id="adminPrintSummary"
-  class="result-summary-modal"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="resultSummaryTitle"
->
+<section id="adminPrintSummary" class="result-summary-modal" role="dialog" aria-modal="true" aria-labelledby="resultSummaryTitle">
 
-  <!-- MODAL HEADER -->
   <header class="result-summary-header">
 
     <div class="result-summary-brand">
-
-      <img
-        src="{{ url_for('static', filename='images/logo.jpg') }}"
-        alt="EMIS Logo"
-        class="summary-logo"
-      >
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo" class="summary-logo">
 
       <div>
         <span>EMIS CBT</span>
-
-        <h2 id="resultSummaryTitle">
-          Examination Result
-        </h2>
+        <h2 id="resultSummaryTitle">Examination Result</h2>
       </div>
-
     </div>
 
 
     <div class="result-summary-header-actions">
-
-      <button
-        id="summaryPrintBtn"
-        class="summary-action-btn"
-        type="button"
-        title="Print result"
-      >
-        <i class="fa-solid fa-print"></i>
-      </button>
-
-
-      <button
-        id="summaryCloseBtn"
-        class="summary-close-btn"
-        type="button"
-        aria-label="Close result details"
-      >
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
+      <button id="summaryPrintBtn" class="summary-action-btn" type="button" title="Print result"><i class="fa-solid fa-print"></i></button>
+      <button id="summaryCloseBtn" class="summary-close-btn" type="button" aria-label="Close result details"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
   </header>
@@ -1459,170 +795,93 @@
   <!-- STUDENT -->
   <section class="summary-student">
 
-    <span class="summary-student-avatar">
-      <i class="fa-solid fa-user-graduate"></i>
-    </span>
-
+    <span class="summary-student-avatar"><i class="fa-solid fa-user-graduate"></i></span>
 
     <div class="summary-student-info">
-
       <span>Candidate</span>
-
       <strong id="ap_studentName"></strong>
-
       <p id="ap_studentID"></p>
-
     </div>
 
-
-    <span
-      class="summary-result-badge"
-      id="ap_status"
-    ></span>
+    <span class="summary-result-badge" id="ap_status"></span>
 
   </section>
 
 
-  <!-- SCORE SUMMARY -->
-  <section class="summary-score-grid">
+  <!-- =======================================================
+       NEW COMPLETE SCORE SUMMARY
+  ======================================================== -->
+  <section class="summary-score-grid result-component-grid">
 
-    <article>
-      <span>Score</span>
-      <strong id="ap_percent">—</strong>
+    <article class="summary-score-card objective">
+      <span>Objective</span>
+      <strong id="ap_objectiveScore">—</strong>
+      <small id="ap_objectiveRaw">Automatic</small>
     </article>
 
-
-    <article>
-      <span>Raw Score</span>
-      <strong id="ap_rawScore">—</strong>
+    <article class="summary-score-card essay">
+      <span>Essay / Theory</span>
+      <strong id="ap_essayScore">—</strong>
+      <small id="ap_essayState">Teacher Score</small>
     </article>
 
-
-    <article>
-      <span>Accuracy</span>
-      <strong id="ap_accuracy">—</strong>
+    <article class="summary-score-card total">
+      <span>Final Total</span>
+      <strong id="ap_finalScore">—</strong>
+      <small>Out of 100</small>
     </article>
 
-
-    <article>
+    <article class="summary-score-card time">
       <span>Time Taken</span>
       <strong id="ap_time">—</strong>
+      <small>Objective CBT</small>
     </article>
 
   </section>
+
+
+  <!-- LEGACY IDS RETAINED FOR CURRENT JS COMPATIBILITY -->
+  <div class="summary-legacy-score-data" hidden>
+    <span id="ap_percent">—</span>
+    <span id="ap_rawScore">—</span>
+    <span id="ap_accuracy">—</span>
+  </div>
 
 
   <!-- INFORMATION -->
   <div class="summary-information-grid">
 
-    <!-- CANDIDATE -->
     <section class="summary-information-card">
 
-      <header>
-        <i class="fa-solid fa-id-card"></i>
-        <h3>Candidate Information</h3>
-      </header>
+      <header><i class="fa-solid fa-id-card"></i><h3>Candidate Information</h3></header>
 
-
-      <div class="summary-data-row">
-        <span>Student Name</span>
-        <strong id="ap_studentNameMirror"></strong>
-      </div>
-
-
-      <div class="summary-data-row">
-        <span>Admission No.</span>
-        <strong id="ap_studentIDMirror"></strong>
-      </div>
-
-
-      <div class="summary-data-row">
-        <span>Exam Year</span>
-        <strong id="ap_year"></strong>
-      </div>
-
-
-      <div class="summary-data-row">
-        <span>Class</span>
-        <strong id="ap_studentClass"></strong>
-      </div>
-
-
-      <div class="summary-data-row">
-        <span>Class Category</span>
-        <strong id="ap_studentCategory"></strong>
-      </div>
-
-
-      <div
-        class="summary-data-row"
-        id="summaryTermRow"
-      >
-        <span>Term</span>
-        <strong id="ap_term">—</strong>
-      </div>
+      <div class="summary-data-row"><span>Student Name</span><strong id="ap_studentNameMirror"></strong></div>
+      <div class="summary-data-row"><span>Admission No.</span><strong id="ap_studentIDMirror"></strong></div>
+      <div class="summary-data-row"><span>Exam Year</span><strong id="ap_year"></strong></div>
+      <div class="summary-data-row"><span>Class</span><strong id="ap_studentClass"></strong></div>
+      <div class="summary-data-row"><span>Class Category</span><strong id="ap_studentCategory"></strong></div>
+      <div class="summary-data-row" id="summaryTermRow"><span>Term</span><strong id="ap_term">—</strong></div>
 
     </section>
 
 
-    <!-- EXAM -->
     <section class="summary-information-card">
 
-      <header>
-        <i class="fa-solid fa-file-pen"></i>
-        <h3>Examination Information</h3>
-      </header>
+      <header><i class="fa-solid fa-file-pen"></i><h3>Examination Information</h3></header>
 
-
-      <div class="summary-data-row">
-        <span>Subject</span>
-        <strong id="ap_subject"></strong>
-      </div>
-
-
-      <div class="summary-data-row">
-        <span>Correct Answers</span>
-        <strong id="ap_correct"></strong>
-      </div>
-
-
-      <div class="summary-data-row">
-        <span>Total Questions</span>
-        <strong id="ap_total"></strong>
-      </div>
-
-
-      <div class="summary-data-row">
-        <span>Completion Date</span>
-        <strong id="ap_date"></strong>
-      </div>
+      <div class="summary-data-row"><span>Subject</span><strong id="ap_subject"></strong></div>
+      <div class="summary-data-row"><span>Correct Answers</span><strong id="ap_correct"></strong></div>
+      <div class="summary-data-row"><span>Total Objective Questions</span><strong id="ap_total"></strong></div>
+      <div class="summary-data-row"><span>Completion Date</span><strong id="ap_date"></strong></div>
 
     </section>
 
   </div>
 
 
-  <!-- MODAL FOOTER -->
   <footer class="result-summary-footer">
-
-    <button
-      id="summaryCloseFooterBtn"
-      class="ar-btn ar-btn-secondary"
-      type="button"
-    >
-      Close
-    </button>
-
-
-    <button
-      id="summaryPrintFooterBtn"
-      class="ar-btn ar-btn-primary"
-      type="button"
-    >
-      <i class="fa-solid fa-print"></i>
-      Print Result
-    </button>
-
+    <button id="summaryCloseFooterBtn" class="ar-btn ar-btn-secondary" type="button">Close</button>
+    <button id="summaryPrintFooterBtn" class="ar-btn ar-btn-primary" type="button"><i class="fa-solid fa-print"></i> Print Result</button>
   </footer>
 
 </section>

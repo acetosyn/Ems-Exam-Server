@@ -637,855 +637,657 @@ function flashMessage(text, type = "success") {
         );
       };
 
-
-      /* ====================================================
-         TABLE RENDER
-      ==================================================== */
-
-      const renderTable = () => {
-        updateTermVisibility();
-        updateActiveIndicators();
-
-        if (!this.activeYear) {
-          renderEmpty(
-            "Select an exam year",
-            "Question files will appear here."
-          );
-
-          updateStats();
-          return;
-        }
-
-        const rows = getFilteredRows();
-
-        if (libraryResultCount) {
-          libraryResultCount.textContent = `${rows.length} ${rows.length === 1 ? "file" : "files"}`;
-        }
-
-        if (!rows.length) {
-          let description = `No files found for ${this.activeYear}.`;
-
-          if (this.activeClass !== "ALL") {
-            description = `No ${this.activeClass} files found for ${this.activeYear}.`;
-          }
-
-          if (
-            this.activeClass !== "ALL"
-            && this.isTermAwareClass(this.activeClass)
-            && this.activeTerm !== "ALL"
-          ) {
-            description = (
-              `No ${this.activeClass} ${this.termLabel(this.activeTerm)} `
-              + `files found for ${this.activeYear}.`
-            );
-          }
-
-          renderEmpty("Nothing found", description);
-          updateStats();
-          return;
-        }
-
-        tableBody.innerHTML = rows
-          .map((item) => {
-            const yearRaw = item.year || this.activeYear;
-            const classRaw = this.getItemClass(item);
-            const termRaw = this.getItemTerm(item);
-
-            const year = escapeHtml(yearRaw);
-            const filename = escapeHtml(item.filename || "");
-            const subject = escapeHtml(this.getSubjectLabel(item));
-            const classCategory = escapeHtml(classRaw || "—");
-            const term = escapeHtml(this.termLabel(termRaw));
-            const questions = escapeHtml(item.questions ?? 0);
-            const statusRaw = String(item.status || "OK");
-            const status = escapeHtml(statusRaw);
-
-            const size = Number(item.size ?? item.size_kb ?? 0);
-            const legacy = Boolean(item.legacy);
-
-            const key = this.makeSelectionKey(item);
-            const selected = this.selectedFiles.has(key);
-
-            const termMeta = termRaw
-              ? ` • ${escapeHtml(this.termLabel(termRaw))}`
-              : "";
-
-            const sizeMeta = Number.isFinite(size) && size > 0
-              ? ` • ${escapeHtml(size)} KB`
-              : "";
-
-            let statusClass = "status-ok";
-
-            if (statusRaw === "TERM_REQUIRED") {
-              statusClass = "status-pill term-required";
-            }
-
-            return `
-              <tr class="upload-row"
-                  data-year="${year}"
-                  data-filename="${filename}"
-                  data-class="${classCategory}"
-                  data-term="${escapeHtml(termRaw || "")}">
-
-                <td class="check-column">
-                  <input
-                    type="checkbox"
-                    class="row-select"
-                    aria-label="Select ${filename}"
-                    ${selected ? "checked" : ""}
-                  >
-                </td>
-
-                <td class="file-cell" data-clickable="true">
-                  <div class="file-main">
-                    <span class="file-name">${filename}</span>
-
-                    <span class="file-meta">
-                      ${classCategory}${termMeta} • ${questions} questions${sizeMeta}
-                      ${legacy ? " • Legacy" : ""}
-                    </span>
-                  </div>
-                </td>
-
-                <td>${subject}</td>
-
-                <td>
-                  <span class="summary-chip">
-                    ${classCategory}
-                  </span>
-                </td>
-
-                <td class="term-column">
-                  ${termRaw
-                    ? `<span class="summary-chip term-chip">${term}</span>`
-                    : `<span class="file-meta">—</span>`}
-                </td>
-
-                <td class="center">${questions}</td>
-
-                <td>
-                  <span class="${statusClass}">
-                    ${status === "TERM_REQUIRED" ? "Term Required" : status}
-                  </span>
-                </td>
-
-                <td class="actions-column">
-                  <div class="table-row-actions">
-
-                    <button
-                      class="mini-icon-button preview-btn"
-                      type="button"
-                      title="Preview JSON"
-                      aria-label="Preview ${filename}"
-                    >
-                      <i class="fa-solid fa-eye"></i>
-                    </button>
-
-                    <button
-                      class="mini-icon-button delete-btn"
-                      type="button"
-                      title="Delete JSON"
-                      aria-label="Delete ${filename}"
-                    >
-                      <i class="fa-solid fa-trash-can"></i>
-                    </button>
-
-                  </div>
-                </td>
-
-              </tr>
-            `;
-          })
-          .join("");
-
-        syncCheckAll();
-        updateStats();
-      };
-
-
-      /* ====================================================
-         LOAD YEAR
-      ==================================================== */
-
-      const loadYearFiles = async (year, refreshing = false) => {
-        if (!year || year === "Select Year") {
-          return;
-        }
-
-        if (refreshing) {
-          setLoadingState(true);
-        }
-
-        tableBody.innerHTML = `
-          <tr>
-            <td colspan="8" class="empty">
-              <div class="table-empty-state">
-                <span class="spinner"></span>
-                <strong>Loading library...</strong>
-              </div>
-            </td>
-          </tr>
-        `;
-
-        try {
-          const response = await fetch(
-            `/api/uploads/${encodeURIComponent(year)}`
-          );
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(
-              data.error || "Failed to load JSON files"
-            );
-          }
-
-          this.convertedItems = Array.isArray(data.uploads)
-            ? data.uploads
-            : [];
-
-          this.selectedFiles.clear();
-
-          populateSubjectFilter();
-          renderTable();
-          this.updatePushCount();
-
-        } catch (error) {
-          console.error("Upload library error:", error);
-
-          this.convertedItems = [];
-          this.selectedFiles.clear();
-
-          populateSubjectFilter();
-
-          renderEmpty(
-            "Could not load library",
-            "Please refresh and try again."
-          );
-
-          flashMessage(
-            error.message || "Could not load JSON library.",
-            "error"
-          );
-
-        } finally {
-          if (refreshing) {
-            setTimeout(() => {
-              setLoadingState(false);
-            }, 250);
-          }
-
-          updateStats();
-        }
-      };
-
-
-      /* ====================================================
-         PREVIEW JSON
-      ==================================================== */
-
-      const previewFile = async (row) => {
-        const year = row.dataset.year;
-        const filename = row.dataset.filename;
-        const classCategory = this.normalizeClass(row.dataset.class);
-        const term = this.normalizeTerm(row.dataset.term);
-
-        if (!year || !filename || !classCategory) {
-          throw new Error("Missing preview information.");
-        }
-
-        if (
-          this.isTermAwareClass(classCategory)
-          && !term
-        ) {
-          throw new Error(
-            `${classCategory} file has no term assigned.`
-          );
-        }
-
-        const params = new URLSearchParams({
-          class: classCategory
-        });
-
-        if (term) {
-          params.set("term", term);
-        }
-
-        const response = await fetch(
-          `/api/uploads/${encodeURIComponent(year)}/${encodeURIComponent(filename)}?${params.toString()}`
-        );
-
-        const output = await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            output.error || "Could not preview file"
-          );
-        }
-
-        const content = output;
-        const meta = this.getMeta(
-          filename,
-          year,
-          classCategory,
-          term
-        );
-
-        /* Mini preview card */
-        if (window.ConvertUI?.setPreviewCard) {
-          window.ConvertUI.setPreviewCard(
-            filename,
-            meta,
-            content
-          );
-
-        } else {
-          const previewSubject = root.querySelector("#previewSubjectPill");
-          const previewVersion = root.querySelector("#previewVersionPill");
-          const previewQuestions = root.querySelector("#previewQuestionCountPill");
-          const previewBody = root.querySelector("#latestPreviewBody");
-
-          if (previewSubject) {
-            previewSubject.textContent = this.getSubjectLabel(meta || content);
-          }
-
-          if (previewVersion) {
-            previewVersion.textContent = term
-              ? this.termLabel(term)
-              : classCategory;
-          }
-
-          if (previewQuestions) {
-            const qCount = Array.isArray(content?.questions)
-              ? content.questions.length
-              : Number(meta?.questions || 0);
-
-            previewQuestions.textContent = `${qCount} Questions`;
-          }
-
-          if (previewBody) {
-            previewBody.innerHTML = `
-              <pre style="white-space:pre-wrap;margin:0;">${escapeHtml(
-                JSON.stringify(content, null, 2)
-              )}</pre>
-            `;
-          }
-        }
-
-        /* Full JSON modal */
-        if (window.ConvertUI?.openJsonModal) {
-          const titleParts = [
-            year,
-            classCategory
-          ];
-
-          if (term) {
-            titleParts.push(this.termLabel(term));
-          }
-
-          titleParts.push(filename);
-
-          window.ConvertUI.openJsonModal(
-            `Preview • ${titleParts.join(" • ")}`,
-            JSON.stringify(content, null, 2)
-          );
-
-          return;
-        }
-
-        const modal = root.querySelector("#jsonPreviewModal");
-        const title = root.querySelector("#jsonPreviewTitle");
-        const body = root.querySelector("#jsonPreviewBody");
-
-        const titleParts = [
-          year,
-          classCategory
-        ];
-
-        if (term) {
-          titleParts.push(this.termLabel(term));
-        }
-
-        titleParts.push(filename);
-
-        if (title) {
-          title.textContent = `Preview • ${titleParts.join(" • ")}`;
-        }
-
-        if (body) {
-          body.textContent = JSON.stringify(content, null, 2);
-        }
-
-        if (modal) {
-          modal.classList.remove("hidden");
-        }
-      };
-
-
-      /* ====================================================
-         DELETE JSON
-      ==================================================== */
-
-      const deleteFile = async (row) => {
-        const year = row.dataset.year;
-        const filename = row.dataset.filename;
-        const classCategory = this.normalizeClass(row.dataset.class);
-        const term = this.normalizeTerm(row.dataset.term);
-
-        if (!year || !filename || !classCategory) {
-          throw new Error("Missing delete information.");
-        }
-
-        if (
-          this.isTermAwareClass(classCategory)
-          && !term
-        ) {
-          throw new Error(
-            `${classCategory} file has no term assigned.`
-          );
-        }
-
-        const label = term
-          ? `${classCategory} • ${this.termLabel(term)}`
-          : classCategory;
-
-        const confirmed = window.confirm(
-          `Delete "${filename}" from ${year} • ${label}?\n\nThis cannot be undone.`
-        );
-
-        if (!confirmed) {
-          return false;
-        }
-
-        const params = new URLSearchParams({
-          class: classCategory
-        });
-
-        if (term) {
-          params.set("term", term);
-        }
-
-        const response = await fetch(
-          `/api/uploads/${encodeURIComponent(year)}/delete/${encodeURIComponent(filename)}?${params.toString()}`,
-          {
-            method: "DELETE"
-          }
-        );
-
-        const output = await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            output.error || "Could not delete file"
-          );
-        }
-
-        const meta = this.getMeta(
-          filename,
-          year,
-          classCategory,
-          term
-        );
-
-        if (meta) {
-          this.selectedFiles.delete(
-            this.makeSelectionKey(meta)
-          );
-        }
-
-        this.convertedItems = this.convertedItems.filter((item) => {
-          return !(
-            String(item.year) === String(year)
-            && String(item.filename) === String(filename)
-            && this.getItemClass(item) === classCategory
-            && this.getItemTerm(item) === term
-          );
-        });
-
-        populateSubjectFilter();
-        renderTable();
-        this.updatePushCount();
-
-        flashMessage(
-          `${filename} deleted successfully.`,
-          "success"
-        );
-
-        return true;
-      };
-
-
-      /* ====================================================
-         YEAR SELECTOR
-      ==================================================== */
-
-      yearSelector.addEventListener("change", () => {
-        this.activeYear = yearSelector.value;
-
-        setActiveYearLabel(this.activeYear);
-
-        this.selectedFiles.clear();
-
-        loadYearFiles(
-          this.activeYear
-        );
-      });
-
-
-      /* ====================================================
-         CLASS FILTER
-      ==================================================== */
-
-      classPills.forEach((pill) => {
-        pill.addEventListener("click", () => {
-          classPills.forEach((item) => {
-            item.classList.remove("active");
-          });
-
-          pill.classList.add("active");
-
-          this.activeClass = this.normalizeClass(
-            pill.dataset.class || "ALL"
-          );
-
-          resetTermFilter();
-          updateTermVisibility();
-          populateSubjectFilter();
-          renderTable();
-        });
-      });
-
-
-      /* ====================================================
-         TERM FILTER
-      ==================================================== */
-
-      termPills.forEach((pill) => {
-        pill.addEventListener("click", () => {
-          if (!this.isTermAwareClass(this.activeClass)) {
-            return;
-          }
-
-          termPills.forEach((item) => {
-            item.classList.remove("active");
-          });
-
-          pill.classList.add("active");
-
-          const rawTerm = String(
-            pill.dataset.term || "ALL"
-          ).toUpperCase();
-
-          this.activeTerm = rawTerm === "ALL"
-            ? "ALL"
-            : this.normalizeTerm(rawTerm) || "ALL";
-
-          populateSubjectFilter();
-          renderTable();
-        });
-      });
-
-
-      /* ====================================================
-         SUBJECT FILTER
-      ==================================================== */
-
-      subjectFilter?.addEventListener("change", () => {
-        this.activeSubject = subjectFilter.value || "ALL";
-        renderTable();
-      });
-
-
-      /* ====================================================
-         SEARCH
-      ==================================================== */
-
-      searchBox?.addEventListener("input", () => {
-        const hasValue = Boolean(
-          String(searchBox.value || "").trim()
-        );
-
-        clearSearchBtn?.classList.toggle(
-          "hidden",
-          !hasValue
-        );
-
-        renderTable();
-      });
-
-
-      clearSearchBtn?.addEventListener("click", () => {
-        if (!searchBox) return;
-
-        searchBox.value = "";
-        clearSearchBtn.classList.add("hidden");
-
-        searchBox.focus();
-        renderTable();
-      });
-
-
-      /* ====================================================
-         REFRESH
-      ==================================================== */
-
-      refreshBtn?.addEventListener("click", () => {
-        if (!this.activeYear) {
-          flashMessage(
-            "Select an exam year first.",
-            "error"
-          );
-
-          return;
-        }
-
-        loadYearFiles(
-          this.activeYear,
-          true
-        );
-      });
-
-
-      /* ====================================================
-         SELECT ALL VISIBLE
-      ==================================================== */
-
-      selectAllVisibleBtn?.addEventListener("click", () => {
-        const rows = getFilteredRows();
-
-        if (!rows.length) {
-          flashMessage(
-            "No visible files to select.",
-            "error"
-          );
-
-          return;
-        }
-
-        rows.forEach((item) => {
-          this.selectedFiles.add(
-            this.makeSelectionKey(item)
-          );
-        });
-
-        renderTable();
-        this.updatePushCount();
-
-        flashMessage(
-          `${rows.length} visible file(s) selected.`,
-          "success"
-        );
-      });
-
-
-      /* ====================================================
-         CLEAR QUEUE
-      ==================================================== */
-
-      clearQueueBtn?.addEventListener("click", () => {
-        this.selectedFiles.clear();
-
-        renderTable();
-        this.updatePushCount();
-
-        flashMessage(
-          "Push queue cleared.",
-          "success"
-        );
-      });
-
-
-      /* ====================================================
-         TABLE HEADER CHECKBOX
-      ==================================================== */
-
-      checkAllUploads?.addEventListener("change", () => {
-        const rows = getFilteredRows();
-
-        rows.forEach((item) => {
-          const key = this.makeSelectionKey(item);
-
-          if (checkAllUploads.checked) {
-            this.selectedFiles.add(key);
-          } else {
-            this.selectedFiles.delete(key);
-          }
-        });
-
-        renderTable();
-        this.updatePushCount();
-      });
-
-
-      /* ====================================================
-         TABLE EVENTS
-      ==================================================== */
-
-      tableBody.addEventListener("click", async (event) => {
-        const row = event.target.closest("tr.upload-row");
-
-        if (!row) {
-          return;
-        }
-
-        const year = row.dataset.year;
-        const filename = row.dataset.filename;
-        const classCategory = this.normalizeClass(
-          row.dataset.class
-        );
-
-        const term = this.normalizeTerm(
-          row.dataset.term
-        );
-
-        const meta = this.getMeta(
-          filename,
-          year,
-          classCategory,
-          term
-        );
-
-        const key = meta
-          ? this.makeSelectionKey(meta)
-          : `${year}|${classCategory}|${term || "NONE"}|${filename}`;
-
-
-        /* --------------------------------------------------
-           Checkbox
-        -------------------------------------------------- */
-
-        if (event.target.classList.contains("row-select")) {
-          if (event.target.checked) {
-            this.selectedFiles.add(key);
-          } else {
-            this.selectedFiles.delete(key);
-          }
-
-          syncCheckAll();
-          this.updatePushCount();
-          return;
-        }
-
-
-        /* --------------------------------------------------
-           Preview
-        -------------------------------------------------- */
-
-        if (event.target.closest(".preview-btn")) {
-          try {
-            await previewFile(row);
-
-          } catch (error) {
-            console.error(
-              "Preview error:",
-              error
-            );
-
-            flashMessage(
-              error.message || "Could not preview file.",
-              "error"
-            );
-          }
-
-          return;
-        }
-
-
-        /* --------------------------------------------------
-           Delete
-        -------------------------------------------------- */
-
-        if (event.target.closest(".delete-btn")) {
-          try {
-            await deleteFile(row);
-
-          } catch (error) {
-            console.error(
-              "Delete error:",
-              error
-            );
-
-            flashMessage(
-              error.message || "Could not delete file.",
-              "error"
-            );
-          }
-        }
-      });
-
-
-      /* ====================================================
-         MODAL CLOSE BUTTONS
-      ==================================================== */
-
-      root.querySelectorAll('[data-close="true"]').forEach((element) => {
-        element.addEventListener("click", () => {
-          const modal = element.closest(".modal");
-
-          if (modal) {
-            modal.classList.add("hidden");
-          }
-        });
-      });
-
-
-      /* ====================================================
-         INITIAL STATE
-      ==================================================== */
-
-      resetTermFilter();
-      updateTermVisibility();
-      updateActiveIndicators();
-
-      populateSubjectFilter();
-      this.updatePushCount();
-      updateStats();
-      renderTable();
-    }
-  };
-
-
-  /* ========================================================
-     AUTO INITIALIZER
-  ======================================================== */
-
-  const autoInit = () => {
-    const wrapper = document.querySelector(".uploads-wrapper");
-
-    if (wrapper) {
-      window.EmisUploads.initOnce(document);
-    }
-  };
-
-
-  if (
-    document.readyState === "complete"
-    || document.readyState === "interactive"
-  ) {
-    autoInit();
-
-  } else {
-    document.addEventListener(
-      "DOMContentLoaded",
-      autoInit
-    );
+/* ====================================================
+   TABLE RENDER
+==================================================== */
+
+const renderTable = () => {
+  updateTermVisibility();
+  updateActiveIndicators();
+
+  if (!this.activeYear) {
+    renderEmpty("Select an exam year", "Question files will appear here.");
+    updateStats();
+    return;
   }
 
+  const rows = getFilteredRows();
 
-  /* ========================================================
-     SPA / DYNAMIC PAGE SUPPORT
-  ======================================================== */
+  if (libraryResultCount) libraryResultCount.textContent = `${rows.length} ${rows.length === 1 ? "file" : "files"}`;
 
-  new MutationObserver(autoInit).observe(
-    document.body,
-    {
-      childList: true,
-      subtree: true
+  if (!rows.length) {
+    let description = `No files found for ${this.activeYear}.`;
+
+    if (this.activeClass !== "ALL") description = `No ${this.activeClass} files found for ${this.activeYear}.`;
+
+    if (this.activeClass !== "ALL" && this.isTermAwareClass(this.activeClass) && this.activeTerm !== "ALL") {
+      description = `No ${this.activeClass} ${this.termLabel(this.activeTerm)} files found for ${this.activeYear}.`;
     }
+
+    renderEmpty("Nothing found", description);
+    updateStats();
+    return;
+  }
+
+  tableBody.innerHTML = rows.map((item) => {
+    const yearRaw = item.year || this.activeYear;
+    const classRaw = this.getItemClass(item);
+    const termRaw = this.getItemTerm(item);
+
+    const year = escapeHtml(yearRaw);
+    const filename = escapeHtml(item.filename || "");
+    const subject = escapeHtml(this.getSubjectLabel(item));
+    const classCategory = escapeHtml(classRaw || "—");
+    const term = escapeHtml(this.termLabel(termRaw));
+
+    // ----------------------------------------------------
+    // OBJECTIVE / THEORY METADATA
+    // Supports several backend field-name variants.
+    // ----------------------------------------------------
+
+    const objectiveRaw = item.objective_questions ?? item.objective_count ?? item.questions ?? item.question_count ?? 0;
+    const essayRaw = item.essay_questions ?? item.essay_count ?? item.theory_questions ?? item.theory_count ?? item?.essay?.questions?.length ?? 0;
+
+    const objectiveCount = Math.max(0, Number(objectiveRaw) || 0);
+    const essayCount = Math.max(0, Number(essayRaw) || 0);
+
+    const explicitEssayFlag = item.has_essay ?? item.hasEssay ?? item.essay_present ?? item.theory_present ?? null;
+
+    const explicitEssayTrue = explicitEssayFlag === true || explicitEssayFlag === 1 || String(explicitEssayFlag).toLowerCase() === "true";
+    const hasEssay = essayCount > 0 || explicitEssayTrue;
+
+    const objectiveLabel = `${objectiveCount} Objective`;
+    const theoryLabel = `${essayCount} ${essayCount === 1 ? "Theory" : "Theory"}`;
+    const essayStatusLabel = hasEssay ? "Essay Included" : "No Essay";
+
+    const statusRaw = String(item.status || "OK");
+    const status = escapeHtml(statusRaw);
+
+    const size = Number(item.size ?? item.size_kb ?? 0);
+    const legacy = Boolean(item.legacy);
+
+    const key = this.makeSelectionKey(item);
+    const selected = this.selectedFiles.has(key);
+
+    const termMeta = termRaw ? ` • ${escapeHtml(this.termLabel(termRaw))}` : "";
+    const sizeMeta = Number.isFinite(size) && size > 0 ? ` • ${escapeHtml(size)} KB` : "";
+    const legacyMeta = legacy ? " • Legacy" : "";
+
+    const examMeta = `${classCategory}${termMeta} • ${objectiveCount} Objective • ${essayCount} Theory • ${essayStatusLabel}${sizeMeta}${legacyMeta}`;
+
+    let statusClass = "status-ok";
+    if (statusRaw === "TERM_REQUIRED") statusClass = "status-pill term-required";
+
+    return `
+      <tr class="upload-row" data-year="${year}" data-filename="${filename}" data-class="${classCategory}" data-term="${escapeHtml(termRaw || "")}" data-objective-count="${objectiveCount}" data-essay-count="${essayCount}" data-has-essay="${hasEssay ? "true" : "false"}">
+
+        <td class="check-column">
+          <input type="checkbox" class="row-select" aria-label="Select ${filename}" ${selected ? "checked" : ""}>
+        </td>
+
+        <td class="file-cell" data-clickable="true">
+          <div class="file-main">
+            <span class="file-name">${filename}</span>
+            <span class="file-meta">${examMeta}</span>
+          </div>
+        </td>
+
+        <td>${subject}</td>
+
+        <td>
+          <span class="summary-chip">${classCategory}</span>
+        </td>
+
+        <td class="term-column">
+          ${termRaw ? `<span class="summary-chip term-chip">${term}</span>` : `<span class="file-meta">—</span>`}
+        </td>
+
+        <td class="objective-column center">
+          <span class="summary-chip" title="${objectiveCount} objective questions">
+            <i class="fa-solid fa-list-check"></i>&nbsp; ${objectiveLabel}
+          </span>
+        </td>
+
+        <td class="theory-column">
+          <div class="essay-table-meta">
+            <span class="summary-chip" title="${essayCount} theory questions">
+              <i class="fa-solid fa-pen-to-square"></i>&nbsp; ${theoryLabel}
+            </span>
+
+            <span class="${hasEssay ? "status-ok" : "status-pill essay-missing"}" title="${hasEssay ? "Theory / essay section is available" : "No theory / essay section found"}">
+              <i class="fa-solid ${hasEssay ? "fa-circle-check" : "fa-circle-xmark"}"></i>
+              ${essayStatusLabel}
+            </span>
+          </div>
+        </td>
+
+        <td>
+          <span class="${statusClass}">
+            ${status === "TERM_REQUIRED" ? "Term Required" : status}
+          </span>
+        </td>
+
+        <td class="actions-column">
+          <div class="table-row-actions">
+
+            <button class="mini-icon-button preview-btn" type="button" title="Preview JSON" aria-label="Preview ${filename}">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+
+            <button class="mini-icon-button delete-btn" type="button" title="Delete JSON" aria-label="Delete ${filename}">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+
+          </div>
+        </td>
+
+      </tr>
+    `;
+  }).join("");
+
+  syncCheckAll();
+  updateStats();
+};
+
+
+/* ====================================================
+   LOAD YEAR
+==================================================== */
+
+const loadYearFiles = async (year, refreshing = false) => {
+  if (!year || year === "Select Year") return;
+
+  if (refreshing) setLoadingState(true);
+
+  tableBody.innerHTML = `
+    <tr>
+      <td colspan="8" class="empty">
+        <div class="table-empty-state">
+          <span class="spinner"></span>
+          <strong>Loading library...</strong>
+        </div>
+      </td>
+    </tr>
+  `;
+
+  try {
+    const url = `/api/uploads/${encodeURIComponent(year)}?_ts=${Date.now()}`;
+
+    console.log("[uploads] Loading library:", url);
+
+    const response = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache"
+      }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error || "Failed to load JSON files");
+
+    this.convertedItems = Array.isArray(data.uploads) ? data.uploads : [];
+    this.selectedFiles.clear();
+
+    console.log("[uploads] Library loaded:", {
+      year,
+      files: this.convertedItems.length
+    });
+
+    populateSubjectFilter();
+    renderTable();
+    this.updatePushCount();
+
+  } catch (error) {
+    console.error("Upload library error:", error);
+
+    this.convertedItems = [];
+    this.selectedFiles.clear();
+
+    populateSubjectFilter();
+    renderEmpty("Could not load library", "Please refresh and try again.");
+    flashMessage(error.message || "Could not load JSON library.", "error");
+
+  } finally {
+    if (refreshing) setTimeout(() => setLoadingState(false), 250);
+
+    updateStats();
+  }
+};
+
+// ====================================================
+// PREVIEW JSON
+// ====================================================
+
+const previewFile = async (row) => {
+  const year = row.dataset.year, filename = row.dataset.filename;
+  const classCategory = this.normalizeClass(row.dataset.class), term = this.normalizeTerm(row.dataset.term);
+
+  if (!year || !filename || !classCategory) throw new Error("Missing preview information.");
+  if (this.isTermAwareClass(classCategory) && !term) throw new Error(`${classCategory} file has no term assigned.`);
+
+  const params = new URLSearchParams({ class: classCategory });
+  if (term) params.set("term", term);
+  params.set("_ts", Date.now().toString());
+
+  const previewUrl = `/api/uploads/${encodeURIComponent(year)}/${encodeURIComponent(filename)}?${params.toString()}`;
+
+  console.log("[uploads] Preview request:", { year, classCategory, term, filename, url: previewUrl });
+
+  const response = await fetch(previewUrl, {
+    method: "GET",
+    cache: "no-store",
+    headers: { Accept: "application/json", "Cache-Control": "no-cache", Pragma: "no-cache" }
+  });
+
+  const output = await response.json();
+  if (!response.ok) throw new Error(output.error || "Could not preview file");
+
+  const content = output, meta = this.getMeta(filename, year, classCategory, term);
+  const objectiveCount = Array.isArray(content?.questions) ? content.questions.length : Number(meta?.questions || 0);
+  const essayCount = Array.isArray(content?.essay?.questions) ? content.essay.questions.length : 0;
+  const hasEssay = Boolean(content?.essay && typeof content.essay === "object" && !Array.isArray(content.essay));
+  const subjectLabel = this.getSubjectLabel(meta || content);
+  const versionLabel = term ? this.termLabel(term) : classCategory;
+
+  window.__EMIS_UPLOAD_PREVIEW__ = {
+    year, filename, classCategory, term, content, meta,
+    subject: subjectLabel, version: versionLabel,
+    objectiveCount, essayCount, hasEssay
+  };
+
+  console.log("[uploads] Preview JSON received:", {
+    filename,
+    objectiveQuestions: objectiveCount,
+    hasEssay,
+    essayQuestions: essayCount,
+    essayTitle: content?.essay?.title || null
+  });
+
+  // ==================================================
+  // MINI PREVIEW CARD
+  // ==================================================
+
+  const previewSubject = root.querySelector("#previewSubjectPill");
+  const previewVersion = root.querySelector("#previewVersionPill");
+  const previewQuestions = root.querySelector("#previewQuestionCountPill");
+  const previewBody = root.querySelector("#latestPreviewBody");
+
+  if (previewSubject) previewSubject.textContent = subjectLabel;
+  if (previewVersion) previewVersion.textContent = versionLabel;
+
+  if (previewQuestions) {
+    previewQuestions.textContent = essayCount
+      ? `${objectiveCount} Objective • ${essayCount} Theory`
+      : `${objectiveCount} Questions`;
+  }
+
+  if (previewBody) {
+    previewBody.innerHTML = `
+      <div class="preview-json-summary">
+        <strong>${escapeHtml(subjectLabel)}</strong>
+        <span>${escapeHtml(versionLabel)}</span>
+        <span>${objectiveCount} Objective${essayCount ? ` • ${essayCount} Theory` : ""}</span>
+      </div>
+      <pre style="white-space:pre-wrap;margin:.55rem 0 0;">${escapeHtml(JSON.stringify(content, null, 2))}</pre>
+    `;
+  }
+
+  // ==================================================
+  // FULL JSON MODAL
+  // ==================================================
+
+  const modal = root.querySelector("#jsonPreviewModal");
+  const title = root.querySelector("#jsonPreviewTitle");
+  const body = root.querySelector("#jsonPreviewBody");
+  const titleParts = [year, classCategory];
+
+  if (term) titleParts.push(this.termLabel(term));
+  titleParts.push(filename);
+
+  if (title) title.textContent = `Preview • ${titleParts.join(" • ")}`;
+  if (body) body.textContent = JSON.stringify(content, null, 2);
+  if (modal) modal.classList.remove("hidden");
+
+  return window.__EMIS_UPLOAD_PREVIEW__;
+};
+
+
+// ====================================================
+// OPEN FULL PREVIEW FROM MINI PREVIEW
+// ====================================================
+
+const openFullPreviewBtn = root.querySelector("#openFullPreviewModal");
+
+openFullPreviewBtn?.addEventListener("click", () => {
+  const preview = window.__EMIS_UPLOAD_PREVIEW__;
+
+  if (!preview?.content) {
+    flashMessage("Select an exam file to preview first.", "error");
+    return;
+  }
+
+  const modal = root.querySelector("#jsonPreviewModal");
+  const title = root.querySelector("#jsonPreviewTitle");
+  const body = root.querySelector("#jsonPreviewBody");
+  const titleParts = [preview.year, preview.classCategory];
+
+  if (preview.term) titleParts.push(this.termLabel(preview.term));
+  titleParts.push(preview.filename);
+
+  if (title) title.textContent = `Preview • ${titleParts.join(" • ")}`;
+  if (body) body.textContent = JSON.stringify(preview.content, null, 2);
+  if (modal) modal.classList.remove("hidden");
+});
+
+
+// ====================================================
+// DELETE JSON
+// ====================================================
+
+const deleteFile = async (row) => {
+  const year = row.dataset.year, filename = row.dataset.filename;
+  const classCategory = this.normalizeClass(row.dataset.class), term = this.normalizeTerm(row.dataset.term);
+
+  if (!year || !filename || !classCategory) throw new Error("Missing delete information.");
+  if (this.isTermAwareClass(classCategory) && !term) throw new Error(`${classCategory} file has no term assigned.`);
+
+  const label = term ? `${classCategory} • ${this.termLabel(term)}` : classCategory;
+  const confirmed = window.confirm(`Delete "${filename}" from ${year} • ${label}?\n\nThis cannot be undone.`);
+
+  if (!confirmed) return false;
+
+  const params = new URLSearchParams({ class: classCategory });
+  if (term) params.set("term", term);
+
+  const response = await fetch(
+    `/api/uploads/${encodeURIComponent(year)}/delete/${encodeURIComponent(filename)}?${params.toString()}`,
+    { method: "DELETE", cache: "no-store", headers: { Accept: "application/json" } }
   );
 
-})();
+  const output = await response.json();
+  if (!response.ok) throw new Error(output.error || "Could not delete file");
 
+  const meta = this.getMeta(filename, year, classCategory, term);
+  if (meta) this.selectedFiles.delete(this.makeSelectionKey(meta));
+
+  this.convertedItems = this.convertedItems.filter((item) => !(
+    String(item.year) === String(year) &&
+    String(item.filename) === String(filename) &&
+    this.getItemClass(item) === classCategory &&
+    this.getItemTerm(item) === term
+  ));
+
+  if (
+    window.__EMIS_UPLOAD_PREVIEW__?.year === year &&
+    window.__EMIS_UPLOAD_PREVIEW__?.filename === filename &&
+    window.__EMIS_UPLOAD_PREVIEW__?.classCategory === classCategory &&
+    window.__EMIS_UPLOAD_PREVIEW__?.term === term
+  ) {
+    window.__EMIS_UPLOAD_PREVIEW__ = null;
+
+    const previewSubject = root.querySelector("#previewSubjectPill");
+    const previewVersion = root.querySelector("#previewVersionPill");
+    const previewQuestions = root.querySelector("#previewQuestionCountPill");
+    const previewBody = root.querySelector("#latestPreviewBody");
+
+    if (previewSubject) previewSubject.textContent = "—";
+    if (previewVersion) previewVersion.textContent = "—";
+    if (previewQuestions) previewQuestions.textContent = "—";
+    if (previewBody) previewBody.innerHTML = `<p class="preview-placeholder">Select a file to preview.</p>`;
+  }
+
+  populateSubjectFilter();
+  renderTable();
+  this.updatePushCount();
+
+  flashMessage(`${filename} deleted successfully.`, "success");
+  return true;
+};
+
+
+// ====================================================
+// YEAR SELECTOR
+// ====================================================
+
+yearSelector.addEventListener("change", () => {
+  this.activeYear = yearSelector.value;
+  this.selectedFiles.clear();
+  window.__EMIS_UPLOAD_PREVIEW__ = null;
+
+  setActiveYearLabel(this.activeYear);
+  loadYearFiles(this.activeYear);
+});
+
+
+// ====================================================
+// CLASS FILTER
+// ====================================================
+
+classPills.forEach((pill) => {
+  pill.addEventListener("click", () => {
+    classPills.forEach((item) => item.classList.remove("active"));
+    pill.classList.add("active");
+
+    this.activeClass = this.normalizeClass(pill.dataset.class || "ALL");
+
+    resetTermFilter();
+    updateTermVisibility();
+    populateSubjectFilter();
+    renderTable();
+  });
+});
+
+
+// ====================================================
+// TERM FILTER
+// ====================================================
+
+termPills.forEach((pill) => {
+  pill.addEventListener("click", () => {
+    if (!this.isTermAwareClass(this.activeClass)) return;
+
+    termPills.forEach((item) => item.classList.remove("active"));
+    pill.classList.add("active");
+
+    const rawTerm = String(pill.dataset.term || "ALL").toUpperCase();
+    this.activeTerm = rawTerm === "ALL" ? "ALL" : this.normalizeTerm(rawTerm) || "ALL";
+
+    populateSubjectFilter();
+    renderTable();
+  });
+});
+
+
+// ====================================================
+// SUBJECT FILTER
+// ====================================================
+
+subjectFilter?.addEventListener("change", () => {
+  this.activeSubject = subjectFilter.value || "ALL";
+  renderTable();
+});
+
+
+// ====================================================
+// SEARCH
+// ====================================================
+
+searchBox?.addEventListener("input", () => {
+  const hasValue = Boolean(String(searchBox.value || "").trim());
+  clearSearchBtn?.classList.toggle("hidden", !hasValue);
+  renderTable();
+});
+
+clearSearchBtn?.addEventListener("click", () => {
+  if (!searchBox) return;
+
+  searchBox.value = "";
+  clearSearchBtn.classList.add("hidden");
+  searchBox.focus();
+  renderTable();
+});
+
+
+// ====================================================
+// REFRESH
+// ====================================================
+
+refreshBtn?.addEventListener("click", () => {
+  if (!this.activeYear) {
+    flashMessage("Select an exam year first.", "error");
+    return;
+  }
+
+  loadYearFiles(this.activeYear, true);
+});
+
+
+// ====================================================
+// SELECT ALL VISIBLE
+// ====================================================
+
+selectAllVisibleBtn?.addEventListener("click", () => {
+  const rows = getFilteredRows();
+
+  if (!rows.length) {
+    flashMessage("No visible files to select.", "error");
+    return;
+  }
+
+  rows.forEach((item) => this.selectedFiles.add(this.makeSelectionKey(item)));
+
+  renderTable();
+  this.updatePushCount();
+  flashMessage(`${rows.length} visible file(s) selected.`, "success");
+});
+
+
+// ====================================================
+// CLEAR QUEUE
+// ====================================================
+
+clearQueueBtn?.addEventListener("click", () => {
+  this.selectedFiles.clear();
+  renderTable();
+  this.updatePushCount();
+  flashMessage("Push queue cleared.", "success");
+});
+
+
+// ====================================================
+// TABLE HEADER CHECKBOX
+// ====================================================
+
+checkAllUploads?.addEventListener("change", () => {
+  const rows = getFilteredRows();
+
+  rows.forEach((item) => {
+    const key = this.makeSelectionKey(item);
+    checkAllUploads.checked ? this.selectedFiles.add(key) : this.selectedFiles.delete(key);
+  });
+
+  renderTable();
+  this.updatePushCount();
+});
+
+
+// ====================================================
+// TABLE EVENTS
+// ====================================================
+
+tableBody.addEventListener("click", async (event) => {
+  const row = event.target.closest("tr.upload-row");
+  if (!row) return;
+
+  const year = row.dataset.year, filename = row.dataset.filename;
+  const classCategory = this.normalizeClass(row.dataset.class), term = this.normalizeTerm(row.dataset.term);
+
+  const meta = this.getMeta(filename, year, classCategory, term);
+  const key = meta ? this.makeSelectionKey(meta) : `${year}|${classCategory}|${term || "NONE"}|${filename}`;
+
+  // Checkbox
+  if (event.target.classList.contains("row-select")) {
+    event.target.checked ? this.selectedFiles.add(key) : this.selectedFiles.delete(key);
+    syncCheckAll();
+    this.updatePushCount();
+    return;
+  }
+
+  // Preview
+  if (event.target.closest(".preview-btn")) {
+    try {
+      await previewFile(row);
+    } catch (error) {
+      console.error("Preview error:", error);
+      flashMessage(error.message || "Could not preview file.", "error");
+    }
+    return;
+  }
+
+  // Delete
+  if (event.target.closest(".delete-btn")) {
+    try {
+      await deleteFile(row);
+    } catch (error) {
+      console.error("Delete error:", error);
+      flashMessage(error.message || "Could not delete file.", "error");
+    }
+  }
+});
+
+
+// ====================================================
+// MODAL CLOSE BUTTONS
+// ====================================================
+
+root.querySelectorAll('[data-close="true"]').forEach((element) => {
+  element.addEventListener("click", () => {
+    const modal = element.closest(".modal");
+    if (modal) modal.classList.add("hidden");
+  });
+});
+
+
+// ====================================================
+// INITIAL STATE
+// ====================================================
+
+resetTermFilter();
+updateTermVisibility();
+updateActiveIndicators();
+populateSubjectFilter();
+this.updatePushCount();
+updateStats();
+renderTable();
+
+    }
+  };
+
+
+// ========================================================
+// AUTO INITIALIZER
+// ========================================================
+
+const autoInit = () => {
+  const wrapper = document.querySelector(".uploads-wrapper");
+  if (wrapper) window.EmisUploads.initOnce(document);
+};
+
+if (document.readyState === "complete" || document.readyState === "interactive") autoInit();
+else document.addEventListener("DOMContentLoaded", autoInit);
+
+
+// ========================================================
+// SPA / DYNAMIC PAGE SUPPORT
+// ========================================================
+
+new MutationObserver(autoInit).observe(document.body, { childList: true, subtree: true });
+
+})();
 
 
 

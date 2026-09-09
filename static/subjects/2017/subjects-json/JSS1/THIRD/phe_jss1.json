@@ -1,0 +1,752 @@
+{
+  "subject": "P.H.E",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "The following are objectives of physical education EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Development of international friendly matches",
+        "B. Exposure of athletes to the environment",
+        "C. Development of skills",
+        "D. Provision of life career"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following activities can be recommended for an elderly person?",
+      "diagram": null,
+      "options": [
+        "A. Swimming",
+        "B. Walking",
+        "C. Cycling",
+        "D. Running"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "The physical fitness component required in a 100m race is ________.",
+      "diagram": null,
+      "options": [
+        "A. Balance",
+        "B. Accuracy",
+        "C. Speed",
+        "D. Flexibility"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "The movement of the body to a rhythm of sound is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Sporting",
+        "B. Skipping",
+        "C. Galloping",
+        "D. Dancing"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "An example of an indoor recreational activity is ________.",
+      "diagram": null,
+      "options": [
+        "A. Camping",
+        "B. Cricket",
+        "C. Hiking",
+        "D. Scrabble"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is a skill in swimming?",
+      "diagram": null,
+      "options": [
+        "A. Forward roll",
+        "B. Cut off",
+        "C. Press up",
+        "D. Stroke"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Spiking is a fundamental skill in ________.",
+      "diagram": null,
+      "options": [
+        "A. Football",
+        "B. Hockey",
+        "C. Basketball",
+        "D. Volleyball"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following is an equipment used in relay race?",
+      "diagram": null,
+      "options": [
+        "A. Glove",
+        "B. Bat set",
+        "C. Flexible",
+        "D. Baton"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "How many players make up a team in a soccer game?",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 4",
+        "C. 19",
+        "D. 11"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is a skill in the game of soccer?",
+      "diagram": null,
+      "options": [
+        "A. Stop",
+        "B. Flicking",
+        "C. Grip",
+        "D. Dribbling"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "The ability of the body to maintain its equilibrium is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Agility",
+        "B. Endurance",
+        "C. Balance",
+        "D. Strength"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "The physical fitness component that allows free movement of the joints is ________.",
+      "diagram": null,
+      "options": [
+        "A. Speed",
+        "B. Flexibility",
+        "C. Power",
+        "D. Balance"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is NOT a rule in discus throw?",
+      "diagram": null,
+      "options": [
+        "A. The order of trial is determined by drawing lots",
+        "B. The discus is thrown from the sector",
+        "C. Competitors are allowed 3–5 trials",
+        "D. Each competitor is awarded the best of his trials"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Repair of worn-out tissues is a function of ________.",
+      "diagram": null,
+      "options": [
+        "A. Protein",
+        "B. Carbohydrate",
+        "C. Mineral salt",
+        "D. Water"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Which of the following is NOT a method of refuse disposal?",
+      "diagram": null,
+      "options": [
+        "A. Water closet system",
+        "B. Open dump",
+        "C. Composting",
+        "D. Incineration"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "The study of the outbreak and spread of diseases is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Epidemiology",
+        "B. Biology",
+        "C. Immunology",
+        "D. Sociology"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Early morning sunlight promotes the formation of vitamin ________ in the body.",
+      "diagram": null,
+      "options": [
+        "A. D",
+        "B. C",
+        "C. E",
+        "D. K"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Which of the following is NOT a performance-related component of physical fitness?",
+      "diagram": null,
+      "options": [
+        "A. Flexibility",
+        "B. Balance",
+        "C. Agility",
+        "D. Power"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "Which of the following is NOT a contact game?",
+      "diagram": null,
+      "options": [
+        "A. Tennis",
+        "B. Judo",
+        "C. Boxing",
+        "D. Handball"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "The two main sources of energy in the body are ________.",
+      "diagram": null,
+      "options": [
+        "A. Fats and carbohydrates",
+        "B. Fats and vitamins",
+        "C. Minerals and proteins",
+        "D. Proteins and carbohydrates"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is NOT an outdoor recreational activity?",
+      "diagram": null,
+      "options": [
+        "A. Hiking",
+        "B. Ludo",
+        "C. Camping",
+        "D. Races"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "Movements which do not involve moving from one place to another are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Leaping movements",
+        "B. Non-locomotor movements",
+        "C. Bending movements",
+        "D. Locomotor movements"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Which of these statements is NOT correct about safety precautions during recreation?",
+      "diagram": null,
+      "options": [
+        "A. Use suitable wears",
+        "B. Provision of medicine",
+        "C. Inspection of equipment",
+        "D. Adequate warm-up"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "The Olympic Games started in the year ________.",
+      "diagram": null,
+      "options": [
+        "A. 1860",
+        "B. 776 BC",
+        "C. 776 AD",
+        "D. 1800"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "The ability of the body to make a quick and controlled movement in any direction with precision is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Balance",
+        "B. Agility",
+        "C. Speed",
+        "D. Skill"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "Vitamins are divided into ________.",
+      "diagram": null,
+      "options": [
+        "A. Fat-soluble and water-soluble",
+        "B. Sugar-soluble and water-soluble",
+        "C. Fat-soluble and mineral-soluble",
+        "D. Glucose-soluble and mineral-soluble"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Deficiency of vitamin A can cause ________.",
+      "diagram": null,
+      "options": [
+        "A. Scurvy",
+        "B. Blindness",
+        "C. Sore throat",
+        "D. Rashes"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "The movement of the arms and legs in water is known as a ________.",
+      "diagram": null,
+      "options": [
+        "A. Walking",
+        "B. Swimming",
+        "C. Floating",
+        "D. Stroke"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "Disease-causing organisms are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Pathogens",
+        "B. Communicable diseases",
+        "C. Pandemic diseases",
+        "D. Influenza"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "A sport in which athletes may collide with an inanimate object is classified as ________.",
+      "diagram": null,
+      "options": [
+        "A. Non-contact sport",
+        "B. Colliding sport",
+        "C. Non-colliding sport",
+        "D. Contact sport"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "The following are determinants of health EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Lifestyle",
+        "B. Gender",
+        "C. Height",
+        "D. Heredity"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "One of these is NOT a characteristic of a healthy person.",
+      "diagram": null,
+      "options": [
+        "A. Clear skin",
+        "B. Ability to control feelings",
+        "C. Presence of high blood pressure",
+        "D. Resistance to disease"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "These are methods of sewage disposal EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Open dump",
+        "B. Water carriage system",
+        "C. Landfill",
+        "D. Pit latrine"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Good drinking water must NOT be ________.",
+      "diagram": null,
+      "options": [
+        "A. Colourful",
+        "B. Tasteless",
+        "C. Odourless",
+        "D. Free from pathogens"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "The chemical formula of water is ________.",
+      "diagram": null,
+      "options": [
+        "A. CHO₂",
+        "B. N₂H₂O",
+        "C. H₂O",
+        "D. HO₂"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Proteins are made up of units called ________.",
+      "diagram": null,
+      "options": [
+        "A. Organic compounds",
+        "B. Inorganic compounds",
+        "C. Amino acids",
+        "D. Amino salts"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Digestion of carbohydrates starts in the ________.",
+      "diagram": null,
+      "options": [
+        "A. Stomach",
+        "B. Intestine",
+        "C. Mouth",
+        "D. Tongue"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "Which vitamin promotes the healing of wounds?",
+      "diagram": null,
+      "options": [
+        "A. Vitamin B",
+        "B. Vitamin A",
+        "C. Vitamin C",
+        "D. Vitamin K"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "One of these is NOT a major source of carbohydrate.",
+      "diagram": null,
+      "options": [
+        "A. Potato",
+        "B. Maize",
+        "C. Beans",
+        "D. Rice"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Which of the following traditional games is different from the others?",
+      "diagram": null,
+      "options": [
+        "A. Kokuwa",
+        "B. Ilakadi",
+        "C. Okwe",
+        "D. Gidgbo"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "An official who assists a footballer in the mastery of skills is referred to as a ________.",
+      "diagram": null,
+      "options": [
+        "A. Fan",
+        "B. Referee",
+        "C. Linesman",
+        "D. Coach"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "Which of these is a scope of health education?",
+      "diagram": null,
+      "options": [
+        "A. Health Education",
+        "B. Geology",
+        "C. Exercise therapy",
+        "D. Zoology"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "An item in a first aid box used to hold cotton wool is ________.",
+      "diagram": null,
+      "options": [
+        "A. Forceps",
+        "B. Razor blade",
+        "C. Plaster",
+        "D. Scissors"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "Which of the following is NOT a principle of first aid?",
+      "diagram": null,
+      "options": [
+        "A. Determine the extent of damage",
+        "B. Give urgently needed help",
+        "C. Be calm in dealing with situations",
+        "D. Allow the victim to go his or her way"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 45,
+      "question": "Which positions are occupied by the three front-row players in volleyball?",
+      "diagram": null,
+      "options": [
+        "A. 1, 2 and 3",
+        "B. 2, 3 and 4",
+        "C. 5, 6 and 1",
+        "D. 4, 5 and 6"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "A person who takes part in events such as races, high jump and long jump is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. Sprinter",
+        "B. Athlete",
+        "C. Jumper",
+        "D. Gymnast"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "A trophy may be awarded in the game of ________.",
+      "diagram": null,
+      "options": [
+        "A. Volleyball",
+        "B. Soccer",
+        "C. Swimming",
+        "D. Shot put"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Which of the following officials tosses the coin before the start of a volleyball game?",
+      "diagram": null,
+      "options": [
+        "A. Referee",
+        "B. Linesman",
+        "C. Coach",
+        "D. Umpire"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "Which of the following groups of items can be found in a first aid box?",
+      "diagram": null,
+      "options": [
+        "A. Antibiotic capsule, water and cotton wool",
+        "B. Razor blade, iodine and coffee",
+        "C. Bandage, razor blade and adhesive plaster",
+        "D. Paracetamol, plate and hydrogen peroxide"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "Which of the following is NOT related to the game of soccer?",
+      "diagram": null,
+      "options": [
+        "A. Heading",
+        "B. Off-side",
+        "C. Spiking",
+        "D. Throw-in"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 51,
+      "question": "Which of the following activities cannot normally be performed in water?",
+      "diagram": null,
+      "options": [
+        "A. Volleying",
+        "B. Canoeing",
+        "C. Skiing",
+        "D. Swimming"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 52,
+      "question": "Rice, fish and apple supply the body respectively with ________.",
+      "diagram": null,
+      "options": [
+        "A. Protein, mineral salts and vitamins",
+        "B. Carbohydrates, proteins and vitamins",
+        "C. Carbohydrates, vitamins and fats",
+        "D. Proteins, minerals and fats"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 53,
+      "question": "The ability of an individual to perform daily tasks without undue fatigue is referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. Physical strength",
+        "B. Physical component",
+        "C. Physical fitness",
+        "D. Endurance"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 54,
+      "question": "Activities that involve the movement of the entire body from one point to another are known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Leisure",
+        "B. Locomotor movements",
+        "C. Non-locomotor movements",
+        "D. Recreational activities"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 55,
+      "question": "The branch of education concerned with teaching, practice and utilization of physical skills is referred to as ________ education.",
+      "diagram": null,
+      "options": [
+        "A. Civic",
+        "B. Basic",
+        "C. Physical",
+        "D. History"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 56,
+      "question": "Which of these is NOT a recreational activity?",
+      "diagram": null,
+      "options": [
+        "A. Washing",
+        "B. Cycling",
+        "C. Swimming",
+        "D. Hiking"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 57,
+      "question": "Which of the following physical fitness activities enhances free flow of blood in the body?",
+      "diagram": null,
+      "options": [
+        "A. Movement",
+        "B. Balance",
+        "C. Exercise",
+        "D. Cooking"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 58,
+      "question": "Aims and objectives of recreation include the following EXCEPT to ________.",
+      "diagram": null,
+      "options": [
+        "A. Correct postural defects",
+        "B. Develop skills",
+        "C. Provide fun",
+        "D. Acquire wealth"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 59,
+      "question": "The first Nigerian to be trained as a physical education specialist was ________.",
+      "diagram": null,
+      "options": [
+        "A. Dr. Nnamdi Azikiwe",
+        "B. James Ekperigin",
+        "C. L. C. Ezeora",
+        "D. R. Mohammed"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 60,
+      "question": "Modern physical education started in ________.",
+      "diagram": null,
+      "options": [
+        "A. Greece",
+        "B. Europe",
+        "C. Nigeria",
+        "D. London"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - ESSAY / THEORY",
+    "instruction": "Answer all three (3) questions in this section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Draw a standard soccer pitch and show its specifications.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) List five examples of communicable diseases.\n(b) State three importance of food.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Name the two divisions of athletic events.\n(b) Outline five scopes of Physical Education.\n(c) State any three preventive measures against pathogenic diseases.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "THIRD",
+  "term_label": "3rd Term",
+  "class_category": "JSS1"
+}

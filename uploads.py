@@ -316,30 +316,47 @@ def read_json_file(path):
 def read_json_metadata(path, filename, class_cat, fallback_term=None, force_folder_term=False):
     data, error = read_json_file(path)
 
-    if error:
-        print(f"JSON metadata error [{path}]: {error}")
-
-    if not isinstance(data, dict):
-        data = {}
+    if error: print(f"JSON metadata error [{path}]: {error}")
+    if not isinstance(data, dict): data = {}
 
     subject = str(data.get("subject") or filename).strip()
+
     questions = data.get("questions", [])
-    qcount = len(questions) if isinstance(questions, list) else 0
+    objective_count = len(questions) if isinstance(questions, list) else 0
+
+    essay = data.get("essay")
+    essay_questions = essay.get("questions", []) if isinstance(essay, dict) else []
+    essay_count = len(essay_questions) if isinstance(essay_questions, list) else 0
+    has_essay = isinstance(essay, dict) and essay_count > 0
 
     detected_class = detect_class_from_json(data) or normalize_class(class_cat)
     folder_term = normalize_term(fallback_term)
 
     # For JSS files already physically stored under FIRST / SECOND / THIRD,
     # the physical folder is the authoritative source of the term.
-    if force_folder_term and folder_term:
-        detected_term = folder_term
-    else:
-        detected_term = detect_term(filename, data) or folder_term
+    detected_term = folder_term if force_folder_term and folder_term else detect_term(filename, data) or folder_term
 
     return {
         "data": data,
         "subject": subject,
-        "questions": qcount,
+
+        "questions": objective_count,
+        "objective_count": objective_count,
+        "objective_questions": objective_count,
+
+        "essay_questions": essay_count,
+        "essay_count": essay_count,
+        "theory_questions": essay_count,
+        "theory_count": essay_count,
+
+        "has_essay": has_essay,
+        "hasEssay": has_essay,
+        "essay_present": has_essay,
+        "theory_present": has_essay,
+
+        "essay_title": str(essay.get("title") or "").strip() if isinstance(essay, dict) else "",
+        "essay_instruction": str(essay.get("instruction") or "").strip() if isinstance(essay, dict) else "",
+
         "class_category": detected_class,
         "term": detected_term,
         "valid": error is None,
@@ -358,16 +375,13 @@ def build_library_item(year, filename, full_path, class_cat, term=None, legacy=F
     force_folder_term = is_term_aware_class(class_cat) and bool(normalize_term(term))
 
     meta = read_json_metadata(
-        full_path,
-        filename,
-        class_cat,
+        full_path, filename, class_cat,
         fallback_term=term,
         force_folder_term=force_folder_term,
     )
 
     if is_term_aware_class(class_cat):
         resolved_term = normalize_term(term) if force_folder_term else normalize_term(meta.get("term"))
-
         status = "OK" if resolved_term else "TERM_REQUIRED"
         resolved_term_label = term_label(resolved_term)
 
@@ -377,23 +391,46 @@ def build_library_item(year, filename, full_path, class_cat, term=None, legacy=F
         resolved_term_label = "—"
         status = "OK"
 
-    if not meta.get("valid"):
-        status = "INVALID_JSON"
+    if not meta.get("valid"): status = "INVALID_JSON"
+
+    objective_count = int(meta.get("objective_count", meta.get("questions", 0)) or 0)
+    essay_count = int(meta.get("essay_count", meta.get("essay_questions", 0)) or 0)
+    has_essay = bool(meta.get("has_essay", False))
 
     return {
         "year": int(year),
         "filename": filename,
         "subject": meta.get("subject") or filename,
+
         "class_category": class_cat,
         "class_level": class_cat,
+
         "term": resolved_term,
         "term_label": resolved_term_label,
-        "questions": meta.get("questions", 0),
+
+        # Objective metadata
+        "questions": objective_count,
+        "objective_count": objective_count,
+        "objective_questions": objective_count,
+
+        # Theory / Essay metadata
+        "essay_questions": essay_count,
+        "essay_count": essay_count,
+        "theory_questions": essay_count,
+        "theory_count": essay_count,
+
+        "has_essay": has_essay,
+        "hasEssay": has_essay,
+        "essay_present": has_essay,
+        "theory_present": has_essay,
+
+        "essay_title": meta.get("essay_title", ""),
+        "essay_instruction": meta.get("essay_instruction", ""),
+
         "size": get_file_size_kb(full_path),
         "status": status,
         "legacy": bool(legacy),
     }
-
 
 # ============================================================
 # OPTIONAL UPLOAD API
@@ -755,39 +792,36 @@ def list_year_files(year):
 def preview_json(year, filename):
     year = str(year or "").strip()
 
-    if not valid_year(year):
-        return jsonify({"error": "Invalid year"}), 400
+    if not valid_year(year): return jsonify({"error": "Invalid year"}), 400
 
     filename = safe_filename(filename)
 
-    if not filename or not filename.lower().endswith(".json"):
-        return jsonify({"error": "Invalid JSON filename"}), 400
+    if not filename or not filename.lower().endswith(".json"): return jsonify({"error": "Invalid JSON filename"}), 400
 
     class_cat = request.args.get("class") or request.args.get("class_category") or detect_class_from_filename(filename)
     class_cat = normalize_class(class_cat)
 
-    if class_cat not in SUPPORTED_CLASSES:
-        return jsonify({"error": "Cannot detect class from filename"}), 400
+    if class_cat not in SUPPORTED_CLASSES: return jsonify({"error": "Cannot detect class from filename"}), 400
 
     term = normalize_term(request.args.get("term"))
 
-    if is_term_aware_class(class_cat) and not term:
-        return jsonify({"error": "Term is required for JSS JSON preview"}), 400
-
-    # SS must never inherit a supplied term.
-    if not is_term_aware_class(class_cat):
-        term = None
+    if is_term_aware_class(class_cat) and not term: return jsonify({"error": "Term is required for JSS JSON preview"}), 400
+    if not is_term_aware_class(class_cat): term = None
 
     json_path = get_json_path(year, class_cat, filename, term)
 
+    print("\n" + "=" * 90)
+    print("EMIS JSON PREVIEW")
+    print(f"YEAR       : {year}")
+    print(f"CLASS      : {class_cat}")
+    print(f"TERM       : {term or 'NO TERM'}")
+    print(f"FILENAME   : {filename}")
+    print(f"JSON PATH  : {json_path}")
+    print(f"EXISTS     : {bool(json_path and os.path.isfile(json_path))}")
+    print("=" * 90)
+
     if not json_path or not os.path.isfile(json_path):
-        return jsonify({
-            "error": "Not found",
-            "year": int(year),
-            "class_category": class_cat,
-            "term": term,
-            "filename": filename,
-        }), 404
+        return jsonify({"error": "Not found", "year": int(year), "class_category": class_cat, "term": term, "filename": filename}), 404
 
     data, error = read_json_file(json_path)
 
@@ -795,8 +829,20 @@ def preview_json(year, filename):
         print(f"Preview JSON error [{json_path}]: {error}")
         return jsonify({"error": "Failed to read JSON", "details": error}), 500
 
-    return jsonify(data)
+    essay = data.get("essay") if isinstance(data, dict) else None
+    essay_questions = essay.get("questions", []) if isinstance(essay, dict) else []
 
+    print(f"QUESTIONS  : {len(data.get('questions', [])) if isinstance(data.get('questions'), list) else 0}")
+    print(f"HAS ESSAY  : {isinstance(essay, dict)}")
+    print(f"ESSAY Qs   : {len(essay_questions) if isinstance(essay_questions, list) else 0}")
+    print("=" * 90 + "\n")
+
+    response = jsonify(data)
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+
+    return response
 
 # ============================================================
 # DELETE JSON

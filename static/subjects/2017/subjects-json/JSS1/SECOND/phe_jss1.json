@@ -1,0 +1,762 @@
+{
+  "subject": "P.H.E",
+  "class": "JSS1",
+  "session": "2016/2017",
+  "time_allowed_minutes": 150,
+  "questions": [
+    {
+      "id": 1,
+      "question": "________ is the study of food and its chemical composition.",
+      "diagram": null,
+      "options": [
+        "A. Health",
+        "B. Photosynthesis",
+        "C. Nutrition",
+        "D. Physiology"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "A good example of contact sports includes the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Table tennis",
+        "B. Football",
+        "C. Boxing",
+        "D. Handball"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Physical education can be defined as ________.",
+      "diagram": null,
+      "options": [
+        "A. An aspect of education that deals with the all-round development of the individual through physical activities",
+        "B. A study of man and his physical education",
+        "C. An aspect of education that deals with the physical nature of the student only",
+        "D. An education for handicapped persons only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "________ is the process by which the body takes in and utilizes food.",
+      "diagram": null,
+      "options": [
+        "A. Protein",
+        "B. Vitamin",
+        "C. Nutrition",
+        "D. Water"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "All the following are benefits of contact sports EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Experience",
+        "B. Boredom",
+        "C. Improved self-image",
+        "D. Endurance"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Physical education is concerned with the development of an individual physically, socially, emotionally, intellectually and mentally through ________.",
+      "diagram": null,
+      "options": [
+        "A. Gym box",
+        "B. Ball games",
+        "C. Athletics events",
+        "D. Well-conducted physical activities"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Which one of these is NOT a benefit of contact sports?",
+      "diagram": null,
+      "options": [
+        "A. It provides a means of recreation",
+        "B. It promotes violence",
+        "C. It improves mental alertness",
+        "D. It aids physical fitness and flexibility"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "The basic skills in contact sports include all the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Throwing",
+        "B. Drawing",
+        "C. Hopping",
+        "D. Catching"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "The condition of complete physical, mental and social well-being, and not merely the absence of disease or infirmity, is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Health",
+        "B. Physical education",
+        "C. Social studies",
+        "D. Health behaviour"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "The importance of a balanced diet includes all the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. It helps to maintain good health",
+        "B. It promotes growth and builds body tissues",
+        "C. It provides needed energy for physical exercises",
+        "D. It helps to keep the environment clean"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Which type of sport involves physical contact between players?",
+      "diagram": null,
+      "options": [
+        "A. Contact sport",
+        "B. Non-contact sport",
+        "C. Volleyball",
+        "D. Athletics"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "The following are examples of sporting or recreational activities EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Camping",
+        "B. Mountaineering",
+        "C. Canoeing",
+        "D. Marketing"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "Which one of the following is NOT a way of preventing communicable diseases?",
+      "diagram": null,
+      "options": [
+        "A. Washing all fruits before eating them",
+        "B. Sharing combs, drinking cups and sharp objects with another person",
+        "C. Isolating people suffering from certain communicable diseases",
+        "D. Promoting immunization against preventable diseases"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "________ is an agent that causes disease.",
+      "diagram": null,
+      "options": [
+        "A. Virus",
+        "B. Pathogen",
+        "C. Bacteria",
+        "D. Worm"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "At the higher level of education, physical education includes the study of ________.",
+      "diagram": null,
+      "options": [
+        "A. Human anatomy",
+        "B. Education",
+        "C. Engineering",
+        "D. Civic education"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "A ________ contains all the required classes of food in the right proportions.",
+      "diagram": null,
+      "options": [
+        "A. Nutrition",
+        "B. Metabolism",
+        "C. Balanced diet",
+        "D. Energy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "An organism that cannot be seen with the naked eye is said to be ________.",
+      "diagram": null,
+      "options": [
+        "A. Microscopic",
+        "B. Ultra-microscopic",
+        "C. Worm",
+        "D. Multi-microscopic"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "One of the objectives of physical education is to ________.",
+      "diagram": null,
+      "options": [
+        "A. Discover talents in our schools",
+        "B. Produce senior citizens",
+        "C. Produce hoodlums",
+        "D. Develop a selfish lifestyle"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "Which one of the following is NOT a safety precaution in contact sports?",
+      "diagram": null,
+      "options": [
+        "A. Ask questions when in doubt",
+        "B. Practise skills within your capacity",
+        "C. Do not ask questions when in doubt",
+        "D. Always follow instructions"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Viruses are among the ________ infectious particles known.",
+      "diagram": null,
+      "options": [
+        "A. Small",
+        "B. Largest",
+        "C. Smallest",
+        "D. Big"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "Facilities in physical education refer mainly to ________.",
+      "diagram": null,
+      "options": [
+        "A. Temporary structures",
+        "B. Permanent structures",
+        "C. Available structures",
+        "D. Good structures"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "Which class of food builds and repairs worn-out tissues and cells of the body?",
+      "diagram": null,
+      "options": [
+        "A. Fats and oils",
+        "B. Vitamins",
+        "C. Carbohydrates",
+        "D. Proteins"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "The two major methods of baton exchange are ________.",
+      "diagram": null,
+      "options": [
+        "A. Method and baton",
+        "B. Visual and non-visual",
+        "C. Organic and inorganic",
+        "D. Exchange and baton"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "The inability to sleep properly is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Somnia",
+        "B. Somelia",
+        "C. Insomnia",
+        "D. Fatigue"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "The energy needed by athletes is derived mainly from two classes of food, namely ________.",
+      "diagram": null,
+      "options": [
+        "A. Fats and oils and proteins",
+        "B. Vitamins and carbohydrates",
+        "C. Carbohydrates and fats and oils",
+        "D. Proteins and vitamins"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Which one of the following is NOT a basic skill or technique in discus?",
+      "diagram": null,
+      "options": [
+        "A. Grip",
+        "B. Stance",
+        "C. Release",
+        "D. Jump"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "The science of food is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Vitamin",
+        "B. Protein",
+        "C. Nutrient",
+        "D. Nutrition"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 28,
+      "question": "Food is any substance containing one or more nutrients which is taken into the body and used by living things.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. All of the above",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "________ is the process by which the body takes in and utilizes food.",
+      "diagram": null,
+      "options": [
+        "A. Feeding",
+        "B. Feed",
+        "C. Nutrition",
+        "D. Nitrogen"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "The passing on of characteristics from parents to offspring is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Environment",
+        "B. Health",
+        "C. Exercise",
+        "D. Heredity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "Which of the following diseases is communicable?",
+      "diagram": null,
+      "options": [
+        "A. Cancer",
+        "B. Whooping cough",
+        "C. Stroke",
+        "D. Diabetes"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "The nutrients required in small quantities for protection and healthy growth of the body are ________.",
+      "diagram": null,
+      "options": [
+        "A. Proteins",
+        "B. Carbohydrates",
+        "C. Vitamins",
+        "D. Minerals"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "The following are contact sports EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Judo",
+        "B. Karate",
+        "C. Gymnastics",
+        "D. Wrestling"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following are fat-soluble vitamins?",
+      "diagram": null,
+      "options": [
+        "A. Vitamin C",
+        "B. Vitamins A, D, E and K",
+        "C. Fats",
+        "D. Banana"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "The three important elements in the definition of health according to the World Health Organization are ________.",
+      "diagram": null,
+      "options": [
+        "A. Organization, health and high",
+        "B. Physical, health and education",
+        "C. Education, school and society",
+        "D. Physical, mental and social"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "Which among the following is NOT a major source of carbohydrates?",
+      "diagram": null,
+      "options": [
+        "A. Cocoyam",
+        "B. Potato",
+        "C. Beans",
+        "D. Rice"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Sewage means ________.",
+      "diagram": null,
+      "options": [
+        "A. Liquid waste",
+        "B. Solid waste",
+        "C. Solid and liquid waste",
+        "D. Iron waste"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Which of these is NOT a contact sport?",
+      "diagram": null,
+      "options": [
+        "A. Taekwondo",
+        "B. Athletics",
+        "C. Judo",
+        "D. Karate"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "A custom or behaviour developed over time is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Heredity",
+        "B. Environment",
+        "C. Habit",
+        "D. Lifestyle"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Disease means illness or disorder of the body or mind.",
+      "diagram": null,
+      "options": [
+        "A. False",
+        "B. True",
+        "C. None of the above",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "The measuring tape used in discus is mainly used to measure ________.",
+      "diagram": null,
+      "options": [
+        "A. The number of students in the class",
+        "B. The length of the athlete's throw",
+        "C. The area of the land",
+        "D. The construction of a building"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "Which of these is NOT a basic skill in contact sports?",
+      "diagram": null,
+      "options": [
+        "A. Tackling",
+        "B. Swimming",
+        "C. Kicking",
+        "D. Dribbling"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "Which of the following is an acceptable standard dimension for a football field?",
+      "diagram": null,
+      "options": [
+        "A. 120m by 90m",
+        "B. 200m by 100m",
+        "C. 50m by 25m",
+        "D. 150m by 75m"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "Which of the following classes of food supplies the body mainly with energy?",
+      "diagram": null,
+      "options": [
+        "A. Mineral salts",
+        "B. Water",
+        "C. Carbohydrates",
+        "D. Vitamins"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "The following are functions of food EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. It satisfies hunger",
+        "B. It helps in body growth",
+        "C. It supplies energy to the body",
+        "D. It helps to damage cells in the body"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 46,
+      "question": "Human excreta consisting of faeces and urine can be important sources of ________.",
+      "diagram": null,
+      "options": [
+        "A. Pathogens",
+        "B. Agents",
+        "C. Health",
+        "D. Services"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "The class of food that helps the body resist diseases is ________.",
+      "diagram": null,
+      "options": [
+        "A. Water",
+        "B. Carbohydrate",
+        "C. Protein",
+        "D. Vitamin"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "question": "Which of the following is a contact sport?",
+      "diagram": null,
+      "options": [
+        "A. Swimming",
+        "B. Boxing",
+        "C. Athletics",
+        "D. Tennis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "All the following are disease-causing agents EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Virus",
+        "B. Bacteria",
+        "C. Cholera",
+        "D. Protozoa"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 50,
+      "question": "Fruits are important sources of ________.",
+      "diagram": null,
+      "options": [
+        "A. Fats and oils",
+        "B. Vitamins",
+        "C. Proteins",
+        "D. Carbohydrates"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 51,
+      "question": "A disease that can be transferred from one person to another is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Contact sport",
+        "B. Non-communicable disease",
+        "C. Non-contact sport",
+        "D. Communicable disease"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 52,
+      "question": "Which of the following foods is rich in protein?",
+      "diagram": null,
+      "options": [
+        "A. Carrot",
+        "B. Yam",
+        "C. Meat",
+        "D. Vegetables"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 53,
+      "question": "Non-contact sports are sports in which players are physically separated so that physical contact between them is minimal or absent.",
+      "diagram": null,
+      "options": [
+        "A. False",
+        "B. True",
+        "C. None of the above",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 54,
+      "question": "________ is the energy possessed by a body because of its motion.",
+      "diagram": null,
+      "options": [
+        "A. Sound energy",
+        "B. Heat energy",
+        "C. Kinetic energy",
+        "D. Mechanical energy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 55,
+      "question": "Which of these nutrients cannot be digested by the human digestive system?",
+      "diagram": null,
+      "options": [
+        "A. Fat",
+        "B. Carbohydrate",
+        "C. Protein",
+        "D. Fibre"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 56,
+      "question": "One of these is NOT a recognized form of energy.",
+      "diagram": null,
+      "options": [
+        "A. Kinetic energy",
+        "B. Mechanical energy",
+        "C. Power energy",
+        "D. Potential energy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 57,
+      "question": "The following are equipment or facilities used in swimming EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Swimwear",
+        "B. Swimming pool",
+        "C. Suit",
+        "D. Flippers"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 58,
+      "question": "The two major groups of diseases are ________ and ________.",
+      "diagram": null,
+      "options": [
+        "A. Measles and HIV diseases",
+        "B. Communicable and non-communicable diseases",
+        "C. Virus and protozoa diseases",
+        "D. Bacteria and communicable diseases"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 59,
+      "question": "The two major categories of sewage disposal are ________.",
+      "diagram": null,
+      "options": [
+        "A. Conservancy and incineration",
+        "B. Van-carrying and refuse bin",
+        "C. Conservancy and water-carrying systems",
+        "D. Water-carrying and faeces"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 60,
+      "question": "Which of the following is a method of refuse disposal?",
+      "diagram": null,
+      "options": [
+        "A. Open dump",
+        "B. Water carrying",
+        "C. Conservancy",
+        "D. Rainwater"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - ESSAY / THEORY",
+    "instruction": "Answer only three (3) questions in this section. Write your answers clearly on the answer booklet provided.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) What is Energy?\n(b) Mention four importance of food nutrients.\n(c) Mention four good examples of communicable diseases.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Define the following:\n(i) Contact sport\n(ii) Food\n(b) State the six classes of food.\n(c) List three good examples of non-communicable diseases.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Define the following:\n(i) Nutrition\n(ii) Disease\n(b) Mention four examples of contact sports.\n(c) List three functions of proteins.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) Define the following:\n(i) Pathogen\n(ii) Non-communicable disease\n(b) Mention three safety precautions in non-contact sports.\n(c) State three forms of energy.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) Define the following:\n(i) Communicable disease\n(ii) Non-contact sport\n(b) Itemize three disease-causing agents.\n(c) State three benefits of contact sports.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "SECOND",
+  "term_label": "2nd Term",
+  "class_category": "JSS1"
+}
