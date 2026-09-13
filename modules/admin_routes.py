@@ -44,11 +44,8 @@ def start_staff_session(user_type, username, teacher_id=None):
     session["user_type"] = role
     session["username"] = str(username or "").strip()
 
-    if role == "admin":
-        session["admin_username"] = username
-
-    if role == "teacher" and teacher_id:
-        session["teacher_id"] = teacher_id
+    if role == "admin": session["admin_username"] = username
+    if role == "teacher" and teacher_id: session["teacher_id"] = teacher_id
 
     session[STAFF_SESSION_ACTIVITY_KEY] = time.time()
     session.modified = True
@@ -68,10 +65,7 @@ def refresh_staff_session():
             elapsed = now - float(last_activity)
 
             if elapsed > STAFF_SESSION_TIMEOUT_SECONDS:
-                print(
-                    f"[STAFF SESSION] {role} session expired after "
-                    f"{round(elapsed / 3600, 2)} hour(s) inactivity."
-                )
+                print(f"[STAFF SESSION] {role} session expired after {round(elapsed / 3600, 2)} hour(s) inactivity.")
                 session.clear()
                 return False
 
@@ -83,6 +77,7 @@ def refresh_staff_session():
     session.modified = True
 
     return True
+
 
 # ==========================================================
 # DECORATORS
@@ -109,7 +104,7 @@ def admin_only(view_func):
 
 
 def teacher_allowed(view_func):
-    """Allow Admin and Teacher users while maintaining the 20-minute staff session."""
+    """Allow both Admin and Teacher users while maintaining the 2-hour inactive session timeout."""
 
     @wraps(view_func)
     def wrapper(*args, **kwargs):
@@ -195,7 +190,7 @@ def delete_teacher_id(teacher_id):
 
 
 # ==========================================================
-# DASHBOARD & SUB-PAGES
+# DASHBOARD & EXISTING STAFF PAGES
 # ==========================================================
 
 @admin_bp.route("/admin")
@@ -223,16 +218,77 @@ def admin_students():
     return render_template("students.html", user_type=session.get("user_type"))
 
 
+# ==========================================================
+# NEW STAFF MANAGEMENT MODULES
+#
+# These three functions replace:
+#
+# Past Questions -> Attendance
+# Mock Exam      -> CA Tests
+# Third Party    -> Report Sheets
+#
+# The OLD Staff Management student database is NOT used here.
+# These pages will later be connected to the current EMIS
+# student database / Promotion database system.
+# ==========================================================
+
+@admin_bp.route("/admin/attendance")
+@teacher_allowed
+def admin_attendance():
+    return render_template(
+        "attendance.html",
+        user_type=session.get("user_type"),
+        classes=CLASSES,
+        class_arms=CLASS_ARMS
+    )
+
+
+@admin_bp.route("/admin/ca-tests")
+@teacher_allowed
+def admin_ca_tests():
+    return render_template(
+        "ca_test.html",
+        user_type=session.get("user_type"),
+        classes=CLASSES,
+        class_arms=CLASS_ARMS
+    )
+
+
+@admin_bp.route("/admin/report-sheets")
+@teacher_allowed
+def admin_report_sheets():
+    return render_template(
+        "report_sheets.html",
+        user_type=session.get("user_type"),
+        classes=CLASSES,
+        class_arms=CLASS_ARMS
+    )
+
+
+# ==========================================================
+# LEGACY ROUTE COMPATIBILITY
+#
+# Keep these temporarily so dashboard.html, old bookmarks,
+# page-routes.js or other frontend files do not break while
+# we migrate everything to the three new modules.
+# ==========================================================
+
 @admin_bp.route("/admin/past_questions")
 @teacher_allowed
 def admin_past_questions():
-    return render_template("past_questions.html", user_type=session.get("user_type"))
+    return redirect(url_for("admin_bp.admin_attendance"))
 
 
 @admin_bp.route("/admin/mock_exam")
 @teacher_allowed
 def admin_mock_exam():
-    return render_template("mock_exam.html", user_type=session.get("user_type"))
+    return redirect(url_for("admin_bp.admin_ca_tests"))
+
+
+@admin_bp.route("/admin/third_party")
+@admin_only
+def admin_third_party():
+    return redirect(url_for("admin_bp.admin_report_sheets"))
 
 
 # ==========================================================
@@ -243,12 +299,6 @@ def admin_mock_exam():
 @admin_only
 def admin_ids():
     return render_template("ids.html", user_type="admin")
-
-
-@admin_bp.route("/admin/third_party")
-@admin_only
-def admin_third_party():
-    return render_template("third_party.html", user_type="admin")
 
 
 @admin_bp.route("/admin/promotion")
@@ -308,6 +358,9 @@ def view_credentials():
 
 # ==========================================================
 # VIEW OLD MOCK EXAM RESULTS
+#
+# Retained because historical/mock results may still exist
+# even though the Mock Exam frontend navigation is replaced.
 # ==========================================================
 
 @admin_bp.route("/view_results")
@@ -317,6 +370,7 @@ def view_results():
 
     try:
         results = user_exam.get_exam_results() or []
+
     except Exception as error:
         print(f"DB fetch failed: {error}")
 

@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>{% block title %}EMIS Exam Portal{% endblock %}</title>
 
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}" />
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
 
-  <!-- Google Fonts -->
+  <!-- ============================================================
+       FONTS
+  ============================================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
 
-  <!-- Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Global/Admin CSS -->
+  <!-- ============================================================
+       ICONS
+  ============================================================ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- ============================================================
+       GLOBAL EMIS CSS
+  ============================================================ -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin1.css') }}">
 
   {% block styles %}{% endblock %}
@@ -30,26 +31,17 @@
 
 <body>
 
-  <!-- ================= HEADER ================= -->
+  <!-- ============================================================
+       TOP HEADER
+  ============================================================ -->
   <header class="top-header">
 
     <!-- LEFT BRAND -->
-    <a
-      href="{% if session.get('user_type') == 'teacher' %}
-              {{ url_for('admin_bp.admin_teachers') }}
-            {% elif session.get('user_type') == 'admin' %}
-              {{ url_for('admin_bp.admin_dashboard') }}
-            {% else %}
-              {{ url_for('home') }}
-            {% endif %}"
-      class="base-brand"
-      aria-label="EMIS CBT Server Home"
-    >
-      <img
-        src="{{ url_for('static', filename='images/logo.jpg') }}"
-        alt="EMIS Logo"
-        class="base-brand-logo"
-      >
+    <a href="{% if session.get('user_type') == 'teacher' %}{{ url_for('admin_bp.admin_teachers') }}{% elif session.get('user_type') == 'admin' %}{{ url_for('admin_bp.admin_dashboard') }}{% else %}{{ url_for('home') }}{% endif %}"
+       class="base-brand"
+       aria-label="EMIS CBT Server Home">
+
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="EMIS Logo" class="base-brand-logo">
 
       <div class="base-brand-text">
         <strong>EMIS CBT SERVER</strong>
@@ -58,36 +50,27 @@
     </a>
 
 
-    <!-- ================= DESKTOP NAVIGATION ================= -->
+    <!-- ==========================================================
+         DESKTOP NAVIGATION
+    ========================================================== -->
     <nav class="base-nav" aria-label="Main navigation">
 
-      <a
-        href="{% if session.get('user_type') == 'teacher' %}
-                {{ url_for('admin_bp.admin_teachers') }}
-              {% elif session.get('user_type') == 'admin' %}
-                {{ url_for('admin_bp.admin_dashboard') }}
-              {% else %}
-                {{ url_for('home') }}
-              {% endif %}"
-        class="base-nav-link"
-      >
+      <a href="{% if session.get('user_type') == 'teacher' %}{{ url_for('admin_bp.admin_teachers') }}{% elif session.get('user_type') == 'admin' %}{{ url_for('admin_bp.admin_dashboard') }}{% else %}{{ url_for('home') }}{% endif %}"
+         class="base-nav-link">
         Home
       </a>
 
+
       <!-- MODULES DROPDOWN -->
       <div class="base-dropdown">
-        <button
-          id="modulesBtn"
-          type="button"
-          class="base-nav-button"
-          aria-expanded="false"
-          aria-controls="modulesMenu"
-        >
+
+        <button id="modulesBtn" type="button" class="base-nav-button" aria-expanded="false" aria-controls="modulesMenu">
           Modules
           <i class="fa-solid fa-chevron-down"></i>
         </button>
 
         <div id="modulesMenu" class="dropdown-menu base-dropdown-menu">
+
           {% if session.get('user_type') == 'admin' %}
 
             <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="active-role">
@@ -105,6 +88,22 @@
               <span>Results Module</span>
             </a>
 
+            <a href="{{ url_for('admin_bp.admin_attendance') }}">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span>Attendance</span>
+            </a>
+
+            <a href="{{ url_for('admin_bp.admin_ca_tests') }}">
+              <i class="fa-solid fa-clipboard-list"></i>
+              <span>CA Tests</span>
+            </a>
+
+            <a href="{{ url_for('admin_bp.admin_report_sheets') }}">
+              <i class="fa-solid fa-file-lines"></i>
+              <span>Report Sheets</span>
+            </a>
+
+
           {% elif session.get('user_type') == 'teacher' %}
 
             <a href="{{ url_for('admin_bp.admin_teachers') }}" class="active-role">
@@ -112,10 +111,26 @@
               <span>Teacher ({{ session.get('teacher_id') }})</span>
             </a>
 
+            <a href="{{ url_for('admin_bp.admin_attendance') }}">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span>Attendance</span>
+            </a>
+
+            <a href="{{ url_for('admin_bp.admin_ca_tests') }}">
+              <i class="fa-solid fa-clipboard-list"></i>
+              <span>CA Tests</span>
+            </a>
+
+            <a href="{{ url_for('admin_bp.admin_report_sheets') }}">
+              <i class="fa-solid fa-file-lines"></i>
+              <span>Report Sheets</span>
+            </a>
+
             <a href="#" class="disabled-link">
               <i class="fa-solid fa-shield-halved"></i>
               <span>Admin Restricted</span>
             </a>
+
 
           {% else %}
 
@@ -125,8 +140,10 @@
             </a>
 
           {% endif %}
+
         </div>
       </div>
+
 
       <a href="{{ url_for('admin_bp.admin_support') }}" class="base-nav-link">
         Support
@@ -135,27 +152,25 @@
     </nav>
 
 
-    <!-- ================= RIGHT ACTIONS ================= -->
+    <!-- ==========================================================
+         RIGHT ACTIONS
+    ========================================================== -->
     <div class="base-actions">
 
       <!-- NOTIFICATIONS -->
       <div class="base-dropdown">
-        <button
-          id="notifBtn"
-          type="button"
-          class="base-icon-btn"
-          aria-expanded="false"
-          aria-controls="notifMenu"
-          title="Notifications"
-        >
+
+        <button id="notifBtn" type="button" class="base-icon-btn" aria-expanded="false" aria-controls="notifMenu" title="Notifications">
           <i class="fa-solid fa-bell"></i>
           <span class="notif-count">3</span>
         </button>
 
         <div id="notifMenu" class="dropdown-menu base-notif-menu">
+
           <h3>Notifications</h3>
 
           <ul class="base-notif-list">
+
             <li>
               <i class="fa-solid fa-upload"></i>
               <span>New question set uploaded</span>
@@ -170,30 +185,26 @@
               <i class="fa-solid fa-circle-check"></i>
               <span>Exam server active</span>
             </li>
+
           </ul>
+
         </div>
       </div>
 
+
       <!-- THEME TOGGLE -->
-      <button
-        id="themeToggle"
-        type="button"
-        class="base-icon-btn"
-        title="Toggle theme"
-        aria-label="Toggle theme"
-      >
+      <button id="themeToggle" type="button" class="base-icon-btn" title="Toggle theme" aria-label="Toggle theme">
         <i class="fa-solid fa-moon"></i>
       </button>
 
-      <!-- USER AVATAR -->
+
+      <!-- USER -->
       <div class="base-user">
-        <img
-          src="{{ url_for('static', filename='images/user.png') }}"
-          alt="User"
-          class="base-user-avatar"
-        >
+
+        <img src="{{ url_for('static', filename='images/user.png') }}" alt="User" class="base-user-avatar">
 
         <div class="base-user-info">
+
           <strong>
             {% if session.get('user_type') == 'teacher' %}
               Teacher
@@ -213,7 +224,9 @@
               EMIS User
             {% endif %}
           </span>
+
         </div>
+
       </div>
 
     </div>
@@ -221,22 +234,23 @@
   </header>
 
 
-  <!-- ================= DESKTOP SIDEBAR TOGGLE ================= -->
-  <button
-    id="sidebarToggle"
-    type="button"
-    class="sidebar-toggle desktop-toggle"
-    aria-label="Toggle sidebar"
-  >
+  <!-- ============================================================
+       DESKTOP SIDEBAR TOGGLE
+  ============================================================ -->
+  <button id="sidebarToggle" type="button" class="sidebar-toggle desktop-toggle" aria-label="Toggle sidebar">
     <i class="fa-solid fa-bars"></i>
   </button>
 
 
-  <!-- ================= SIDEBAR ================= -->
+  <!-- ============================================================
+       SIDEBAR
+  ============================================================ -->
   <aside id="sidebar" class="sidebar" aria-label="Sidebar navigation">
 
     <div class="sidebar-header">
+
       <div class="sidebar-heading">
+
         <span class="sidebar-title">
           {% if session.get('user_type') == 'teacher' %}
             Teacher Panel
@@ -248,127 +262,232 @@
         <span class="sidebar-role">
           {{ session.get('user_type', 'admin') }}
         </span>
+
       </div>
+
     </div>
+
 
     <ul class="sidebar-menu">
 
+      <!-- DASHBOARD -->
       <li>
-        <a href="{{ url_for('admin_bp.admin_dashboard') }}">
-          <i class="fa-solid fa-gauge-high"></i>
-          <span>Dashboard</span>
+        <a href="{{ url_for('admin_bp.admin_dashboard') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-dashboard">
+            <i class="fa-solid fa-chart-pie"></i>
+          </span>
+
+          <span class="sidebar-nav-label">Dashboard</span>
         </a>
       </li>
 
+
+      <!-- TEACHERS -->
       <li>
-        <a href="{{ url_for('admin_bp.admin_teachers') }}">
-          <i class="fa-solid fa-user-tie"></i>
-          <span>Teachers</span>
+        <a href="{{ url_for('admin_bp.admin_teachers') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_teachers' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-teachers">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </span>
+
+          <span class="sidebar-nav-label">Teachers</span>
         </a>
       </li>
 
+
+      <!-- IDs -->
       <li>
-        <a href="{{ url_for('admin_bp.admin_ids') }}">
-          <i class="fa-solid fa-id-card"></i>
-          <span>IDs</span>
-        </a>
-      </li>
+        <a href="{{ url_for('admin_bp.admin_ids') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_ids' %}active{% endif %}">
 
-            <li>
-        <a href="{{ url_for('admin_bp.admin_promotion') }}">
-          <i class="fa-solid fa-list-check"></i>
-          <span>Promotion</span>
-        </a>
-      </li>
+          <span class="sidebar-nav-icon nav-ids">
+            <i class="fa-solid fa-id-card"></i>
+          </span>
 
-
-            <li>
-        <a href="{{ url_for('admin_bp.admin_results') }}">
-          <i class="fa-solid fa-chart-line"></i>
-          <span>Results</span>
+          <span class="sidebar-nav-label">IDs</span>
         </a>
       </li>
 
 
+      <!-- PROMOTION -->
       <li>
-        <a href="{{ url_for('admin_bp.admin_past_questions') }}">
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <span>Past Questions</span>
-        </a>
-      </li>
+        <a href="{{ url_for('admin_bp.admin_promotion') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}">
 
-      <li>
-        <a href="{{ url_for('admin_bp.admin_mock_exam') }}">
-          <i class="fa-solid fa-pen-to-square"></i>
-          <span>Mock Exam</span>
-        </a>
-      </li>
+          <span class="sidebar-nav-icon nav-promotion">
+            <i class="fa-solid fa-arrow-up-right-dots"></i>
+          </span>
 
-
-
-      <li>
-        <a href="{{ url_for('admin_bp.admin_third_party') }}">
-          <i class="fa-solid fa-network-wired"></i>
-          <span>Third Party</span>
+          <span class="sidebar-nav-label">Promotion</span>
         </a>
       </li>
 
 
+      <!-- RESULTS -->
       <li>
-        <a href="{{ url_for('admin_bp.admin_settings') }}">
-          <i class="fa-solid fa-gear"></i>
-          <span>Settings</span>
+        <a href="{{ url_for('admin_bp.admin_results') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-results">
+            <i class="fa-solid fa-chart-line"></i>
+          </span>
+
+          <span class="sidebar-nav-label">Results</span>
         </a>
       </li>
 
+
+      <!-- ========================================================
+           STAFF MANAGEMENT MODULES
+      ======================================================== -->
+
+      <!-- ATTENDANCE -->
       <li>
-        <a href="{{ url_for('admin_bp.admin_support') }}">
-          <i class="fa-solid fa-headset"></i>
-          <span>Support</span>
+        <a href="{{ url_for('admin_bp.admin_attendance') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_attendance' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-attendance">
+            <i class="fa-solid fa-calendar-check"></i>
+          </span>
+
+          <span class="sidebar-nav-label">Attendance</span>
+        </a>
+      </li>
+
+
+      <!-- CA TESTS -->
+      <li>
+        <a href="{{ url_for('admin_bp.admin_ca_tests') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_ca_tests' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-ca">
+            <i class="fa-solid fa-clipboard-list"></i>
+          </span>
+
+          <span class="sidebar-nav-label">CA Tests</span>
+        </a>
+      </li>
+
+
+      <!-- REPORT SHEETS -->
+      <li>
+        <a href="{{ url_for('admin_bp.admin_report_sheets') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_report_sheets' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-reports">
+            <i class="fa-solid fa-file-lines"></i>
+          </span>
+
+          <span class="sidebar-nav-label">Report Sheets</span>
+        </a>
+      </li>
+
+
+      <!-- SETTINGS -->
+      <li>
+        <a href="{{ url_for('admin_bp.admin_settings') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_settings' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-settings">
+            <i class="fa-solid fa-gear"></i>
+          </span>
+
+          <span class="sidebar-nav-label">Settings</span>
+        </a>
+      </li>
+
+
+      <!-- SUPPORT -->
+      <li>
+        <a href="{{ url_for('admin_bp.admin_support') }}"
+           class="{% if request.endpoint == 'admin_bp.admin_support' %}active{% endif %}">
+
+          <span class="sidebar-nav-icon nav-support">
+            <i class="fa-solid fa-headset"></i>
+          </span>
+
+          <span class="sidebar-nav-label">Support</span>
         </a>
       </li>
 
     </ul>
 
+
+    <!-- ==========================================================
+         SIDEBAR FOOTER
+    ========================================================== -->
     <div class="sidebar-footer">
-      <a href="/admin/logout" class="btn-logout">
+
+      <a href="{{ url_for('admin_bp.admin_logout') }}" class="btn-logout">
         <i class="fa-solid fa-right-from-bracket"></i>
         <span>Logout</span>
       </a>
+
     </div>
 
   </aside>
 
 
-  <!-- ================= MOBILE SIDEBAR TOGGLE ================= -->
-  <button
-    id="mobileSidebarBtn"
-    type="button"
-    class="sidebar-toggle mobile-toggle"
-    aria-label="Open sidebar"
-  >
+  <!-- ============================================================
+       MOBILE SIDEBAR
+  ============================================================ -->
+  <button id="mobileSidebarBtn" type="button" class="sidebar-toggle mobile-toggle" aria-label="Open sidebar">
     <i class="fa-solid fa-bars"></i>
   </button>
 
   <div class="sidebar-overlay" aria-hidden="true"></div>
 
 
-  <!-- ================= MAIN CONTENT ================= -->
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
   <main class="main-content">
+
+    {% block page_header %}{% endblock %}
+
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+      {% if messages %}
+        <div class="global-flash-wrapper">
+
+          {% for category, message in messages %}
+            <div class="global-flash global-flash-{{ category }}">
+              <span>{{ message }}</span>
+            </div>
+          {% endfor %}
+
+        </div>
+      {% endif %}
+
+    {% endwith %}
+
+
     {% block content %}{% endblock %}
+
   </main>
 
 
-  <!-- ================= GLOBAL FOOTER ================= -->
+  <!-- ============================================================
+       GLOBAL FOOTER
+  ============================================================ -->
   <footer class="base-footer">
+
     <p>
       &copy; 2026 EMIS CBT Server —
       Developed by <strong>Epiconsult Tech Division</strong>.
     </p>
+
   </footer>
 
 
-  <!-- ================= GLOBAL SCRIPTS ================= -->
+  <!-- ============================================================
+       GLOBAL SCRIPTS
+  ============================================================ -->
   <script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
   <script src="{{ url_for('static', filename='js/privileges.js') }}"></script>
   <script src="{{ url_for('static', filename='js/page-routes.js') }}"></script>
