@@ -3,7 +3,7 @@
 {% block title %}EMIS — Examination Results{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_results.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_results.css', v='20260913-1') }}">
 {% endblock %}
 
 {% block content %}
@@ -154,17 +154,17 @@
       </div>
 
 
-      <!-- TERM -->
-      <div class="filter-field term-filter-group" id="termFilterGroup">
-        <label for="termSelector"><i class="fa-solid fa-calendar-check"></i> Term <span class="term-requirement-badge" id="termRequirementBadge">JSS</span></label>
-        <div class="filter-control-wrap">
-          <select id="termSelector" class="filter-control">
-            <option value="all" selected>All Terms</option>
-            <option value="FIRST">1st Term</option><option value="SECOND">2nd Term</option><option value="THIRD">3rd Term</option>
-          </select>
-          <i class="fa-solid fa-chevron-down select-arrow"></i>
-        </div>
-      </div>
+ 
+<!-- TERM -->
+<div class="filter-field term-filter-group" id="termFilterGroup">
+  <label for="termSelector"><i class="fa-solid fa-calendar-check"></i> Term <span class="term-requirement-badge" id="termRequirementBadge">JSS + SS</span></label>
+  <div class="filter-control-wrap">
+    <select id="termSelector" class="filter-control">
+      <option value="all" selected>All Terms</option><option value="FIRST">1st Term</option><option value="SECOND">2nd Term</option><option value="THIRD">3rd Term</option>
+    </select>
+    <i class="fa-solid fa-chevron-down select-arrow"></i>
+  </div>
+</div>
 
 
       <!-- SUBJECT -->
@@ -890,6 +890,6 @@
 
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/admin_results.js') }}"></script>
-<script src="{{ url_for('static', filename='js/admin_notifications.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin_results.js', v='20260913-1') }}"></script>
+<script src="{{ url_for('static', filename='js/admin_notifications.js', v='20260913-1') }}"></script>
 {% endblock %}

@@ -4,13 +4,9 @@ import sqlite3
 from pathlib import Path
 from datetime import datetime
 
-from modules.excel_manager import append_result_to_excel
+from modules.excel_manager import append_result_to_excel, normalize_result_term, result_term_label
 from modules.class_config import normalize_class_level, normalize_class_arm, get_ss_stream
 
-
-# ============================================================
-# PATHS / CONSTANTS
-# ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "database.db"
@@ -24,7 +20,7 @@ RESULT_COLUMNS = """
     subject, score, correct, incorrect, total, answered, skipped, flagged, tab_switches, time_taken,
     academic_session, term, year,
     date_written, day_written, time_written,
-    submitted_at, status, result_status
+    submitted_at, status, result_status, termination_reason
 """
 
 
@@ -69,36 +65,24 @@ def normalize_submission_status(value):
     if value in {"COMPLETED", "SUBMITTED", "DONE"}:
         return "COMPLETED"
 
+    if value in {"TIMEOUT", "TIMED_OUT", "TIMED OUT", "TIME UP", "TIME_UP"}:
+        return "TIMEOUT"
+
+    if value in {"TERMINATED", "SECURITY_VIOLATION", "SECURITY VIOLATION", "VIOLATION", "DISQUALIFIED"}:
+        return "TERMINATED"
+
     if value in {"PENDING", "IN_PROGRESS", "STARTED"}:
         return value
 
     return "COMPLETED"
 
 
-# ============================================================
-# TERM HELPERS
-# ============================================================
-
-def normalize_result_term(value):
-    raw = norm(value).replace("_", " ").replace("-", " ")
-    raw = " ".join(raw.split())
-
-    aliases = {
-        "FIRST": "FIRST", "FIRST TERM": "FIRST", "TERM 1": "FIRST", "TERM ONE": "FIRST", "1": "FIRST", "1ST": "FIRST", "1ST TERM": "FIRST",
-        "SECOND": "SECOND", "SECOND TERM": "SECOND", "TERM 2": "SECOND", "TERM TWO": "SECOND", "2": "SECOND", "2ND": "SECOND", "2ND TERM": "SECOND",
-        "THIRD": "THIRD", "THIRD TERM": "THIRD", "TERM 3": "THIRD", "TERM THREE": "THIRD", "3": "THIRD", "3RD": "THIRD", "3RD TERM": "THIRD",
-    }
-
-    return aliases.get(raw, "")
-
-
-def term_label(value):
-    term = normalize_result_term(value)
-    return {"FIRST": "FIRST TERM", "SECOND": "SECOND TERM", "THIRD": "THIRD TERM"}.get(term, "")
-
-
 def is_jss_class(value):
     return str(normalize_class_level(value) or "").upper().startswith("JSS")
+
+
+def is_ss_class(value):
+    return str(normalize_class_level(value) or "").upper().startswith("SS")
 
 
 # ============================================================
@@ -106,10 +90,10 @@ def is_jss_class(value):
 # ============================================================
 
 SUBJECT_MAP = {
-    "FINANCIAL ACCOUNTING": "FINANCIAL ACCOUNTING", "FINANCIAL ACCOUNT": "FINANCIAL ACCOUNTING", "ACCOUNTS": "FINANCIAL ACCOUNTING", "ACCOUNTING": "FINANCIAL ACCOUNTING",
+    "FINANCIAL ACCOUNTING": "FINANCIAL ACCOUNTING", "FINANCIAL ACCOUNT": "FINANCIAL ACCOUNTING",
+    "ACCOUNTS": "FINANCIAL ACCOUNTING", "ACCOUNTING": "FINANCIAL ACCOUNTING",
 
     "ENGLISH LANGUAGE": "ENGLISH LANGUAGE", "ENGLISH": "ENGLISH LANGUAGE",
-
     "MATHEMATICS": "MATHEMATICS", "MATHS": "MATHEMATICS",
 
     "FURTHER MATHEMATICS": "FURTHER MATHEMATICS", "FURTHER MATHS": "FURTHER MATHEMATICS",
@@ -128,11 +112,16 @@ SUBJECT_MAP = {
     "HERITAGE AND CITIZENSHIP STUDIES": "HERITAGE & CITIZENSHIP STUDIES",
     "HCS": "HERITAGE & CITIZENSHIP STUDIES",
 
-    "SOC. & CIT. STD": "SOC. & CIT. STD", "SOC & CIT STD": "SOC. & CIT. STD", "SOCIAL AND CITIZENSHIP STUDIES": "SOC. & CIT. STD",
+    "SOC. & CIT. STD": "SOC. & CIT. STD",
+    "SOC & CIT STD": "SOC. & CIT. STD",
+    "SOCIAL AND CITIZENSHIP STUDIES": "SOC. & CIT. STD",
 
-    "CIT & HER. STD": "CIT & HER. STD", "CIT & HER STD": "CIT & HER. STD", "CIT AND HER STD": "CIT & HER. STD",
+    "CIT & HER. STD": "CIT & HER. STD",
+    "CIT & HER STD": "CIT & HER. STD",
+    "CIT AND HER STD": "CIT & HER. STD",
 
-    "HORT & CROP PRODUCTION": "HORT & CROP PRODUCTION", "HORT AND CROP PRODUCTION": "HORT & CROP PRODUCTION",
+    "HORT & CROP PRODUCTION": "HORT & CROP PRODUCTION",
+    "HORT AND CROP PRODUCTION": "HORT & CROP PRODUCTION",
 
     "ARABIC": "ARABIC LANGUAGE", "ARABIC LANGUAGE": "ARABIC LANGUAGE",
 
@@ -142,40 +131,48 @@ SUBJECT_MAP = {
 
     "TECHNICAL": "TECHNICAL DRAWING", "TECHNICAL DRAWING": "TECHNICAL DRAWING",
 
-    "LITERATURE-IN-ENGLISH": "LITERATURE", "LITERATURE IN ENGLISH": "LITERATURE", "LITERATURE": "LITERATURE",
+    "LITERATURE-IN-ENGLISH": "LITERATURE",
+    "LITERATURE IN ENGLISH": "LITERATURE",
+    "LITERATURE": "LITERATURE",
 
     "IRK": "IRK", "IRS": "IRS",
-
     "CCA": "CCA", "BST": "BST", "PVS": "PVS",
 
     "MARKETTING": "MARKETING", "MARKETING": "MARKETING",
 
-    "ECONOMICS": "ECONOMICS", "GOVERNMENT": "GOVERNMENT", "COMMERCE": "COMMERCE", "GEOGRAPHY": "GEOGRAPHY",
-    "BIOLOGY": "BIOLOGY", "CHEMISTRY": "CHEMISTRY", "PHYSICS": "PHYSICS",
+    "ECONOMICS": "ECONOMICS",
+    "GOVERNMENT": "GOVERNMENT",
+    "COMMERCE": "COMMERCE",
+    "GEOGRAPHY": "GEOGRAPHY",
 
-    "POISE": "POISE", "ISLAMIYYAH": "ISLAMIYYAH", "ISLAMIYAH": "ISLAMIYYAH",
+    "BIOLOGY": "BIOLOGY",
+    "CHEMISTRY": "CHEMISTRY",
+    "PHYSICS": "PHYSICS",
 
-    "GARMENT MAKING": "GARMENT MAKING", "BUSINESS STUDIES": "BUSINESS STUDIES",
+    "POISE": "POISE",
+    "ISLAMIYYAH": "ISLAMIYYAH",
+    "ISLAMIYAH": "ISLAMIYYAH",
 
-    "NATIONAL VALUE": "NATIONAL VALUE", "NATIONAL VALUES": "NATIONAL VALUE",
+    "GARMENT MAKING": "GARMENT MAKING",
+    "BUSINESS STUDIES": "BUSINESS STUDIES",
+
+    "NATIONAL VALUE": "NATIONAL VALUE",
+    "NATIONAL VALUES": "NATIONAL VALUE",
 
     "HISTORY": "HISTORY",
 
-    "INTER SCIENCE": "INTER SCIENCE", "INTEGRATED SCIENCE": "INTER SCIENCE",
+    "INTER SCIENCE": "INTER SCIENCE",
+    "INTEGRATED SCIENCE": "INTER SCIENCE",
 }
 
 
 def normalize_subject(name):
     value = norm(name)
-
-    if not value:
-        return "UNKNOWN"
-
-    return SUBJECT_MAP.get(value, value)
+    return SUBJECT_MAP.get(value, value) if value else "UNKNOWN"
 
 
 # ============================================================
-# DATABASE CONNECTION
+# DATABASE
 # ============================================================
 
 def get_connection():
@@ -183,10 +180,6 @@ def get_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-
-# ============================================================
-# DATABASE COLUMN HELPERS
-# ============================================================
 
 def column_exists(cursor, table_name, column_name):
     cursor.execute(f"PRAGMA table_info({table_name})")
@@ -197,10 +190,6 @@ def add_column_if_missing(cursor, table_name, column_name, column_type):
     if not column_exists(cursor, table_name, column_name):
         cursor.execute(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}")
 
-
-# ============================================================
-# DATABASE INITIALIZATION / MIGRATION
-# ============================================================
 
 def init_db():
     conn = get_connection()
@@ -244,7 +233,8 @@ def init_db():
             submitted_at TEXT NOT NULL,
 
             status TEXT DEFAULT 'COMPLETED',
-            result_status TEXT
+            result_status TEXT,
+            termination_reason TEXT
         )
     """)
 
@@ -264,18 +254,25 @@ def init_db():
         ("time_written", "TEXT"),
 
         ("result_status", "TEXT"),
+        ("termination_reason", "TEXT"),
     ]
 
     for column_name, column_type in migrations:
         add_column_if_missing(cursor, "student_results", column_name, column_type)
 
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_results_admission ON student_results(admission_number)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_results_student ON student_results(student_id)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_results_class_level ON student_results(class_level)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_results_class_arm ON student_results(class_arm)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_results_subject ON student_results(subject)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_results_year ON student_results(year)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_results_session_term ON student_results(academic_session, term)")
+    indexes = [
+        "CREATE INDEX IF NOT EXISTS idx_results_admission ON student_results(admission_number)",
+        "CREATE INDEX IF NOT EXISTS idx_results_student ON student_results(student_id)",
+        "CREATE INDEX IF NOT EXISTS idx_results_class_level ON student_results(class_level)",
+        "CREATE INDEX IF NOT EXISTS idx_results_class_arm ON student_results(class_arm)",
+        "CREATE INDEX IF NOT EXISTS idx_results_subject ON student_results(subject)",
+        "CREATE INDEX IF NOT EXISTS idx_results_year ON student_results(year)",
+        "CREATE INDEX IF NOT EXISTS idx_results_term ON student_results(term)",
+        "CREATE INDEX IF NOT EXISTS idx_results_session_term ON student_results(academic_session, term)",
+    ]
+
+    for statement in indexes:
+        cursor.execute(statement)
 
     cursor.execute("""
         UPDATE student_results
@@ -288,15 +285,22 @@ def init_db():
 
 
 # ============================================================
-# CLASS META
+# CLASS / SCORE META
 # ============================================================
 
 def resolve_class_meta(data):
-    raw_class_arm = data.get("class_arm") or data.get("class") or data.get("class_name") or data.get("class_category") or data.get("class_level")
-    raw_class_level = data.get("class_level") or data.get("class_category") or raw_class_arm
+    raw_arm = (
+        data.get("class_arm")
+        or data.get("class")
+        or data.get("class_name")
+        or data.get("class_category")
+        or data.get("class_level")
+    )
 
-    class_level = normalize_class_level(raw_class_level)
-    class_arm = normalize_class_arm(raw_class_arm, class_level)
+    raw_level = data.get("class_level") or data.get("class_category") or raw_arm
+
+    class_level = normalize_class_level(raw_level)
+    class_arm = normalize_class_arm(raw_arm, class_level)
 
     if not class_level:
         class_level = normalize_class_level(class_arm)
@@ -312,8 +316,20 @@ def resolve_class_meta(data):
     return class_level, class_arm, stream
 
 
+def calculate_score_percentage(data, correct, total):
+    for key in ("score_percentage", "percentage", "Score (%)"):
+        if data.get(key) not in (None, ""):
+            return max(0, min(100, safe_int(data.get(key))))
+
+    if total > 0 and ("correct" in data or "score" in data):
+        raw_correct = correct if "correct" in data else safe_int(data.get("score"))
+        return max(0, min(100, round((raw_correct / total) * 100)))
+
+    return max(0, min(100, safe_int(data.get("score"))))
+
+
 # ============================================================
-# CHECK EXISTING RESULT
+# DUPLICATE CHECK
 # ============================================================
 
 def result_exists(admission_number, subject, year, academic_session="", term=""):
@@ -349,17 +365,12 @@ def result_exists(admission_number, subject, year, academic_session="", term="")
 
 
 # ============================================================
-# SAVE RESULT — SQLITE + TERM-AWARE EXCEL
+# SAVE RESULT
 # ============================================================
 
 def save_result(data):
     init_db()
-
     now = datetime.now()
-
-    # --------------------------------------------------------
-    # STUDENT
-    # --------------------------------------------------------
 
     admission_number = clean(data.get("admission_number") or data.get("student_id"))
     student_id = clean(data.get("student_id") or admission_number)
@@ -375,87 +386,76 @@ def save_result(data):
     if not full_name:
         raise ValueError("Student full name is required.")
 
-    # --------------------------------------------------------
-    # EXAM
-    # --------------------------------------------------------
-
     subject = normalize_subject(data.get("subject"))
     year = clean(data.get("year") or now.year)
     academic_session = clean(data.get("academic_session") or data.get("session"))
-
-    # --------------------------------------------------------
-    # CLASS
-    # --------------------------------------------------------
 
     class_level, class_arm, stream = resolve_class_meta(data)
 
     if not class_level:
         raise ValueError("Student class level is required.")
 
-    # --------------------------------------------------------
-    # TERM
-    #
-    # JSS = canonical FIRST/SECOND/THIRD
-    # SS = no term
-    # --------------------------------------------------------
+    raw_term = clean(data.get("term"))
+    term = normalize_result_term(raw_term)
 
-    if is_jss_class(class_level):
-        term = normalize_result_term(data.get("term"))
+    # JSS = strict term.
+    # SS = hybrid term: FIRST/SECOND/THIRD when selected, blank for General.
+    if is_jss_class(class_level) and not term:
+        raise ValueError(f"Term is required for JSS result: {class_level} / {subject}")
 
-        if not term:
-            raise ValueError(f"Term is required for JSS result: {class_level} / {subject}")
-    else:
-        term = ""
+    if raw_term and not term:
+        raise ValueError(f"Invalid result term: {raw_term}")
 
-    # Keep normalized values in the original payload.
     data["term"] = term
+    data["term_label"] = result_term_label(term) if term else ""
     data["class_level"] = class_level
     data["class_category"] = class_level
     data["class_arm"] = class_arm
     data["class"] = class_arm
 
-    # --------------------------------------------------------
-    # RESULT NUMBERS
-    # --------------------------------------------------------
-
     total = max(safe_int(data.get("total")), 0)
-    correct = max(safe_int(data.get("correct")), 0)
+    correct = max(safe_int(data.get("correct", data.get("score"))), 0)
     answered = max(safe_int(data.get("answered")), 0)
-    score = max(safe_int(data.get("score", data.get("score_percentage", data.get("percentage", 0)))), 0)
 
     if total > 0:
         correct = min(correct, total)
         answered = min(answered, total)
 
-    incorrect_default = max(answered - correct, 0)
-    incorrect = max(safe_int(data.get("incorrect"), incorrect_default), 0)
+    score = calculate_score_percentage(data, correct, total)
 
+    incorrect_default = max(answered - correct, 0)
     skipped_default = max(total - answered, 0)
+
+    incorrect = max(safe_int(data.get("incorrect"), incorrect_default), 0)
     skipped = max(safe_int(data.get("skipped"), skipped_default), 0)
 
     flagged = max(safe_int(data.get("flagged")), 0)
     tab_switches = max(safe_int(data.get("tabSwitches") or data.get("tab_switches")), 0)
     time_taken = max(safe_int(data.get("time_taken") or data.get("timeTaken")), 0)
 
-    # --------------------------------------------------------
-    # STATUS
-    # --------------------------------------------------------
+    submission_status = normalize_submission_status(
+        data.get("submission_status")
+        or data.get("status")
+        or "COMPLETED"
+    )
 
-    submission_status = normalize_submission_status(data.get("submission_status") or data.get("status") or "COMPLETED")
     result_status = normalize_result_status(score)
 
-    # --------------------------------------------------------
-    # DATE
-    # --------------------------------------------------------
+    termination_reason = clean(
+        data.get("termination_reason")
+        or data.get("security_reason")
+        or data.get("violation_reason")
+    )
 
-    submitted_at = clean(data.get("submitted_at") or data.get("submittedAt") or now.strftime("%Y-%m-%d %H:%M:%S"))
+    submitted_at = clean(
+        data.get("submitted_at")
+        or data.get("submittedAt")
+        or now.strftime("%Y-%m-%d %H:%M:%S")
+    )
+
     date_written = clean(data.get("date_written") or now.strftime("%Y-%m-%d"))
     day_written = clean(data.get("day_written") or now.strftime("%A"))
     time_written = clean(data.get("time_written") or now.strftime("%I:%M %p"))
-
-    # --------------------------------------------------------
-    # DUPLICATE PROTECTION
-    # --------------------------------------------------------
 
     if result_exists(
         admission_number=admission_number,
@@ -466,12 +466,10 @@ def save_result(data):
     ):
         return False
 
-    # --------------------------------------------------------
-    # SQLITE
-    # --------------------------------------------------------
-
     conn = get_connection()
     cursor = conn.cursor()
+
+    inserted_id = None
 
     try:
         cursor.execute("""
@@ -481,7 +479,7 @@ def save_result(data):
                 subject, score, correct, incorrect, total, answered, skipped, flagged, tab_switches, time_taken,
                 academic_session, term, year,
                 date_written, day_written, time_written,
-                submitted_at, status, result_status
+                submitted_at, status, result_status, termination_reason
             )
             VALUES (
                 ?, ?, ?, ?,
@@ -489,7 +487,7 @@ def save_result(data):
                 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                 ?, ?, ?,
                 ?, ?, ?,
-                ?, ?, ?
+                ?, ?, ?, ?
             )
         """, (
             student_id, full_name, admission_number, sex,
@@ -502,8 +500,10 @@ def save_result(data):
 
             date_written, day_written, time_written,
 
-            submitted_at, submission_status, result_status,
+            submitted_at, submission_status, result_status, termination_reason,
         ))
+
+        inserted_id = cursor.lastrowid
 
         conn.commit()
 
@@ -513,10 +513,6 @@ def save_result(data):
 
     finally:
         conn.close()
-
-    # --------------------------------------------------------
-    # TERM-AWARE EXCEL
-    # --------------------------------------------------------
 
     excel_payload = {
         "student_id": student_id,
@@ -536,18 +532,23 @@ def save_result(data):
         "subject": subject,
 
         "score": score,
+        "score_percentage": score,
+
         "correct": correct,
         "incorrect": incorrect,
         "total": total,
         "answered": answered,
         "skipped": skipped,
         "flagged": flagged,
+
         "tab_switches": tab_switches,
         "time_taken": time_taken,
 
         "status": result_status,
         "result_status": result_status,
+
         "submission_status": submission_status,
+        "termination_reason": termination_reason,
 
         "submitted_at": submitted_at,
 
@@ -560,13 +561,33 @@ def save_result(data):
         "time_written": time_written,
     }
 
-    append_result_to_excel(excel_payload)
+    try:
+        append_result_to_excel(excel_payload)
+
+    except Exception:
+        # If Excel fails, remove the newly inserted SQLite row.
+        # This keeps both result stores synchronized and allows retry.
+        if inserted_id:
+            cleanup = get_connection()
+
+            try:
+                cleanup.execute(
+                    "DELETE FROM student_results WHERE id = ?",
+                    (inserted_id,),
+                )
+
+                cleanup.commit()
+
+            finally:
+                cleanup.close()
+
+        raise
 
     return True
 
 
 # ============================================================
-# SQLITE ROW -> RESULT DICT
+# ROW CONVERSION
 # ============================================================
 
 def row_to_result(row):
@@ -582,12 +603,13 @@ def row_to_result(row):
     if result_status not in {"PASS", "FAIL"}:
         result_status = normalize_result_status(score)
 
-    submission_status = norm(data.get("status")) or "COMPLETED"
+    submission_status = normalize_submission_status(data.get("status"))
 
     class_level = clean(data.get("class_level") or data.get("class_category"))
     class_arm = clean(data.get("class_arm") or data.get("class_name"))
 
-    stored_term = normalize_result_term(data.get("term")) if is_jss_class(class_level) else ""
+    # IMPORTANT: preserve SS term too.
+    stored_term = normalize_result_term(data.get("term"))
 
     return {
         "student_id": clean(data.get("student_id")),
@@ -612,6 +634,7 @@ def row_to_result(row):
         "subject": clean(data.get("subject")),
 
         "score": score,
+
         "correct": safe_int(data.get("correct")),
         "incorrect": safe_int(data.get("incorrect")),
         "total": safe_int(data.get("total")),
@@ -625,23 +648,28 @@ def row_to_result(row):
         "time_taken": safe_int(data.get("time_taken")),
 
         "academic_session": clean(data.get("academic_session")),
+
         "term": stored_term,
-        "term_label": term_label(stored_term) if stored_term else "",
+        "term_label": result_term_label(stored_term) if stored_term else "",
+
         "year": clean(data.get("year")),
 
         "date_written": clean(data.get("date_written")),
         "day_written": clean(data.get("day_written")),
         "time_written": clean(data.get("time_written")),
+
         "submitted_at": clean(data.get("submitted_at")),
 
         "status": result_status,
         "result_status": result_status,
+
         "submission_status": submission_status,
+        "termination_reason": clean(data.get("termination_reason")),
     }
 
 
 # ============================================================
-# GET LATEST RESULT
+# RESULT QUERIES
 # ============================================================
 
 def get_latest_result(student_id):
@@ -665,14 +693,11 @@ def get_latest_result(student_id):
     """, (identifier, identifier))
 
     row = cursor.fetchone()
+
     conn.close()
 
     return row_to_result(row)
 
-
-# ============================================================
-# GET ALL RESULTS
-# ============================================================
 
 def get_all_results(limit=500):
     init_db()
@@ -682,17 +707,17 @@ def get_all_results(limit=500):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(f"SELECT {RESULT_COLUMNS} FROM student_results ORDER BY id DESC LIMIT ?", (limit,))
+    cursor.execute(
+        f"SELECT {RESULT_COLUMNS} FROM student_results ORDER BY id DESC LIMIT ?",
+        (limit,),
+    )
 
     rows = cursor.fetchall()
+
     conn.close()
 
     return [row_to_result(row) for row in rows]
 
-
-# ============================================================
-# GET RESULTS FOR ONE STUDENT
-# ============================================================
 
 def get_student_results(student_id, limit=200):
     init_db()
@@ -717,20 +742,18 @@ def get_student_results(student_id, limit=200):
     """, (identifier, identifier, limit))
 
     rows = cursor.fetchall()
+
     conn.close()
 
     return [row_to_result(row) for row in rows]
 
-
-# ============================================================
-# GET RESULTS BY CLASS
-# ============================================================
 
 def get_results_by_class(class_value, limit=1000):
     init_db()
 
     class_level = normalize_class_level(class_value)
     class_arm = normalize_class_arm(class_value, class_level)
+
     limit = max(1, safe_int(limit, 1000))
 
     conn = get_connection()
@@ -741,6 +764,7 @@ def get_results_by_class(class_value, limit=1000):
             f"SELECT {RESULT_COLUMNS} FROM student_results WHERE UPPER(TRIM(class_arm)) = UPPER(TRIM(?)) ORDER BY id DESC LIMIT ?",
             (class_arm, limit),
         )
+
     else:
         cursor.execute(
             f"SELECT {RESULT_COLUMNS} FROM student_results WHERE UPPER(TRIM(class_level)) = UPPER(TRIM(?)) ORDER BY id DESC LIMIT ?",
@@ -748,6 +772,7 @@ def get_results_by_class(class_value, limit=1000):
         )
 
     rows = cursor.fetchall()
+
     conn.close()
 
     return [row_to_result(row) for row in rows]
@@ -757,19 +782,7 @@ def get_results_by_class(class_value, limit=1000):
 # ADMIN RESULT FILTERS
 # ============================================================
 
-def get_filtered_results(
-    year="",
-    academic_session="",
-    term="",
-    class_level="",
-    class_arm="",
-    sex="",
-    stream="",
-    subject="",
-    status="",
-    search="",
-    limit=2000,
-):
+def get_filtered_results(year="", academic_session="", term="", class_level="", class_arm="", sex="", stream="", subject="", status="", search="", limit=2000):
     init_db()
 
     clauses = []
@@ -787,7 +800,7 @@ def get_filtered_results(
     status = norm(status)
     search = clean(search)
 
-    term = normalize_result_term(term) if term and term.lower() != "all" else ""
+    term = normalize_result_term(term) if term and str(term).lower() != "all" else ""
 
     if year:
         clauses.append("TRIM(COALESCE(year, '')) = ?")
@@ -825,19 +838,32 @@ def get_filtered_results(
         clauses.append("UPPER(TRIM(COALESCE(result_status, ''))) = ?")
         params.append(status)
 
+    elif status in {"COMPLETED", "TIMEOUT", "TERMINATED", "PENDING", "IN_PROGRESS", "STARTED"}:
+        clauses.append("UPPER(TRIM(COALESCE(status, ''))) = ?")
+        params.append(status)
+
     if search:
         clauses.append("""
             (
-                LOWER(full_name) LIKE LOWER(?)
-                OR LOWER(admission_number) LIKE LOWER(?)
-                OR LOWER(student_id) LIKE LOWER(?)
-                OR LOWER(subject) LIKE LOWER(?)
-                OR LOWER(class_arm) LIKE LOWER(?)
+                LOWER(COALESCE(full_name, '')) LIKE LOWER(?)
+                OR LOWER(COALESCE(admission_number, '')) LIKE LOWER(?)
+                OR LOWER(COALESCE(student_id, '')) LIKE LOWER(?)
+                OR LOWER(COALESCE(subject, '')) LIKE LOWER(?)
+                OR LOWER(COALESCE(class_arm, '')) LIKE LOWER(?)
+                OR LOWER(COALESCE(termination_reason, '')) LIKE LOWER(?)
             )
         """)
 
         pattern = f"%{search}%"
-        params.extend([pattern, pattern, pattern, pattern, pattern])
+
+        params.extend([
+            pattern,
+            pattern,
+            pattern,
+            pattern,
+            pattern,
+            pattern,
+        ])
 
     where_clause = "WHERE " + " AND ".join(clauses) if clauses else ""
 
@@ -847,34 +873,44 @@ def get_filtered_results(
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(f"""
+    cursor.execute(
+        f"""
         SELECT {RESULT_COLUMNS}
         FROM student_results
         {where_clause}
         ORDER BY id DESC
         LIMIT ?
-    """, params)
+        """,
+        params,
+    )
 
     rows = cursor.fetchall()
+
     conn.close()
 
     return [row_to_result(row) for row in rows]
 
 
 # ============================================================
-# RESULT SUMMARY FOR ADMIN DASHBOARD
+# RESULT SUMMARY
 # ============================================================
 
 def get_result_summary(results=None):
-    if results is None:
-        results = get_all_results(limit=10000)
+    results = results if results is not None else get_all_results(limit=10000)
 
     total = len(results)
     passed = sum(1 for result in results if result.get("result_status") == "PASS")
     failed = sum(1 for result in results if result.get("result_status") == "FAIL")
 
-    average = round(sum(safe_int(result.get("score")) for result in results) / total, 2) if total else 0
-    pass_rate = round((passed / total) * 100, 2) if total else 0
+    average = round(
+        sum(safe_int(result.get("score")) for result in results) / total,
+        2,
+    ) if total else 0
+
+    pass_rate = round(
+        (passed / total) * 100,
+        2,
+    ) if total else 0
 
     return {
         "total": total,

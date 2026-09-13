@@ -1,0 +1,529 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Civic Education",
+  "class": "SS2",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following countries practises capitalist democracy?",
+      "diagram": null,
+      "options": [
+        "A. Ghana",
+        "B. Cuba",
+        "C. Russia",
+        "D. U.S.A."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "The main goal of capitalist democracy is to ensure ________.",
+      "diagram": null,
+      "options": [
+        "A. State control of the economy",
+        "B. Individual control of the economy",
+        "C. Planned economy",
+        "D. Even development"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "Under capitalist democracy, the role of government is to ________.",
+      "diagram": null,
+      "options": [
+        "A. Regulate all economic activities directly",
+        "B. Punish law offenders and fix the prices of all goods and services",
+        "C. Protect the market and make the environment conducive for business to thrive",
+        "D. Monopolise the market"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Capitalist democracy falls under which of the following economic systems?",
+      "diagram": null,
+      "options": [
+        "A. Socialist economic system",
+        "B. Capitalist economic system",
+        "C. Mixed economic system",
+        "D. Communist economic system"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "The following are NOT characteristics of capitalist democracy EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Price regulation by the government",
+        "B. Even distribution of wealth",
+        "C. Price mechanism",
+        "D. Common ownership of the means of production, distribution and exchange"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Capitalist democracy concentrates more on ________.",
+      "diagram": null,
+      "options": [
+        "A. Socialist principles",
+        "B. Individualism",
+        "C. Collective ownership",
+        "D. Marxist ideology"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "The spirit of nationalism and patriotism promotes ________.",
+      "diagram": null,
+      "options": [
+        "A. Unity",
+        "B. Colonialism",
+        "C. Rancour",
+        "D. Discord"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "Citizens can be deprived of some of their rights during ________.",
+      "diagram": null,
+      "options": [
+        "A. Public holidays",
+        "B. Democratic era",
+        "C. Parliamentary debate",
+        "D. Emergency rule"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "Which of the following is an obligation of a citizen?",
+      "diagram": null,
+      "options": [
+        "A. Voting during elections",
+        "B. Arresting law offenders",
+        "C. Adjudicating cases",
+        "D. Prosecuting offenders"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "The Nigerian flag has how many colours?",
+      "diagram": null,
+      "options": [
+        "A. Two",
+        "B. Three",
+        "C. One",
+        "D. Four"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "The following are ways of acquiring citizenship EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. By birth",
+        "B. By registration",
+        "C. By marriage",
+        "D. By qualification"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "The statement, \"Ask what you can do for your country and not what your country can do for you,\" emphasizes that ________.",
+      "diagram": null,
+      "options": [
+        "A. The country owes citizens no obligation",
+        "B. Citizens have both constitutional rights and obligations",
+        "C. Fundamental rights are to be safeguarded by citizens alone",
+        "D. Service and reward do not go together"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "The defence of the territorial integrity of a country by its citizens is part of their ________.",
+      "diagram": null,
+      "options": [
+        "A. Self-determination",
+        "B. Political culture",
+        "C. Duties and obligations",
+        "D. Political participation"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Which of the following is NOT a major reason for political apathy?",
+      "diagram": null,
+      "options": [
+        "A. Natural phenomenon",
+        "B. Bad governance",
+        "C. Cross-carpeting",
+        "D. Political violence"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Which of the following may prevent a citizen from voting in an election?",
+      "diagram": null,
+      "options": [
+        "A. Lack of stable income",
+        "B. Non-registration",
+        "C. Political neutrality",
+        "D. High cost of living"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "The following factors contribute to societal decay EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Cultism",
+        "B. Prostitution",
+        "C. Drug abuse",
+        "D. Education"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 17,
+      "question": "For a Nigerian citizen to qualify as an electorate, he or she must be ________.",
+      "diagram": null,
+      "options": [
+        "A. Exactly 18 years old",
+        "B. Less than 18 years old",
+        "C. 18 years and above",
+        "D. Between 18 and 60 years only"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Participation in sanitation exercises is an example of ________.",
+      "diagram": null,
+      "options": [
+        "A. A fundamental right",
+        "B. An obligation",
+        "C. A personal gesture",
+        "D. An individual act"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "Reciting the National Anthem and National Pledge is a demonstration of ________.",
+      "diagram": null,
+      "options": [
+        "A. Patriotism",
+        "B. Disloyalty",
+        "C. Effrontery",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "When two or more political parties contest for political positions, it is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Political participation",
+        "B. Competition for power",
+        "C. Political exercise",
+        "D. Disenfranchisement"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Which arm of government interprets the law?",
+      "diagram": null,
+      "options": [
+        "A. Judiciary",
+        "B. Executive",
+        "C. Legislature",
+        "D. The press"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "The act of making laws in a state is carried out by the ________.",
+      "diagram": null,
+      "options": [
+        "A. Executive",
+        "B. Judiciary",
+        "C. Civil service",
+        "D. Legislature"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "Nigeria has how many geopolitical zones?",
+      "diagram": null,
+      "options": [
+        "A. Five",
+        "B. Six",
+        "C. Three",
+        "D. Thirty-six"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Nigeria gained independence on ________.",
+      "diagram": null,
+      "options": [
+        "A. January 1, 1960",
+        "B. October 1, 1960",
+        "C. October 1, 1863",
+        "D. October 1, 1959"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "Building good values in society starts from the ________.",
+      "diagram": null,
+      "options": [
+        "A. School",
+        "B. Family",
+        "C. Media houses",
+        "D. Influence of peer groups"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "Human rights are the cornerstones of ________.",
+      "diagram": null,
+      "options": [
+        "A. Socialism",
+        "B. Feudalism",
+        "C. Democracy",
+        "D. Aristocracy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "Political apathy can lead to ________.",
+      "diagram": null,
+      "options": [
+        "A. Bad governance",
+        "B. Entrenchment of democracy",
+        "C. Sustenance of the rule of law",
+        "D. Constitutionalism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is NOT a political organization?",
+      "diagram": null,
+      "options": [
+        "A. The Nigerian State",
+        "B. Peoples Democratic Party",
+        "C. All Progressives Congress",
+        "D. Dangote Group of Companies"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "The following are advantages of competition for political power EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Existence of periodic elections",
+        "B. Citizens' participation in politics",
+        "C. Political thuggery",
+        "D. Existence of good governance"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "The President of Nigeria during the 2021/2022 academic session was from ________ State.",
+      "diagram": null,
+      "options": [
+        "A. Daura",
+        "B. Kano",
+        "C. Jigawa",
+        "D. Katsina"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "A citizen who shows love, loyalty and devotion to his or her country demonstrates ________.",
+      "diagram": null,
+      "options": [
+        "A. Patriotism",
+        "B. Political apathy",
+        "C. Disloyalty",
+        "D. Indifference"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "Which of the following is a fundamental duty of a Nigerian citizen?",
+      "diagram": null,
+      "options": [
+        "A. Destroying public property",
+        "B. Paying lawful taxes",
+        "C. Refusing to obey laws",
+        "D. Preventing others from voting"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Political apathy refers to ________.",
+      "diagram": null,
+      "options": [
+        "A. Active participation in political activities",
+        "B. Lack of interest or participation in political activities",
+        "C. Competition among political parties",
+        "D. Campaigning for a political candidate"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following can help reduce political apathy?",
+      "diagram": null,
+      "options": [
+        "A. Free and fair elections",
+        "B. Electoral violence",
+        "C. Election rigging",
+        "D. Intimidation of voters"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "One major characteristic of capitalist democracy is ________.",
+      "diagram": null,
+      "options": [
+        "A. Private ownership of property",
+        "B. Complete government ownership of property",
+        "C. Abolition of private enterprise",
+        "D. Central planning of all economic activities"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "The right of citizens to choose their leaders through voting is associated with ________.",
+      "diagram": null,
+      "options": [
+        "A. Democracy",
+        "B. Monarchy",
+        "C. Military rule",
+        "D. Dictatorship"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Which of the following is a way of preserving Nigerian customs and traditions?",
+      "diagram": null,
+      "options": [
+        "A. Teaching indigenous languages",
+        "B. Rejecting all traditional festivals",
+        "C. Destroying cultural artefacts",
+        "D. Discouraging traditional values"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "National consciousness encourages citizens to place ________ above narrow sectional interests.",
+      "diagram": null,
+      "options": [
+        "A. National interest",
+        "B. Personal greed",
+        "C. Ethnic rivalry",
+        "D. Religious conflict"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Which of the following is an example of political participation?",
+      "diagram": null,
+      "options": [
+        "A. Voting during elections",
+        "B. Refusing to register as a voter",
+        "C. Avoiding political discussions completely",
+        "D. Destroying election materials"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "One major function of citizenship education is to produce citizens who are ________.",
+      "diagram": null,
+      "options": [
+        "A. Responsible and law-abiding",
+        "B. Violent and intolerant",
+        "C. Selfish and dishonest",
+        "D. Politically indifferent"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions in this section. Write your answers clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Define citizenship education. (2 marks)\n(b) Highlight four importance of citizenship education. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "State and explain five duties and obligations of Nigerian citizens. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "Identify and explain five ways of preserving customs and traditions in Nigeria. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) Define national consciousness. (2 marks)\n(b) State four ways of promoting national consciousness in Nigeria. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) What is capitalist democracy? (2 marks)\n(b) State and explain four characteristics of capitalist democracy. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "(a) Define political apathy. (2 marks)\n(b) Identify and explain four forms of political apathy in Nigeria. (8 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

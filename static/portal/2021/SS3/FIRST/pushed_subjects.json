@@ -1,0 +1,16 @@
+{
+    "year": "2021",
+    "class_level": "SS3",
+    "class_category": "SS3",
+    "class_arm": "SS3",
+    "target_arm": "SS3",
+    "term": "FIRST",
+    "term_label": "1st Term",
+    "term_required": false,
+    "term_optional": true,
+    "subjects": [
+        "Economics"
+    ],
+    "updated_at": "2026-09-12T07:30:14",
+    "updated_by": "admin"
+}

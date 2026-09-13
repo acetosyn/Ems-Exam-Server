@@ -1,0 +1,679 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Mathematics",
+  "class": "SS3",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 150,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "If M = [[2,4],[6,0]], find det(M).",
+      "diagram": null,
+      "options": [
+        "A. −24",
+        "B. −8",
+        "C. 48",
+        "D. 42"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Express 0.001025 in standard form.",
+      "diagram": null,
+      "options": [
+        "A. 1.025 × 10⁻³",
+        "B. 1.025 × 10⁻¹",
+        "C. 1.025 × 10⁻²",
+        "D. 1.025 × 10⁻⁵"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "If B = [[1,2],[3,4]], determine Bᵀ.",
+      "diagram": null,
+      "options": [
+        "A. [[1,3],[2,4]]",
+        "B. [[1,2],[3,4]]",
+        "C. [[4,3],[2,1]]",
+        "D. [[2,1],[4,3]]"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Simplify (0.027)^(1/3) × (0.09)^(-1/2).",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 3⅓",
+        "C. 10",
+        "D. 30"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "Let U={a,b,c,d,e}, P={a,b,d}, Q={b,d,e}. Find (P∩Q)'.",
+      "diagram": null,
+      "options": [
+        "A. {a,c,e}",
+        "B. {a,b,c}",
+        "C. {c,d,e}",
+        "D. {b,c,d}"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "For sets M and N, the region outside both M and N is represented by ________.",
+      "diagram": null,
+      "options": [
+        "A. (M∪N)'",
+        "B. M∩N",
+        "C. M'∩N",
+        "D. M∩N'"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "Express 4164.086 correct to 2 significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 42",
+        "B. 4200",
+        "C. 4164.08",
+        "D. 4100"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "If log₁₀3 = 0.4771, evaluate log₁₀27 correct to 2 significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 0.55",
+        "B. 1.4",
+        "C. 1.43",
+        "D. 1.8"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "One factor of 8x²−19x+6 is x−2. Find the other factor.",
+      "diagram": null,
+      "options": [
+        "A. 8x−3",
+        "B. 2x−3",
+        "C. 2x+1",
+        "D. 8x+3"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Make b the subject of d = a − c²b.",
+      "diagram": null,
+      "options": [
+        "A. b=(a−d)/c²",
+        "B. b=(d−a)/c²",
+        "C. b=c²/(a−d)",
+        "D. b=(a+d)/c²"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "Solve 2a+3b=5 and 2a+b=1.",
+      "diagram": null,
+      "options": [
+        "A. a=−½,b=2",
+        "B. a=−½,b=−2",
+        "C. a=½,b=−2",
+        "D. a=2,b=½"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "If x varies inversely as y and x=4 when y=3, find x when y=2.",
+      "diagram": null,
+      "options": [
+        "A. 18",
+        "B. 9",
+        "C. 6",
+        "D. 3"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "The roots of a quadratic equation are −2 and −1/3. Find the equation.",
+      "diagram": null,
+      "options": [
+        "A. 3x²+7x+2=0",
+        "B. 3x²−7x+2=0",
+        "C. 3x²−5x−2=0",
+        "D. 3x²+5x−2=0"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "A rhombus has side 10 cm and one diagonal 12 cm. Find its area.",
+      "diagram": null,
+      "options": [
+        "A. 120 cm²",
+        "B. 80 cm²",
+        "C. 96 cm²",
+        "D. 56 cm²"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "A parallelogram has adjacent sides 16 cm and 9 cm. Find its perimeter.",
+      "diagram": null,
+      "options": [
+        "A. 50 cm",
+        "B. 64 cm",
+        "C. 68 cm",
+        "D. 72 cm"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "How many sides has a regular polygon whose interior angle is 160°?",
+      "diagram": null,
+      "options": [
+        "A. 18",
+        "B. 16",
+        "C. 20",
+        "D. 15"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Which of the following quadrilaterals have diagonals that intersect at right angles: I square, II rhombus, III kite?",
+      "diagram": null,
+      "options": [
+        "A. I and II only",
+        "B. All of them",
+        "C. I and III only",
+        "D. None"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "If the determinant of a matrix is zero, the matrix is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Singular matrix",
+        "B. Diagonal matrix",
+        "C. Unit matrix",
+        "D. Symmetric matrix"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "If n(A)=26, n(B)=19 and n(A∩B)=11, find n(A∪B).",
+      "diagram": null,
+      "options": [
+        "A. 30",
+        "B. 34",
+        "C. 37",
+        "D. 45"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "How many years will ₦100,000 amount to ₦180,000 at 5% simple interest per annum?",
+      "diagram": null,
+      "options": [
+        "A. 4",
+        "B. 16",
+        "C. 20",
+        "D. 50"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "A family spends ₦5,000 on food out of a monthly budget represented by a bar chart. What amount is spent on food?",
+      "diagram": null,
+      "options": [
+        "A. ₦3,000",
+        "B. ₦4,000",
+        "C. ₦5,000",
+        "D. ₦8,000"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "The bearing of P from Q is 124°. What is the bearing of Q from P?",
+      "diagram": null,
+      "options": [
+        "A. 304°",
+        "B. 326°",
+        "C. 56°",
+        "D. 124°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "A satellite is 800 km vertically above A. Its angle of elevation from B is 30°. Find AB correct to 2 s.f.",
+      "diagram": null,
+      "options": [
+        "A. 460 km",
+        "B. 690 km",
+        "C. 800 km",
+        "D. 1400 km"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "The mean of five numbers is 6. If the numbers are 1, 6, x, 8, 7, find the mode.",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 8",
+        "C. 5",
+        "D. 7"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following is NOT a measure of dispersion?",
+      "diagram": null,
+      "options": [
+        "A. Median",
+        "B. Mean deviation",
+        "C. Standard deviation",
+        "D. Variance"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "The standard deviation of the ages of 10 students is 1.2. Find the variance.",
+      "diagram": null,
+      "options": [
+        "A. 3.46",
+        "B. 3.16",
+        "C. 1.44",
+        "D. 2.80"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "Evaluate sin 240°.",
+      "diagram": null,
+      "options": [
+        "A. −√3/2",
+        "B. −1/2",
+        "C. 1/2",
+        "D. √3/2"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "PT is tangent to a circle at T. If ∠ABT=35° and ∠CTP=42°, find ∠ATC.",
+      "diagram": null,
+      "options": [
+        "A. 77°",
+        "B. 103°",
+        "C. 138°",
+        "D. 145°"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Two places lie on the same longitude at latitudes 50°N and 40°S. If a great circle is 40,000 km, find the distance between them.",
+      "diagram": null,
+      "options": [
+        "A. 30,000 km",
+        "B. 10,000 km",
+        "C. 6,000 km",
+        "D. 5,000 km"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "If the radius of a parallel of latitude is 4,500 km and Earth radius is 6,400 km, find the latitude to the nearest degree.",
+      "diagram": null,
+      "options": [
+        "A. 45° East or West",
+        "B. 45° North or East",
+        "C. 50° North or South",
+        "D. 45° North or South"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "If cosθ=3/5 and 0°<θ<90°, evaluate 3cosθ−2sinθ.",
+      "diagram": null,
+      "options": [
+        "A. 1/5",
+        "B. 3/5",
+        "C. 1",
+        "D. 7/5"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "The bearings of Y and Z from X are 061° and 110°. If XY=3 cm and XZ=5 cm, find YZ correct to 2 s.f.",
+      "diagram": null,
+      "options": [
+        "A. 3.7 cm",
+        "B. 4.0 cm",
+        "C. 4.1 cm",
+        "D. 3.8 cm"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "The curved surface area of a hemisphere is 7,700 cm². Find its diameter, taking π=22/7.",
+      "diagram": null,
+      "options": [
+        "A. 70.0 cm",
+        "B. 17.5 cm",
+        "C. 35.0 cm",
+        "D. 87.7 cm"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "If x+y+z=180° and m=½(x+y+z), find m.",
+      "diagram": null,
+      "options": [
+        "A. 45°",
+        "B. 60°",
+        "C. 90°",
+        "D. 120°"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "The first term of an AP is 8. If the 10th term is double the 2nd term, find the common difference.",
+      "diagram": null,
+      "options": [
+        "A. 1/2",
+        "B. 1",
+        "C. 2",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "Which construction produces a perpendicular from a point P to a line AB?",
+      "diagram": null,
+      "options": [
+        "A. Construct equal arcs from A and B through P, then join P to their intersection",
+        "B. Draw any sloping line through P",
+        "C. Measure 45° at A only",
+        "D. Bisect AB without using P"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "A coin is tossed and a die rolled. Find P(tail and even number).",
+      "diagram": null,
+      "options": [
+        "A. 1/6",
+        "B. 1/3",
+        "C. 1/4",
+        "D. 1/2"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "Two coins are tossed. Find the probability of getting at least one head.",
+      "diagram": null,
+      "options": [
+        "A. 3/4",
+        "B. 0",
+        "C. 1/4",
+        "D. 1"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Find the equation of the line through (1,2) with gradient 1/3.",
+      "diagram": null,
+      "options": [
+        "A. 3y+x=7",
+        "B. 3y−x=5",
+        "C. 3y−x=−5",
+        "D. y−3x=7"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "Calculate the perimeter of a sector of radius 21 cm and angle 150°, taking π=22/7.",
+      "diagram": null,
+      "options": [
+        "A. 231 cm",
+        "B. 131 cm",
+        "C. 97 cm",
+        "D. 105 cm"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "₦420 is shared in the ratio 6:7:8. Find the largest share.",
+      "diagram": null,
+      "options": [
+        "A. ₦120",
+        "B. ₦140",
+        "C. ₦160",
+        "D. ₦180"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "Find the compound interest on ₦120,000 for 3 years at 16% per annum.",
+      "diagram": null,
+      "options": [
+        "A. ₦180,000.52",
+        "B. ₦187,307.52",
+        "C. ₦67,307.52",
+        "D. ₦21,307.52"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "If ABCD is both a rhombus and a rectangle, then ABCD is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Trapezium",
+        "B. Square",
+        "C. Kite",
+        "D. Parallelogram only"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "The 3rd term of a GP is 72 and the common ratio is 1/2. Find the first term.",
+      "diagram": null,
+      "options": [
+        "A. 648",
+        "B. 720",
+        "C. 288",
+        "D. 576"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "If det([[x,1],[2,3]])=7, find x.",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 3",
+        "C. 2",
+        "D. 1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Find 41 + 29 (mod 8).",
+      "diagram": null,
+      "options": [
+        "A. 4",
+        "B. 5",
+        "C. 6",
+        "D. 8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "In a trapezium PQRS, PQ∥SR, ∠PSQ=∠QRS, PQ=9 cm and QS=12 cm. Find SR.",
+      "diagram": null,
+      "options": [
+        "A. 8 cm",
+        "B. 9 cm",
+        "C. 12 cm",
+        "D. 16 cm"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 48,
+      "question": "Simplify 2/3 − 1/6 + 1.",
+      "diagram": null,
+      "options": [
+        "A. 3/2",
+        "B. 5/6",
+        "C. 7/6",
+        "D. 4/3"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "Solve the inequality 3(x+1) ≤ 5(x−2)+16.",
+      "diagram": null,
+      "options": [
+        "A. x≥−3/2",
+        "B. x≤−3/2",
+        "C. x≥3/2",
+        "D. x≤3/2"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "For values 1,2,3,4,5 with frequencies 5,4,8,2,5 respectively, find the median.",
+      "diagram": null,
+      "options": [
+        "A. 2.5",
+        "B. 3",
+        "C. 3.5",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "THEORY",
+    "instruction": "Answer the required number of questions. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Without using mathematical tables, find log₁₀6 + log₁₀45 − log₁₀27.\n(b) Solve 8ˣ = 32.\n(c) Simplify the given index expression, showing all steps.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) For the matrix A supplied, calculate 2A² − 3A + 4I₂.\n(b) Solve the given determinant equation for y.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Solve (3x+2) = ¾(2x−3).\n(b) Find the equation of the line passing through A(−2,7) and B(2,−3).",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) A town's population increases by 4% each year. If its population is 42,500, find the population four years later.\n(b) Ali, Musa and Yusuf share ₦420,000 in the ratio 3:5:8. Find the sum of Ali's and Yusuf's shares.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "The masses (kg) of logs are grouped as 31–40, 41–50, 51–60, 61–70, 71–80, 81–90 with frequencies 3, 10, 15, 12, 6, 4. Calculate the mean, mode and median.",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "The first and last terms of an AP are 5 and 89 respectively, and the sum is 611. Find (i) the number of terms and (ii) the common difference.",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "P varies directly as Q and inversely as R². If P=1 when Q=8 and R=2, find Q when P=3 and R=5.",
+        "diagram": null
+      },
+      {
+        "id": 8,
+        "question": "A cone has slant height 10.5 cm and curved surface area 115.5 cm². Calculate, correct to 3 significant figures, (i) the base radius, (ii) the height and (iii) the volume. Take π=22/7. Also find the perimeter of an arc sector of radius 7 cm and angle 120°.",
+        "diagram": null
+      },
+      {
+        "id": 9,
+        "question": "An aircraft flies from P(12°N,11°W) to Q(12°N,11°E), then to S(44°N,11°E). Using R=6400 km and π=3.142, calculate the total distance, average speed if the first leg takes 2 h and the second 6 h, and the time difference between Q and S.",
+        "diagram": null
+      },
+      {
+        "id": 10,
+        "question": "Given log₁₀2=0.3010 and log₁₀3=0.4771, evaluate (i) log₁₀12 and (ii) log₁₀15. Also solve (y−1)log₁₀4 = ylog₁₀16 without a calculator.",
+        "diagram": null
+      },
+      {
+        "id": 11,
+        "question": "With ruler and compasses only, construct a parallelogram ABCD with AB=8 cm, ∠BAC=45° and ∠ABC=60°. Measure BC. Locate P inside triangle ABC such that PA=PB and PC=4 cm, then measure PD.",
+        "diagram": null
+      },
+      {
+        "id": 12,
+        "question": "Marks (%) 0–9,10–19,20–29,30–39,40–49,50–59,60–69,70–79,80–89,90–99 have frequencies 7,11,17,20,29,34,30,25,21,6. Construct a cumulative frequency table and ogive. Use it to estimate the distinction cut-off if the top 5% earned distinction and the probability that a randomly selected candidate scored at most 45%.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

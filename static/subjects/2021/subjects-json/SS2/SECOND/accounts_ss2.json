@@ -1,0 +1,649 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Accounts",
+  "class": "SS2",
+  "exam_title": "2nd Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "To start a partnership business, what should be the minimum number of partners?",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 10",
+        "C. 4",
+        "D. 20"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "What is the partnership written agreement known as?",
+      "diagram": null,
+      "options": [
+        "A. Partnership Contract",
+        "B. Agreement",
+        "C. Partnership Deed",
+        "D. Partnership Act"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "In the absence of a partnership agreement, what will be the profit-sharing ratio between the partners?",
+      "diagram": null,
+      "options": [
+        "A. Unequal",
+        "B. Equal",
+        "C. It will depend on the experience of a partner",
+        "D. It will depend on a partner’s capital"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "X and Y are partners in a business sharing profits and losses in the ratio of 3:2. They admit Z as a new partner with 1/5 share in the profits of the partnership. What is the new profit-sharing ratio?",
+      "diagram": null,
+      "options": [
+        "A. 12:8:5",
+        "B. 12:8:6",
+        "C. 12:7:6",
+        "D. 12:3:7"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "The capital of a partner at the end of the year was N300,000. His profit share for the year was N60,000 and he drew N20,000 during the year. His capital at the beginning of the year was ______.",
+      "diagram": null,
+      "options": [
+        "A. N300,000",
+        "B. N320,000",
+        "C. N380,000",
+        "D. N260,000"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following type of business is governed under the Partnership Act 1932?",
+      "diagram": null,
+      "options": [
+        "A. Sole proprietorship",
+        "B. Partnership",
+        "C. Limited companies",
+        "D. Unlimited companies"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "The relation between persons who have agreed to share the profit of the business carried on by all or any one of them acting for all is called ______.",
+      "diagram": null,
+      "options": [
+        "A. Partnership",
+        "B. Joint stock company",
+        "C. Limited liability company",
+        "D. Sole proprietorship"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "The document that sets out the terms on which partners agreed to form a partnership is called ______.",
+      "diagram": null,
+      "options": [
+        "A. Partnership deed",
+        "B. Partnership agreement",
+        "C. Both A and B",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "Which of the following statements is not true about the partnership form of business?",
+      "diagram": null,
+      "options": [
+        "A. A partnership is a business run by two or more persons",
+        "B. A partnership business is easy to set up",
+        "C. Each partner is liable under the law for the action of other partners",
+        "D. In the absence of agreement, partners will be paid salaries"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "In the absence of an agreement, profit and loss are divided by partners in the ratio of ______.",
+      "diagram": null,
+      "options": [
+        "A. Time devoted by each partner",
+        "B. On the basis of capital ratio",
+        "C. Equally",
+        "D. Owner’s equity"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following businesses publishes the financial statements?",
+      "diagram": null,
+      "options": [
+        "A. Sole proprietorship",
+        "B. Partnership",
+        "C. Trust",
+        "D. Public limited company"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "Which of the following is not one of the three forms of business organization?",
+      "diagram": null,
+      "options": [
+        "A. Corporation",
+        "B. Investors",
+        "C. Proprietorship",
+        "D. Partnership"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "When capital is introduced by a partner, it should be credited to ______.",
+      "diagram": null,
+      "options": [
+        "A. Fixed account",
+        "B. Capital account",
+        "C. Cash account",
+        "D. Current account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Partnership agreement contains ______.",
+      "diagram": null,
+      "options": [
+        "A. Nature of business",
+        "B. Name of business",
+        "C. Profit sharing ratio",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "A not-for-profit organization includes ______.",
+      "diagram": null,
+      "options": [
+        "A. Religious organization",
+        "B. Clubs",
+        "C. Trade unions",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "In a not-for-profit organization, members pay ______ every year.",
+      "diagram": null,
+      "options": [
+        "A. Entrance fees",
+        "B. Legacy",
+        "C. Subscription",
+        "D. Donation"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "A not-for-profit organization prepares ______.",
+      "diagram": null,
+      "options": [
+        "A. Receipts and payment account",
+        "B. Any account",
+        "C. Income and expenditure account",
+        "D. Both A and C"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "An income and expenditure account shows ______.",
+      "diagram": null,
+      "options": [
+        "A. Cash position",
+        "B. Surplus or deficit",
+        "C. Capital fund",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "Subscription received in advance is ______.",
+      "diagram": null,
+      "options": [
+        "A. An asset",
+        "B. A liability",
+        "C. An income",
+        "D. An expense"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "Outstanding subscriptions are ______ for a non-profit organization.",
+      "diagram": null,
+      "options": [
+        "A. Income",
+        "B. Asset",
+        "C. Expenses",
+        "D. Liability"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "“The surplus of non-profit organizations are distributed among members.” The above statement is ______.",
+      "diagram": null,
+      "options": [
+        "A. False",
+        "B. True",
+        "C. Partly true",
+        "D. Partly false"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Non-profit organizations prepare all of the following accounts except the ______.",
+      "diagram": null,
+      "options": [
+        "A. Income and expenditure account",
+        "B. Receipt and payment account",
+        "C. Balance sheet",
+        "D. Money statement"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "The expenses of an entertainment club exceed its income. This gives rise to ______.",
+      "diagram": null,
+      "options": [
+        "A. Surplus",
+        "B. Deficit",
+        "C. Loss",
+        "D. Profit"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Advance rent paid by a non-profit organization is ______.",
+      "diagram": null,
+      "options": [
+        "A. An expense",
+        "B. A liability",
+        "C. Equity",
+        "D. An asset"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "Second-hand furniture worth N6,000 was purchased. It was repaired for N600 and installed by workmen to whom N200 was paid as wages. The furniture should be capitalized for ______.",
+      "diagram": null,
+      "options": [
+        "A. N6,200",
+        "B. N6,800",
+        "C. N6,600",
+        "D. N6,000"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "The nature of receipts and payments account is ______.",
+      "diagram": null,
+      "options": [
+        "A. Nominal account",
+        "B. Real account",
+        "C. Personal account",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "The opening balance of Prise fund was GH$32,800. During the year, donations received towards this fund amounted to GH$15,400, amount spent on prices was GH$12,300 and interest received on Prise fund investment was GH$4,000. The closing balance of price fund will be ______.",
+      "diagram": null,
+      "options": [
+        "A. GH$56,500",
+        "B. GH$64,500",
+        "C. GH$39,900",
+        "D. GH$31,900"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "The excess of assets over liabilities in a not-for-profit organization is termed as ______.",
+      "diagram": null,
+      "options": [
+        "A. Accumulated fund",
+        "B. Capital",
+        "C. Profit",
+        "D. Net profit"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "Life membership fee received by a club is ______.",
+      "diagram": null,
+      "options": [
+        "A. Revenue receipt",
+        "B. Capital receipt",
+        "C. A and B",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "In single entry system, profit is ascertained as follows:",
+      "diagram": null,
+      "options": [
+        "A. Opening capital + Drawings + new capital introduced – closing stock",
+        "B. Closing capital + drawings + new capital introduced – opening stock",
+        "C. Closing capital + drawings – new capital introduced – opening capital",
+        "D. Opening capital + closing capital + drawing – new capital introduced"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "In single entry system, it is difficult to detect ______.",
+      "diagram": null,
+      "options": [
+        "A. Account",
+        "B. Fraud",
+        "C. Profit",
+        "D. Gross profit"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "If the closing capital is more than the opening capital, it shows an increase in capital which means a ______.",
+      "diagram": null,
+      "options": [
+        "A. Profit",
+        "B. Share",
+        "C. Account",
+        "D. Operating capital"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Single entry system is a mixture of single entry, double entry and no entry.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. May be false",
+        "C. Only false",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "When closing capital exceeds opening capital, this means ______.",
+      "diagram": null,
+      "options": [
+        "A. Profit and loss",
+        "B. Profit, if there is no additional capital",
+        "C. No profit no loss",
+        "D. Loss"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "Single entry system can be adopted by ______.",
+      "diagram": null,
+      "options": [
+        "A. Small firms",
+        "B. Joint stock companies",
+        "C. Co-operative societies",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Assets and liabilities amount to N80,000 and N58,000 respectively. The difference amount will represent ______.",
+      "diagram": null,
+      "options": [
+        "A. Capital",
+        "B. Creditors",
+        "C. Profit",
+        "D. Loss"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "From incomplete records, it is possible to prepare ______.",
+      "diagram": null,
+      "options": [
+        "A. Ledger accounts",
+        "B. Trial balance",
+        "C. Statement of affairs",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "Capital in the beginning of the accounting year is ascertained by preparing ______.",
+      "diagram": null,
+      "options": [
+        "A. Debtors’ account",
+        "B. Cash account",
+        "C. Opening statement of affairs",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "If capital at the beginning is N24,000, closing capital is N40,000, drawing is N7,000 and additional capital is N8,000. What is the profit or loss?",
+      "diagram": null,
+      "options": [
+        "A. Loss N15,000",
+        "B. Profit N15,000",
+        "C. Profit N20,000",
+        "D. Loss N20,000"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "The statement of affairs is planned in order to ______.",
+      "diagram": null,
+      "options": [
+        "A. Calculate assets",
+        "B. Calculate capital",
+        "C. Calculate liabilities",
+        "D. Calculate financial position"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "Closing balance of creditors is determined by preparing ______.",
+      "diagram": null,
+      "options": [
+        "A. Total debtors account",
+        "B. Total creditors account",
+        "C. Bills receivable account",
+        "D. Bills payable account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "The process of incorporation of a company is carried out by ______.",
+      "diagram": null,
+      "options": [
+        "A. Members",
+        "B. Directors",
+        "C. Promoters",
+        "D. Shareholders"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "The minimum number of members that is required while you are registering a public company is ______.",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 7",
+        "C. 50",
+        "D. 100"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "Promoter is a person who ______.",
+      "diagram": null,
+      "options": [
+        "A. Takes part in the incorporation of a company",
+        "B. Enters into preliminary contracts",
+        "C. Takes necessary steps to accomplish the objective for which company is started",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 45,
+      "question": "A company can be created without incorporation.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. A and B",
+        "D. No idea"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Minimum number of members to form a private company is ______.",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 5",
+        "D. 7"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "Powers, rights, remuneration, qualification and duties of directors are discussed clearly in ______.",
+      "diagram": null,
+      "options": [
+        "A. Memorandum of Association",
+        "B. Articles of Association",
+        "C. Prospectus",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "______ share capital has priority both in repayment of dividend as well as capital.",
+      "diagram": null,
+      "options": [
+        "A. Equity",
+        "B. Non-preference",
+        "C. Preference",
+        "D. All of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "A private company can commence business after incorporation.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. No idea",
+        "D. True/false"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Par value of shares means the ______ value of the shares.",
+      "diagram": null,
+      "options": [
+        "A. Actual",
+        "B. Face",
+        "C. Market",
+        "D. Dividend"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B & C - THEORY",
+    "instruction": "SECTION B - ANSWER TWO QUESTIONS. SECTION C - ANSWER TWO QUESTIONS.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "a. What is partnership?\nb. List three types of partners.\nc. List four conditions to be followed in the absence of partnership deed. (15 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "a. What is not-for-profit making organization?\nb. Outline two differences between a for-profit making organization and a not-for-profit making organization.\nc. Explain the following sources of funding in a non-profit making organization:\n   i. Subscription\n   ii. Life membership fee\n   iii. Entrance fee\n   iv. Donation\n(WAEC 2020)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "Explain the following:\na. Certificate of incorporation\nb. Prospectus\nc. Quoted company\nd. Company limited by share\ne. Articles of Association\n(15 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "The books of Omiye Social Club showed the following information for the year ended 31st December, 2015. Use the Receipts and Payments Account, opening balances and additional information shown below.\n\nYou are required to prepare:\na. Income and Expenditure Account for the year ended 31st December, 2015.\nb. Balance Sheet as at that date.\n(15 marks) (WAEC SSCE 2020)",
+        "diagram": "/static/uploads/diagrams/2021/accounts_ss1/essay_4a.PNG"
+      },
+      {
+        "id": 5,
+        "question": "Ubochi and Hassana started a partnership business on 1st January, 2015. They contributed D300,000 and D250,000 respectively as capital. Their partnership deed stated that:\n• Interest of 8% should be paid on capital per annum.\n• Hassana would be paid D10,000 monthly as salary.\n• Interest on drawings is 5%.\n• The profits are to be shared in the ratio 3:2 respectively.\n\nAt the end of the year, the profit made was D300,000. During the period, Ubochi and Hassana made drawings of D20,000 and D15,000 respectively.\n\nYou are required to prepare:\na. Profit and Loss Appropriation Account for the year ended 31st December, 2015.\nb. Partners’ Current Account.\n(15 marks) (WAEC 2019)",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "Ibrahim John runs a restaurant business from his apartment. He does not keep proper accounting records. The following information was extracted from his notebook, cheque stubs and discussions with him, as shown below.\n\nYou are required to prepare:\na. Opening and closing Statement of Affairs.\nb. Profit or Loss Statement for the year ended 31st December, 2006.\nc. Balance Sheet as at that date.\n(15 marks) (WAEC GCE 2007)",
+        "diagram": "/static/uploads/diagrams/2021/accounts_ss1/essay_6a.PNG"
+      }
+    ]
+  },
+  "term": "SECOND",
+  "term_label": "2nd Term"
+}

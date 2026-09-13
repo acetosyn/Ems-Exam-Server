@@ -1,7 +1,7 @@
 // static/js/admin_results.js
 // ============================================================
 // EMIS ADMIN RESULTS — OBJECTIVE + ESSAY / THEORY MANAGEMENT
-// Term-aware JSS • Flat SS • Student roster essay entry
+// Term-aware JSS + hybrid SS • Student roster essay entry
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -159,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function termLabel(value) { return TERM_LABELS[normalizeTerm(value)] || ""; }
+  function resultTermText(row) { const term = getTerm(row); return term ? termLabel(term) : isSsClass(getClassLevel(row)) ? "General / Legacy" : "—"; }
 
 
   // ==========================================================
@@ -219,24 +220,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================================
 
   async function fetchJson(url, options = {}) {
-    const response = await fetch(url, {
-      credentials: "same-origin",
-      cache: "no-store",
-      headers: {
-        Accept: "application/json",
-        ...(options.body ? { "Content-Type": "application/json" } : {}),
-        ...(options.headers || {})
-      },
-      ...options
-    });
-
+    const response = await fetch(url, { credentials: "same-origin", cache: "no-store", headers: { Accept: "application/json", ...(options.body ? { "Content-Type": "application/json" } : {}), ...(options.headers || {}) }, ...options });
     let data = {};
+    try { data = await response.json(); } catch { data = {}; }
 
-    try { data = await response.json(); }
-    catch { data = {}; }
+    if (response.status === 401 || response.status === 403) {
+      const message = data.error || data.message || "Your Admin/Teacher session has expired. Please log in again.";
+      const error = new Error(message); error.sessionExpired = true; throw error;
+    }
 
     if (!response.ok) throw new Error(data.error || data.message || `Request failed (${response.status})`);
-
     return data;
   }
 
@@ -574,38 +567,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!els.termSelector || !els.termFilterGroup) return;
 
     const cls = selectedClass();
-
-    if (cls === "all") {
-      els.termFilterGroup.hidden = false;
-      els.termSelector.disabled = false;
-
-      if (els.termRequirementBadge) {
-        els.termRequirementBadge.textContent = "JSS";
-        els.termRequirementBadge.title = "Term applies to JSS results";
-      }
-
-      return;
-    }
-
-    if (isJssClass(cls)) {
-      els.termFilterGroup.hidden = false;
-      els.termSelector.disabled = false;
-
-      if (els.termRequirementBadge) {
-        els.termRequirementBadge.textContent = "Required";
-        els.termRequirementBadge.title = "JSS results are stored by term";
-      }
-
-      return;
-    }
-
-    els.termFilterGroup.hidden = true;
-    els.termSelector.value = "all";
-    els.termSelector.disabled = true;
+    els.termFilterGroup.hidden = false;
+    els.termSelector.disabled = false;
 
     if (els.termRequirementBadge) {
-      els.termRequirementBadge.textContent = "N/A";
-      els.termRequirementBadge.title = "SS results are not term based";
+      if (cls === "all") { els.termRequirementBadge.textContent = "JSS + SS"; els.termRequirementBadge.title = "Both JSS and SS examination results support term filtering."; }
+      else if (isJssClass(cls)) { els.termRequirementBadge.textContent = "Required"; els.termRequirementBadge.title = "JSS results require FIRST, SECOND or THIRD term."; }
+      else if (isSsClass(cls)) { els.termRequirementBadge.textContent = "SS • Hybrid"; els.termRequirementBadge.title = "SS supports FIRST, SECOND and THIRD term while older root results remain General / Legacy."; }
+      else { els.termRequirementBadge.textContent = "Term"; els.termRequirementBadge.title = "Filter examination results by academic term."; }
     }
   }
 
@@ -644,14 +613,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const year = selectedYear();
     const cls = selectedClass();
 
-    if (!isJssClass(cls) || year === "all") {
-      populateTermOptions(DEFAULT_TERMS);
-      return;
-    }
+    if (year === "all" || cls === "all" || (!isJssClass(cls) && !isSsClass(cls))) { populateTermOptions(DEFAULT_TERMS); return; }
 
     try {
       const data = await fetchJson(`/api/results/terms?year=${encodeURIComponent(year)}&class=${encodeURIComponent(cls)}`);
-      populateTermOptions(Array.isArray(data.terms) ? data.terms : DEFAULT_TERMS);
+      populateTermOptions(Array.isArray(data.terms) && data.terms.length ? data.terms : DEFAULT_TERMS);
     } catch (error) {
       console.error("TERM LOAD ERROR:", error);
       populateTermOptions(DEFAULT_TERMS);
@@ -695,18 +661,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const cls = selectedClass();
     const term = selectedTerm();
 
-    if (year === "all" || cls === "all") return false;
-    if (isJssClass(cls) && term === "all") return false;
-
-    const params = new URLSearchParams({ year, class: cls });
-
-    if (isJssClass(cls)) params.set("term", term);
+    if (year === "all" || cls === "all" || term === "all") return false;
 
     try {
+      const params = new URLSearchParams({ year, class: cls, term });
       const data = await fetchJson(`/api/results/subjects?${params.toString()}`);
-
       populateSubjectOptions(Array.isArray(data.subjects) ? data.subjects : []);
-
       return true;
     } catch (error) {
       console.error("SUBJECT LOAD ERROR:", error);
@@ -793,17 +753,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================================
 
   function buildResultsUrl() {
-    const year = selectedYear();
-    const cls = selectedClass();
-    const term = selectedTerm();
-    const subject = selectedSubject();
-
-    const params = new URLSearchParams({ year, class: cls, subject });
-
-    if (cls === "all") params.set("term", term);
-    else if (isJssClass(cls)) params.set("term", term);
-    else params.set("term", "all");
-
+    const params = new URLSearchParams({ year: selectedYear(), class: selectedClass(), subject: selectedSubject(), term: selectedTerm() });
     return `/api/results/all?${params.toString()}`;
   }
 
@@ -871,38 +821,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function applyFilters({ resetPage = true } = {}) {
     const arm = normalizeUpper(els.classArmSelector?.value || "all");
+    const selectedTermValue = selectedTerm();
+    const selectedTermKey = selectedTermValue === "all" ? "" : normalizeTerm(selectedTermValue);
     const session = normalizeText(els.sessionSelector?.value || "all");
     const status = normalizeUpper(els.statusFilter?.value || "");
     const quickStatus = normalizeUpper(state.statusView === "all" ? "" : state.statusView);
     const query = normalizeText(els.globalSearch?.value || "");
 
     state.filteredResults = state.allResults.filter((row) => {
-      const rowArm = getClassArm(row);
-      const rowSession = normalizeText(getSession(row));
-      const rowStatus = getStatus(row);
-
-      const searchable = normalizeText([
-        getStudentName(row), getAdmission(row), getYear(row), getClassLevel(row), getClassArm(row),
-        getTerm(row), getTermLabel(row), getSubject(row), getSubjectFolder(row),
-        getObjectiveScore(row), getEssayScore(row), getFinalScore(row),
-        rowStatus, getResultState(row), getTime(row), getSubmittedAt(row), getSession(row)
-      ].join(" "));
+      const rowArm = getClassArm(row), rowTerm = getTerm(row), rowSession = normalizeText(getSession(row)), rowStatus = getStatus(row);
+      const searchable = normalizeText([getStudentName(row), getAdmission(row), getYear(row), getClassLevel(row), getClassArm(row), resultTermText(row), getSubject(row), getSubjectFolder(row), getObjectiveScore(row), getEssayScore(row), getFinalScore(row), rowStatus, getResultState(row), getTime(row), getSubmittedAt(row), getSession(row)].join(" "));
 
       const armOk = arm === "ALL" || rowArm === arm;
+      const termOk = selectedTermValue === "all" || rowTerm === selectedTermKey;
       const sessionOk = session === "all" || rowSession === session;
       const statusOk = !status || rowStatus === status;
       const quickStatusOk = !quickStatus || rowStatus === quickStatus;
       const searchOk = !query || searchable.includes(query);
 
-      return armOk && sessionOk && statusOk && quickStatusOk && searchOk;
+      return armOk && termOk && sessionOk && statusOk && quickStatusOk && searchOk;
     });
 
     sortFilteredResults();
-
     if (resetPage) state.currentPage = 1;
 
     const loadedKeys = new Set(state.allResults.map(getStableKey));
-
     state.selectedKeys = new Set([...state.selectedKeys].filter((key) => loadedKeys.has(key)));
 
     renderTable();
@@ -922,7 +865,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case "admission": return getAdmission(row);
       case "year": return parseNumber(getYear(row));
       case "class": return getClass(row);
-      case "term": return DEFAULT_TERMS.indexOf(getTerm(row));
+      case "term": { const term = getTerm(row); return term ? DEFAULT_TERMS.indexOf(term) : isSsClass(getClassLevel(row)) ? 3 : 99; }
       case "subject": return formatSubject(getSubject(row));
 
       case "objective": return getObjectiveScore(row);
@@ -1090,16 +1033,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function describeCurrentView() {
     const parts = [];
-
     if (selectedYear() !== "all") parts.push(selectedYear());
     if (selectedClass() !== "all") parts.push(selectedClass());
-
-    if ((selectedClass() === "all" || isJssClass(selectedClass())) && selectedTerm() !== "all") parts.push(termLabel(selectedTerm()));
+    if (selectedTerm() !== "all") parts.push(termLabel(selectedTerm()));
     if (selectedSubject() !== "all") parts.push(formatSubject(selectedSubject()));
-
-    return parts.length
-      ? `Showing ${parts.join(" • ")} examination results.`
-      : "Showing all available examination results.";
+    return parts.length ? `Showing ${parts.join(" • ")} examination results.` : "Showing all available examination results.";
   }
 
 
@@ -1192,7 +1130,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </td>
 
           <td class="term-column" data-column-name="term">
-            ${term ? `<span class="term-badge">${escapeHtml(termLabel(term))}</span>` : `<span aria-label="Not applicable">—</span>`}
+            ${term ? `<span class="term-badge">${escapeHtml(termLabel(term))}</span>` : isSsClass(getClassLevel(row)) ? `<span class="term-badge">General / Legacy</span>` : `<span aria-label="Term unavailable">—</span>`}
           </td>
 
           <td data-column-name="subject"><strong>${escapeHtml(subject || "—")}</strong></td>
@@ -1358,7 +1296,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (arm !== "all") chips.push(["Arm", formatClassLabel(arm)]);
 
-   if ((selectedClass() === "all" || isJssClass(selectedClass())) && selectedTerm() !== "all") chips.push(["Term", termLabel(selectedTerm())]);
+   if (selectedTerm() !== "all") chips.push(["Term", termLabel(selectedTerm())]);
     if (selectedSubject() !== "all") chips.push(["Subject", formatSubject(selectedSubject())]);
 
     const status = els.statusFilter?.value || "";
@@ -1437,7 +1375,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const topMeta = [
       getClass(top),
-      getTerm(top) ? termLabel(getTerm(top)) : "",
+      resultTermText(top) === "—" ? "" : resultTermText(top),
       formatSubject(getSubject(top)),
       `${scoreText(getFinalScore(top))}%`
     ].filter(Boolean).join(" • ");
@@ -1635,7 +1573,7 @@ document.addEventListener("DOMContentLoaded", () => {
     safeSetText("ap_year", getYear(row) || "—");
     safeSetText("ap_studentClass", getClass(row) || "—");
     safeSetText("ap_studentCategory", getClassCategory(row) || "—");
-    safeSetText("ap_term", getTerm(row) ? termLabel(getTerm(row)) : "Not Applicable");
+    safeSetText("ap_term", resultTermText(row));
 
     safeSetText("ap_subject", formatSubject(getSubject(row)) || "—");
 
@@ -1659,7 +1597,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setSummaryStatus(getStatus(row));
 
-    if (els.summaryTermRow) els.summaryTermRow.hidden = !isJssClass(getClassLevel(row)) && !getTerm(row);
+    if (els.summaryTermRow) els.summaryTermRow.hidden = false;
 
     els.summaryOverlay?.classList.add("show", "active");
     els.adminPrintSummary?.classList.add("show", "active");
@@ -1697,78 +1635,35 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================================================
 
 function validateEssayContext() {
-  let year = selectedYear();
-  let classLevel = selectedClass();
-  let subject = selectedSubject();
-  let term = selectedTerm();
-  let arm = els.classArmSelector?.value || "all";
-
-  // ----------------------------------------------------------
-  // AUTO-DETECT FROM CURRENT VISIBLE RESULTS
-  // ----------------------------------------------------------
-
+  let year = selectedYear(), classLevel = selectedClass(), subject = selectedSubject(), term = selectedTerm(), arm = els.classArmSelector?.value || "all";
   const visibleRows = Array.isArray(state.filteredResults) ? state.filteredResults : [];
 
   const years = [...new Set(visibleRows.map(getYear).filter(Boolean))];
   const classes = [...new Set(visibleRows.map(getClassLevel).filter(Boolean))];
   const subjects = [...new Set(visibleRows.map((row) => getSubjectFolder(row) || getSubject(row)).filter(Boolean))];
-  const terms = [...new Set(visibleRows.map(getTerm).filter(Boolean))];
   const arms = [...new Set(visibleRows.map(getClassArm).filter(Boolean))];
 
   if (year === "all" && years.length === 1) year = years[0];
   if (classLevel === "all" && classes.length === 1) classLevel = classes[0];
   if (subject === "all" && subjects.length === 1) subject = subjects[0];
-  if (term === "all" && terms.length === 1) term = terms[0];
   if (arm === "all" && arms.length === 1) arm = arms[0];
 
-  // ----------------------------------------------------------
-  // VALIDATION
-  // ----------------------------------------------------------
+  if (!year || year === "all") return { ok: false, message: years.length > 1 ? "More than one examination year is currently displayed. Please narrow the results to one year before entering essay scores." : "No examination year could be detected from the current results." };
+  if (!classLevel || classLevel === "all") return { ok: false, message: classes.length > 1 ? "More than one class is currently displayed. Please narrow the results to one class before entering essay scores." : "No class could be detected from the current results." };
+  if (!subject || subject === "all") return { ok: false, message: subjects.length > 1 ? "More than one subject is currently displayed. Please narrow the results to one subject before entering essay scores." : "No subject could be detected from the current results." };
 
-  if (!year || year === "all") {
-    return {
-      ok: false,
-      message: years.length > 1
-        ? "More than one examination year is currently displayed. Please narrow the results to one year before entering essay scores."
-        : "No examination year could be detected from the current results."
-    };
-  }
+  const contextRows = visibleRows.filter((row) => String(getYear(row)) === String(year) && getClassLevel(row) === classLevel && normalizeText(getSubjectFolder(row) || getSubject(row)) === normalizeText(subject));
+  const termContexts = [...new Set(contextRows.map((row) => getTerm(row) || (isSsClass(classLevel) ? "__GENERAL__" : "")).filter(Boolean))];
 
-  if (!classLevel || classLevel === "all") {
-    return {
-      ok: false,
-      message: classes.length > 1
-        ? "More than one class is currently displayed. Please narrow the results to one class before entering essay scores."
-        : "No class could be detected from the current results."
-    };
-  }
+  if (!term || term === "all") {
+    if (termContexts.length === 1) term = termContexts[0] === "__GENERAL__" ? "" : termContexts[0];
+    else if (isJssClass(classLevel) || termContexts.length > 1) return { ok: false, message: `More than one term is currently displayed for ${classLevel}. Please select one term before entering essay scores.` };
+    else term = "";
+  } else term = normalizeTerm(term);
 
-  if (!subject || subject === "all") {
-    return {
-      ok: false,
-      message: subjects.length > 1
-        ? "More than one subject is currently displayed. Please narrow the results to one subject before entering essay scores."
-        : "No subject could be detected from the current results."
-    };
-  }
+  if (isJssClass(classLevel) && !term) return { ok: false, message: `A term is required for ${classLevel} essay scores.` };
 
-  if (isJssClass(classLevel) && (!term || term === "all")) {
-    return {
-      ok: false,
-      message: terms.length > 1
-        ? `More than one term is currently displayed for ${classLevel}. Please narrow the results to one term before entering essay scores.`
-        : `No term could be detected for ${classLevel}.`
-    };
-  }
-
-  return {
-    ok: true,
-    year,
-    classLevel,
-    term: isJssClass(classLevel) ? term : "",
-    subject,
-    arm
-  };
+  return { ok: true, year, classLevel, term, subject, arm };
 }
 
 function resetEssayState() {
@@ -1787,13 +1682,12 @@ function resetEssayState() {
 
 function setEssayContextUi() {
   const essay = state.essay;
-
   safeSetText(els.essayContextYear, essay.year || "—");
   safeSetText(els.essayContextClass, essay.classLevel || "—");
-  safeSetText(els.essayContextTerm, essay.term ? termLabel(essay.term) : "Not Applicable");
+  safeSetText(els.essayContextTerm, essay.term ? termLabel(essay.term) : isSsClass(essay.classLevel) ? "General / Legacy" : "—");
   safeSetText(els.essayContextSubject, formatSubject(essay.subject) || "—");
 
-  if (els.essayContextTermWrap) els.essayContextTermWrap.classList.toggle("hidden", !essay.term);
+  if (els.essayContextTermWrap) els.essayContextTermWrap.classList.toggle("hidden", !essay.classLevel);
 
   safeSetText(els.essayObjectiveMax, scoreText(essay.objectiveMax));
   safeSetText(els.essayMaximumScore, scoreText(essay.essayMax));
@@ -1802,10 +1696,7 @@ function setEssayContextUi() {
   if (els.essayAvailabilityBadge) {
     els.essayAvailabilityBadge.classList.toggle("available", essay.available);
     els.essayAvailabilityBadge.classList.toggle("unavailable", !essay.available);
-
-    els.essayAvailabilityBadge.innerHTML = essay.available
-      ? `<i class="fa-solid fa-circle-check"></i> Essay Available`
-      : `<i class="fa-solid fa-circle-xmark"></i> No Essay`;
+    els.essayAvailabilityBadge.innerHTML = essay.available ? `<i class="fa-solid fa-circle-check"></i> Essay Available` : `<i class="fa-solid fa-circle-xmark"></i> No Essay`;
   }
 }
 
@@ -2030,6 +1921,7 @@ function essayStudentKey(student) {
     try {
       const data = await fetchJson(buildEssayUrl());
 
+      if (data.term !== undefined && data.term !== null) state.essay.term = normalizeTerm(data.term);
       state.essay.objectiveMax = parseNumber(data.objective_max ?? data.objective_weight, 60);
       state.essay.essayMax = parseNumber(data.essay_max ?? data.essay_weight, 40);
       state.essay.totalMax = parseNumber(data.total_max, 100);
@@ -2105,7 +1997,8 @@ function essayStudentKey(student) {
       if (String(getYear(row)) !== String(state.essay.year)) return;
       if (getClassLevel(row) !== state.essay.classLevel) return;
 
-      if (state.essay.term && getTerm(row) !== state.essay.term) return;
+      if (state.essay.term) { if (getTerm(row) !== state.essay.term) return; }
+      else if (isSsClass(state.essay.classLevel) && getTerm(row)) return;
 
       const subjectMatches =
         normalizeText(getSubject(row)) === normalizeText(state.essay.subject) ||
@@ -2615,7 +2508,7 @@ function essayStudentKey(student) {
       return;
     }
 
-    const includeTerm = records.some((row) => Boolean(getTerm(row)));
+    const includeTerm = records.some((row) => Boolean(getTerm(row)) || isSsClass(getClassLevel(row)));
 
     const rows = records.map((row, index) => {
       const objective = objectiveDisplay(row);
@@ -2629,7 +2522,7 @@ function essayStudentKey(student) {
           <td>${escapeHtml(getAdmission(row))}</td>
           <td>${escapeHtml(getYear(row))}</td>
           <td>${escapeHtml(getClass(row))}</td>
-          ${includeTerm ? `<td>${escapeHtml(getTerm(row) ? termLabel(getTerm(row)) : "—")}</td>` : ""}
+          ${includeTerm ? `<td>${escapeHtml(resultTermText(row))}</td>` : ""}
           <td>${escapeHtml(formatSubject(getSubject(row)))}</td>
           <td>${escapeHtml(objective.text)}</td>
           <td>${escapeHtml(essay.text)}</td>
@@ -2722,7 +2615,7 @@ function essayStudentKey(student) {
       ["Year", getYear],
       ["Class Level", getClassLevel],
       ["Class Arm", getClassArm],
-      ["Term", (row) => getTerm(row) ? termLabel(getTerm(row)) : ""],
+      ["Term", (row) => resultTermText(row) === "—" ? "" : resultTermText(row)],
       ["Subject", (row) => formatSubject(getSubject(row))],
 
       ["Objective Score", (row) => getObjectiveScore(row)],
@@ -2803,7 +2696,7 @@ function essayStudentKey(student) {
         "Class Level": getClassLevel(row),
         "Class Arm": getClassArm(row),
 
-        Term: getTerm(row) ? termLabel(getTerm(row)) : "",
+        Term: getTerm(row) || "",
         Subject: formatSubject(getSubject(row)),
 
         "Objective Score": getObjectiveScore(row),

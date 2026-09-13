@@ -1,0 +1,524 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Technical Drawing",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Technical drawing is the discipline of producing drawings that clearly communicate how objects are constructed or function.",
+      "diagram": null,
+      "options": [
+        "A. Technical drawing",
+        "B. Detailing",
+        "C. Architecture",
+        "D. Basic Science"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Technical drawing is broadly divided into how many major areas?",
+      "diagram": null,
+      "options": [
+        "A. 3",
+        "B. 7",
+        "C. 2",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Technical drawing is applied in the following fields EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Architecture",
+        "B. Aeronautics",
+        "C. Building engineering",
+        "D. Book keeping"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "A thin dashed line is mainly used to represent ________.",
+      "diagram": null,
+      "options": [
+        "A. Visible outlines",
+        "B. Hidden details",
+        "C. Dimension lines",
+        "D. Borders"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Which of the following is NOT a major area of technical drawing?",
+      "diagram": null,
+      "options": [
+        "A. Plane geometry",
+        "B. Solid geometry",
+        "C. Building and engineering drawing",
+        "D. Modelling"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Technical drawing is commonly applied in ________.",
+      "diagram": null,
+      "options": [
+        "A. Industries",
+        "B. Cooking",
+        "C. Creative writing",
+        "D. Health diagnosis"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is NOT primarily a drawing instrument?",
+      "diagram": null,
+      "options": [
+        "A. Knife",
+        "B. Pencil",
+        "C. Ruler",
+        "D. Divider"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "A protractor is used mainly for ________.",
+      "diagram": null,
+      "options": [
+        "A. Drawing or measuring angles",
+        "B. Drawing straight lines",
+        "C. Erasing lines",
+        "D. Bisecting lines automatically"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "One important use of technical drawing is ________.",
+      "diagram": null,
+      "options": [
+        "A. Communicating design ideas",
+        "B. Telling stories",
+        "C. Reading novels",
+        "D. Making calculations only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is a standard pencil grade?",
+      "diagram": null,
+      "options": [
+        "A. HB",
+        "B. GB",
+        "C. MB",
+        "D. 15H"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is a standard ISO A-series paper size?",
+      "diagram": null,
+      "options": [
+        "A. A0",
+        "B. A11",
+        "C. A7 only",
+        "D. B1"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "Which of the following is NOT among the commonly used A-series drawing sheet sizes listed in the source paper?",
+      "diagram": null,
+      "options": [
+        "A. A0",
+        "B. A2",
+        "C. A3",
+        "D. A5"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following gives the approximate dimensions of A4 paper?",
+      "diagram": null,
+      "options": [
+        "A. 420 × 294 mm",
+        "B. 594 × 420 mm",
+        "C. 650 × 250 mm",
+        "D. 297 × 210 mm"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "Which pair consists of commonly used technical drawing sheet sizes?",
+      "diagram": null,
+      "options": [
+        "A. A2 and A3",
+        "B. A0 and A10",
+        "C. A7 and A4",
+        "D. A10 and A11"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "There are two standard paper orientations: ________.",
+      "diagram": null,
+      "options": [
+        "A. Portrait and landscape",
+        "B. Top and bottom",
+        "C. Horizontal and diagonal",
+        "D. Front and side"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "The process of forming letters and numerals in technical drawing is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Drawing",
+        "B. Lettering",
+        "C. Modelling",
+        "D. Moulding"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "Lettering is generally classified into how many broad types in basic technical drawing?",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 5",
+        "C. 8",
+        "D. 10"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Which of the following is a recognized lettering style?",
+      "diagram": null,
+      "options": [
+        "A. Gothic",
+        "B. French",
+        "C. Nigerian",
+        "D. Street"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "The lettering style in which strokes are generally of uniform thickness is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Gothic lettering",
+        "B. Roman lettering",
+        "C. Arabic lettering",
+        "D. Italic numeral"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "The lettering style formed by a combination of thick and thin strokes is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Roman lettering",
+        "B. Gothic lettering",
+        "C. Arabic lettering",
+        "D. Greek lettering"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is NOT a type of angle?",
+      "diagram": null,
+      "options": [
+        "A. Reflex",
+        "B. Acute",
+        "C. Obtuse",
+        "D. Equilateral triangle"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "When two straight lines meet, they form an ________.",
+      "diagram": null,
+      "options": [
+        "A. Angle",
+        "B. Circle",
+        "C. Square",
+        "D. Arc"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "Thin continuous lines are used mainly for ________.",
+      "diagram": null,
+      "options": [
+        "A. Dimensioning and projection",
+        "B. Visible outlines only",
+        "C. Section boundaries only",
+        "D. Freehand sketching only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "Which of the following is NOT a standard technical drawing line description?",
+      "diagram": null,
+      "options": [
+        "A. Thick line",
+        "B. Thin line",
+        "C. Rule line",
+        "D. Dashed line"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "A triangle with three equal sides is an ________.",
+      "diagram": null,
+      "options": [
+        "A. Equilateral triangle",
+        "B. Isosceles triangle",
+        "C. Scalene triangle",
+        "D. Escribed triangle"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "A right angle measures ________.",
+      "diagram": null,
+      "options": [
+        "A. 90°",
+        "B. 60°",
+        "C. 45°",
+        "D. 180°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Which of the following is NOT a standard classification of triangle by sides/angles?",
+      "diagram": null,
+      "options": [
+        "A. Right-angled triangle",
+        "B. Equilateral triangle",
+        "C. Scalene triangle",
+        "D. Irregular triangle"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 28,
+      "question": "A centre line is conventionally drawn using a ________.",
+      "diagram": null,
+      "options": [
+        "A. Thin chain line",
+        "B. Thick continuous line",
+        "C. Freehand wavy line",
+        "D. Bold border line"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "Angles are measured in ________.",
+      "diagram": null,
+      "options": [
+        "A. Degrees",
+        "B. Metres",
+        "C. Centimetres",
+        "D. Feet"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "A plane figure bounded by a continuous curved line whose points are equidistant from a fixed point is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Circle",
+        "B. Arc",
+        "C. Triangle",
+        "D. Polygon"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "The instrument used to transfer dimensions from one part of a drawing to another is the ________.",
+      "diagram": null,
+      "options": [
+        "A. Divider",
+        "B. Protractor",
+        "C. Set square",
+        "D. French curve"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "A T-square is mainly used for drawing ________.",
+      "diagram": null,
+      "options": [
+        "A. Horizontal lines",
+        "B. Circles",
+        "C. Arcs",
+        "D. Irregular curves"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "A 45° set square can be used to draw ________.",
+      "diagram": null,
+      "options": [
+        "A. 45° and 90° lines",
+        "B. 30° only",
+        "C. 60° only",
+        "D. 120° only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "The line used to show the visible outline of an object is normally a ________.",
+      "diagram": null,
+      "options": [
+        "A. Thick continuous line",
+        "B. Thin dashed line",
+        "C. Chain line",
+        "D. Dimension line"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "A scale of 1:2 means the drawing is ________.",
+      "diagram": null,
+      "options": [
+        "A. Half the actual size",
+        "B. Twice the actual size",
+        "C. Full size",
+        "D. Ten times the actual size"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "A scale of 2:1 is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. Enlargement scale",
+        "B. Reduction scale",
+        "C. Full-size scale",
+        "D. Metric-only scale"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "The point where two sides of a triangle meet is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Vertex",
+        "B. Radius",
+        "C. Chord",
+        "D. Centre"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "A line from the centre of a circle to its circumference is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Radius",
+        "B. Diameter",
+        "C. Tangent",
+        "D. Chord"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "A straight line through the centre of a circle joining two points on the circumference is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Diameter",
+        "B. Radius",
+        "C. Arc",
+        "D. Sector"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "A line touching a circle at only one point is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Tangent",
+        "B. Chord",
+        "C. Diameter",
+        "D. Secant"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer two (2) questions. Question One is compulsory.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "QUESTION 1 — COMPULSORY\nDefine technical drawing and state four uses of technical drawing.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Define a triangle.\n(b) List and sketch four types of triangles.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Define an angle.\n(b) List and explain three types of angles.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "Construct accurately the following angles using ruler and compasses where applicable:\n(i) 90°\n(ii) 60°\n(iii) 30°\n(iv) 15°.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) Define lettering in technical drawing.\n(b) State the main classifications of lettering and explain each briefly.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

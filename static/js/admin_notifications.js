@@ -1,46 +1,26 @@
 /* static/js/admin_notifications.js */
 /* ============================================================
-   EMIS ADMIN PREMIUM REAL-TIME NOTIFICATION ENGINE
+   EMIS ADMIN REAL-TIME NOTIFICATION ENGINE v2.1
 
-   CORE RULES
-   ------------------------------------------------------------
-   - One notification card at a time
-   - Exact backend sequence / FIFO ordering
-   - Different students = first come, first served
-   - Same student = controlled lifecycle supersession
-   - Login -> Exam Start -> Processing -> Submit -> Result
-   - Every event appears 15 times
-   - Approx. 7 seconds between appearance START times
-   - SSE primary transport
-   - Polling reconciliation fallback
-
-   IMPORTANT SUBMISSION RULE
-   ------------------------------------------------------------
-   - Login may be superseded by Exam Start
-   - Exam Start may be superseded by Submit
-   - Result Pending may be superseded by Submit
-   - Result Available MUST NOT suppress Exam Submitted
-   - Exam Submitted gets all 15 appearances first
-   - Result Available then gets its own 15 appearances
-
-   PREMIUM FEATURES
-   ------------------------------------------------------------
-   1. 15x notification reminder
-   2. Hover-to-pause while teacher is reading
-   3. Browser-tab unread activity counter
-   4. SSE connection-health tracking
-   5. Queue-pressure / queue-count tracking
-   6. Stale bootstrap-event protection
-   7. Exponential SSE reconnect
-   8. Exact backend sequence ordering
-   9. Controlled same-student lifecycle preemption
-   10. Diagnostics API via window.EmisAdminNotifications
+   CORE:
+   - SSE primary + polling reconciliation
+   - Exact backend sequence / FIFO order
+   - Same-student lifecycle supersession only
+   - Different students NEVER jump the FIFO queue
+   - 15 reminder appearances per event
+   - Hover pauses notification
+   - Hidden-tab unread counter
+   - JSS + SS term-aware
+   - SS General / Legacy aware
+   - Completed / Timeout / Terminated aware
+   - Admin result table refresh on result activity
+   - 20-minute staff-session backend compatible
 ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
-  console.log("%c[admin_notifications.js] EMIS Premium FIFO Notification Engine Started", "color:#0f766e;font-weight:bold;");
+  console.log("%c[admin_notifications] EMIS REAL-TIME ENGINE v2.1 STARTED ✓", "color:#0f766e;font-weight:900;");
 
   const $ = (id) => document.getElementById(id);
 
@@ -48,18 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
      DOM
   ============================================================ */
 
-  const host = $("liveNotificationHost");
-  const card = $("liveNotificationCard");
-  const icon = $("liveNotificationIcon");
-  const typeLabel = $("liveNotificationType");
-  const title = $("liveNotificationTitle");
-  const message = $("liveNotificationMessage");
-  const time = $("liveNotificationTime");
-  const meta = $("liveNotificationMeta");
-  const closeBtn = $("liveNotificationClose");
+  const host = $("liveNotificationHost"), card = $("liveNotificationCard"), icon = $("liveNotificationIcon"),
+        typeLabel = $("liveNotificationType"), title = $("liveNotificationTitle"), message = $("liveNotificationMessage"),
+        timeLabel = $("liveNotificationTime"), meta = $("liveNotificationMeta"), closeBtn = $("liveNotificationClose");
 
   if (!host || !card) {
-    console.warn("[admin_notifications] Floating notification HTML was not found.");
+    console.warn("[admin_notifications] Live notification HTML not found.");
     return;
   }
 
@@ -67,60 +41,49 @@ document.addEventListener("DOMContentLoaded", () => {
      CONFIG
   ============================================================ */
 
-  const POLL_INTERVAL = 7000;
-  const FLASH_INTERVAL = 7000;
-  const DISPLAY_DURATION = 4800;
-  const EXIT_DURATION = 500;
-  const BETWEEN_EVENTS_DELAY = 700;
+  const CONFIG = {
+    pollInterval: 7000,
+    flashInterval: 7000,
+    displayDuration: 4800,
+    exitDuration: 500,
+    betweenEventsDelay: 700,
 
-  const REPEAT_COUNT = 15;
-  const MAX_QUEUE = 500;
-  const BOOTSTRAP_MAX_AGE = 45000;
+    repeatCount: 15,
+    maxQueue: 500,
+    maxKnownKeys: 3000,
+    bootstrapMaxAge: 45000,
 
-  const SSE_RECONNECT_MIN = 2000;
-  const SSE_RECONNECT_MAX = 30000;
+    sseReconnectMin: 2000,
+    sseReconnectMax: 30000,
+
+    resultRefreshCooldown: 3000
+  };
 
   /* ============================================================
      STATE
   ============================================================ */
 
-  let pendingQueue = [];
-  let knownKeys = new Set();
+  let pendingQueue = [], knownKeys = new Set(), knownKeyOrder = [];
+  let currentNotification = null, currentNotificationKey = "", currentRepeatCount = 0, currentAppearanceStartedAt = 0;
+  let lastSequence = 0, unreadWhileHidden = 0, reconnectAttempts = 0, droppedQueueItems = 0;
 
-  let currentNotification = null;
-  let currentNotificationKey = "";
-  let currentRepeatCount = 0;
-  let currentAppearanceStartedAt = 0;
+  let eventSource = null, pollTimer = null, hideTimer = null, repeatTimer = null, nextTimer = null, reconnectTimer = null;
 
-  let lastSequence = 0;
-  let unreadWhileHidden = 0;
-
-  let eventSource = null;
-  let pollTimer = null;
-  let hideTimer = null;
-  let repeatTimer = null;
-  let nextTimer = null;
-  let reconnectTimer = null;
-
-  let isShowing = false;
-  let isPolling = false;
-  let isHovered = false;
-  let pendingFinishAfterHover = false;
-  let sseConnected = false;
-  let refreshCooldown = false;
-
-  let reconnectAttempts = 0;
-  let droppedQueueItems = 0;
+  let isShowing = false, isPolling = false, isHovered = false, pendingFinishAfterHover = false,
+      sseConnected = false, refreshCooldown = false, sessionExpired = false;
 
   const originalDocumentTitle = document.title;
 
   /* ============================================================
-     BASIC HELPERS
+     HELPERS
   ============================================================ */
 
-  function safeText(value) { return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
+  function safeText(value) {
+    return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+  }
 
-  function upper(value) { return String(value ?? "").trim().toUpperCase(); }
+  function text(value) { return String(value ?? "").trim(); }
+  function upper(value) { return text(value).toUpperCase(); }
 
   function normalizeTerm(value) {
     const raw = upper(value).replaceAll("_", " ").replaceAll("-", " ").replace(/\s+/g, " ");
@@ -133,46 +96,90 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function termLabel(value) {
-    const term = normalizeTerm(value);
-
-    if (term === "FIRST") return "1st Term";
-    if (term === "SECOND") return "2nd Term";
-    if (term === "THIRD") return "3rd Term";
-
-    return "";
+    return { FIRST: "1st Term", SECOND: "2nd Term", THIRD: "3rd Term" }[normalizeTerm(value)] || "";
   }
 
-  function formatSubject(value) { return String(value ?? "").replaceAll("_", " ").replace(/\s+/g, " ").trim().toUpperCase(); }
+  function formatSubject(value) {
+    return text(value).replaceAll("_", " ").replace(/\s+/g, " ").toUpperCase();
+  }
 
-  function getPayload(notif) { return notif?.payload && typeof notif.payload === "object" ? notif.payload : {}; }
+  function getPayload(notif) {
+    return notif?.payload && typeof notif.payload === "object" ? notif.payload : {};
+  }
 
   function getSequence(notif) {
     const sequence = Number(notif?.sequence || 0);
     return Number.isFinite(sequence) ? sequence : 0;
   }
 
-  /* ============================================================
-     PAYLOAD HELPERS
-  ============================================================ */
-
-  function getAdmission(payload) { return payload.admission_number || payload.admission_no || payload["Admission No"] || payload.admission || payload.student_id || ""; }
-
-  function getStudentName(payload) { return payload.student_name || payload.full_name || payload["Student Name"] || payload.student || payload.name || "Student"; }
-
-  function getSubject(payload) { return payload.subject || payload.subject_folder || payload.Subject || payload["Subject Folder"] || ""; }
-
-  function getYear(payload) { return payload.year || payload.Year || payload.exam_year || ""; }
-
-  function getClass(payload) { return payload.class_arm || payload["Class Arm"] || payload.class_name || payload.class_category || payload["Class Category"] || payload.class || payload.Class || ""; }
-
-  function getTerm(payload) { return normalizeTerm(payload.term || payload.Term || payload.term_name || payload["Term Label"] || ""); }
-
-  function getScore(payload) {
-    const value = payload.score ?? payload["Score (%)"] ?? payload.score_percentage ?? "";
-    return String(value ?? "").replace("%", "").trim();
+  function getAdmission(payload) {
+    return payload.admission_number || payload.admission_no || payload["Admission No"] || payload.admission || payload.student_id || "";
   }
 
-  function getStatus(payload) { return upper(payload.status || payload.Status || payload.result_status || ""); }
+  function getStudentName(payload) {
+    return payload.student_name || payload.full_name || payload["Student Name"] || payload.student || payload.name || "Student";
+  }
+
+  function getSubject(payload) {
+    return payload.subject || payload.subject_folder || payload.Subject || payload["Subject Folder"] || "";
+  }
+
+  function getYear(payload) {
+    return payload.year || payload.Year || payload.exam_year || "";
+  }
+
+  function getClass(payload) {
+    return payload.class_arm || payload["Class Arm"] || payload.class_name || payload.class_level ||
+           payload.class_category || payload["Class Category"] || payload.class || payload.Class || "";
+  }
+
+  function getClassLevel(payload) {
+    const raw = upper(payload.class_level || payload.class_category || payload["Class Category"] || payload.class || "");
+    const match = raw.match(/^(JSS[123]|SS[123])/);
+    return match ? match[1] : "";
+  }
+
+  function isSsPayload(payload) {
+    return getClassLevel(payload).startsWith("SS");
+  }
+
+  function getTerm(payload) {
+    return normalizeTerm(payload.term || payload.Term || payload.term_name || payload["Term Label"] || "");
+  }
+
+  function getDisplayTerm(payload) {
+    const term = getTerm(payload);
+    if (term) return termLabel(term);
+
+    return isSsPayload(payload) ? "General / Legacy" : "";
+  }
+
+  function getScore(payload) {
+    const value = payload.score ?? payload["Score (%)"] ?? payload.score_percentage ?? payload.final_score ?? "";
+    return text(value).replace("%", "");
+  }
+
+  function getResultStatus(payload) {
+    return upper(payload.result_status || payload.final_status || payload["Final Status"] || payload.Status || "");
+  }
+
+  function getSubmissionStatus(payload) {
+    return upper(payload.submission_status || payload.exam_status || payload.status || "");
+  }
+
+  function getTerminationReason(payload) {
+    return text(payload.termination_reason || payload.security_reason || payload.violation_reason || "");
+  }
+
+  function friendlyTerminationReason(reason) {
+    const value = text(reason).toLowerCase();
+
+    if (value === "repeated_focus_violation") return "Repeated tab switching or leaving the exam page";
+    if (value === "repeated_devtools_violation") return "Repeated developer-tools violation";
+    if (value === "network_timeout") return "Internet connection remained unavailable for too long";
+
+    return text(reason).replaceAll("_", " ");
+  }
 
   /* ============================================================
      EVENT TYPE
@@ -180,18 +187,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getEventType(notif) {
     const payload = getPayload(notif);
-    const rawType = String(notif?.type || "").trim().toLowerCase().replaceAll("-", "_").replaceAll(" ", "_");
-    const status = String(payload.status || payload.result_status || "").trim().toLowerCase();
+    const rawType = text(notif?.type).toLowerCase().replaceAll("-", "_").replaceAll(" ", "_");
+    const submissionStatus = getSubmissionStatus(payload).toLowerCase();
 
     if (["login", "student_login"].includes(rawType)) return "login";
     if (["exam_start", "exam_started", "start_exam"].includes(rawType)) return "exam_start";
 
+    if (["terminated", "exam_terminated", "security_terminated"].includes(rawType)) return "terminated";
+    if (["timeout", "exam_timeout", "exam_timed_out"].includes(rawType)) return "timeout";
+
     if (["exam_end", "exam_submit", "exam_submitted", "exam_submission", "submit_exam"].includes(rawType)) {
-      if (["timeout", "timed_out"].includes(status)) return "timeout";
+      if (["terminated", "security_violation", "disqualified"].includes(submissionStatus)) return "terminated";
+      if (["timeout", "timed_out", "timed out"].includes(submissionStatus)) return "timeout";
       return "exam_end";
     }
 
-    if (["timeout", "exam_timeout", "exam_timed_out"].includes(rawType)) return "timeout";
     if (["result_pending", "pending_result", "result_processing"].includes(rawType)) return "result_pending";
     if (["result_available", "result_ready", "result_generated", "result_published"].includes(rawType)) return "result_available";
 
@@ -199,27 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================================
-     LIFECYCLE STAGE
-  ============================================================ */
-
-  function eventStage(notif) {
-    const type = getEventType(notif);
-
-    if (type === "login") return 10;
-    if (type === "exam_start") return 20;
-    if (type === "result_pending") return 30;
-    if (type === "exam_end" || type === "timeout") return 40;
-    if (type === "result_available") return 50;
-
-    return 5;
-  }
-
-  /* ============================================================
-     IDENTIFIERS
+     IDENTIFIERS / DEDUPLICATION
   ============================================================ */
 
   function getNotificationKey(notif) {
-    if (notif?.id !== undefined && notif?.id !== null && String(notif.id).trim()) return String(notif.id);
+    if (notif?.id !== undefined && notif?.id !== null && text(notif.id)) return String(notif.id);
 
     const payload = getPayload(notif);
 
@@ -236,31 +230,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getStudentKey(notif) {
     const payload = getPayload(notif);
-    const admission = upper(getAdmission(payload));
+    return upper(getAdmission(payload)) || upper(getStudentName(payload)) || "UNKNOWN-STUDENT";
+  }
 
-    if (admission) return admission;
+  function rememberKey(key) {
+    if (!key || knownKeys.has(key)) return false;
 
-    return upper(getStudentName(payload)) || "UNKNOWN-STUDENT";
+    knownKeys.add(key);
+    knownKeyOrder.push(key);
+
+    while (knownKeyOrder.length > CONFIG.maxKnownKeys) {
+      const oldKey = knownKeyOrder.shift();
+      if (oldKey) knownKeys.delete(oldKey);
+    }
+
+    return true;
   }
 
   /* ============================================================
-     CONTROLLED SUPERSESSION RULES
+     SAME-STUDENT LIFECYCLE SUPERSESSION
   ============================================================ */
 
   function canSupersede(oldNotif, newNotif) {
-    if (!oldNotif || !newNotif) return false;
-    if (getStudentKey(oldNotif) !== getStudentKey(newNotif)) return false;
+    if (!oldNotif || !newNotif || getStudentKey(oldNotif) !== getStudentKey(newNotif)) return false;
 
-    const oldType = getEventType(oldNotif);
-    const newType = getEventType(newNotif);
+    const oldType = getEventType(oldNotif), newType = getEventType(newNotif);
 
     if (newType === "exam_start" && oldType === "login") return true;
-
     if (newType === "result_pending" && ["login", "exam_start"].includes(oldType)) return true;
+    if (["exam_end", "timeout", "terminated"].includes(newType) && ["login", "exam_start", "result_pending"].includes(oldType)) return true;
 
-    if (["exam_end", "timeout"].includes(newType) && ["login", "exam_start", "result_pending"].includes(oldType)) return true;
-
-    if (newType === "result_available" && ["exam_end", "timeout"].includes(oldType)) return false;
+    /* Exam Submitted / Timeout / Terminated must be displayed before Result Available. */
+    if (newType === "result_available" && ["exam_end", "timeout", "terminated"].includes(oldType)) return false;
 
     return false;
   }
@@ -275,7 +276,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Number.isFinite(created) && created > 0) return created > 100000000000 ? created : created * 1000;
 
     const parsed = Date.parse(notif?.timestamp || "");
-
     return Number.isFinite(parsed) ? parsed : 0;
   }
 
@@ -290,18 +290,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (seconds < 60) return `${seconds}s ago`;
 
     const minutes = Math.floor(seconds / 60);
-
     if (minutes < 60) return `${minutes}m ago`;
 
     const hours = Math.floor(minutes / 60);
-
     if (hours < 24) return `${hours}h ago`;
 
     return `${Math.floor(hours / 24)}d ago`;
   }
 
   /* ============================================================
-     CONNECTION HEALTH
+     CONNECTION / QUEUE / TAB TITLE
   ============================================================ */
 
   function setConnectionState(state) {
@@ -309,28 +307,20 @@ document.addEventListener("DOMContentLoaded", () => {
     card.dataset.connection = state;
 
     window.dispatchEvent(new CustomEvent("emis:notification-connection", {
-      detail: { state, connected: state === "connected", reconnectAttempts }
+      detail: { state, connected: state === "connected", reconnectAttempts, sessionExpired }
     }));
   }
-
-  /* ============================================================
-     QUEUE PRESSURE
-  ============================================================ */
 
   function updateQueueState() {
-    const queueLength = pendingQueue.length + (currentNotification ? 1 : 0);
+    const total = pendingQueue.length + (currentNotification ? 1 : 0);
 
-    host.dataset.queueCount = String(queueLength);
-    host.dataset.queuePressure = queueLength >= 50 ? "high" : queueLength >= 15 ? "medium" : "normal";
+    host.dataset.queueCount = String(total);
+    host.dataset.queuePressure = total >= 50 ? "high" : total >= 15 ? "medium" : "normal";
 
     window.dispatchEvent(new CustomEvent("emis:notification-queue", {
-      detail: { pending: pendingQueue.length, current: Boolean(currentNotification), total: queueLength, dropped: droppedQueueItems }
+      detail: { pending: pendingQueue.length, current: Boolean(currentNotification), total, dropped: droppedQueueItems }
     }));
   }
-
-  /* ============================================================
-     TAB TITLE UNREAD
-  ============================================================ */
 
   function updateDocumentTitle() {
     document.title = unreadWhileHidden > 0 ? `(${unreadWhileHidden}) ${originalDocumentTitle}` : originalDocumentTitle;
@@ -353,55 +343,67 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================================================ */
 
   function getPresentation(notif) {
-    const payload = getPayload(notif);
-    const type = getEventType(notif);
+    const payload = getPayload(notif), type = getEventType(notif);
+    const student = getStudentName(payload), subject = formatSubject(getSubject(payload));
+    const score = getScore(payload), resultStatus = getResultStatus(payload);
+    const terminationReason = friendlyTerminationReason(getTerminationReason(payload));
 
-    const student = getStudentName(payload);
-    const subject = formatSubject(getSubject(payload));
-    const score = getScore(payload);
-    const status = getStatus(payload);
+    if (type === "login") {
+      return { type, visualType: "login", label: "Student Login", icon: "fa-user-check", title: `${student} logged in`, message: notif.message || "Student successfully accessed the CBT examination portal." };
+    }
 
-    if (type === "login") return { type, label: "Student Login", icon: "fa-user-check", title: `${student} logged in`, message: notif.message || "Student successfully accessed the CBT examination portal." };
+    if (type === "exam_start") {
+      return { type, visualType: "exam_start", label: "Exam Started", icon: "fa-file-pen", title: `${student} started ${subject || "an examination"}`, message: notif.message || "The student's examination session is now in progress." };
+    }
 
-    if (type === "exam_start") return { type, label: "Exam Started", icon: "fa-file-pen", title: `${student} started ${subject || "an examination"}`, message: notif.message || "The student's examination session is now in progress." };
+    if (type === "result_pending") {
+      return { type, visualType: "result_pending", label: "Processing Result", icon: "fa-hourglass-half", title: `${student}'s result is processing`, message: notif.message || "The submitted examination result is currently being processed." };
+    }
 
-    if (type === "result_pending") return { type, label: "Processing Result", icon: "fa-hourglass-half", title: `${student}'s result is processing`, message: notif.message || "The submitted examination result is currently being processed." };
+    if (type === "exam_end") {
+      return { type, visualType: "exam_end", label: "Exam Submitted", icon: "fa-flag-checkered", title: `${student} submitted ${subject || "an examination"}`, message: notif.message || "The examination was completed and submitted successfully." };
+    }
 
-    if (type === "exam_end") return { type, label: "Exam Submitted", icon: "fa-flag-checkered", title: `${student} submitted ${subject || "an examination"}`, message: notif.message || "The examination was successfully completed and submitted." };
+    if (type === "timeout") {
+      return { type, visualType: "timeout", label: "Time Expired", icon: "fa-clock", title: `${student}'s examination timed out`, message: notif.message || "The examination was submitted automatically when the allocated time expired." };
+    }
 
-    if (type === "timeout") return { type, label: "Exam Timeout", icon: "fa-clock", title: `${student}'s examination ended`, message: notif.message || "The examination ended because the allocated time expired." };
+    if (type === "terminated") {
+      const reasonText = terminationReason ? ` Reason: ${terminationReason}.` : "";
+
+      /* Reuse timeout/danger visual styling already present in admin_results.css. */
+      return { type, visualType: "timeout", label: "Exam Terminated", icon: "fa-shield-halved", title: `${student}'s examination was terminated`, message: notif.message || `The examination ended because of a security violation.${reasonText}` };
+    }
 
     if (type === "result_available") {
       const scoreText = score ? ` Score: ${score}%.` : "";
-      const statusText = status ? ` Status: ${status}.` : "";
+      const statusText = resultStatus ? ` Result: ${resultStatus}.` : "";
 
-      return { type, label: "Result Available", icon: "fa-circle-check", title: `${student}'s result is available`, message: notif.message || `A new examination result is now available.${scoreText}${statusText}` };
+      return { type, visualType: "result_available", label: "Result Available", icon: "fa-circle-check", title: `${student}'s result is available`, message: notif.message || `A new examination result is now available.${scoreText}${statusText}` };
     }
 
-    return { type: "notification", label: "Live Activity", icon: "fa-bell", title: student, message: notif.message || payload.message || "New examination activity received." };
+    return { type: "notification", visualType: "notification", label: "Live Activity", icon: "fa-bell", title: student, message: notif.message || payload.message || "New examination activity received." };
   }
 
   /* ============================================================
-     META
+     META CHIPS
   ============================================================ */
 
   function buildMeta(notif) {
-    const payload = getPayload(notif);
-    const values = [];
-
-    const admission = getAdmission(payload);
-    const cls = getClass(payload);
-    const term = getTerm(payload);
-    const subject = getSubject(payload);
-    const year = getYear(payload);
+    const payload = getPayload(notif), values = [];
+    const admission = getAdmission(payload), cls = getClass(payload), displayTerm = getDisplayTerm(payload);
+    const subject = getSubject(payload), year = getYear(payload), type = getEventType(notif);
 
     if (admission) values.push(admission);
     if (cls) values.push(upper(cls));
-    if (term) values.push(termLabel(term));
+    if (displayTerm) values.push(displayTerm);
     if (subject) values.push(formatSubject(subject));
     if (year) values.push(String(year));
 
-    return values.slice(0, 5);
+    if (type === "terminated" && getTerminationReason(payload)) values.push("SECURITY VIOLATION");
+    if (type === "timeout") values.push("TIMEOUT");
+
+    return values.slice(0, 6);
   }
 
   /* ============================================================
@@ -411,27 +413,31 @@ document.addEventListener("DOMContentLoaded", () => {
   function triggerResultsRefresh(notif) {
     const type = getEventType(notif);
 
-    if (!["exam_end", "timeout", "result_available"].includes(type)) return;
-    if (refreshCooldown) return;
+    if (!["exam_end", "timeout", "terminated", "result_available"].includes(type) || refreshCooldown) return;
 
     refreshCooldown = true;
+    setTimeout(() => { refreshCooldown = false; }, CONFIG.resultRefreshCooldown);
 
-    setTimeout(() => { refreshCooldown = false; }, 3000);
+    if (typeof window.refreshAdminResults === "function") {
+      try { return window.refreshAdminResults({ silent: true }); }
+      catch (error) { console.warn("[admin_notifications] refreshAdminResults failed:", error); }
+    }
 
-    if (typeof window.refreshAdminResults === "function") return window.refreshAdminResults({ silent: true });
-    if (typeof window.loadAllResults === "function") return window.loadAllResults({ silent: true });
+    if (typeof window.loadAllResults === "function") {
+      try { return window.loadAllResults({ silent: true }); }
+      catch (error) { console.warn("[admin_notifications] loadAllResults failed:", error); }
+    }
 
     window.dispatchEvent(new CustomEvent("emis:result-submitted", { detail: notif }));
   }
 
   /* ============================================================
-     FIFO SORT
+     FIFO QUEUE
   ============================================================ */
 
   function sortQueue() {
     pendingQueue.sort((a, b) => {
-      const sequenceA = getSequence(a);
-      const sequenceB = getSequence(b);
+      const sequenceA = getSequence(a), sequenceB = getSequence(b);
 
       if (sequenceA && sequenceB && sequenceA !== sequenceB) return sequenceA - sequenceB;
 
@@ -439,49 +445,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ============================================================
-     REMOVE ONLY TRULY OBSOLETE EVENTS
-  ============================================================ */
-
   function removeSupersededPendingEvents(notif) {
     pendingQueue = pendingQueue.filter((queued) => !canSupersede(queued, notif));
   }
 
-  /* ============================================================
-     ADD EVENT
-  ============================================================ */
-
   function addNotification(notif, fromLive = false, bootstrap = false) {
-    if (!notif || !notif.type) return false;
+    if (!notif || !notif.type || sessionExpired) return false;
 
     const key = getNotificationKey(notif);
 
-    if (knownKeys.has(key)) return false;
-
-    knownKeys.add(key);
+    if (!rememberKey(key)) return false;
 
     const sequence = getSequence(notif);
-
     if (sequence > lastSequence) lastSequence = sequence;
 
     if (bootstrap) {
-      const created = eventNumericTime(notif);
-      const age = created ? Date.now() - created : Infinity;
+      const created = eventNumericTime(notif), age = created ? Date.now() - created : Infinity;
 
-      if (!Number.isFinite(age) || age > BOOTSTRAP_MAX_AGE) return true;
+      /* Remember old bootstrap notifications, but do not replay them. */
+      if (!Number.isFinite(age) || age > CONFIG.bootstrapMaxAge) return true;
     }
 
     registerHiddenActivity();
     removeSupersededPendingEvents(notif);
 
-    const shouldPreemptCurrent = Boolean(
-  fromLive &&
-  currentNotification &&
-  (
-    getStudentKey(currentNotification) !== getStudentKey(notif) ||
-    canSupersede(currentNotification, notif)
-  )
-);
+    /*
+     * IMPORTANT:
+     * Only a newer lifecycle stage for the SAME STUDENT may
+     * interrupt the current card.
+     *
+     * Another student's notification must wait in FIFO order.
+     */
+    const shouldPreemptCurrent = Boolean(fromLive && currentNotification && canSupersede(currentNotification, notif));
 
     if (shouldPreemptCurrent) {
       pendingQueue.unshift(notif);
@@ -493,10 +488,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return true;
     }
+
     pendingQueue.push(notif);
 
-    if (pendingQueue.length > MAX_QUEUE) {
-      const overflow = pendingQueue.length - MAX_QUEUE;
+    if (pendingQueue.length > CONFIG.maxQueue) {
+      const overflow = pendingQueue.length - CONFIG.maxQueue;
 
       pendingQueue.splice(0, overflow);
       droppedQueueItems += overflow;
@@ -516,18 +512,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================================
-     SHOW CARD
+     SHOW NOTIFICATION
   ============================================================ */
 
   function showNotification(notif, isRepeat = false) {
-    if (!notif) return;
+    if (!notif || sessionExpired) return;
 
     clearTimeout(hideTimer);
     clearTimeout(repeatTimer);
     clearTimeout(nextTimer);
 
-    const presentation = getPresentation(notif);
-    const chips = buildMeta(notif);
+    const presentation = getPresentation(notif), chips = buildMeta(notif);
 
     currentNotification = notif;
     currentNotificationKey = getNotificationKey(notif);
@@ -538,26 +533,25 @@ document.addEventListener("DOMContentLoaded", () => {
     pendingFinishAfterHover = false;
     isShowing = true;
 
-    card.dataset.type = presentation.type;
+    card.dataset.type = presentation.visualType || presentation.type;
+    card.dataset.eventType = presentation.type;
     card.dataset.repeat = String(currentRepeatCount);
-    card.dataset.repeatTotal = String(REPEAT_COUNT);
+    card.dataset.repeatTotal = String(CONFIG.repeatCount);
 
     if (icon) icon.innerHTML = `<i class="fa-solid ${safeText(presentation.icon)}"></i>`;
     if (typeLabel) typeLabel.textContent = presentation.label;
     if (title) title.textContent = presentation.title;
     if (message) message.textContent = presentation.message;
-    if (time) time.textContent = relativeTime(notif);
+    if (timeLabel) timeLabel.textContent = relativeTime(notif);
     if (meta) meta.innerHTML = chips.map((value) => `<span>${safeText(value)}</span>`).join("");
 
     card.classList.remove("is-visible", "is-leaving");
-
     void card.offsetWidth;
-
     card.classList.add("is-visible");
 
     updateQueueState();
 
-    console.log(`[admin_notifications] Showing ${currentRepeatCount}/${REPEAT_COUNT}:`, presentation.type, currentNotificationKey);
+    console.log(`[admin_notifications] Showing ${currentRepeatCount}/${CONFIG.repeatCount}:`, presentation.type, currentNotificationKey);
 
     hideTimer = setTimeout(() => {
       if (isHovered) {
@@ -566,11 +560,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       finishAppearance();
-    }, DISPLAY_DURATION);
+
+    }, CONFIG.displayDuration);
   }
 
   /* ============================================================
-     FINISH ONE APPEARANCE
+     FINISH APPEARANCE
   ============================================================ */
 
   function finishAppearance() {
@@ -592,17 +587,15 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.remove("is-leaving");
       isShowing = false;
 
-      if (currentRepeatCount < REPEAT_COUNT) {
+      if (currentRepeatCount < CONFIG.repeatCount) {
         currentRepeatCount++;
 
-        const elapsedSinceAppearanceStart = Date.now() - currentAppearanceStartedAt;
-        const waitForNextAppearance = Math.max(250, FLASH_INTERVAL - elapsedSinceAppearanceStart);
+        const elapsed = Date.now() - currentAppearanceStartedAt;
+        const wait = Math.max(250, CONFIG.flashInterval - elapsed);
 
         repeatTimer = setTimeout(() => {
-          if (!currentNotification) return;
-
-          showNotification(currentNotification, true);
-        }, waitForNextAppearance);
+          if (currentNotification && !sessionExpired) showNotification(currentNotification, true);
+        }, wait);
 
         return;
       }
@@ -614,17 +607,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       updateQueueState();
 
-      nextTimer = setTimeout(() => showNextNotification(), BETWEEN_EVENTS_DELAY);
+      nextTimer = setTimeout(showNextNotification, CONFIG.betweenEventsDelay);
 
-    }, EXIT_DURATION);
+    }, CONFIG.exitDuration);
   }
 
   /* ============================================================
-     NEXT FIFO EVENT
+     NEXT EVENT
   ============================================================ */
 
   function showNextNotification() {
-    if (isShowing || currentNotification) return;
+    if (sessionExpired || isShowing || currentNotification) return;
 
     sortQueue();
 
@@ -646,7 +639,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================================
-     PREEMPT CURRENT EVENT
+     SAME-STUDENT PREEMPTION
   ============================================================ */
 
   function preemptCurrentNotification() {
@@ -670,17 +663,16 @@ document.addEventListener("DOMContentLoaded", () => {
       currentNotificationKey = "";
       currentRepeatCount = 0;
       currentAppearanceStartedAt = 0;
-
       isShowing = false;
 
       updateQueueState();
       showNextNotification();
 
-    }, EXIT_DURATION);
+    }, CONFIG.exitDuration);
   }
 
   /* ============================================================
-     HOVER TO PAUSE
+     HOVER PAUSE
   ============================================================ */
 
   card.addEventListener("mouseenter", () => {
@@ -696,11 +688,63 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ============================================================
+     STAFF SESSION EXPIRED
+  ============================================================ */
+
+  function handleSessionExpired() {
+    if (sessionExpired) return;
+
+    sessionExpired = true;
+    sseConnected = false;
+
+    if (pollTimer) {
+      clearInterval(pollTimer);
+      pollTimer = null;
+    }
+
+    clearTimeout(hideTimer);
+    clearTimeout(repeatTimer);
+    clearTimeout(nextTimer);
+    clearTimeout(reconnectTimer);
+
+    closeEventStream();
+
+    pendingQueue = [];
+    currentNotification = null;
+    currentNotificationKey = "";
+    currentRepeatCount = 0;
+    isShowing = true;
+
+    setConnectionState("expired");
+    updateQueueState();
+
+    card.dataset.type = "timeout";
+    card.dataset.eventType = "session_expired";
+    card.dataset.repeat = "1";
+    card.dataset.repeatTotal = "1";
+
+    if (icon) icon.innerHTML = `<i class="fa-solid fa-lock"></i>`;
+    if (typeLabel) typeLabel.textContent = "Session Ended";
+    if (title) title.textContent = "Admin session expired";
+    if (message) message.textContent = "Your staff session is no longer active. Please sign in again to continue receiving live examination results.";
+    if (timeLabel) timeLabel.textContent = "Login required";
+    if (meta) meta.innerHTML = `<span>SESSION EXPIRED</span>`;
+
+    card.classList.remove("is-leaving");
+    void card.offsetWidth;
+    card.classList.add("is-visible");
+
+    console.warn("[admin_notifications] Staff session expired. Notification engine stopped.");
+
+    window.dispatchEvent(new CustomEvent("emis:staff-session-expired"));
+  }
+
+  /* ============================================================
      FETCH
   ============================================================ */
 
   async function fetchNotifications(initial = false) {
-    if (isPolling) return;
+    if (isPolling || sessionExpired) return;
 
     isPolling = true;
 
@@ -715,6 +759,11 @@ document.addEventListener("DOMContentLoaded", () => {
         cache: "no-store",
         headers: { Accept: "application/json" }
       });
+
+      if (response.status === 401 || response.status === 403) {
+        handleSessionExpired();
+        return;
+      }
 
       if (!response.ok) {
         console.warn("[admin_notifications] Notification fetch failed:", response.status);
@@ -732,20 +781,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       notifications.sort((a, b) => {
         const sequenceDifference = getSequence(a) - getSequence(b);
-
         return sequenceDifference || eventNumericTime(a) - eventNumericTime(b);
       });
 
       notifications.forEach((notif) => addNotification(notif, !initial, initial));
 
       const serverLatest = Number(data.latest_sequence || 0);
-
       if (serverLatest > lastSequence) lastSequence = serverLatest;
 
       updateQueueState();
 
     } catch (error) {
-      console.error("[admin_notifications] Fetch failed:", error);
+      if (!sessionExpired) console.error("[admin_notifications] Fetch failed:", error);
 
     } finally {
       isPolling = false;
@@ -765,26 +812,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function scheduleSseReconnect() {
-    clearTimeout(reconnectTimer);
+    if (sessionExpired || !navigator.onLine) return;
 
+    clearTimeout(reconnectTimer);
     reconnectAttempts++;
 
-    const delay = Math.min(
-      SSE_RECONNECT_MAX,
-      SSE_RECONNECT_MIN * Math.pow(2, Math.min(reconnectAttempts - 1, 4))
-    );
+    const delay = Math.min(CONFIG.sseReconnectMax, CONFIG.sseReconnectMin * Math.pow(2, Math.min(reconnectAttempts - 1, 4)));
 
     setConnectionState("reconnecting");
 
     reconnectTimer = setTimeout(() => {
-      if (!document.hidden) startEventStream();
+      if (!document.hidden && !sessionExpired) startEventStream();
     }, delay);
 
     console.warn(`[admin_notifications] SSE reconnect scheduled in ${delay}ms.`);
   }
 
   function startEventStream() {
-    if (!window.EventSource || eventSource) return;
+    if (!window.EventSource || eventSource || sessionExpired || !navigator.onLine) return;
 
     clearTimeout(reconnectTimer);
     setConnectionState("connecting");
@@ -795,7 +840,6 @@ document.addEventListener("DOMContentLoaded", () => {
       eventSource.addEventListener("connected", () => {
         sseConnected = true;
         reconnectAttempts = 0;
-
         setConnectionState("connected");
 
         console.log("[admin_notifications] SSE connected.");
@@ -804,7 +848,6 @@ document.addEventListener("DOMContentLoaded", () => {
       eventSource.addEventListener("notification", (event) => {
         try {
           const notif = JSON.parse(event.data);
-
           addNotification(notif, true, false);
 
         } catch (error) {
@@ -819,10 +862,19 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       eventSource.onerror = () => {
-        sseConnected = false;
+        if (sessionExpired) return;
 
+        sseConnected = false;
         closeEventStream();
-        scheduleSseReconnect();
+
+        /*
+         * Poll once before reconnecting. If staff authentication
+         * has genuinely expired, fetchNotifications() will detect
+         * the 401/403 and stop the reconnect loop cleanly.
+         */
+        fetchNotifications(false).finally(() => {
+          if (!sessionExpired) scheduleSseReconnect();
+        });
       };
 
     } catch (error) {
@@ -834,15 +886,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================================
-     POLLING FALLBACK
+     POLLING RECONCILIATION
   ============================================================ */
 
   function startPolling() {
     if (pollTimer) clearInterval(pollTimer);
 
     pollTimer = setInterval(() => {
-      if (!document.hidden) fetchNotifications(false);
-    }, POLL_INTERVAL);
+      /*
+       * Visible Admin Results page keeps the staff session active.
+       * Hidden tabs do not continually extend inactivity.
+       */
+      if (!document.hidden && !sessionExpired) fetchNotifications(false);
+    }, CONFIG.pollInterval);
   }
 
   /* ============================================================
@@ -850,6 +906,11 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================================================ */
 
   closeBtn?.addEventListener("click", () => {
+    if (sessionExpired) {
+      window.location.href = "/admin_login";
+      return;
+    }
+
     clearTimeout(hideTimer);
     clearTimeout(repeatTimer);
     clearTimeout(nextTimer);
@@ -874,7 +935,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateQueueState();
       showNextNotification();
 
-    }, EXIT_DURATION);
+    }, CONFIG.exitDuration);
   });
 
   /* ============================================================
@@ -882,14 +943,17 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================================================ */
 
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) return;
+    if (document.hidden || sessionExpired) return;
 
     clearHiddenActivity();
 
+    /*
+     * Returning within the 20-minute staff-session window refreshes
+     * the session and reconciles anything missed while hidden.
+     */
     fetchNotifications(false);
 
     if (!eventSource) startEventStream();
-
     if (!isShowing && !currentNotification && pendingQueue.length) showNextNotification();
   });
 
@@ -898,16 +962,27 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================================================ */
 
   window.addEventListener("online", () => {
+    if (sessionExpired) return;
+
     setConnectionState("connecting");
 
     fetchNotifications(false);
-
     if (!eventSource) startEventStream();
   });
 
   window.addEventListener("offline", () => {
+    if (sessionExpired) return;
+
     setConnectionState("offline");
     closeEventStream();
+  });
+
+  /* ============================================================
+     RESULT SUBMISSION EVENT
+  ============================================================ */
+
+  window.addEventListener("emis:result-submitted", () => {
+    if (!sessionExpired) fetchNotifications(false);
   });
 
   /* ============================================================
@@ -928,15 +1003,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ============================================================
-     GLOBAL API
+     GLOBAL DIAGNOSTIC API
   ============================================================ */
 
   window.EmisAdminNotifications = {
     refresh: () => fetchNotifications(false),
-
     push: (notification) => addNotification(notification, true, false),
-
-    showNext: () => showNextNotification(),
+    showNext: showNextNotification,
 
     queueLength: () => pendingQueue.length,
 
@@ -944,24 +1017,38 @@ document.addEventListener("DOMContentLoaded", () => {
       pending: pendingQueue.length,
       current: currentNotification,
       currentType: currentNotification ? getEventType(currentNotification) : null,
+
       repeat: currentRepeatCount,
-      repeatTotal: REPEAT_COUNT,
+      repeatTotal: CONFIG.repeatCount,
+
       lastSequence,
       sseConnected,
       reconnectAttempts,
+
       unreadWhileHidden,
-      droppedQueueItems
+      droppedQueueItems,
+      knownNotifications: knownKeys.size,
+
+      sessionExpired,
+      connection: host.dataset.connection || ""
     }),
 
     reconnect: () => {
+      if (sessionExpired) return false;
+
       closeEventStream();
       reconnectAttempts = 0;
+
+      fetchNotifications(false);
       startEventStream();
+
+      return true;
     },
 
     clear: () => {
       pendingQueue = [];
       knownKeys.clear();
+      knownKeyOrder = [];
 
       currentNotification = null;
       currentNotificationKey = "";
@@ -993,13 +1080,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     await fetchNotifications(true);
 
+    if (sessionExpired) return;
+
     if (navigator.onLine) startEventStream();
 
     startPolling();
 
     if (!isShowing && !currentNotification && pendingQueue.length) showNextNotification();
 
-    console.log(`[admin_notifications] Premium FIFO engine ready. Queue: ${pendingQueue.length}, repeat: ${REPEAT_COUNT}x.`);
+    console.log(`[admin_notifications] READY ✓ Queue=${pendingQueue.length} Repeat=${CONFIG.repeatCount}x TermMode=JSS+SS.`);
   }
 
   initNotifications();

@@ -2,6 +2,7 @@
 
 import os
 import csv
+import time
 from functools import wraps
 from pathlib import Path
 
@@ -24,15 +25,82 @@ CLASS_ARMS = CLASS_ARMS_BY_LEVEL
 
 
 # ==========================================================
+# ADMIN / TEACHER SESSION
+#
+# Staff sessions remain active while being used.
+# They expire only after 2 hours without staff activity.
+# ==========================================================
+
+STAFF_SESSION_TIMEOUT_SECONDS = 2 * 60 * 60
+STAFF_SESSION_ACTIVITY_KEY = "_staff_last_activity"
+
+
+def start_staff_session(user_type, username, teacher_id=None):
+    session.clear()
+    session.permanent = True
+
+    role = str(user_type or "").strip().lower()
+
+    session["user_type"] = role
+    session["username"] = str(username or "").strip()
+
+    if role == "admin":
+        session["admin_username"] = username
+
+    if role == "teacher" and teacher_id:
+        session["teacher_id"] = teacher_id
+
+    session[STAFF_SESSION_ACTIVITY_KEY] = time.time()
+    session.modified = True
+
+
+def refresh_staff_session():
+    role = str(session.get("user_type") or "").strip().lower()
+
+    if role not in {"admin", "teacher"}:
+        return False
+
+    now = time.time()
+    last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
+
+    if last_activity is not None:
+        try:
+            elapsed = now - float(last_activity)
+
+            if elapsed > STAFF_SESSION_TIMEOUT_SECONDS:
+                print(
+                    f"[STAFF SESSION] {role} session expired after "
+                    f"{round(elapsed / 3600, 2)} hour(s) inactivity."
+                )
+                session.clear()
+                return False
+
+        except (TypeError, ValueError):
+            pass
+
+    session.permanent = True
+    session[STAFF_SESSION_ACTIVITY_KEY] = now
+    session.modified = True
+
+    return True
+
+# ==========================================================
 # DECORATORS
 # ==========================================================
+
 def admin_only(view_func):
-    """Restrict access to admin users only."""
+    """Restrict access to Admin users only."""
 
     @wraps(view_func)
     def wrapper(*args, **kwargs):
-        if session.get("user_type") != "admin":
+        role = str(session.get("user_type") or "").strip().lower()
+
+        if role != "admin":
             flash("Access Restricted — Admin privileges required.", "error")
+            return redirect(url_for("admin_bp.admin_login"))
+
+        if not refresh_staff_session():
+            flash("Your Admin session expired after 2 hours of inactivity. Please log in again.", "warning")
             return redirect(url_for("admin_bp.admin_login"))
 
         return view_func(*args, **kwargs)
@@ -41,11 +109,17 @@ def admin_only(view_func):
 
 
 def teacher_allowed(view_func):
-    """Allow both admin and teacher; block unauthenticated."""
+    """Allow Admin and Teacher users while maintaining the 20-minute staff session."""
 
     @wraps(view_func)
     def wrapper(*args, **kwargs):
-        if session.get("user_type") not in ["admin", "teacher"]:
+        role = str(session.get("user_type") or "").strip().lower()
+
+        if role not in {"admin", "teacher"}:
+            return redirect(url_for("admin_bp.admin_login"))
+
+        if not refresh_staff_session():
+            flash("Your session expired after 2 hours of inactivity. Please log in again.", "warning")
             return redirect(url_for("admin_bp.admin_login"))
 
         return view_func(*args, **kwargs)
@@ -56,6 +130,7 @@ def teacher_allowed(view_func):
 # ==========================================================
 # UNIFIED ADMIN / TEACHER LOGIN
 # ==========================================================
+
 @admin_bp.route("/admin_login", methods=["GET", "POST"])
 def admin_login():
     if request.method == "POST":
@@ -66,17 +141,11 @@ def admin_login():
         admin_password = os.getenv("ADMIN_PASSWORD", "").strip()
 
         if admin_username and admin_password and username == admin_username and password == admin_password:
-            session.clear()
-            session["user_type"] = "admin"
-            session["username"] = username
-            session["admin_username"] = username
+            start_staff_session("admin", username)
             return redirect(url_for("admin_bp.admin_dashboard"))
 
         if validate_teacher_login(username, password):
-            session.clear()
-            session["user_type"] = "teacher"
-            session["teacher_id"] = username
-            session["username"] = username
+            start_staff_session("teacher", username, teacher_id=username)
             return redirect(url_for("admin_bp.admin_teachers"))
 
         return render_template("admin_login.html", error="Invalid Username or Password")
@@ -87,6 +156,7 @@ def admin_login():
 # ==========================================================
 # TEACHER ID GENERATION
 # ==========================================================
+
 @admin_bp.route("/generate_teacher_ids", methods=["GET", "POST"])
 @admin_only
 def generate_teacher_ids_api():
@@ -127,6 +197,7 @@ def delete_teacher_id(teacher_id):
 # ==========================================================
 # DASHBOARD & SUB-PAGES
 # ==========================================================
+
 @admin_bp.route("/admin")
 @admin_bp.route("/admin/dashboard")
 @admin_only
@@ -167,6 +238,7 @@ def admin_mock_exam():
 # ==========================================================
 # ADMIN-ONLY SECTIONS
 # ==========================================================
+
 @admin_bp.route("/admin/ids")
 @admin_only
 def admin_ids():
@@ -206,6 +278,7 @@ def admin_dash_results():
 # ==========================================================
 # VIEW CREDENTIALS
 # ==========================================================
+
 @admin_bp.route("/view_credentials")
 @admin_only
 def view_credentials():
@@ -236,6 +309,7 @@ def view_credentials():
 # ==========================================================
 # VIEW OLD MOCK EXAM RESULTS
 # ==========================================================
+
 @admin_bp.route("/view_results")
 @admin_only
 def view_results():
@@ -269,6 +343,7 @@ def view_results():
 # ==========================================================
 # YEAR / CLASS / SUBJECT RESULTS PAGE
 # ==========================================================
+
 @admin_bp.route("/admin/results")
 @teacher_allowed
 def admin_results():
@@ -278,6 +353,7 @@ def admin_results():
 # ==========================================================
 # LOGOUT
 # ==========================================================
+
 @admin_bp.route("/admin/logout")
 def admin_logout():
     session.clear()

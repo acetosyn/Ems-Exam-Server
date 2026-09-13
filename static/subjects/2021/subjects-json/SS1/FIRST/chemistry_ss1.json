@@ -1,0 +1,534 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Chemistry",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Cement is used for making concrete by mixing cement with ________.",
+      "diagram": null,
+      "options": [
+        "A. Sand, gravel and water",
+        "B. Sand, oil and water",
+        "C. Limestone, gravel and air",
+        "D. Sand, gravel and air"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is a heavy chemical?",
+      "diagram": null,
+      "options": [
+        "A. Calcium chloride",
+        "B. Sodium chloride",
+        "C. Concentrated sulphuric acid",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Which of the following best describes the production of fine chemicals?",
+      "diagram": null,
+      "options": [
+        "A. They are produced in smaller quantities with a very high degree of purity",
+        "B. They are produced in smaller quantities with a very low degree of purity",
+        "C. They are produced in small quantities with a high binding purity",
+        "D. They are produced in large quantities with a very low degree of purity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "What is a hypothesis?",
+      "diagram": null,
+      "options": [
+        "A. A law",
+        "B. A chemical observation",
+        "C. A proposed explanation",
+        "D. All of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "Which field of chemistry involves the development of cleaning materials and personal care products?",
+      "diagram": null,
+      "options": [
+        "A. Chemical engineering",
+        "B. Medicinal chemistry",
+        "C. Green chemistry",
+        "D. Consumer product chemistry"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is the most complete definition of Chemistry?",
+      "diagram": null,
+      "options": [
+        "A. The art of dividing mixtures and compounds into basic components",
+        "B. The science concerned with the laws and effects of molecular forces interacting with each other",
+        "C. The study of matter and the changes it undergoes from one form to another",
+        "D. All of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following processes involves only a physical change?",
+      "diagram": null,
+      "options": [
+        "A. Dissolving sugar in water",
+        "B. Burning a candle",
+        "C. Extracting akamu from corn",
+        "D. Making chalk"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following contains, in order, an element, a mixture and a compound?",
+      "diagram": null,
+      "options": [
+        "A. Air, pure water, sodium chloride",
+        "B. Magnesium, air, water",
+        "C. Sodium chloride, magnesium, air",
+        "D. Water, air, magnesium"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "A compound has the formula C₃H₇O. What is the number of atoms of each element present in one molecule?",
+      "diagram": null,
+      "options": [
+        "A. C₁H₁O₁",
+        "B. C₃H₁O₀",
+        "C. C₃H₇O₀",
+        "D. C₃H₇O₁"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "The atoms ³¹₁₅P and ³²₁₆S have the same number of ________.",
+      "diagram": null,
+      "options": [
+        "A. Protons",
+        "B. Neutrons",
+        "C. Electrons",
+        "D. Mass numbers"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "The periodic classification of elements is an arrangement of the elements in order of their ________.",
+      "diagram": null,
+      "options": [
+        "A. Atomic weight",
+        "B. Atomic number",
+        "C. Molecular weight",
+        "D. Isotopic weight"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "A small quantity of solid camphor was left exposed and gradually disappeared without becoming liquid. The camphor is said to have undergone ________.",
+      "diagram": null,
+      "options": [
+        "A. Sublimation",
+        "B. Filtration",
+        "C. Melting",
+        "D. Separation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "The following substances exist as diatomic molecules EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Oxygen",
+        "B. Helium",
+        "C. Iodine",
+        "D. Bromine"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "When an atom of an element gains an electron, it becomes ________.",
+      "diagram": null,
+      "options": [
+        "A. Chemically inactive",
+        "B. Negatively charged",
+        "C. A cation",
+        "D. A complex element"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "Calculate the percentage composition of hydrogen in a compound containing 46.5% carbon and 28.3% oxygen.",
+      "diagram": null,
+      "options": [
+        "A. 25.2%",
+        "B. 22.5%",
+        "C. 52.5%",
+        "D. 55.2%"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "Which of the following correctly gives the symbols for sodium, argon and zinc respectively?",
+      "diagram": null,
+      "options": [
+        "A. So, Ar and Zi",
+        "B. Na, Ar and Z",
+        "C. Na, Ag and Zn",
+        "D. Na, Ar and Zn"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 17,
+      "question": "The following phenomena can be used to illustrate the movement of particles of matter EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Brownian movement",
+        "B. Diffusion",
+        "C. Mole",
+        "D. Osmosis"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "The relative molecular mass of water is ________. [H = 1, O = 16]",
+      "diagram": null,
+      "options": [
+        "A. 24",
+        "B. 42",
+        "C. 18",
+        "D. 81"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "An atom of element Y has 16 electrons and 17 neutrons. What is its mass number?",
+      "diagram": null,
+      "options": [
+        "A. 16",
+        "B. 17",
+        "C. 33",
+        "D. 1"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Which particles are found in the nucleus of an atom?",
+      "diagram": null,
+      "options": [
+        "A. Protons and electrons",
+        "B. Electrons and neutrons",
+        "C. Protons and neutrons",
+        "D. Protons only"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "A positively or negatively charged atom or group of atoms is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. Molecule",
+        "B. Atom",
+        "C. Element",
+        "D. Ion"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following changes is generally irreversible?",
+      "diagram": null,
+      "options": [
+        "A. Physical process",
+        "B. Physical change",
+        "C. Change of state",
+        "D. Chemical change"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "In one molecule of sulphur, S₈, there are ________ sulphur atoms.",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 8",
+        "C. 0",
+        "D. 2"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Who discovered the electron?",
+      "diagram": null,
+      "options": [
+        "A. Robert Millikan",
+        "B. J. J. Thomson",
+        "C. John Dalton",
+        "D. Osei Yaw Ababio"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "Electron energy levels or shells can be represented by the letters ________.",
+      "diagram": null,
+      "options": [
+        "A. A, B, C, D, E",
+        "B. F, G, H, I, J",
+        "C. K, L, M, N, O",
+        "D. P, Q, R, S"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "The relative atomic mass of chlorine is approximately 35.5 because of ________.",
+      "diagram": null,
+      "options": [
+        "A. Isotopy",
+        "B. Its position in Group 17",
+        "C. It is a gas",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "In Niels Bohr's model of the atom, the atom is considered to be ________ in shape.",
+      "diagram": null,
+      "options": [
+        "A. Cylindrical",
+        "B. Conical",
+        "C. Spherical",
+        "D. Rectangular"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following chemical equations is correctly balanced?",
+      "diagram": null,
+      "options": [
+        "A. NaOH + HCl → NaCl + H₂O",
+        "B. CH₄ + 2O₂ → CO₂ + H₂O",
+        "C. NH₃ + 2O₂ → HNO₃ + 2H₂O",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "According to John Dalton's atomic theory, atoms cannot be created or destroyed during a chemical reaction.",
+      "diagram": null,
+      "options": [
+        "A. No",
+        "B. Yes",
+        "C. Not applicable",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "The simplest formula showing the simplest whole-number ratio of atoms present in a compound is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Almighty formula",
+        "B. Molecular formula",
+        "C. Empirical formula",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Which of the following is an example of a chemical change?",
+      "diagram": null,
+      "options": [
+        "A. Melting ice",
+        "B. Dissolving salt in water",
+        "C. Rusting of iron",
+        "D. Sublimation of camphor"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Which method can be used to separate an insoluble solid from a liquid?",
+      "diagram": null,
+      "options": [
+        "A. Filtration",
+        "B. Sublimation",
+        "C. Distillation",
+        "D. Chromatography"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "The smallest particle of an element that can take part in a chemical reaction is an ________.",
+      "diagram": null,
+      "options": [
+        "A. Atom",
+        "B. Compound",
+        "C. Mixture",
+        "D. Solution"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following particles has no electrical charge?",
+      "diagram": null,
+      "options": [
+        "A. Proton",
+        "B. Electron",
+        "C. Neutron",
+        "D. Cation"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "The atomic number of an element is equal to the number of ________ in the nucleus of its atom.",
+      "diagram": null,
+      "options": [
+        "A. Neutrons",
+        "B. Protons",
+        "C. Nucleons",
+        "D. Electron shells"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "Which of the following is a compound?",
+      "diagram": null,
+      "options": [
+        "A. Air",
+        "B. Brass",
+        "C. Water",
+        "D. Oxygen"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Which state of matter has a definite volume but no definite shape?",
+      "diagram": null,
+      "options": [
+        "A. Solid",
+        "B. Liquid",
+        "C. Gas",
+        "D. Vapour only"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "The direct change of a solid into a gas without passing through the liquid state is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Condensation",
+        "B. Freezing",
+        "C. Sublimation",
+        "D. Evaporation"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "An atom contains 12 protons and 12 electrons. What is the overall charge on the atom?",
+      "diagram": null,
+      "options": [
+        "A. +12",
+        "B. −12",
+        "C. 0",
+        "D. +24"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Which of the following correctly represents an anion?",
+      "diagram": null,
+      "options": [
+        "A. Na⁺",
+        "B. Ca²⁺",
+        "C. Cl⁻",
+        "D. Al³⁺"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions in this section. Write your answers clearly and show all necessary workings.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) State two examples each of physical properties and chemical properties. (4 marks)\n(b) State three importance of Chemistry. (3 marks)\n(c) State five branches of Chemistry. (3 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Briefly differentiate between the three states of matter. (6 marks)\n(b) An organic compound was found on analysis to contain carbon, hydrogen and chlorine. Carbon constituted 45.86%, hydrogen 8.92% and chlorine 45.22%.\nCalculate:\n(i) The empirical formula of the compound. (2 marks)\n(ii) The molecular formula of the compound if its relative molecular mass is 78.5. (2 marks)\n[C = 12, H = 1, Cl = 35.5]",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) State four effects of chemical industries. (4 marks)\n(b) State the steps involved in the scientific method. (3 marks)\n(c) Define the following terms:\n(i) Mixture (1 mark)\n(ii) Compound (1 mark)\n(iii) Element (1 mark)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "List the first twenty elements of the periodic table with their symbols. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "Complete the table shown in the diagram below by filling in the missing mass numbers, proton numbers, electron numbers and neutron numbers. (4 marks)",
+        "diagram": "/static/uploads/diagrams/2021/chemistry_ss1/essay_5a.PNG"
+      },
+      {
+        "id": 6,
+        "question": "(a) State the processes labelled i, ii, iii and iv in the diagram showing the changes between solid, liquid and gas.\n(b) State three differences between physical changes and chemical changes. (2 marks)",
+        "diagram": "/static/uploads/diagrams/2021/chemistry_ss1/essay_5b.PNG"
+      },
+      {
+        "id": 7,
+        "question": "(a) Calculate the relative atomic mass of sulphur having isotopes of masses 32, 33, 34 and 36 with abundances of 95.02%, 0.75%, 4.21% and 0.02% respectively. (3 marks)\n(b) Calculate the Relative Molecular Mass (RMM) of C₃H₇N. (4 marks)\n[C = 12, H = 1, N = 14]",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

@@ -1,0 +1,520 @@
+{
+  "subject": "Biology",
+  "class": "SS1",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+    {
+      "id": 1,
+      "question": "The Hydra has two body layers of cells called ________.",
+      "diagram": null,
+      "options": [
+        "A. Ectodermis and enteron",
+        "B. Ectoderm and endoderm",
+        "C. Endodermis and dermis",
+        "D. Epidermis and dermis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is a tissue?",
+      "diagram": null,
+      "options": [
+        "A. Volvox",
+        "B. Chlamydomonas",
+        "C. Epidermis",
+        "D. Paramecium"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Animal cells are different from plant cells because animal cells have ________.",
+      "diagram": null,
+      "options": [
+        "A. Definite cell wall",
+        "B. Large vacuole",
+        "C. Centrioles",
+        "D. Chloroplasts"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Which of the following characteristics is NOT possessed by most plants? Ability to ________.",
+      "diagram": null,
+      "options": [
+        "A. Move away from stimuli",
+        "B. Respire",
+        "C. Reproduce",
+        "D. Adapt to the environment"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "The group Mollusca is characterized by the presence of ________.",
+      "diagram": null,
+      "options": [
+        "A. Jointed appendages",
+        "B. Star-shaped bodies",
+        "C. Backbones",
+        "D. Soft, non-segmented bodies"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following pairs of organisms are photosynthetic?",
+      "diagram": null,
+      "options": [
+        "A. Amoeba and Paramecium",
+        "B. Volvox and Rhizopus",
+        "C. Chlamydomonas and Euglena",
+        "D. Nostoc and Plasmodium"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "The following life processes are common to both plants and animals EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Respiration",
+        "B. Growth",
+        "C. Reproduction",
+        "D. Photosynthesis"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following is correct about organs?",
+      "diagram": null,
+      "options": [
+        "A. They are composed of specialized cells only",
+        "B. They perform certain overall functions",
+        "C. They are not found in plants",
+        "D. Unicellular animals have few organs"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "The folded portion of a mitochondrion is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Cristae",
+        "B. Cell membrane",
+        "C. Nucleus",
+        "D. Partition"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Respiration is an essential life process that provides living cells with ________.",
+      "diagram": null,
+      "options": [
+        "A. Oxygen",
+        "B. Sugars",
+        "C. Energy",
+        "D. Carbon"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "In the binomial system of naming organisms, the second name is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Scientific name",
+        "B. Common name",
+        "C. Generic name",
+        "D. Specific name"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "The branch of Biology that deals with the principles of classification of organisms is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Biological index",
+        "B. Nomenclature",
+        "C. Taxonomy",
+        "D. Ecology"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "The science of life is referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. Anatomy",
+        "B. Biology",
+        "C. Ecology",
+        "D. Phylogeny"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The organism at the organ level of organization of life is ________.",
+      "diagram": null,
+      "options": [
+        "A. Euglena",
+        "B. Heart",
+        "C. Paramecium",
+        "D. Hydra"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "An example of an organism that exists as a colony is ________.",
+      "diagram": null,
+      "options": [
+        "A. Spirogyra",
+        "B. Paramecium",
+        "C. Euglena",
+        "D. Volvox"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "Gymnosperms bear naked seeds because they lack ________.",
+      "diagram": null,
+      "options": [
+        "A. Ovary",
+        "B. Colourful flowers",
+        "C. Pollen grains",
+        "D. Stigma"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "Hydra is considered to be at the tissue level of organization of life because it ________.",
+      "diagram": null,
+      "options": [
+        "A. Has numerous cells that perform different functions",
+        "B. Has developed organs and systems",
+        "C. Has a poorly developed nervous system",
+        "D. Reproduces by budding"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "In both dicotyledonous and monocotyledonous plants, root hairs originate from the ________.",
+      "diagram": null,
+      "options": [
+        "A. Piliferous layer",
+        "B. Epidermal layer",
+        "C. Endodermal layer",
+        "D. Cortical layer"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "Which of the following organisms possesses both plant and animal characteristics?",
+      "diagram": null,
+      "options": [
+        "A. Amoeba",
+        "B. Paramecium",
+        "C. Euglena",
+        "D. Mucor"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is NOT an organ?",
+      "diagram": null,
+      "options": [
+        "A. Hair",
+        "B. Tongue",
+        "C. Rhizome",
+        "D. Heart"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following plant cell structures contains cellulose?",
+      "diagram": null,
+      "options": [
+        "A. Vacuole",
+        "B. Cytoplasm",
+        "C. Cell wall",
+        "D. Chloroplast"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "The following life processes are common to both plants and animals EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Respiration",
+        "B. Growth",
+        "C. Reproduction",
+        "D. Photosynthesis"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following represents the correct sequence from the simplest to the most complex level of organization?",
+      "diagram": null,
+      "options": [
+        "A. Mitochondrion, muscle, alimentary canal, rabbit, heart, neurone",
+        "B. Mitochondrion, neurone, muscle, heart, alimentary canal, rabbit",
+        "C. Alimentary canal, neurone, muscle, heart, rabbit, mitochondrion",
+        "D. Rabbit, mitochondrion, heart, neurone, alimentary canal, muscle"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Euglena can be classified as an animal because of the possession of a ________.",
+      "diagram": null,
+      "options": [
+        "A. Nucleus",
+        "B. Cytoplasm",
+        "C. Cell wall",
+        "D. Pellicle"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following is NOT correct about the living cell?",
+      "diagram": null,
+      "options": [
+        "A. The basic unit of a living organism is the cell",
+        "B. All living organisms are either single cells or groups of cells",
+        "C. All the cells in organisms are the same",
+        "D. There is no life apart from the life in cells"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is NOT true of Rhizopus or Mucor? It ________.",
+      "diagram": null,
+      "options": [
+        "A. Manufactures its own food",
+        "B. Has non-septate hyphae",
+        "C. Undergoes sexual and asexual reproduction",
+        "D. Bears spores in sporangia"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Fish cannot normally survive on land because they have ________.",
+      "diagram": null,
+      "options": [
+        "A. A body covered with scales",
+        "B. A streamlined body",
+        "C. No lungs",
+        "D. No walking appendages"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following organisms is at the tissue level of organization?",
+      "diagram": null,
+      "options": [
+        "A. Euglena",
+        "B. Paramecium",
+        "C. Volvox",
+        "D. Hydra"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "Most of the energy in the cell is produced in the ________.",
+      "diagram": null,
+      "options": [
+        "A. Mitochondrion",
+        "B. Lysosome",
+        "C. Cytoplasm",
+        "D. Golgi apparatus"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The levels of organization are: I. Tissue II. System III. Cell IV. Organ. Which sequence shows them in increasing order of complexity?",
+      "diagram": null,
+      "options": [
+        "A. I, II, III, IV",
+        "B. III, I, IV, II",
+        "C. III, IV, I, II",
+        "D. IV, III, I, II"
+      ],
+      "correctOption": "B"
+    },
+
+    {
+  "id": 31,
+  "question": "Which organelle controls the activities of the cell?",
+  "diagram": null,
+  "options": [
+    "A. Nucleus",
+    "B. Vacuole",
+    "C. Ribosome",
+    "D. Lysosome"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 32,
+  "question": "Which of the following organelles is mainly responsible for protein synthesis?",
+  "diagram": null,
+  "options": [
+    "A. Golgi apparatus",
+    "B. Ribosome",
+    "C. Vacuole",
+    "D. Centriole"
+  ],
+  "correctOption": "B"
+},
+{
+  "id": 33,
+  "question": "Which structure controls the movement of substances into and out of the cell?",
+  "diagram": null,
+  "options": [
+    "A. Cell membrane",
+    "B. Cell wall",
+    "C. Cytoplasm",
+    "D. Nucleolus"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 34,
+  "question": "Which of the following organisms is unicellular?",
+  "diagram": null,
+  "options": [
+    "A. Hydra",
+    "B. Amoeba",
+    "C. Moss",
+    "D. Fern"
+  ],
+  "correctOption": "B"
+},
+{
+  "id": 35,
+  "question": "A group of similar tissues working together to perform a specific function forms a ________.",
+  "diagram": null,
+  "options": [
+    "A. Cell",
+    "B. Organ",
+    "C. System",
+    "D. Organism"
+  ],
+  "correctOption": "B"
+},
+{
+  "id": 36,
+  "question": "Which of the following organisms belongs to the fungi group?",
+  "diagram": null,
+  "options": [
+    "A. Rhizopus",
+    "B. Euglena",
+    "C. Amoeba",
+    "D. Volvox"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 37,
+  "question": "Which of the following is found in plant cells but absent in animal cells?",
+  "diagram": null,
+  "options": [
+    "A. Nucleus",
+    "B. Cytoplasm",
+    "C. Chloroplast",
+    "D. Cell membrane"
+  ],
+  "correctOption": "C"
+},
+{
+  "id": 38,
+  "question": "The jelly-like material in which cell organelles are suspended is called ________.",
+  "diagram": null,
+  "options": [
+    "A. Cytoplasm",
+    "B. Cell wall",
+    "C. Vacuole",
+    "D. Nucleus"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 39,
+  "question": "Which of the following is the correct sequence of organization from simple to complex?",
+  "diagram": null,
+  "options": [
+    "A. Cell → Tissue → Organ → System",
+    "B. Tissue → Cell → Organ → System",
+    "C. Organ → Tissue → Cell → System",
+    "D. System → Organ → Tissue → Cell"
+  ],
+  "correctOption": "A"
+},
+{
+  "id": 40,
+  "question": "Which of the following organisms shows both autotrophic and heterotrophic modes of nutrition?",
+  "diagram": null,
+  "options": [
+    "A. Paramecium",
+    "B. Euglena",
+    "C. Mucor",
+    "D. Amoeba"
+  ],
+  "correctOption": "B"
+}
+
+
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer three (3) questions in this section. Write your answers clearly and draw well-labelled diagrams where required.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Name four similarities found in plant and animal cells. (4 marks)\n(b) Draw and fully label an 8–10cm diagram of a typical animal cell. (6 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) (i) What is a cell? (2 marks)\n(ii) Make a labelled diagram, 8–10cm long, of Euglena. (5 marks)\n(b) (i) List three animal-like features of Euglena. (2 marks)\n(ii) State two plant-like features of Euglena. (1 mark)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) (i) In a tabular form, state four differences between a plant cell and an animal cell. (4 marks)\n(ii) State four similarities between a plant cell and an animal cell. (2 marks)\n(b) Identify four classes of organisms found in Phylum Vertebrata.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) (i) Name the four levels of organization in living organisms. (4 marks)\n(ii) Explain two of the levels of organization mentioned in (a)(i). (2 marks)\n(b) State the level of organization of each of the following:\n(i) Euglena\n(ii) Onion bulb\n(iii) Blood\n(iv) Hydra. (4 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "class_category": "SS1"
+}

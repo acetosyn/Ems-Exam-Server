@@ -1,0 +1,644 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Chemistry",
+  "class": "SS1",
+  "exam_title": "2nd Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The bonds present in crystalline ammonium chloride are ______.",
+      "diagram": null,
+      "options": [
+        "A. Covalent and dative",
+        "B. Ionic and covalent",
+        "C. Ionic, covalent and dative",
+        "D. Ionic, covalent and hydrogen bonds"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following elements exists naturally as a diatomic molecule?",
+      "diagram": null,
+      "options": [
+        "A. Sodium",
+        "B. Oxygen",
+        "C. Iron",
+        "D. Neon"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "Noble gas atoms are held together in the condensed state mainly by ______.",
+      "diagram": null,
+      "options": [
+        "A. Van der Waals forces",
+        "B. Hydrogen bonds",
+        "C. Dative bonds",
+        "D. Covalent bonds"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Noble gases are chemically stable because they ______.",
+      "diagram": null,
+      "options": [
+        "A. Are chemically active",
+        "B. Contain equal numbers of protons and neutrons",
+        "C. Contain more electrons than protons",
+        "D. Have complete outer electron shells"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "Which of the following variables is a measure of the average kinetic energy of the molecules of a gas?",
+      "diagram": null,
+      "options": [
+        "A. Density",
+        "B. Pressure",
+        "C. Temperature",
+        "D. Volume"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Calculate the percentage by mass of calcium in CaCl₂. [Ca = 40.0, Cl = 35.5]",
+      "diagram": null,
+      "options": [
+        "A. 36.0%",
+        "B. 31.6%",
+        "C. 43.8%",
+        "D. 44.5%"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "The gas law which describes the relationship between the volume and absolute temperature of a fixed mass of gas at constant pressure is ______.",
+      "diagram": null,
+      "options": [
+        "A. Boyle's law",
+        "B. Charles' law",
+        "C. Dalton's law",
+        "D. Graham's law"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following phenomena leads to a decrease in the volume of a liquid in an open container?",
+      "diagram": null,
+      "options": [
+        "A. Brownian motion",
+        "B. Diffusion",
+        "C. Evaporation",
+        "D. Sublimation"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "The method used in separating petroleum into different fractions is ______.",
+      "diagram": null,
+      "options": [
+        "A. Sieving",
+        "B. Decantation",
+        "C. Solubility",
+        "D. Fractional distillation"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "Positive ions are formed from neutral atoms by the loss of ______.",
+      "diagram": null,
+      "options": [
+        "A. Neutrons",
+        "B. Protons",
+        "C. Nuclear charge",
+        "D. Electrons"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is not a metal?",
+      "diagram": null,
+      "options": [
+        "A. Sulphur",
+        "B. Sugar",
+        "C. Nitrogen",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "The neutron was discovered relatively late because ______.",
+      "diagram": null,
+      "options": [
+        "A. It is present in the nucleus",
+        "B. It is a fundamental particle",
+        "C. It does not move",
+        "D. It carries no electric charge"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "A Group 2 element has ______ valence electrons.",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The following factors affect the rate at which a salt dissolves in water EXCEPT ______.",
+      "diagram": null,
+      "options": [
+        "A. Size of the salt particles",
+        "B. Physical state of the solvent",
+        "C. Pressure",
+        "D. Temperature"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "A given mass of gas occupies 170 cm³ at 300 K. At what temperature will its volume be 350 cm³ if the pressure remains constant?",
+      "diagram": null,
+      "options": [
+        "A. 617.6 K",
+        "B. 500 K",
+        "C. 630 K",
+        "D. 450 K"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "Convert 45°C to Kelvin.",
+      "diagram": null,
+      "options": [
+        "A. 324 K",
+        "B. 318 K",
+        "C. 349 K",
+        "D. 450 K"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "One of the most important gases required to sustain human life is ______.",
+      "diagram": null,
+      "options": [
+        "A. Carbon(IV) oxide",
+        "B. Helium",
+        "C. Oxygen",
+        "D. Nitrogen"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Which of the following is a metal?",
+      "diagram": null,
+      "options": [
+        "A. Helium",
+        "B. Lithium",
+        "C. Carbon",
+        "D. Oxygen"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "The systematic arrangement and classification of chemical elements is represented by the ______.",
+      "diagram": null,
+      "options": [
+        "A. Periodic table",
+        "B. Time table",
+        "C. Content table",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "The phenomenon in which atoms of an element have the same atomic number but different mass numbers is called ______.",
+      "diagram": null,
+      "options": [
+        "A. Polymerism",
+        "B. Isotopy",
+        "C. Isomorphism",
+        "D. Isomerism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "An element with atomic number 12 is likely to form ______.",
+      "diagram": null,
+      "options": [
+        "A. Electrovalent bonds with a valency of 1",
+        "B. Electrovalent bonds with a valency of 2",
+        "C. Covalent bonds with a valency of 2",
+        "D. Covalent bonds with a valency of 1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "When a solid substance changes directly into a gas without passing through the liquid state, the process is called ______.",
+      "diagram": null,
+      "options": [
+        "A. Sublimation",
+        "B. Crystallization",
+        "C. Distillation",
+        "D. Evaporation"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following is a homogeneous gaseous mixture?",
+      "diagram": null,
+      "options": [
+        "A. Air",
+        "B. Wood",
+        "C. Milk",
+        "D. Paper"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "Which of the following correctly balances the equation Mg + O₂ → MgO?",
+      "diagram": null,
+      "options": [
+        "A. 2Mg + O₂ → 2MgO",
+        "B. 2Mg + O → 2MgO",
+        "C. 2Mg + O → MgO₂",
+        "D. 2Mg + O₂ → MgO₂"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following are chemical changes?\nI. Cooking of food\nII. Digestion of food\nIII. Freezing of water\nIV. Heating of water",
+      "diagram": null,
+      "options": [
+        "A. I and II only",
+        "B. I, II and III only",
+        "C. III and IV only",
+        "D. I, II, III and IV"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "A mixture of sand and camphor can be separated by ______.",
+      "diagram": null,
+      "options": [
+        "A. Fractional distillation",
+        "B. Sublimation",
+        "C. Chromatography",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "How many electrons are present in Na⁺?",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 10",
+        "C. 11",
+        "D. 12"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "The atomic number of chlorine is ______.",
+      "diagram": null,
+      "options": [
+        "A. 20",
+        "B. 17",
+        "C. 10",
+        "D. 5"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Which combination of atoms can form a polar covalent bond?",
+      "diagram": null,
+      "options": [
+        "A. H and Br",
+        "B. H and H",
+        "C. Na and Br",
+        "D. N and N"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "An atom has 17 electrons and contains 18 neutrons in its nucleus. What is its mass number?",
+      "diagram": null,
+      "options": [
+        "A. 25",
+        "B. 27",
+        "C. 35",
+        "D. 43"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "The fundamental particles present in equal numbers in a neutral atom are ______.",
+      "diagram": null,
+      "options": [
+        "A. Protons and electrons",
+        "B. Neutrons and electrons",
+        "C. Protons and neutrons",
+        "D. Protons and positrons"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "What is the relative formula mass of Li₂S? [Li = 7, S = 32]",
+      "diagram": null,
+      "options": [
+        "A. 46",
+        "B. 54",
+        "C. 56",
+        "D. 65"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Van der Waals' equation explains the behaviour of ______.",
+      "diagram": null,
+      "options": [
+        "A. Ideal gases",
+        "B. Real gases",
+        "C. Mixtures of gases only",
+        "D. Diatomic gases only"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Negative ions are formed from neutral atoms by ______.",
+      "diagram": null,
+      "options": [
+        "A. Loss of neutrons",
+        "B. Gain of protons",
+        "C. Increase in nuclear charge",
+        "D. Gain of electrons"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 35,
+      "question": "The chemical formula of water is ______.",
+      "diagram": null,
+      "options": [
+        "A. HO",
+        "B. H₂O",
+        "C. NO₂",
+        "D. CO₂"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "The neutron was discovered relatively late because ______.",
+      "diagram": null,
+      "options": [
+        "A. It is present in the nucleus",
+        "B. It is a fundamental particle",
+        "C. It does not move",
+        "D. It carries no electric charge"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 37,
+      "question": "A Group 1 element has ______ valence electron.",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Which of the following professions has the least direct application of chemistry?",
+      "diagram": null,
+      "options": [
+        "A. Miners",
+        "B. Engineers",
+        "C. Philosophers",
+        "D. Laboratory scientists"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "Which method is suitable for separating a mixture of solid particles of different sizes?",
+      "diagram": null,
+      "options": [
+        "A. Magnetic separation",
+        "B. Sublimation",
+        "C. Fractional distillation",
+        "D. Sieving"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "A hypothesis is ______.",
+      "diagram": null,
+      "options": [
+        "A. A scientific law",
+        "B. A proposed explanation that can be tested",
+        "C. An experiment",
+        "D. An analysis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "Which of the following is a physical change?",
+      "diagram": null,
+      "options": [
+        "A. Burning of kerosene",
+        "B. Decay of leaves",
+        "C. Burning of matches",
+        "D. Freezing of ice-cream"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 42,
+      "question": "Which types of bonding or intermolecular forces are present in ice?",
+      "diagram": null,
+      "options": [
+        "A. Covalent bonds only",
+        "B. Ionic and covalent bonds",
+        "C. Covalent bonds and hydrogen bonds",
+        "D. Ionic, covalent and dative bonds"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 43,
+      "question": "Which of the following elements exists naturally as a diatomic molecule?",
+      "diagram": null,
+      "options": [
+        "A. Sodium",
+        "B. Oxygen",
+        "C. Iron",
+        "D. Neon"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 44,
+      "question": "Which of the following is the chemical symbol for silicon?",
+      "diagram": null,
+      "options": [
+        "A. H",
+        "B. Na",
+        "C. Si",
+        "D. S"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "Halogens are elements in ______.",
+      "diagram": null,
+      "options": [
+        "A. Group I",
+        "B. Group II",
+        "C. Group III",
+        "D. Group VII"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 46,
+      "question": "A gas occupies 375 cm³ at a pressure of 770 mmHg. Find its volume if the pressure is reduced to 750 mmHg at constant temperature.",
+      "diagram": null,
+      "options": [
+        "A. 385 cm³",
+        "B. 485 cm³",
+        "C. 358 cm³",
+        "D. 400 cm³"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "At 17°C, hydrogen gas occupies 125 cm³. What volume will it occupy at 100°C if the pressure remains constant?",
+      "diagram": null,
+      "options": [
+        "A. 260 cm³",
+        "B. 161 cm³",
+        "C. 390 cm³",
+        "D. 400 cm³"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Which state of matter has neither a fixed shape nor a fixed volume?",
+      "diagram": null,
+      "options": [
+        "A. Gas",
+        "B. Solid",
+        "C. Liquid",
+        "D. Crystal"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 49,
+      "question": "Which of the following does NOT provide direct evidence for the kinetic theory of matter?",
+      "diagram": null,
+      "options": [
+        "A. Brownian motion",
+        "B. Diffusion",
+        "C. Osmosis",
+        "D. Linear expansivity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 50,
+      "question": "The bond between the two nitrogen atoms in a nitrogen molecule, N₂, is a ______.",
+      "diagram": null,
+      "options": [
+        "A. Single covalent bond",
+        "B. Double covalent bond",
+        "C. Triple covalent bond",
+        "D. Single electrovalent bond"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "ANSWER FOUR QUESTIONS",
+    "questions": [
+      {
+        "id": 1,
+        "question": "a. i. State Boyle's law. (2 marks)\n   ii. Give the mathematical expression of Boyle's law. (1 mark)\n\nb. State four postulates of the kinetic theory of gases. (4 marks)\n\nc. i. Consider the sequence below:\n   Liquid → Gas → Solid\n   State the processes represented by the changes P, Q and R respectively. (2 marks)\n   ii. Some solids, when heated, change directly to the gaseous state. What name is given to this phenomenon? (1 mark)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "a. 80 cm³ of methane, CH₄, diffuses through a porous membrane in 20 seconds while 50 cm³ of gas Q diffuses through the same membrane in 25 seconds. Calculate the relative molecular mass of gas Q. [CH₄ = 16.0]\n\nb. Different substances exhibit different types of bonding. Copy and complete the table shown in the diagram by stating the type of bonding and the units which make up each substance. (3 marks)\n\nc. i. State Charles' law. (2 marks)\n   ii. Give the mathematical expression of Charles' law. (1 mark)",
+        "diagram": "/static/uploads/diagrams/2021/chemistry_ss1/essay_2b.PNG"
+      },
+      {
+        "id": 3,
+        "question": "a. A given mass of gas occupies 500 cm³ at 30°C and 650 mmHg. Calculate the volume of the gas at standard temperature and pressure. [Standard temperature = 273 K, standard pressure = 760 mmHg] (4 marks)\n\nb. An organic compound of relative molecular mass 92 was found on analysis to contain 52.0% carbon, 13.3% hydrogen and 34.7% oxygen. [C = 12, H = 1, O = 16]\nDetermine its:\n   i. empirical formula;\n   ii. molecular formula. (6 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "a. The table in the diagram gives the electronic configurations of elements V, W, X and Y. Use the information to answer the following:\n   i. Which element is a noble gas?\n   ii. Which elements are metals?\n   iii. Which elements belong to Group 1?\n   iv. Which element is a non-metal?\n   v. What type of bond exists between V and W? (5 marks)\n\nb. Explain briefly the formation of a chemical bond between sodium, Na, and chlorine, Cl. (2 marks)\n\nc. List three properties of electrovalent compounds. (3 marks)",
+        "diagram": "/static/uploads/diagrams/2021/chemistry_ss1/essay_4a.PNG"
+      },
+      {
+        "id": 5,
+        "question": "a. A fixed mass of gas occupies 30 cm³ at 5°C and 6 atm. Calculate the volume of the gas at S.T.P. [Standard temperature = 273 K, standard pressure = 1 atm] (4 marks)\n\nb. An enclosed vessel contains 0.1 mol of nitrogen and 0.2 mol of chlorine. Calculate:\n   i. the mole fraction of nitrogen and chlorine; (2 marks)\n   ii. the partial pressure of nitrogen and chlorine if the total pressure of the gases is 1260 mmHg. (2 marks)\n   iii. State two properties of covalent compounds. (2 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "SECOND",
+  "term_label": "2nd Term"
+}

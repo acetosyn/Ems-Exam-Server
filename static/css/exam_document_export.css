@@ -1,0 +1,320 @@
+/* ==========================================================
+   EMIS — TEACHER COPY
+   CLEAN PDF / DOCX PREVIEW
+========================================================== */
+
+body.modal-open { overflow: hidden; }
+
+
+/* ==========================================================
+   TEACHER COPY MODAL
+========================================================== */
+
+.teacher-copy-modal-card {
+  width: min(1280px, 96vw); height: min(940px, 95vh); display: flex; flex-direction: column;
+  overflow: hidden; border: 1px solid #e4e9ef; border-radius: 14px; background: #fff;
+  box-shadow: 0 22px 60px rgba(38, 53, 70, .14);
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.teacher-copy-modal-card .modal-header {
+  flex: 0 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;
+  padding: 17px 20px 14px; border-bottom: 1px solid #edf1f5; background: #fff;
+}
+
+.teacher-copy-heading { min-width: 0; }
+
+.teacher-copy-kicker {
+  display: inline-flex; align-items: center; gap: 7px; margin-bottom: 4px;
+  color: #3d7fbe; font-size: .72rem; font-weight: 800; letter-spacing: .055em; text-transform: uppercase;
+}
+
+.teacher-copy-modal-card h3 {
+  margin: 0; color: #27384b; font-size: 1.05rem; line-height: 1.3; font-weight: 750;
+}
+
+.teacher-copy-meta {
+  display: block; margin-top: 4px; color: #7b8896; font-size: .8rem; font-weight: 600;
+}
+
+
+/* ==========================================================
+   CLOSE
+========================================================== */
+
+.teacher-copy-close {
+  width: 33px; height: 33px; flex: 0 0 33px; display: grid; place-items: center;
+  border: 1px solid #e2e8ee; border-radius: 8px; background: #fafbfd; color: #697789;
+  cursor: pointer; transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.teacher-copy-close:hover { background: #f2f6f9; border-color: #d7dfe7; color: #26384b; }
+
+
+/* ==========================================================
+   TOOLBAR
+========================================================== */
+
+.teacher-copy-toolbar {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 9px 18px; border-bottom: 1px solid #edf1f5; background: #fbfcfe;
+}
+
+.teacher-copy-note {
+  min-width: 0; display: flex; align-items: center; gap: 8px;
+  color: #657486; font-size: .78rem; line-height: 1.4;
+}
+
+.teacher-copy-note i { flex: 0 0 auto; color: #5792ca; }
+
+.teacher-copy-downloads { display: flex; align-items: center; gap: 7px; }
+
+
+/* ==========================================================
+   MODAL DOWNLOAD BUTTONS
+========================================================== */
+
+.teacher-copy-download {
+  min-height: 33px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 6px 11px; border: 1px solid #dfe5eb; border-radius: 8px; background: #fff;
+  font-size: .77rem; font-weight: 750; cursor: pointer; transition: .17s ease;
+}
+
+.teacher-copy-download.docx { color: #486f98; }
+
+.teacher-copy-download.pdf {
+  color: #2f73b7; background: #f1f7fd; border-color: #d9e9f8;
+}
+
+.teacher-copy-download:hover:not(:disabled) {
+  transform: translateY(-1px); border-color: #cedbe7;
+  box-shadow: 0 4px 12px rgba(40, 59, 78, .07);
+}
+
+.teacher-copy-download:disabled {
+  opacity: .5; cursor: not-allowed; transform: none; box-shadow: none;
+}
+
+
+/* ==========================================================
+   PDF PREVIEW
+========================================================== */
+
+.teacher-copy-preview {
+  position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden;
+  background: #dde4eb;
+}
+
+.teacher-copy-preview iframe {
+  display: block; width: 100%; height: 100%; min-height: 620px;
+  border: 0; background: #fff; opacity: 1; transition: opacity .18s ease;
+}
+
+.teacher-copy-preview iframe.loading { opacity: 0; }
+
+
+/* ==========================================================
+   LOADER
+========================================================== */
+
+.teacher-copy-loader {
+  position: absolute; inset: 0; z-index: 2; display: grid; place-items: center;
+  background: #f7f9fb;
+}
+
+.teacher-copy-loader.hidden { display: none; }
+
+.teacher-copy-loader-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: #667688; font-size: .79rem; font-weight: 650; text-align: center;
+}
+
+.teacher-copy-spinner {
+  width: 29px; height: 29px; margin-bottom: 8px;
+  border: 3px solid #e0e8f0; border-top-color: #5995cf; border-radius: 50%;
+  animation: teacherSpin .7s linear infinite;
+}
+
+@keyframes teacherSpin { to { transform: rotate(360deg); } }
+
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.teacher-copy-footer {
+  flex: 0 0 auto; display: flex; justify-content: flex-end;
+  padding: 9px 18px; border-top: 1px solid #edf1f5; background: #fff;
+}
+
+.teacher-copy-footer button {
+  min-height: 31px; padding: 5px 13px; border: 1px solid #dde4eb; border-radius: 8px;
+  background: #fff; color: #5c6b7c; font-size: .77rem; font-weight: 700;
+  cursor: pointer; transition: .17s ease;
+}
+
+.teacher-copy-footer button:hover {
+  background: #f6f8fa; border-color: #d2dae3; color: #32465a;
+}
+
+
+/* ==========================================================
+   LIBRARY ROW TEACHER COPY BUTTON
+========================================================== */
+
+.mini-icon-button.teacher-copy-btn { color: #477cad; }
+
+.mini-icon-button.teacher-copy-btn:hover {
+  color: #286dac; background: #eef6fd; border-color: #d6e7f6;
+}
+
+
+/* ==========================================================
+   SELECTED EXAM — NAVY + GOLD QUICK ACTIONS
+========================================================== */
+
+.term-filter-export {
+  margin-left: auto; display: flex; align-items: center; gap: 7px; padding-left: 12px;
+}
+
+.selected-exam-action {
+  min-height: 35px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 6px 11px; border: 1px solid #b98a22; border-radius: 8px;
+  background: linear-gradient(135deg, #0f2138 0%, #152f4d 100%);
+  color: #f6c453; font-size: .76rem; font-weight: 800; letter-spacing: .005em;
+  white-space: nowrap; cursor: pointer;
+  box-shadow: 0 3px 10px rgba(15, 33, 56, .16), inset 0 0 0 1px rgba(255, 211, 105, .04);
+  transition: transform .17s ease, box-shadow .17s ease, background .17s ease, border-color .17s ease, color .17s ease;
+}
+
+.selected-exam-action i {
+  color: #ffd76a; font-size: .84rem;
+}
+
+.selected-exam-action.view {
+  border-color: #d1a438;
+  box-shadow: 0 3px 11px rgba(15, 33, 56, .18), 0 0 0 1px rgba(214, 168, 55, .08);
+}
+
+.selected-exam-action.download {
+  border-color: #aa7d1e;
+}
+
+.selected-exam-action:hover:not(:disabled) {
+  background: linear-gradient(135deg, #15304e 0%, #1b4168 100%);
+  border-color: #d4aa42; color: #ffdc78; transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(15, 33, 56, .23);
+}
+
+.selected-exam-action:hover:not(:disabled) i { color: #ffe395; }
+
+.selected-exam-action:active:not(:disabled) {
+  transform: translateY(0);
+  background: linear-gradient(135deg, #0d1d31 0%, #122b47 100%);
+  box-shadow: 0 3px 8px rgba(15, 33, 56, .2);
+}
+
+.selected-exam-action:disabled {
+  background: linear-gradient(135deg, #263648 0%, #304357 100%);
+  border-color: #586879; color: #b9aa7d; opacity: .62;
+  cursor: not-allowed; transform: none; box-shadow: none;
+}
+
+.selected-exam-action:disabled i { color: #b9aa7d; }
+
+.selected-exam-action.hidden { display: none; }
+
+
+/* ==========================================================
+   ALL CLASSES — QUICK ACTIONS ONLY
+========================================================== */
+
+.term-filter-bar.export-only {
+  min-height: 50px; display: flex; align-items: center; justify-content: flex-end;
+  padding: 7px 9px; border: 1px solid #dce5ed; border-radius: 10px;
+  background: linear-gradient(90deg, #f8fafc 0%, #f3f6f9 100%);
+}
+
+.term-filter-bar.export-only .term-filter-title,
+.term-filter-bar.export-only .term-filter-options {
+  display: none;
+}
+
+.term-filter-bar.export-only .term-filter-export {
+  width: auto; margin-left: auto; padding-left: 0;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 900px) {
+  .term-filter-export { width: auto; margin-left: auto; gap: 6px; padding-left: 8px; }
+
+  .selected-exam-action {
+    min-height: 34px; padding: 6px 9px; font-size: .73rem;
+  }
+
+  .term-filter-bar.export-only {
+    min-height: auto; padding: 8px;
+  }
+
+  .term-filter-bar.export-only .term-filter-export {
+    width: 100%; margin: 0; padding: 0;
+  }
+
+  .term-filter-bar.export-only .selected-exam-action {
+    flex: 1;
+  }
+
+  .teacher-copy-modal-card {
+    width: 97vw; height: 96vh;
+  }
+
+  .teacher-copy-preview iframe {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 720px) {
+  .teacher-copy-modal-card {
+    width: 97vw; height: 96vh; border-radius: 11px;
+  }
+
+  .teacher-copy-modal-card .modal-header {
+    padding: 14px 15px 12px;
+  }
+
+  .teacher-copy-toolbar {
+    align-items: stretch; flex-direction: column; padding: 9px 14px;
+  }
+
+  .teacher-copy-downloads {
+    width: 100%;
+  }
+
+  .teacher-copy-download {
+    flex: 1;
+  }
+
+  .teacher-copy-preview iframe {
+    min-height: 470px;
+  }
+
+  .teacher-copy-footer {
+    padding: 8px 14px;
+  }
+
+  .term-filter-export {
+    width: 100%; margin-left: 0; padding-left: 0;
+  }
+
+  .selected-exam-action {
+    flex: 1;
+  }
+}

@@ -1,0 +1,764 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Technical Drawing",
+  "class": "SS3",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "A drawing that shows several views of an object using perpendicular projectors is called ________ projection.",
+      "diagram": null,
+      "options": [
+        "A. Perspective",
+        "B. Orthographic",
+        "C. Oblique",
+        "D. Pictorial"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "The horizontal plane in orthographic projection is abbreviated as ________.",
+      "diagram": null,
+      "options": [
+        "A. H.P",
+        "B. V.P",
+        "C. A.V",
+        "D. H.T"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "The vertical plane in projection is normally abbreviated as ________.",
+      "diagram": null,
+      "options": [
+        "A. H.P",
+        "B. V.P",
+        "C. H.T",
+        "D. A.P"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "The line of intersection between the horizontal and vertical planes is commonly called the ________.",
+      "diagram": null,
+      "options": [
+        "A. XY reference line",
+        "B. Axis of symmetry",
+        "C. Centre line",
+        "D. Ground contour"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "A view seen from directly above an object is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Elevation",
+        "B. Plan",
+        "C. End view",
+        "D. Section"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "A view seen directly from the front is generally called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Plan",
+        "B. Elevation",
+        "C. Development",
+        "D. Auxiliary plan"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "Which projection system places the object between the observer and the plane of projection?",
+      "diagram": null,
+      "options": [
+        "A. First-angle projection",
+        "B. Third-angle projection",
+        "C. Perspective projection",
+        "D. Oblique projection"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "Which projection system places the plane of projection between the observer and the object?",
+      "diagram": null,
+      "options": [
+        "A. First-angle",
+        "B. Third-angle",
+        "C. Oblique",
+        "D. Isometric"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "In first-angle projection, the plan is normally placed ________ the elevation.",
+      "diagram": null,
+      "options": [
+        "A. Above",
+        "B. Below",
+        "C. Beside only",
+        "D. Inside"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "A line seen in its actual size in a view is said to be shown in ________.",
+      "diagram": null,
+      "options": [
+        "A. Apparent length",
+        "B. True length",
+        "C. Foreshortened length",
+        "D. Projected length"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "The line AB above is located on ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_11.PNG",
+      "options": [
+        "A. Back",
+        "B. Vertical plane",
+        "C. Horizontal plane",
+        "D. Vertical trace"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "The illustration above represents ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_11.PNG",
+      "options": [
+        "A. Modular line",
+        "B. Line space",
+        "C. Locus",
+        "D. Auxiliary view"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "A line perpendicular to the horizontal plane appears as a ________ in plan.",
+      "diagram": null,
+      "options": [
+        "A. Point",
+        "B. True-length line",
+        "C. Circle",
+        "D. Curve"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "A line parallel to the vertical plane shows its true length in the ________.",
+      "diagram": null,
+      "options": [
+        "A. Plan only",
+        "B. Elevation",
+        "C. End view only",
+        "D. Development"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "The point where a line meets the horizontal plane is its ________.",
+      "diagram": null,
+      "options": [
+        "A. Vertical trace",
+        "B. Horizontal trace",
+        "C. True point",
+        "D. Reference point"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "The point where a line meets the vertical plane is its ________.",
+      "diagram": null,
+      "options": [
+        "A. Horizontal trace",
+        "B. Vertical trace",
+        "C. Auxiliary point",
+        "D. Plan trace"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "A plane surface inclined to one principal plane and perpendicular to the other is called an ________ plane.",
+      "diagram": null,
+      "options": [
+        "A. Oblique",
+        "B. Auxiliary inclined",
+        "C. Horizontal",
+        "D. Profile"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "An auxiliary view is mainly used to obtain the ________ of an inclined surface.",
+      "diagram": null,
+      "options": [
+        "A. True shape",
+        "B. Hidden edge",
+        "C. Centre line",
+        "D. Title block"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "Which line type is normally used for visible outlines?",
+      "diagram": null,
+      "options": [
+        "A. Thick continuous line",
+        "B. Thin dashed line",
+        "C. Thin chain line",
+        "D. Freehand wavy line"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Hidden details are conventionally represented by ________ lines.",
+      "diagram": null,
+      "options": [
+        "A. Thick continuous",
+        "B. Thin dashed",
+        "C. Thin chain",
+        "D. Dimension"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Centre lines are normally represented by ________.",
+      "diagram": null,
+      "options": [
+        "A. Thin chain lines",
+        "B. Thick continuous lines",
+        "C. Freehand lines",
+        "D. Zigzag lines"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "A dimension line should normally terminate with ________.",
+      "diagram": null,
+      "options": [
+        "A. Arrowheads",
+        "B. Circles only",
+        "C. Thick blocks",
+        "D. Letters"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "The illustration above represents ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+      "options": [
+        "A. Reference plane",
+        "B. Reference angle",
+        "C. Reference line",
+        "D. Plus sign"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "The quadrant denoted M is the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+      "options": [
+        "A. 4th",
+        "B. 3rd",
+        "C. 1st",
+        "D. 2nd"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "The quadrant denoted N is ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+      "options": [
+        "A. Above H.P and below V.P",
+        "B. Below V.P and above N.P",
+        "C. Behind V.P and beside H.P",
+        "D. Above V.P and behind H.P"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "In first-angle orthographic projection, the plane is drawn at ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_23.PNG",
+      "options": [
+        "A. N",
+        "B. O",
+        "C. M",
+        "D. P"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "A line inclined to both H.P and V.P generally appears ________ in both principal views.",
+      "diagram": null,
+      "options": [
+        "A. Foreshortened",
+        "B. In true length",
+        "C. As a point",
+        "D. As a circle"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "The shortest distance between a point and a plane is measured along a line ________ to the plane.",
+      "diagram": null,
+      "options": [
+        "A. Parallel",
+        "B. Perpendicular",
+        "C. Oblique",
+        "D. Tangential"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "A line lying wholly in the horizontal plane has zero height above the ________.",
+      "diagram": null,
+      "options": [
+        "A. H.P",
+        "B. V.P",
+        "C. Profile plane",
+        "D. Ground line"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The angle θ shown in the inclined plane is ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_30.PNG",
+      "options": [
+        "A. 45°",
+        "B. 90°",
+        "C. 60°",
+        "D. 30°"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "When a solid rests on one edge and its axis is inclined to H.P, the solid is described as an ________ solid.",
+      "diagram": null,
+      "options": [
+        "A. Inclined",
+        "B. Regular",
+        "C. Truncated",
+        "D. Sectioned"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "The square shape X represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+      "options": [
+        "A. Elevation",
+        "B. Plan",
+        "C. End view",
+        "D. Perspective"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "The shape Y represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+      "options": [
+        "A. End view",
+        "B. End plan",
+        "C. Front view",
+        "D. True shape"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Z represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+      "options": [
+        "A. Plan",
+        "B. Isometric",
+        "C. Reference plane",
+        "D. Square"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "The illustration above represents an ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_32.PNG",
+      "options": [
+        "A. Inclined solid",
+        "B. Inclined plane",
+        "C. Four cardinal points",
+        "D. Plus sign"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "The diagram above represents ________ projection.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+      "options": [
+        "A. Isometric",
+        "B. Orthographic",
+        "C. Oblique",
+        "D. Axonometric"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "The view in the direction of arrow K represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+      "options": [
+        "A. Plan",
+        "B. Block",
+        "C. Elevation",
+        "D. Isometric"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "The view in the direction of arrow P represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+      "options": [
+        "A. Front view",
+        "B. End view",
+        "C. Plan",
+        "D. Orthographic"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "The view in the direction of arrow M represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_36.PNG",
+      "options": [
+        "A. End view",
+        "B. Front view",
+        "C. Back view",
+        "D. Plan"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "A scale of 1:200 is a ________ scale.",
+      "diagram": null,
+      "options": [
+        "A. Reduction",
+        "B. Enlargement",
+        "C. Full-size",
+        "D. Diagonal only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 41,
+      "question": "A scale of 1:1 means the drawing is ________.",
+      "diagram": null,
+      "options": [
+        "A. Half size",
+        "B. Double size",
+        "C. Full size",
+        "D. Quarter size"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "A curve generated by a point on a circle rolling along a straight line is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Cycloid",
+        "B. Ellipse",
+        "C. Spiral",
+        "D. Involute"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "The curve traced by the end of a taut string unwound from a circle is an ________.",
+      "diagram": null,
+      "options": [
+        "A. Involute",
+        "B. Cycloid",
+        "C. Parabola",
+        "D. Hyperbola"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "A section obtained by cutting a cone parallel to its base is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Circle",
+        "B. Ellipse",
+        "C. Parabola",
+        "D. Hyperbola"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "A section obtained by cutting a cone at an angle to its axis without intersecting the base is usually an ________.",
+      "diagram": null,
+      "options": [
+        "A. Ellipse",
+        "B. Circle",
+        "C. Triangle",
+        "D. Rectangle"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 46,
+      "question": "In isometric drawing, the three principal axes are separated by ________.",
+      "diagram": null,
+      "options": [
+        "A. 90°",
+        "B. 120°",
+        "C. 60°",
+        "D. 45°"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 47,
+      "question": "The receding axes in a standard isometric drawing are commonly drawn at ________ to the horizontal.",
+      "diagram": null,
+      "options": [
+        "A. 30°",
+        "B. 45°",
+        "C. 60°",
+        "D. 90°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "The view above represents an ________ drawing.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_48.PNG",
+      "options": [
+        "A. Orthographic",
+        "B. Isometric",
+        "C. Oblique",
+        "D. Axonometric"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "A conventional building drawing that shows the arrangement of rooms from above is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Floor plan",
+        "B. Elevation",
+        "C. Section",
+        "D. Site note"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "The vertical view of the outside face of a building is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. Elevation",
+        "B. Plan",
+        "C. Development",
+        "D. Perspective only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 51,
+      "question": "A horizontal structural member over a door or window opening is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Lintel",
+        "B. Sill",
+        "C. Riser",
+        "D. Tread"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 52,
+      "question": "The vertical face of a stair step is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Tread",
+        "B. Riser",
+        "C. Going",
+        "D. Landing"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 53,
+      "question": "The horizontal surface of a stair step is the ________.",
+      "diagram": null,
+      "options": [
+        "A. Tread",
+        "B. Riser",
+        "C. Stringer",
+        "D. Flight"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 54,
+      "question": "A continuous series of steps between two landings is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Flight",
+        "B. Going",
+        "C. Riser",
+        "D. Lintel"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 55,
+      "question": "A flat platform between flights of stairs is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Landing",
+        "B. Tread",
+        "C. Riser",
+        "D. Stringer"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 56,
+      "question": "The diagram above represents a ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_56.PNG",
+      "options": [
+        "A. Window",
+        "B. Door",
+        "C. Block",
+        "D. Lintel"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 57,
+      "question": "In building drawing, a door is commonly represented in plan by showing the door leaf and its ________.",
+      "diagram": null,
+      "options": [
+        "A. Swing arc",
+        "B. Roof pitch",
+        "C. Centre line only",
+        "D. Foundation width"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 58,
+      "question": "The part labelled K is the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_58.PNG",
+      "options": [
+        "A. Stringer",
+        "B. Riser",
+        "C. Landing",
+        "D. Step"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 59,
+      "question": "The part labelled M is the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_58.PNG",
+      "options": [
+        "A. Staircase",
+        "B. Block",
+        "C. Riser",
+        "D. Window"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 60,
+      "question": "The part labelled W is known as the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss3/diagram_58.PNG",
+      "options": [
+        "A. Lintel",
+        "B. Landing",
+        "C. Tread",
+        "D. Going"
+      ],
+      "correctOption": "D"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer two (2) questions. Show all construction lines clearly and use appropriate drawing instruments.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "A triangular lamina is given in first-angle projection.\n(a) Reproduce the given views accurately.\n(b) Construct the true shape of the lamina.\n(c) Measure and state the lengths of its three sides.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Draw the elevation and complete the plan of a hexagonal pyramid, then construct a suitable auxiliary view.\n(b) A rectangular block is inclined at 30° to the horizontal. Draw its plan and end view in first-angle projection.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "A straight line AB is given by its plan and elevation.\n(i) Reproduce the given views.\n(ii) Determine the true length of AB.\n(iii) Determine the angle of inclination of AB to V.P.\n(iv) State the true length.\n(v) Determine the angles of inclination of the line to H.P and V.P.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "Explain first-angle and third-angle orthographic projection. State four differences between them and sketch the conventional arrangement of plan, elevation and end view for each system.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "Write short notes on any five of the following: horizontal trace, vertical trace, auxiliary view, true length, true shape, inclined plane, reference line.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

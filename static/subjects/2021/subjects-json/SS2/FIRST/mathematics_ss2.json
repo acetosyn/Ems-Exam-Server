@@ -1,0 +1,524 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Mathematics",
+  "class": "SS2",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 150,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Calculate the area of cross-section of a pipe of external diameter 14 cm with a circular hole of diameter 7 cm. Take π = 22/7.",
+      "diagram": null,
+      "options": [
+        "A. 115.5 cm²",
+        "B. 215.5 cm²",
+        "C. 315.3 cm²",
+        "D. 415.4 cm²"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Evaluate (5.375 × 10⁻⁶)³, correct to four significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 3.553 × 10⁻¹⁶",
+        "B. 2.553 × 10⁻¹⁶",
+        "C. 1.553 × 10⁻¹⁶",
+        "D. 4.553 × 10⁻¹⁶"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Evaluate ∛(1/64).",
+      "diagram": null,
+      "options": [
+        "A. 0.125",
+        "B. 0.25",
+        "C. 0.5",
+        "D. 4"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "A square of side 4 cm was measured as 4.2 cm. Find the percentage error in its area.",
+      "diagram": null,
+      "options": [
+        "A. 10.25%",
+        "B. 9.25%",
+        "C. 8.25%",
+        "D. 7.25%"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "The 43rd term of an AP is 26 and the common difference is 1/2. Find the first term.",
+      "diagram": null,
+      "options": [
+        "A. 4",
+        "B. 5",
+        "C. 6",
+        "D. 7"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "The 3rd and 5th terms of a GP are 27 and 243 respectively. If the common ratio is positive, find the sum of the first six terms.",
+      "diagram": null,
+      "options": [
+        "A. 1092",
+        "B. 1093",
+        "C. 2092",
+        "D. 3092"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "A GP has common ratio 3. If the difference between the 5th and 1st terms is 160, find the 5th term.",
+      "diagram": null,
+      "options": [
+        "A. 192",
+        "B. 182",
+        "C. 172",
+        "D. 162"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "The first and fourth terms of a GP are −3 and 24 respectively. Find the sum of the first four terms.",
+      "diagram": null,
+      "options": [
+        "A. 24",
+        "B. 15",
+        "C. 35",
+        "D. 45"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "The 9th and 22nd terms of an AP are 29 and 55 respectively. Find the sum of the first 60 terms.",
+      "diagram": null,
+      "options": [
+        "A. 4320",
+        "B. 4023",
+        "C. 4032",
+        "D. 4230"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Find the sum to infinity of 1 − x + x² − x³ + …, where |x|<1.",
+      "diagram": null,
+      "options": [
+        "A. 1/(1−x)",
+        "B. 1/(1+x)",
+        "C. 1−x",
+        "D. 1+x"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "Find y − x if 2x + 5y = 1 and 3x − 2y = 30.",
+      "diagram": null,
+      "options": [
+        "A. 11",
+        "B. −11",
+        "C. 8",
+        "D. −3"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "Solve 2x − y = 1 and 3x + y = 14 for x.",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. −2",
+        "C. 3",
+        "D. 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "Solve x + 2y = 1 and 2x + y = 5 for y.",
+      "diagram": null,
+      "options": [
+        "A. −1",
+        "B. −2",
+        "C. 1",
+        "D. 2"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "Madeenah's and Nabila's ages add up to 29. Seven years ago Nabila was twice Madeenah's age. How old is Nabila now?",
+      "diagram": null,
+      "options": [
+        "A. 12 years",
+        "B. 15 years",
+        "C. 17 years",
+        "D. 20 years"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "What must be added to x² + 6x to make it a perfect square?",
+      "diagram": null,
+      "options": [
+        "A. 9",
+        "B. 8",
+        "C. 7",
+        "D. 6"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "Solve 4x² + 5x + 1 = 0.",
+      "diagram": null,
+      "options": [
+        "A. ¼ and 1",
+        "B. −¼ and −1",
+        "C. −¼ and 1",
+        "D. ¼ and −1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "Find the equation whose roots are −1/3 and 3.",
+      "diagram": null,
+      "options": [
+        "A. 3x²−8x−3=0",
+        "B. 3x²+8x+3=0",
+        "C. 3x²−8x+3=0",
+        "D. 3x²−3x+8=0"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "The difference between two positive numbers is 5 and their product is 266. Find the smaller number.",
+      "diagram": null,
+      "options": [
+        "A. 11",
+        "B. 12",
+        "C. 13",
+        "D. 14"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "Mrs Bawa is x years old and her husband is three years younger. If the product of their ages is 550, how old is Mrs Bawa?",
+      "diagram": null,
+      "options": [
+        "A. 24",
+        "B. 25",
+        "C. 26",
+        "D. 27"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "A town had population 240,000 in January 1998 and grew by 2% per year. Find its population in January 2000.",
+      "diagram": null,
+      "options": [
+        "A. 480,000",
+        "B. 249,696",
+        "C. 249,600",
+        "D. 244,800"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "The 3rd term of an AP is 4x−2y and the 9th term is 10x−8y. Find the common difference.",
+      "diagram": null,
+      "options": [
+        "A. 19x−17y",
+        "B. 8x−4y",
+        "C. x−y",
+        "D. 2x"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "Simplify ∛(64a³).",
+      "diagram": null,
+      "options": [
+        "A. 8a",
+        "B. 4a",
+        "C. 16a",
+        "D. 4a²"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "The 6th term of an AP is half its 12th term. The first term is ________.",
+      "diagram": null,
+      "options": [
+        "A. Half the common difference",
+        "B. Double the common difference",
+        "C. The common difference",
+        "D. Zero"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "A cylindrical tank has volume 3080 m³ and base diameter 14 m. Find its depth. Take π=22/7.",
+      "diagram": null,
+      "options": [
+        "A. 25 m",
+        "B. 23 m",
+        "C. 22 m",
+        "D. 20 m"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "Find the range of the numbers 4, 8, 13, 17, 21 and 25.",
+      "diagram": null,
+      "options": [
+        "A. 17",
+        "B. 19",
+        "C. 21",
+        "D. 25"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "A hunter 1.6 m tall views a bird at the top of a tree at an angle of elevation of 45°. If he is 10.4 m from the tree, find the height of the tree.",
+      "diagram": null,
+      "options": [
+        "A. 8.8 m",
+        "B. 9.0 m",
+        "C. 10.4 m",
+        "D. 12.0 m"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "Acreages for rice, pineapple, cassava, cocoa and palm oil are 2, 5, 3, 11 and 9 respectively. Find the pie-chart angle for cassava.",
+      "diagram": null,
+      "options": [
+        "A. 36°",
+        "B. 60°",
+        "C. 108°",
+        "D. 180°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "If the 9th term of an AP is five times the 5th term, find the relationship between first term a and common difference d.",
+      "diagram": null,
+      "options": [
+        "A. a+2d=0",
+        "B. a+3d=0",
+        "C. 3a+5d=0",
+        "D. 2a+d=0"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Make r the subject of A = πr².",
+      "diagram": null,
+      "options": [
+        "A. r=A/π",
+        "B. r=√(A/π)",
+        "C. r=π/A",
+        "D. r=√(π/A)"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "Find xy if 3x − 5y + 5 = 0 and 4x − 7y + 8 = 0.",
+      "diagram": null,
+      "options": [
+        "A. 20",
+        "B. 5",
+        "C. 4",
+        "D. 9"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Find the next term of the AP 7, 11, 15, 19, …",
+      "diagram": null,
+      "options": [
+        "A. 21",
+        "B. 22",
+        "C. 23",
+        "D. 24"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Find the common ratio of 2, 6, 18, 54, …",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 6"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "If a:b = 4:7 and a = 20, find b.",
+      "diagram": null,
+      "options": [
+        "A. 28",
+        "B. 30",
+        "C. 35",
+        "D. 40"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Solve 3x + 4 = 19.",
+      "diagram": null,
+      "options": [
+        "A. 3",
+        "B. 4",
+        "C. 5",
+        "D. 6"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Find the simple interest on ₦20,000 at 5% per annum for 3 years.",
+      "diagram": null,
+      "options": [
+        "A. ₦2,000",
+        "B. ₦3,000",
+        "C. ₦4,000",
+        "D. ₦5,000"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "Find the area of a circle of radius 7 cm. Take π=22/7.",
+      "diagram": null,
+      "options": [
+        "A. 44 cm²",
+        "B. 77 cm²",
+        "C. 154 cm²",
+        "D. 308 cm²"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "If sin θ = 1/2 and 0°<θ<90°, find θ.",
+      "diagram": null,
+      "options": [
+        "A. 30°",
+        "B. 45°",
+        "C. 60°",
+        "D. 90°"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Find the mean of 2, 4, 6, 8 and 10.",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 8"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "If y varies directly as x and y=12 when x=4, find y when x=7.",
+      "diagram": null,
+      "options": [
+        "A. 18",
+        "B. 20",
+        "C. 21",
+        "D. 24"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Solve x² − 5x + 6 = 0.",
+      "diagram": null,
+      "options": [
+        "A. 1 and 6",
+        "B. 2 and 3",
+        "C. −2 and −3",
+        "D. 3 and 6"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "In a community, men contribute ₦p each and women ₦q each. In one week 3 men and 5 women contributed ₦9,500; in another week 5 men and 10 women contributed ₦17,500. Find p and q, and hence the amount contributed by 8 men and 12 women.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Without using tables, evaluate log₁₀6 + log₁₀45 − log₁₀27.\n(b) Form a quadratic equation whose roots are 2/3 and −3.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "The 2nd term of a GP is 6 and the 4th term is 54. Find (a) the first term and (b) the fifth term.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "Two consecutive positive integers are such that three times the smaller plus twice the larger is 17. Find the smaller number as a percentage of the sum of the two numbers, correct to three significant figures.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "Solve simultaneously: log₂x − log₂y = 2 and log₂(x − 2y) = 3.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "year": "2021",
+  "class_level": "SS1",
+  "class_category": "SS1",
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "subject": "Financial_accounting",
+  "objective_max": 60,
+  "essay_max": 40,
+  "total_max": 100,
+  "scores": {
+    "STD322": {
+      "admission_number": "std322",
+      "student_name": "JOHN DAVID",
+      "class_arm": "SS1_B/C",
+      "score": 15,
+      "updated_at": "2026-09-10 15:27:13",
+      "updated_by": "admin"
+    }
+  },
+  "updated_at": "2026-09-10 15:27:13"
+}

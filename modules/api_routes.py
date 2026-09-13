@@ -1,51 +1,33 @@
 # modules/api_routes.py
-from flask import Blueprint, jsonify, request, session, Response, stream_with_context
+from flask import Blueprint, jsonify, request, session, Response, stream_with_context, send_file
 from pathlib import Path
 from collections import deque
 from threading import Lock
-import json
-import time
-import uuid
-import sqlite3
 from datetime import datetime
 from io import BytesIO
-from flask import send_file
-from openpyxl import Workbook
+import json, time, uuid, sqlite3, re
+
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
-from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.page import PageMargins
-import re
-from openpyxl import Workbook, load_workbook
 
-from modules.supabase_results import (get_academic_settings, update_academic_settings)
-
-from modules.excel_manager import (read_results, get_excel_path, EXPECTED_HEADERS,repair_missing_headers)
-
-from modules.class_config import ( SUPPORTED_CLASSES, normalize_class_level,)
+from modules.supabase_results import get_academic_settings, update_academic_settings
+from modules.excel_manager import read_results, get_excel_path, EXPECTED_HEADERS, repair_missing_headers
+from modules.class_config import SUPPORTED_CLASSES, normalize_class_level
 from modules.essay_results import register_essay_routes, enrich_results_with_essay
+
 
 api_bp = Blueprint("api_bp", __name__)
 register_essay_routes(api_bp)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 RESULTS_DIR = BASE_DIR / "RESULTS"
+SUBJECT_LIBRARY_DIR = BASE_DIR / "static" / "subjects"
 
-
-# ============================================================
-# CONSTANTS
-# ============================================================
-
-VALID_TERMS = (
-    "FIRST",
-    "SECOND",
-    "THIRD",
-)
-
-# ============================================================
-# REAL-TIME ADMIN NOTIFICATION QUEUE
-# Exact FIFO ordering, even when many students act together.
-# ============================================================
+VALID_TERMS = ("FIRST", "SECOND", "THIRD")
+STAFF_SESSION_TIMEOUT_SECONDS = 2 * 60 * 60
+STAFF_SESSION_ACTIVITY_KEY = "_staff_last_activity"
 
 ADMIN_NOTIFICATION_LIMIT = 1000
 ADMIN_NOTIFICATIONS = deque(maxlen=ADMIN_NOTIFICATION_LIMIT)
@@ -53,404 +35,196 @@ ADMIN_NOTIFICATION_LOCK = Lock()
 ADMIN_NOTIFICATION_SEQUENCE = 0
 
 
-def push_admin_notification(event_type, message="", payload=None):
-    global ADMIN_NOTIFICATION_SEQUENCE
-
-    payload = payload if isinstance(payload, dict) else {}
-
-    with ADMIN_NOTIFICATION_LOCK:
-        ADMIN_NOTIFICATION_SEQUENCE += 1
-        sequence = ADMIN_NOTIFICATION_SEQUENCE
-
-        event = {
-            "id": uuid.uuid4().hex,
-            "sequence": sequence,
-            "type": str(event_type or "notification").strip().lower(),
-            "message": str(message or "").strip(),
-            "payload": payload,
-            "created_at": int(time.time() * 1000),
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3] if "datetime" in globals() else time.strftime("%Y-%m-%d %H:%M:%S"),
-        }
-
-        ADMIN_NOTIFICATIONS.append(event)
-
-    return event
-
 # ============================================================
-# HELPER — CHECK ACCESS ADMIN + TEACHER
+# HELPERS
 # ============================================================
 
-def can_view_results():
-    return str(
-        session.get("user_type", "")
-    ).lower() in [
-        "admin",
-        "teacher",
-    ]
+def normalize_class(value):
+    return normalize_class_level(value)
 
 
-# ============================================================
-# HELPER — NORMALIZE CLASS LEVEL
-#
-# Accepts:
-#   JSS1
-#   JSS1A
-#   JSS1B
-#   SS1
-#   SS1_GOLD
-#   SS2B
-#
-# Returns:
-#   JSS1
-#   SS1
-#   SS2
-# ============================================================
-
-def normalize_class(class_cat):
-    return normalize_class_level(class_cat)
+def is_jss_class(value):
+    return str(normalize_class(value) or "").upper().startswith("JSS")
 
 
-# ============================================================
-# HELPER — IS JSS
-# ============================================================
-
-def is_jss_class(class_cat):
-    class_level = normalize_class(class_cat)
-
-    return bool(
-        class_level
-        and str(class_level).upper().startswith("JSS")
-    )
+def is_ss_class(value):
+    return str(normalize_class(value) or "").upper().startswith("SS")
 
 
-# ============================================================
-# HELPER — NORMALIZE TERM
-#
-# Accepts:
-#   FIRST
-#   FIRST TERM
-#   first
-#   1
-#   TERM 1
-#
-# Returns:
-#   FIRST
-#   SECOND
-#   THIRD
-#   ""
-# ============================================================
+def supports_result_terms(value):
+    return normalize_class(value) in SUPPORTED_CLASSES
+
 
 def normalize_term(value):
-    raw = str(value or "").strip().upper()
-
-    if not raw:
-        return ""
-
-    raw = (
-        raw
-        .replace("_", " ")
-        .replace("-", " ")
-    )
-
-    raw = " ".join(raw.split())
-
+    raw = " ".join(str(value or "").strip().upper().replace("_", " ").replace("-", " ").split())
     aliases = {
-        "FIRST": "FIRST",
-        "FIRST TERM": "FIRST",
-        "TERM 1": "FIRST",
-        "TERM ONE": "FIRST",
-        "1": "FIRST",
-        "1ST": "FIRST",
-        "1ST TERM": "FIRST",
+        "FIRST": "FIRST", "FIRST TERM": "FIRST", "TERM 1": "FIRST", "TERM ONE": "FIRST",
+        "1": "FIRST", "1ST": "FIRST", "1ST TERM": "FIRST",
 
-        "SECOND": "SECOND",
-        "SECOND TERM": "SECOND",
-        "TERM 2": "SECOND",
-        "TERM TWO": "SECOND",
-        "2": "SECOND",
-        "2ND": "SECOND",
-        "2ND TERM": "SECOND",
+        "SECOND": "SECOND", "SECOND TERM": "SECOND", "TERM 2": "SECOND", "TERM TWO": "SECOND",
+        "2": "SECOND", "2ND": "SECOND", "2ND TERM": "SECOND",
 
-        "THIRD": "THIRD",
-        "THIRD TERM": "THIRD",
-        "TERM 3": "THIRD",
-        "TERM THREE": "THIRD",
-        "3": "THIRD",
-        "3RD": "THIRD",
-        "3RD TERM": "THIRD",
+        "THIRD": "THIRD", "THIRD TERM": "THIRD", "TERM 3": "THIRD", "TERM THREE": "THIRD",
+        "3": "THIRD", "3RD": "THIRD", "3RD TERM": "THIRD",
     }
-
     return aliases.get(raw, "")
 
 
-# ============================================================
-# HELPER — TERM LABEL
-# ============================================================
-
 def term_label(value):
-    term = normalize_term(value)
-
-    labels = {
+    return {
         "FIRST": "FIRST TERM",
         "SECOND": "SECOND TERM",
         "THIRD": "THIRD TERM",
-    }
-
-    return labels.get(term, "")
+    }.get(normalize_term(value), "")
 
 
-# ============================================================
-# HELPER — GET REQUESTED TERM
-#
-# Checks:
-#   ?term=FIRST
-#
-# Then session:
-#   selected_term
-#
-# Then academic settings.
-# ============================================================
+def short_term_label(value):
+    return {
+        "FIRST": "1st Term",
+        "SECOND": "2nd Term",
+        "THIRD": "3rd Term",
+    }.get(normalize_term(value), "")
+
+
+def clean_records(records):
+    return [{key: value if value is not None else "" for key, value in row.items()} for row in records]
+
+
+def normalize_score_value(value):
+    try:
+        return int(float(str(value or "").replace("%", "").strip()))
+    except (TypeError, ValueError):
+        return 0
+
+
+def normalize_subject_folder(subject):
+    return str(subject or "").strip()
+
+
+def subject_key(value):
+    return re.sub(r"[^a-z0-9]+", "", str(value or "").lower())
+
+
+def subject_matches(filter_value, folder_value, record_subject=""):
+    if not filter_value or str(filter_value).lower() == "all":
+        return True
+
+    wanted = subject_key(filter_value)
+    candidates = {subject_key(folder_value), subject_key(record_subject)}
+
+    if wanted in candidates:
+        return True
+
+    raw_filter = str(filter_value).lower()
+    raw_folder = str(folder_value).lower()
+
+    return raw_filter in raw_folder or raw_folder in raw_filter
+
+
+def can_view_results():
+    role = str(session.get("user_type") or "").strip().lower()
+
+    if role not in {"admin", "teacher"}:
+        return False
+
+    now = time.time()
+    last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
+
+    if last_activity is not None:
+        try:
+            elapsed = now - float(last_activity)
+
+            if elapsed > STAFF_SESSION_TIMEOUT_SECONDS:
+                print(
+                    f"[RESULT SESSION] {role} session expired after "
+                    f"{round(elapsed / 3600, 2)} hour(s) inactivity."
+                )
+                session.clear()
+                return False
+
+        except (TypeError, ValueError):
+            pass
+
+    # Any genuine staff API activity refreshes inactivity timer.
+    session.permanent = True
+    session[STAFF_SESSION_ACTIVITY_KEY] = now
+    session.modified = True
+
+    return True
+
 
 def get_requested_term(class_cat=""):
-    if not is_jss_class(class_cat):
+    class_cat = normalize_class(class_cat)
+
+    if not class_cat:
         return ""
 
-    # --------------------------------------------------------
-    # 1. Query string
-    # --------------------------------------------------------
+    raw = request.args.get("term")
 
-    term = normalize_term(
-        request.args.get("term", "")
-    )
+    if raw is not None:
+        raw = str(raw or "").strip()
 
-    if term:
-        return term
+        if raw.lower() == "all":
+            return ""
 
-    # --------------------------------------------------------
-    # 2. Session
-    # --------------------------------------------------------
-
-    term = normalize_term(
-        session.get("selected_term", "")
-    )
-
-    if term:
-        return term
-
-    # --------------------------------------------------------
-    # 3. Academic settings
-    # --------------------------------------------------------
-
-    try:
-        settings = get_academic_settings() or {}
-
-        term = normalize_term(
-            settings.get("current_term", "")
-        )
+        term = normalize_term(raw)
 
         if term:
             return term
 
-    except Exception as error:
-        print(
-            "ACADEMIC TERM RESOLUTION ERROR:",
-            error,
-        )
+    term = normalize_term(session.get("selected_term"))
 
-    return ""
-
-
-# ============================================================
-# HELPER — CLEAN ROW VALUES
-# ============================================================
-
-def clean_records(records):
-    clean = []
-
-    for row in records:
-        clean.append({
-            key: (
-                value
-                if value is not None
-                else ""
-            )
-            for key, value in row.items()
-        })
-
-    return clean
-
-
-# ============================================================
-# HELPER — NORMALIZE SCORE
-# ============================================================
-
-def normalize_score_value(value):
-    raw = str(
-        value or ""
-    ).replace(
-        "%",
-        "",
-    ).strip()
+    if term:
+        return term
 
     try:
-        return int(float(raw))
+        return normalize_term((get_academic_settings() or {}).get("current_term"))
 
-    except Exception:
-        return 0
-
-
-# ============================================================
-# HELPER — NORMALIZE SUBJECT FOLDER
-# ============================================================
-
-def normalize_subject_folder(subject):
-    return str(
-        subject or ""
-    ).strip()
+    except Exception as error:
+        print("ACADEMIC TERM RESOLUTION ERROR:", error)
+        return ""
 
 
-# ============================================================
-# HELPER — NORMALIZE RESULT RECORD
-#
-# Supports:
-#
-# Old:
-#   Class
-#
-# New:
-#   Class Level
-#   Class Arm
-#   Term
-#
-# Term is only mandatory for JSS.
-# ============================================================
-
-def normalize_result_record(
-    row_dict,
-    class_cat="",
-    subject_name="",
-    year="",
-    term="",
-):
-    class_level_raw = (
-        row_dict.get("Class Level")
-        or row_dict.get("Class Category")
-        or row_dict.get("Class")
+def normalize_result_record(row, class_cat="", subject_name="", year="", term=""):
+    class_raw = (
+        row.get("Class Level")
+        or row.get("Class Category")
+        or row.get("Class")
         or class_cat
     )
 
-    class_arm_raw = (
-        row_dict.get("Class Arm")
-        or row_dict.get("Class")
-        or class_level_raw
+    arm_raw = (
+        row.get("Class Arm")
+        or row.get("Class")
+        or class_raw
     )
 
-    class_level = (
-        normalize_class(class_level_raw)
-        or str(
-            class_level_raw or ""
-        ).upper().strip()
+    class_level = normalize_class(class_raw) or str(class_raw or "").upper().strip()
+    class_arm = str(arm_raw or class_level).upper().strip()
+    row_term = normalize_term(row.get("Term") or term)
+
+    row["Year"] = row.get("Year") or year
+    row["Class Level"] = class_level
+    row["Class Arm"] = class_arm
+    row["Class"] = class_arm or class_level
+    row["Class Category"] = class_level
+
+    row["Term"] = row_term
+    row["Term Label"] = term_label(row_term) if row_term else ""
+
+    row["Subject"] = (
+        row.get("Subject")
+        or str(subject_name or "").replace("_", " ").upper()
     )
 
-    class_arm = str(
-        class_arm_raw
-        or class_level
-    ).upper().strip()
+    row["Subject Folder"] = subject_name or row.get("Subject Folder") or ""
+    row["Score Number"] = normalize_score_value(row.get("Score (%)"))
 
-    # --------------------------------------------------------
-    # YEAR
-    # --------------------------------------------------------
+    return row
 
-    row_dict["Year"] = (
-        row_dict.get("Year")
-        or year
-    )
-
-    # --------------------------------------------------------
-    # CLASS
-    # --------------------------------------------------------
-
-    row_dict["Class Level"] = class_level
-    row_dict["Class Arm"] = class_arm
-
-    # Backward compatibility
-    row_dict["Class"] = (
-        class_arm
-        or class_level
-    )
-
-    row_dict["Class Category"] = class_level
-
-    # --------------------------------------------------------
-    # TERM
-    # --------------------------------------------------------
-
-    row_term = normalize_term(
-        row_dict.get("Term")
-        or term
-    )
-
-    if is_jss_class(class_level):
-        row_dict["Term"] = row_term
-        row_dict["Term Label"] = term_label(
-            row_term
-        )
-    else:
-        # SS remains non-term based.
-        row_dict["Term"] = (
-            normalize_term(
-                row_dict.get("Term")
-            )
-            or ""
-        )
-
-        row_dict["Term Label"] = (
-            term_label(
-                row_dict["Term"]
-            )
-            if row_dict["Term"]
-            else ""
-        )
-
-    # --------------------------------------------------------
-    # SUBJECT
-    # --------------------------------------------------------
-
-    row_dict["Subject"] = (
-        row_dict.get("Subject")
-        or str(
-            subject_name or ""
-        ).replace(
-            "_",
-            " ",
-        ).upper()
-    )
-
-    row_dict["Subject Folder"] = (
-        subject_name
-    )
-
-    # --------------------------------------------------------
-    # SCORE
-    # --------------------------------------------------------
-
-    row_dict["Score Number"] = (
-        normalize_score_value(
-            row_dict.get("Score (%)")
-        )
-    )
-
-    return row_dict
-
-
-# ============================================================
-# HELPER — READ DIRECT EXCEL FILE
-#
-# Does not create any folders.
-# ============================================================
 
 def read_excel_file_direct(excel_path: Path):
-    if not excel_path.exists():
+    if not excel_path or not excel_path.exists():
         return []
 
     wb = load_workbook(excel_path)
@@ -458,13 +232,7 @@ def read_excel_file_direct(excel_path: Path):
 
     repair_missing_headers(ws)
 
-    rows = list(
-        ws.iter_rows(
-            values_only=True
-        )
-    )
-
-    # Preserve any repaired headers.
+    rows = list(ws.iter_rows(values_only=True))
     wb.save(excel_path)
 
     if len(rows) < 2:
@@ -474,573 +242,575 @@ def read_excel_file_direct(excel_path: Path):
     results = []
 
     for row in rows[1:]:
-        values = list(row)
+        values = list(row) + [None] * max(0, len(headers) - len(row))
+        item = dict(zip(headers, values[:len(headers)]))
 
-        if len(values) < len(headers):
-            values += (
-                [None]
-                * (
-                    len(headers)
-                    - len(values)
-                )
-            )
-
-        row_dict = dict(
-            zip(
-                headers,
-                values[:len(headers)],
-            )
-        )
-
-        if (
-            row_dict.get("Student Name")
-            or row_dict.get("Admission No")
-        ):
-            results.append(
-                row_dict
-            )
+        if item.get("Student Name") or item.get("Admission No"):
+            results.append(item)
 
     return results
 
 
-# ============================================================
-# HELPER — BUILD RESULT ROOT
-#
-# Base:
-#
-# RESULTS/<year>/CLASS/<class>/
-# ============================================================
-
-def get_class_result_root(
-    year,
-    class_cat,
-):
-    return (
-        RESULTS_DIR
-        / str(year)
-        / "CLASS"
-        / str(class_cat)
-    )
+def get_class_result_root(year, class_cat):
+    return RESULTS_DIR / str(year) / "CLASS" / str(class_cat)
 
 
-# ============================================================
-# HELPER — BUILD TERM-AWARE RESULT PATH
-#
-# Preferred JSS structure:
-#
-# RESULTS/
-#   2017/
-#     CLASS/
-#       JSS1/
-#         FIRST/
-#           mathematics/
-#             results.xlsx
-#
-# SS structure:
-#
-# RESULTS/
-#   2026/
-#     CLASS/
-#       SS1/
-#         mathematics/
-#           results.xlsx
-# ============================================================
+def get_term_result_path(class_cat, subject, year, term=""):
+    class_cat = normalize_class(class_cat)
+    subject = normalize_subject_folder(subject)
+    term = normalize_term(term)
 
-def get_term_result_path(
-    class_cat,
-    subject,
-    year,
-    term="",
-):
-    class_cat = normalize_class(
-        class_cat
-    )
+    root = get_class_result_root(year, class_cat)
 
-    subject = normalize_subject_folder(
-        subject
-    )
-
-    year = str(
-        year or ""
-    ).strip()
-
-    term = normalize_term(
-        term
-    )
-
-    class_root = get_class_result_root(
-        year,
-        class_cat,
-    )
+    if term:
+        return root / term / subject / "results.xlsx"
 
     if is_jss_class(class_cat):
-        if not term:
-            return None
+        return None
 
-        return (
-            class_root
-            / term
-            / subject
-            / "results.xlsx"
-        )
-
-    return (
-        class_root
-        / subject
-        / "results.xlsx"
-    )
+    return root / subject / "results.xlsx"
 
 
-# ============================================================
-# HELPER — LEGACY RESULT PATH
-#
-# Existing excel_manager structure.
-# ============================================================
-
-def get_legacy_result_path(
-    class_cat,
-    subject,
-    year,
-):
+def get_legacy_result_path(class_cat, subject, year):
     try:
-        return get_excel_path(
-            class_cat,
-            subject,
-            year,
-        )
+        return get_excel_path(normalize_class(class_cat), subject, year)
 
     except Exception:
         return (
-            RESULTS_DIR
-            / str(year)
-            / "CLASS"
-            / str(class_cat)
+            get_class_result_root(year, normalize_class(class_cat))
             / str(subject)
             / "results.xlsx"
         )
 
 
-# ============================================================
-# HELPER — FIND EXISTING RESULT PATH
-#
-# Priority:
-#
-# JSS:
-#   1. term-aware path
-#   2. legacy path
-#
-# SS:
-#   1. normal path
-#   2. legacy get_excel_path()
-# ============================================================
+def find_existing_result_path(class_cat, subject, year, term=""):
+    class_cat = normalize_class(class_cat)
+    term = normalize_term(term)
 
-def find_existing_result_path(
-    class_cat,
-    subject,
-    year,
-    term="",
-):
-    class_cat = normalize_class(
-        class_cat
-    )
+    term_path = get_term_result_path(class_cat, subject, year, term)
 
-    term_path = get_term_result_path(
-        class_cat,
-        subject,
-        year,
-        term,
-    )
-
-    if (
-        term_path
-        and term_path.exists()
-    ):
+    if term_path and term_path.exists():
         return term_path
 
-    legacy_path = get_legacy_result_path(
-        class_cat,
-        subject,
-        year,
-    )
+    legacy = get_legacy_result_path(class_cat, subject, year)
 
-    if (
-        legacy_path
-        and legacy_path.exists()
-    ):
-        return legacy_path
+    if not term and legacy and legacy.exists():
+        return legacy
 
-    # Return preferred path even if it doesn't exist.
-    if term_path:
-        return term_path
+    if is_jss_class(class_cat) and term and legacy and legacy.exists():
+        return legacy
 
-    return legacy_path
+    return term_path or legacy
 
-
-
-# ============================================================
-# HELPER — READ RESULTS TERM AWARE
-# ============================================================
 
 def read_results_term_aware(class_cat, subject, year, term=""):
     class_cat = normalize_class(class_cat)
     term = normalize_term(term)
 
-    excel_path = find_existing_result_path(class_cat, subject, year, term)
+    term_path = get_term_result_path(class_cat, subject, year, term)
 
-    if excel_path and excel_path.exists():
-        return read_excel_file_direct(excel_path)
+    if term and term_path and term_path.exists():
+        return read_excel_file_direct(term_path)
+
+    legacy = get_legacy_result_path(class_cat, subject, year)
+
+    if legacy and legacy.exists():
+        rows = read_excel_file_direct(legacy)
+
+        if term and is_ss_class(class_cat):
+            return [
+                row
+                for row in rows
+                if normalize_term(row.get("Term")) == term
+            ]
+
+        return rows
+
+    if term and is_ss_class(class_cat):
+        return []
 
     try:
         return read_results(class_cat, subject, year, term)
+
     except Exception as error:
         print("TERM-AWARE RESULT READ FALLBACK ERROR:", error)
         return []
 
-# ============================================================
-# HELPER — GET TERMS FOR CLASS
-# ============================================================
 
-def get_terms_for_class(
-    year,
-    class_cat,
-):
-    class_cat = normalize_class(
-        class_cat
-    )
+def get_terms_for_class(year, class_cat):
+    class_cat = normalize_class(class_cat)
 
-    if not is_jss_class(class_cat):
+    if not class_cat:
         return []
 
-    class_root = get_class_result_root(
-        year,
-        class_cat,
+    terms = set()
+
+    result_root = get_class_result_root(year, class_cat)
+    library_root = (
+        SUBJECT_LIBRARY_DIR
+        / str(year)
+        / "subjects-json"
+        / class_cat
     )
 
-    if not class_root.exists():
-        return []
-
-    terms = []
-
-    for folder in class_root.iterdir():
-        if not folder.is_dir():
+    for root in (result_root, library_root):
+        if not root.exists():
             continue
 
-        normalized = normalize_term(
-            folder.name
-        )
+        for folder in root.iterdir():
+            if not folder.is_dir():
+                continue
 
-        if normalized:
-            terms.append(
-                normalized
-            )
+            term = normalize_term(folder.name)
+
+            if term:
+                terms.add(term)
+
+    # Also support transitional flat SS files that already contain Term values.
+    if result_root.exists():
+        for folder in result_root.iterdir():
+            if not folder.is_dir() or normalize_term(folder.name):
+                continue
+
+            path = folder / "results.xlsx"
+
+            if not path.exists():
+                continue
+
+            try:
+                for row in read_excel_file_direct(path):
+                    term = normalize_term(row.get("Term"))
+
+                    if term:
+                        terms.add(term)
+
+            except Exception as error:
+                print(f"TERM DISCOVERY ERROR [{path}]:", error)
 
     return sorted(
-        set(terms),
-        key=lambda value: (
-            VALID_TERMS.index(value)
-            if value in VALID_TERMS
-            else 999
-        ),
+        terms,
+        key=lambda value: VALID_TERMS.index(value)
+        if value in VALID_TERMS
+        else 999,
     )
 
-
-
-# ============================================================
-# HELPER — GET SUBJECTS FROM EXAM JSON LIBRARY
-# ============================================================
 
 def get_library_subjects(year, class_cat, term=""):
     class_cat = normalize_class(class_cat)
+    term = normalize_term(term)
 
-    subject_root = BASE_DIR / "static" / "subjects" / str(year) / "subjects-json" / class_cat
+    base = (
+        SUBJECT_LIBRARY_DIR
+        / str(year)
+        / "subjects-json"
+        / class_cat
+    )
 
     if is_jss_class(class_cat):
-        term = normalize_term(term)
-        if not term: return []
+        if not term:
+            return []
 
-        subject_root = subject_root / term
+        roots = [base / term]
 
-    if not subject_root.exists(): return []
+    elif is_ss_class(class_cat):
+        roots = [base / term, base] if term else [base]
 
-    subjects = []
+    else:
+        roots = [base]
 
-    for path in subject_root.glob("*.json"):
-        if path.name.lower() == "pushed_subjects.json": continue
+    subjects = {}
 
-        try:
-            with path.open("r", encoding="utf-8-sig") as file:
-                data = json.load(file)
+    for root in roots:
+        if not root.exists():
+            continue
 
-            subject = str(data.get("subject") or path.stem).strip()
+        for path in root.glob("*.json"):
+            if path.name.lower() == "pushed_subjects.json":
+                continue
 
-            if subject: subjects.append(subject)
+            try:
+                with path.open("r", encoding="utf-8-sig") as file:
+                    data = json.load(file)
 
-        except Exception as error:
-            print(f"Could not read subject JSON [{path}]: {error}")
+                subject = str(
+                    data.get("subject")
+                    or path.stem
+                ).strip()
 
-    return sorted(set(subjects), key=str.lower)
+                key = subject_key(subject)
+
+                if key and key not in subjects:
+                    subjects[key] = subject
+
+            except Exception as error:
+                print(f"Could not read subject JSON [{path}]: {error}")
+
+    return sorted(subjects.values(), key=str.lower)
 
 
-# ============================================================
-# HELPER — GET SUBJECT FOLDERS
-# ============================================================
+def get_subject_folders(year, class_cat, term=""):
+    class_cat = normalize_class(class_cat)
+    term = normalize_term(term)
 
-def get_subject_folders(
-    year,
-    class_cat,
-    term="",
-):
-    class_cat = normalize_class(
-        class_cat
-    )
+    root = get_class_result_root(year, class_cat)
 
-    class_root = get_class_result_root(
-        year,
-        class_cat,
-    )
-
-    if not class_root.exists():
+    if not root.exists():
         return []
 
-    # --------------------------------------------------------
-    # JSS
-    # --------------------------------------------------------
+    subjects = set()
 
-    if is_jss_class(class_cat):
-        term = normalize_term(
-            term
-        )
+    if term:
+        term_root = root / term
 
-        if term:
-            term_root = (
-                class_root
-                / term
+        if term_root.exists():
+            subjects.update(
+                folder.name
+                for folder in term_root.iterdir()
+                if folder.is_dir()
+                and not normalize_term(folder.name)
             )
 
-            if term_root.exists():
-                return sorted([
-                    folder.name
-                    for folder in term_root.iterdir()
-                    if (
-                        folder.is_dir()
-                        and not normalize_term(
-                            folder.name
-                        )
-                    )
-                ])
+        for folder in root.iterdir():
+            if not folder.is_dir() or normalize_term(folder.name):
+                continue
 
-        # ----------------------------------------------------
-        # Legacy JSS fallback
-        #
-        # Old structure:
-        #
-        # JSS1/
-        #   mathematics/
-        # ----------------------------------------------------
+            path = folder / "results.xlsx"
 
-        return sorted([
+            if not path.exists():
+                continue
+
+            # JSS keeps legacy flat-result compatibility.
+            if is_jss_class(class_cat):
+                subjects.add(folder.name)
+                continue
+
+            # SS flat files only belong to a term when the row says so.
+            try:
+                if any(
+                    normalize_term(row.get("Term")) == term
+                    for row in read_excel_file_direct(path)
+                ):
+                    subjects.add(folder.name)
+
+            except Exception:
+                pass
+
+        return sorted(subjects, key=str.lower)
+
+    return sorted(
+        [
             folder.name
-            for folder in class_root.iterdir()
-            if (
-                folder.is_dir()
-                and not normalize_term(
-                    folder.name
-                )
-            )
-        ])
+            for folder in root.iterdir()
+            if folder.is_dir()
+            and not normalize_term(folder.name)
+        ],
+        key=str.lower,
+    )
 
-    # --------------------------------------------------------
-    # SS
-    # --------------------------------------------------------
-
-    return sorted([
-        folder.name
-        for folder in class_root.iterdir()
-        if folder.is_dir()
-    ])
-
-
-# ============================================================
-# HELPER — ITERATE RESULT FILES
-#
-# Returns:
-#
-# {
-#   "year": ...,
-#   "class": ...,
-#   "term": ...,
-#   "subject": ...,
-#   "path": ...
-# }
-# ============================================================
 
 def iter_result_files():
     if not RESULTS_DIR.exists():
         return
 
     for year_folder in RESULTS_DIR.iterdir():
-        if not year_folder.is_dir():
-            continue
+        class_root = year_folder / "CLASS"
 
-        year = year_folder.name
-
-        class_root = (
-            year_folder
-            / "CLASS"
-        )
-
-        if not class_root.exists():
+        if not year_folder.is_dir() or not class_root.exists():
             continue
 
         for class_folder in class_root.iterdir():
             if not class_folder.is_dir():
                 continue
 
-            class_cat = normalize_class(
-                class_folder.name
-            )
+            class_cat = normalize_class(class_folder.name)
 
-            if not class_cat:
+            if class_cat not in SUPPORTED_CLASSES:
                 continue
 
-            # =================================================
-            # JSS
-            # =================================================
+            for child in class_folder.iterdir():
+                if not child.is_dir():
+                    continue
 
-            if is_jss_class(class_cat):
+                term = normalize_term(child.name)
 
-                # ---------------------------------------------
-                # NEW TERM-AWARE STRUCTURE
-                # ---------------------------------------------
+                # FIRST / SECOND / THIRD
+                if term:
+                    for subject_folder in child.iterdir():
+                        path = subject_folder / "results.xlsx"
 
-                for term_folder in class_folder.iterdir():
-                    if not term_folder.is_dir():
-                        continue
+                        if subject_folder.is_dir() and path.exists():
+                            yield {
+                                "year": year_folder.name,
+                                "class": class_cat,
+                                "term": term,
+                                "subject": subject_folder.name,
+                                "path": path,
+                            }
 
-                    term = normalize_term(
-                        term_folder.name
-                    )
+                    continue
 
-                    if not term:
-                        continue
+                # General / legacy flat structure
+                path = child / "results.xlsx"
 
-                    for subject_folder in term_folder.iterdir():
-                        if not subject_folder.is_dir():
-                            continue
-
-                        excel_path = (
-                            subject_folder
-                            / "results.xlsx"
-                        )
-
-                        if not excel_path.exists():
-                            continue
-
-                        yield {
-                            "year": year,
-                            "class": class_cat,
-                            "term": term,
-                            "subject": subject_folder.name,
-                            "path": excel_path,
-                        }
-
-                # ---------------------------------------------
-                # LEGACY JSS STRUCTURE
-                #
-                # JSS1/
-                #   mathematics/
-                #     results.xlsx
-                # ---------------------------------------------
-
-                for subject_folder in class_folder.iterdir():
-                    if not subject_folder.is_dir():
-                        continue
-
-                    # Skip FIRST / SECOND / THIRD.
-                    if normalize_term(
-                        subject_folder.name
-                    ):
-                        continue
-
-                    excel_path = (
-                        subject_folder
-                        / "results.xlsx"
-                    )
-
-                    if not excel_path.exists():
-                        continue
-
+                if path.exists():
                     yield {
-                        "year": year,
+                        "year": year_folder.name,
                         "class": class_cat,
                         "term": "",
-                        "subject": subject_folder.name,
-                        "path": excel_path,
+                        "subject": child.name,
+                        "path": path,
                     }
 
-            # =================================================
-            # SS
-            # =================================================
-
-            else:
-                for subject_folder in class_folder.iterdir():
-                    if not subject_folder.is_dir():
-                        continue
-
-                    excel_path = (
-                        subject_folder
-                        / "results.xlsx"
-                    )
-
-                    if not excel_path.exists():
-                        continue
-
-                    yield {
-                        "year": year,
-                        "class": class_cat,
-                        "term": "",
-                        "subject": subject_folder.name,
-                        "path": excel_path,
-                    }
-
-
-# ============================================================
-# HELPER — GET OUTPUT HEADERS
-#
-# Adds Term if the current EXPECTED_HEADERS does not contain it.
-# This keeps compatibility with the existing Excel manager.
-# ============================================================
 
 def get_output_headers():
-    headers = list(
-        EXPECTED_HEADERS
-    )
+    headers = list(EXPECTED_HEADERS)
 
     if "Term" not in headers:
-        # Put Term after Subject when possible.
         if "Subject" in headers:
-            index = (
-                headers.index("Subject")
-                + 1
-            )
-
             headers.insert(
-                index,
+                headers.index("Subject") + 1,
                 "Term",
             )
         else:
-            headers.append(
-                "Term"
-            )
+            headers.append("Term")
 
     return headers
 
 
+def enrich_records_with_essay(records, class_cat, subject, year, folder_term=""):
+    if not records:
+        return records
+
+    groups = {}
+
+    for row in records:
+        term = normalize_term(
+            row.get("Term")
+            or folder_term
+        )
+
+        groups.setdefault(term, []).append(row)
+
+    for term, group in groups.items():
+        try:
+            enrich_results_with_essay(
+                group,
+                class_cat,
+                subject,
+                year,
+                term,
+            )
+
+        except Exception as error:
+            print(
+                f"ESSAY RESULT ENRICH ERROR "
+                f"[{year}/{class_cat}/{term or 'GENERAL'}/{subject}]: "
+                f"{error}"
+            )
+
+    return records
+
+
+def candidate_result_paths(class_cat, subject, year, term=""):
+    class_cat = normalize_class(class_cat)
+    term = normalize_term(term)
+
+    candidates = []
+
+    if term:
+        path = get_term_result_path(
+            class_cat,
+            subject,
+            year,
+            term,
+        )
+
+        if path and path.exists():
+            candidates.append((path, term))
+
+        legacy = get_legacy_result_path(
+            class_cat,
+            subject,
+            year,
+        )
+
+        if legacy and legacy.exists():
+            candidates.append((legacy, ""))
+
+    elif is_jss_class(class_cat):
+        for possible_term in VALID_TERMS:
+            path = get_term_result_path(
+                class_cat,
+                subject,
+                year,
+                possible_term,
+            )
+
+            if path and path.exists():
+                candidates.append(
+                    (path, possible_term)
+                )
+
+        legacy = get_legacy_result_path(
+            class_cat,
+            subject,
+            year,
+        )
+
+        if legacy and legacy.exists():
+            candidates.append((legacy, ""))
+
+    else:
+        # Blank SS term means General / legacy only.
+        legacy = get_legacy_result_path(
+            class_cat,
+            subject,
+            year,
+        )
+
+        if legacy and legacy.exists():
+            candidates.append((legacy, ""))
+
+    unique = []
+    seen = set()
+
+    for path, actual_term in candidates:
+        key = str(path.resolve())
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        unique.append(
+            (path, actual_term)
+        )
+
+    return unique
+
+
+def delete_sqlite_result(cursor, admission, name, year, class_cat, subject, term):
+    identity_column = "admission_number" if admission else "full_name"
+    identity_value = admission or name
+
+    cursor.execute(
+        f"""
+        DELETE FROM student_results
+        WHERE LOWER(TRIM(COALESCE({identity_column}, ''))) = LOWER(TRIM(?))
+          AND TRIM(COALESCE(year, '')) = TRIM(?)
+          AND UPPER(TRIM(COALESCE(class_level, ''))) = UPPER(TRIM(?))
+          AND UPPER(TRIM(COALESCE(subject, ''))) = UPPER(TRIM(?))
+          AND UPPER(TRIM(COALESCE(term, ''))) = UPPER(TRIM(?))
+        """,
+        (
+            identity_value,
+            year,
+            class_cat,
+            subject,
+            term,
+        ),
+    )
+
+    return max(cursor.rowcount, 0)
+
 
 # ============================================================
-# STUDENT NOTIFICATION — EXAM START
-# Called by exam-core.js only after questions load + timer starts
+# REAL-TIME ADMIN NOTIFICATIONS
 # ============================================================
+
+def push_admin_notification(event_type, message="", payload=None):
+    global ADMIN_NOTIFICATION_SEQUENCE
+
+    payload = payload if isinstance(payload, dict) else {}
+
+    with ADMIN_NOTIFICATION_LOCK:
+        ADMIN_NOTIFICATION_SEQUENCE += 1
+
+        event = {
+            "id": uuid.uuid4().hex,
+            "sequence": ADMIN_NOTIFICATION_SEQUENCE,
+            "type": str(event_type or "notification").strip().lower(),
+            "message": str(message or "").strip(),
+            "payload": payload,
+            "created_at": int(time.time() * 1000),
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
+        }
+
+        ADMIN_NOTIFICATIONS.append(event)
+
+    return event
+
+
+def student_notification_payload(data):
+    student = (
+        session.get("student")
+        if isinstance(session.get("student"), dict)
+        else {}
+    )
+
+    name = str(
+        data.get("student_name")
+        or session.get("student_name")
+        or student.get("full_name")
+        or "Student"
+    ).strip()
+
+    admission = str(
+        data.get("admission_number")
+        or session.get("admission_number")
+        or student.get("admission_number")
+        or ""
+    ).strip()
+
+    payload = {
+        "student_name": name,
+        "full_name": name,
+        "admission_number": admission,
+        "student_id": admission,
+
+        "class_category": (
+            data.get("class_category")
+            or session.get("class_category")
+            or student.get("class_category")
+            or ""
+        ),
+
+        "class_level": (
+            data.get("class_level")
+            or session.get("class_level")
+            or student.get("class_level")
+            or ""
+        ),
+
+        "class_arm": (
+            data.get("class_arm")
+            or session.get("class_arm")
+            or student.get("class_arm")
+            or ""
+        ),
+
+        "subject": (
+            data.get("subject")
+            or session.get("selected_subject")
+            or ""
+        ),
+
+        "year": str(
+            data.get("year")
+            or session.get("selected_year")
+            or ""
+        ),
+
+        "term": normalize_term(
+            data.get("term")
+            or session.get("selected_term")
+            or ""
+        ),
+
+        "term_label": data.get("term_label") or "",
+    }
+
+    return name, admission, payload
+
 
 @api_bp.route("/api/notifications/notify/exam_start", methods=["POST"])
 def notify_exam_start():
@@ -1048,39 +818,28 @@ def notify_exam_start():
         return jsonify({"error": "Unauthorized"}), 403
 
     data = request.get_json(silent=True) or {}
-    student = session.get("student") if isinstance(session.get("student"), dict) else {}
+    name, admission, payload = student_notification_payload(data)
 
-    student_name = str(data.get("student_name") or session.get("student_name") or student.get("full_name") or "Student").strip()
-    admission_number = str(data.get("admission_number") or session.get("admission_number") or student.get("admission_number") or "").strip()
+    payload["started_at"] = data.get("started_at") or ""
 
-    payload = {
-        "student_name": student_name,
-        "full_name": student_name,
-        "admission_number": admission_number,
-        "student_id": admission_number,
-        "class_category": data.get("class_category") or session.get("class_category") or student.get("class_category") or "",
-        "class_level": data.get("class_level") or session.get("class_level") or student.get("class_level") or "",
-        "class_arm": data.get("class_arm") or session.get("class_arm") or student.get("class_arm") or "",
-        "subject": data.get("subject") or session.get("selected_subject") or "",
-        "year": str(data.get("year") or session.get("selected_year") or ""),
-        "term": normalize_term(data.get("term") or session.get("selected_term") or ""),
-        "term_label": data.get("term_label") or "",
-        "started_at": data.get("started_at") or "",
-    }
+    event = push_admin_notification(
+        "exam_start",
+        f"{name} started {payload['subject'] or 'an examination'}.",
+        payload,
+    )
 
-    event = push_admin_notification("exam_start", f"{student_name} started {payload['subject'] or 'an examination'}.", payload)
+    print(
+        "[NOTIFICATION] EXAM START:",
+        event["sequence"],
+        admission,
+        payload["subject"],
+    )
 
-    print("[NOTIFICATION] EXAM START:", event["sequence"], admission_number, payload["subject"])
+    return jsonify({
+        "status": "ok",
+        "notification": event,
+    }), 200
 
-    return jsonify({"status": "ok", "notification": event}), 200
-
-
-
-
-# ============================================================
-# STUDENT NOTIFICATION — EXAM END
-# Called by exam-core.js when exam is submitted / timed out
-# ============================================================
 
 @api_bp.route("/api/notifications/notify/exam_end", methods=["POST"])
 def notify_exam_end():
@@ -1088,90 +847,124 @@ def notify_exam_end():
         return jsonify({"error": "Unauthorized"}), 403
 
     data = request.get_json(silent=True) or {}
-    student = session.get("student") if isinstance(session.get("student"), dict) else {}
+    name, admission, payload = student_notification_payload(data)
 
-    student_name = str(data.get("student_name") or session.get("student_name") or student.get("full_name") or "Student").strip()
-    admission_number = str(data.get("admission_number") or session.get("admission_number") or student.get("admission_number") or "").strip()
-    status = str(data.get("status") or "completed").strip().lower()
+    status = str(
+        data.get("status")
+        or "completed"
+    ).strip().lower()
 
-    payload = {
-        "student_name": student_name,
-        "full_name": student_name,
-        "admission_number": admission_number,
-        "student_id": admission_number,
-        "class_category": data.get("class_category") or session.get("class_category") or student.get("class_category") or "",
-        "class_level": data.get("class_level") or session.get("class_level") or student.get("class_level") or "",
-        "class_arm": data.get("class_arm") or session.get("class_arm") or student.get("class_arm") or "",
-        "subject": data.get("subject") or session.get("selected_subject") or "",
-        "year": str(data.get("year") or session.get("selected_year") or ""),
-        "term": normalize_term(data.get("term") or session.get("selected_term") or ""),
-        "term_label": data.get("term_label") or "",
+    payload.update({
         "score": data.get("score", ""),
         "total_questions": data.get("total_questions", ""),
         "flagged": data.get("flagged", 0),
         "submitted_at": data.get("submitted_at") or "",
         "status": status,
-    }
+    })
 
-    event_type = "timeout" if status in {"timeout", "timed_out"} else "exam_end"
-    event_message = f"{student_name}'s examination timed out." if event_type == "timeout" else f"{student_name} submitted {payload['subject'] or 'an examination'}."
+    event_type = (
+        "timeout"
+        if status in {"timeout", "timed_out"}
+        else "exam_end"
+    )
 
-    event = push_admin_notification(event_type, event_message, payload)
+    message = (
+        f"{name}'s examination timed out."
+        if event_type == "timeout"
+        else f"{name} submitted {payload['subject'] or 'an examination'}."
+    )
 
-    print("[NOTIFICATION] EXAM END:", event["sequence"], admission_number, payload["subject"], status)
+    event = push_admin_notification(
+        event_type,
+        message,
+        payload,
+    )
 
-    return jsonify({"status": "ok", "notification": event}), 200
+    print(
+        "[NOTIFICATION] EXAM END:",
+        event["sequence"],
+        admission,
+        payload["subject"],
+        status,
+    )
+
+    return jsonify({
+        "status": "ok",
+        "notification": event,
+    }), 200
 
 
-
-
-# ============================================================
-# REAL-TIME NOTIFICATIONS — FETCH
-# Uses sequence instead of timestamp for exact FIFO delivery.
-# ============================================================
-
-@api_bp.route("/api/notifications/fetch", methods=["GET"])
+@api_bp.route("/api/notifications/fetch")
 def fetch_admin_notifications():
     if not can_view_results():
-        return jsonify({"error": "Unauthorized", "notifications": []}), 403
+        return jsonify({
+            "error": "Unauthorized",
+            "notifications": [],
+        }), 403
 
     try:
-        since_sequence = int(request.args.get("since_sequence", 0) or 0)
+        since = int(
+            request.args.get(
+                "since_sequence",
+                0,
+            )
+            or 0
+        )
+
     except (TypeError, ValueError):
-        since_sequence = 0
+        since = 0
 
     with ADMIN_NOTIFICATION_LOCK:
-        notifications = [dict(item) for item in ADMIN_NOTIFICATIONS]
+        if since:
+            notifications = [
+                dict(item)
+                for item in ADMIN_NOTIFICATIONS
+                if int(item.get("sequence", 0) or 0) > since
+            ]
+        else:
+            notifications = [
+                dict(item)
+                for item in ADMIN_NOTIFICATIONS
+            ]
 
-    if since_sequence > 0:
-        notifications = [item for item in notifications if int(item.get("sequence", 0) or 0) > since_sequence]
+    notifications.sort(
+        key=lambda item: int(
+            item.get("sequence", 0)
+            or 0
+        )
+    )
 
-    notifications.sort(key=lambda item: int(item.get("sequence", 0) or 0))
-
-    latest_sequence = max([int(item.get("sequence", 0) or 0) for item in notifications], default=since_sequence)
+    latest = max(
+        (
+            int(item.get("sequence", 0) or 0)
+            for item in notifications
+        ),
+        default=since,
+    )
 
     return jsonify({
         "notifications": notifications,
         "count": len(notifications),
-        "latest_sequence": latest_sequence,
+        "latest_sequence": latest,
     }), 200
 
-# ============================================================
-# REAL-TIME NOTIFICATIONS — SERVER SENT EVENTS
-# ============================================================
-
-# ============================================================
-# REAL-TIME NOTIFICATIONS — SERVER SENT EVENTS
-# Exact FIFO delivery + polling-safe reconciliation
-# ============================================================
 
 @api_bp.route("/api/notifications/stream")
 def stream_admin_notifications():
     if not can_view_results():
-        return jsonify({"error": "Unauthorized"}), 403
+        return jsonify({
+            "error": "Unauthorized"
+        }), 403
 
     try:
-        starting_sequence = int(request.args.get("since_sequence", 0) or 0)
+        starting_sequence = int(
+            request.args.get(
+                "since_sequence",
+                0,
+            )
+            or 0
+        )
+
     except (TypeError, ValueError):
         starting_sequence = 0
 
@@ -1179,27 +972,53 @@ def stream_admin_notifications():
     def event_stream():
         last_sequence = starting_sequence
 
-        yield f'event: connected\ndata: {json.dumps({"status": "connected", "sequence": last_sequence})}\n\n'
+        yield (
+            f'event: connected\n'
+            f'data: {json.dumps({"status": "connected", "sequence": last_sequence})}\n\n'
+        )
 
         while True:
             with ADMIN_NOTIFICATION_LOCK:
-                new_events = [dict(item) for item in ADMIN_NOTIFICATIONS if int(item.get("sequence", 0) or 0) > last_sequence]
+                events = [
+                    dict(item)
+                    for item in ADMIN_NOTIFICATIONS
+                    if int(item.get("sequence", 0) or 0) > last_sequence
+                ]
 
-            new_events.sort(key=lambda item: int(item.get("sequence", 0) or 0))
+            events.sort(
+                key=lambda item: int(
+                    item.get("sequence", 0)
+                    or 0
+                )
+            )
 
-            for item in new_events:
-                sequence = int(item.get("sequence", 0) or 0)
-                last_sequence = max(last_sequence, sequence)
-                yield f"event: notification\ndata: {json.dumps(item, ensure_ascii=False)}\n\n"
+            for item in events:
+                last_sequence = max(
+                    last_sequence,
+                    int(item.get("sequence", 0) or 0),
+                )
+
+                yield (
+                    f"event: notification\n"
+                    f"data: {json.dumps(item, ensure_ascii=False)}\n\n"
+                )
 
             yield ": keepalive\n\n"
             time.sleep(1)
 
-    return Response(event_stream(), mimetype="text/event-stream", headers={"Cache-Control": "no-cache, no-transform", "X-Accel-Buffering": "no", "Connection": "keep-alive"})
+    return Response(
+        event_stream(),
+        mimetype="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache, no-transform",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
+    )
 
 
 # ============================================================
-# 1. GET AVAILABLE YEARS
+# RESULT DISCOVERY / LOADING
 # ============================================================
 
 @api_bp.route("/api/results/years")
@@ -1209,28 +1028,23 @@ def get_years():
             "error": "Unauthorized"
         }), 403
 
-    if not RESULTS_DIR.exists():
-        return jsonify({
-            "years": []
-        })
-
-    years = sorted(
-        [
-            folder.name
-            for folder in RESULTS_DIR.iterdir()
-            if folder.is_dir()
-        ],
-        reverse=True,
+    years = (
+        sorted(
+            [
+                folder.name
+                for folder in RESULTS_DIR.iterdir()
+                if folder.is_dir()
+            ],
+            reverse=True,
+        )
+        if RESULTS_DIR.exists()
+        else []
     )
 
     return jsonify({
         "years": years
     })
 
-
-# ============================================================
-# 2. GET CLASSES FOR SELECTED YEAR
-# ============================================================
 
 @api_bp.route("/api/results/classes")
 def get_classes_for_year():
@@ -1244,53 +1058,27 @@ def get_classes_for_year():
         "",
     ).strip()
 
-    if not year:
-        return jsonify({
-            "classes": []
-        })
-
-    class_root = (
+    root = (
         RESULTS_DIR
         / year
         / "CLASS"
     )
 
-    if not class_root.exists():
-        return jsonify({
-            "classes": []
-        })
-
-    classes = sorted([
-        folder.name
-        for folder in class_root.iterdir()
-        if (
-            folder.is_dir()
-            and normalize_class(
-                folder.name
-            ) in SUPPORTED_CLASSES
-        )
-    ])
+    classes = (
+        sorted([
+            folder.name
+            for folder in root.iterdir()
+            if folder.is_dir()
+            and normalize_class(folder.name) in SUPPORTED_CLASSES
+        ])
+        if year and root.exists()
+        else []
+    )
 
     return jsonify({
         "classes": classes
     })
 
-
-# ============================================================
-# 3. GET TERMS FOR YEAR + CLASS
-#
-# Example:
-#
-# /api/results/terms?year=2017&class=JSS1
-#
-# Response:
-#
-# {
-#   "terms": ["FIRST", "SECOND", "THIRD"]
-# }
-#
-# SS returns [].
-# ============================================================
 
 @api_bp.route("/api/results/terms")
 def get_terms_for_year_and_class():
@@ -1311,52 +1099,50 @@ def get_terms_for_year_and_class():
         )
     )
 
-    if not year or not class_cat:
-        return jsonify({
-            "terms": []
-        })
-
-    terms = get_terms_for_class(
-        year,
-        class_cat,
+    terms = (
+        get_terms_for_class(
+            year,
+            class_cat,
+        )
+        if year and class_cat
+        else []
     )
 
     return jsonify({
         "terms": terms,
         "class": class_cat,
-        "requires_term": is_jss_class(
-            class_cat
-        ),
+        "supports_term": supports_result_terms(class_cat),
+        "requires_term": is_jss_class(class_cat),
     })
 
 
-# ============================================================
-# 4. GET SUBJECTS FOR YEAR + CLASS + TERM
-#
-# JSS:
-#
-# /api/results/subjects
-#     ?year=2017
-#     &class=JSS1
-#     &term=FIRST
-#
-# SS:
-#
-# /api/results/subjects
-#     ?year=2026
-#     &class=SS1
-# ============================================================
-
 @api_bp.route("/api/results/subjects")
 def get_subjects_for_class_and_year():
-    if not can_view_results(): return jsonify({"error": "Unauthorized"}), 403
+    if not can_view_results():
+        return jsonify({
+            "error": "Unauthorized"
+        }), 403
 
-    year = request.args.get("year", "").strip()
-    class_cat = normalize_class(request.args.get("class", ""))
+    year = request.args.get(
+        "year",
+        "",
+    ).strip()
 
-    if not year or not class_cat: return jsonify({"subjects": []})
+    class_cat = normalize_class(
+        request.args.get(
+            "class",
+            "",
+        )
+    )
 
-    term = get_requested_term(class_cat)
+    if not year or not class_cat:
+        return jsonify({
+            "subjects": []
+        })
+
+    term = get_requested_term(
+        class_cat
+    )
 
     if is_jss_class(class_cat) and not term:
         return jsonify({
@@ -1364,71 +1150,112 @@ def get_subjects_for_class_and_year():
             "year": year,
             "class": class_cat,
             "term": "",
+            "supports_term": True,
             "requires_term": True,
         })
 
-    result_subjects = get_subject_folders(year, class_cat, term)
-    library_subjects = get_library_subjects(year, class_cat, term)
-
     subjects = {}
 
-    for subject in [*result_subjects, *library_subjects]:
-        key = re.sub(r"[^a-z0-9]+", "", str(subject).lower())
+    source_subjects = [
+        *get_subject_folders(
+            year,
+            class_cat,
+            term,
+        ),
 
-        if key and key not in subjects: subjects[key] = subject
+        *get_library_subjects(
+            year,
+            class_cat,
+            term,
+        ),
+    ]
+
+    for subject in source_subjects:
+        key = subject_key(subject)
+
+        if key and key not in subjects:
+            subjects[key] = subject
 
     return jsonify({
-        "subjects": sorted(subjects.values(), key=str.lower),
+        "subjects": sorted(
+            subjects.values(),
+            key=str.lower,
+        ),
+
         "year": year,
         "class": class_cat,
         "term": term,
+
+        "supports_term": supports_result_terms(class_cat),
         "requires_term": is_jss_class(class_cat),
     })
 
-# ============================================================
-# 5. LOAD RESULTS
-#
-# JSS:
-#
-# /api/results/load
-#   ?year=2017
-#   &class=JSS1
-#   &term=FIRST
-#   &subject=mathematics
-#
-# SS:
-#
-# /api/results/load
-#   ?year=2026
-#   &class=SS1
-#   &subject=mathematics
-# ============================================================
 
 @api_bp.route("/api/results/load")
 def load_excel_results():
     if not can_view_results():
-        return jsonify({"error": "Unauthorized", "results": []}), 403
+        return jsonify({
+            "error": "Unauthorized",
+            "results": [],
+        }), 403
 
-    year = request.args.get("year", "").strip()
-    class_cat = normalize_class(request.args.get("class", ""))
-    subject = request.args.get("subject", "").strip()
+    year = request.args.get(
+        "year",
+        "",
+    ).strip()
+
+    class_cat = normalize_class(
+        request.args.get(
+            "class",
+            "",
+        )
+    )
+
+    subject = request.args.get(
+        "subject",
+        "",
+    ).strip()
 
     if not year or not class_cat or not subject:
-        return jsonify({"error": "Missing parameters", "results": []}), 400
+        return jsonify({
+            "error": "Missing parameters",
+            "results": [],
+        }), 400
 
-    term = get_requested_term(class_cat)
+    term = get_requested_term(
+        class_cat
+    )
 
     if is_jss_class(class_cat) and not term:
-        return jsonify({"error": "Term is required for JSS results", "results": []}), 400
-
-    if not is_jss_class(class_cat):
-        term = ""
+        return jsonify({
+            "error": "Term is required for JSS results",
+            "results": [],
+        }), 400
 
     try:
-        records = read_results_term_aware(class_cat, subject, year, term)
+        records = read_results_term_aware(
+            class_cat,
+            subject,
+            year,
+            term,
+        )
 
-        for record in records:
-            normalize_result_record(record, class_cat, subject, year, term)
+        for row in records:
+            normalize_result_record(
+                row,
+                class_cat,
+                subject,
+                year,
+                term,
+            )
+
+        enrich_records_with_essay(
+            records,
+            class_cat,
+            subject,
+            year,
+            term,
+        )
 
         return jsonify({
             "results": clean_records(records),
@@ -1437,12 +1264,16 @@ def load_excel_results():
             "subject": subject,
             "term": term,
             "term_label": term_label(term) if term else "",
+            "supports_term": supports_result_terms(class_cat),
             "requires_term": is_jss_class(class_cat),
             "count": len(records),
         }), 200
 
     except Exception as error:
-        print("Error loading results:", error)
+        print(
+            "RESULT LOAD ERROR:",
+            error,
+        )
 
         return jsonify({
             "error": "Failed to load results",
@@ -1453,10 +1284,7 @@ def load_excel_results():
             "subject": subject,
             "term": term,
         }), 500
-    
-# ============================================================
-# 6. CHECK IF RESULT EXCEL EXISTS
-# ============================================================
+
 
 @api_bp.route("/api/results/exists")
 def excel_exists():
@@ -1482,11 +1310,7 @@ def excel_exists():
         "",
     ).strip()
 
-    if (
-        not year
-        or not class_cat
-        or not subject
-    ):
+    if not year or not class_cat or not subject:
         return jsonify({
             "exists": False
         })
@@ -1495,66 +1319,59 @@ def excel_exists():
         class_cat
     )
 
-    if (
-        is_jss_class(class_cat)
-        and not term
-    ):
+    if is_jss_class(class_cat) and not term:
         return jsonify({
             "exists": False,
             "error": "Term is required for JSS results",
         })
 
-    excel_path = find_existing_result_path(
+    term_path = get_term_result_path(
         class_cat,
         subject,
         year,
         term,
     )
 
+    path = term_path
     exists = bool(
-        excel_path
-        and excel_path.exists()
+        term_path
+        and term_path.exists()
     )
+
+    if not exists:
+        legacy = get_legacy_result_path(
+            class_cat,
+            subject,
+            year,
+        )
+
+        if legacy and legacy.exists():
+            if term and is_ss_class(class_cat):
+                try:
+                    exists = any(
+                        normalize_term(row.get("Term")) == term
+                        for row in read_excel_file_direct(legacy)
+                    )
+
+                except Exception:
+                    exists = False
+
+                if exists:
+                    path = legacy
+
+            elif not term or is_jss_class(class_cat):
+                path = legacy
+                exists = True
 
     return jsonify({
         "exists": exists,
-        "path": (
-            str(excel_path)
-            if excel_path
-            else ""
-        ),
+        "path": str(path) if path and exists else "",
         "year": year,
         "class": class_cat,
         "subject": subject,
         "term": term,
     })
 
-
-# ============================================================
-# 7. MAIN ADMIN RESULT LOADER
-#
-# Examples:
-#
-# JSS:
-# /api/results
-#   ?year=2017
-#   &class=JSS1
-#   &term=FIRST
-#   &subject=Mathematics
-#
-# SS:
-# /api/results
-#   ?year=2026
-#   &class=SS1
-#   &subject=Mathematics
-#
-# ALL:
-# /api/results
-#   ?year=all
-#   &class=all
-#   &term=all
-#   &subject=all
-# ============================================================
 
 @api_bp.route("/api/results")
 def api_get_results():
@@ -1569,7 +1386,7 @@ def api_get_results():
         "",
     ).strip()
 
-    class_cat_raw = request.args.get(
+    class_raw = request.args.get(
         "class",
         "",
     ).strip()
@@ -1587,8 +1404,8 @@ def api_get_results():
     if (
         not year
         or year.lower() == "all"
-        or not class_cat_raw
-        or class_cat_raw.lower() == "all"
+        or not class_raw
+        or class_raw.lower() == "all"
         or not subject
         or subject.lower() == "all"
         or term_raw.lower() == "all"
@@ -1596,7 +1413,7 @@ def api_get_results():
         return api_get_all_results()
 
     class_cat = normalize_class(
-        class_cat_raw
+        class_raw
     )
 
     if not class_cat:
@@ -1609,10 +1426,7 @@ def api_get_results():
         class_cat
     )
 
-    if (
-        is_jss_class(class_cat)
-        and not term
-    ):
+    if is_jss_class(class_cat) and not term:
         return jsonify({
             "error": "Term is required for JSS results",
             "results": [],
@@ -1626,19 +1440,25 @@ def api_get_results():
             term,
         )
 
-        for record in records:
+        for row in records:
             normalize_result_record(
-                record,
+                row,
                 class_cat,
                 subject,
                 year,
                 term,
             )
 
+        enrich_records_with_essay(
+            records,
+            class_cat,
+            subject,
+            year,
+            term,
+        )
+
         return jsonify({
-            "results": clean_records(
-                records
-            ),
+            "results": clean_records(records),
             "year": year,
             "class": class_cat,
             "subject": subject,
@@ -1647,7 +1467,7 @@ def api_get_results():
 
     except Exception as error:
         print(
-            "Error reading results:",
+            "RESULT READ ERROR:",
             error,
         )
 
@@ -1658,158 +1478,252 @@ def api_get_results():
         }), 500
 
 
-# ============================================================
-# 7B. LOAD ALL RESULTS
-#
-# Supports filters:
-#
-# ?year=all
-# ?class=all
-# ?subject=all
-# ?term=all
-#
-# JSS term folders are scanned automatically.
-# SS remains non-term based.
-# ============================================================
-
 @api_bp.route("/api/results/all")
 def api_get_all_results():
-    if not can_view_results(): return jsonify({"error": "Unauthorized", "results": []}), 403
+    if not can_view_results():
+        return jsonify({
+            "error": "Unauthorized",
+            "results": [],
+        }), 403
 
-    year_filter = request.args.get("year", "all").strip()
-    class_filter_raw = request.args.get("class", "all").strip()
-    subject_filter = request.args.get("subject", "all").strip()
-    term_filter_raw = request.args.get("term", "all").strip()
+    year_filter = request.args.get(
+        "year",
+        "all",
+    ).strip()
 
-    class_filter = normalize_class(class_filter_raw) if class_filter_raw.lower() != "all" else "all"
-    term_filter = normalize_term(term_filter_raw) if term_filter_raw.lower() != "all" else "all"
+    class_raw = request.args.get(
+        "class",
+        "all",
+    ).strip()
+
+    subject_filter = request.args.get(
+        "subject",
+        "all",
+    ).strip()
+
+    term_raw = request.args.get(
+        "term",
+        "all",
+    ).strip()
+
+    class_filter = (
+        normalize_class(class_raw)
+        if class_raw.lower() != "all"
+        else "all"
+    )
+
+    term_filter = (
+        normalize_term(term_raw)
+        if term_raw.lower() != "all"
+        else "all"
+    )
 
     if not RESULTS_DIR.exists():
         return jsonify({
             "results": [],
-            "summary": {"total": 0, "years": [], "classes": [], "terms": [], "subjects": []},
+
+            "summary": {
+                "total": 0,
+                "years": [],
+                "classes": [],
+                "terms": [],
+                "subjects": [],
+            },
         }), 200
 
     all_results = []
-    years_found, classes_found, terms_found, subjects_found = set(), set(), set(), set()
+
+    years_found = set()
+    classes_found = set()
+    terms_found = set()
+    subjects_found = set()
 
     for info in iter_result_files():
         year = info["year"]
         class_cat = info["class"]
-        term = info["term"]
+        folder_term = info["term"]
         subject_name = info["subject"]
-        excel_path = info["path"]
+        path = info["path"]
 
-        # ----------------------------------------------------
-        # FILTERS
-        # ----------------------------------------------------
-
-        if year_filter and year_filter.lower() != "all" and year != year_filter: continue
-        if class_filter and class_filter != "all" and class_cat != class_filter: continue
-        if term_filter != "all" and is_jss_class(class_cat) and term != term_filter: continue
-
-        if subject_filter and subject_filter.lower() != "all" and subject_filter.lower() not in subject_name.lower():
+        if (
+            year_filter.lower() != "all"
+            and year != year_filter
+        ):
             continue
 
-        # ----------------------------------------------------
-        # READ OBJECTIVE RESULT FILE
-        # ----------------------------------------------------
-
-        try:
-            records = read_excel_file_direct(excel_path)
-        except Exception as error:
-            print(f"Could not read {excel_path}: {error}")
+        if (
+            class_filter != "all"
+            and class_cat != class_filter
+        ):
             continue
 
-        # ----------------------------------------------------
-        # NORMALIZE EXISTING OBJECTIVE RECORDS
-        # ----------------------------------------------------
-
-        for record in records:
-            normalize_result_record(record, class_cat, subject_name, year, term)
-
-        # ----------------------------------------------------
-        # MERGE ESSAY / THEORY SCORES + FINAL TOTAL
-        # ----------------------------------------------------
+        if (
+            term_filter != "all"
+            and folder_term
+            and folder_term != term_filter
+        ):
+            continue
 
         try:
-            enrich_results_with_essay(records, class_cat, subject_name, year, term)
-        except Exception as error:
-            print(f"ESSAY RESULT ENRICH ERROR [{year}/{class_cat}/{term or 'NO TERM'}/{subject_name}]: {error}")
+            records = read_excel_file_direct(
+                path
+            )
 
-        # ----------------------------------------------------
-        # ADD TO ADMIN RESULT RESPONSE
-        # ----------------------------------------------------
+        except Exception as error:
+            print(
+                f"Could not read {path}: "
+                f"{error}"
+            )
+
+            continue
+
+        for row in records:
+            normalize_result_record(
+                row,
+                class_cat,
+                subject_name,
+                year,
+                folder_term,
+            )
+
+        # FIRST/SECOND/THIRD filtering works for both JSS and SS.
+        if term_filter != "all":
+            records = [
+                row
+                for row in records
+                if normalize_term(
+                    row.get("Term")
+                ) == term_filter
+            ]
+
+        if subject_filter.lower() != "all":
+            records = [
+                row
+                for row in records
+                if subject_matches(
+                    subject_filter,
+                    subject_name,
+                    row.get("Subject"),
+                )
+            ]
+
+        if not records:
+            continue
+
+        enrich_records_with_essay(
+            records,
+            class_cat,
+            subject_name,
+            year,
+            folder_term
+            or (
+                term_filter
+                if term_filter != "all"
+                else ""
+            ),
+        )
 
         all_results.extend(records)
 
-        if records:
-            years_found.add(year)
-            classes_found.add(class_cat)
-            subjects_found.add(subject_name)
+        years_found.add(year)
+        classes_found.add(class_cat)
+        subjects_found.add(subject_name)
 
-            if term: terms_found.add(term)
+        if folder_term:
+            terms_found.add(folder_term)
 
-    # --------------------------------------------------------
-    # SORT — NEWEST OBJECTIVE SUBMISSION FIRST
-    # --------------------------------------------------------
+        for row in records:
+            row_term = normalize_term(
+                row.get("Term")
+            )
 
-    all_results.sort(key=lambda record: str(record.get("Submitted At", "")), reverse=True)
+            if row_term:
+                terms_found.add(
+                    row_term
+                )
+
+    all_results.sort(
+        key=lambda row: str(
+            row.get(
+                "Submitted At",
+                "",
+            )
+        ),
+        reverse=True,
+    )
 
     return jsonify({
-        "results": clean_records(all_results),
+        "results": clean_records(
+            all_results
+        ),
+
         "summary": {
             "total": len(all_results),
-            "years": sorted(years_found, reverse=True),
-            "classes": sorted(classes_found),
-            "terms": sorted(terms_found, key=lambda value: VALID_TERMS.index(value) if value in VALID_TERMS else 999),
-            "subjects": sorted(subjects_found),
+
+            "years": sorted(
+                years_found,
+                reverse=True,
+            ),
+
+            "classes": sorted(
+                classes_found
+            ),
+
+            "terms": sorted(
+                terms_found,
+                key=lambda value: (
+                    VALID_TERMS.index(value)
+                    if value in VALID_TERMS
+                    else 999
+                ),
+            ),
+
+            "subjects": sorted(
+                subjects_found,
+                key=str.lower,
+            ),
         },
     }), 200
 
+
 # ============================================================
-# 8. DELETE SELECTED RESULT RECORDS
-#
-# Term-aware for JSS.
-#
-# Each delete item can contain:
-#
-# Year
-# Class Level
-# Class Arm
-# Subject
-# Subject Folder
-# Term
-# Student Name
-# Admission No
-# ============================================================
-# ============================================================
-# DELETE RESULT RECORDS — PERMANENT
+# RESULT DELETION
 # ============================================================
 
 @api_bp.route("/api/results/delete", methods=["POST"])
 def delete_excel_results():
     if not can_view_results():
-        return jsonify({"error": "Unauthorized"}), 403
+        return jsonify({
+            "error": "Unauthorized"
+        }), 403
 
-    data = request.get_json(silent=True) or {}
-    delete_list = data.get("delete_items", [])
+    data = request.get_json(
+        silent=True
+    ) or {}
+
+    delete_list = data.get(
+        "delete_items",
+        [],
+    )
 
     if not isinstance(delete_list, list) or not delete_list:
-        return jsonify({"error": "No items to delete"}), 400
+        return jsonify({
+            "error": "No items to delete"
+        }), 400
 
     grouped = {}
     skipped = []
-
-    # ========================================================
-    # BUILD DELETE GROUPS
-    # ========================================================
 
     for item in delete_list:
         if not isinstance(item, dict):
             continue
 
-        year = str(item.get("Year") or item.get("year") or data.get("year") or "").strip()
+        year = str(
+            item.get("Year")
+            or item.get("year")
+            or data.get("year")
+            or ""
+        ).strip()
 
         class_cat = normalize_class(
             item.get("Class Level")
@@ -1831,7 +1745,11 @@ def delete_excel_results():
             or ""
         ).strip()
 
-        term = normalize_term(item.get("Term") or item.get("term") or data.get("term") or "")
+        term = normalize_term(
+            item.get("Term")
+            or item.get("term")
+            or data.get("term")
+        )
 
         student_name = str(
             item.get("Student Name")
@@ -1840,23 +1758,21 @@ def delete_excel_results():
             or ""
         ).strip().upper()
 
-        admission_no = str(
+        admission = str(
             item.get("Admission No")
             or item.get("admission_number")
             or item.get("student_id")
             or ""
         ).strip().upper()
 
-        # ----------------------------------------------------
-        # JSS TERM FALLBACK
-        # ----------------------------------------------------
-
-        if class_cat and is_jss_class(class_cat) and not term:
-            term = get_requested_term(class_cat)
-
-        # ----------------------------------------------------
-        # BASIC VALIDATION
-        # ----------------------------------------------------
+        if (
+            class_cat
+            and is_jss_class(class_cat)
+            and not term
+        ):
+            term = get_requested_term(
+                class_cat
+            )
 
         if not year or not class_cat or not subject:
             skipped.append({
@@ -1864,30 +1780,37 @@ def delete_excel_results():
                 "year": year,
                 "class": class_cat,
                 "subject": subject,
-                "admission": admission_no,
+                "admission": admission,
             })
+
             continue
 
-        if not student_name and not admission_no:
+        if not student_name and not admission:
             skipped.append({
                 "reason": "Missing student identity",
                 "year": year,
                 "class": class_cat,
                 "subject": subject,
             })
+
             continue
 
-        # ----------------------------------------------------
-        # IMPORTANT:
-        # JSS WITHOUT TERM IS ALLOWED HERE.
-        #
-        # The delete engine will search FIRST/SECOND/THIRD
-        # instead of rejecting immediately.
-        # ----------------------------------------------------
+        key = (
+            year,
+            class_cat,
+            term,
+            subject,
+        )
 
-        key = (year, class_cat, term, subject)
-
-        grouped.setdefault(key, set()).add((student_name, admission_no))
+        grouped.setdefault(
+            key,
+            set(),
+        ).add(
+            (
+                student_name,
+                admission,
+            )
+        )
 
     if not grouped:
         return jsonify({
@@ -1900,104 +1823,51 @@ def delete_excel_results():
     sqlite_deleted = 0
     touched_files = 0
 
-    # ========================================================
-    # SQLITE DATABASE PATH
-    # ========================================================
+    sqlite_path = (
+        BASE_DIR
+        / "database.db"
+    )
 
-    sqlite_path = BASE_DIR / "database.db"
+    for (
+        year,
+        class_cat,
+        requested_term,
+        subject,
+    ), targets in grouped.items():
 
-    # ========================================================
-    # PROCESS EACH RESULT GROUP
-    # ========================================================
+        candidates = candidate_result_paths(
+            class_cat,
+            subject,
+            year,
+            requested_term,
+        )
 
-    for (year, class_cat, term, subject), delete_targets in grouped.items():
-
-        # ====================================================
-        # DETERMINE POSSIBLE RESULT FILES
-        # ====================================================
-
-        candidate_paths = []
-
-        # ----------------------------------------------------
-        # JSS — TERM SUPPLIED
-        # ----------------------------------------------------
-
-        if is_jss_class(class_cat) and term:
-            excel_path = find_existing_result_path(class_cat, subject, year, term)
-
-            if excel_path and excel_path.exists():
-                candidate_paths.append((excel_path, term))
-
-        # ----------------------------------------------------
-        # JSS — TERM MISSING
-        #
-        # Search all three term folders + legacy fallback.
-        # ----------------------------------------------------
-
-        elif is_jss_class(class_cat):
-            for possible_term in ("FIRST", "SECOND", "THIRD"):
-                excel_path = find_existing_result_path(class_cat, subject, year, possible_term)
-
-                if excel_path and excel_path.exists():
-                    candidate_paths.append((excel_path, possible_term))
-
-            legacy_path = find_existing_result_path(class_cat, subject, year, "")
-
-            if legacy_path and legacy_path.exists():
-                candidate_paths.append((legacy_path, ""))
-
-        # ----------------------------------------------------
-        # SS — NO TERM
-        # ----------------------------------------------------
-
-        else:
-            excel_path = find_existing_result_path(class_cat, subject, year, "")
-
-            if excel_path and excel_path.exists():
-                candidate_paths.append((excel_path, ""))
-
-        # ----------------------------------------------------
-        # REMOVE DUPLICATE PATHS
-        # ----------------------------------------------------
-
-        unique_candidates = []
-        seen_paths = set()
-
-        for excel_path, candidate_term in candidate_paths:
-            path_key = str(excel_path.resolve())
-
-            if path_key in seen_paths:
-                continue
-
-            seen_paths.add(path_key)
-            unique_candidates.append((excel_path, candidate_term))
-
-        candidate_paths = unique_candidates
-
-        if not candidate_paths:
+        if not candidates:
             skipped.append({
                 "reason": "Result file not found",
                 "year": year,
                 "class": class_cat,
-                "term": term,
+                "term": requested_term,
                 "subject": subject,
             })
+
             continue
 
-        # ====================================================
-        # SEARCH / DELETE FROM EACH MATCHING FILE
-        # ====================================================
-
-        for excel_path, actual_term in candidate_paths:
+        for path, folder_term in candidates:
             try:
-                results = read_excel_file_direct(excel_path)
+                results = read_excel_file_direct(
+                    path
+                )
 
             except Exception as error:
-                print(f"DELETE READ ERROR [{excel_path}]:", error)
+                print(
+                    f"DELETE READ ERROR "
+                    f"[{path}]: {error}"
+                )
 
                 skipped.append({
                     "reason": "Could not read result file",
-                    "file": str(excel_path),
+                    "file": str(path),
                 })
 
                 continue
@@ -2005,39 +1875,58 @@ def delete_excel_results():
             updated = []
             removed = []
 
-            # =================================================
-            # MATCH RESULT RECORD
-            # =================================================
+            for row in results:
+                row_name = str(
+                    row.get("Student Name")
+                    or ""
+                ).strip().upper()
 
-            for record in results:
-                record_name = str(record.get("Student Name") or "").strip().upper()
-                record_admission = str(record.get("Admission No") or "").strip().upper()
+                row_admission = str(
+                    row.get("Admission No")
+                    or ""
+                ).strip().upper()
 
-                should_delete = False
+                row_term = normalize_term(
+                    row.get("Term")
+                    or folder_term
+                )
 
-                for target_name, target_admission in delete_targets:
+                # Old flat JSS can inherit selected term.
+                # Blank SS remains General / Legacy.
+                if (
+                    requested_term
+                    and not row_term
+                    and is_jss_class(class_cat)
+                ):
+                    row_term = requested_term
 
-                    # Admission number is preferred because it is unique.
-                    if target_admission and record_admission == target_admission:
-                        should_delete = True
-                        break
+                if (
+                    requested_term
+                    and row_term != requested_term
+                ):
+                    updated.append(row)
+                    continue
 
-                    # Fallback to name only if admission number was absent.
-                    if not target_admission and target_name and record_name == target_name:
-                        should_delete = True
-                        break
+                match = any(
+                    (
+                        target_admission
+                        and row_admission == target_admission
+                    )
+                    or (
+                        not target_admission
+                        and target_name
+                        and row_name == target_name
+                    )
+                    for target_name, target_admission in targets
+                )
 
-                if should_delete:
-                    removed.append(record)
+                if match:
+                    removed.append(row)
                 else:
-                    updated.append(record)
+                    updated.append(row)
 
             if not removed:
                 continue
-
-            # =================================================
-            # REBUILD PHYSICAL EXCEL FILE
-            # =================================================
 
             wb = Workbook()
             ws = wb.active
@@ -2047,75 +1936,81 @@ def delete_excel_results():
             ws.append(headers)
 
             for row in updated:
-                normalized = normalize_result_record(row, class_cat, subject, year, actual_term)
-                ws.append([normalized.get(header, "") for header in headers])
+                normalized = normalize_result_record(
+                    row,
+                    class_cat,
+                    subject,
+                    year,
+                    folder_term,
+                )
 
-            excel_path.parent.mkdir(parents=True, exist_ok=True)
-            wb.save(excel_path)
+                ws.append([
+                    normalized.get(
+                        header,
+                        "",
+                    )
+                    for header in headers
+                ])
+
+            path.parent.mkdir(
+                parents=True,
+                exist_ok=True,
+            )
+
+            wb.save(path)
 
             deleted_count += len(removed)
             touched_files += 1
-
-            # =================================================
-            # DELETE SAME RESULT FROM SQLITE
-            # =================================================
 
             if sqlite_path.exists():
                 conn = None
 
                 try:
-                    conn = sqlite3.connect(sqlite_path)
+                    conn = sqlite3.connect(
+                        sqlite_path
+                    )
+
                     cursor = conn.cursor()
 
-                    for removed_record in removed:
-                        removed_admission = str(removed_record.get("Admission No") or "").strip()
-                        removed_name = str(removed_record.get("Student Name") or "").strip()
-                        removed_subject = str(removed_record.get("Subject") or subject).strip()
+                    for row in removed:
+                        admission = str(
+                            row.get("Admission No")
+                            or ""
+                        ).strip()
+
+                        name = str(
+                            row.get("Student Name")
+                            or ""
+                        ).strip()
+
+                        stored_subject = str(
+                            row.get("Subject")
+                            or subject
+                        ).strip()
 
                         db_term = normalize_term(
-                            removed_record.get("Term")
-                            or actual_term
-                            or term
-                            or ""
+                            row.get("Term")
+                            or folder_term
+                            or requested_term
                         )
 
-                        if not is_jss_class(class_cat):
-                            db_term = ""
-
-                        # ----------------------------------------
-                        # DELETE USING ADMISSION NUMBER
-                        # ----------------------------------------
-
-                        if removed_admission:
-                            cursor.execute("""
-                                DELETE FROM student_results
-                                WHERE LOWER(TRIM(COALESCE(admission_number, ''))) = LOWER(TRIM(?))
-                                  AND TRIM(COALESCE(year, '')) = TRIM(?)
-                                  AND UPPER(TRIM(COALESCE(class_level, ''))) = UPPER(TRIM(?))
-                                  AND UPPER(TRIM(COALESCE(subject, ''))) = UPPER(TRIM(?))
-                                  AND UPPER(TRIM(COALESCE(term, ''))) = UPPER(TRIM(?))
-                            """, (removed_admission, year, class_cat, removed_subject, db_term))
-
-                        # ----------------------------------------
-                        # FALLBACK — DELETE USING STUDENT NAME
-                        # ----------------------------------------
-
-                        elif removed_name:
-                            cursor.execute("""
-                                DELETE FROM student_results
-                                WHERE LOWER(TRIM(COALESCE(full_name, ''))) = LOWER(TRIM(?))
-                                  AND TRIM(COALESCE(year, '')) = TRIM(?)
-                                  AND UPPER(TRIM(COALESCE(class_level, ''))) = UPPER(TRIM(?))
-                                  AND UPPER(TRIM(COALESCE(subject, ''))) = UPPER(TRIM(?))
-                                  AND UPPER(TRIM(COALESCE(term, ''))) = UPPER(TRIM(?))
-                            """, (removed_name, year, class_cat, removed_subject, db_term))
-
-                        sqlite_deleted += max(cursor.rowcount, 0)
+                        sqlite_deleted += delete_sqlite_result(
+                            cursor,
+                            admission,
+                            name,
+                            year,
+                            class_cat,
+                            stored_subject,
+                            db_term,
+                        )
 
                     conn.commit()
 
                 except Exception as error:
-                    print("SQLITE RESULT DELETE ERROR:", error)
+                    print(
+                        "SQLITE RESULT DELETE ERROR:",
+                        error,
+                    )
 
                     if conn:
                         conn.rollback()
@@ -2124,16 +2019,13 @@ def delete_excel_results():
                     if conn:
                         conn.close()
 
-            # =================================================
-            # IF TERM WAS EXPLICIT, STOP AFTER THAT FILE
-            # =================================================
-
-            if term:
+            # Exact term-folder result found.
+            # Do not unnecessarily continue into legacy file.
+            if (
+                requested_term
+                and folder_term == requested_term
+            ):
                 break
-
-    # ========================================================
-    # NOTHING FOUND
-    # ========================================================
 
     if deleted_count == 0:
         return jsonify({
@@ -2145,10 +2037,6 @@ def delete_excel_results():
             "skipped": skipped,
         }), 404
 
-    # ========================================================
-    # SUCCESS
-    # ========================================================
-
     return jsonify({
         "status": "ok",
         "message": "Result records permanently deleted.",
@@ -2158,23 +2046,12 @@ def delete_excel_results():
         "skipped": skipped,
     }), 200
 
+
 # ============================================================
-# 9. GLOBAL SEARCH
-#
-# Searches:
-#   Admission No
-#   Student Name
-#
-# Across:
-#   all years
-#   all classes
-#   all JSS terms
-#   all subjects
+# GLOBAL RESULT SEARCH
 # ============================================================
 
-@api_bp.route(
-    "/api/results/search_admission"
-)
+@api_bp.route("/api/results/search_admission")
 def search_admission():
     if not can_view_results():
         return jsonify({
@@ -2186,12 +2063,7 @@ def search_admission():
         "",
     ).strip().lower()
 
-    if len(q) < 2:
-        return jsonify({
-            "results": []
-        })
-
-    if not RESULTS_DIR.exists():
+    if len(q) < 2 or not RESULTS_DIR.exists():
         return jsonify({
             "results": []
         })
@@ -2199,61 +2071,56 @@ def search_admission():
     matches = []
 
     for info in iter_result_files():
-
-        year = info["year"]
-        class_cat = info["class"]
-        term = info["term"]
-        subject = info["subject"]
-        excel_path = info["path"]
-
         try:
             records = read_excel_file_direct(
-                excel_path
+                info["path"]
             )
 
         except Exception as error:
             print(
                 f"Search could not read "
-                f"{excel_path}: {error}"
+                f"{info['path']}: {error}"
             )
 
             continue
 
-        for row_dict in records:
+        for row in records:
+            normalize_result_record(
+                row,
+                info["class"],
+                info["subject"],
+                info["year"],
+                info["term"],
+            )
 
+        enrich_records_with_essay(
+            records,
+            info["class"],
+            info["subject"],
+            info["year"],
+            info["term"],
+        )
+
+        for row in records:
             admission = str(
-                row_dict.get(
-                    "Admission No",
-                    "",
-                )
+                row.get("Admission No")
+                or ""
             ).strip().lower()
 
             name = str(
-                row_dict.get(
-                    "Student Name",
-                    "",
-                )
+                row.get("Student Name")
+                or ""
             ).strip().lower()
 
             if (
                 q in admission
                 or q in name
             ):
-                normalize_result_record(
-                    row_dict,
-                    class_cat,
-                    subject,
-                    year,
-                    term,
-                )
-
-                matches.append(
-                    row_dict
-                )
+                matches.append(row)
 
     matches.sort(
-        key=lambda record: str(
-            record.get(
+        key=lambda row: str(
+            row.get(
                 "Submitted At",
                 "",
             )
@@ -2269,15 +2136,10 @@ def search_admission():
 
 
 # ============================================================
-# 10. ACADEMIC SETTINGS
-#
-# Current Session + Current Term
+# ACADEMIC SETTINGS
 # ============================================================
 
-@api_bp.route(
-    "/api/academic-settings",
-    methods=["GET"],
-)
+@api_bp.route("/api/academic-settings", methods=["GET"])
 def api_get_academic_settings():
     if not can_view_results():
         return jsonify({
@@ -2292,12 +2154,10 @@ def api_get_academic_settings():
 
         current_term = normalize_term(
             settings.get(
-                "current_term",
-                "",
+                "current_term"
             )
         )
 
-        # Keep normalized information available to frontend.
         settings["current_term"] = (
             current_term
             or settings.get(
@@ -2307,9 +2167,7 @@ def api_get_academic_settings():
         )
 
         settings["current_term_label"] = (
-            term_label(
-                current_term
-            )
+            term_label(current_term)
             if current_term
             else ""
         )
@@ -2331,14 +2189,7 @@ def api_get_academic_settings():
         }), 500
 
 
-# ============================================================
-# UPDATE ACADEMIC SETTINGS
-# ============================================================
-
-@api_bp.route(
-    "/api/academic-settings",
-    methods=["POST"],
-)
+@api_bp.route("/api/academic-settings", methods=["POST"])
 def api_update_academic_settings():
     if not can_view_results():
         return jsonify({
@@ -2346,75 +2197,50 @@ def api_update_academic_settings():
         }), 403
 
     try:
-        data = (
-            request.get_json(
-                silent=True
-            )
-            or {}
-        )
+        data = request.get_json(
+            silent=True
+        ) or {}
 
         session_value = str(
             data.get(
-                "current_session",
-                "",
+                "current_session"
             )
-        ).strip()
-
-        raw_term = str(
-            data.get(
-                "current_term",
-                "",
-            )
+            or ""
         ).strip()
 
         term_value = normalize_term(
-            raw_term
+            data.get(
+                "current_term"
+            )
         )
 
         if not session_value:
             return jsonify({
                 "success": False,
-                "error": (
-                    "Academic session is required"
-                ),
+                "error": "Academic session is required",
             }), 400
 
         if not term_value:
             return jsonify({
                 "success": False,
-                "error": (
-                    "A valid academic term is required. "
-                    "Use FIRST, SECOND or THIRD."
-                ),
+                "error": "A valid academic term is required. Use FIRST, SECOND or THIRD.",
             }), 400
-
-        # ----------------------------------------------------
-        # Save canonical term.
-        #
-        # FIRST
-        # SECOND
-        # THIRD
-        # ----------------------------------------------------
 
         update_academic_settings(
             session_value,
             term_value,
         )
 
-        # Keep current Flask session synchronized where useful.
         session["selected_term"] = term_value
 
         return jsonify({
             "success": True,
-            "message": (
-                "Academic settings updated successfully"
-            ),
+            "message": "Academic settings updated successfully",
+
             "settings": {
                 "current_session": session_value,
                 "current_term": term_value,
-                "current_term_label": term_label(
-                    term_value
-                ),
+                "current_term_label": term_label(term_value),
             },
         })
 
@@ -2430,70 +2256,110 @@ def api_update_academic_settings():
         }), 500
 
 
-
 # ============================================================
-# PROFESSIONAL RESULTS EXCEL EXPORT
-# Creates a real Microsoft Excel .xlsx workbook
+# EXCEL EXPORT
 # ============================================================
 
 @api_bp.route("/api/results/export/excel", methods=["POST"])
 def export_results_excel():
     if not can_view_results():
-        return jsonify({"error": "Unauthorized"}), 403
+        return jsonify({
+            "error": "Unauthorized"
+        }), 403
 
-    data = request.get_json(silent=True) or {}
-    records = data.get("results", [])
+    data = request.get_json(
+        silent=True
+    ) or {}
+
+    records = data.get(
+        "results",
+        [],
+    )
 
     if not isinstance(records, list) or not records:
-        return jsonify({"error": "No results supplied for export"}), 400
+        return jsonify({
+            "error": "No results supplied for export"
+        }), 400
 
-    filters = data.get("filters", {}) if isinstance(data.get("filters"), dict) else {}
-    generated_at = datetime.now().strftime("%d %B %Y, %I:%M %p")
+    filters = (
+        data.get("filters", {})
+        if isinstance(
+            data.get("filters"),
+            dict,
+        )
+        else {}
+    )
+
+    generated_at = datetime.now().strftime(
+        "%d %B %Y, %I:%M %p"
+    )
 
     def value(row, *keys, default=""):
         for key in keys:
-            if key in row and row.get(key) not in (None, ""):
+            if row.get(key) not in (None, ""):
                 return row.get(key)
+
         return default
 
-    def normalize_term_label(raw):
-        text = str(raw or "").strip().upper().replace("_", " ").replace("-", " ")
+    def export_term(raw, class_level=""):
+        label = short_term_label(raw)
 
-        if text in {"FIRST", "FIRST TERM", "1", "1ST", "1ST TERM"}:
-            return "1st Term"
+        if label:
+            return label
 
-        if text in {"SECOND", "SECOND TERM", "2", "2ND", "2ND TERM"}:
-            return "2nd Term"
+        if is_ss_class(class_level):
+            return "General / Legacy"
 
-        if text in {"THIRD", "THIRD TERM", "3", "3RD", "3RD TERM"}:
-            return "3rd Term"
-
-        return str(raw or "").strip()
+        return ""
 
     def numeric_score(row):
-        raw = value(row, "Score (%)", "Score Number", "score", "score_percentage", "percentage", default=0)
+        raw = value(
+            row,
+            "Score (%)",
+            "Score Number",
+            "score",
+            "score_percentage",
+            "percentage",
+            default=0,
+        )
 
         try:
-            return float(str(raw).replace("%", "").strip())
+            return float(
+                str(raw)
+                .replace("%", "")
+                .strip()
+            )
+
         except (TypeError, ValueError):
             return 0.0
 
     def result_status(row):
-        explicit = str(value(row, "Status", "status", default="")).strip().upper()
+        explicit = str(
+            value(
+                row,
+                "Status",
+                "status",
+                default="",
+            )
+        ).strip().upper()
 
-        if explicit in {"PASS", "FAIL"}:
+        if explicit in {
+            "PASS",
+            "FAIL",
+        }:
             return explicit
 
-        return "PASS" if numeric_score(row) >= 50 else "FAIL"
+        return (
+            "PASS"
+            if numeric_score(row) >= 50
+            else "FAIL"
+        )
 
     wb = Workbook()
     ws = wb.active
+
     ws.title = "Examination Results"
     ws.sheet_view.showGridLines = False
-
-    # ========================================================
-    # COLOURS / STYLES
-    # ========================================================
 
     dark = "17324D"
     teal = "0F766E"
@@ -2511,198 +2377,706 @@ def export_results_excel():
     text = "17202A"
     muted = "64748B"
 
-    thin = Side(style="thin", color=border_colour)
-    cell_border = Border(left=thin, right=thin, top=thin, bottom=thin)
+    thin = Side(
+        style="thin",
+        color=border_colour,
+    )
 
-    # ========================================================
-    # DOCUMENT TITLE
-    # ========================================================
+    cell_border = Border(
+        left=thin,
+        right=thin,
+        top=thin,
+        bottom=thin,
+    )
 
-    headers = ["S/N", "Student Name", "Admission No", "Year", "Class Level", "Class Arm", "Term", "Subject", "Score (%)", "Correct", "Total", "Status", "Time Taken", "Submitted At", "Session"]
+    headers = [
+        "S/N",
+        "Student Name",
+        "Admission No",
+        "Year",
+        "Class Level",
+        "Class Arm",
+        "Term",
+        "Subject",
+        "Score (%)",
+        "Correct",
+        "Total",
+        "Status",
+        "Time Taken",
+        "Submitted At",
+        "Session",
+    ]
+
     total_columns = len(headers)
 
-    ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=total_columns)
-    title_cell = ws.cell(row=1, column=1, value="EMIS CBT — EXAMINATION RESULTS")
-    title_cell.font = Font(name="Calibri", size=18, bold=True, color=white)
-    title_cell.fill = PatternFill("solid", fgColor=dark)
-    title_cell.alignment = Alignment(horizontal="left", vertical="center")
+    # TITLE
+    ws.merge_cells(
+        start_row=1,
+        start_column=1,
+        end_row=1,
+        end_column=total_columns,
+    )
+
+    title = ws.cell(
+        1,
+        1,
+        "EMIS CBT — EXAMINATION RESULTS",
+    )
+
+    title.font = Font(
+        name="Calibri",
+        size=18,
+        bold=True,
+        color=white,
+    )
+
+    title.fill = PatternFill(
+        "solid",
+        fgColor=dark,
+    )
+
+    title.alignment = Alignment(
+        horizontal="left",
+        vertical="center",
+    )
+
     ws.row_dimensions[1].height = 32
 
-    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=total_columns)
-    subtitle_cell = ws.cell(row=2, column=1, value="Official Examination Results Report")
-    subtitle_cell.font = Font(name="Calibri", size=12, bold=True, color=teal)
-    subtitle_cell.alignment = Alignment(horizontal="left", vertical="center")
+    ws.merge_cells(
+        start_row=2,
+        start_column=1,
+        end_row=2,
+        end_column=total_columns,
+    )
+
+    subtitle = ws.cell(
+        2,
+        1,
+        "Official Examination Results Report",
+    )
+
+    subtitle.font = Font(
+        name="Calibri",
+        size=12,
+        bold=True,
+        color=teal,
+    )
+
+    subtitle.alignment = Alignment(
+        horizontal="left",
+        vertical="center",
+    )
+
     ws.row_dimensions[2].height = 23
 
-    # ========================================================
-    # FILTER / REPORT INFORMATION
-    # ========================================================
+    # REPORT INFORMATION
+    term_filter_raw = filters.get(
+        "term"
+    )
 
-    year_filter = str(filters.get("year") or "All Years")
-    class_filter = str(filters.get("class") or "All Classes")
-    term_filter = normalize_term_label(filters.get("term")) or "All Terms"
-    subject_filter = str(filters.get("subject") or "All Subjects")
-    session_filter = str(filters.get("session") or "All Sessions")
+    term_filter = (
+        short_term_label(
+            term_filter_raw
+        )
+        or str(
+            term_filter_raw
+            or "All Terms"
+        )
+    )
 
     report_info = [
-        ("Academic Year", year_filter),
-        ("Class", class_filter),
-        ("Term", term_filter),
-        ("Subject", subject_filter),
-        ("Session", session_filter),
-        ("Generated", generated_at),
+        (
+            "Academic Year",
+            str(
+                filters.get("year")
+                or "All Years"
+            ),
+        ),
+
+        (
+            "Class",
+            str(
+                filters.get("class")
+                or "All Classes"
+            ),
+        ),
+
+        (
+            "Term",
+            term_filter,
+        ),
+
+        (
+            "Subject",
+            str(
+                filters.get("subject")
+                or "All Subjects"
+            ),
+        ),
+
+        (
+            "Session",
+            str(
+                filters.get("session")
+                or "All Sessions"
+            ),
+        ),
+
+        (
+            "Generated",
+            generated_at,
+        ),
     ]
 
-    info_row = 4
+    for index, (
+        label,
+        content,
+    ) in enumerate(report_info):
 
-    for index, (label, content) in enumerate(report_info):
-        start_column = 1 + ((index % 3) * 5)
-        row = info_row + (index // 3)
+        column = (
+            1
+            + (
+                index % 3
+            )
+            * 5
+        )
 
-        ws.cell(row=row, column=start_column, value=label).font = Font(name="Calibri", size=10, bold=True, color=muted)
-        ws.cell(row=row, column=start_column + 1, value=content).font = Font(name="Calibri", size=11, bold=True, color=text)
+        row = (
+            4
+            + (
+                index // 3
+            )
+        )
 
-        ws.merge_cells(start_row=row, start_column=start_column + 1, end_row=row, end_column=start_column + 3)
+        ws.cell(
+            row,
+            column,
+            label,
+        ).font = Font(
+            name="Calibri",
+            size=10,
+            bold=True,
+            color=muted,
+        )
 
-    # ========================================================
+        ws.cell(
+            row,
+            column + 1,
+            content,
+        ).font = Font(
+            name="Calibri",
+            size=11,
+            bold=True,
+            color=text,
+        )
+
+        ws.merge_cells(
+            start_row=row,
+            start_column=column + 1,
+            end_row=row,
+            end_column=column + 3,
+        )
+
     # SUMMARY
-    # ========================================================
+    scores = [
+        numeric_score(row)
+        for row in records
+    ]
 
-    scores = [numeric_score(row) for row in records]
-    pass_count = sum(1 for row in records if result_status(row) == "PASS")
-    fail_count = len(records) - pass_count
-    average_score = sum(scores) / len(scores) if scores else 0
-    highest_score = max(scores) if scores else 0
+    pass_count = sum(
+        1
+        for row in records
+        if result_status(row) == "PASS"
+    )
 
-    summary_row = 7
+    average_score = (
+        sum(scores) / len(scores)
+        if scores
+        else 0
+    )
+
+    highest_score = (
+        max(scores)
+        if scores
+        else 0
+    )
 
     summary_items = [
-        ("TOTAL RESULTS", len(records), teal, teal_light),
-        ("PASS", pass_count, green, green_fill),
-        ("FAIL", fail_count, red, red_fill),
-        ("AVERAGE SCORE", f"{average_score:.1f}%", gold, gold_fill),
-        ("HIGHEST SCORE", f"{highest_score:.1f}%", teal, teal_light),
+        (
+            "TOTAL RESULTS",
+            len(records),
+            teal,
+            teal_light,
+        ),
+
+        (
+            "PASS",
+            pass_count,
+            green,
+            green_fill,
+        ),
+
+        (
+            "FAIL",
+            len(records) - pass_count,
+            red,
+            red_fill,
+        ),
+
+        (
+            "AVERAGE SCORE",
+            f"{average_score:.1f}%",
+            gold,
+            gold_fill,
+        ),
+
+        (
+            "HIGHEST SCORE",
+            f"{highest_score:.1f}%",
+            teal,
+            teal_light,
+        ),
     ]
 
-    summary_width = 3
+    for index, (
+        label,
+        summary_value,
+        font_colour,
+        fill_colour,
+    ) in enumerate(summary_items):
 
-    for index, (label, summary_value, font_colour, fill_colour) in enumerate(summary_items):
-        start_column = 1 + (index * summary_width)
-        end_column = min(start_column + summary_width - 1, total_columns)
+        start = (
+            1
+            + index * 3
+        )
 
-        ws.merge_cells(start_row=summary_row, start_column=start_column, end_row=summary_row, end_column=end_column)
-        ws.merge_cells(start_row=summary_row + 1, start_column=start_column, end_row=summary_row + 1, end_column=end_column)
+        end = min(
+            3 + index * 3,
+            total_columns,
+        )
 
-        label_cell = ws.cell(row=summary_row, column=start_column, value=label)
-        value_cell = ws.cell(row=summary_row + 1, column=start_column, value=summary_value)
+        ws.merge_cells(
+            start_row=7,
+            start_column=start,
+            end_row=7,
+            end_column=end,
+        )
 
-        label_cell.font = Font(name="Calibri", size=9, bold=True, color=muted)
-        value_cell.font = Font(name="Calibri", size=15, bold=True, color=font_colour)
+        ws.merge_cells(
+            start_row=8,
+            start_column=start,
+            end_row=8,
+            end_column=end,
+        )
 
-        label_cell.fill = PatternFill("solid", fgColor=fill_colour)
-        value_cell.fill = PatternFill("solid", fgColor=fill_colour)
+        label_cell = ws.cell(
+            7,
+            start,
+            label,
+        )
 
-        label_cell.alignment = Alignment(horizontal="center", vertical="center")
-        value_cell.alignment = Alignment(horizontal="center", vertical="center")
+        value_cell = ws.cell(
+            8,
+            start,
+            summary_value,
+        )
 
-        for row_number in (summary_row, summary_row + 1):
-            for column_number in range(start_column, end_column + 1):
-                ws.cell(row=row_number, column=column_number).border = cell_border
+        label_cell.font = Font(
+            name="Calibri",
+            size=9,
+            bold=True,
+            color=muted,
+        )
 
-    ws.row_dimensions[summary_row].height = 19
-    ws.row_dimensions[summary_row + 1].height = 28
+        value_cell.font = Font(
+            name="Calibri",
+            size=15,
+            bold=True,
+            color=font_colour,
+        )
 
-    # ========================================================
+        label_cell.fill = PatternFill(
+            "solid",
+            fgColor=fill_colour,
+        )
+
+        value_cell.fill = PatternFill(
+            "solid",
+            fgColor=fill_colour,
+        )
+
+        label_cell.alignment = Alignment(
+            horizontal="center",
+            vertical="center",
+        )
+
+        value_cell.alignment = Alignment(
+            horizontal="center",
+            vertical="center",
+        )
+
+        for row_num in (7, 8):
+            for col_num in range(
+                start,
+                end + 1,
+            ):
+                ws.cell(
+                    row_num,
+                    col_num,
+                ).border = cell_border
+
+    ws.row_dimensions[7].height = 19
+    ws.row_dimensions[8].height = 28
+
     # TABLE HEADER
-    # ========================================================
-
     header_row = 11
 
-    for column_index, heading in enumerate(headers, start=1):
-        cell = ws.cell(row=header_row, column=column_index, value=heading)
-        cell.font = Font(name="Calibri", size=11, bold=True, color=white)
-        cell.fill = PatternFill("solid", fgColor=header_fill)
-        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    for column, heading in enumerate(
+        headers,
+        1,
+    ):
+        cell = ws.cell(
+            header_row,
+            column,
+            heading,
+        )
+
+        cell.font = Font(
+            name="Calibri",
+            size=11,
+            bold=True,
+            color=white,
+        )
+
+        cell.fill = PatternFill(
+            "solid",
+            fgColor=header_fill,
+        )
+
+        cell.alignment = Alignment(
+            horizontal="center",
+            vertical="center",
+            wrap_text=True,
+        )
+
         cell.border = cell_border
 
-    ws.row_dimensions[header_row].height = 28
+    ws.row_dimensions[
+        header_row
+    ].height = 28
 
-    # ========================================================
     # RESULT ROWS
-    # ========================================================
+    for serial, row in enumerate(
+        records,
+        1,
+    ):
+        excel_row = (
+            header_row
+            + serial
+        )
 
-    first_data_row = header_row + 1
+        class_level = str(
+            value(
+                row,
+                "Class Level",
+                "Class Category",
+                "class_level",
+                "class_category",
+                default="",
+            )
+        ).strip()
 
-    for serial, row in enumerate(records, start=1):
-        excel_row = header_row + serial
+        score = numeric_score(
+            row
+        )
 
-        student_name = str(value(row, "Student Name", "full_name", "student_name", default="Unknown Student")).strip()
-        admission = str(value(row, "Admission No", "admission_number", "student_id", default="")).strip()
-        year = str(value(row, "Year", "year", default="")).strip()
-        class_level = str(value(row, "Class Level", "Class Category", "class_level", "class_category", default="")).strip()
-        class_arm = str(value(row, "Class Arm", "class_arm", "Class", "class", default=class_level)).strip()
-        term = normalize_term_label(value(row, "Term", "term", "Term Label", default=""))
-        subject = str(value(row, "Subject", "subject", "Subject Folder", "subject_folder", default="")).replace("_", " ").upper().strip()
-        score = numeric_score(row)
-        correct = value(row, "Correct", "correct", default=0)
-        total = value(row, "Total", "total", default=0)
-        status = result_status(row)
-        time_taken = value(row, "Time Taken", "time_taken", "timeTaken", default="")
-        submitted_at = value(row, "Submitted At", "submitted_at", "submittedAt", default="")
-        session_value = value(row, "Session", "session", "Academic Session", "academic_session", default="")
+        status = result_status(
+            row
+        )
 
-        values = [serial, student_name, admission, year, class_level, class_arm, term, subject, score / 100, correct, total, status, time_taken, submitted_at, session_value]
+        values = [
+            serial,
 
-        row_fill = PatternFill("solid", fgColor=soft_fill if serial % 2 == 0 else white)
+            str(
+                value(
+                    row,
+                    "Student Name",
+                    "full_name",
+                    "student_name",
+                    default="Unknown Student",
+                )
+            ).strip(),
 
-        for column_index, content in enumerate(values, start=1):
-            cell = ws.cell(row=excel_row, column=column_index, value=content)
-            cell.font = Font(name="Calibri", size=11, color=text)
+            str(
+                value(
+                    row,
+                    "Admission No",
+                    "admission_number",
+                    "student_id",
+                    default="",
+                )
+            ).strip(),
+
+            str(
+                value(
+                    row,
+                    "Year",
+                    "year",
+                    default="",
+                )
+            ).strip(),
+
+            class_level,
+
+            str(
+                value(
+                    row,
+                    "Class Arm",
+                    "class_arm",
+                    "Class",
+                    "class",
+                    default=class_level,
+                )
+            ).strip(),
+
+            export_term(
+                value(
+                    row,
+                    "Term",
+                    "term",
+                    "Term Label",
+                    default="",
+                ),
+                class_level,
+            ),
+
+            str(
+                value(
+                    row,
+                    "Subject",
+                    "subject",
+                    "Subject Folder",
+                    "subject_folder",
+                    default="",
+                )
+            )
+            .replace("_", " ")
+            .upper()
+            .strip(),
+
+            score / 100,
+
+            value(
+                row,
+                "Correct",
+                "correct",
+                default=0,
+            ),
+
+            value(
+                row,
+                "Total",
+                "total",
+                default=0,
+            ),
+
+            status,
+
+            value(
+                row,
+                "Time Taken",
+                "time_taken",
+                "timeTaken",
+                default="",
+            ),
+
+            value(
+                row,
+                "Submitted At",
+                "submitted_at",
+                "submittedAt",
+                default="",
+            ),
+
+            value(
+                row,
+                "Session",
+                "session",
+                "Academic Session",
+                "academic_session",
+                default="",
+            ),
+        ]
+
+        row_fill = PatternFill(
+            "solid",
+            fgColor=(
+                soft_fill
+                if serial % 2 == 0
+                else white
+            ),
+        )
+
+        for column, content in enumerate(
+            values,
+            1,
+        ):
+            cell = ws.cell(
+                excel_row,
+                column,
+                content,
+            )
+
+            cell.font = Font(
+                name="Calibri",
+                size=11,
+                color=text,
+            )
+
             cell.fill = row_fill
             cell.border = cell_border
-            cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=False)
 
-        # Student name: larger + bold
-        name_cell = ws.cell(row=excel_row, column=2)
-        name_cell.font = Font(name="Calibri", size=12, bold=True, color=dark)
+            cell.alignment = Alignment(
+                horizontal="left",
+                vertical="center",
+            )
 
-        # Admission / class information
-        for column_index in [1, 3, 4, 5, 6, 7, 10, 11, 12]:
-            ws.cell(row=excel_row, column=column_index).alignment = Alignment(horizontal="center", vertical="center")
+        # Student name
+        ws.cell(
+            excel_row,
+            2,
+        ).font = Font(
+            name="Calibri",
+            size=12,
+            bold=True,
+            color=dark,
+        )
+
+        # Centre common fields
+        for column in [
+            1,
+            3,
+            4,
+            5,
+            6,
+            7,
+            10,
+            11,
+            12,
+        ]:
+            ws.cell(
+                excel_row,
+                column,
+            ).alignment = Alignment(
+                horizontal="center",
+                vertical="center",
+            )
 
         # Subject
-        ws.cell(row=excel_row, column=8).font = Font(name="Calibri", size=11, bold=True, color=text)
+        ws.cell(
+            excel_row,
+            8,
+        ).font = Font(
+            name="Calibri",
+            size=11,
+            bold=True,
+            color=text,
+        )
 
-        # SCORE — highly visible
-        score_cell = ws.cell(row=excel_row, column=9)
+        # Score
+        score_cell = ws.cell(
+            excel_row,
+            9,
+        )
+
         score_cell.number_format = "0.0%"
-        score_cell.font = Font(name="Calibri", size=13, bold=True, color=green if score >= 50 else red)
-        score_cell.alignment = Alignment(horizontal="center", vertical="center")
-        score_cell.fill = PatternFill("solid", fgColor=green_fill if score >= 50 else red_fill)
 
-        # STATUS
-        status_cell = ws.cell(row=excel_row, column=12)
-        status_cell.font = Font(name="Calibri", size=11, bold=True, color=green if status == "PASS" else red)
-        status_cell.fill = PatternFill("solid", fgColor=green_fill if status == "PASS" else red_fill)
+        score_cell.font = Font(
+            name="Calibri",
+            size=13,
+            bold=True,
+            color=(
+                green
+                if score >= 50
+                else red
+            ),
+        )
 
-        ws.row_dimensions[excel_row].height = 25
+        score_cell.alignment = Alignment(
+            horizontal="center",
+            vertical="center",
+        )
 
-    last_data_row = header_row + len(records)
+        score_cell.fill = PatternFill(
+            "solid",
+            fgColor=(
+                green_fill
+                if score >= 50
+                else red_fill
+            ),
+        )
 
-    # ========================================================
-    # EXCEL TABLE
-    # ========================================================
+        # Status
+        status_cell = ws.cell(
+            excel_row,
+            12,
+        )
 
-    table_reference = f"A{header_row}:O{last_data_row}"
+        status_cell.font = Font(
+            name="Calibri",
+            size=11,
+            bold=True,
+            color=(
+                green
+                if status == "PASS"
+                else red
+            ),
+        )
 
-    result_table = Table(displayName="EMISResultsTable", ref=table_reference)
-    result_table.tableStyleInfo = TableStyleInfo(name="TableStyleMedium2", showFirstColumn=False, showLastColumn=False, showRowStripes=False, showColumnStripes=False)
+        status_cell.fill = PatternFill(
+            "solid",
+            fgColor=(
+                green_fill
+                if status == "PASS"
+                else red_fill
+            ),
+        )
 
-    ws.add_table(result_table)
+        ws.row_dimensions[
+            excel_row
+        ].height = 25
 
-    # ========================================================
-    # COLUMN WIDTHS
-    # ========================================================
+    first_data_row = (
+        header_row
+        + 1
+    )
+
+    last_data_row = (
+        header_row
+        + len(records)
+    )
+
+    table_ref = (
+        f"A{header_row}:"
+        f"O{last_data_row}"
+    )
+
+    table = Table(
+        displayName="EMISResultsTable",
+        ref=table_ref,
+    )
+
+    table.tableStyleInfo = TableStyleInfo(
+        name="TableStyleMedium2",
+        showFirstColumn=False,
+        showLastColumn=False,
+        showRowStripes=False,
+        showColumnStripes=False,
+    )
+
+    ws.add_table(
+        table
+    )
 
     widths = {
         "A": 7,
@@ -2711,7 +3085,7 @@ def export_results_excel():
         "D": 10,
         "E": 13,
         "F": 15,
-        "G": 13,
+        "G": 15,
         "H": 24,
         "I": 13,
         "J": 10,
@@ -2723,34 +3097,55 @@ def export_results_excel():
     }
 
     for column, width in widths.items():
-        ws.column_dimensions[column].width = width
+        ws.column_dimensions[
+            column
+        ].width = width
 
-    # ========================================================
-    # FREEZE / FILTER / VIEW
-    # ========================================================
+    ws.freeze_panes = (
+        f"A{first_data_row}"
+    )
 
-    ws.freeze_panes = f"A{first_data_row}"
-    ws.auto_filter.ref = table_reference
+    ws.auto_filter.ref = (
+        table_ref
+    )
 
     ws.sheet_view.zoomScale = 90
     ws.sheet_view.zoomScaleNormal = 90
 
-    # ========================================================
-    # PROFESSIONAL A4 PRINT SETTINGS
-    # ========================================================
+    ws.page_setup.paperSize = (
+        ws.PAPERSIZE_A4
+    )
 
-    ws.page_setup.paperSize = ws.PAPERSIZE_A4
-    ws.page_setup.orientation = ws.ORIENTATION_LANDSCAPE
+    ws.page_setup.orientation = (
+        ws.ORIENTATION_LANDSCAPE
+    )
+
     ws.page_setup.fitToWidth = 1
     ws.page_setup.fitToHeight = 0
+
     ws.sheet_properties.pageSetUpPr.fitToPage = True
 
-    ws.page_margins = PageMargins(left=0.25, right=0.25, top=0.45, bottom=0.45, header=0.2, footer=0.2)
+    ws.page_margins = PageMargins(
+        left=0.25,
+        right=0.25,
+        top=0.45,
+        bottom=0.45,
+        header=0.2,
+        footer=0.2,
+    )
 
-    ws.print_title_rows = f"{header_row}:{header_row}"
-    ws.print_area = f"A1:O{last_data_row}"
+    ws.print_title_rows = (
+        f"{header_row}:{header_row}"
+    )
 
-    ws.oddHeader.center.text = "&BEMIS CBT — EXAMINATION RESULTS"
+    ws.print_area = (
+        f"A1:O{last_data_row}"
+    )
+
+    ws.oddHeader.center.text = (
+        "&BEMIS CBT — EXAMINATION RESULTS"
+    )
+
     ws.oddHeader.center.size = 10
 
     ws.oddFooter.left.text = "EMIS CBT"
@@ -2759,18 +3154,32 @@ def export_results_excel():
 
     ws.sheet_properties.outlinePr.summaryBelow = True
 
-    # ========================================================
-    # SAVE WORKBOOK
-    # ========================================================
-
     output = BytesIO()
-    wb.save(output)
+
+    wb.save(
+        output
+    )
+
     output.seek(0)
 
-    year_name = str(filters.get("year") or "all_years").replace("/", "-").replace(" ", "_")
-    class_name = str(filters.get("class") or "all_classes").replace("/", "-").replace(" ", "_")
-    term_name = str(filters.get("term") or "all_terms").replace("/", "-").replace(" ", "_")
+    def safe_name(value, fallback):
+        return (
+            str(value or fallback)
+            .replace("/", "-")
+            .replace(" ", "_")
+        )
 
-    filename = f"EMIS_Results_{year_name}_{class_name}_{term_name}_{datetime.now().strftime('%Y-%m-%d')}.xlsx"
+    filename = (
+        f"EMIS_Results_"
+        f"{safe_name(filters.get('year'), 'all_years')}_"
+        f"{safe_name(filters.get('class'), 'all_classes')}_"
+        f"{safe_name(filters.get('term'), 'all_terms')}_"
+        f"{datetime.now().strftime('%Y-%m-%d')}.xlsx"
+    )
 
-    return send_file(output, as_attachment=True, download_name=filename, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    return send_file(
+        output,
+        as_attachment=True,
+        download_name=filename,
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )

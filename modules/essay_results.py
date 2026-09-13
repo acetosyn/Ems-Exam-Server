@@ -4,6 +4,7 @@
 import csv
 import json
 import re
+import time
 from pathlib import Path
 from datetime import datetime
 from threading import Lock
@@ -11,18 +12,14 @@ from threading import Lock
 from flask import jsonify, request, session
 from openpyxl import load_workbook
 
-from modules.class_config import SUPPORTED_CLASSES, normalize_class_level
+from modules.class_config import SUPPORTED_CLASSES, normalize_class_level, normalize_class_arm
+from modules.excel_manager import read_results, get_preferred_excel_path, normalize_result_term, result_term_label
 
-
-# ============================================================
-# PATHS / CONSTANTS
-# ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 RESULTS_DIR = BASE_DIR / "RESULTS"
 DATABASE_DIR = BASE_DIR / "static" / "data" / "database"
 SUBJECTS_ROOT = BASE_DIR / "static" / "subjects"
-
 MASTER_CSV = DATABASE_DIR / "students2026.csv"
 
 CLASS_DATABASES = {
@@ -39,14 +36,13 @@ DEFAULT_TOTAL_MAX = 100.0
 ESSAY_FILE_NAME = "essay_scores.json"
 ESSAY_LOCK = Lock()
 
+STAFF_SESSION_TIMEOUT_SECONDS = 20 * 60
+STAFF_SESSION_ACTIVITY_KEY = "_staff_last_activity"
+
 
 # ============================================================
 # BASIC HELPERS
 # ============================================================
-
-def can_manage_results():
-    return str(session.get("user_type", "")).lower() in {"admin", "teacher"}
-
 
 def clean_text(value):
     return str(value or "").strip()
@@ -60,17 +56,12 @@ def is_jss_class(value):
     return clean_text(normalize_class(value)).upper().startswith("JSS")
 
 
+def is_ss_class(value):
+    return clean_text(normalize_class(value)).upper().startswith("SS")
+
+
 def normalize_term(value):
-    raw = clean_text(value).upper().replace("_", " ").replace("-", " ")
-    raw = " ".join(raw.split())
-
-    aliases = {
-        "FIRST": "FIRST", "FIRST TERM": "FIRST", "TERM 1": "FIRST", "TERM ONE": "FIRST", "1": "FIRST", "1ST": "FIRST", "1ST TERM": "FIRST",
-        "SECOND": "SECOND", "SECOND TERM": "SECOND", "TERM 2": "SECOND", "TERM TWO": "SECOND", "2": "SECOND", "2ND": "SECOND", "2ND TERM": "SECOND",
-        "THIRD": "THIRD", "THIRD TERM": "THIRD", "TERM 3": "THIRD", "TERM THREE": "THIRD", "3": "THIRD", "3RD": "THIRD", "3RD TERM": "THIRD",
-    }
-
-    return aliases.get(raw, "")
+    return normalize_result_term(value)
 
 
 def term_label(value):
@@ -118,7 +109,35 @@ def now_string():
 
 
 # ============================================================
-# STUDENT NAME
+# STAFF SESSION
+# ============================================================
+
+def can_manage_results():
+    role = clean_text(session.get("user_type")).lower()
+
+    if role not in {"admin", "teacher"}: return False
+
+    now = time.time()
+    last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
+
+    if last_activity is not None:
+        try:
+            if now - float(last_activity) > STAFF_SESSION_TIMEOUT_SECONDS:
+                print(f"[ESSAY SESSION] {role} session expired after 20 minutes inactivity.")
+                session.clear()
+                return False
+        except (TypeError, ValueError):
+            pass
+
+    session.permanent = True
+    session[STAFF_SESSION_ACTIVITY_KEY] = now
+    session.modified = True
+
+    return True
+
+
+# ============================================================
+# STUDENT HELPERS
 # ============================================================
 
 def build_student_name(row):
@@ -133,26 +152,24 @@ def build_student_name(row):
     return " ".join(part for part in (last_name, first_name, other_names) if part)
 
 
-# ============================================================
-# STUDENT ROW NORMALIZATION
-# ============================================================
-
 def normalize_student_row(row, class_level=""):
     class_level = normalize_class(class_level or row.get("Class_category") or row.get("Class Category") or row.get("Class Level") or row.get("Class"))
-    class_arm = clean_text(row.get("Class") or row.get("Class_arm") or row.get("Class Arm") or class_level).upper()
+
+    raw_arm = row.get("Class") or row.get("Class_arm") or row.get("Class Arm") or class_level
+    class_arm = normalize_class_arm(raw_arm, class_level) or clean_text(raw_arm).upper() or class_level
 
     return {
         "admission_number": clean_text(row.get("Admission_number") or row.get("Admission No") or row.get("admission_number") or row.get("student_id")),
         "student_name": build_student_name(row),
         "class_level": class_level,
         "class_category": class_level,
-        "class_arm": class_arm or class_level,
+        "class_arm": class_arm,
         "sex": clean_text(row.get("Sex") or row.get("sex")),
     }
 
 
 # ============================================================
-# READ CLASS XLSX DATABASE
+# CLASS DATABASE
 # ============================================================
 
 def read_class_xlsx(class_level):
@@ -174,8 +191,8 @@ def read_class_xlsx(class_level):
         students = []
 
         for values in rows[1:]:
-            row = dict(zip(headers, list(values) + [None] * max(0, len(headers) - len(values))))
-            student = normalize_student_row(row, class_level)
+            values = list(values) + [None] * max(0, len(headers) - len(values))
+            student = normalize_student_row(dict(zip(headers, values[:len(headers)])), class_level)
 
             if student["admission_number"] or student["student_name"]: students.append(student)
 
@@ -186,10 +203,6 @@ def read_class_xlsx(class_level):
         print(f"ESSAY STUDENT XLSX READ ERROR [{path}]:", error)
         return []
 
-
-# ============================================================
-# READ MASTER CSV FALLBACK
-# ============================================================
 
 def read_master_csv(class_level):
     class_level = normalize_class(class_level)
@@ -216,34 +229,24 @@ def read_master_csv(class_level):
         return []
 
 
-# ============================================================
-# GET CLASS ROSTER
-# ============================================================
-
 def get_class_roster(class_level, arm=""):
     class_level = normalize_class(class_level)
-    arm = clean_text(arm).upper()
-
-    students = read_class_xlsx(class_level)
-
-    if not students: students = read_master_csv(class_level)
+    students = read_class_xlsx(class_level) or read_master_csv(class_level)
 
     unique = {}
+
     for student in students:
         key = normalize_admission(student.get("admission_number")) or normalize_name(student.get("student_name"))
 
-        if not key: continue
-        unique[key] = student
+        if key: unique[key] = student
 
     students = list(unique.values())
 
-    if arm and arm.lower() != "all":
-        students = [student for student in students if clean_text(student.get("class_arm")).upper() == arm]
+    if arm and clean_text(arm).lower() != "all":
+        normalized_arm = normalize_class_arm(arm, class_level) or clean_text(arm).upper()
+        students = [student for student in students if clean_text(student.get("class_arm")).upper() == clean_text(normalized_arm).upper()]
 
-    students.sort(key=lambda student: (
-        clean_text(student.get("student_name")).lower(),
-        clean_text(student.get("admission_number")).lower(),
-    ))
+    students.sort(key=lambda student: (clean_text(student.get("student_name")).lower(), clean_text(student.get("admission_number")).lower()))
 
     return students
 
@@ -254,42 +257,46 @@ def get_class_roster(class_level, arm=""):
 
 def get_subject_result_dir(year, class_level, subject, term=""):
     class_level = normalize_class(class_level)
-    subject_folder = subject_folder_name(subject)
 
-    root = RESULTS_DIR / str(year) / "CLASS" / class_level
+    if class_level not in SUPPORTED_CLASSES: return None
 
-    if is_jss_class(class_level):
-        term = normalize_term(term)
-        if not term: return None
+    raw_term = clean_text(term)
+    term = normalize_term(raw_term)
 
-        return root / term / subject_folder
+    if is_jss_class(class_level) and not term: return None
+    if raw_term and not term: return None
 
-    return root / subject_folder
+    try:
+        excel_path = get_preferred_excel_path(class_level, subject, str(year), term)
+        return excel_path.parent
+    except Exception:
+        root = RESULTS_DIR / str(year) / "CLASS" / class_level
 
+        if term: root = root / term
 
-# ============================================================
-# FIND EXISTING SUBJECT RESULT DIRECTORY
-#
-# Handles cases where the real result folder already exists with
-# a slightly different spelling / underscore convention.
-# ============================================================
+        return root / subject_folder_name(subject)
+
 
 def find_subject_result_dir(year, class_level, subject, term="", create=False):
     class_level = normalize_class(class_level)
-    subject_key = normalize_subject_key(subject)
+
+    if class_level not in SUPPORTED_CLASSES: return None
+
+    raw_term = clean_text(term)
+    term = normalize_term(raw_term)
+
+    if is_jss_class(class_level) and not term: return None
+    if raw_term and not term: return None
 
     root = RESULTS_DIR / str(year) / "CLASS" / class_level
 
-    if is_jss_class(class_level):
-        term = normalize_term(term)
+    if term: root = root / term
 
-        if not term: return None
-
-        root = root / term
+    requested_key = normalize_subject_key(subject)
 
     if root.exists():
         for folder in root.iterdir():
-            if folder.is_dir() and normalize_subject_key(folder.name) == subject_key:
+            if folder.is_dir() and normalize_subject_key(folder.name) == requested_key:
                 return folder
 
     preferred = get_subject_result_dir(year, class_level, subject, term)
@@ -300,63 +307,66 @@ def find_subject_result_dir(year, class_level, subject, term="", create=False):
 
 
 # ============================================================
-# ESSAY STORAGE PATH
+# ESSAY STORE
 # ============================================================
 
 def get_essay_score_path(year, class_level, subject, term="", create=False):
     folder = find_subject_result_dir(year, class_level, subject, term, create=create)
-
     return folder / ESSAY_FILE_NAME if folder else None
 
 
-# ============================================================
-# READ ESSAY STORE
-# ============================================================
+def empty_essay_store(year, class_level, subject, term=""):
+    class_level = normalize_class(class_level)
+    term = normalize_term(term)
+
+    return {
+        "version": 1,
+        "year": str(year),
+        "class_level": class_level,
+        "class_category": class_level,
+        "term": term,
+        "term_label": term_label(term),
+        "subject": clean_text(subject),
+        "objective_max": DEFAULT_OBJECTIVE_MAX,
+        "essay_max": DEFAULT_ESSAY_MAX,
+        "total_max": DEFAULT_TOTAL_MAX,
+        "scores": {},
+    }
+
 
 def read_essay_store(year, class_level, subject, term=""):
+    class_level = normalize_class(class_level)
+    term = normalize_term(term)
     path = get_essay_score_path(year, class_level, subject, term)
 
-    if not path or not path.exists():
-        return {
-            "version": 1,
-            "year": str(year),
-            "class_level": normalize_class(class_level),
-            "term": normalize_term(term) if is_jss_class(class_level) else "",
-            "subject": clean_text(subject),
-            "objective_max": DEFAULT_OBJECTIVE_MAX,
-            "essay_max": DEFAULT_ESSAY_MAX,
-            "total_max": DEFAULT_TOTAL_MAX,
-            "scores": {},
-        }
+    if not path or not path.exists(): return empty_essay_store(year, class_level, subject, term)
 
     try:
         with path.open("r", encoding="utf-8-sig") as file:
             data = json.load(file)
 
-        if not isinstance(data, dict): data = {}
+        if not isinstance(data, dict): data = empty_essay_store(year, class_level, subject, term)
         if not isinstance(data.get("scores"), dict): data["scores"] = {}
+
+        # Physical path/request is authoritative over stale metadata.
+        data["version"] = data.get("version") or 1
+        data["year"] = str(year)
+        data["class_level"] = class_level
+        data["class_category"] = class_level
+        data["term"] = term
+        data["term_label"] = term_label(term)
+        data["subject"] = clean_text(data.get("subject") or subject)
+
+        data.setdefault("objective_max", DEFAULT_OBJECTIVE_MAX)
+        data.setdefault("essay_max", DEFAULT_ESSAY_MAX)
+        data.setdefault("total_max", DEFAULT_TOTAL_MAX)
 
         return data
 
     except Exception as error:
         print(f"ESSAY STORE READ ERROR [{path}]:", error)
+        return empty_essay_store(year, class_level, subject, term)
 
-        return {
-            "version": 1,
-            "year": str(year),
-            "class_level": normalize_class(class_level),
-            "term": normalize_term(term) if is_jss_class(class_level) else "",
-            "subject": clean_text(subject),
-            "objective_max": DEFAULT_OBJECTIVE_MAX,
-            "essay_max": DEFAULT_ESSAY_MAX,
-            "total_max": DEFAULT_TOTAL_MAX,
-            "scores": {},
-        }
-
-
-# ============================================================
-# WRITE ESSAY STORE — ATOMIC
-# ============================================================
 
 def write_essay_store(year, class_level, subject, term, data):
     path = get_essay_score_path(year, class_level, subject, term, create=True)
@@ -364,7 +374,6 @@ def write_essay_store(year, class_level, subject, term, data):
     if not path: raise ValueError("Could not resolve essay score path")
 
     path.parent.mkdir(parents=True, exist_ok=True)
-
     temporary = path.with_suffix(".tmp")
 
     with ESSAY_LOCK:
@@ -377,73 +386,95 @@ def write_essay_store(year, class_level, subject, term, data):
 
 
 # ============================================================
-# MASTER EXAM JSON DIRECTORY
+# EXAM JSON
 # ============================================================
 
 def get_subject_json_directory(year, class_level, term=""):
     class_level = normalize_class(class_level)
 
+    if class_level not in SUPPORTED_CLASSES: return None
+
     directory = SUBJECTS_ROOT / str(year) / "subjects-json" / class_level
+    normalized_term = normalize_term(term)
 
     if is_jss_class(class_level):
-        term = normalize_term(term)
+        if not normalized_term: return None
+        return directory / normalized_term
 
-        if not term: return None
-
-        directory = directory / term
+    if is_ss_class(class_level) and normalized_term:
+        return directory / normalized_term
 
     return directory
 
 
-# ============================================================
-# FIND SUBJECT JSON
-# ============================================================
+def get_subject_json_directories(year, class_level, term=""):
+    class_level = normalize_class(class_level)
+
+    if class_level not in SUPPORTED_CLASSES: return []
+
+    root = SUBJECTS_ROOT / str(year) / "subjects-json" / class_level
+    normalized_term = normalize_term(term)
+
+    if is_jss_class(class_level):
+        return [root / normalized_term] if normalized_term else []
+
+    if is_ss_class(class_level):
+        # Hybrid SS: selected term first, then root/general fallback.
+        return [root / normalized_term, root] if normalized_term else [root]
+
+    return [root]
+
 
 def find_subject_json(year, class_level, subject, term=""):
-    directory = get_subject_json_directory(year, class_level, term)
-
-    if not directory or not directory.exists(): return None, {}
-
     requested_key = normalize_subject_key(subject)
+    seen = set()
 
-    for path in sorted(directory.glob("*.json")):
-        if path.name.lower() == "pushed_subjects.json": continue
+    for directory in get_subject_json_directories(year, class_level, term):
+        key = str(directory)
 
-        try:
-            with path.open("r", encoding="utf-8-sig") as file:
-                data = json.load(file)
-
-            if not isinstance(data, dict): continue
-
-            subject_name = data.get("subject") or path.stem
-
-            if normalize_subject_key(path.stem) == requested_key or normalize_subject_key(subject_name) == requested_key:
-                return path, data
-
-        except Exception:
+        if key in seen:
             continue
+
+        seen.add(key)
+
+        if not directory.exists():
+            continue
+
+        for path in sorted(directory.glob("*.json")):
+            if path.name.lower() == "pushed_subjects.json": continue
+
+            try:
+                with path.open("r", encoding="utf-8-sig") as file:
+                    data = json.load(file)
+
+                if not isinstance(data, dict): continue
+
+                subject_name = data.get("subject") or path.stem
+
+                if normalize_subject_key(path.stem) == requested_key or normalize_subject_key(subject_name) == requested_key:
+                    return path, data
+
+            except Exception as error:
+                print(f"ESSAY SUBJECT JSON READ ERROR [{path}]:", error)
 
     return None, {}
 
 
 # ============================================================
-# ESSAY AVAILABILITY
+# ESSAY CONFIG
 # ============================================================
 
 def get_exam_essay_config(year, class_level, subject, term=""):
-    _, data = find_subject_json(year, class_level, subject, term)
+    path, data = find_subject_json(year, class_level, subject, term)
 
     essay = data.get("essay") if isinstance(data, dict) else None
     questions = essay.get("questions", []) if isinstance(essay, dict) else []
 
     available = isinstance(questions, list) and len(questions) > 0
 
-    essay_max = score_float(
-        essay.get("max_score") if isinstance(essay, dict) else None,
-        DEFAULT_ESSAY_MAX,
-    )
+    essay_max = score_float(essay.get("max_score") if isinstance(essay, dict) else None, DEFAULT_ESSAY_MAX)
 
-    if essay_max is None or essay_max <= 0: essay_max = DEFAULT_ESSAY_MAX
+    if essay_max is None or essay_max <= 0 or essay_max > DEFAULT_TOTAL_MAX: essay_max = DEFAULT_ESSAY_MAX
 
     objective_max = round(DEFAULT_TOTAL_MAX - essay_max, 2) if available else DEFAULT_TOTAL_MAX
 
@@ -454,53 +485,27 @@ def get_exam_essay_config(year, class_level, subject, term=""):
         "objective_max": objective_max,
         "essay_max": essay_max if available else 0.0,
         "total_max": DEFAULT_TOTAL_MAX,
+        "json_path": str(path) if path else "",
+        "term": normalize_term(term),
+        "term_label": term_label(term),
     }
 
 
 # ============================================================
-# READ OBJECTIVE RESULTS DIRECTLY
+# OBJECTIVE RESULTS
 # ============================================================
 
 def read_objective_results(year, class_level, subject, term=""):
-    folder = find_subject_result_dir(year, class_level, subject, term)
+    class_level = normalize_class(class_level)
 
-    if not folder: return []
-
-    path = folder / "results.xlsx"
-
-    if not path.exists(): return []
+    if class_level not in SUPPORTED_CLASSES: return []
 
     try:
-        wb = load_workbook(path, read_only=True, data_only=True)
-        ws = wb.active
-        rows = list(ws.iter_rows(values_only=True))
-
-        if len(rows) < 2:
-            wb.close()
-            return []
-
-        headers = [clean_text(value) for value in rows[0]]
-        results = []
-
-        for values in rows[1:]:
-            values = list(values)
-            values += [None] * max(0, len(headers) - len(values))
-
-            row = dict(zip(headers, values[:len(headers)]))
-
-            if row.get("Student Name") or row.get("Admission No"): results.append(row)
-
-        wb.close()
-        return results
-
+        return read_results(class_level, subject, str(year), normalize_term(term))
     except Exception as error:
-        print(f"ESSAY OBJECTIVE READ ERROR [{path}]:", error)
+        print(f"ESSAY OBJECTIVE READ ERROR [{year}/{class_level}/{term or 'GENERAL'}/{subject}]:", error)
         return []
 
-
-# ============================================================
-# OBJECTIVE LOOKUP
-# ============================================================
 
 def build_objective_lookup(records):
     lookup = {}
@@ -526,13 +531,7 @@ def find_objective_record(lookup, admission="", student_name=""):
 
 
 # ============================================================
-# OBJECTIVE CALCULATION
-#
-# Example:
-#   64 correct / 80 questions
-#   Objective component = 60
-#
-#   64 / 80 × 60 = 48
+# OBJECTIVE COMPONENT
 # ============================================================
 
 def calculate_objective_component(row, objective_max):
@@ -542,25 +541,18 @@ def calculate_objective_component(row, objective_max):
     total_questions = score_float(row.get("Total") or row.get("total") or row.get("total_questions"))
 
     if correct is not None and total_questions is not None and total_questions > 0:
-        score = round((correct / total_questions) * float(objective_max), 2)
-        return score, correct, total_questions
+        return round((correct / total_questions) * float(objective_max), 2), correct, total_questions
 
-    percentage = score_float(
-        row.get("Score (%)")
-        or row.get("Score Number")
-        or row.get("score_percentage")
-        or row.get("percentage")
-    )
+    percentage = score_float(row.get("Score (%)") or row.get("Score Number") or row.get("score_percentage") or row.get("percentage"))
 
     if percentage is not None:
-        score = round((percentage / 100.0) * float(objective_max), 2)
-        return score, correct, total_questions
+        return round((percentage / 100.0) * float(objective_max), 2), correct, total_questions
 
     return None, correct, total_questions
 
 
 # ============================================================
-# FIND SAVED ESSAY SCORE
+# SAVED ESSAY SCORE
 # ============================================================
 
 def find_saved_score(store, admission="", student_name=""):
@@ -575,7 +567,7 @@ def find_saved_score(store, admission="", student_name=""):
         entry = scores.get(admission_key)
         return score_float(entry.get("score")) if isinstance(entry, dict) else score_float(entry), entry
 
-    for key, entry in scores.items():
+    for _, entry in scores.items():
         if not isinstance(entry, dict): continue
 
         entry_admission = normalize_admission(entry.get("admission_number"))
@@ -588,7 +580,7 @@ def find_saved_score(store, admission="", student_name=""):
 
 
 # ============================================================
-# BUILD COMBINED SCORE
+# COMBINED SCORE
 # ============================================================
 
 def build_score_components(objective_row, essay_score, config):
@@ -603,28 +595,25 @@ def build_score_components(objective_row, essay_score, config):
 
     if not essay_available:
         final_score = objective_score
-        state = "COMPLETE" if has_objective else "PENDING"
+        result_state = "COMPLETE" if has_objective else "PENDING"
 
     elif has_objective and has_essay:
         final_score = round(objective_score + essay_score, 2)
-        state = "COMPLETE"
+        result_state = "COMPLETE"
 
     elif has_objective:
         final_score = None
-        state = "AWAITING ESSAY"
+        result_state = "AWAITING ESSAY"
 
     elif has_essay:
         final_score = None
-        state = "AWAITING OBJECTIVE"
+        result_state = "AWAITING OBJECTIVE"
 
     else:
         final_score = None
-        state = "PENDING"
+        result_state = "PENDING"
 
-    final_status = ""
-
-    if state == "COMPLETE" and final_score is not None:
-        final_status = "PASS" if final_score >= 50 else "FAIL"
+    final_status = "PASS" if result_state == "COMPLETE" and final_score is not None and final_score >= 50 else "FAIL" if result_state == "COMPLETE" and final_score is not None else ""
 
     return {
         "has_objective": has_objective,
@@ -634,7 +623,7 @@ def build_score_components(objective_row, essay_score, config):
         "objective_total": score_output(total_questions),
 
         "essay_available": essay_available,
-        "has_essay": essay_available,
+        "has_essay": has_essay,
         "essay_score": score_output(essay_score),
         "essay_max": score_output(essay_max),
 
@@ -643,15 +632,13 @@ def build_score_components(objective_row, essay_score, config):
         "total_score": score_output(final_score),
         "total_max": 100,
 
-        "result_state": state,
+        "result_state": result_state,
         "final_status": final_status,
     }
 
 
 # ============================================================
-# ENRICH EXISTING ADMIN OBJECTIVE RESULTS
-#
-# Called from api_routes.py after existing result rows are read.
+# ENRICH ADMIN RESULTS
 # ============================================================
 
 def enrich_results_with_essay(records, class_level, subject, year, term=""):
@@ -659,15 +646,29 @@ def enrich_results_with_essay(records, class_level, subject, year, term=""):
 
     class_level = normalize_class(class_level)
 
-    if not class_level or class_level not in SUPPORTED_CLASSES: return records
+    if class_level not in SUPPORTED_CLASSES: return records
 
-    term = normalize_term(term) if is_jss_class(class_level) else ""
-
-    config = get_exam_essay_config(year, class_level, subject, term)
-    store = read_essay_store(year, class_level, subject, term)
+    requested_term = normalize_term(term)
+    cache = {}
 
     for row in records:
         if not isinstance(row, dict): continue
+
+        # Explicit API/folder term wins. Otherwise use the row's own term.
+        row_term = requested_term or normalize_term(row.get("Term") or row.get("term"))
+
+        # JSS should always have a term at this stage. Old malformed rows
+        # without one simply cannot resolve a theory store safely.
+        if is_jss_class(class_level) and not row_term:
+            continue
+
+        if row_term not in cache:
+            cache[row_term] = (
+                get_exam_essay_config(year, class_level, subject, row_term),
+                read_essay_store(year, class_level, subject, row_term),
+            )
+
+        config, store = cache[row_term]
 
         admission = row.get("Admission No") or row.get("Admission_number") or row.get("admission_number")
         student_name = row.get("Student Name") or row.get("student_name") or row.get("full_name")
@@ -676,6 +677,10 @@ def enrich_results_with_essay(records, class_level, subject, year, term=""):
         components = build_score_components(row, essay_score, config)
 
         row.update(components)
+
+        if row_term:
+            row["Term"] = row_term
+            row["Term Label"] = result_term_label(row_term)
 
         row["Essay Available"] = components["essay_available"]
         row["Essay Score"] = components["essay_score"] if components["essay_score"] is not None else ""
@@ -687,17 +692,18 @@ def enrich_results_with_essay(records, class_level, subject, year, term=""):
         row["Final Score"] = components["final_score"] if components["final_score"] is not None else ""
         row["Final Max"] = 100
         row["Result State"] = components["result_state"]
+        row["Final Status"] = components["final_status"]
 
     return records
 
 
 # ============================================================
-# BUILD ESSAY ROSTER
+# ESSAY ROSTER
 # ============================================================
 
 def build_essay_roster(year, class_level, subject, term="", arm=""):
     class_level = normalize_class(class_level)
-    term = normalize_term(term) if is_jss_class(class_level) else ""
+    term = normalize_term(term)
 
     config = get_exam_essay_config(year, class_level, subject, term)
     store = read_essay_store(year, class_level, subject, term)
@@ -706,7 +712,6 @@ def build_essay_roster(year, class_level, subject, term="", arm=""):
     objective_lookup = build_objective_lookup(objective_records)
 
     students = get_class_roster(class_level, arm)
-
     roster = []
 
     for student in students:
@@ -721,6 +726,8 @@ def build_essay_roster(year, class_level, subject, term="", arm=""):
         roster.append({
             **student,
             **components,
+            "term": term,
+            "term_label": term_label(term),
             "essay_saved": saved_entry is not None,
             "essay_updated_at": clean_text(saved_entry.get("updated_at")) if isinstance(saved_entry, dict) else "",
         })
@@ -729,24 +736,10 @@ def build_essay_roster(year, class_level, subject, term="", arm=""):
 
 
 # ============================================================
-# REGISTER ROUTES ON EXISTING api_bp
-#
-# This keeps all endpoints under the same existing API blueprint.
-# No second Blueprint registration is required in app.py.
+# ROUTES
 # ============================================================
 
 def register_essay_routes(api_bp):
-
-    # ========================================================
-    # GET ESSAY ROSTER / SCORES
-    #
-    # /api/results/essay
-    #   ?year=2017
-    #   &class=JSS1
-    #   &term=FIRST
-    #   &subject=mathematics
-    #   &arm=JSS1A
-    # ========================================================
 
     @api_bp.route("/api/results/essay", methods=["GET"])
     def get_essay_scores():
@@ -755,27 +748,34 @@ def register_essay_routes(api_bp):
         year = clean_text(request.args.get("year"))
         class_level = normalize_class(request.args.get("class") or request.args.get("class_level"))
         subject = clean_text(request.args.get("subject"))
-        term = normalize_term(request.args.get("term"))
+        raw_term = clean_text(request.args.get("term"))
+        term = normalize_term(raw_term)
         arm = clean_text(request.args.get("arm"))
 
         if not year or not year.isdigit(): return jsonify({"error": "Invalid or missing year", "students": []}), 400
         if class_level not in SUPPORTED_CLASSES: return jsonify({"error": "Invalid or missing class", "students": []}), 400
         if not subject: return jsonify({"error": "Subject is required", "students": []}), 400
+        if raw_term and raw_term.lower() != "all" and not term: return jsonify({"error": "Invalid academic term", "students": []}), 400
         if is_jss_class(class_level) and not term: return jsonify({"error": "Term is required for JSS essay scores", "students": []}), 400
-
-        if not is_jss_class(class_level): term = ""
 
         try:
             students, config = build_essay_roster(year, class_level, subject, term, arm)
 
             return jsonify({
                 "success": True,
+
                 "year": year,
                 "class": class_level,
                 "class_level": class_level,
                 "arm": arm,
+
                 "term": term,
                 "term_label": term_label(term),
+
+                "supports_term": True,
+                "requires_term": is_jss_class(class_level),
+                "term_mode": "required" if is_jss_class(class_level) else "term" if term else "general",
+
                 "subject": subject,
 
                 "essay_available": config["essay_available"],
@@ -795,12 +795,6 @@ def register_essay_routes(api_bp):
             return jsonify({"error": "Failed to load essay scores", "details": str(error), "students": []}), 500
 
 
-    # ========================================================
-    # SAVE ESSAY SCORES
-    #
-    # POST /api/results/essay/save
-    # ========================================================
-
     @api_bp.route("/api/results/essay/save", methods=["POST"])
     def save_essay_scores():
         if not can_manage_results(): return jsonify({"error": "Unauthorized"}), 403
@@ -810,16 +804,18 @@ def register_essay_routes(api_bp):
         year = clean_text(data.get("year"))
         class_level = normalize_class(data.get("class") or data.get("class_level"))
         subject = clean_text(data.get("subject"))
-        term = normalize_term(data.get("term"))
+
+        raw_term = clean_text(data.get("term"))
+        term = normalize_term(raw_term)
+
         scores = data.get("scores", [])
 
         if not year or not year.isdigit(): return jsonify({"error": "Invalid or missing year"}), 400
         if class_level not in SUPPORTED_CLASSES: return jsonify({"error": "Invalid or missing class"}), 400
         if not subject: return jsonify({"error": "Subject is required"}), 400
+        if raw_term and raw_term.lower() != "all" and not term: return jsonify({"error": "Invalid academic term"}), 400
         if is_jss_class(class_level) and not term: return jsonify({"error": "Term is required for JSS essay scores"}), 400
         if not isinstance(scores, list) or not scores: return jsonify({"error": "No essay scores supplied"}), 400
-
-        if not is_jss_class(class_level): term = ""
 
         config = get_exam_essay_config(year, class_level, subject, term)
 
@@ -827,6 +823,9 @@ def register_essay_routes(api_bp):
             return jsonify({"error": "This examination does not contain an essay / theory section"}), 400
 
         essay_max = score_float(config.get("essay_max"), DEFAULT_ESSAY_MAX)
+
+        if essay_max is None or essay_max <= 0:
+            return jsonify({"error": "Invalid essay maximum score"}), 400
 
         roster = get_class_roster(class_level)
         valid_students = {}
@@ -841,14 +840,19 @@ def register_essay_routes(api_bp):
         store.update({
             "version": 1,
             "year": year,
+
             "class_level": class_level,
             "class_category": class_level,
+
             "term": term,
             "term_label": term_label(term),
+
             "subject": subject,
+
             "objective_max": score_output(config["objective_max"]),
             "essay_max": score_output(essay_max),
             "total_max": 100,
+
             "updated_at": now_string(),
         })
 
@@ -861,11 +865,11 @@ def register_essay_routes(api_bp):
         for item in scores:
             if not isinstance(item, dict): continue
 
-            admission = clean_text(item.get("admission_number") or item.get("Admission_number"))
+            admission = clean_text(item.get("admission_number") or item.get("Admission_number") or item.get("Admission No"))
             admission_key = normalize_admission(admission)
 
-            student_name = clean_text(item.get("student_name"))
-            class_arm = clean_text(item.get("class_arm")).upper()
+            student_name = clean_text(item.get("student_name") or item.get("Student Name"))
+            class_arm = clean_text(item.get("class_arm") or item.get("Class Arm")).upper()
 
             if not admission_key:
                 rejected.append({"student_name": student_name, "reason": "Missing admission number"})
@@ -874,12 +878,16 @@ def register_essay_routes(api_bp):
             roster_student = valid_students.get(admission_key)
 
             if not roster_student:
-                rejected.append({"admission_number": admission, "student_name": student_name, "reason": "Student was not found in the class database"})
+                rejected.append({
+                    "admission_number": admission,
+                    "student_name": student_name,
+                    "reason": "Student was not found in the class database",
+                })
                 continue
 
             value = item.get("score")
 
-            # Null / blank removes an existing essay score.
+            # Blank value removes an existing theory score.
             if value is None or str(value).strip() == "":
                 if admission_key in store["scores"]:
                     store["scores"].pop(admission_key, None)
@@ -890,7 +898,11 @@ def register_essay_routes(api_bp):
             score = score_float(value)
 
             if score is None:
-                rejected.append({"admission_number": admission, "student_name": student_name, "reason": "Invalid score"})
+                rejected.append({
+                    "admission_number": admission,
+                    "student_name": student_name,
+                    "reason": "Invalid score",
+                })
                 continue
 
             if score < 0 or score > essay_max:
@@ -901,11 +913,18 @@ def register_essay_routes(api_bp):
                 })
                 continue
 
+            normalized_arm = normalize_class_arm(
+                roster_student.get("class_arm") or class_arm,
+                class_level,
+            ) or roster_student.get("class_arm") or class_arm
+
             store["scores"][admission_key] = {
                 "admission_number": roster_student.get("admission_number") or admission,
                 "student_name": roster_student.get("student_name") or student_name,
-                "class_arm": roster_student.get("class_arm") or class_arm,
+                "class_arm": normalized_arm,
+
                 "score": score_output(score),
+
                 "updated_at": now_string(),
                 "updated_by": clean_text(session.get("username") or session.get("user_name") or session.get("user_type") or "teacher"),
             }
@@ -913,21 +932,35 @@ def register_essay_routes(api_bp):
             saved += 1
 
         if not saved and not cleared and rejected:
-            return jsonify({"error": "No valid essay scores were saved", "rejected": rejected}), 400
+            return jsonify({
+                "error": "No valid essay scores were saved",
+                "rejected": rejected,
+            }), 400
 
         path = write_essay_store(year, class_level, subject, term, store)
 
         return jsonify({
             "success": True,
             "message": "Essay scores saved successfully.",
+
             "saved_count": saved,
             "cleared_count": cleared,
+
             "rejected_count": len(rejected),
             "rejected": rejected,
+
             "year": year,
             "class": class_level,
+
             "term": term,
+            "term_label": term_label(term),
+
+            "supports_term": True,
+            "requires_term": is_jss_class(class_level),
+            "term_mode": "required" if is_jss_class(class_level) else "term" if term else "general",
+
             "subject": subject,
             "essay_max": score_output(essay_max),
+
             "path": str(path),
         }), 200

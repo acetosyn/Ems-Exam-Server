@@ -1,0 +1,324 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Economics",
+  "class": "SS2",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following is NOT a feature of a free-market economy?",
+      "diagram": null,
+      "options": ["A. Private ownership of property", "B. State ownership of most productive resources", "C. Profit maximization", "D. Existence of competition"],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "The total satisfaction derived from consuming a commodity is known as ________.",
+      "diagram": null,
+      "options": ["A. Marginal utility", "B. Total utility", "C. Average utility", "D. Total revenue"],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "At the point where total utility is at its maximum, marginal utility is ________.",
+      "diagram": null,
+      "options": ["A. Negative", "B. Declining", "C. Increasing", "D. Zero"],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "The point at which a consumer derives maximum satisfaction from available income is called ________.",
+      "diagram": null,
+      "options": ["A. Consumer equilibrium", "B. Utility decline", "C. Production equilibrium", "D. Revenue maximization"],
+      "correctOption": "A"
+    },
+    {
+      "id": 5,
+      "question": "In a perfectly competitive market, when price is above the equilibrium price, the difference between quantity supplied and quantity demanded represents ________.",
+      "diagram": null,
+      "options": ["A. Excess supply", "B. Excess demand", "C. Black-market activities", "D. Consumer equilibrium"],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "When a maximum price is fixed below the equilibrium price, the market is likely to experience ________.",
+      "diagram": null,
+      "options": ["A. Excess supply", "B. Excess demand", "C. Equilibrium quantity", "D. A surplus"],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following causes a change in quantity demanded rather than a shift in the demand curve?",
+      "diagram": null,
+      "options": ["A. Change in the price of the commodity itself", "B. Change in the price of related goods", "C. Change in consumers' tastes", "D. Festival periods"],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "A rational consumer maximizes utility from two commodities X and Y when ________.",
+      "diagram": null,
+      "options": ["A. MUx = MUy", "B. MUx/Px = MUy/Py", "C. Px = Py regardless of utility", "D. TUx = TUy"],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "An average of a series of values is known as the ________.",
+      "diagram": null,
+      "options": ["A. Mean", "B. Mode", "C. Variance", "D. Range"],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Calculate the mean of the data: 15, 13, 11, 9, 8, 7, 6 and 2.",
+      "diagram": null,
+      "options": ["A. 18.0", "B. 8.9", "C. 8.5", "D. 7.1"],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "What is the mode of the following values: 30, 25, 60, 80, 60, 25, 80, 60, 40, 60, 80, 30 and 25?",
+      "diagram": null,
+      "options": ["A. 80", "B. 60", "C. 30", "D. 40"],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "The difference between the highest and lowest values in a set of data is called the ________.",
+      "diagram": null,
+      "options": ["A. Mean", "B. Median", "C. Mode", "D. Range"],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "The arithmetic mean of the absolute deviations from the mean is known as ________.",
+      "diagram": null,
+      "options": ["A. Mode", "B. Variance", "C. Mean deviation", "D. Standard deviation"],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Calculate the mean deviation of the data: 4, 5, 6, 8, 10 and 3.",
+      "diagram": null,
+      "options": ["A. 6", "B. 5", "C. 4", "D. 2"],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Calculate the range of the data: 8, 24, 16, 40 and 5.",
+      "diagram": null,
+      "options": ["A. 25", "B. 15", "C. 35", "D. 24"],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "Cars and petrol are examples of goods with ________ demand.",
+      "diagram": null,
+      "options": ["A. Competitive", "B. Complementary", "C. Composite", "D. Derived"],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "The demand for Economics teachers in a school is an example of ________ demand.",
+      "diagram": null,
+      "options": ["A. Competitive", "B. Derived", "C. Composite", "D. Complementary"],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "The following may cause an unusually high demand for a commodity EXCEPT ________.",
+      "diagram": null,
+      "options": ["A. Change in taste in favour of the commodity", "B. The commodity being an article of necessity", "C. The commodity being an article of ostentation", "D. An expectation that its future price will fall considerably"],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "Use the data 0, 2, 1, 3, 4, 6, 7, 9, 10, 8 and 5. Calculate the lower quartile (Q₁).",
+      "diagram": null,
+      "options": ["A. 2", "B. 4", "C. 6", "D. 9"],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Using the data 0, 2, 1, 3, 4, 6, 7, 9, 10, 8 and 5, calculate the upper quartile (Q₃).",
+      "diagram": null,
+      "options": ["A. 9", "B. 6", "C. 8", "D. 5"],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "Using the data 0, 2, 1, 3, 4, 6, 7, 9, 10, 8 and 5, calculate the interquartile range.",
+      "diagram": null,
+      "options": ["A. 3", "B. 9", "C. 6", "D. 4"],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "The means of production in a mixed economy are owned by ________.",
+      "diagram": null,
+      "options": ["A. Private individuals only", "B. Government only", "C. Foreign investors only", "D. Both private individuals and the state"],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "Given the demand and supply functions Qd = 20 − 2P and Qs = 6P − 12, calculate the equilibrium price.",
+      "diagram": null,
+      "options": ["A. ₦6", "B. ₦4", "C. ₦8", "D. ₦9"],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Given Qd = 20 − 2P and Qs = 6P − 12, calculate the equilibrium quantity bought and sold.",
+      "diagram": null,
+      "options": ["A. 10 units", "B. 12 units", "C. 24 units", "D. 8 units"],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "Given Qd = 20 − 2P and Qs = 6P − 12, if the price is fixed at ₦6.00, calculate the excess supply.",
+      "diagram": null,
+      "options": ["A. 16 units", "B. 12 units", "C. 14 units", "D. 25 units"],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "Use the cost table below to answer Questions 26–30. What is the total cost of producing 2 units of the commodity?",
+      "diagram": "/static/uploads/diagrams/2021/economics_ss2/diagram_26.PNG",
+      "options": ["A. ₦14", "B. ₦9", "C. ₦20", "D. ₦5"],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Using the cost table below, what is the average cost of producing 3 units of the commodity?",
+      "diagram": "/static/uploads/diagrams/2021/economics_ss2/diagram_26.PNG",
+      "options": ["A. ₦14", "B. ₦6", "C. ₦9", "D. ₦5"],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "Using the cost table below, what is the total cost of producing 5 units of the commodity?",
+      "diagram": "/static/uploads/diagrams/2021/economics_ss2/diagram_26.PNG",
+      "options": ["A. ₦20", "B. ₦30", "C. ₦25", "D. ₦28"],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Using the cost table below, what is the marginal cost of producing the 4th unit of the commodity?",
+      "diagram": "/static/uploads/diagrams/2021/economics_ss2/diagram_26.PNG",
+      "options": ["A. ₦2", "B. ₦5", "C. ₦8", "D. ₦10"],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "Using the cost table below, what is the marginal cost of producing the 6th unit of the commodity?",
+      "diagram": "/static/uploads/diagrams/2021/economics_ss2/diagram_26.PNG",
+      "options": ["A. ₦18", "B. ₦20", "C. ₦8", "D. ₦12"],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "The additional satisfaction obtained from consuming one more unit of a commodity is known as ________.",
+      "diagram": null,
+      "options": ["A. Total utility", "B. Marginal utility", "C. Consumer surplus", "D. Average revenue"],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "According to the law of diminishing marginal utility, marginal utility tends to ________ as more units of a commodity are consumed.",
+      "diagram": null,
+      "options": ["A. Increase continuously", "B. Remain constant", "C. Decrease", "D. Become equal to price immediately"],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "A cost which does not change with the level of output in the short run is called ________.",
+      "diagram": null,
+      "options": ["A. Variable cost", "B. Fixed cost", "C. Marginal cost", "D. Average cost"],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Marginal cost is the ________.",
+      "diagram": null,
+      "options": ["A. Total cost divided by output", "B. Addition to total cost resulting from producing one additional unit", "C. Total fixed cost of production", "D. Difference between total revenue and total cost"],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "Average cost is calculated by dividing ________.",
+      "diagram": null,
+      "options": ["A. Total cost by total output", "B. Total revenue by output", "C. Fixed cost by variable cost", "D. Marginal cost by total output"],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Consumer surplus is the difference between ________.",
+      "diagram": null,
+      "options": ["A. Total cost and total revenue", "B. What a consumer is willing to pay and what the consumer actually pays", "C. Demand and supply", "D. Fixed cost and variable cost"],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "Which of the following is a major characteristic of capitalism?",
+      "diagram": null,
+      "options": ["A. Public ownership of all productive resources", "B. Private ownership of the means of production", "C. Absence of competition", "D. Complete government determination of prices"],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "In a mixed economy, economic decisions are made by ________.",
+      "diagram": null,
+      "options": ["A. The government alone", "B. Private individuals alone", "C. Both the private sector and government", "D. Foreign firms alone"],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "A movement along the same demand curve is caused by a change in ________.",
+      "diagram": null,
+      "options": ["A. Consumers' income", "B. Consumers' taste", "C. Population", "D. The price of the commodity itself"],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "A rightward shift of the demand curve indicates ________.",
+      "diagram": null,
+      "options": ["A. An increase in demand", "B. A decrease in demand", "C. A decrease in quantity demanded", "D. A contraction of demand"],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions. Question One is compulsory. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "QUESTION 1 — COMPULSORY\nUse the data shown in the diagram below to calculate:\n(i) Mean\n(ii) Median.",
+        "diagram": "/static/uploads/diagrams/2021/economics_ss2/essay_1.PNG"
+      },
+      {
+        "id": 2,
+        "question": "QUESTION 2\nUse the frequency distribution table shown below to calculate:\n(i) Mean deviation\n(ii) Variance\n(iii) Standard deviation.",
+        "diagram": "/static/uploads/diagrams/2021/economics_ss2/essay_2.PNG"
+      },
+      {
+        "id": 3,
+        "question": "(a) Define the term \"Demand\".\n(b) Discuss five factors affecting the demand for a commodity.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "With the aid of suitable diagrams, differentiate between a change in demand and a change in quantity demanded.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "Write short notes on each of the following concepts:\n(i) Consumer surplus\n(ii) Total utility\n(iii) Fixed cost\n(iv) Marginal revenue\n(v) Capitalism.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

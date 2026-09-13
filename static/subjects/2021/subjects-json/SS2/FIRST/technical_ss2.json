@@ -1,0 +1,759 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Technical Drawing",
+  "class": "SS2",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 150,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "A solid figure bounded entirely by plane polygonal faces is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Polyhedron",
+        "B. Hexagon",
+        "C. Polygon",
+        "D. Octagon"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "A tetrahedron is a solid with ________ triangular faces.",
+      "diagram": null,
+      "options": [
+        "A. Four",
+        "B. Six",
+        "C. Eight",
+        "D. Twelve"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Which solid is a triangular polyhedron?",
+      "diagram": null,
+      "options": [
+        "A. Nonagon",
+        "B. Tetrahedron",
+        "C. Pentahedron",
+        "D. Cylinder"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "Which regular polyhedron has six vertices and twelve edges?",
+      "diagram": null,
+      "options": [
+        "A. Hexagon",
+        "B. Octahedron",
+        "C. Tetrahedron",
+        "D. Dodecahedron"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Which solid comprises four triangular faces?",
+      "diagram": null,
+      "options": [
+        "A. Polyhedron",
+        "B. Cone",
+        "C. Tetrahedron",
+        "D. Polygon"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "A polyhedron with eight faces is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. Octagon",
+        "B. Octahedron",
+        "C. Dodecahedron",
+        "D. Decagon"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "The dual polyhedron of a cube is an ________.",
+      "diagram": null,
+      "options": [
+        "A. Prism",
+        "B. Octahedron",
+        "C. Pyramid",
+        "D. Monogon"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "An octahedron has ________ edges.",
+      "diagram": null,
+      "options": [
+        "A. 8",
+        "B. 10",
+        "C. 12",
+        "D. 20"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "Use the diagram below to answer Questions 9–13. The part of the conic labelled K is called ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_9.PNG",
+      "options": [
+        "A. Parabola",
+        "B. Axis",
+        "C. Circle",
+        "D. Ellipse"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Using the same diagram, the part labelled M is called ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_9.PNG",
+      "options": [
+        "A. Ellipse",
+        "B. Axis",
+        "C. Hyperbola",
+        "D. Circle"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "The figure shown below illustrates a ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_9.PNG",
+      "options": [
+        "A. Spiral angle",
+        "B. Locus",
+        "C. Link mechanism",
+        "D. Conic section"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "Using the same diagram, the part labelled W is known as a ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_9.PNG",
+      "options": [
+        "A. Plan",
+        "B. Diameter",
+        "C. Tangent",
+        "D. Parabola"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "Using the same diagram, the part labelled N is called ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_9.PNG",
+      "options": [
+        "A. Hyperbola",
+        "B. Ellipse",
+        "C. Circle",
+        "D. Section"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "Use the diagram below to answer Questions 14–15. The part labelled K is the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_14.PNG",
+      "options": [
+        "A. True shape of the cut",
+        "B. Side view",
+        "C. Opposite view",
+        "D. Parabola"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Using the same diagram, line AB indicates the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_14.PNG",
+      "options": [
+        "A. Truncated face",
+        "B. Slant end",
+        "C. Opposite end",
+        "D. Tangential end"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Circles that have the same centre but different radii are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Concentric circles",
+        "B. Biometric circles",
+        "C. Eccentric circles",
+        "D. Sectional circles"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "The part of a circle bounded by an arc and a chord is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Segment",
+        "B. Sector",
+        "C. Section",
+        "D. Arc"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Circles with different centres are called ________ circles.",
+      "diagram": null,
+      "options": [
+        "A. Eccentric",
+        "B. Concentric",
+        "C. Quadrant",
+        "D. Sectional"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "The discipline of composing drawings that visually communicate how something is constructed is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Architecture",
+        "B. Technical drawing",
+        "C. Engineering",
+        "D. Mechanical work"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is NOT a component of a polyhedron?",
+      "diagram": null,
+      "options": [
+        "A. Edge",
+        "B. Altitude",
+        "C. Face",
+        "D. Vertex"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is a plane figure?",
+      "diagram": null,
+      "options": [
+        "A. Tetrahedron",
+        "B. Octahedron",
+        "C. Triangle",
+        "D. Pyramid"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following is a two-dimensional figure?",
+      "diagram": null,
+      "options": [
+        "A. Square",
+        "B. Icosahedron",
+        "C. Tetrahedron",
+        "D. Pyramid"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following is a regular convex polyhedron?",
+      "diagram": null,
+      "options": [
+        "A. Dodecahedron",
+        "B. Pyramid",
+        "C. Cone",
+        "D. Prism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "A regular dodecahedron is made up of twelve congruent ________.",
+      "diagram": null,
+      "options": [
+        "A. Pentagons",
+        "B. Triangles",
+        "C. Squares",
+        "D. Hexagons"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "The Greek root “dodeka” means ________.",
+      "diagram": null,
+      "options": [
+        "A. Twelve",
+        "B. Face",
+        "C. One",
+        "D. Earth"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is a Platonic solid?",
+      "diagram": null,
+      "options": [
+        "A. Dodecahedron",
+        "B. Cylinder",
+        "C. Cone",
+        "D. Prism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Which regular polyhedron has 30 edges?",
+      "diagram": null,
+      "options": [
+        "A. Dodecahedron",
+        "B. Tetrahedron",
+        "C. Cube",
+        "D. Octahedron"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is a three-dimensional figure?",
+      "diagram": null,
+      "options": [
+        "A. Dodecahedron",
+        "B. Polygon",
+        "C. Triangle",
+        "D. Line"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "Which of the following is a valid type of dodecahedron?",
+      "diagram": null,
+      "options": [
+        "A. Regular dodecahedron",
+        "B. Elevation dodecahedron",
+        "C. Plan dodecahedron",
+        "D. Circular dodecahedron"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "A polyhedron composed of 20 equilateral triangular faces is an ________.",
+      "diagram": null,
+      "options": [
+        "A. Icosahedron",
+        "B. Lamina",
+        "C. Triangulation",
+        "D. Sphere"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "The Greek word “hedra” means ________.",
+      "diagram": null,
+      "options": [
+        "A. Behind",
+        "B. Front",
+        "C. Face",
+        "D. Water"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Use the figure below to answer Questions 32–35. The solid shown is a ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_32.PNG",
+      "options": [
+        "A. Rectangular pyramid",
+        "B. Octagonal pyramid",
+        "C. Triangular pyramid",
+        "D. Octahedron"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "Using the same figure, the part labelled A represents the ________ view.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_32.PNG",
+      "options": [
+        "A. End",
+        "B. Top",
+        "C. Front",
+        "D. Base"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Using the same figure, the part labelled B represents the ________ of the pyramid.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_32.PNG",
+      "options": [
+        "A. Sketch",
+        "B. Labelling",
+        "C. Plan",
+        "D. Image"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Using the same figure, which of the following is a solid figure?",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_32.PNG",
+      "options": [
+        "A. Circle",
+        "B. Radius",
+        "C. Prism",
+        "D. Decagon"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Prisms are commonly named according to the shape of their ________.",
+      "diagram": null,
+      "options": [
+        "A. Base",
+        "B. Elevation only",
+        "C. Height",
+        "D. Axis only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Which of the following is an example of a prism?",
+      "diagram": null,
+      "options": [
+        "A. Square prism",
+        "B. Long prism",
+        "C. Platonic prism",
+        "D. Circular prism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "A line passing through the centres of the ends of a solid is called its ________.",
+      "diagram": null,
+      "options": [
+        "A. Vertex",
+        "B. Axis",
+        "C. Edge",
+        "D. Generator"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Which solid has a polygonal base and triangular faces meeting at an apex?",
+      "diagram": null,
+      "options": [
+        "A. Pyramid",
+        "B. Section",
+        "C. Cone",
+        "D. Tetrahedron"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "The side faces of a pyramid meet at a point called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Axis",
+        "B. Apex",
+        "C. Bisector",
+        "D. Edge"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 41,
+      "question": "Which of the following is NOT a usual pyramid type?",
+      "diagram": null,
+      "options": [
+        "A. Circular pyramid",
+        "B. Triangular pyramid",
+        "C. Square pyramid",
+        "D. Hexagonal pyramid"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "The unfolding of the surfaces of a three-dimensional object onto a plane is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Development",
+        "B. Sectioning",
+        "C. Conics",
+        "D. Hatching"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 43,
+      "question": "A solid with a polygonal base and a pointed apex is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Pyramid",
+        "B. Prism",
+        "C. Polygon",
+        "D. Icosahedron"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "Another term commonly used for development is ________.",
+      "diagram": null,
+      "options": [
+        "A. Pattern",
+        "B. Section",
+        "C. Bisecting",
+        "D. Hatching"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 45,
+      "question": "Which of the following is NOT a standard development method?",
+      "diagram": null,
+      "options": [
+        "A. Parallel-line",
+        "B. Radial-line",
+        "C. Triangulation",
+        "D. Circular-line"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 46,
+      "question": "The development method commonly used for prisms is the ________ method.",
+      "diagram": null,
+      "options": [
+        "A. Parallel-line",
+        "B. Radial-line",
+        "C. Triangulation",
+        "D. Pattern-line"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "Use the figure below to answer Questions 47–50. The development shown is a pattern of a ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_47.PNG",
+      "options": [
+        "A. Cylinder",
+        "B. Cone",
+        "C. Pyramid",
+        "D. Rectangle"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "Using the same figure, the part labelled y represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_47.PNG",
+      "options": [
+        "A. Pattern development",
+        "B. Elevation",
+        "C. Plan",
+        "D. End view"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 49,
+      "question": "Using the same figure, the side labelled x represents the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_47.PNG",
+      "options": [
+        "A. Elevation",
+        "B. Perspective",
+        "C. End view",
+        "D. Drafting"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Using the same figure, the view of a solid object seen from the top is called the ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_47.PNG",
+      "options": [
+        "A. Plan",
+        "B. Height",
+        "C. Elevation",
+        "D. End view"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 51,
+      "question": "The view obtained when an object is observed at right angles from the side is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Elevation",
+        "B. Plan",
+        "C. End view",
+        "D. Development"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 52,
+      "question": "The figure shown below represents a ________.",
+      "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/diagram_52.PNG",
+      "options": [
+        "A. Tetrahedron",
+        "B. Pyramid",
+        "C. Octagon",
+        "D. Dodecahedron"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 53,
+      "question": "A true section obtained when the cutting plane is parallel to the slant side of a cone is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Ellipse",
+        "B. Parabola",
+        "C. Circle",
+        "D. Hyperbola"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 54,
+      "question": "The surface revealed after a solid is cut by a plane is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. True shape of section",
+        "B. Truncated object",
+        "C. Circle",
+        "D. Ellipse"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 55,
+      "question": "For a cone, a section taken parallel to the axis produces a ________.",
+      "diagram": null,
+      "options": [
+        "A. Triangle",
+        "B. Hyperbola",
+        "C. Circle",
+        "D. Parabola"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 56,
+      "question": "A section of a cone obtained by an inclined cutting plane may produce an ________.",
+      "diagram": null,
+      "options": [
+        "A. Hyperbola",
+        "B. Ellipse",
+        "C. Parabola",
+        "D. Section line"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 57,
+      "question": "An object whose top portion has been cut off is said to be ________.",
+      "diagram": null,
+      "options": [
+        "A. Truncated",
+        "B. Sectioned only",
+        "C. Sliced",
+        "D. Hatched"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 58,
+      "question": "The actual shape of a cut surface when viewed perpendicular to the cutting plane is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Section",
+        "B. True shape",
+        "C. Ellipse",
+        "D. Axis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 59,
+      "question": "Which of the following is NOT a type of triangle?",
+      "diagram": null,
+      "options": [
+        "A. Escribed",
+        "B. Equilateral",
+        "C. Right-angled",
+        "D. Isosceles"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 60,
+      "question": "Which of the following is a polygon?",
+      "diagram": null,
+      "options": [
+        "A. Decagon",
+        "B. Tetrahedron",
+        "C. Dodecahedron",
+        "D. Monohedron"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer two (2) questions.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Define a polyhedron.\n(b) List and explain four types of regular polyhedra.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Define a prism and a pyramid.\n(b) List and sketch common types of prisms.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "The diagram below shows a cylinder of height 60 mm and diameter 40 mm.\n(i) Draw the given view.\n(ii) Draw the complete plan.\n(iii) Draw the pattern development of the cylinder.",
+        "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/essay_3.PNG"
+      },
+      {
+        "id": 4,
+        "question": "The figure below is an elevation of a truncated cylinder of height 65 mm and diameter 40 mm.\n(i) Draw the given elevation.\n(ii) Draw the plan.\n(iii) Construct the true shape of the cut surface.",
+        "diagram": "/static/uploads/diagrams/2021/technical_drawing_ss2/essay_4.PNG"
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

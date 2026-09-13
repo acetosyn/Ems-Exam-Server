@@ -2,6 +2,8 @@
 {% block title %}Teacher Dashboard | EMIS Portal{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/teachers.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_document_export.css') }}">
 
 <!-- 🔥**Add Flash Message Here** -->
 <div id="flashMessage" class="flash-message hidden"></div>
@@ -142,6 +144,7 @@
 <!-- <script src="{{ url_for('static', filename='js/teacher.js') }}"></script> -->
 <script src="{{ url_for('static', filename='js/teacher_pageroutes.js') }}"></script>
 <script src="{{ url_for('static', filename='js/uploads.js') }}"></script>
+<script src="{{ url_for('static', filename='js/exam_document_export.js') }}"></script>
 <script src="{{ url_for('static', filename='js/convert_helpers.js') }}"></script>
 <script src="{{ url_for('static', filename='js/convert_ext.js') }}"></script>
 <script src="{{ url_for('static', filename='js/convert.js') }}"></script>

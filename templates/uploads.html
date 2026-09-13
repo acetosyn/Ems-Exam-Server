@@ -1,15 +1,22 @@
 <!-- ============================================================
      uploads.html
      EMIS CBT — Past Questions Upload & Portal Distribution
+
+     TERM MODEL:
+     JSS = FIRST / SECOND / THIRD required
+     SS  = GENERAL root + optional FIRST / SECOND / THIRD
 ============================================================= -->
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
+<div class="uploads-wrapper fade-in"
+     data-user-role="{{ user_type|default('admin') }}"
+     data-classes='{{ classes|tojson if classes is defined else "[]" }}'
+     data-class-arms='{{ class_arms|tojson if class_arms is defined else "{}" }}'>
 
-<div class="uploads-wrapper fade-in" data-user-role="{{ user_type|default('admin') }}" data-classes='{{ classes|tojson if classes is defined else "[]" }}' data-class-arms='{{ class_arms|tojson if class_arms is defined else "{}" }}'>
 
   <!-- ============================================================
        PAGE HEADER
   ============================================================= -->
+
   <header class="uploads-header">
     <div class="uploads-header-main">
 
@@ -44,6 +51,7 @@
   <!-- ============================================================
        COMPACT STATUS BAR
   ============================================================= -->
+
   <section class="uploads-status-bar">
 
     <div class="status-item">
@@ -80,15 +88,20 @@
   </section>
 
 
+
+
+
   <!-- ============================================================
        MAIN WORKSPACE
   ============================================================= -->
+
   <section class="uploads-workspace">
 
 
     <!-- ========================================================
          STEP 1 — UPLOAD
     ========================================================= -->
+
     <aside class="workspace-panel upload-panel workspace-side">
 
       <div class="workspace-step-header">
@@ -99,6 +112,7 @@
 
 
       <!-- DROP ZONE -->
+
       <div class="upload-dropzone" id="uploadDropZone">
 
         <input type="file" id="uploadInputSingle" hidden accept=".docx">
@@ -117,10 +131,12 @@
           </div>
 
         </div>
+
       </div>
 
 
       <!-- SELECTED FILES -->
+
       <div class="selected-files-block">
 
         <div class="compact-block-header">
@@ -135,6 +151,7 @@
 
 
       <!-- UPLOAD ACTIONS -->
+
       <div class="panel-actions">
         <button id="startUpload" class="btn-primary full" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Convert</button>
         <button id="clearUploads" class="btn-ghost full" type="button"><i class="fa-solid fa-xmark"></i> Clear</button>
@@ -142,6 +159,7 @@
 
 
       <!-- PROGRESS -->
+
       <div id="uploadProgress" class="upload-progress hidden">
         <div class="progress-track"><div id="uploadProgressBar" class="progress-bar"></div></div>
         <span id="uploadProgressLabel" class="progress-label">Processing…</span>
@@ -153,16 +171,18 @@
     <!-- ========================================================
          STEP 2 — EXAM LIBRARY
     ========================================================= -->
+
     <main class="workspace-panel library-panel workspace-main">
 
+
       <!-- HEADER -->
+
       <div class="library-header">
 
         <div class="workspace-step-header library-step-header">
           <div class="step-number">02</div>
           <div class="step-heading"><span>Repository</span><h2>Exam Library</h2></div>
         </div>
-
 
         <div class="library-header-tools">
 
@@ -171,6 +191,7 @@
 
             <select id="yearSelectorUploads" aria-label="Select examination year">
               <option value="" disabled selected>Year</option>
+
               {% for y in range(2026, 2012, -1) %}
                 <option value="{{ y }}">{{ y }}</option>
               {% endfor %}
@@ -190,44 +211,71 @@
 
       <!-- ======================================================
            CLASS NAVIGATION
+
+           data-term-mode:
+           required = JSS
+           optional = SS
       ======================================================= -->
+
       <div class="class-navigation">
 
-        <button class="class-pill active" data-class="ALL" type="button">All</button>
+        <button class="class-pill active" data-class="ALL" data-term-aware="false" data-term-mode="all" type="button">All</button>
 
-        <button class="class-pill" data-class="JSS1" data-term-aware="true" type="button">JSS1</button>
-        <button class="class-pill" data-class="JSS2" data-term-aware="true" type="button">JSS2</button>
-        <button class="class-pill" data-class="JSS3" data-term-aware="true" type="button">JSS3</button>
+        <button class="class-pill" data-class="JSS1" data-term-aware="true" data-term-mode="required" type="button">JSS1</button>
+        <button class="class-pill" data-class="JSS2" data-term-aware="true" data-term-mode="required" type="button">JSS2</button>
+        <button class="class-pill" data-class="JSS3" data-term-aware="true" data-term-mode="required" type="button">JSS3</button>
 
         <span class="class-nav-divider"></span>
 
-        <button class="class-pill" data-class="SS1" data-term-aware="false" type="button">SS1</button>
-        <button class="class-pill" data-class="SS2" data-term-aware="false" type="button">SS2</button>
-        <button class="class-pill" data-class="SS3" data-term-aware="false" type="button">SS3</button>
+        <button class="class-pill" data-class="SS1" data-term-aware="true" data-term-mode="optional" type="button">SS1</button>
+        <button class="class-pill" data-class="SS2" data-term-aware="true" data-term-mode="optional" type="button">SS2</button>
+        <button class="class-pill" data-class="SS3" data-term-aware="true" data-term-mode="optional" type="button">SS3</button>
 
       </div>
 
 
-      <!-- ======================================================
-           TERM FILTER
-      ======================================================= -->
-      <div id="termFilterBar" class="term-filter-bar hidden" aria-label="Term filter">
+<!-- ======================================================
+     TERM FILTER
 
-        <div class="term-filter-title"><i class="fa-solid fa-calendar-week"></i><span>Term</span></div>
+     JSS:
+     ALL / FIRST / SECOND / THIRD
 
-        <div class="term-filter-options">
-          <button class="term-pill active" data-term="ALL" type="button">All</button>
-          <button class="term-pill" data-term="FIRST" type="button">1st Term</button>
-          <button class="term-pill" data-term="SECOND" type="button">2nd Term</button>
-          <button class="term-pill" data-term="THIRD" type="button">3rd Term</button>
-        </div>
+     SS:
+     ALL / GENERAL / FIRST / SECOND / THIRD
+======================================================= -->
 
-      </div>
+<div id="termFilterBar" class="term-filter-bar hidden" aria-label="Term filter">
+  <div class="term-filter-title">
+    <i class="fa-solid fa-calendar-week"></i>
+    <span>Term</span>
+  </div>
+
+  <div class="term-filter-options">
+    <button class="term-pill active" data-term="ALL" type="button">All</button>
+    <button id="generalTermFilter" class="term-pill" data-term="GENERAL" data-ss-only="true" type="button">General</button>
+    <button class="term-pill" data-term="FIRST" type="button">1st Term</button>
+    <button class="term-pill" data-term="SECOND" type="button">2nd Term</button>
+    <button class="term-pill" data-term="THIRD" type="button">3rd Term</button>
+  </div>
+
+  <div class="term-filter-export">
+    <button id="selectedExamViewBtn" class="selected-exam-action view hidden" type="button" title="View selected examination PDF">
+      <i class="fa-regular fa-eye"></i>
+      <span id="selectedExamViewLabel">View PDF</span>
+    </button>
+
+    <button id="selectedExamPdfBtn" class="selected-exam-action download hidden" type="button" title="Download selected examination PDF">
+      <i class="fa-solid fa-download"></i>
+      <span id="selectedExamPdfLabel">Download PDF</span>
+    </button>
+  </div>
+</div>
 
 
       <!-- ======================================================
            FILTERS
       ======================================================= -->
+
       <div class="library-toolbar">
 
         <div class="subject-filter-box">
@@ -240,6 +288,7 @@
 
 
         <div class="search-bar">
+
           <i class="fa-solid fa-magnifying-glass"></i>
 
           <input id="searchUploads" type="search" autocomplete="off" placeholder="Search subject or filename...">
@@ -247,6 +296,7 @@
           <button id="clearUploadSearch" class="search-clear hidden" type="button" aria-label="Clear search">
             <i class="fa-solid fa-xmark"></i>
           </button>
+
         </div>
 
       </div>
@@ -255,6 +305,7 @@
       <!-- ======================================================
            SUMMARY
       ======================================================= -->
+
       <div class="library-summary-bar">
 
         <div class="library-summary-left">
@@ -263,7 +314,9 @@
           <span id="activeTermIndicator" class="summary-chip term-chip hidden">All Terms</span>
         </div>
 
-        <div class="library-summary-right"><span id="librarySelectionSummary">0 selected</span></div>
+        <div class="library-summary-right">
+          <span id="librarySelectionSummary">0 selected</span>
+        </div>
 
       </div>
 
@@ -271,11 +324,13 @@
       <!-- ======================================================
            LIBRARY TABLE
       ======================================================= -->
+
       <div class="table-wrapper pretty-scroll">
 
         <table class="uploads-table">
 
           <thead>
+
             <tr>
 
               <th class="check-column">
@@ -287,7 +342,6 @@
               <th>Class</th>
               <th class="term-column">Term</th>
 
-              <!-- NEW -->
               <th class="objective-column">Objective</th>
               <th class="theory-column">Theory / Essay</th>
 
@@ -295,12 +349,14 @@
               <th class="actions-column">Actions</th>
 
             </tr>
+
           </thead>
 
 
           <tbody id="uploadedTable">
 
             <tr>
+
               <td colspan="9" class="empty">
 
                 <div class="table-empty-state">
@@ -310,6 +366,7 @@
                 </div>
 
               </td>
+
             </tr>
 
           </tbody>
@@ -324,6 +381,7 @@
     <!-- ========================================================
          STEP 3 — PUSH TARGET
     ========================================================= -->
+
     <aside class="workspace-panel push-panel workspace-side">
 
       <div class="workspace-step-header">
@@ -334,73 +392,116 @@
 
 
       <!-- PUSH FORM -->
+
       <div class="push-form">
 
+
+        <!-- YEAR -->
+
         <div class="form-field">
+
           <label for="pushYearSelector">Year</label>
 
           <div class="select-shell">
             <i class="fa-solid fa-calendar-days"></i>
 
             <select id="pushYearSelector" class="year-selector">
+
               <option value="" disabled selected>Select</option>
 
               {% for y in range(2026, 2012, -1) %}
                 <option value="{{ y }}">{{ y }}</option>
               {% endfor %}
+
             </select>
+
           </div>
+
         </div>
 
 
+        <!-- CLASS -->
+
         <div class="form-field">
+
           <label for="pushClassLevel">Class</label>
 
           <div class="select-shell">
+
             <i class="fa-solid fa-graduation-cap"></i>
 
             <select id="pushClassLevel" class="year-selector">
+
               <option value="" disabled selected>Select</option>
 
-              <option value="JSS1" data-term-aware="true">JSS1</option>
-              <option value="JSS2" data-term-aware="true">JSS2</option>
-              <option value="JSS3" data-term-aware="true">JSS3</option>
+              <option value="JSS1" data-term-aware="true" data-term-mode="required">JSS1</option>
+              <option value="JSS2" data-term-aware="true" data-term-mode="required">JSS2</option>
+              <option value="JSS3" data-term-aware="true" data-term-mode="required">JSS3</option>
 
-              <option value="SS1" data-term-aware="false">SS1</option>
-              <option value="SS2" data-term-aware="false">SS2</option>
-              <option value="SS3" data-term-aware="false">SS3</option>
+              <option value="SS1" data-term-aware="true" data-term-mode="optional">SS1</option>
+              <option value="SS2" data-term-aware="true" data-term-mode="optional">SS2</option>
+              <option value="SS3" data-term-aware="true" data-term-mode="optional">SS3</option>
+
             </select>
+
           </div>
+
         </div>
 
 
-        <!-- TERM FIELD -->
+        <!-- ==================================================
+             TERM / MODE
+
+             JSS:
+             FIRST / SECOND / THIRD required
+
+             SS:
+             GENERAL / FIRST / SECOND / THIRD
+        =================================================== -->
+
         <div id="pushTermField" class="form-field push-term-field hidden">
-          <label for="pushTermSelector">Term</label>
+
+          <label for="pushTermSelector">Term / Mode</label>
 
           <div class="select-shell term-select-shell">
+
             <i class="fa-solid fa-calendar-week"></i>
 
             <select id="pushTermSelector" class="year-selector">
+
               <option value="" disabled selected>Select</option>
+
+              <option id="pushGeneralTermOption" value="GENERAL" data-ss-only="true">
+                General / Root
+              </option>
+
               <option value="FIRST">1st Term</option>
               <option value="SECOND">2nd Term</option>
               <option value="THIRD">3rd Term</option>
+
             </select>
+
           </div>
+
         </div>
 
 
+        <!-- ARM / GROUP -->
+
         <div class="form-field">
+
           <label for="pushClassArm">Arm / Group</label>
 
           <div class="select-shell">
+
             <i class="fa-solid fa-users"></i>
 
             <select id="pushClassArm" class="year-selector">
               <option value="" disabled selected>Select class</option>
             </select>
+
           </div>
+
         </div>
 
       </div>
@@ -409,25 +510,32 @@
       <!-- ======================================================
            QUEUE SUMMARY
       ======================================================= -->
+
       <div class="portal-summary">
 
         <div class="portal-summary-top">
-          <div class="portal-icon"><i class="fa-solid fa-database"></i></div>
+
+          <div class="portal-icon">
+            <i class="fa-solid fa-database"></i>
+          </div>
 
           <div class="portal-meta">
             <small>Ready to Push</small>
             <strong><span id="pushCountSide">0</span> subjects</strong>
           </div>
+
         </div>
 
 
         <div class="portal-target-preview">
 
           <span><i class="fa-solid fa-calendar"></i><b id="activeYearLabel">—</b></span>
+
           <span><i class="fa-solid fa-users"></i><b id="activeTargetLabel">—</b></span>
 
           <span id="activeTermLabelWrap" class="hidden">
-            <i class="fa-solid fa-calendar-week"></i><b id="activeTermLabel">—</b>
+            <i class="fa-solid fa-calendar-week"></i>
+            <b id="activeTermLabel">—</b>
           </span>
 
         </div>
@@ -436,6 +544,7 @@
 
 
       <!-- PUSH ACTIONS -->
+
       <div class="push-actions">
 
         <button id="pushSelectedToPortal" class="btn-primary full push-main-action" type="button">
@@ -456,6 +565,7 @@
       <!-- ======================================================
            MINI PREVIEW
       ======================================================= -->
+
       <div class="mini-preview-card">
 
         <div class="mini-preview-header">
@@ -470,10 +580,12 @@
 
 
         <div id="latestPreviewMeta" class="preview-meta">
+
           <span id="previewSubjectPill">—</span>
           <span id="previewVersionPill">—</span>
           <span id="previewQuestionCountPill">—</span>
           <span id="previewEssayStatusPill">—</span>
+
         </div>
 
 
@@ -488,9 +600,23 @@
   </section>
 
 
+
+    <!-- ============================================================
+     PUSH NOTIFICATION CENTRE
+     In normal page flow — never overlays the Push Target panel.
+============================================================= -->
+
+<div id="pushNoticeStack"
+     class="push-notice-stack"
+     aria-live="polite"
+     aria-atomic="false">
+</div>
+
+
   <!-- ============================================================
        PORTAL ROUTING MAP
   ============================================================= -->
+
   <section class="secondary-panel portal-map-panel">
 
     <div class="secondary-panel-header">
@@ -522,6 +648,7 @@
   <!-- ============================================================
        ACTIVITY
   ============================================================= -->
+
   <section class="secondary-panel activity-panel">
 
     <div class="secondary-panel-header">
@@ -548,6 +675,7 @@
   <!-- ============================================================
        SUBJECT REPOSITORY MODAL
   ============================================================= -->
+
   <div id="subjectsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="subjectsModalTitle">
 
     <div class="modal-backdrop" data-close="true"></div>
@@ -565,11 +693,13 @@
         <div class="modal-header-actions">
 
           <select id="subjectsModalYear" class="year-selector small-year">
+
             <option value="" disabled selected>Year</option>
 
             {% for y in range(2026, 2012, -1) %}
               <option value="{{ y }}">{{ y }}</option>
             {% endfor %}
+
           </select>
 
           <button id="btnRefreshSubjects" class="btn-secondary small" type="button">
@@ -613,6 +743,7 @@
   <!-- ============================================================
        PUSH CLASS CONFIRMATION MODAL
   ============================================================= -->
+
   <div id="pushClassModal" class="modal hidden" role="dialog" aria-modal="true">
 
     <div class="modal-backdrop" data-close="true"></div>
@@ -636,11 +767,32 @@
       <div class="modal-body">
 
         <div class="confirm-summary">
-          <p><span>Year</span><strong id="confirmPushYear">—</strong></p>
-          <p><span>Class</span><strong id="confirmPushClass">—</strong></p>
-          <p id="confirmPushTermRow" class="hidden"><span>Term</span><strong id="confirmPushTerm">—</strong></p>
-          <p><span>Arm</span><strong id="confirmPushArm">—</strong></p>
-          <p><span>Subjects</span><strong id="confirmPushCount">0</strong></p>
+
+          <p>
+            <span>Year</span>
+            <strong id="confirmPushYear">—</strong>
+          </p>
+
+          <p>
+            <span>Class</span>
+            <strong id="confirmPushClass">—</strong>
+          </p>
+
+          <p id="confirmPushTermRow" class="hidden">
+            <span>Term / Mode</span>
+            <strong id="confirmPushTerm">—</strong>
+          </p>
+
+          <p>
+            <span>Arm</span>
+            <strong id="confirmPushArm">—</strong>
+          </p>
+
+          <p>
+            <span>Subjects</span>
+            <strong id="confirmPushCount">0</strong>
+          </p>
+
         </div>
 
         <p id="chosenPushClass" class="chosen-class hidden"></p>
@@ -654,7 +806,9 @@
           <i class="fa-solid fa-check"></i> Confirm
         </button>
 
-        <button class="btn-secondary" data-close="true" type="button">Cancel</button>
+        <button class="btn-secondary" data-close="true" type="button">
+          Cancel
+        </button>
 
       </div>
 
@@ -665,7 +819,18 @@
 
   <!-- ============================================================
        CLEAR PORTAL TARGET MODAL
+
+       JSS:
+       FIRST / SECOND / THIRD required
+
+       SS:
+       Entire Target OR selected term
+
+       NOTE:
+       "Entire Target" matches push.py:
+       SS with no term clears the whole target folder.
   ============================================================= -->
+
   <div id="clearPortalModal" class="modal hidden" role="dialog" aria-modal="true">
 
     <div class="modal-backdrop" data-close="true"></div>
@@ -690,41 +855,63 @@
 
         <div class="clear-target-box">
 
+
+          <!-- CLASS -->
+
           <div class="form-field">
+
             <label for="clearClassLevel">Class</label>
 
             <select id="clearClassLevel" class="year-selector">
+
               <option value="" disabled selected>Select Class</option>
-              <option value="JSS1">JSS1</option>
-              <option value="JSS2">JSS2</option>
-              <option value="JSS3">JSS3</option>
-              <option value="SS1">SS1</option>
-              <option value="SS2">SS2</option>
-              <option value="SS3">SS3</option>
+
+              <option value="JSS1" data-term-mode="required">JSS1</option>
+              <option value="JSS2" data-term-mode="required">JSS2</option>
+              <option value="JSS3" data-term-mode="required">JSS3</option>
+
+              <option value="SS1" data-term-mode="optional">SS1</option>
+              <option value="SS2" data-term-mode="optional">SS2</option>
+              <option value="SS3" data-term-mode="optional">SS3</option>
+
             </select>
+
           </div>
 
+
+          <!-- TERM / CLEAR SCOPE -->
 
           <div id="clearTermField" class="form-field hidden">
 
-            <label for="clearTermSelector">Term</label>
+            <label for="clearTermSelector">Term / Scope</label>
 
             <select id="clearTermSelector" class="year-selector">
-              <option value="" disabled selected>Select Term</option>
+
+              <option value="" disabled selected>Select</option>
+
+              <option id="clearEntireTargetOption" value="ALL" data-ss-only="true">
+                Entire SS Target
+              </option>
+
               <option value="FIRST">1st Term</option>
               <option value="SECOND">2nd Term</option>
               <option value="THIRD">3rd Term</option>
+
             </select>
 
           </div>
 
 
+          <!-- ARM -->
+
           <div class="form-field">
+
             <label for="clearClassArm">Arm / Group</label>
 
             <select id="clearClassArm" class="year-selector">
               <option value="" disabled selected>Select class first</option>
             </select>
+
           </div>
 
 
@@ -742,7 +929,11 @@
 
 
       <div class="modal-footer">
-        <button class="btn-secondary" data-close="true" type="button">Close</button>
+
+        <button class="btn-secondary" data-close="true" type="button">
+          Close
+        </button>
+
       </div>
 
     </div>
@@ -753,27 +944,50 @@
   <!-- ============================================================
        FINAL PUSH CONFIRMATION
   ============================================================= -->
+
   <div id="pushConfirmModal" class="push-confirm-modal hidden" role="dialog" aria-modal="true">
 
     <div class="push-confirm-backdrop"></div>
 
     <div class="push-confirm-card">
 
-      <div class="push-confirm-icon"><i class="fa-solid fa-paper-plane"></i></div>
+      <div class="push-confirm-icon">
+        <i class="fa-solid fa-paper-plane"></i>
+      </div>
 
       <h3>Ready to Push?</h3>
-      <p id="pushConfirmText">Confirm this portal assignment.</p>
+
+      <p id="pushConfirmText">
+        Confirm this portal assignment.
+      </p>
+
 
       <div class="push-confirm-summary">
-        <span id="pushConfirmYear">Year: —</span>
-        <span id="pushConfirmTarget">Target: —</span>
-        <span id="pushConfirmTerm" class="hidden">Term: —</span>
-        <span id="pushConfirmCount">Subjects: 0</span>
+
+        <span id="pushConfirmYear">
+          Year: —
+        </span>
+
+        <span id="pushConfirmTarget">
+          Target: —
+        </span>
+
+        <span id="pushConfirmTerm" class="hidden">
+          Term: —
+        </span>
+
+        <span id="pushConfirmCount">
+          Subjects: 0
+        </span>
+
       </div>
+
 
       <div class="push-confirm-actions">
 
-        <button id="cancelPushConfirm" class="btn-secondary" type="button">Cancel</button>
+        <button id="cancelPushConfirm" class="btn-secondary" type="button">
+          Cancel
+        </button>
 
         <button id="acceptPushConfirm" class="btn-primary" type="button">
           <i class="fa-solid fa-check"></i> Push
@@ -786,61 +1000,106 @@
   </div>
 
 
-  <!-- ============================================================
-       JSON PREVIEW MODAL
-  ============================================================= -->
-  <div id="jsonPreviewModal" class="modal hidden" role="dialog" aria-modal="true">
+<!-- ==========================================================
+     TEACHER COPY MODAL
+========================================================== -->
 
-    <div class="modal-backdrop" data-close="true"></div>
+<div id="teacherCopyModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="teacherCopyTitle">
+  <div class="modal-backdrop" data-teacher-copy-close="true"></div>
 
-    <div class="modal-card modal-code">
-
-      <div class="modal-header">
-
-        <div>
-          <span class="modal-kicker">File</span>
-          <h3 id="jsonPreviewTitle">JSON Preview</h3>
-        </div>
-
-        <button class="modal-close" data-close="true" type="button" aria-label="Close modal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-
+  <div class="modal-card teacher-copy-modal-card">
+    <div class="modal-header">
+      <div class="teacher-copy-heading">
+        <div class="teacher-copy-kicker"><i class="fa-regular fa-file-lines"></i> Teacher Copy</div>
+        <h3 id="teacherCopyTitle">Examination Paper</h3>
+        <small id="teacherCopyMeta" class="teacher-copy-meta">—</small>
       </div>
 
-
-      <!-- NEW PREVIEW SUMMARY -->
-      <div class="json-preview-summary">
-
-        <div class="json-preview-stat">
-          <span>Objective</span>
-          <strong id="jsonPreviewObjectiveCount">—</strong>
-        </div>
-
-        <div class="json-preview-stat">
-          <span>Theory</span>
-          <strong id="jsonPreviewEssayCount">—</strong>
-        </div>
-
-        <div class="json-preview-stat">
-          <span>Essay Status</span>
-          <strong id="jsonPreviewEssayStatus">—</strong>
-        </div>
-
-      </div>
-
-
-      <div class="modal-body">
-        <pre id="jsonPreviewBody" class="json-pre pretty-scroll"></pre>
-      </div>
-
-
-      <div class="modal-footer">
-        <button class="btn-secondary small" data-close="true" type="button">Close</button>
-      </div>
-
+      <button class="teacher-copy-close" type="button" data-teacher-copy-close="true" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
 
+    <div class="teacher-copy-toolbar">
+      <div class="teacher-copy-note">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>Teacher copy — correct objective answers are shown in bold. Theory answers are not included.</span>
+      </div>
+
+      <div class="teacher-copy-downloads">
+        <button id="downloadTeacherDocx" class="teacher-copy-download docx" type="button">
+          <i class="fa-regular fa-file-word"></i> DOCX
+        </button>
+
+        <button id="downloadTeacherPdf" class="teacher-copy-download pdf" type="button">
+          <i class="fa-regular fa-file-pdf"></i> PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="teacher-copy-preview">
+      <div id="teacherCopyLoader" class="teacher-copy-loader hidden">
+        <div class="teacher-copy-loader-inner">
+          <div class="teacher-copy-spinner"></div>
+          <span id="teacherCopyLoaderText">Preparing teacher copy...</span>
+        </div>
+      </div>
+
+      <iframe id="teacherCopyFrame" src="about:blank" title="Teacher Copy Preview"></iframe>
+    </div>
+
+    <div class="teacher-copy-footer">
+      <button type="button" data-teacher-copy-close="true">Close</button>
+    </div>
   </div>
+</div>
+
+
+<!-- ============================================================
+     JSON PREVIEW MODAL
+============================================================= -->
+
+<div id="jsonPreviewModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" data-close="true"></div>
+
+  <div class="modal-card modal-code">
+    <div class="modal-header">
+      <div>
+        <span class="modal-kicker">File</span>
+        <h3 id="jsonPreviewTitle">JSON Preview</h3>
+      </div>
+
+      <button class="modal-close" data-close="true" type="button" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- PREVIEW SUMMARY -->
+    <div class="json-preview-summary">
+      <div class="json-preview-stat">
+        <span>Objective</span>
+        <strong id="jsonPreviewObjectiveCount">—</strong>
+      </div>
+
+      <div class="json-preview-stat">
+        <span>Theory</span>
+        <strong id="jsonPreviewEssayCount">—</strong>
+      </div>
+
+      <div class="json-preview-stat">
+        <span>Essay Status</span>
+        <strong id="jsonPreviewEssayStatus">—</strong>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <pre id="jsonPreviewBody" class="json-pre pretty-scroll"></pre>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary small" data-close="true" type="button">Close</button>
+    </div>
+  </div>
+</div>
 
 </div>

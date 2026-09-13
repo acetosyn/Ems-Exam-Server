@@ -1,0 +1,534 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "English Language",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Choose the word that best completes the sentence: The students ________ their assignments before the teacher arrived.",
+      "diagram": null,
+      "options": [
+        "A. complete",
+        "B. had completed",
+        "C. have completed",
+        "D. completing"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Choose the word nearest in meaning to \"diligent\".",
+      "diagram": null,
+      "options": [
+        "A. Lazy",
+        "B. Careful",
+        "C. Hardworking",
+        "D. Careless"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Choose the word opposite in meaning to \"generous\".",
+      "diagram": null,
+      "options": [
+        "A. Kind",
+        "B. Stingy",
+        "C. Helpful",
+        "D. Friendly"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "Neither the principal nor the teachers ________ aware of the incident.",
+      "diagram": null,
+      "options": [
+        "A. was",
+        "B. is",
+        "C. were",
+        "D. has"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "If Musa ________ harder, he would have passed the examination.",
+      "diagram": null,
+      "options": [
+        "A. studies",
+        "B. studied",
+        "C. had studied",
+        "D. has studied"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "The expression \"once in a blue moon\" means ________.",
+      "diagram": null,
+      "options": [
+        "A. Very frequently",
+        "B. Very rarely",
+        "C. At night",
+        "D. Every month"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is correctly punctuated?",
+      "diagram": null,
+      "options": [
+        "A. \"Where are you going\"? she asked.",
+        "B. \"Where are you going?\" she asked.",
+        "C. \"Where are you going,\" she asked?",
+        "D. Where are you going? \"she asked.\""
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "The plural form of \"criterion\" is ________.",
+      "diagram": null,
+      "options": [
+        "A. Criterions",
+        "B. Criteria",
+        "C. Criteriones",
+        "D. Criterias"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Choose the correctly spelt word.",
+      "diagram": null,
+      "options": [
+        "A. Accomodation",
+        "B. Accommodation",
+        "C. Acommodation",
+        "D. Accommondation"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "The teacher, together with his students, ________ attending the programme.",
+      "diagram": null,
+      "options": [
+        "A. are",
+        "B. were",
+        "C. is",
+        "D. have"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "She has lived in Abuja ________ five years.",
+      "diagram": null,
+      "options": [
+        "A. since",
+        "B. for",
+        "C. from",
+        "D. by"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "He is good ________ Mathematics.",
+      "diagram": null,
+      "options": [
+        "A. on",
+        "B. in",
+        "C. at",
+        "D. with"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "The word \"quickly\" in the sentence \"The boy ran quickly\" is a/an ________.",
+      "diagram": null,
+      "options": [
+        "A. noun",
+        "B. adjective",
+        "C. adverb",
+        "D. pronoun"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Which of the following is an abstract noun?",
+      "diagram": null,
+      "options": [
+        "A. Chair",
+        "B. Honesty",
+        "C. Teacher",
+        "D. Market"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "Choose the correct question tag: She attended the meeting, ________?",
+      "diagram": null,
+      "options": [
+        "A. didn't she",
+        "B. wasn't she",
+        "C. doesn't she",
+        "D. hasn't she"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "By this time tomorrow, we ________ the examination.",
+      "diagram": null,
+      "options": [
+        "A. finish",
+        "B. finished",
+        "C. will have finished",
+        "D. are finishing"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "The expression \"to spill the beans\" means to ________.",
+      "diagram": null,
+      "options": [
+        "A. Waste food",
+        "B. Reveal a secret",
+        "C. Cook a meal",
+        "D. Make a mistake"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "Choose the word nearest in meaning to \"hostile\".",
+      "diagram": null,
+      "options": [
+        "A. Friendly",
+        "B. Unfriendly",
+        "C. Peaceful",
+        "D. Generous"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "Choose the word opposite in meaning to \"scarce\".",
+      "diagram": null,
+      "options": [
+        "A. Rare",
+        "B. Limited",
+        "C. Abundant",
+        "D. Costly"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Everyone in the class ________ expected to participate.",
+      "diagram": null,
+      "options": [
+        "A. are",
+        "B. were",
+        "C. is",
+        "D. have"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "Choose the sentence written in the passive voice.",
+      "diagram": null,
+      "options": [
+        "A. The boy broke the window.",
+        "B. The window was broken by the boy.",
+        "C. The boy is breaking the window.",
+        "D. The boy will break the window."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following sentences contains a relative clause?",
+      "diagram": null,
+      "options": [
+        "A. The boy is tall.",
+        "B. The boy who won the race is my brother.",
+        "C. The boy ran quickly.",
+        "D. The boy opened the door."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "The word \"beautiful\" is formed from the noun \"beauty\" through the addition of a ________.",
+      "diagram": null,
+      "options": [
+        "A. prefix",
+        "B. suffix",
+        "C. pronoun",
+        "D. conjunction"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "Choose the appropriate conjunction: He was tired, ________ he continued working.",
+      "diagram": null,
+      "options": [
+        "A. because",
+        "B. but",
+        "C. so",
+        "D. unless"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following words contains a prefix?",
+      "diagram": null,
+      "options": [
+        "A. Unhappy",
+        "B. Teacher",
+        "C. Slowly",
+        "D. Movement"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "A person who writes books is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. author",
+        "B. editor",
+        "C. actor",
+        "D. auditor"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Choose the correct indirect speech form of: Musa said, \"I am tired.\"",
+      "diagram": null,
+      "options": [
+        "A. Musa said that I am tired.",
+        "B. Musa said that he was tired.",
+        "C. Musa says he is tired.",
+        "D. Musa said he is tired."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "The expression \"a man of letters\" refers to ________.",
+      "diagram": null,
+      "options": [
+        "A. A postman",
+        "B. An educated or literary person",
+        "C. A printer",
+        "D. A messenger"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Choose the sentence with the correct concord.",
+      "diagram": null,
+      "options": [
+        "A. The news are encouraging.",
+        "B. The news is encouraging.",
+        "C. The news were encouraging.",
+        "D. The news have been encouraging."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 30,
+      "question": "Which of the following is a compound sentence?",
+      "diagram": null,
+      "options": [
+        "A. When the bell rang, the students left.",
+        "B. The teacher entered and the students became quiet.",
+        "C. The tall boy entered.",
+        "D. Having eaten, he slept."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "Choose the correct form: The committee ________ submitted its report.",
+      "diagram": null,
+      "options": [
+        "A. have",
+        "B. are",
+        "C. has",
+        "D. were"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "The expression \"to hit the nail on the head\" means to ________.",
+      "diagram": null,
+      "options": [
+        "A. Strike something",
+        "B. Say exactly the right thing",
+        "C. Work as a carpenter",
+        "D. Hurt someone"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "The opposite of \"optimistic\" is ________.",
+      "diagram": null,
+      "options": [
+        "A. Hopeful",
+        "B. Confident",
+        "C. Pessimistic",
+        "D. Cheerful"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "If I ________ you, I would apologize immediately.",
+      "diagram": null,
+      "options": [
+        "A. am",
+        "B. was",
+        "C. were",
+        "D. be"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Which of the following is a synonym of \"rapid\"?",
+      "diagram": null,
+      "options": [
+        "A. Slow",
+        "B. Swift",
+        "C. Weak",
+        "D. Small"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "The students were prevented ________ leaving the school premises.",
+      "diagram": null,
+      "options": [
+        "A. from",
+        "B. by",
+        "C. for",
+        "D. with"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "A sentence that gives a command is called a/an ________ sentence.",
+      "diagram": null,
+      "options": [
+        "A. interrogative",
+        "B. imperative",
+        "C. exclamatory",
+        "D. declarative"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "Which word is correctly used in the sentence: The principal gave the students some useful ________.",
+      "diagram": null,
+      "options": [
+        "A. advices",
+        "B. advice",
+        "C. advise",
+        "D. advising"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Choose the correct form: Each of the players ________ a jersey.",
+      "diagram": null,
+      "options": [
+        "A. have",
+        "B. has",
+        "C. are having",
+        "D. were having"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "The word \"although\" is used to introduce a clause of ________.",
+      "diagram": null,
+      "options": [
+        "A. reason",
+        "B. purpose",
+        "C. concession",
+        "D. result"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "PAPER 1 - ESSAY, COMPREHENSION & SUMMARY",
+    "instruction": "SECTION A: Answer one (1) composition question. SECTION B and SECTION C are compulsory. Total theory score: 60 marks.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "SECTION A — COMPOSITION (30 MARKS)\nA friend of yours wants to study in your school and has written to you for information and advice. Write a reply to him or her, explaining all that he or she needs to know about the school.\n\nYour essay should not be less than 350 words.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "SECTION A — COMPOSITION (30 MARKS)\nYou have gained admission into another school and the new school has asked you to present your Junior Secondary School Certificate. Write a letter to the principal of your former school requesting the certificate.\n\nYour essay should not be less than 350 words.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "SECTION A — COMPOSITION (30 MARKS)\nWrite an article for publication in your school magazine on the high rate of indiscipline among students in secondary schools.\n\nYour essay should not be less than 350 words.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "SECTION A — COMPOSITION (30 MARKS)\nYou are the chief speaker in a debate on the topic: \"Students learn bad behaviours at home, not in school.\" Write your argument for or against the motion.\n\nYour essay should not be less than 350 words.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "SECTION A — COMPOSITION (30 MARKS)\nWrite a story that ends with the expression: \"I wish I had listened to my parents.\"\n\nYour essay should not be less than 350 words.",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "SECTION B — COMPREHENSION (15 MARKS)\n\nRead the passage carefully and answer the questions that follow.\n\nThe crowd was massive. Men, women, boys and girls from every nook and cranny of the village had gathered under the big Iroko tree. Also in the crowd was an American couple, tourists who were enjoying their holiday. At the centre of the large circle of people was a magician who had the reputation of performing unbelievable feats. Everybody was impressed by the performance which went along with hilarious drumming.\n\nThen came the next item. The magician's three aides each took out a local gun while the magician danced even more wildly. The gun-toting aides took up positions in three different corners. The drumming became more frenzied and the magician performed more acrobatics. The people were not left to wonder for long what the guns had to do with the whole show. One after another, the aides aimed at the magician while he steadied himself to receive the shots. Each gun boomed with a loud report and the magician jumped up in celebration of his survival. The three shots seemingly got to him, but he simply laughed the shooters to scorn.\n\nThe American tourist was more than mystified. He could not explain it. How could a man receive bullet shots in his chest and still remain unscathed? In disbelief, he shouted, \"This is amazing! It cannot be explained. But wait a minute, I'll join the show myself.\" There and then, he went to his car, took out his rifle and returned to the crowd. \"I'm going to get the guy,\" he proclaimed.\n\nHe took aim. The magician saw him out of the corner of his eye. He surveyed the situation and decided that he was not prepared for this. Quickly, he showed a clean pair of heels. Tearing through the crowd, he ran for his dear life. Some thought this was still part of the show, but when the man would not return, it became clear that he had bidden the audience a hasty farewell.\n\nWhat the American and most others did not realize all the time was that the local guns had no bullets whatsoever, only gunpowder.\n\nAnswer the following questions:\n(a) What suggests that the show was free?\n(b) What evidence is there that the performance was not a one-man show?\n(c) Why was the magician confident enough to receive the shots from his aides?\n(d) What did the American tourist set out to prove?\n(e) What might have happened if the American had completed his intended action?\n(f) What does the expression \"he showed a clean pair of heels\" mean?\n(g) In the expression \"The magician saw him out of the corner of his eye\":\n(i) What is the grammatical name of the expression \"out of the corner of his eye\" as used in the passage?\n(ii) What is its function?\n(h) For each of the following words, find another word or phrase that means the same and can replace it as used in the passage:\n(i) feats\n(ii) aides\n(iii) steadied\n(iv) unscathed\n(v) mystified\n(vi) hasty.",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "SECTION C — SUMMARY (15 MARKS)\n\nRead the passage carefully and answer the question that follows.\n\nAll the time I had known Agbeti, he had always been an enthusiastic preacher of the gospel. He had always been a defender of those in positions of power and authority. Suddenly, he withdrew into himself and became taciturn. He seemed to have lost interest in everything around him. He became embittered and gradually drifted into becoming an antagonist of all he had once cherished. At the slightest opportunity, he directed his venom at political and religious leaders and disparaged social crusaders. When emissaries attempted to persuade him to support one policy or another, he asked to be spared the guilt of dining with hypocrites and deceitful persons.\n\nThe only time Agbeti agreed to have a rapport with the leaders of the ruling class, he averred that he would agree to run the state with the men and women who currently wielded the staff of power only if sincere answers were provided to his questions. Agbeti queried whether those who tell others not to steal are not themselves pen robbers and whether those who teach others not to tell lies are not smooth liars.\n\nAgbeti alleged that leaders who scold others for being lazy shirk their own responsibilities. He complained that leaders who preach honesty are fraudulent and that those who charge others to be loyal are themselves implicitly treacherous. Pointing his index finger at one of the leaders, Agbeti frankly but gently demanded whether those who warn others about the dangers of smoking are not drug peddlers. When the leaders nodded in seeming affirmation that he could understand it all, Agbeti contended that the advocates of democracy are dictators and that those who extol good leadership are themselves terrorists.\n\nAgbeti attributed the violence in society and the unemotional disposition of the citizenry to the rejection of the old, obsolete maxim, \"Do as I say and not as I do.\" In a tone of finality, Agbeti declared that citizens should not be expected to uphold principles which their leaders are themselves guilty of violating.\n\nIn six sentences, one for each point, summarize Agbeti's six accusations against the leaders of the country.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

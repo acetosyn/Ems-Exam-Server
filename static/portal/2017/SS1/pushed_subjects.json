@@ -1,7 +1,19 @@
 {
+    "year": "2017",
+    "class_level": "SS1",
+    "class_category": "SS1",
+    "class_arm": "SS1",
+    "target_arm": "SS1",
+    "term": null,
+    "term_label": null,
+    "term_required": false,
+    "term_optional": true,
     "subjects": [
         "Chemistry Ss1",
         "English Ss1",
-        "Mathematics Ss1"
-    ]
+        "Mathematics Ss1",
+        "Chemistry"
+    ],
+    "updated_at": "2026-09-12T05:52:38",
+    "updated_by": "admin"
 }

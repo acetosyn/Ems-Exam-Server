@@ -1,0 +1,517 @@
+{
+  "subject": "Financial Accounting",
+  "class": "SS2",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Depreciation arises due to ________.",
+      "diagram": null,
+      "options": [
+        "A. Wear and tear",
+        "B. Reduction in the value of assets",
+        "C. Increase in the value of liabilities",
+        "D. Reduction in capital"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Under the straight-line method of providing depreciation, the amount of depreciation ________.",
+      "diagram": null,
+      "options": [
+        "A. Increases every year",
+        "B. Decreases every year",
+        "C. Remains constant every year",
+        "D. None of the above"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Depreciation of plant is recorded in the ________.",
+      "diagram": null,
+      "options": [
+        "A. Profit and loss account",
+        "B. Trading account",
+        "C. Assets account only",
+        "D. Balance sheet only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Depreciation decreases ________.",
+      "diagram": null,
+      "options": [
+        "A. Liabilities",
+        "B. Cash",
+        "C. Bank",
+        "D. Capital"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "Depreciation may occur due to ________.",
+      "diagram": null,
+      "options": [
+        "A. Fall in the market value of an asset",
+        "B. Physical wear and tear",
+        "C. Fall in the value of money",
+        "D. None of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is NOT a method of providing depreciation?",
+      "diagram": null,
+      "options": [
+        "A. Revaluation method",
+        "B. Reducing balance method",
+        "C. Replacement method",
+        "D. Straight-line method"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "A control account is ________.",
+      "diagram": null,
+      "options": [
+        "A. An imprest system",
+        "B. A statement of affairs",
+        "C. A bank reconciliation statement",
+        "D. A self-balancing system"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "A machine cost ₦12,000, has a useful life of 4 years and an expected disposal value of ₦400. Using the straight-line method, calculate the annual depreciation.",
+      "diagram": null,
+      "options": [
+        "A. ₦3,100",
+        "B. ₦2,900",
+        "C. ₦3,000",
+        "D. ₦2,300"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Using the information in Question 8, what is the accumulated depreciation at the end of Year 3?",
+      "diagram": null,
+      "options": [
+        "A. ₦9,300",
+        "B. ₦9,000",
+        "C. ₦8,700",
+        "D. ₦6,900"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "Factory cost consists of ________.",
+      "diagram": null,
+      "options": [
+        "A. Direct materials and factory overhead",
+        "B. Direct labour and direct expenses only",
+        "C. Direct labour and factory overhead only",
+        "D. Direct materials, direct labour, direct expenses and factory overhead"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Prime cost consists of ________.",
+      "diagram": null,
+      "options": [
+        "A. Factory cost and cost of materials",
+        "B. Overhead cost and direct cost",
+        "C. Direct expenses, direct labour and direct materials",
+        "D. Direct expenses and direct labour only"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "A business which converts raw materials into finished goods prepares ________.",
+      "diagram": null,
+      "options": [
+        "A. Trading account and balance sheet only",
+        "B. Manufacturing, trading, profit and loss account and balance sheet",
+        "C. Profit and loss account and balance sheet only",
+        "D. Balance sheet only"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following will a supplier send to a customer whose invoice was undercast?",
+      "diagram": null,
+      "options": [
+        "A. Invoice",
+        "B. Debit note",
+        "C. Credit note",
+        "D. Cheque"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "In a manufacturing company, wages paid to production operatives increase the value of ________.",
+      "diagram": null,
+      "options": [
+        "A. Turnover",
+        "B. Gross profit",
+        "C. Prime cost",
+        "D. Net profit"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "Which of the following is NOT contained in the sales ledger control account?",
+      "diagram": null,
+      "options": [
+        "A. Receipts from debtors",
+        "B. Returns inwards",
+        "C. Dishonoured cheque",
+        "D. Returns outwards"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "Debtors at the beginning of the year were ₦5,620 and at the end of the year ₦3,460. Cash and cheques received from customers amounted to ₦16,330. What were the credit sales for the year?",
+      "diagram": null,
+      "options": [
+        "A. ₦3,460",
+        "B. ₦5,620",
+        "C. ₦14,170",
+        "D. ₦16,330"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "Use the following Debtors Control Account information: Balance b/d ₦8,000; X ₦12,000; Discount ₦200; Balance c/d ₦3,000. What does X represent?",
+      "diagram": null,
+      "options": [
+        "A. Stock",
+        "B. Returns",
+        "C. Discount",
+        "D. Sales"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Using the Debtors Control Account information in Question 17, how much is the figure for Bank?",
+      "diagram": null,
+      "options": [
+        "A. ₦16,800",
+        "B. ₦17,000",
+        "C. ₦20,000",
+        "D. ₦8,000"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "Which of the following does NOT normally lead to depreciation of assets?",
+      "diagram": null,
+      "options": [
+        "A. Wear and tear",
+        "B. Passage of time",
+        "C. Devaluation of the naira",
+        "D. Obsolescence"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Factory wages are entered in the ________.",
+      "diagram": null,
+      "options": [
+        "A. Sales account",
+        "B. Manufacturing account",
+        "C. Profit and loss account",
+        "D. Purchases account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is NOT part of the prime cost of production?",
+      "diagram": null,
+      "options": [
+        "A. Cost of raw materials",
+        "B. Direct expenses",
+        "C. Direct wages",
+        "D. Depreciation of factory equipment"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following is NOT charged to the manufacturing account?",
+      "diagram": null,
+      "options": [
+        "A. Distribution expenses",
+        "B. Raw materials",
+        "C. Royalties",
+        "D. Factory wages"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "Discount received is shown on the ________.",
+      "diagram": null,
+      "options": [
+        "A. Credit side of sales ledger control account",
+        "B. Debit side of purchases ledger control account",
+        "C. Credit side of purchases ledger control account",
+        "D. Debit side of sales ledger control account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "A Creditors Control Account shows Balance b/d ₦1,200, Purchases ₦1,800, Discount ₦30 and Balance c/d ₦450. How much is the amount paid through Bank?",
+      "diagram": null,
+      "options": [
+        "A. ₦3,480",
+        "B. ₦2,520",
+        "C. ₦1,800",
+        "D. ₦1,320"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "In the Creditors Control Account in Question 24, the ₦1,800 entry represents ________.",
+      "diagram": null,
+      "options": [
+        "A. Purchases",
+        "B. Sales",
+        "C. Returns inwards",
+        "D. Discount allowed"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "In a manufacturing account, prime cost plus factory overhead is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Conversion cost",
+        "B. Cost of materials consumed",
+        "C. Total cost",
+        "D. Production cost"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "Which of the following is NOT an intangible asset?",
+      "diagram": null,
+      "options": [
+        "A. Licences",
+        "B. Patents",
+        "C. Trademarks",
+        "D. Fixtures"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 28,
+      "question": "The purchases ledger control account is also referred to as the ________.",
+      "diagram": null,
+      "options": [
+        "A. Total creditors account",
+        "B. Total debtors account",
+        "C. Cash account",
+        "D. Personal account"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "Suppliers' personal accounts are found in the ________.",
+      "diagram": null,
+      "options": [
+        "A. Purchases ledger",
+        "B. Sales ledger",
+        "C. Purchases account",
+        "D. Sales account"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The term bad debt is used to describe ________.",
+      "diagram": null,
+      "options": [
+        "A. A debt that cannot be recovered",
+        "B. A debt that is long overdue",
+        "C. An overcharge on a debtor's account",
+        "D. A debt owed by a former employee"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "The amount by which the value of a fixed asset is reduced during an accounting period is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Appreciation",
+        "B. Depreciation",
+        "C. Capital",
+        "D. Provision"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "Under the reducing balance method, depreciation is calculated on the ________.",
+      "diagram": null,
+      "options": [
+        "A. Original cost every year",
+        "B. Net book value at the beginning of each year",
+        "C. Scrap value only",
+        "D. Market value of the asset"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "The value of a fixed asset after deducting accumulated depreciation is called its ________.",
+      "diagram": null,
+      "options": [
+        "A. Cost price",
+        "B. Net book value",
+        "C. Market price",
+        "D. Invoice value"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Which of the following is a factory overhead?",
+      "diagram": null,
+      "options": [
+        "A. Direct materials",
+        "B. Direct wages",
+        "C. Factory rent",
+        "D. Carriage outwards"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "Carriage inwards on raw materials is normally included in the ________.",
+      "diagram": null,
+      "options": [
+        "A. Cost of raw materials",
+        "B. Selling expenses",
+        "C. Administrative expenses",
+        "D. Finance expenses"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Which of the following is a selling and distribution expense?",
+      "diagram": null,
+      "options": [
+        "A. Factory wages",
+        "B. Carriage outwards",
+        "C. Raw materials",
+        "D. Factory power"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "The sales ledger control account summarizes the balances of ________.",
+      "diagram": null,
+      "options": [
+        "A. Creditors",
+        "B. Debtors",
+        "C. Bank accounts",
+        "D. Capital accounts"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "Returns inwards are entered on which side of the sales ledger control account?",
+      "diagram": null,
+      "options": [
+        "A. Debit side",
+        "B. Credit side",
+        "C. Both sides",
+        "D. Neither side"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Returns outwards are recorded on which side of the purchases ledger control account?",
+      "diagram": null,
+      "options": [
+        "A. Debit side",
+        "B. Credit side",
+        "C. Balance side",
+        "D. Income side"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "A debt previously written off as bad but later recovered is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Bad debt",
+        "B. Bad debt recovered",
+        "C. Discount received",
+        "D. Provision for doubtful debt"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B & C - THEORY",
+    "instruction": "Answer all questions in Sections B and C. Write your answers clearly and show all necessary workings.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "SECTION B - QUESTION 1\nThe following balances have been extracted from the books of Alban-Kudi for the year 2004:\n\nOpening balances:\nPurchases ledger balances ₦59,370\nSales ledger balances ₦98,720\n\nTransactions for the year:\nPurchases journal ₦773,125\nSales journal ₦998,310\nPurchases returns ₦13,240\nSales returns ₦22,780\nCheques paid to suppliers ₦730,500\nCheques received from customers ₦929,800\nDiscount allowed ₦29,150\nDiscount received ₦10,670\nBad debts written off ₦1,980\nDishonoured cheque ₦150\nSet-off ₦5,180\nPetty cash paid to supplier ₦390\n\nClosing balances at 31/12/2004:\nPurchases ledger ₦72,650\nSales ledger ₦108,290\n\nYou are required to prepare:\n(i) Sales Ledger Control Account\n(ii) Purchases Ledger Control Account.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "SECTION B - QUESTION 2\nThe following information was extracted from the books of Okere Manufacturing Company for the year ended 31st December, 2016:\n\nOpening stock:\nRaw materials ₦61,450\nFinished goods ₦84,650\nWork-in-progress ₦3,140\n\nWages ₦14,150\nCarriage inwards of raw materials ₦650\nPurchases of raw materials ₦42,360\nRoyalties ₦1,040\nPlant and machinery: Cost ₦50,000; Book value ₦40,000\nFactory expenses ₦11,430\nFactory power ₦6,050\nRent ₦2,400\nInsurance ₦3,000\nDiscount allowed ₦1,430\nCarriage outwards ₦610\nSales ₦292,400\nSalesmen salaries ₦41,200\nOffice stationery ₦4,300\n\nAdditional information:\n(i) Closing stock at 31/12/2016:\nRaw materials ₦30,420\nFinished goods ₦7,200\nWork-in-progress ₦1,680\n(ii) Rent paid in advance ₦550\n(iii) Insurance outstanding ₦600\n(iv) Office stationery accrued ₦700\n(v) Depreciation on plant and machinery at 10% per annum on cost.\n\nYou are required to prepare a Manufacturing, Trading, Profit and Loss Account for the year ended 31st December, 2016.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "SECTION C - QUESTION 3\nExplain the following:\n(a) Prime cost\n(b) Work-in-progress\n(c) Manufacturing profit\n(d) Finished goods\n(e) Direct materials.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "SECTION C - QUESTION 4\n(a) What is depreciation?\n(b) List three causes of depreciation.\n(c) List three factors to be considered in the computation of depreciation.\n(d) State the formula for calculating depreciation using:\n(i) Straight-line method\n(ii) Diminishing balance method.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "SECOND",
+  "term_label": "1st Term",
+  "class_category": "SS2"
+}

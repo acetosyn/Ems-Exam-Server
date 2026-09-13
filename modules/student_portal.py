@@ -1,6 +1,6 @@
 # modules/student_portal.py
 
-from flask import Blueprint, render_template, redirect, url_for, session, request, jsonify
+from flask import Blueprint, render_template, redirect, url_for, session, request, jsonify, send_from_directory
 from pathlib import Path
 from datetime import datetime
 import json
@@ -10,10 +10,12 @@ from modules.student_results import save_result, get_latest_result
 from modules.excel_manager import read_results
 from modules.class_config import get_subjects_for_class, normalize_class_level, normalize_class_arm, get_ss_track
 from modules.api_routes import push_admin_notification
-from push import get_latest_year, get_active_year_for_target, get_active_term_for_target, normalize_term, term_label
+from push import get_latest_year, get_active_year_for_target, get_active_term_for_target, normalize_term, term_label, is_term_aware_class, is_optional_term_class, supports_term_folders
 
 
 student_portal_bp = Blueprint("student_portal_bp", __name__)
+BASE_DIR = Path(__file__).resolve().parent.parent
+EXAM_DIAGRAM_DIR = BASE_DIR / "static" / "uploads" / "diagrams"
 
 
 # =========================================================
@@ -22,73 +24,39 @@ student_portal_bp = Blueprint("student_portal_bp", __name__)
 
 BASE_SUBJECT_MAP = {
     "biology": "biology", "chemistry": "chemistry",
-
     "civic education": "civic", "civic": "civic",
-
     "computer science": "computer_science", "computer studies": "computer_science", "computer": "computer_science",
-
     "economics": "economics",
-
     "english language": "english", "english": "english",
-
     "financial accounting": "accounts", "financial account": "accounts", "accounting": "accounts", "accounts": "accounts",
-
     "geography": "geography", "government": "government",
-
     "literature-in-english": "literature", "literature in english": "literature", "literature": "literature",
-
     "mathematics": "mathematics", "maths": "mathematics",
-
     "physics": "physics",
-
     "technical drawing": "technical", "technical": "technical",
-
     "yoruba language": "yoruba", "yoruba": "yoruba",
-
     "history": "history",
-
     "irk": "irs", "irs": "irs",
-
     "cca": "cca",
-
     "arabic language": "arabic", "arabic": "arabic",
-
     "business studies": "business_studies",
-
     "poise": "poise",
-
     "islamiyyah": "islamiyyah",
-
     "hort & crop production": "hort_crop_production", "hort and crop production": "hort_crop_production",
-
     "digital tech.": "digital_tech", "digital tech": "digital_tech", "digital technology": "digital_tech",
-
     "inter science": "inter_science", "integrated science": "inter_science",
-
     "garment making": "garment_making",
-
     "soc. & cit. std": "soc_cit_std", "soc & cit std": "soc_cit_std", "social and citizenship studies": "soc_cit_std",
-
     "heritage & citizenship studies": "hcs", "hcs": "hcs",
-
     "p.h.e": "phe", "phe": "phe", "physical health education": "phe",
-
     "bst": "bst",
-
     "national value": "national_value", "national values": "national_value",
-
     "pvs": "pvs",
-
     "hausa language": "hausa", "hausa": "hausa",
-
     "cit & her. std": "cit_her_std", "cit and her std": "cit_her_std", "civic and heritage studies": "cit_her_std",
-
     "commerce": "commerce",
-
     "marketing": "marketing", "marketting": "marketing",
-
     "further mathematics": "further_mathematics", "further maths": "further_mathematics",
-
     "agricultural science": "agricultural_science", "agriculture": "agricultural_science",
 }
 
@@ -98,38 +66,23 @@ BASE_SUBJECT_MAP = {
 # =========================================================
 
 def get_logged_in_student():
-    if session.get("user_type") != "student":
-        return None
-
+    if session.get("user_type") != "student": return None
     student = session.get("student")
-
     return student if isinstance(student, dict) else None
 
 
 def get_student_full_name(student):
     full_name = student.get("full_name")
+    if full_name: return str(full_name).strip()
 
-    if full_name:
-        return str(full_name).strip()
-
-    parts = [
-        str(student.get("last_name", "")).strip(),
-        str(student.get("first_name", "")).strip(),
-        str(student.get("other_names", "")).strip(),
-    ]
-
+    parts = [str(student.get("last_name", "")).strip(), str(student.get("first_name", "")).strip(), str(student.get("other_names", "")).strip()]
     return " ".join(value for value in parts if value).strip()
 
 
 def get_student_sex(student):
     value = str(student.get("sex", "") or "").strip().upper()
-
-    if value in {"M", "MALE"}:
-        return "M"
-
-    if value in {"F", "FEMALE"}:
-        return "F"
-
+    if value in {"M", "MALE"}: return "M"
+    if value in {"F", "FEMALE"}: return "F"
     return value
 
 
@@ -138,20 +91,11 @@ def get_student_sex(student):
 # =========================================================
 
 def get_student_class_meta(student):
-    class_level = normalize_class_level(
-        student.get("class_category") or student.get("class_level") or student.get("class") or student.get("class_arm")
-    )
+    class_level = normalize_class_level(student.get("class_category") or student.get("class_level") or student.get("class") or student.get("class_arm"))
+    class_arm = normalize_class_arm(student.get("class_arm") or student.get("class") or student.get("class_category") or class_level, class_level)
 
-    class_arm = normalize_class_arm(
-        student.get("class_arm") or student.get("class") or student.get("class_category") or class_level,
-        class_level,
-    )
-
-    if not class_level:
-        class_level = normalize_class_level(class_arm)
-
-    if not class_arm:
-        class_arm = class_level
+    if not class_level: class_level = normalize_class_level(class_arm)
+    if not class_arm: class_arm = class_level
 
     return class_level, class_arm
 
@@ -162,9 +106,7 @@ def get_student_class_meta(student):
 
 def get_student_track(student):
     class_level, class_arm = get_student_class_meta(student)
-
     preferred_track = student.get("track") or student.get("student_track") or student.get("stream") or student.get("ss_stream") or ""
-
     return get_ss_track(class_arm, preferred_track)
 
 
@@ -178,19 +120,12 @@ def build_student_notification_payload(student, subject="", year="", term="", ex
     payload = {
         "student_name": get_student_full_name(student),
         "admission_number": str(student.get("admission_number") or student.get("id") or "").strip(),
-        "class": class_arm,
-        "class_arm": class_arm,
-        "class_category": class_level,
-        "class_level": class_level,
-        "stream": get_student_track(student),
-        "subject": subject or "",
-        "year": str(year or ""),
+        "class": class_arm, "class_arm": class_arm, "class_category": class_level, "class_level": class_level,
+        "stream": get_student_track(student), "subject": subject or "", "year": str(year or ""),
         "term": normalize_term(term) if term else "",
     }
 
-    if isinstance(extra, dict):
-        payload.update(extra)
-
+    if isinstance(extra, dict): payload.update(extra)
     return payload
 
 
@@ -198,7 +133,6 @@ def notify_exam_event(event_type, student, message, subject="", year="", term=""
     try:
         payload = build_student_notification_payload(student, subject=subject, year=year, term=term, extra=extra)
         push_admin_notification(event_type, message, payload)
-
     except Exception as error:
         print(f"ADMIN NOTIFICATION ERROR [{event_type}]:", error)
 
@@ -209,11 +143,9 @@ def notify_exam_event(event_type, student, message, subject="", year="", term=""
 
 def normalize_subject_base(subject):
     key = str(subject or "").strip().lower()
-
     base_name = BASE_SUBJECT_MAP.get(key)
 
-    if base_name:
-        return base_name
+    if base_name: return base_name
 
     return key.replace("&", "and").replace(".", "").replace("-", "_").replace("/", "_").replace(" ", "_")
 
@@ -222,49 +154,104 @@ def normalize_subject_base(subject):
 # EXAM YEAR
 # =========================================================
 
-def resolve_exam_year():
+def resolve_exam_year(student=None):
     year = request.args.get("year", "").strip()
+    if year: return str(year).strip()
 
-    if not year:
-        latest = get_latest_year()
-        year = latest if latest else str(datetime.now().year)
+    if isinstance(student, dict):
+        class_level, class_arm = get_student_class_meta(student)
+        year = get_active_year_for_target(class_arm, class_level)
 
-    return str(year).strip()
+        if year: return str(year).strip()
+
+    latest = get_latest_year()
+    return str(latest if latest else datetime.now().year).strip()
 
 
 # =========================================================
 # EXAM JSON PATH
+#
+# JSS:
+#   portal/<year>/<arm>/<term>/<subject>.json
+#
+# SS:
+#   selected term:
+#       portal/<year>/<arm>/<term>/<subject>.json
+#   fallback:
+#       portal/<year>/<arm>/<subject>.json
 # =========================================================
 
 def build_exam_json_path(year, class_level, class_arm, subject, term=None):
     base_name = normalize_subject_base(subject)
     class_suffix = str(class_level or "").lower().strip()
     json_filename = f"{base_name}_{class_suffix}.json"
+    portal_base = Path("static") / "portal" / str(year)
 
-    if str(class_level).upper().startswith("JSS"):
-        term = normalize_term(term)
+    targets = []
 
-        if not term:
-            return None
+    for target in (class_arm, class_level):
+        target = str(target or "").strip()
+        if target and target not in targets: targets.append(target)
 
-        exact_path = Path("static") / "portal" / str(year) / class_arm / term / json_filename
+    normalized_term = normalize_term(term)
+    candidates = []
 
-        if exact_path.exists():
-            return exact_path
+    # JSS = strict selected-term path.
+    if is_term_aware_class(class_level):
+        if not normalized_term: return None
+        candidates.extend(portal_base / target / normalized_term / json_filename for target in targets)
 
-        broad_path = Path("static") / "portal" / str(year) / class_level / term / json_filename
+    # SS = selected term first, then root/general fallback.
+    elif is_optional_term_class(class_level):
+        if normalized_term: candidates.extend(portal_base / target / normalized_term / json_filename for target in targets)
+        candidates.extend(portal_base / target / json_filename for target in targets)
 
-        if broad_path.exists():
-            return broad_path
+    else:
+        candidates.extend(portal_base / target / json_filename for target in targets)
 
-        return exact_path
+    for candidate in candidates:
+        if candidate.exists(): return candidate
 
-    exact_path = Path("static") / "portal" / str(year) / class_arm / json_filename
+    return candidates[0] if candidates else None
 
-    if exact_path.exists():
-        return exact_path
 
-    return Path("static") / "portal" / str(year) / class_level / json_filename
+def resolve_student_active_term(class_level, class_arm, requested_term=None):
+    """JSS requires a term; SS may use FIRST/SECOND/THIRD or remain GENERAL."""
+    if not supports_term_folders(class_level): return None
+
+    requested = normalize_term(requested_term)
+    if requested: return requested
+
+    return get_active_term_for_target(class_arm, class_level)
+
+
+def build_manifest_candidates(year, class_level, class_arm, term=None):
+    """Build pushed_subjects.json locations in exact-arm -> broad-class priority order."""
+
+    portal_base = Path("static") / "portal" / str(year)
+    targets = []
+
+    for target in (class_arm, str(class_arm or "").replace("/", ""), class_level):
+        target = str(target or "").strip()
+        if target and target not in targets: targets.append(target)
+
+    normalized_term = normalize_term(term)
+    candidates = []
+
+    # JSS: current term first, then legacy flat manifest fallback.
+    if is_term_aware_class(class_level):
+        if normalized_term: candidates.extend(portal_base / target / normalized_term / "pushed_subjects.json" for target in targets)
+        candidates.extend(portal_base / target / "pushed_subjects.json" for target in targets)
+
+    # SS: selected term first, then general/root manifest fallback.
+    elif is_optional_term_class(class_level):
+        if normalized_term: candidates.extend(portal_base / target / normalized_term / "pushed_subjects.json" for target in targets)
+        candidates.extend(portal_base / target / "pushed_subjects.json" for target in targets)
+
+    else:
+        candidates.extend(portal_base / target / "pushed_subjects.json" for target in targets)
+
+    return candidates
 
 
 # =========================================================
@@ -273,9 +260,7 @@ def build_exam_json_path(year, class_level, class_arm, subject, term=None):
 
 def clean_subject_display_name(subject, class_level=""):
     value = str(subject or "").strip()
-
-    if not value:
-        return ""
+    if not value: return ""
 
     for suffix in ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]:
         value = value.replace(f"_{suffix}", "").replace(f"-{suffix}", "").replace(f" {suffix}", "")
@@ -283,7 +268,6 @@ def clean_subject_display_name(subject, class_level=""):
 
     value = value.replace("_", " ").replace("-", " ")
     value = " ".join(value.split())
-
     upper_value = value.upper().strip()
 
     aliases = {
@@ -323,17 +307,11 @@ def clean_subject_display_name(subject, class_level=""):
 
     cleaned = aliases.get(upper_value, upper_value)
 
-    if str(class_level).upper().startswith("JSS") and cleaned == "IRS":
-        return "IRK"
+    if str(class_level).upper().startswith("JSS") and cleaned == "IRS": return "IRK"
+    if str(class_level).upper().startswith("SS") and cleaned == "IRK": return "IRS"
 
-    if str(class_level).upper().startswith("SS") and cleaned == "IRK":
-        return "IRS"
-
-    if str(class_level).upper().startswith("JSS") and cleaned in {"CIT_HER_STD", "SOC_CIT_STD"}:
-        return "SOC. & CIT. STD"
-
-    if str(class_level).upper().startswith("SS") and cleaned in {"CIT_HER_STD", "SOC_CIT_STD"}:
-        return "CIT & HER. STD"
+    if str(class_level).upper().startswith("JSS") and cleaned in {"CIT_HER_STD", "SOC_CIT_STD"}: return "SOC. & CIT. STD"
+    if str(class_level).upper().startswith("SS") and cleaned in {"CIT_HER_STD", "SOC_CIT_STD"}: return "CIT & HER. STD"
 
     return cleaned
 
@@ -343,22 +321,16 @@ def clean_subject_display_name(subject, class_level=""):
 # =========================================================
 
 def unique_clean_subjects(subjects, class_level=""):
-    seen = set()
-    cleaned = []
+    seen, cleaned = set(), []
 
     for subject in subjects:
-        if isinstance(subject, dict):
-            subject = subject.get("subject") or subject.get("name") or subject.get("title")
+        if isinstance(subject, dict): subject = subject.get("subject") or subject.get("name") or subject.get("title")
 
         name = clean_subject_display_name(subject, class_level)
-
-        if not name:
-            continue
+        if not name: continue
 
         key = name.lower()
-
-        if key in seen:
-            continue
+        if key in seen: continue
 
         seen.add(key)
         cleaned.append(name)
@@ -388,16 +360,11 @@ def filter_subjects_by_class_rules(subjects, class_level, class_arm, student=Non
     allowed_keys = {clean_subject_display_name(subject, class_level).lower() for subject in allowed_clean}
     incoming_clean = unique_clean_subjects(subjects, class_level)
 
-    if not str(class_level).startswith("SS"):
-        return incoming_clean
+    if not str(class_level).startswith("SS"): return incoming_clean
 
-    filtered = [
-        subject for subject in incoming_clean
-        if clean_subject_display_name(subject, class_level).lower() in allowed_keys
-    ]
+    filtered = [subject for subject in incoming_clean if clean_subject_display_name(subject, class_level).lower() in allowed_keys]
 
-    if filtered:
-        return unique_clean_subjects(filtered, class_level)
+    if filtered: return unique_clean_subjects(filtered, class_level)
 
     return allowed_clean
 
@@ -407,18 +374,14 @@ def filter_subjects_by_class_rules(subjects, class_level, class_arm, student=Non
 # =========================================================
 
 def read_pushed_subjects_file(json_path, class_level):
-    if not json_path.exists():
-        return []
+    if not json_path.exists(): return []
 
     try:
         data = json.loads(json_path.read_text(encoding="utf-8"))
 
-        if isinstance(data, dict):
-            subjects = data.get("subjects", [])
-        elif isinstance(data, list):
-            subjects = data
-        else:
-            subjects = []
+        if isinstance(data, dict): subjects = data.get("subjects", [])
+        elif isinstance(data, list): subjects = data
+        else: subjects = []
 
         return unique_clean_subjects(subjects, class_level)
 
@@ -429,85 +392,26 @@ def read_pushed_subjects_file(json_path, class_level):
 
 # =========================================================
 # STUDENT PORTAL SUBJECTS
+#
+# JSS:
+#   term manifest -> legacy root fallback
+#
+# SS:
+#   selected term manifest -> root/general fallback
 # =========================================================
 
 def get_student_subjects_for_portal(student, year=None):
     class_level, class_arm = get_student_class_meta(student)
+    if not class_level: return []
 
-    if not class_level:
-        return []
+    year = str(year).strip() if year else str(get_active_year_for_target(class_arm, class_level) or get_latest_year() or datetime.now().year).strip()
+    active_term = resolve_student_active_term(class_level, class_arm, request.args.get("term"))
 
-    if year:
-        year = str(year).strip()
-    else:
-        year = get_active_year_for_target(class_arm, class_level)
+    for manifest_path in build_manifest_candidates(year, class_level, class_arm, active_term):
+        subjects = read_pushed_subjects_file(manifest_path, class_level)
 
-        if not year and class_arm != class_level:
-            year = get_active_year_for_target(class_level, class_level)
-
-        if not year:
-            year = get_latest_year()
-
-        if not year:
-            year = str(datetime.now().year)
-
-    year = str(year).strip()
-
-    active_term = None
-
-    if str(class_level).upper().startswith("JSS"):
-        requested_term = normalize_term(request.args.get("term"))
-
-        active_term = requested_term or get_active_term_for_target(class_arm, class_level)
-
-        if not active_term and class_arm != class_level:
-            active_term = get_active_term_for_target(class_level, class_level)
-
-    exact_arm_candidates = []
-
-    for candidate in [class_arm, str(class_arm or "").replace("/", "")]:
-        candidate = str(candidate or "").strip()
-
-        if candidate and candidate not in exact_arm_candidates:
-            exact_arm_candidates.append(candidate)
-
-    if str(class_level).upper().startswith("JSS"):
-        if active_term:
-            for arm_folder in exact_arm_candidates:
-                exact_arm_path = Path("static") / "portal" / year / arm_folder / active_term / "pushed_subjects.json"
-                exact_subjects = read_pushed_subjects_file(exact_arm_path, class_level)
-
-                if exact_subjects:
-                    return filter_subjects_by_class_rules(exact_subjects, class_level, class_arm, student)
-
-        if active_term:
-            broad_path = Path("static") / "portal" / year / class_level / active_term / "pushed_subjects.json"
-            broad_subjects = read_pushed_subjects_file(broad_path, class_level)
-
-            if broad_subjects:
-                return unique_clean_subjects(broad_subjects, class_level)
-
-        for arm_folder in exact_arm_candidates:
-            legacy_exact_path = Path("static") / "portal" / year / arm_folder / "pushed_subjects.json"
-            legacy_exact_subjects = read_pushed_subjects_file(legacy_exact_path, class_level)
-
-            if legacy_exact_subjects:
-                return filter_subjects_by_class_rules(legacy_exact_subjects, class_level, class_arm, student)
-
-        legacy_broad_path = Path("static") / "portal" / year / class_level / "pushed_subjects.json"
-        legacy_broad_subjects = read_pushed_subjects_file(legacy_broad_path, class_level)
-
-        if legacy_broad_subjects:
-            return unique_clean_subjects(legacy_broad_subjects, class_level)
-
-        return unique_clean_subjects(get_subjects_for_class(class_level, class_arm), class_level)
-
-    for arm_folder in exact_arm_candidates:
-        exact_arm_path = Path("static") / "portal" / year / arm_folder / "pushed_subjects.json"
-        exact_subjects = read_pushed_subjects_file(exact_arm_path, class_level)
-
-        if exact_subjects:
-            return filter_subjects_by_class_rules(exact_subjects, class_level, class_arm, student)
+        if subjects:
+            return filter_subjects_by_class_rules(subjects, class_level, class_arm, student)
 
     return unique_clean_subjects(
         get_subjects_for_class(class_level, class_arm, preferred_track=get_student_track(student)),
@@ -526,7 +430,7 @@ def student_portal():
     if not student:
         return redirect(url_for("user_bp.student_login"))
 
-    year = resolve_exam_year()
+    year = resolve_exam_year(student)
     class_level, class_arm = get_student_class_meta(student)
 
     return render_template(
@@ -572,9 +476,6 @@ def exam_dashboard():
     else:
         year = get_active_year_for_target(class_arm, class_level)
 
-        if not year and class_arm != class_level:
-            year = get_active_year_for_target(class_level, class_level)
-
         if not year:
             year = get_latest_year()
 
@@ -583,15 +484,13 @@ def exam_dashboard():
 
     year = str(year).strip()
 
-    active_term = None
+    # JSS = compulsory active term.
+    # SS  = selected active term or None for GENERAL mode.
+    active_term = resolve_student_active_term(class_level, class_arm, request.args.get("term"))
 
-    if str(class_level).upper().startswith("JSS"):
-        requested_term = normalize_term(request.args.get("term"))
-
-        active_term = requested_term or get_active_term_for_target(class_arm, class_level)
-
-        if not active_term and class_arm != class_level:
-            active_term = get_active_term_for_target(class_level, class_level)
+    if is_term_aware_class(class_level) and not active_term:
+        print("[EXAM DASHBOARD ERROR] Missing active JSS term:", {"year": year, "class_level": class_level, "class_arm": class_arm})
+        return redirect(url_for("student_portal_bp.student_portal", year=year))
 
     subject_display = clean_subject_display_name(subject_raw, class_level)
 
@@ -605,6 +504,8 @@ def exam_dashboard():
     admission_no = str(student.get("admission_number", "")).strip()
     sex = get_student_sex(student)
 
+    # Selected SS term path is checked first.
+    # SS root/general path is fallback.
     json_path = build_exam_json_path(year, class_level, class_arm, subject_display, active_term)
     exam_available = bool(json_path and json_path.exists())
 
@@ -616,12 +517,13 @@ def exam_dashboard():
     print(f"Class Arm     : {class_arm}")
     print(f"Subject       : {subject_display}")
     print(f"Year          : {year}")
-    print(f"Active Term   : {active_term}")
+    print(f"Active Term   : {active_term or 'GENERAL'}")
     print(f"JSON Path     : {json_path}")
     print(f"JSON Exists   : {exam_available}")
     print("=" * 90 + "\n")
 
-    existing_results = read_results(class_arm or class_level, subject_display, year)
+    # Term is now carried into result lookup for both JSS and term-specific SS.
+    existing_results = read_results(class_arm or class_level, subject_display, year, active_term)
     already_written = False
 
     for result_row in existing_results:
@@ -661,6 +563,7 @@ def exam_dashboard():
         exam_submitted=session.get("exam_submitted", already_written),
     )
 
+
 # =========================================================
 # START EXAM
 # =========================================================
@@ -685,32 +588,24 @@ def start_exam():
     class_level, class_arm = get_student_class_meta(student)
 
     # =====================================================
-    # JSS TERM RESOLUTION
+    # TERM RESOLUTION — JSS STRICT / SS OPTIONAL
     # =====================================================
 
-    if str(class_level or "").upper().startswith("JSS"):
-        if not term:
-            term = get_active_term_for_target(class_arm, class_level)
+    if supports_term_folders(class_level):
+        term = term or resolve_student_active_term(class_level, class_arm)
 
-        if not term and class_arm != class_level:
-            term = get_active_term_for_target(class_level, class_level)
-
-        if not term:
+        if is_term_aware_class(class_level) and not term:
             print("[START EXAM ERROR] Missing JSS term:", {"subject": subject, "year": year, "class_level": class_level, "class_arm": class_arm})
             return redirect(url_for("student_portal_bp.exam_dashboard", subject=subject, year=year))
 
-    else:
-        term = ""
+    # GENERAL SS remains represented by an empty term.
+    if not term: term = ""
 
     # =====================================================
     # PREPARE EXAM SESSION
     #
-    # IMPORTANT:
     # Do NOT send exam_start notification here.
-    # This route only admits the student into the exam page.
-    #
-    # exam-core.js will POST the real exam_start event only
-    # after questions successfully load and the timer begins.
+    # exam-core.js sends the real event once questions load.
     # =====================================================
 
     session["selected_subject"] = subject
@@ -719,8 +614,6 @@ def start_exam():
     session["selected_class_arm"] = class_arm
     session["selected_term"] = term
 
-    # Keep this False here because the actual exam has not
-    # started yet. JS starts it after successful question load.
     session["exam_started"] = False
 
     return redirect(url_for("student_portal_bp.exam", subject=subject, year=year, term=term))
@@ -738,7 +631,6 @@ def exam():
         return redirect(url_for("user_bp.student_login"))
 
     subject = request.args.get("subject", "").strip()
-
     year = request.args.get("year") or session.get("selected_year") or str(datetime.now().year)
 
     class_level, class_arm = get_student_class_meta(student)
@@ -747,28 +639,15 @@ def exam():
     if not class_level:
         return redirect(url_for("student_portal_bp.student_portal"))
 
-    active_term = None
+    active_term = resolve_student_active_term(class_level, class_arm, request.args.get("term") or session.get("selected_term"))
 
-    if str(class_level).upper().startswith("JSS"):
-        active_term = normalize_term(request.args.get("term") or session.get("selected_term"))
+    if is_term_aware_class(class_level) and not active_term:
+        print("[EXAM PAGE ERROR] Missing active JSS term:", {
+            "subject": subject, "year": year, "class_level": class_level, "class_arm": class_arm,
+            "session_term": session.get("selected_term"), "query_term": request.args.get("term"),
+        })
 
-        if not active_term:
-            active_term = get_active_term_for_target(class_arm, class_level)
-
-        if not active_term and class_arm != class_level:
-            active_term = get_active_term_for_target(class_level, class_level)
-
-        if not active_term:
-            print("[EXAM PAGE ERROR] Missing active JSS term:", {
-                "subject": subject,
-                "year": year,
-                "class_level": class_level,
-                "class_arm": class_arm,
-                "session_term": session.get("selected_term"),
-                "query_term": request.args.get("term"),
-            })
-
-            return redirect(url_for("student_portal_bp.exam_dashboard", subject=subject, year=year))
+        return redirect(url_for("student_portal_bp.exam_dashboard", subject=subject, year=year))
 
     session["selected_subject"] = subject
     session["selected_year"] = str(year)
@@ -782,7 +661,7 @@ def exam():
     print(f"Year         : {year}")
     print(f"Class Level  : {class_level}")
     print(f"Class Arm    : {class_arm}")
-    print(f"Active Term  : {active_term}")
+    print(f"Active Term  : {active_term or 'GENERAL'}")
     print("=" * 90 + "\n")
 
     return render_template(
@@ -839,24 +718,36 @@ def submit_exam():
     # ACADEMIC SESSION / TERM
     # =====================================================
 
+    selected_term = normalize_term(session.get("selected_term"))
+
     try:
         academic_settings = get_academic_settings() or {}
         academic_session = str(academic_settings.get("current_session") or "2025/2026").strip()
-        term = normalize_term(academic_settings.get("current_term") or "")
+        settings_term = normalize_term(academic_settings.get("current_term") or "")
     except Exception as error:
         print("ACADEMIC SETTINGS FETCH ERROR:", error)
-        academic_session = "2025/2026"
-        term = normalize_term(session.get("selected_term"))
+        academic_session, settings_term = "2025/2026", None
 
-    if str(class_level or "").upper().startswith("JSS"):
-        term = term or normalize_term(session.get("selected_term"))
+    # The term actually used to enter the exam is authoritative.
+    #
+    # JSS:
+    #   must have FIRST / SECOND / THIRD
+    #
+    # SS:
+    #   selected term -> FIRST / SECOND / THIRD
+    #   GENERAL      -> empty term
+    if is_term_aware_class(class_level):
+        term = selected_term or settings_term or resolve_student_active_term(class_level, class_arm)
 
         if not term:
             return jsonify({"error": "No active term is available for this JSS examination"}), 400
+
+    elif is_optional_term_class(class_level):
+        term = selected_term or resolve_student_active_term(class_level, class_arm) or ""
+
     else:
         term = ""
 
-    # Keep selected term synchronized.
     session["selected_term"] = term
 
     # =====================================================
@@ -1012,6 +903,7 @@ def submit_exam():
         "sex": sex,
     }), 200
 
+
 # =========================================================
 # RESULT PAGE
 # =========================================================
@@ -1052,27 +944,31 @@ def result():
 @student_portal_bp.route("/api/student/subjects")
 def api_student_subjects():
     student = get_logged_in_student()
+    if not student: return jsonify({"subjects": []})
 
-    if not student:
-        return jsonify({"subjects": []})
-
-    year = request.args.get("year", "").strip()
-
-    if not year:
-        latest = get_latest_year()
-        year = latest if latest else str(datetime.now().year)
-
+    year = request.args.get("year", "").strip() or resolve_exam_year(student)
     class_level, class_arm = get_student_class_meta(student)
+    active_term = resolve_student_active_term(class_level, class_arm, request.args.get("term"))
     subjects = get_student_subjects_for_portal(student, year)
 
     return jsonify({
         "subjects": subjects,
+
         "class_level": class_level,
         "class_category": class_level,
         "class_arm": class_arm,
+
         "stream": get_student_track(student),
         "sex": get_student_sex(student),
+
         "year": year,
+
+        "term": active_term,
+        "active_term": active_term,
+        "term_label": term_label(active_term) if active_term else None,
+
+        "term_required": is_term_aware_class(class_level),
+        "term_optional": is_optional_term_class(class_level),
     })
 
 
@@ -1089,3 +985,13 @@ def back_to_exam_dashboard():
         return redirect(url_for("student_portal_bp.exam_dashboard", subject=subject, year=year))
 
     return redirect(url_for("student_portal_bp.student_portal"))
+
+
+
+# =========================================================
+# EXAM DIAGRAMS
+# =========================================================
+
+@student_portal_bp.route("/exam-diagram/<path:filename>")
+def exam_diagram(filename):
+    return send_from_directory(EXAM_DIAGRAM_DIR, filename)

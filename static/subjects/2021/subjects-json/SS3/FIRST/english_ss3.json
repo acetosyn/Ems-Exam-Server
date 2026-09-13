@@ -1,0 +1,629 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "English Language",
+  "class": "SS3",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Many youths migrate to urban areas as there are not enough jobs in ________ areas.",
+      "diagram": null,
+      "options": ["A. Bush", "B. Local", "C. Rural", "D. Underdeveloped"],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "It is surprising that Ngozi is nonchalant about her studies, while her younger brother Obinna is ________.",
+      "diagram": null,
+      "options": ["A. Smart", "B. Serious", "C. Brave", "D. Intelligent"],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "The politician gave an equivocal answer rather than a ________ one.",
+      "diagram": null,
+      "options": ["A. Pleasing", "B. Clear", "C. Carefree", "D. Confusing"],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "The drug exacerbated his illness rather than ________ it.",
+      "diagram": null,
+      "options": ["A. Cure", "B. Lessen", "C. Aggravate", "D. Solve"],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "I prefer extroverts to ________.",
+      "diagram": null,
+      "options": ["A. Bullies", "B. Rascals", "C. Extremists", "D. Introverts"],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Cooperation facilitates an action rather than ________ it.",
+      "diagram": null,
+      "options": ["A. Retards", "B. Quickens", "C. Stops", "D. Hastens"],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "As a result of a family feud, Bisi and Ayo could not cultivate a good ________.",
+      "diagram": null,
+      "options": ["A. Relationship", "B. Companionship", "C. Acquaintanceship", "D. Friendship"],
+      "correctOption": "A"
+    },
+    {
+      "id": 8,
+      "question": "It is no use being in a fret; try to ________.",
+      "diagram": null,
+      "options": ["A. Play", "B. Dance", "C. Relax", "D. Laugh"],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "Joy needs talking to, not ________.",
+      "diagram": null,
+      "options": ["A. Flogging", "B. Pampering", "C. Scolding", "D. Laughing at"],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "Ema keeps to herself and does not ________ much.",
+      "diagram": null,
+      "options": ["A. Laugh", "B. Care", "C. Quarrel", "D. Socialize"],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "The principal expressed his ________ at the unruly behaviour of the students.",
+      "diagram": null,
+      "options": ["A. Indignity", "B. Indiscretion", "C. Indignation", "D. Indiscipline"],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "The magistrate ________ the accused to one year imprisonment.",
+      "diagram": null,
+      "options": ["A. Sentenced", "B. Pronounced", "C. Condemned", "D. Charged"],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "I hate discussing with Fred. He is always ________.",
+      "diagram": null,
+      "options": ["A. Notorious", "B. Giddy", "C. Gibberish", "D. Juxtaposing"],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The lecturer condemned his ideas as ________.",
+      "diagram": null,
+      "options": ["A. Unsoothing", "B. Unpleasing", "C. Unrewarding", "D. Nebulous"],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "With determination, we shall ________ the problem.",
+      "diagram": null,
+      "options": ["A. Surmount", "B. Subsume", "C. Surprise", "D. Surcharge"],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "Bimbo ran ________ her old friend.",
+      "diagram": null,
+      "options": ["A. Upon", "B. Into", "C. Across", "D. Unto"],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "The young lady is such a ________ beauty to behold.",
+      "diagram": null,
+      "options": ["A. Ravenous", "B. Ravishing", "C. Ravaging", "D. Raging"],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "After his election, the government took over the ________ of power.",
+      "diagram": null,
+      "options": ["A. Realms", "B. Reigns", "C. Reins", "D. Rains"],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "The visit of the president to the players boosted their ________.",
+      "diagram": null,
+      "options": ["A. Morale", "B. Performance", "C. Action", "D. Play"],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "It is time we ________ the intruders from our school.",
+      "diagram": null,
+      "options": ["A. Drove away", "B. Drive away", "C. Shall drive away", "D. Should drive away"],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "She put in an appearance despite all opposition. This means that ________.",
+      "diagram": null,
+      "options": [
+        "A. She came and was opposed",
+        "B. She came with opposition",
+        "C. She came even though forces opposed it",
+        "D. In spite of putting up an appearance, there was opposition"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "Our arrival took her unawares. This means that she was ________.",
+      "diagram": null,
+      "options": ["A. Prepared for our arrival", "B. Unprepared for our arrival", "C. Shocked at our arrival", "D. Pleased at our arrival"],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Jona was advised to stop crying over spilt milk. This means that Jona was advised to stop ________.",
+      "diagram": null,
+      "options": [
+        "A. Worrying over what has no remedy",
+        "B. Weeping because of wasted milk",
+        "C. Crying as a result of spoilt milk",
+        "D. Worrying over milk that poured away"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "The plan to give the villagers a borehole did not materialize. This means that the plan ________.",
+      "diagram": null,
+      "options": ["A. Was not successful", "B. Did not include materials", "C. Did not please the villagers", "D. Was not well carried out"],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "Mother advised us not to fish in troubled waters. This means that we should ________.",
+      "diagram": null,
+      "options": ["A. Not fish in polluted waters", "B. Not go fishing when it is raining", "C. Not fish while there is trouble", "D. Stay away from trouble"],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "It became necessary to remind Mr. Ojo that those who live in glass houses should not throw stones. This means that Mr. Ojo ________.",
+      "diagram": null,
+      "options": [
+        "A. Should not throw stones at glass houses",
+        "B. Should not accuse others of offences of which he is equally guilty",
+        "C. Should not throw stones from his glass house",
+        "D. Was reminded that stones could damage his glass house"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "I received a priceless gift from my father on my last birthday. This means that I received a ________.",
+      "diagram": null,
+      "options": ["A. Highly valued gift", "B. Worthless gift", "C. Valueless gift", "D. Gift without a price tag"],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "The Super Eagles supporters were in full cry at Nigeria's World Cup match against Argentina. This means that ________.",
+      "diagram": null,
+      "options": ["A. They were crying", "B. They were fully enjoying themselves", "C. They shouted with enthusiasm", "D. Tears streamed down their cheeks"],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "The quarrel between the two friends turned out to be a storm in a teacup. This means that the quarrel ________.",
+      "diagram": null,
+      "options": ["A. Was over an unimportant issue", "B. Increased their anger", "C. Was over a dirty teacup", "D. Was inflamed by people present"],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "After the investigation, many of the workers were given their marching orders. This means that the workers ________.",
+      "diagram": null,
+      "options": ["A. Were ordered to march", "B. Received fresh instructions", "C. Were dismissed", "D. Were ordered to do a march-past"],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Nnenna was sweating profusely as she entered the examination hall. The word \"profusely\" means ________.",
+      "diagram": null,
+      "options": ["A. Excessively", "B. Recklessly", "C. Apologetically", "D. Greatly"],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "Emmanuel is genuinely interested in Jane. The word \"genuinely\" means ________.",
+      "diagram": null,
+      "options": ["A. Stubbornly", "B. Questionably", "C. Probably", "D. Truly"],
+      "correctOption": "D"
+    },
+    {
+      "id": 33,
+      "question": "She was cautioned not to deviate from the main issue. The word \"deviate\" means ________.",
+      "diagram": null,
+      "options": ["A. Run away", "B. Derail", "C. Stand out", "D. Attack"],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "The congregation was reminded that life is ephemeral. The word \"ephemeral\" means ________.",
+      "diagram": null,
+      "options": ["A. Transient", "B. Sweet", "C. Fulfilling", "D. Glorious"],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "Ada rarely disobeys her seniors. The word \"rarely\" means ________.",
+      "diagram": null,
+      "options": ["A. Often", "B. Seldom", "C. Frequently", "D. Stubbornly"],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "The use of vernacular was prohibited during English classes. The word \"vernacular\" means ________.",
+      "diagram": null,
+      "options": ["A. Mother tongue", "B. Foreign language", "C. Second language", "D. Strange language"],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "The teacher's nefarious activities led to his dismissal. The word \"nefarious\" means ________.",
+      "diagram": null,
+      "options": ["A. Mischievous", "B. Unprecedented", "C. Wicked", "D. Planless"],
+      "correctOption": "C"
+    },
+    {
+      "id": 38,
+      "question": "It was a tortuous way of negotiating peace, but we went through it. The word \"tortuous\" means ________.",
+      "diagram": null,
+      "options": ["A. Argumentative", "B. Frustrating", "C. Disappointing", "D. Complicated and difficult"],
+      "correctOption": "D"
+    },
+    {
+      "id": 39,
+      "question": "The reporter refused to divulge the source of his information. The word \"divulge\" means ________.",
+      "diagram": null,
+      "options": ["A. Share", "B. Disclose", "C. Discuss", "D. Write"],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "She is a garrulous young woman. The word \"garrulous\" means ________.",
+      "diagram": null,
+      "options": ["A. Beautiful", "B. Happy", "C. Chic", "D. Talkative"],
+      "correctOption": "D"
+    },
+    {
+      "id": 41,
+      "question": "You have not done the work, ________?",
+      "diagram": null,
+      "options": ["A. Isn't it", "B. Do you", "C. Have you", "D. Is it"],
+      "correctOption": "C"
+    },
+    {
+      "id": 42,
+      "question": "I searched for it in all the ________ of the room.",
+      "diagram": null,
+      "options": ["A. Nooks and corner", "B. Nooks and crannies", "C. Nooks and corners", "D. Corners and crannies"],
+      "correctOption": "B"
+    },
+    {
+      "id": 43,
+      "question": "He arrived just ________ time to catch the plane.",
+      "diagram": null,
+      "options": ["A. On", "B. At", "C. In", "D. After"],
+      "correctOption": "C"
+    },
+    {
+      "id": 44,
+      "question": "It is high time you ________ me the bully.",
+      "diagram": null,
+      "options": ["A. Show", "B. Showed", "C. Will show", "D. Are showing"],
+      "correctOption": "B"
+    },
+    {
+      "id": 45,
+      "question": "The principal, with some teachers, ________ in the hall.",
+      "diagram": null,
+      "options": ["A. Are", "B. Is", "C. Were", "D. Have been"],
+      "correctOption": "B"
+    },
+    {
+      "id": 46,
+      "question": "Bola is one of the girls who ________ the classroom every morning.",
+      "diagram": null,
+      "options": ["A. Would sweep", "B. Sweeps", "C. Sweep", "D. Has swept"],
+      "correctOption": "C"
+    },
+    {
+      "id": 47,
+      "question": "With the scolding, she retired ________ her shell.",
+      "diagram": null,
+      "options": ["A. Unto", "B. Into", "C. From", "D. Under"],
+      "correctOption": "B"
+    },
+    {
+      "id": 48,
+      "question": "Once bitten, twice ________.",
+      "diagram": null,
+      "options": ["A. Embarrassed", "B. Furious", "C. Stubborn", "D. Shy"],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "He stood ________ the rain for two hours.",
+      "diagram": null,
+      "options": ["A. In", "B. Under", "C. Outside", "D. Inside"],
+      "correctOption": "A"
+    },
+    {
+      "id": 50,
+      "question": "Ugochukwu is good ________ Mathematics.",
+      "diagram": null,
+      "options": ["A. On", "B. In", "C. At", "D. Upon"],
+      "correctOption": "C"
+    },
+    {
+      "id": 51,
+      "question": "Kunle is a chip ________ the old block.",
+      "diagram": null,
+      "options": ["A. Of", "B. Off", "C. On", "D. At"],
+      "correctOption": "B"
+    },
+    {
+      "id": 52,
+      "question": "We live in a ________ building.",
+      "diagram": null,
+      "options": ["A. Two-stories", "B. Two-story", "C. Two-storey", "D. Two-storied"],
+      "correctOption": "C"
+    },
+    {
+      "id": 53,
+      "question": "That artist is really good ________ his hands.",
+      "diagram": null,
+      "options": ["A. With", "B. On", "C. At", "D. In"],
+      "correctOption": "A"
+    },
+    {
+      "id": 54,
+      "question": "The plane will touch ________ in ten minutes' time.",
+      "diagram": null,
+      "options": ["A. In", "B. Up", "C. Under", "D. Down"],
+      "correctOption": "D"
+    },
+    {
+      "id": 55,
+      "question": "She was operated ________ at the Catholic hospital.",
+      "diagram": null,
+      "options": ["A. For", "B. In", "C. On", "D. Into"],
+      "correctOption": "C"
+    },
+    {
+      "id": 56,
+      "question": "The accused was ________ to two years' imprisonment.",
+      "diagram": null,
+      "options": ["A. Sentenced", "B. Condemned", "C. Punished", "D. Put"],
+      "correctOption": "A"
+    },
+    {
+      "id": 57,
+      "question": "Abubakar is taller than ________.",
+      "diagram": null,
+      "options": ["A. Her", "B. She", "C. Them", "D. Him"],
+      "correctOption": "B"
+    },
+    {
+      "id": 58,
+      "question": "In ________ account was the money deposited?",
+      "diagram": null,
+      "options": ["A. Who's", "B. Whom", "C. Whose", "D. Whom's"],
+      "correctOption": "C"
+    },
+    {
+      "id": 59,
+      "question": "Ifeoma passed her examinations ________.",
+      "diagram": null,
+      "options": ["A. In flying colours", "B. Under flying colours", "C. Into flying colours", "D. With flying colours"],
+      "correctOption": "D"
+    },
+    {
+      "id": 60,
+      "question": "Yusuf and Kunle went fishing today, ________?",
+      "diagram": null,
+      "options": ["A. Isn't it", "B. Didn't they", "C. Haven't they", "D. Hadn't they"],
+      "correctOption": "B"
+    },
+    {
+      "id": 61,
+      "question": "Neither Idiat nor Kafayat ________ here.",
+      "diagram": null,
+      "options": ["A. Is", "B. Are", "C. Has been", "D. Have been"],
+      "correctOption": "A"
+    },
+    {
+      "id": 62,
+      "question": "I am tired of ________ unending complaints.",
+      "diagram": null,
+      "options": ["A. There", "B. There are", "C. Their", "D. They're"],
+      "correctOption": "C"
+    },
+    {
+      "id": 63,
+      "question": "The two boys were abusing ________.",
+      "diagram": null,
+      "options": ["A. One another", "B. Themselves", "C. Each other", "D. Theirselves"],
+      "correctOption": "C"
+    },
+    {
+      "id": 64,
+      "question": "I'm ________ sincerely, Emeka.",
+      "diagram": null,
+      "options": ["A. Your's", "B. Yours'", "C. Your", "D. Yours"],
+      "correctOption": "D"
+    },
+    {
+      "id": 65,
+      "question": "The secret is between ________.",
+      "diagram": null,
+      "options": ["A. You and me", "B. You and I", "C. Me and you", "D. I and you"],
+      "correctOption": "A"
+    },
+    {
+      "id": 66,
+      "question": "He turned ________ my peace offer.",
+      "diagram": null,
+      "options": ["A. Off", "B. Down", "C. Out", "D. In"],
+      "correctOption": "B"
+    },
+    {
+      "id": 67,
+      "question": "Give me the biro; ________ mine.",
+      "diagram": null,
+      "options": ["A. Its", "B. It's", "C. Its'", "D. It"],
+      "correctOption": "B"
+    },
+    {
+      "id": 68,
+      "question": "________ his apology, he was punished.",
+      "diagram": null,
+      "options": ["A. However", "B. As a result of", "C. Despite", "D. Notwithstanding"],
+      "correctOption": "C"
+    },
+    {
+      "id": 69,
+      "question": "The price of ready-made dresses ________ gone up.",
+      "diagram": null,
+      "options": ["A. Have", "B. Has", "C. Are", "D. Were"],
+      "correctOption": "B"
+    },
+    {
+      "id": 70,
+      "question": "I prefer oranges ________ bananas.",
+      "diagram": null,
+      "options": ["A. To", "B. Than", "C. More to", "D. More than"],
+      "correctOption": "A"
+    },
+    {
+      "id": 71,
+      "question": "The Stock Exchange deals with the buying and ________ of long-term financial assets.",
+      "diagram": null,
+      "options": ["A. Trading", "B. Selling", "C. Disposing", "D. Purchasing"],
+      "correctOption": "B"
+    },
+    {
+      "id": 72,
+      "question": "Long-term financial assets bought and sold on the Stock Exchange are known as ________.",
+      "diagram": null,
+      "options": ["A. Securities", "B. Bonds", "C. Currencies", "D. Dividends"],
+      "correctOption": "A"
+    },
+    {
+      "id": 73,
+      "question": "Company ownership units traded on the Stock Exchange are known as ________.",
+      "diagram": null,
+      "options": ["A. Bonds", "B. Profits", "C. Deals", "D. Shares"],
+      "correctOption": "D"
+    },
+    {
+      "id": 74,
+      "question": "An agent who buys and sells securities on behalf of clients is called a ________.",
+      "diagram": null,
+      "options": ["A. Stockman", "B. Sharesman", "C. Stockbroker", "D. Exchange man"],
+      "correctOption": "C"
+    },
+    {
+      "id": 75,
+      "question": "On every transaction undertaken on behalf of a client, a stockbroker charges a ________.",
+      "diagram": null,
+      "options": ["A. Interest", "B. Commission", "C. Money", "D. Profit"],
+      "correctOption": "B"
+    },
+    {
+      "id": 76,
+      "question": "When one buys shares in a company, one becomes a ________.",
+      "diagram": null,
+      "options": ["A. Shareholder", "B. Manager", "C. Director", "D. Co-owner"],
+      "correctOption": "A"
+    },
+    {
+      "id": 77,
+      "question": "Under normal circumstances, every year the company ________ a profit.",
+      "diagram": null,
+      "options": ["A. Makes", "B. Announces", "C. Declares", "D. Gives"],
+      "correctOption": "A"
+    },
+    {
+      "id": 78,
+      "question": "Profits distributed among shareholders are known as ________.",
+      "diagram": null,
+      "options": ["A. Gains", "B. Dividends", "C. Interest", "D. Bonuses"],
+      "correctOption": "B"
+    },
+    {
+      "id": 79,
+      "question": "A person who buys shares hoping to sell them later at a profit is called a ________.",
+      "diagram": null,
+      "options": ["A. Client", "B. Buyer", "C. Speculator", "D. Investor"],
+      "correctOption": "C"
+    },
+    {
+      "id": 80,
+      "question": "Share speculation is risky because the company may declare a ________.",
+      "diagram": null,
+      "options": ["A. Liquidation", "B. Shortage", "C. Loss", "D. Bankruptcy"],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "PAPER I - ESSAY, COMPREHENSION & SUMMARY",
+    "instruction": "SECTION A: Answer one (1) composition question. SECTION B and SECTION C are compulsory. Theory score: 60 marks.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "SECTION A — CONTINUOUS WRITING (30 MARKS)\nYou are dissatisfied with some practices in your school. Write a letter to your friend in another school discussing at least three of the practices and the improvements you desire.\n\nYour answer should not be less than 450 words.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "SECTION A — CONTINUOUS WRITING (30 MARKS)\nWrite an article for publication in a national newspaper on the high cost of living, suggesting at least three ways in which the government of your country can tackle the problem.\n\nYour answer should not be less than 450 words.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "SECTION A — CONTINUOUS WRITING (30 MARKS)\nThe Parent-Teacher Association of your school has decided to transform the school into a single-sex school. As the senior prefect, write a letter to the chairman, giving at least three reasons why you disagree with the decision.\n\nYour answer should not be less than 450 words.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "SECTION A — CONTINUOUS WRITING (30 MARKS)\nYou are the main speaker in a debate on the topic: \"Children of literate parents perform better in school than those of illiterate parents.\" Write your argument for or against the motion.\n\nYour answer should not be less than 450 words.",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "SECTION A — CONTINUOUS WRITING (30 MARKS)\nWrite a story that ends with the statement: \"We apologized to each other and reconciled.\"\n\nYour answer should not be less than 450 words.",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "SECTION B — COMPREHENSION (15 MARKS)\n\nRead the following passage carefully and answer the questions on it.\n\nThe success or failure of an organization depends largely on the head of such an organization. In any organization, whether big or small, people have to work together. The achievement of the goals or objectives of the organization makes it mandatory for teams to be formed. The moment a team is formed, there must be a head.\n\nThe head plays a very crucial role in helping the organization to realize its goals. It is the head that coordinates and harnesses the efforts of the team. His ability to harness the efforts of the team effectively and thus bring about the full realization of the objectives of the organization depends on his perception of himself. Does he see himself as a boss or a leader?\n\nIf the head sees himself as a boss, he would be a human hawk and his attitude to his teammates could best be summarized in one word: terrorism. The boss applies all sorts of techniques and tactics to make his subordinates do what he wants. He may resort to harassment, bullying, intimidation and coercion of his subordinates, all in the name of performing his role. Workers in such an organization are therefore always afraid of the boss and they dare not offer any advice or suggestion, however useful or sound it may be. There is a general atmosphere of frustration among workers. Of course, a frustrated worker cannot give of his best. In the final analysis, the organization suffers by not achieving most of the goals it set out to achieve.\n\nOn the other hand, if the head perceives himself as a leader, he treats his team members as human beings who deserve humane treatment and respect. He sees his subordinates as very important in the realization of the goals of the organization. He solicits their support and cooperation. He is persuasive rather than coercive. He makes his teammates see the rationale behind every action he takes and thus carries them along. A leader therefore promotes high morale among team members, high productivity and the full realization of the objectives of the organization. There is little wonder, then, why some organizations perform poorly while others perform well above expectations.\n\nAnswer the following questions:\n(a) Why is it necessary for people to work together in an organization?\n(b) What is the function of the head in an organization?\n(c) How can the head of an organization become a \"human hawk\"?\n(d) What can happen in the end if the head behaves merely as a boss?\n(e) What will be the consequences for the organization if the head sees himself as a leader?\n(f) In the question, \"Does he see himself as a boss or a leader?\", what literary device is used?\n(g) In the expression, \"If the head sees himself as a boss\":\n(i) What is the grammatical name given to the expression?\n(ii) What is its function?\n(h) For each of the following words, find another word or phrase that means the same and can replace it as used in the passage:\n(i) mandatory\n(ii) plays\n(iii) realize\n(iv) offer\n(v) perceives\n(vi) rationale.",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "SECTION C — SUMMARY (15 MARKS)\n\nRead the following passage carefully and answer the questions that follow.\n\nTheatre in the recent past used to be a very popular art in traditional African society. It used to be a point of intersection where members of the community not only came to entertain themselves but also shared communal fellowship.\n\nQuite apart from that, in the traditional context, African drama and theatre were also popular and respectable institutions in that they preserved the people's culture and tradition. Theatre was popular with the people because it emphasized community participation, peace and progress. The presentations focused on the people's lives, their aspirations, fears and hopes. But today the situation is different. Theatre is becoming very unpopular.\n\nAfrica of the present age is preoccupied with many problems yearning for immediate solutions. The continent is facing hydra-headed challenges on the political, social and economic scenes. In a world where science and technology are seen as the solutions to these problems, little attention is paid to the arts. Literature generally, and drama in particular, is often rated low on the utility scale. Many in Africa today look at drama and theatre as mere forms of entertainment.\n\nElitism is another barrier that militates against the appreciation of theatre as a communal art. Folk theatre is appreciated by a negligible number of people. Contemporary focus is on literary theatre. Unfortunately, literary theatre only pretends to serve the interests of its society while, in reality, it often has a foreign audience in mind. The use of European and American theatrical conventions by African academic playwrights bears witness to this anomaly.\n\nThe popularity of literary African theatre is further marred by the medium of communication, as most literary dramas in Africa are written in foreign languages which are not understood by many Africans.\n\n(a) In three sentences, one for each point, state three functions which theatre used to perform in traditional African society.\n(b) In three sentences, one for each point, state three reasons given by the writer for the declining popularity of theatre in Africa.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

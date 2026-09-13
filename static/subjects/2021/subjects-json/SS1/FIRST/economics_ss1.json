@@ -1,0 +1,539 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Economics",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Economics is a science which studies human behaviour as a relationship between ends and scarce means which have alternative uses. The term \"ends\" refers to ________.",
+      "diagram": null,
+      "options": [
+        "A. Factors",
+        "B. Resources",
+        "C. Wants",
+        "D. Choice"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "A demand schedule is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Market demand",
+        "B. Table showing consumers' wants in order of importance",
+        "C. Table containing only the prices of goods",
+        "D. Table showing the relationship between price and quantity demanded of a commodity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "question": "When the price of commodity A increases and the demand for commodity B decreases, commodities A and B are ________.",
+      "diagram": null,
+      "options": [
+        "A. Close substitutes",
+        "B. Complementary goods",
+        "C. Supplementary goods",
+        "D. Luxury goods"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "Scarcity in Economics means that resources ________.",
+      "diagram": null,
+      "options": [
+        "A. Can always be managed if people behave rationally",
+        "B. Are not enough only for producers of goods and services",
+        "C. Needed to satisfy human wants are limited in relation to unlimited wants",
+        "D. Required to satisfy human wants are unlimited"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "Data presented in tables are usually arranged in ________.",
+      "diagram": null,
+      "options": [
+        "A. Charts and tables",
+        "B. Rows and columns",
+        "C. Graphs and rows",
+        "D. Pictograms and columns"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Economics can best be defined as the study of ________.",
+      "diagram": null,
+      "options": [
+        "A. How to spend family income efficiently",
+        "B. How to find the minimum cost of production",
+        "C. The interpretation of scarce resources and data",
+        "D. How scarce resources can be allocated efficiently to satisfy human wants"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Demand in Economics refers to ________.",
+      "diagram": null,
+      "options": [
+        "A. Needs only",
+        "B. Wants backed by willingness and ability to pay",
+        "C. A change in population size",
+        "D. The price of a commodity"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "All the following factors can cause a change in demand EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Consumer's income",
+        "B. Consumer's taste",
+        "C. Change in population",
+        "D. Price of the commodity itself"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "A rational consumer tends to do all the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Buy more at a higher price than at a lower price",
+        "B. Buy more at a lower price than at a higher price",
+        "C. React to changes in price",
+        "D. Behave in accordance with the law of demand"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Choice is necessary because resources are ________.",
+      "diagram": null,
+      "options": [
+        "A. Available",
+        "B. Found everywhere",
+        "C. Scarce",
+        "D. Unlimited"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following best represents the economically active working-age population?",
+      "diagram": null,
+      "options": [
+        "A. 1–15 years",
+        "B. 18–65 years",
+        "C. 30–40 years",
+        "D. 40–65 years"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "If the demand curve shifts to the right while the supply curve remains constant, equilibrium ________.",
+      "diagram": null,
+      "options": [
+        "A. Price and quantity will both increase",
+        "B. Price alone will increase",
+        "C. Price and quantity will both decrease",
+        "D. Price will remain constant"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "The scores of eight students in a NECO Economics examination are 14, 18, 16, 24, 30, 12, 20 and 10. What is the arithmetic mean of the scores?",
+      "diagram": "/static/uploads/diagrams/2021/economics_ss1/diagram_13.PNG",
+      "options": [
+        "A. 22",
+        "B. 18",
+        "C. 10",
+        "D. 24"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "Using the scores 14, 18, 16, 24, 30, 12, 20 and 10, calculate the range.",
+      "diagram": null,
+      "options": [
+        "A. 30",
+        "B. 10",
+        "C. 20",
+        "D. 15"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 15,
+      "question": "What is the mode of the scores 14, 18, 16, 24, 30, 12, 20 and 10?",
+      "diagram": null,
+      "options": [
+        "A. 20",
+        "B. 14",
+        "C. All",
+        "D. None"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "Find the median of the scores 14, 18, 16, 24, 30, 12, 20 and 10.",
+      "diagram": null,
+      "options": [
+        "A. 11",
+        "B. 16",
+        "C. 17",
+        "D. 18"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "Opportunity cost is also referred to as the ________.",
+      "diagram": null,
+      "options": [
+        "A. Money cost",
+        "B. Cost of production",
+        "C. Real cost",
+        "D. Variable cost"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "The equilibrium price of oranges is 50 kobo. If the market price rises to 60 kobo, there will be ________.",
+      "diagram": null,
+      "options": [
+        "A. Excess demand",
+        "B. Excess supply",
+        "C. No oranges in the market",
+        "D. A shortage in the market"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 19,
+      "question": "In Economics, production is complete when ________.",
+      "diagram": null,
+      "options": [
+        "A. Goods are produced in factories",
+        "B. Goods are sold to retailers",
+        "C. Goods and services reach the final consumers",
+        "D. Prices are fixed for goods and services"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Supply in Economics refers to the quantity of a commodity that producers are willing and able to offer for sale ________.",
+      "diagram": null,
+      "options": [
+        "A. To consumers without reference to price",
+        "B. At a given price over a given period",
+        "C. Whenever consumers require it",
+        "D. Regardless of market conditions"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "An inferior good is one whose demand ________.",
+      "diagram": null,
+      "options": [
+        "A. Is too poor for consumption",
+        "B. Falls because it is easily perishable",
+        "C. Falls when the income of its consumers increases",
+        "D. Falls because it is not durable"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "Which of the following does NOT correctly illustrate production?",
+      "diagram": null,
+      "options": [
+        "A. Provision of services",
+        "B. Consumption of finished goods",
+        "C. Manufacture of goods",
+        "D. Conversion of raw materials into finished goods"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Land is often distinguished as a factor of production because it ________.",
+      "diagram": null,
+      "options": [
+        "A. Is a free gift of nature",
+        "B. Is owned only by individuals",
+        "C. Constitutes one-third of the entire world",
+        "D. Is unlimited in supply"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "Land is a significant factor of production because ________.",
+      "diagram": null,
+      "options": [
+        "A. It enables people to build houses only",
+        "B. All highways are constructed on it",
+        "C. It provides only fishing resources",
+        "D. Natural resources obtained from it contribute greatly to the economy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "A scale of preference is a list of ________.",
+      "diagram": null,
+      "options": [
+        "A. Satisfied wants arranged in order of magnitude",
+        "B. Wants arranged in order of importance",
+        "C. Goods produced by consumers",
+        "D. Prices arranged from highest to lowest"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "Capital as a factor of production is important because ________.",
+      "diagram": null,
+      "options": [
+        "A. It refers only to money used in business",
+        "B. People can work without tools and machines",
+        "C. It enables tasks to be carried out which human effort alone may not accomplish efficiently",
+        "D. Most productive tasks can be performed with bare hands"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "Economic efficiency primarily implies ________.",
+      "diagram": null,
+      "options": [
+        "A. Obtaining maximum output from available resources at the lowest possible cost",
+        "B. Conserving petroleum resources only",
+        "C. Producing goods regardless of cost",
+        "D. Having limited wants and unlimited resources"
+      ],
+      "correctOption": "A"
+    },
+   {
+  "id": 28,
+  "question": "The diagram below is a ________.",
+  "diagram": "/static/uploads/diagrams/2021/economics_ss1/diagram_28.PNG",
+  "options": [
+    "A. Bar chart",
+    "B. Pie chart",
+    "C. Ball chart",
+    "D. Histogram"
+  ],
+  "correctOption": "B"
+},
+    {
+      "id": 29,
+      "question": "Mono-product economies are economies that ________.",
+      "diagram": null,
+      "options": [
+        "A. Have a rich cultural heritage",
+        "B. Produce only raw materials",
+        "C. Depend mainly on one major commodity",
+        "D. Specialize only in agriculture"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "The total number of fruits consumed by a family in a year is 720 and is represented by the pie chart below. What quantity of bananas was consumed by the family?",
+      "diagram": "/static/uploads/diagrams/2021/economics_ss1/diagram_30.PNG",
+      "options": [
+        "A. 60",
+        "B. 120",
+        "C. 240",
+        "D. 300"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "The basic economic problem that makes individuals and societies choose among competing wants is ________.",
+      "diagram": null,
+      "options": [
+        "A. Scarcity",
+        "B. Inflation",
+        "C. Distribution",
+        "D. Population"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "The next best alternative forgone when a choice is made is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Explicit cost",
+        "B. Opportunity cost",
+        "C. Fixed cost",
+        "D. Production cost"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following would cause an increase in the demand for a normal good?",
+      "diagram": null,
+      "options": [
+        "A. A fall in consumers' income",
+        "B. An increase in consumers' income",
+        "C. A fall in population",
+        "D. An unfavourable change in taste"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "According to the law of demand, other things being equal, quantity demanded ________ when price rises.",
+      "diagram": null,
+      "options": [
+        "A. Rises",
+        "B. Falls",
+        "C. Remains unchanged",
+        "D. First rises and then falls"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "The reward for labour as a factor of production is ________.",
+      "diagram": null,
+      "options": [
+        "A. Rent",
+        "B. Interest",
+        "C. Wage",
+        "D. Profit"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "The reward for capital as a factor of production is ________.",
+      "diagram": null,
+      "options": [
+        "A. Interest",
+        "B. Rent",
+        "C. Wage",
+        "D. Salary"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Extraction of crude oil and fishing are examples of ________ production.",
+      "diagram": null,
+      "options": [
+        "A. Primary",
+        "B. Secondary",
+        "C. Tertiary",
+        "D. Commercial"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "The transformation of raw materials into finished goods is known as ________ production.",
+      "diagram": null,
+      "options": [
+        "A. Primary",
+        "B. Secondary",
+        "C. Tertiary",
+        "D. Direct"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Banking, transportation and insurance belong mainly to the ________ sector of production.",
+      "diagram": null,
+      "options": [
+        "A. Primary",
+        "B. Secondary",
+        "C. Tertiary",
+        "D. Extractive"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "At equilibrium price, quantity demanded is ________ quantity supplied.",
+      "diagram": null,
+      "options": [
+        "A. Greater than",
+        "B. Less than",
+        "C. Equal to",
+        "D. Unrelated to"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B & C - THEORY",
+    "instruction": "SECTION B: Answer one (1) question. SECTION C: Answer any four (4) questions. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "SECTION B — QUESTION 1\nThe diagram below shows the sectoral allocation of a country's budget.\nUsing the data provided, illustrate the sectoral allocation accurately with a pie chart. Show all workings clearly. (15 marks)",
+        "diagram": "/static/uploads/diagrams/2021/economics_ss1/essay_1.PNG"
+      },
+      {
+        "id": 2,
+        "question": "SECTION B — QUESTION 2\nThe demand function for a commodity is Qd = 21 − 3P.\n(a) Use the demand function to complete the demand schedule shown below.\n(b) Draw the demand curve from the completed schedule. Use of graph sheet is essential.\n(c) Outline any three factors affecting demand. (15 marks)",
+        "diagram": "/static/uploads/diagrams/2021/economics_ss1/essay_2.PNG"
+      },
+      {
+        "id": 3,
+        "question": "SECTION C — QUESTION 3\n(a) Why is scarcity a fundamental problem in Economics?\n(b) Give one reason why Economics is regarded as:\n(i) a science;\n(ii) a social science. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "SECTION C — QUESTION 4\n(a) Define labour as a factor of production.\n(b) Briefly explain the following:\n(i) Skilled labour\n(ii) Semi-skilled labour\n(iii) Unskilled labour. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "SECTION C — QUESTION 5\n(a) Explain, with examples, the following types of production:\n(i) Primary production\n(ii) Secondary production\n(iii) Tertiary production\n(b) Give two reasons why primary production predominates in developing countries. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "SECTION C — QUESTION 6\nDistinguish between the following:\n(i) Wants and effective demand\n(ii) Demand schedule and demand curve\n(iii) Individual demand schedule and market demand schedule\n(iv) Change in demand and change in quantity demanded. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "SECTION C — QUESTION 7\nEconomic problems arise because a country's resources are limited in relation to its unlimited wants. Identify and explain the basic economic problems arising from this situation. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 8,
+        "question": "SECTION C — QUESTION 8\n(a) Define Economics.\n(b) Explain the following basic concepts of Economics:\n(i) Scale of preference\n(ii) Choice\n(iii) Opportunity cost. (10 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

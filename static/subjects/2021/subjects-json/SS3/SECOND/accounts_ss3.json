@@ -1,0 +1,660 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Accounts",
+  "class": "SS3",
+  "exam_title": "2nd Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The main objective of the public sector is to ______.",
+      "diagram": null,
+      "options": [
+        "A. Maximize return on capital",
+        "B. Maximize shareholder return",
+        "C. Fulfil shareholders’ needs",
+        "D. Provide public goods and services"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "The main financing source of the public sector is ______.",
+      "diagram": null,
+      "options": [
+        "A. Taxation",
+        "B. Sales",
+        "C. Bank loans",
+        "D. Shares"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Which of the following warrants is used where virement is not possible?",
+      "diagram": null,
+      "options": [
+        "A. Reserved expenditure warrant",
+        "B. General supplementary warrant",
+        "C. General provision warrant",
+        "D. Contingencies warrant"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 4,
+      "question": "Which of the following is a current expenditure of XYZ Local Government?",
+      "diagram": null,
+      "options": [
+        "A. X-ray machine",
+        "B. Tractors",
+        "C. Incubators",
+        "D. Drugs"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "What is the full meaning of ICAN?",
+      "diagram": null,
+      "options": [
+        "A. Institute of Clarity Accountants of Nigeria",
+        "B. Institute of Chartered Accountants in Nigeria",
+        "C. Institute of Chartered Accountants of Nigeria",
+        "D. Institute of Chartered Administrators of Nigeria"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "The financial plan of the government for a year is contained in the ______.",
+      "diagram": null,
+      "options": [
+        "A. Analysis book",
+        "B. Gazette",
+        "C. Budget",
+        "D. Vote"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is NOT true of capital expenditure?\nI. Assets are acquired for the purpose of earning income.\nII. It includes extension of an office building.\nIII. It is incurred and its full benefits are consumed in one period of account.",
+      "diagram": null,
+      "options": [
+        "A. I only",
+        "B. II only",
+        "C. III only",
+        "D. I and II only"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following is NOT true of revenue expenditure?\nI. It is incurred in one period of account.\nII. Its full benefits are consumed in the period incurred.\nIII. It includes items for replacement and repairs.\nIV. It does not include depreciation.",
+      "diagram": null,
+      "options": [
+        "A. IV only",
+        "B. I only",
+        "C. I and II only",
+        "D. III only"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "Recurrent expenditure of government is paid from the ______.",
+      "diagram": null,
+      "options": [
+        "A. Reserve fund",
+        "B. Consolidated Revenue Fund",
+        "C. Development fund",
+        "D. Contingencies fund"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "The document evidencing a disbursement of government fund is known as a ______.",
+      "diagram": null,
+      "options": [
+        "A. Bill",
+        "B. Invoice",
+        "C. Till book",
+        "D. Payment voucher"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "The authority of the Accountant-General to disburse from government fund is called a ______.",
+      "diagram": null,
+      "options": [
+        "A. Voucher",
+        "B. Warrant",
+        "C. Estimate",
+        "D. Provision"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "The Chief Accounting Officer of the Federal Republic of Nigeria is the ______.",
+      "diagram": null,
+      "options": [
+        "A. Chief Accountant",
+        "B. Minister of Finance",
+        "C. Minister of Economic Planning",
+        "D. Accountant-General of the Federation"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "As evidence of payment to a government ministry, revenue collectors issue a ______.",
+      "diagram": null,
+      "options": [
+        "A. Treasury card",
+        "B. Receipt voucher card",
+        "C. Treasury receipt",
+        "D. Payment voucher"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Rufai, a vulcanizer, bought four machines for ₦20,200 and incurred the following expenses for the year ended 31st December, 1990: Glue ₦2,100; Thread ₦600; Kerosene ₦900; Rubber ₦558; Matches ₦110. He received ₦5,772 from customers. Two machines were later sold for ₦6,990 and ₦5,670 respectively. What is his capital expenditure?",
+      "diagram": null,
+      "options": [
+        "A. ₦23,800",
+        "B. ₦22,900",
+        "C. ₦24,358",
+        "D. ₦20,200"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Using the information on Rufai’s vulcanizing business, what is his revenue expenditure?",
+      "diagram": null,
+      "options": [
+        "A. ₦24,468",
+        "B. ₦20,200",
+        "C. ₦4,268",
+        "D. ₦3,600"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 16,
+      "question": "Using the information on Rufai’s vulcanizing business, what is his capital receipt?",
+      "diagram": null,
+      "options": [
+        "A. ₦18,432",
+        "B. ₦12,660",
+        "C. ₦6,990",
+        "D. ₦5,772"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "Using the information on Rufai’s vulcanizing business, what is his revenue receipt?",
+      "diagram": null,
+      "options": [
+        "A. ₦18,432",
+        "B. ₦12,660",
+        "C. ₦4,268",
+        "D. ₦5,772"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "The amount allocated to an individual item in a government budget is called ______.",
+      "diagram": null,
+      "options": [
+        "A. A vote",
+        "B. A deposit",
+        "C. An investment",
+        "D. A loan"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "Patent and trademark are classified under ______.",
+      "diagram": null,
+      "options": [
+        "A. Fixed assets",
+        "B. Current assets",
+        "C. Intangible assets",
+        "D. Wasting assets"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is the traditional basis of accounting in the civil service?",
+      "diagram": null,
+      "options": [
+        "A. Accrual basis",
+        "B. Cash basis",
+        "C. Income basis",
+        "D. Expenditure basis"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "In computer terminology, information means ______.",
+      "diagram": null,
+      "options": [
+        "A. Alphanumeric data",
+        "B. Program",
+        "C. Data in a more useful form",
+        "D. Raw data"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "A computer cannot perform a task without a ______.",
+      "diagram": null,
+      "options": [
+        "A. Program",
+        "B. Output device",
+        "C. Chip",
+        "D. Memory"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "The software which controls the general operations of a computer system is classified as an ______.",
+      "diagram": null,
+      "options": [
+        "A. Dump program",
+        "B. Function system",
+        "C. Operating system",
+        "D. Inquiry system"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "A person who analyzes an information system and has practical experience of computers is classified as a ______.",
+      "diagram": null,
+      "options": [
+        "A. System analyst",
+        "B. System modifier",
+        "C. System updater",
+        "D. System promoter"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "A financial plan of action expressed in monetary terms is known as a ______.",
+      "diagram": null,
+      "options": [
+        "A. Imprest",
+        "B. Budget",
+        "C. Consolidated fund",
+        "D. Warrant"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "In computing, external storage is also called ______.",
+      "diagram": null,
+      "options": [
+        "A. Backing storage",
+        "B. Logging storage",
+        "C. Primary storage",
+        "D. Extra storage"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "In computing, ALU stands for ______.",
+      "diagram": null,
+      "options": [
+        "A. Accounting Logical Unit",
+        "B. Arithmetic Logic Unit",
+        "C. Access Logic Unit",
+        "D. Additional Liability Unit"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is NOT an input device?",
+      "diagram": null,
+      "options": [
+        "A. Card reader",
+        "B. Keyboard",
+        "C. Visual display unit",
+        "D. Mouse"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "Which of the following can serve as an input, storage and output medium in a computer system?",
+      "diagram": null,
+      "options": [
+        "A. Diskette",
+        "B. Keyboard",
+        "C. Monitor",
+        "D. Printer"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The term bad debt is used to describe ______.",
+      "diagram": null,
+      "options": [
+        "A. A debt that cannot be recovered",
+        "B. A debt that is long overdue",
+        "C. An overcharge on a debtor’s account",
+        "D. A debt owed by a former employee"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Book-keeping is mainly concerned with ______.",
+      "diagram": null,
+      "options": [
+        "A. Designing systems for recording, classifying and summarizing recorded data",
+        "B. Recording financial data relating to business operations",
+        "C. Interpreting data for internal and external users",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "Which of the following is NOT an internal user of financial statements?",
+      "diagram": null,
+      "options": [
+        "A. Lenders",
+        "B. Managers",
+        "C. Board of Directors",
+        "D. Employees"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following will NOT be recorded in the books of accounts?",
+      "diagram": null,
+      "options": [
+        "A. Paid rent for office premises ₦10,000",
+        "B. Paid commission for purchase of raw materials ₦200",
+        "C. Purchased goods on credit ₦15,000",
+        "D. Resignation of the manager, Mr. Mohammed"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 34,
+      "question": "What is the primary purpose of a cashbook?",
+      "diagram": null,
+      "options": [
+        "A. It records receipts and payments of cash",
+        "B. It records payments of cash",
+        "C. It records receipts of cash",
+        "D. It helps to compute the profit and loss of a business"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "The credit side of a cashbook is the ______.",
+      "diagram": null,
+      "options": [
+        "A. Loss side",
+        "B. Receipt side",
+        "C. Profit side",
+        "D. Payment side"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 36,
+      "question": "In a three-column cashbook, the ______ column is not balanced.",
+      "diagram": null,
+      "options": [
+        "A. Discount column",
+        "B. Cash column",
+        "C. Bank column",
+        "D. None of the above"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "In a cashbook, a contra entry involves ______.",
+      "diagram": null,
+      "options": [
+        "A. A cash account and a bank account",
+        "B. A cash account and a sales account",
+        "C. A cash account and a discount account",
+        "D. A bank account and a discount account"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "A cashbook that records minor expenses of a business on a day-to-day basis is a ______.",
+      "diagram": null,
+      "options": [
+        "A. General cashbook",
+        "B. Petty cashbook",
+        "C. Extra cashbook",
+        "D. Additional cashbook"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "The person responsible for recording transactions in a petty cashbook is the ______.",
+      "diagram": null,
+      "options": [
+        "A. Counter cashier",
+        "B. General cashier",
+        "C. Additional cashier",
+        "D. Petty cashier"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 40,
+      "question": "When goods are sold for cash, which source document is issued?",
+      "diagram": null,
+      "options": [
+        "A. Cheque",
+        "B. Tape",
+        "C. Sales invoice",
+        "D. Receipt"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 41,
+      "question": "When bank charges are discovered in a bank statement, the adjustment is effected in the ______.",
+      "diagram": null,
+      "options": [
+        "A. Bank reconciliation statement",
+        "B. Cash book",
+        "C. Suspense account",
+        "D. Bank loan account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 42,
+      "question": "The accounting concept which distinguishes an enterprise from its owners is the ______.",
+      "diagram": null,
+      "options": [
+        "A. Money measurement concept",
+        "B. Dual aspect concept",
+        "C. Going concern concept",
+        "D. Business entity concept"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "Eze introduces his private car into the business. The aspects of the accounting equation that would be affected are ______.",
+      "diagram": null,
+      "options": [
+        "A. Assets and capital",
+        "B. Capital and profit",
+        "C. Liabilities and assets",
+        "D. Capital and liabilities"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 44,
+      "question": "An example of a real account is ______.",
+      "diagram": null,
+      "options": [
+        "A. Computer repairs account",
+        "B. Computer insurance account",
+        "C. Office computer account",
+        "D. Depreciation of computer account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 45,
+      "question": "An allowance given to a customer by a supplier for prompt payment is ______.",
+      "diagram": null,
+      "options": [
+        "A. Trade discount",
+        "B. Discount received",
+        "C. Cash discount",
+        "D. Cash rebate"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "A trial balance is a list of ______.",
+      "diagram": null,
+      "options": [
+        "A. Current assets",
+        "B. Current liabilities",
+        "C. Debtors and creditors",
+        "D. Debit and credit balances"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 47,
+      "question": "The basis of accounting which eliminates debtors and creditors is the ______.",
+      "diagram": null,
+      "options": [
+        "A. Cash basis",
+        "B. Accrual basis",
+        "C. Fund basis",
+        "D. Commitment basis"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 48,
+      "question": "A customer who returns defective goods to the supplier is issued a ______.",
+      "diagram": null,
+      "options": [
+        "A. Debit note",
+        "B. Credit note",
+        "C. Delivery note",
+        "D. Bank note"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 49,
+      "question": "Whatever is fed into a computer is exactly what would be processed and produced as output. This is the concept of ______.",
+      "diagram": null,
+      "options": [
+        "A. Sorting out",
+        "B. Last in, first out",
+        "C. First in, first out",
+        "D. Garbage in, garbage out"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 50,
+      "question": "Financial accounting information is for ______.",
+      "diagram": null,
+      "options": [
+        "A. Internal use only",
+        "B. External use only",
+        "C. Business use only",
+        "D. Internal and external use"
+      ],
+      "correctOption": "D"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B & C - THEORY",
+    "instruction": "SECTION B - ANSWER TWO QUESTIONS. SECTION C - ANSWER THREE QUESTIONS.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "a. What are accounting concepts? (3 marks)\nb. Explain the following accounting concepts:\n   i. Business entity\n   ii. Going concern\n   iii. Accrual\n   iv. Consistency\n   v. Periodicity\n   vi. Historical cost\n(12 marks) (WAEC 2021)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "a. What is a bank reconciliation statement? (3 marks)\nb. Explain the following terms:\n   i. Bank charges\n   ii. Standing order\n   iii. Credit transfer\n   iv. Dishonoured cheques\n   v. Unpresented cheques\n   vi. Uncredited cheques\n(12 marks) (WAEC 2021)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "a. Mention any four types of cashbook. (3 marks)\nb. Identify any six source documents. (6 marks)\nc. List the two types of errors. (2 marks)\nd. List four errors that the trial balance will not reveal. (4 marks) (NECO 2019)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "a. List:\n   i. Three books of accounts used in public sector accounting. (3 marks)\n   ii. Four users of public sector information. (4 marks)\nb. State four differences between private sector accounting and public sector accounting. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "Sesay operates a shop with two Departments A and B. The balances, additional information and bases of apportionment are shown in the diagram below.\n\nYou are required to prepare Sesay’s Departmental Trading, Profit and Loss Account for the year ended 31st December, 2019. (15 marks) (WAEC SSCE 2021)",
+        "diagram": "/static/uploads/diagrams/2021/accounts_ss3/essay_5a.PNG"
+      },
+      {
+        "id": 6,
+        "question": "The cash book of Samuel Osheku for the month ending 31st March, 2016 and the bank statement for the same period are shown in the diagram below.\n\nYou are required to:\na. Prepare an adjusted cashbook.\nb. Draw up a bank reconciliation statement as at 31st March, 2016. (NECO SSCE 2019)",
+        "diagram": "/static/uploads/diagrams/2021/accounts_ss3/essay_6a.PNG"
+      },
+      {
+        "id": 7,
+        "question": "The balances extracted from the books of Abobaku Local Government for the year ended 31st December, 2019 are shown in the diagram below.\n\nYou are required to prepare for the year ended 31st December, 2019:\na. Statement of Recurrent Expenditure.\nb. Statement of Capital Expenditure.\nc. Statement of Revenue.\n(15 marks) (WAEC SSCE 2020)",
+        "diagram": "/static/uploads/diagrams/2021/accounts_ss3/essay_7a.PNG"
+      },
+      {
+        "id": 8,
+        "question": "The information relating to the books of accounts of Adom Ltd., including the Trading, Profit and Loss Account for the year ended 31st December, 2014 and the Balance Sheet as at that date, is shown in the diagrams below.\n\nYou are required to calculate any six of the following:\na. Gross profit percentage\nb. Net profit percentage\nc. Return on capital employed\nd. Current ratio\ne. Acid test ratio\nf. Rate of stock turnover\ng. Working capital\nh. Shareholders’ fund\ni. Liquid assets\n(15 marks) (WAEC SSCE 2016)",
+        "diagram": "/static/uploads/diagrams/2021/accounts_ss3/essay_8a.PNG",
+        "diagram_2": "/static/uploads/diagrams/2021/accounts_ss3/essay_8b.PNG"
+      }
+    ]
+  },
+  "term": "SECOND",
+  "term_label": "2nd Term"
+}

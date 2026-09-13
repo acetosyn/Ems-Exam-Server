@@ -1,0 +1,524 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Physics",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The dimension of velocity is ________.",
+      "diagram": null,
+      "options": [
+        "A. ML⁻¹T",
+        "B. M⁻¹L⁻¹T⁻¹",
+        "C. LT⁻²",
+        "D. LT⁻¹"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "What is the reading on the instrument shown below?",
+      "diagram": "/static/uploads/diagrams/2021/physics_ss1/diagram_2.PNG",
+      "options": [
+        "A. 4.25 cm",
+        "B. 425 cm",
+        "C. 0.425 cm",
+        "D. 42.5 cm"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Which of the following are vector quantities?\nI. Distance\nII. Volume\nIII. Force\nIV. Velocity\nV. Displacement",
+      "diagram": null,
+      "options": [
+        "A. I, V and II",
+        "B. IV, III and I",
+        "C. II, I and III",
+        "D. III, IV and V"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "The friction which exists between two layers of liquid in relative motion is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Capillarity",
+        "B. Viscosity",
+        "C. Surface tension",
+        "D. Cohesion"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Which phenomenon provides practical evidence of the continuous random motion of gas molecules?",
+      "diagram": null,
+      "options": [
+        "A. Oscillatory motion",
+        "B. Translational motion",
+        "C. Brownian motion",
+        "D. Rotational motion"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following quantities has the same SI unit as energy?",
+      "diagram": null,
+      "options": [
+        "A. Power",
+        "B. Force",
+        "C. Work",
+        "D. Velocity"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "A car accelerates uniformly from rest at 5 m s⁻². What is its speed after 10 s?",
+      "diagram": null,
+      "options": [
+        "A. 25 m s⁻¹",
+        "B. 2 m s⁻¹",
+        "C. 50 m s⁻¹",
+        "D. 0.5 m s⁻¹"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following energy sources is renewable?",
+      "diagram": null,
+      "options": [
+        "A. Petroleum",
+        "B. Nuclear",
+        "C. Hydroelectric power",
+        "D. Coal"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "The SI units of volume, density and mass respectively are ________.",
+      "diagram": null,
+      "options": [
+        "A. m³, kg m⁻³ and N",
+        "B. m s⁻², m s⁻¹ and s",
+        "C. m³, kg m⁻³ and kg",
+        "D. N, s and J"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "Mechanical energy can be either ________.",
+      "diagram": null,
+      "options": [
+        "A. Kinetic or electrical",
+        "B. Chemical or heat",
+        "C. Electrical or heat",
+        "D. Potential or kinetic"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "A car moves with a speed of 30 m s⁻¹. Calculate the distance travelled in 30 s.",
+      "diagram": null,
+      "options": [
+        "A. 450 m",
+        "B. 60 m",
+        "C. 30 m",
+        "D. 900 m"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 12,
+      "question": "Which instrument is best for measuring the diameter of a thin wire?",
+      "diagram": null,
+      "options": [
+        "A. Vernier callipers",
+        "B. Metre rule",
+        "C. Spiral spring",
+        "D. Micrometer screw gauge"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "A cylindrical drum rolling down an inclined plane undergoes ________.",
+      "diagram": null,
+      "options": [
+        "A. Circular and translational motion",
+        "B. Rectilinear and circular motion",
+        "C. Rotational and circular motion",
+        "D. Rotational and translational motion"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "The property of a fluid used to determine its suitability as a lubricant is its ________.",
+      "diagram": null,
+      "options": [
+        "A. Viscosity",
+        "B. Capillarity",
+        "C. Surface tension",
+        "D. Relative density"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "The branch of Physics which deals with motion and the forces causing motion is ________.",
+      "diagram": null,
+      "options": [
+        "A. Acoustics",
+        "B. Electronics",
+        "C. Plasma physics",
+        "D. Mechanics"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "Which of the following is NOT a fundamental physical quantity?",
+      "diagram": null,
+      "options": [
+        "A. Mass",
+        "B. Velocity",
+        "C. Time",
+        "D. Length"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "The diagram shows two horizontal forces acting on a body. What is the resultant force?",
+      "diagram": "/static/uploads/diagrams/2021/physics_ss1/diagram_17.PNG",
+      "options": [
+        "A. 1 N",
+        "B. 3 N",
+        "C. 2 N to the right",
+        "D. 0 N"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Which of the following is NOT a consequence of a force field?",
+      "diagram": null,
+      "options": [
+        "A. Weight",
+        "B. Magnetic force",
+        "C. Surface tension",
+        "D. Electrical force"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "Which of the following consists only of fundamental SI units?",
+      "diagram": null,
+      "options": [
+        "A. kg, s and m",
+        "B. kg, m and m s⁻¹",
+        "C. s, N and kg",
+        "D. kg, J and W"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is NOT a vector quantity?",
+      "diagram": null,
+      "options": [
+        "A. Force",
+        "B. Displacement",
+        "C. Velocity",
+        "D. Distance"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 21,
+      "question": "A car travelling at constant velocity is represented by which velocity-time graph in the diagram below?",
+      "diagram": "/static/uploads/diagrams/2021/physics_ss1/diagram_21.PNG",
+      "options": [
+        "A. Graph (b)",
+        "B. Graph (d)",
+        "C. Graph (c)",
+        "D. Graph (a)"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "The coefficient of friction μ is given by ________.",
+      "diagram": null,
+      "options": [
+        "A. μ = F×R",
+        "B. μ = F+R",
+        "C. μ = F/R",
+        "D. μ = F−R"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "Work is the product of ________ when the force acts in the direction of motion.",
+      "diagram": null,
+      "options": [
+        "A. Force and mass",
+        "B. Force and distance",
+        "C. Force and weight",
+        "D. Force and density"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 24,
+      "question": "The slope of a velocity-time graph represents ________.",
+      "diagram": null,
+      "options": [
+        "A. Displacement",
+        "B. Speed",
+        "C. Velocity",
+        "D. Acceleration"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "The SI unit of power is ________.",
+      "diagram": null,
+      "options": [
+        "A. N",
+        "B. Pa",
+        "C. W",
+        "D. J"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "The time rate of change of displacement is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Speed",
+        "B. Velocity",
+        "C. Impulse",
+        "D. Acceleration"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "How much work is done when a boy pushes a load with a force of 10 N through a horizontal distance of 2 m?",
+      "diagram": null,
+      "options": [
+        "A. 20 J",
+        "B. 200 J",
+        "C. 12 J",
+        "D. 8 J"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "A physicist may have a career in all the following EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Telecommunication",
+        "B. Information technology",
+        "C. Electric power industry",
+        "D. Forestry technology"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "Which of the following is NOT normally classified as a primary form of energy?",
+      "diagram": null,
+      "options": [
+        "A. Chemical energy",
+        "B. Mechanical energy",
+        "C. Nuclear energy",
+        "D. Potential energy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 30,
+      "question": "A body covers 100 m in 20 s. Its average speed is ________.",
+      "diagram": null,
+      "options": [
+        "A. 2 m s⁻¹",
+        "B. 5 m s⁻¹",
+        "C. 20 m s⁻¹",
+        "D. 80 m s⁻¹"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "A force of 6 N moves an object 4 m in its direction. The work done is ________.",
+      "diagram": null,
+      "options": [
+        "A. 10 J",
+        "B. 24 J",
+        "C. 1.5 J",
+        "D. 48 J"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "The energy possessed by a moving body is ________.",
+      "diagram": null,
+      "options": [
+        "A. Potential energy",
+        "B. Chemical energy",
+        "C. Kinetic energy",
+        "D. Nuclear energy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following is a scalar quantity?",
+      "diagram": null,
+      "options": [
+        "A. Velocity",
+        "B. Force",
+        "C. Speed",
+        "D. Displacement"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "An object of mass 2 kg accelerates at 3 m s⁻². The resultant force is ________.",
+      "diagram": null,
+      "options": [
+        "A. 1.5 N",
+        "B. 5 N",
+        "C. 6 N",
+        "D. 9 N"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 35,
+      "question": "The SI unit of density is ________.",
+      "diagram": null,
+      "options": [
+        "A. kg m⁻³",
+        "B. kg m³",
+        "C. N m⁻²",
+        "D. g cm³"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "A body moving at constant speed in a straight line has ________ acceleration.",
+      "diagram": null,
+      "options": [
+        "A. Zero",
+        "B. Constant non-zero",
+        "C. Increasing",
+        "D. Decreasing"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "The force that opposes relative motion between surfaces in contact is ________.",
+      "diagram": null,
+      "options": [
+        "A. Upthrust",
+        "B. Friction",
+        "C. Weight",
+        "D. Tension"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "Power is defined as ________.",
+      "diagram": null,
+      "options": [
+        "A. Work × time",
+        "B. Work ÷ time",
+        "C. Force ÷ distance",
+        "D. Energy × distance"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "A machine does 600 J of work in 20 s. Its power is ________.",
+      "diagram": null,
+      "options": [
+        "A. 12 W",
+        "B. 20 W",
+        "C. 30 W",
+        "D. 120 W"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Which of the following is a derived quantity?",
+      "diagram": null,
+      "options": [
+        "A. Length",
+        "B. Mass",
+        "C. Time",
+        "D. Acceleration"
+      ],
+      "correctOption": "D"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Define friction and state the laws of friction.\n(b) An object of mass 80 kg is pulled along a horizontal rough surface by a force of 500 N. Find the coefficient of limiting friction. Take g = 10 m s⁻².",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Define motion and write short notes on rotational, translational and oscillatory motion.\n(b) A train starts from rest and accelerates uniformly at 0.5 m s⁻² for 20 s, travels at constant velocity for 30 s, then comes to rest uniformly in 10 s. Sketch its velocity-time graph and calculate the total distance travelled.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Explain displacement and uniform acceleration.\n(b) A car accelerates uniformly from rest at 4 m s⁻². How far does it travel during the fifth complete second?\n(c) A boy covers 10 m in 5 s. Determine his speed.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) Define energy. Is solar energy renewable? Give a reason.\n(b) A carpenter on a roof 20 m high drops a hammer of mass 1.5 kg. Find the kinetic energy of the hammer just before it hits the ground. Take g = 10 m s⁻².",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) Show that power = force × velocity.\n(b) A train engine produces a force of 3000 N while moving at 30 m s⁻¹. Calculate its power.\n(c) State when work is said to be done. A boy drags a bag with a force of 2 N at 60° to the horizontal through 3 m. Determine the work done.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

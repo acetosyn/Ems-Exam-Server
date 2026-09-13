@@ -1,0 +1,859 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Literature-in-English",
+  "class": "SS3",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS3",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The term used to designate categories to which literary works belong is called…",
+      "diagram": null,
+      "options": [
+        "A. class",
+        "B. division",
+        "C. form",
+        "D. genre",
+        "E. style"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 2,
+      "question": "The discourse in a non- fiction is usually based on…..",
+      "diagram": null,
+      "options": [
+        "A. action",
+        "B. animal ordeals",
+        "C. factual events",
+        "D. imaginary events",
+        "E. love of adventure"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "A long narrative lyrical verse which praises is called a/an……",
+      "diagram": null,
+      "options": [
+        "A. ballad",
+        "B. dirge",
+        "C. epic",
+        "D. ode",
+        "E. sonnet"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "The privilege which poets enjoy in departing from the normal order of grammatical structures to achieve a desired effect is known as poetic….",
+      "diagram": null,
+      "options": [
+        "A. diction",
+        "B. licence",
+        "C. style",
+        "D. technique",
+        "E. voice"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "A one act play is called a/an……",
+      "diagram": null,
+      "options": [
+        "A. force",
+        "B. melodrama",
+        "C. playlet",
+        "D. single play",
+        "E. trilogy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "A romantic poem focuses on……",
+      "diagram": null,
+      "options": [
+        "A. animals",
+        "B. human",
+        "C. nature",
+        "D. romance",
+        "E. war"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "One of the following is not related to drama",
+      "diagram": null,
+      "options": [
+        "A. Act",
+        "B. Cast",
+        "C. Chapter",
+        "D. Scene",
+        "E. Stage"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "The technique used in sustaining readers’ interest is known as …….",
+      "diagram": null,
+      "options": [
+        "A. flash back",
+        "B. humour",
+        "C. point of view",
+        "D. stream of consciousness",
+        "E. suspense"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 9,
+      "question": "One of the following is the earliest form of literature",
+      "diagram": null,
+      "options": [
+        "A. balled",
+        "B. epic",
+        "C. music",
+        "D. oral literature",
+        "E. written literature"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 10,
+      "question": "The emotional quality in a literary work is called…….",
+      "diagram": null,
+      "options": [
+        "A. atmosphere",
+        "B. mood",
+        "C. setting",
+        "D. theme",
+        "E. tone"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "An imitation of a serious literary composition in a humorous manner is called……",
+      "diagram": null,
+      "options": [
+        "A. fable",
+        "B. fiction",
+        "C. melodrama",
+        "D. mimesis",
+        "E. parody"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 12,
+      "question": "The sequential arrangement of events in a literary text is referred to as…….",
+      "diagram": null,
+      "options": [
+        "A. characterization",
+        "B. form",
+        "C. plot",
+        "D. setting",
+        "E. technique"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "Characterization in a literary work means the…..",
+      "diagram": null,
+      "options": [
+        "A. introductory remarks on the characters",
+        "B. italicization of characters",
+        "C. list of characters",
+        "D. peculiar characteristics of the narrator",
+        "E. ways characters are presented in a text"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 14,
+      "question": "The device that is used to bring past events to the present in a literary work is known as….",
+      "diagram": null,
+      "options": [
+        "A. flash across",
+        "B. flash back",
+        "C. fore shadowing",
+        "D. interlude",
+        "E. point of view"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "A song that celebrates the exploits of a warrior is a/an……",
+      "diagram": null,
+      "options": [
+        "A. dirge",
+        "B. epic",
+        "C. lullaby",
+        "D. ode",
+        "E. panegyric"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 16,
+      "question": "When the events in a novel are structured in a linear or chronological order, it is said to have a ………… plot",
+      "diagram": null,
+      "options": [
+        "A. complex",
+        "B. complicated",
+        "C. disjointed",
+        "D. multiple",
+        "E. simple"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 17,
+      "question": "Pick out the odd item",
+      "diagram": null,
+      "options": [
+        "A. act",
+        "B. interlude",
+        "C. scene",
+        "D. stage",
+        "E. verse"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 18,
+      "question": "“ I made the news an open secret” exemplifies the use of …..",
+      "diagram": null,
+      "options": [
+        "A. euphemism",
+        "B. irony",
+        "C. metaphor",
+        "D. oxymoron",
+        "E. paradox"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "Dirge differs from elegy in that, it is to be…..",
+      "diagram": null,
+      "options": [
+        "A. composed",
+        "B. danced",
+        "C. sunny",
+        "D. written",
+        "E. none"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "A poem of seven liners is a ………",
+      "diagram": null,
+      "options": [
+        "A. couplet",
+        "B. quintet",
+        "C. septet",
+        "D. sestet",
+        "E. tercet"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "The point at which conflict is resolved is called …….",
+      "diagram": null,
+      "options": [
+        "A. anti climax",
+        "B. catharsis",
+        "C. climax",
+        "D. crises",
+        "E. denoucement"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 22,
+      "question": "A literary work written in the form of a letter is a/an……….",
+      "diagram": null,
+      "options": [
+        "A. article",
+        "B. epistolary",
+        "C. essay",
+        "D. novel",
+        "E. novelette"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Stanza is to poetry while ……… is to prose",
+      "diagram": null,
+      "options": [
+        "A. chapter",
+        "B. lines",
+        "C. paragraph",
+        "D. scene",
+        "E. verse"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "A dramatic presentation in which music is used with little or no spoken language is ……",
+      "diagram": null,
+      "options": [
+        "A. burlesque",
+        "B. force",
+        "C. melo-drama",
+        "D. mime",
+        "E. opera"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 25,
+      "question": "“In the blast, lives were lost, houses destroyed and cars damaged” is an example of……",
+      "diagram": null,
+      "options": [
+        "A. anti- climax",
+        "B. antithesis",
+        "C. climax",
+        "D. oxymoron",
+        "E. paradox"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "The major male character in a story is referred to as a/an……..",
+      "diagram": null,
+      "options": [
+        "A. actor",
+        "B. chorus",
+        "C. clown",
+        "D. hero",
+        "E. heroine"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "A lullaby is sung to …….",
+      "diagram": null,
+      "options": [
+        "A. celebrate baby’s birth",
+        "B. celebrate heroes",
+        "C. mourn the dead",
+        "D. praise nature",
+        "E. soothe a baby to sleep"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 28,
+      "question": "Select the odd item from the following",
+      "diagram": null,
+      "options": [
+        "A. Alliteration",
+        "B. Hyperbole",
+        "C. Irony",
+        "D. Metaphor",
+        "E. Simile"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "In a literary work, a clown normally……",
+      "diagram": null,
+      "options": [
+        "A. creates comic relief",
+        "B. creates the atmosphere of sorrow",
+        "C. directs the actions",
+        "D. supports the protagonist",
+        "E. wears the best dress"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "The expression “I sat singing songs of sorrow” illustrates the use of …..",
+      "diagram": null,
+      "options": [
+        "A. alliteration",
+        "B. assonance",
+        "C. onomatopoeia",
+        "D. pun",
+        "E. repetition UNSEEN PROSE Use the passage below to answer questions 31-35. Hunger stole upon me so slowly that at first, I was not aware of what hunger really meant. Hunger had always been more or less at my elbow when I played, but now I began to wake up at night to find hunger standing at my beside, starring at the gauntly. The hunger I had known before this had been grim, hostile stranger: it had been a normal hunger that had made me beg constantly for bread and when I ate a crust or two, I was satisfied. But this new hunger baffled me, scared me, and made me angry and insistent. Whenever I begged for food now my mother would pour me a cup of tea which would still clamour in my stomach for a moment or two but a little later. I would feel hunger nudging my ribs, twisting my empty guts until they ached. My eyes would dim and I would become less active in my play. For the first time in my life, I had to pause and think of what was happening to me"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "Use the passage/extract below to answer this question.\n\nHunger stole upon me so slowly that at first, I was not aware of what hunger really meant. Hunger had always been more or less at my elbow when I played, but now I began to wake up at night to find hunger standing at my beside, starring at the gauntly. The hunger I had known before this had been grim, hostile stranger: it had been a normal hunger that had made me beg constantly for bread and when I ate a crust or two, I was satisfied. But this new hunger baffled me, scared me, and made me angry and insistent. Whenever I begged for food now my mother would pour me a cup of tea which would still clamour in my stomach for a moment or two but a little later. I would feel hunger nudging my ribs, twisting my empty guts until they ached. My eyes would dim and I would become less active in my play. For the first time in my life, I had to pause and think of what was happening to me.\n\nThe passage is ………. in nature",
+      "diagram": null,
+      "options": [
+        "A. argumentative",
+        "B. descriptive",
+        "C. discursive",
+        "D. expository",
+        "E. narrative"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 32,
+      "question": "Use the passage/extract below to answer this question.\n\nHunger stole upon me so slowly that at first, I was not aware of what hunger really meant. Hunger had always been more or less at my elbow when I played, but now I began to wake up at night to find hunger standing at my beside, starring at the gauntly. The hunger I had known before this had been grim, hostile stranger: it had been a normal hunger that had made me beg constantly for bread and when I ate a crust or two, I was satisfied. But this new hunger baffled me, scared me, and made me angry and insistent. Whenever I begged for food now my mother would pour me a cup of tea which would still clamour in my stomach for a moment or two but a little later. I would feel hunger nudging my ribs, twisting my empty guts until they ached. My eyes would dim and I would become less active in my play. For the first time in my life, I had to pause and think of what was happening to me.\n\nThe predominant figure of speech in the above passage is……",
+      "diagram": null,
+      "options": [
+        "A. hyperbole",
+        "B. metaphor",
+        "C. metonymy",
+        "D. oxymoron",
+        "E. personification"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 33,
+      "question": "Use the passage/extract below to answer this question.\n\nHunger stole upon me so slowly that at first, I was not aware of what hunger really meant. Hunger had always been more or less at my elbow when I played, but now I began to wake up at night to find hunger standing at my beside, starring at the gauntly. The hunger I had known before this had been grim, hostile stranger: it had been a normal hunger that had made me beg constantly for bread and when I ate a crust or two, I was satisfied. But this new hunger baffled me, scared me, and made me angry and insistent. Whenever I begged for food now my mother would pour me a cup of tea which would still clamour in my stomach for a moment or two but a little later. I would feel hunger nudging my ribs, twisting my empty guts until they ached. My eyes would dim and I would become less active in my play. For the first time in my life, I had to pause and think of what was happening to me.\n\nThe word “baffled” as used in the passage means……",
+      "diagram": null,
+      "options": [
+        "A. enjoyed",
+        "B. excited",
+        "C. interested",
+        "D. pained",
+        "E. puzzled"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 34,
+      "question": "Use the passage/extract below to answer this question.\n\nHunger stole upon me so slowly that at first, I was not aware of what hunger really meant. Hunger had always been more or less at my elbow when I played, but now I began to wake up at night to find hunger standing at my beside, starring at the gauntly. The hunger I had known before this had been grim, hostile stranger: it had been a normal hunger that had made me beg constantly for bread and when I ate a crust or two, I was satisfied. But this new hunger baffled me, scared me, and made me angry and insistent. Whenever I begged for food now my mother would pour me a cup of tea which would still clamour in my stomach for a moment or two but a little later. I would feel hunger nudging my ribs, twisting my empty guts until they ached. My eyes would dim and I would become less active in my play. For the first time in my life, I had to pause and think of what was happening to me.\n\nThe passage employs…….narrative technique",
+      "diagram": null,
+      "options": [
+        "A. first person",
+        "B. omniscient",
+        "C. second-person",
+        "D. stream of consciousness",
+        "E. third-person"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "Use the passage/extract below to answer this question.\n\nHunger stole upon me so slowly that at first, I was not aware of what hunger really meant. Hunger had always been more or less at my elbow when I played, but now I began to wake up at night to find hunger standing at my beside, starring at the gauntly. The hunger I had known before this had been grim, hostile stranger: it had been a normal hunger that had made me beg constantly for bread and when I ate a crust or two, I was satisfied. But this new hunger baffled me, scared me, and made me angry and insistent. Whenever I begged for food now my mother would pour me a cup of tea which would still clamour in my stomach for a moment or two but a little later. I would feel hunger nudging my ribs, twisting my empty guts until they ached. My eyes would dim and I would become less active in my play. For the first time in my life, I had to pause and think of what was happening to me.\n\nThe passage ends on a note of …….. for the narrative",
+      "diagram": null,
+      "options": [
+        "A. anger",
+        "B. comfort",
+        "C. discomfort",
+        "D. indifferent",
+        "E. joy UNSEEN POETRY Use the poem below to answer questions 36 – 40 The moon has a face like the clock in the hall, She shines on thieves on the garden wall, On streets and field and harbours and quays, And birds asleep in the forks of the trees"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Use the passage/extract below to answer this question.\n\nThe moon has a face like the clock in the hall, She shines on thieves on the garden wall, On streets and field and harbours and quays, And birds asleep in the forks of the trees.\n\nThe predominant figure of speech in the poem is",
+      "diagram": null,
+      "options": [
+        "A. hyperbole",
+        "B. irony",
+        "C. litotes",
+        "D. personification",
+        "E. simile"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 37,
+      "question": "Use the passage/extract below to answer this question.\n\nThe moon has a face like the clock in the hall, She shines on thieves on the garden wall, On streets and field and harbours and quays, And birds asleep in the forks of the trees.\n\nThe above poem is an example of ……..",
+      "diagram": null,
+      "options": [
+        "A. octave",
+        "B. quatrain",
+        "C. quintet",
+        "D. septet",
+        "E. sonnet"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "Use the passage/extract below to answer this question.\n\nThe moon has a face like the clock in the hall, She shines on thieves on the garden wall, On streets and field and harbours and quays, And birds asleep in the forks of the trees.\n\nThe rhyme scheme of the poem is ….",
+      "diagram": null,
+      "options": [
+        "A. aabb",
+        "B. aabc",
+        "C. abab",
+        "D. abca",
+        "E. abcd"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "Use the passage/extract below to answer this question.\n\nThe moon has a face like the clock in the hall, She shines on thieves on the garden wall, On streets and field and harbours and quays, And birds asleep in the forks of the trees.\n\nThe word “forks” as used in the poem is a metaphor for …..",
+      "diagram": null,
+      "options": [
+        "A. barks",
+        "B. branches",
+        "C. leaves",
+        "D. nests",
+        "E. roots"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "Use the passage/extract below to answer this question.\n\nThe moon has a face like the clock in the hall, She shines on thieves on the garden wall, On streets and field and harbours and quays, And birds asleep in the forks of the trees.\n\nThe poem is an exhortation of the beauty of…..",
+      "diagram": null,
+      "options": [
+        "A. birds",
+        "B. garden",
+        "C. nature",
+        "D. streets",
+        "E. trees SECTION B WILLIAM AHAKESPEARE A MINSUMMER NIGHT’S DREAM Use the extract below to answer questions 41 – 45 So I, admiring of his qualities. Things base and vile, folding no quantity, love can transpose to form and dignity. Love looks not with the eyes, but with the mind; and therefore is wing d cupid painted blind. Nor hath love’s mind of any judgement taste; wings, and no eyes, figure unheedy haste and therefore is love said to be a child Act 1, scene 1"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 41,
+      "question": "Use the passage/extract below to answer this question.\n\nSo I, admiring of his qualities. Things base and vile, folding no quantity, love can transpose to form and dignity. Love looks not with the eyes, but with the mind; and therefore is wing d cupid painted blind. Nor hath love’s mind of any judgement taste; wings, and no eyes, figure unheedy haste and therefore is love said to be a child Act 1, scene 1\n\nThe speaker is………",
+      "diagram": null,
+      "options": [
+        "A. Helena",
+        "B. Hermia",
+        "C. Hippolyta",
+        "D. Thisby",
+        "E. Titania"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 42,
+      "question": "Use the passage/extract below to answer this question.\n\nSo I, admiring of his qualities. Things base and vile, folding no quantity, love can transpose to form and dignity. Love looks not with the eyes, but with the mind; and therefore is wing d cupid painted blind. Nor hath love’s mind of any judgement taste; wings, and no eyes, figure unheedy haste and therefore is love said to be a child Act 1, scene 1\n\nThe speaker is addressing………..",
+      "diagram": null,
+      "options": [
+        "A. Helena",
+        "B. Hermia",
+        "C. Lysander",
+        "D. Herself",
+        "E. Oberon"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 43,
+      "question": "Use the passage/extract below to answer this question.\n\nSo I, admiring of his qualities. Things base and vile, folding no quantity, love can transpose to form and dignity. Love looks not with the eyes, but with the mind; and therefore is wing d cupid painted blind. Nor hath love’s mind of any judgement taste; wings, and no eyes, figure unheedy haste and therefore is love said to be a child Act 1, scene 1\n\nThe extract is an example of a/an……..",
+      "diagram": null,
+      "options": [
+        "A. aside",
+        "B. dialogue",
+        "C. monologue",
+        "D. soliloquy",
+        "E. travelogue"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 44,
+      "question": "Use the passage/extract below to answer this question.\n\nSo I, admiring of his qualities. Things base and vile, folding no quantity, love can transpose to form and dignity. Love looks not with the eyes, but with the mind; and therefore is wing d cupid painted blind. Nor hath love’s mind of any judgement taste; wings, and no eyes, figure unheedy haste and therefore is love said to be a child Act 1, scene 1\n\nThe character the exists the scene before the statement is ……..",
+      "diagram": null,
+      "options": [
+        "A. bottom",
+        "B. Demetrius",
+        "C. Helena",
+        "D. Hermia",
+        "E. Lysander"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 45,
+      "question": "Use the passage/extract below to answer this question.\n\nSo I, admiring of his qualities. Things base and vile, folding no quantity, love can transpose to form and dignity. Love looks not with the eyes, but with the mind; and therefore is wing d cupid painted blind. Nor hath love’s mind of any judgement taste; wings, and no eyes, figure unheedy haste and therefore is love said to be a child Act 1, scene 1\n\nThe speaker’s mood is that of…..",
+      "diagram": null,
+      "options": [
+        "A. astonishment",
+        "B. bewildment",
+        "C. distress",
+        "D. sadness",
+        "E. unhappiness Use the extract below to answer questions 46 – 50 Speaker A: You were best to call them generally, man by man, according to the scrip. Speaker B: Here is the scroll of every man’s name, which is thought fit, through all Athens … Act 1, scene 2"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 46,
+      "question": "Use the passage/extract below to answer this question.\n\nSpeaker A: You were best to call them generally, man by man, according to the scrip. Speaker B: Here is the scroll of every man’s name, which is thought fit, through all Athens … Act 1, scene 2\n\nWho is speaker A?",
+      "diagram": null,
+      "options": [
+        "A. Bottom",
+        "B. Demetrius",
+        "C. Flute",
+        "D. Quince",
+        "E. Snout"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 47,
+      "question": "Use the passage/extract below to answer this question.\n\nSpeaker A: You were best to call them generally, man by man, according to the scrip. Speaker B: Here is the scroll of every man’s name, which is thought fit, through all Athens … Act 1, scene 2\n\nWho is speaker B?",
+      "diagram": null,
+      "options": [
+        "A. Flute",
+        "B. Puck",
+        "C. Quince",
+        "D. Snug",
+        "E. Starveling"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 48,
+      "question": "Use the passage/extract below to answer this question.\n\nSpeaker A: You were best to call them generally, man by man, according to the scrip. Speaker B: Here is the scroll of every man’s name, which is thought fit, through all Athens … Act 1, scene 2\n\nThe characters are about to start a/an…..",
+      "diagram": null,
+      "options": [
+        "A. assembly",
+        "B. fight",
+        "C. pageant",
+        "D. play",
+        "E. showcase"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 49,
+      "question": "Use the passage/extract below to answer this question.\n\nSpeaker A: You were best to call them generally, man by man, according to the scrip. Speaker B: Here is the scroll of every man’s name, which is thought fit, through all Athens … Act 1, scene 2\n\nThe scene takes place in…..",
+      "diagram": null,
+      "options": [
+        "A. a room in a cottage in Athens",
+        "B. a room in Quince’s house",
+        "C. a room in the palace of Theseus",
+        "D. an apartment in Theseus’s palace",
+        "E. the wood"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 50,
+      "question": "Use the passage/extract below to answer this question.\n\nSpeaker A: You were best to call them generally, man by man, according to the scrip. Speaker B: Here is the scroll of every man’s name, which is thought fit, through all Athens … Act 1, scene 2\n\nOne of the characters underlisted is not on the scene",
+      "diagram": null,
+      "options": [
+        "A. Bottom",
+        "B. Egeus",
+        "C. Flute",
+        "D. Snug",
+        "E. Starveling Use the extract below to answer questions 51 – 55 To amorous phillida why art thou here, come from the farthest steep of India? But that, forsooth, the bouncing Amazon, your Buskin’s d mistress and your warrior love, to Theseus must be wedded and you come to give their bed joy and prosperity. Act 2, scene 1"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 51,
+      "question": "Use the passage/extract below to answer this question.\n\nTo amorous phillida why art thou here, come from the farthest steep of India? But that, forsooth, the bouncing Amazon, your Buskin’s d mistress and your warrior love, to Theseus must be wedded and you come to give their bed joy and prosperity. Act 2, scene 1\n\nThe scene takes place at….",
+      "diagram": null,
+      "options": [
+        "A. a room in the palace of Theseus",
+        "B. a wood near Athens",
+        "C. an apartment in Theseus palace",
+        "D. Athens, a room in Quince’s house",
+        "E. the wood near create"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 52,
+      "question": "Use the passage/extract below to answer this question.\n\nTo amorous phillida why art thou here, come from the farthest steep of India? But that, forsooth, the bouncing Amazon, your Buskin’s d mistress and your warrior love, to Theseus must be wedded and you come to give their bed joy and prosperity. Act 2, scene 1\n\nThe speaker is a/an…..",
+      "diagram": null,
+      "options": [
+        "A. amazon warrior",
+        "B. drafter",
+        "C. fairy queen",
+        "D. fairy",
+        "E. amazon queen"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 53,
+      "question": "Use the passage/extract below to answer this question.\n\nTo amorous phillida why art thou here, come from the farthest steep of India? But that, forsooth, the bouncing Amazon, your Buskin’s d mistress and your warrior love, to Theseus must be wedded and you come to give their bed joy and prosperity. Act 2, scene 1\n\nWho is the speaker?",
+      "diagram": null,
+      "options": [
+        "A. Helena",
+        "B. Hermia",
+        "C. Hippolyta",
+        "D. Thisby",
+        "E. Titania"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 54,
+      "question": "Use the passage/extract below to answer this question.\n\nTo amorous phillida why art thou here, come from the farthest steep of India? But that, forsooth, the bouncing Amazon, your Buskin’s d mistress and your warrior love, to Theseus must be wedded and you come to give their bed joy and prosperity. Act 2, scene 1\n\nThe speaker is addressing……",
+      "diagram": null,
+      "options": [
+        "A. Bottom",
+        "B. Egeus",
+        "C. Lysander",
+        "D. Oberon",
+        "E. Philostrate"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 55,
+      "question": "Use the passage/extract below to answer this question.\n\nTo amorous phillida why art thou here, come from the farthest steep of India? But that, forsooth, the bouncing Amazon, your Buskin’s d mistress and your warrior love, to Theseus must be wedded and you come to give their bed joy and prosperity. Act 2, scene 1\n\nThe speaker accuses the addressee of….",
+      "diagram": null,
+      "options": [
+        "A. being too proud",
+        "B. leaving India to the fairy land",
+        "C. not being a faithful lover",
+        "D. spending too much time with the amazons",
+        "E. staging a play for his lover Use the extract below to answer questions 56 – 60 Man is but an ash, if he go about t’ expound this … Methought I was there is no man can tell what. Methought I was, and methought I had but man is but a patch’d fool, if he will offer to say what methought I had Act 4, scene 1"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 56,
+      "question": "Use the passage/extract below to answer this question.\n\nMan is but an ash, if he go about t’ expound this … Methought I was there is no man can tell what. Methought I was, and methought I had but man is but a patch’d fool, if he will offer to say what methought I had Act 4, scene 1\n\nThe speaker is………..",
+      "diagram": null,
+      "options": [
+        "A. Bottom",
+        "B. Oberon",
+        "C. Quince",
+        "D. Robin",
+        "E. Snug"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 57,
+      "question": "Use the passage/extract below to answer this question.\n\nMan is but an ash, if he go about t’ expound this … Methought I was there is no man can tell what. Methought I was, and methought I had but man is but a patch’d fool, if he will offer to say what methought I had Act 4, scene 1\n\nTo whom is the speech made?",
+      "diagram": null,
+      "options": [
+        "A. Flute",
+        "B. Moonshine",
+        "C. Nobody",
+        "D. Snug",
+        "E. Thisby"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 58,
+      "question": "Use the passage/extract below to answer this question.\n\nMan is but an ash, if he go about t’ expound this … Methought I was there is no man can tell what. Methought I was, and methought I had but man is but a patch’d fool, if he will offer to say what methought I had Act 4, scene 1\n\nThe speaker had just had a…….",
+      "diagram": null,
+      "options": [
+        "A. diagnosis",
+        "B. dream",
+        "C. fight",
+        "D. flashback",
+        "E. kiss"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 59,
+      "question": "Use the passage/extract below to answer this question.\n\nMan is but an ash, if he go about t’ expound this … Methought I was there is no man can tell what. Methought I was, and methought I had but man is but a patch’d fool, if he will offer to say what methought I had Act 4, scene 1\n\nThe scene is……….",
+      "diagram": null,
+      "options": [
+        "A. a room in the house of Quince",
+        "B. Athens. A cottage",
+        "C. Athens. A room in Theseus’ palace",
+        "D. the fairy queen’s palace",
+        "E. the wood"
+      ],
+      "correctOption": "E"
+    },
+    {
+      "id": 60,
+      "question": "Use the passage/extract below to answer this question.\n\nMan is but an ash, if he go about t’ expound this … Methought I was there is no man can tell what. Methought I was, and methought I had but man is but a patch’d fool, if he will offer to say what methought I had Act 4, scene 1\n\nThe intention of the speaker is to……",
+      "diagram": null,
+      "options": [
+        "A. create a new play",
+        "B. entice the duke during the play",
+        "C. kill the heroine",
+        "D. share his dream with the audience",
+        "E. sing the vision he had during the intermission of the play"
+      ],
+      "correctOption": "D"
+    }
+  ],
+  "essay": {
+    "title": "PAPER 3 - DRAMA AND POETRY",
+    "instruction": "Answer four (4) questions in all, one question from each section: A, B, C and D.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "SECTION A — AFRICAN DRAMA — Wole Soyinka: The Lion and the Jewel\nDiscuss the character of Sidi and how she contributes to the development of the plot of the play.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "SECTION A — AFRICAN DRAMA — Wole Soyinka: The Lion and the Jewel\nWhy does Lakunle lose Sidi to Baroka?",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "SECTION A — AFRICAN DRAMA — John Kolosa Kargbo: Let Me Die Alone\nComment on the character of Yoko in the play.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "SECTION A — AFRICAN DRAMA — John Kolosa Kargbo: Let Me Die Alone\nWhat challenges is the Mende chiefdom confronted with in the play?",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "SECTION B — NON-AFRICAN DRAMA — John Osborne: Look Back in Anger\nCompare Jimmy and Cliff as friends.",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "SECTION B — NON-AFRICAN DRAMA — John Osborne: Look Back in Anger\nDiscuss the theme of the rise and fall of the British Empire.",
+        "diagram": null
+      },
+      {
+        "id": 7,
+        "question": "SECTION B — NON-AFRICAN DRAMA — August Wilson: Fences\nConsider Raynell’s contribution to the play.",
+        "diagram": null
+      },
+      {
+        "id": 8,
+        "question": "SECTION B — NON-AFRICAN DRAMA — August Wilson: Fences\nComment on the appropriateness of the title Fences.",
+        "diagram": null
+      },
+      {
+        "id": 9,
+        "question": "SECTION C — AFRICAN POETRY — “Black Woman”\nDiscuss the theme of African beauty in the poem.",
+        "diagram": null
+      },
+      {
+        "id": 10,
+        "question": "SECTION C — AFRICAN POETRY — “Black Woman”\nAnalyze the poetic devices used in the poem.",
+        "diagram": null
+      },
+      {
+        "id": 11,
+        "question": "SECTION D — NON-AFRICAN POETRY — Maya Angelou: “Caged Bird”\nDiscuss the theme of discrimination in society.",
+        "diagram": null
+      },
+      {
+        "id": 12,
+        "question": "SECTION D — NON-AFRICAN POETRY — Maya Angelou: “Caged Bird”\nHow does setting affect Maya Angelou’s “Caged Bird”?",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

@@ -1,0 +1,16 @@
+{
+    "year": "2021",
+    "class_level": "SS1",
+    "class_category": "SS1",
+    "class_arm": "SS1",
+    "target_arm": "SS1",
+    "term": "FIRST",
+    "term_label": "1st Term",
+    "term_required": false,
+    "term_optional": true,
+    "subjects": [
+        "Chemistry"
+    ],
+    "updated_at": "2026-09-12T06:14:00",
+    "updated_by": "admin"
+}

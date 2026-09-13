@@ -1688,3 +1688,29 @@ a:focus-visible,
   .option-letter,
   .option-label { width: 36px; height: 36px; font-size: .82rem; }
 }
+
+
+
+
+/* ==========================================================
+   ESSAY / THEORY DIAGRAMS
+========================================================== */
+
+.essay-diagram-wrap {
+  width: 100%;
+  margin-top: 18px;
+  overflow: hidden;
+}
+
+.essay-diagram {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}

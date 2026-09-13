@@ -69,6 +69,7 @@ const LS_EXAM_LOCK = "emis_exam_lock_active";
 // TIMER WARNINGS
 // ======================================================
 
+let __warn30Shown = false;
 let __warn20Shown = false;
 let __warn10Shown = false;
 let __warn5Shown = false;
@@ -88,17 +89,53 @@ function $$(selector, root = document) {
 
 
 // ======================================================
+// EXAM DIAGRAM URL
+// ======================================================
+
+// ======================================================
+// EXAM DIAGRAM URL
+// ======================================================
+
+function resolveDiagramURL(path) {
+  if (!path) return null;
+
+  let value = String(path).trim().replace(/\\/g, "/");
+
+  // External/data images can remain untouched.
+  if (/^(https?:\/\/|data:|blob:)/i.test(value)) return value;
+
+  // Remove leading slash.
+  value = value.replace(/^\/+/, "");
+
+  // JSON may contain:
+  // static/uploads/diagrams/2021/chemistry_ss1/essay_5a.PNG
+  value = value.replace(/^static\/uploads\/diagrams\//i, "");
+
+  // Encode each folder/file safely.
+  const safePath = value
+    .split("/")
+    .filter(Boolean)
+    .map(part => encodeURIComponent(part))
+    .join("/");
+
+  return `/exam-diagram/${safePath}`;
+}
+
+
+// ======================================================
 // TIME FORMATTER
 // ======================================================
 
 function formatTime(seconds) {
   const safe = Math.max(0, Number(seconds) || 0);
-  const minutes = Math.floor(safe / 60).toString().padStart(2, "0");
-  const secs = Math.floor(safe % 60).toString().padStart(2, "0");
+  const hours = Math.floor(safe / 3600);
+  const minutes = Math.floor((safe % 3600) / 60);
+  const secs = Math.floor(safe % 60);
 
-  return `${minutes}:${secs}`;
+  if (hours > 0) return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+
+  return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
-
 
 // ======================================================
 // FLASH MESSAGE
@@ -189,24 +226,44 @@ function getExamClassLevel(classCategory = "") {
 
 function getExamClassArm(classLevel = "") {
   const raw = getMetaContent("student-class-arm") || getMetaContent("student-class") || classLevel || "";
-
   return String(raw).trim().toUpperCase();
 }
 
 
 function getExamArmCandidates(classLevel = "") {
   const arm = getExamClassArm(classLevel);
+  const level = normalizeClassLevel(classLevel || arm);
 
-  return uniqueArray([
-    arm,
-    arm.replace(/\//g, ""),
-    classLevel && arm === classLevel ? classLevel : ""
-  ]);
+  if (!arm) return level ? [level] : [];
+
+  const candidates = [arm];
+
+  /*
+   * Canonical SS B/C:
+   *   SS1_B/C
+   *
+   * Historical portal folders may also exist as:
+   *   SS1_BC
+   *   SS1B
+   *   SS1BC
+   *
+   * Keep these only as compatibility candidates.
+   */
+  if (level?.startsWith("SS") && /B[\/&]?C$|_B[\/&]?C$|B$/i.test(arm)) {
+    candidates.push(`${level}_B/C`, `${level}_BC`, `${level}B`, `${level}BC`);
+  } else {
+    candidates.push(arm.replace(/\//g, ""), arm.replace(/[\/&]/g, ""));
+  }
+
+  return uniqueArray(candidates);
 }
 
-
 // ======================================================
-// TERM NORMALIZATION
+// TERM MODEL
+//
+// JSS = FIRST / SECOND / THIRD REQUIRED
+// SS  = FIRST / SECOND / THIRD OPTIONAL
+//       + legacy GENERAL/root fallback
 // ======================================================
 
 function normalizeExamTerm(value) {
@@ -233,19 +290,32 @@ function getExamTerm() {
 
 function termLabel(term) {
   const normalized = normalizeExamTerm(term);
-
-  return {
-    FIRST: "1st Term",
-    SECOND: "2nd Term",
-    THIRD: "3rd Term"
-  }[normalized] || "";
+  return { FIRST: "1st Term", SECOND: "2nd Term", THIRD: "3rd Term" }[normalized] || "";
 }
 
 
+function isTermRequiredExamClass(classLevel) {
+  return ["JSS1", "JSS2", "JSS3"].includes(normalizeClassLevel(classLevel));
+}
+
+
+function isOptionalTermExamClass(classLevel) {
+  return ["SS1", "SS2", "SS3"].includes(normalizeClassLevel(classLevel));
+}
+
+
+function supportsExamTermFolders(classLevel) {
+  return isTermRequiredExamClass(classLevel) || isOptionalTermExamClass(classLevel);
+}
+
+
+/*
+ * Backward-compatible helper name.
+ * It now means "this class supports term folders",
+ * rather than the old "JSS only" meaning.
+ */
 function isTermAwareExamClass(classLevel) {
-  return ["JSS1", "JSS2", "JSS3"].includes(
-    normalizeClassLevel(classLevel)
-  );
+  return supportsExamTermFolders(classLevel);
 }
 
 
@@ -266,7 +336,14 @@ function getExamRuntimeMeta(subject = "", classCategory = "") {
   const classLevel = getExamClassLevel(classCategory);
   const classArm = getExamClassArm(classLevel);
   const year = getExamYear();
-  const term = isTermAwareExamClass(classLevel) ? getExamTerm() : "";
+
+  /*
+   * JSS and SS can now read the active term.
+   *
+   * JSS without a term = invalid.
+   * SS without a term  = GENERAL/root mode.
+   */
+  const term = supportsExamTermFolders(classLevel) ? getExamTerm() : "";
 
   return {
     subject: String(subject || getMetaContent("exam-subject") || "").trim(),
@@ -275,7 +352,10 @@ function getExamRuntimeMeta(subject = "", classCategory = "") {
     classArm,
     term,
     termLabel: termLabel(term),
-    termAware: isTermAwareExamClass(classLevel)
+
+    termAware: supportsExamTermFolders(classLevel),
+    termRequired: isTermRequiredExamClass(classLevel),
+    termOptional: isOptionalTermExamClass(classLevel)
   };
 }
 
@@ -586,6 +666,19 @@ function encodePathSegment(value) {
 
 // ======================================================
 // BUILD PORTAL EXAM JSON CANDIDATES
+//
+// JSS:
+//   selected term REQUIRED
+//   exact arm -> broad class
+//
+// SS selected term:
+//   exact arm term -> broad class term
+//   exact arm root -> broad class root
+//
+// SS GENERAL:
+//   exact arm root -> broad class root
+//
+// This mirrors push.py / student_portal.py.
 // ======================================================
 
 function buildExamJSONCandidates(subject, classCategory = "") {
@@ -601,61 +694,124 @@ function buildExamJSONCandidates(subject, classCategory = "") {
     return [];
   }
 
-  if (meta.termAware && !term) {
-    console.error("[exam-core] JSS exam term is missing:", meta);
+  /*
+   * Only JSS requires a term.
+   * SS may legitimately run in GENERAL/root mode.
+   */
+  if (meta.termRequired && !term) {
+    console.error(`[exam-core] ${classLevel} exam term is missing:`, meta);
     return [];
   }
 
   const classSuffix = classLevel.toLowerCase();
   const bases = getSubjectFileBases(subject);
-
-  const armCandidates = uniqueArray([
-    classArm,
-    String(classArm || "").replace(/\//g, "")
-  ]);
-
+  const armCandidates = getExamArmCandidates(classLevel);
   const urls = [];
 
+  const addURL = (...segments) => {
+    const clean = segments.filter((segment) => segment !== null && segment !== undefined && String(segment).trim() !== "");
+    urls.push(`/static/portal/${clean.map((segment) => encodePathSegment(segment)).join("/")}`);
+  };
+
+
   // ====================================================
-  // JSS — TERM AWARE
+  // JSS — STRICT TERM
   //
-  // Exact:
-  // /static/portal/2017/JSS1A/FIRST/file.json
-  //
-  // Broad fallback:
-  // /static/portal/2017/JSS1/FIRST/file.json
+  // Priority:
+  //   1. Exact arm / TERM
+  //   2. Broad class / TERM
   // ====================================================
 
-  if (meta.termAware) {
+  if (meta.termRequired) {
     for (const base of bases) {
       const filename = `${base}_${classSuffix}.json`;
 
       for (const arm of armCandidates) {
         if (!arm) continue;
-
-        urls.push(
-          `/static/portal/${encodePathSegment(year)}/${encodePathSegment(arm)}/${encodePathSegment(term)}/${encodePathSegment(filename)}`
-        );
+        addURL(year, arm, term, filename);
       }
 
-      if (classLevel && classArm !== classLevel) {
-        urls.push(
-          `/static/portal/${encodePathSegment(year)}/${encodePathSegment(classLevel)}/${encodePathSegment(term)}/${encodePathSegment(filename)}`
-        );
-      }
+      if (classLevel && classArm !== classLevel) addURL(year, classLevel, term, filename);
     }
 
     return uniqueArray(urls);
   }
 
+
   // ====================================================
-  // SS — NON TERM AWARE
+  // SS — HYBRID TERM + GENERAL FALLBACK
   //
-  // Exact:
-  // /static/portal/2025/SS1_GOLD/file.json
+  // When FIRST / SECOND / THIRD is active:
   //
-  // Broad SS fallback is deliberately NOT used for
-  // streamed students because it could mix subjects.
+  //   1. Exact arm / TERM
+  //   2. Broad class / TERM
+  //   3. Exact arm / GENERAL root
+  //   4. Broad class / GENERAL root
+  //
+  // Example:
+  //
+  //   SS1_B/C Commercial student
+  //       ↓
+  //   SS1_B/C/FIRST/accounts_ss1.json
+  //       ↓ fallback
+  //   SS1/FIRST/accounts_ss1.json
+  //       ↓ fallback
+  //   SS1_B/C/accounts_ss1.json
+  //       ↓ fallback
+  //   SS1/accounts_ss1.json
+  // ====================================================
+
+  if (meta.termOptional) {
+
+    /* -----------------------------------------------
+       SELECTED TERM — TERM-SPECIFIC PATHS FIRST
+    ----------------------------------------------- */
+
+    if (term) {
+      for (const base of bases) {
+        const filename = `${base}_${classSuffix}.json`;
+
+        /* Exact arm aliases first. */
+        for (const arm of armCandidates) {
+          if (!arm) continue;
+          addURL(year, arm, term, filename);
+        }
+
+        /* Broad SS class term push. */
+        if (classLevel) addURL(year, classLevel, term, filename);
+      }
+    }
+
+
+    /* -----------------------------------------------
+       GENERAL / ROOT FALLBACK
+
+       Always retained for SS backward compatibility.
+
+       If term exists:
+           term paths above win first.
+
+       If no term:
+           these become the primary paths.
+    ----------------------------------------------- */
+
+    for (const base of bases) {
+      const filename = `${base}_${classSuffix}.json`;
+
+      for (const arm of armCandidates) {
+        if (!arm) continue;
+        addURL(year, arm, filename);
+      }
+
+      if (classLevel) addURL(year, classLevel, filename);
+    }
+
+    return uniqueArray(urls);
+  }
+
+
+  // ====================================================
+  // GENERIC LEGACY FALLBACK
   // ====================================================
 
   for (const base of bases) {
@@ -663,22 +819,14 @@ function buildExamJSONCandidates(subject, classCategory = "") {
 
     for (const arm of armCandidates) {
       if (!arm) continue;
-
-      urls.push(
-        `/static/portal/${encodePathSegment(year)}/${encodePathSegment(arm)}/${encodePathSegment(filename)}`
-      );
+      addURL(year, arm, filename);
     }
 
-    if (classArm === classLevel) {
-      urls.push(
-        `/static/portal/${encodePathSegment(year)}/${encodePathSegment(classLevel)}/${encodePathSegment(filename)}`
-      );
-    }
+    if (classLevel) addURL(year, classLevel, filename);
   }
 
   return uniqueArray(urls);
 }
-
 
 // ======================================================
 // PRIMARY EXAM JSON RESOLVER
@@ -816,6 +964,7 @@ function normalizeEssayData(essay) {
   return {
     title: String(source.title || "SECTION B - THEORY").trim(),
     instruction: String(source.instruction || "Answer the questions on the answer booklet provided.").trim(),
+
     questions: questions.map((question, index) => {
       const q = question && typeof question === "object" ? question : {};
 
@@ -823,12 +972,11 @@ function normalizeEssayData(essay) {
         ...q,
         id: q.id ?? index + 1,
         question: String(q.question || q.text || "").trim(),
-        diagram: q.diagram || q.image || null
+        diagram: resolveDiagramURL(q.diagram || q.image)
       };
     }).filter(question => question.question || question.diagram)
   };
 }
-
 
 
 
@@ -853,21 +1001,24 @@ window.loadExamData = async function (quiet = false) {
 
     console.log("\n============================================================");
     console.log("[exam-core] EXAM RUNTIME RESOLVER");
-    console.log("Subject     :", runtimeMeta.subject);
-    console.log("Year        :", runtimeMeta.year);
-    console.log("Class Level :", runtimeMeta.classLevel);
-    console.log("Class Arm   :", runtimeMeta.classArm);
-    console.log("Term Aware  :", runtimeMeta.termAware);
-    console.log("Term        :", runtimeMeta.term || "NO TERM");
-    console.log("Candidates  :", candidates);
+    console.log("Subject       :", runtimeMeta.subject);
+    console.log("Year          :", runtimeMeta.year);
+    console.log("Class Level   :", runtimeMeta.classLevel);
+    console.log("Class Arm     :", runtimeMeta.classArm);
+    console.log("Term Support  :", runtimeMeta.termAware);
+    console.log("Term Required :", runtimeMeta.termRequired);
+    console.log("Term Optional :", runtimeMeta.termOptional);
+    console.log("Term          :", runtimeMeta.term || "GENERAL / NO TERM");
+    console.log("Candidates    :", candidates);
     console.log("============================================================\n");
 
     if (!runtimeMeta.classLevel) throw new Error("Unable to determine student's class level.");
-    if (runtimeMeta.termAware && !runtimeMeta.term) throw new Error(`${runtimeMeta.classLevel} exam term is missing.`);
+    if (runtimeMeta.termRequired && !runtimeMeta.term) throw new Error(`${runtimeMeta.classLevel} exam term is missing.`);
+    if (!candidates.length) throw new Error("No valid exam JSON path could be resolved. Check year, class arm, term and subject.");
 
-    if (!candidates.length) {
-      throw new Error("No valid exam JSON path could be resolved. Check year, class arm, term and subject.");
-    }
+    // ==================================================
+    // LOAD FIRST AVAILABLE EXAM JSON
+    // ==================================================
 
     const loaded = await fetchFirstWorkingJSON(candidates);
     const rawData = loaded.data;
@@ -882,9 +1033,7 @@ window.loadExamData = async function (quiet = false) {
 
     const rawQuestions = Array.isArray(rawData.questions) ? rawData.questions : [];
 
-    rawData.questions = rawQuestions.map(
-      (question, index) => normalizeExamQuestion(question, index)
-    );
+    rawData.questions = rawQuestions.map((question, index) => normalizeExamQuestion(question, index));
 
     // ==================================================
     // SECTION B — THEORY / ESSAY
@@ -902,14 +1051,9 @@ window.loadExamData = async function (quiet = false) {
     // SHUFFLE OBJECTIVE QUESTIONS
     // ==================================================
 
-    window.examData =
-      typeof shuffleQuestions === "function"
-        ? shuffleQuestions(rawData)
-        : rawData;
+    window.examData = typeof shuffleQuestions === "function" ? shuffleQuestions(rawData) : rawData;
 
-    if (!window.examData || !Array.isArray(window.examData.questions)) {
-      throw new Error("Exam JSON does not contain a valid questions array.");
-    }
+    if (!window.examData || !Array.isArray(window.examData.questions)) throw new Error("Exam JSON does not contain a valid questions array.");
 
     // ==================================================
     // REAL OBJECTIVE QUESTIONS
@@ -918,25 +1062,13 @@ window.loadExamData = async function (quiet = false) {
     window.realQuestionIndices = [];
 
     window.examData.questions.forEach((question, index) => {
-      const hasOptions =
-        Array.isArray(question.options) &&
-        question.options.some(
-          (option) =>
-            option !== null &&
-            option !== undefined &&
-            String(option).trim() !== ""
-        );
-
-      if (!question.isInstruction && hasOptions) {
-        window.realQuestionIndices.push(index);
-      }
+      const hasOptions = Array.isArray(question.options) && question.options.some((option) => option !== null && option !== undefined && String(option).trim() !== "");
+      if (!question.isInstruction && hasOptions) window.realQuestionIndices.push(index);
     });
 
     const totalReal = window.realQuestionIndices.length;
 
-    if (!totalReal) {
-      throw new Error("No valid multiple-choice questions found in exam JSON.");
-    }
+    if (!totalReal) throw new Error("No valid multiple-choice questions found in exam JSON.");
 
     // ==================================================
     // OBJECTIVE SECTION INSTRUCTIONS
@@ -951,9 +1083,7 @@ window.loadExamData = async function (quiet = false) {
         return;
       }
 
-      if (currentSectionMeta) {
-        window.sectionInstructions[index] = currentSectionMeta;
-      }
+      if (currentSectionMeta) window.sectionInstructions[index] = currentSectionMeta;
     });
 
     // ==================================================
@@ -975,52 +1105,61 @@ window.loadExamData = async function (quiet = false) {
     const subjectTitle = $("#examSubjectTitle");
 
     if (subjectTitle) {
-      const termText = runtimeMeta.term
-        ? ` • ${termLabel(runtimeMeta.term).toUpperCase()}`
-        : "";
+      const termText = runtimeMeta.term ? ` • ${termLabel(runtimeMeta.term).toUpperCase()}` : "";
 
       subjectTitle.innerHTML = `
-        <span class="exam-subject-pill">
-          ${escapeHTMLGlobal(String(subject).toUpperCase())}
-        </span>
-
-        <span class="exam-question-count">
-          • SECTION A • ${totalReal} QUESTION${totalReal === 1 ? "" : "S"}${termText}
-        </span>
+        <span class="exam-subject-pill">${escapeHTMLGlobal(String(subject).toUpperCase())}</span>
+        <span class="exam-question-count">• SECTION A • ${totalReal} QUESTION${totalReal === 1 ? "" : "S"}${termText}</span>
       `;
 
       subjectTitle.classList.remove("hidden");
     }
 
     const totalQuestionsEl = $("#totalQuestions");
-
-    if (totalQuestionsEl) {
-      totalQuestionsEl.textContent = totalReal;
-    }
+    if (totalQuestionsEl) totalQuestionsEl.textContent = totalReal;
 
     // ==================================================
     // TIMER
+    //
+    // JSON value is authoritative:
+    //   time_allowed_minutes
+    //   timeAllowedMinutes
+    //   duration_minutes
+    //
+    // Invalid / missing duration defaults to 120 minutes.
+    // exam-core.js exclusively owns the exam countdown.
     // ==================================================
 
-    const minutes = Number(
+    const configuredMinutes = Number(
       rawData.time_allowed_minutes ??
       rawData.timeAllowedMinutes ??
       rawData.duration_minutes ??
-      60
+      120
     );
 
-    window.timeRemaining = Math.max(1, Number.isFinite(minutes) ? minutes : 60) * 60;
+    const examMinutes = Number.isFinite(configuredMinutes) && configuredMinutes > 0 ? configuredMinutes : 120;
+
+    window.timeRemaining = Math.round(examMinutes * 60);
     window.initialTimeAllowed = window.timeRemaining;
 
-    __warn20Shown = false;
-    __warn10Shown = false;
-    __warn5Shown = false;
+   __warn30Shown = false;
+   __warn20Shown = false;
+   __warn10Shown = false;
+   __warn5Shown = false;
 
     const timerDisplay = $("#timerDisplay");
 
     if (timerDisplay) {
       timerDisplay.textContent = formatTime(window.timeRemaining);
+      timerDisplay.classList.remove("timer-critical");
     }
+
+    console.log("[exam-core] Exam duration:", {
+      configuredMinutes,
+      appliedMinutes: examMinutes,
+      seconds: window.timeRemaining,
+      display: formatTime(window.timeRemaining)
+    });
 
     // ==================================================
     // INITIAL QUESTION
@@ -1034,9 +1173,16 @@ window.loadExamData = async function (quiet = false) {
     updateNavigationButtons();
 
     console.log("[exam-core] Exam ready:", {
+      subject: runtimeMeta.subject,
+      year: runtimeMeta.year,
+      classLevel: runtimeMeta.classLevel,
+      classArm: runtimeMeta.classArm,
+      term: runtimeMeta.term || null,
       objectiveQuestions: totalReal,
       essayQuestions: window.essayData?.questions?.length || 0,
-      section: window.examSection
+      durationMinutes: examMinutes,
+      section: window.examSection,
+      json: window.__loadedExamJSONUrl
     });
 
   } catch (error) {
@@ -1044,11 +1190,7 @@ window.loadExamData = async function (quiet = false) {
 
     if (error.tried) {
       console.group("[exam-core] JSON paths attempted");
-
-      error.tried.forEach((item) => {
-        console.error(item);
-      });
-
+      error.tried.forEach((item) => console.error(item));
       console.groupEnd();
     }
 
@@ -1062,13 +1204,11 @@ window.loadExamData = async function (quiet = false) {
     const message = "Unable to load exam questions. Please contact your teacher or admin.";
 
     examFlash(message, "danger");
-
     if (!quiet) console.error(message);
 
     throw error;
   }
 };
-
 
 
 // ======================================================
@@ -1229,12 +1369,14 @@ window.renderEssaySection = function () {
     const number = question.id ?? index + 1;
 
     const diagramHTML = question.diagram ? `
+    <div class="essay-diagram-wrap">
       <img
         src="${escapeHTMLGlobal(question.diagram)}"
         class="essay-diagram"
         alt="Theory question ${escapeHTMLGlobal(number)} diagram"
-        loading="lazy">
-    ` : "";
+        loading="eager">
+    </div>
+  ` : "";
 
     return `
       <article class="essay-question">
@@ -1385,6 +1527,8 @@ window.closeEndExam = function () {
   }
 };
 
+
+
 // ======================================================
 // SUBMIT EXAM
 // ======================================================
@@ -1392,7 +1536,7 @@ window.closeEndExam = function () {
 window.submitExam = async function (timeUp = false) {
   if (window.__examFinished) return;
 
-  if (!window.examData || !window.realQuestionIndices.length) {
+  if (!window.examData || !window.realQuestionIndices?.length) {
     examFlash("Exam data is not ready.", "danger");
     return;
   }
@@ -1404,6 +1548,10 @@ window.submitExam = async function (timeUp = false) {
     window.examTimer = null;
   }
 
+  // ====================================================
+  // SCORE OBJECTIVE SECTION
+  // ====================================================
+
   const realIndices = window.realQuestionIndices;
   const total = realIndices.length;
 
@@ -1411,17 +1559,21 @@ window.submitExam = async function (timeUp = false) {
 
   realIndices.forEach((trueIndex) => {
     const question = window.examData.questions[trueIndex];
-    const userAnswer = window.userAnswers[trueIndex];
+    const userAnswer = window.userAnswers?.[trueIndex];
 
     if (userAnswer && userAnswer.index === question.correctIndex) correct++;
   });
 
-  const answered = realIndices.filter((index) => Boolean(window.userAnswers[index])).length;
+  const answered = realIndices.filter((index) => Boolean(window.userAnswers?.[index])).length;
   const incorrect = total - correct;
   const skipped = total - answered;
   const rawScore = correct;
 
-  const flaggedQuestionsDetailed = [...window.flaggedQuestions].map((index) => {
+  // ====================================================
+  // FLAGGED QUESTIONS
+  // ====================================================
+
+  const flaggedQuestionsDetailed = [...(window.flaggedQuestions || [])].map((index) => {
     const question = window.examData.questions[index] || {};
 
     return {
@@ -1431,14 +1583,43 @@ window.submitExam = async function (timeUp = false) {
     };
   });
 
+  // ====================================================
+  // RUNTIME META
+  // ====================================================
+
   const runtimeMeta = getExamRuntimeMeta(
     getMetaContent("exam-subject"),
     getMetaContent("student-class-level", "student-class-category")
   );
 
+  // ====================================================
+  // SUBMISSION STATUS
+  //
+  // Normal student submission:
+  //   completed
+  //
+  // Clock reaches zero:
+  //   timeout
+  //
+  // Anti-cheat / network termination:
+  //   terminated
+  // ====================================================
+
+  const terminationReason = String(window.__examTerminationReason || "").trim();
+  const securityTerminated = Boolean(terminationReason);
+
+  const submissionStatus = securityTerminated
+    ? "terminated"
+    : timeUp
+      ? "timeout"
+      : "completed";
+
+  // ====================================================
+  // RESULT PAYLOAD
+  // ====================================================
+
   const payload = {
     subject: String(runtimeMeta.subject || "").trim().toUpperCase(),
-
     year: runtimeMeta.year,
 
     class_level: runtimeMeta.classLevel,
@@ -1458,29 +1639,22 @@ window.submitExam = async function (timeUp = false) {
     flagged: flaggedQuestionsDetailed.length,
     flagged_questions: flaggedQuestionsDetailed,
 
-    tabSwitches: window.__TAB_STRIKES || 0,
+    tabSwitches: Number(window.__TAB_STRIKES || 0),
+    devtoolsStrikes: Number(window.__DEVTOOLS_STRIKES || 0),
 
-    time_taken: window.examStartTime
-      ? Math.round((Date.now() - window.examStartTime) / 1000)
-      : 0,
-
+    time_taken: window.examStartTime ? Math.round((Date.now() - window.examStartTime) / 1000) : 0,
     submittedAt: new Date().toISOString(),
 
-    status: timeUp ? "timeout" : "completed"
+    status: submissionStatus,
+    termination_reason: terminationReason || null,
+    security_terminated: securityTerminated
   };
 
   // ====================================================
   // SUBMIT RESULT
   //
-  // IMPORTANT:
-  // /submit_exam is now the authoritative submission flow.
-  // It saves the result and the backend sends:
-  //
-  //   exam_end / timeout
-  //   result_available
-  //
-  // exam-core.js must NOT separately send exam_end,
-  // otherwise duplicate submission events are created.
+  // /submit_exam remains the authoritative submission
+  // flow for local DB, Excel, Supabase and notifications.
   // ====================================================
 
   try {
@@ -1491,6 +1665,10 @@ window.submitExam = async function (timeUp = false) {
       class_arm: payload.class_arm,
       term: payload.term,
       status: payload.status,
+      termination_reason: payload.termination_reason,
+      security_terminated: payload.security_terminated,
+      tabSwitches: payload.tabSwitches,
+      devtoolsStrikes: payload.devtoolsStrikes,
       score: payload.score,
       total: payload.total
     });
@@ -1499,26 +1677,26 @@ window.submitExam = async function (timeUp = false) {
       method: "POST",
       credentials: "same-origin",
       cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(payload)
     });
 
     const output = await response.json().catch(() => ({}));
 
-    if (!response.ok) {
-      throw new Error(
-        output.error ||
-        `Submit failed (${response.status})`
-      );
-    }
+    if (!response.ok) throw new Error(output.error || `Submit failed (${response.status})`);
 
-    console.log(
-      "[exam-core] Examination result submitted successfully:",
-      output
-    );
+    console.log("[exam-core] Examination result submitted successfully:", output);
+
+    // ==================================================
+    // DISABLE SECURITY AFTER SUCCESSFUL SUBMISSION
+    // ==================================================
+
+    window.__ANTI_CHEAT_ACTIVE = false;
+    window.__ANTICHEAT_READY = false;
+
+    // ==================================================
+    // CLEAR LOCAL EXAM STATE
+    // ==================================================
 
     try {
       sessionStorage.removeItem(SS_KEY);
@@ -1532,23 +1710,25 @@ window.submitExam = async function (timeUp = false) {
   } catch (error) {
     window.__examFinished = false;
 
-    console.error(
-      "[exam-core] Submit exam error:",
-      error
-    );
+    console.error("[exam-core] Submit exam error:", {
+      error,
+      status: submissionStatus,
+      termination_reason: terminationReason || null
+    });
 
-    examFlash(
-      error.message ||
-      "Unable to submit exam. Please contact admin.",
-      "danger"
-    );
+    examFlash(error.message || "Unable to submit exam. Please contact admin.", "danger");
 
-    if (window.timeRemaining > 0 && !timeUp) {
-      startTimer();
-    }
+    /*
+     * Only restart the timer after an ordinary manual
+     * submission failure.
+     *
+     * Never restart after:
+     *   • actual timeout
+     *   • security termination
+     */
+    if (window.timeRemaining > 0 && !timeUp && !securityTerminated) startTimer();
   }
 };
-
 
 // ======================================================
 // LOAD QUESTION
@@ -1891,88 +2071,119 @@ window.nextQuestion = function () {
 
 // ======================================================
 // TIMER
+// 30 / 20 / 10 / 5 MINUTE STUDENT WARNINGS
 // ======================================================
 
 window.startTimer = function () {
-  if (window.examTimer) {
-    clearInterval(window.examTimer);
-  }
+  if (window.examTimer) clearInterval(window.examTimer);
 
   const timerDisplay = $("#timerDisplay");
+
+  const timeFlash = (minutes, message, type = "warning", duration = 4800) => {
+    const title = minutes === 5 ? "5 Minutes Remaining" : `${minutes} Minutes Remaining`;
+
+    if (typeof window.examFeatureToast === "function") {
+      window.examFeatureToast(title, message, type === "danger" ? "danger" : "warning", duration);
+    } else {
+      examFlash(message, type);
+    }
+  };
 
   window.examTimer = setInterval(() => {
     window.timeRemaining--;
 
-    if (window.timeRemaining < 0) {
-      window.timeRemaining = 0;
-    }
+    if (window.timeRemaining < 0) window.timeRemaining = 0;
 
     if (timerDisplay) {
-      timerDisplay.textContent = formatTime(
-        window.timeRemaining
-      );
-
-      timerDisplay.classList.toggle(
-        "timer-critical",
-        window.timeRemaining <= 60
-      );
+      timerDisplay.textContent = formatTime(window.timeRemaining);
+      timerDisplay.classList.toggle("timer-critical", window.timeRemaining <= 60);
     }
 
     const remaining = window.timeRemaining;
     const initial = window.initialTimeAllowed || remaining;
 
-    if (
-      !__warn20Shown &&
-      initial >= 20 * 60 &&
-      remaining <= 20 * 60 &&
-      remaining > 19 * 60
-    ) {
-      examFlash(
-        "⏰ You have 20 minutes left.",
-        "warning"
-      );
+    /* 30 MINUTES */
+    if (!__warn30Shown && initial >= 30 * 60 && remaining <= 30 * 60 && remaining > 29 * 60) {
+      __warn30Shown = true;
 
+      timeFlash(
+        30,
+        "You have 30 minutes remaining. Keep working carefully and monitor your unanswered questions.",
+        "warning",
+        5200
+      );
+    }
+
+    /* 20 MINUTES */
+    if (!__warn20Shown && initial >= 20 * 60 && remaining <= 20 * 60 && remaining > 19 * 60) {
       __warn20Shown = true;
+
+      timeFlash(
+        20,
+        "20 minutes remaining. Begin reviewing questions you skipped or flagged.",
+        "warning",
+        5200
+      );
     }
 
-    if (
-      !__warn10Shown &&
-      initial >= 10 * 60 &&
-      remaining <= 10 * 60 &&
-      remaining > 9 * 60
-    ) {
-      examFlash(
-        "⏰ You have 10 minutes left.",
-        "warning"
-      );
-
+    /* 10 MINUTES */
+    if (!__warn10Shown && initial >= 10 * 60 && remaining <= 10 * 60 && remaining > 9 * 60) {
       __warn10Shown = true;
+
+      timeFlash(
+        10,
+        "10 minutes remaining. Complete unanswered questions and prepare for final review.",
+        "warning",
+        5600
+      );
     }
 
-    if (
-      !__warn5Shown &&
-      initial >= 5 * 60 &&
-      remaining <= 5 * 60 &&
-      remaining > 4 * 60
-    ) {
-      examFlash(
-        "⚠️ Only 5 minutes left. Review and submit!",
-        "danger"
+    /* 5 MINUTES — RED / URGENT */
+    if (!__warn5Shown && initial >= 5 * 60 && remaining <= 5 * 60 && remaining > 4 * 60) {
+      __warn5Shown = true;
+
+      timeFlash(
+        5,
+        "Only 5 minutes remain. Finish your answers and submit as soon as you are satisfied.",
+        "danger",
+        7000
       );
 
-      __warn5Shown = true;
+      if (timerDisplay) {
+        timerDisplay.classList.add("timer-critical");
+
+        setTimeout(() => {
+          if (window.timeRemaining > 60) timerDisplay.classList.remove("timer-critical");
+        }, 7000);
+      }
     }
 
+    /* TIME EXPIRED — AUTO SUBMIT */
     if (remaining <= 0) {
       clearInterval(window.examTimer);
+      window.examTimer = null;
 
       window.__timeExpired = true;
 
-      submitExam(true);
+      if (typeof window.examFeatureToast === "function") {
+        window.examFeatureToast(
+          "Time Is Up",
+          "Your examination time has ended. Your answers are being submitted automatically.",
+          "danger",
+          5000
+        );
+      } else {
+        examFlash("Time is up. Your examination is being submitted automatically.", "danger");
+      }
+
+      setTimeout(() => {
+        if (typeof window.submitExam === "function") window.submitExam(true);
+      }, 450);
     }
 
   }, 1000);
 };
+
 
 // ======================================================
 // START EXAM

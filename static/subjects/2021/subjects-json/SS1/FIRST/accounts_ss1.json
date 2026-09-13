@@ -1,0 +1,510 @@
+{
+  "subject": "Financial Accounting",
+  "class": "SS1",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Book-keeping is mainly concerned with ________.",
+      "diagram": null,
+      "options": [
+        "A. Designing systems for recording, classifying and summarizing recorded data",
+        "B. Recording financial data relating to business operations",
+        "C. Interpreting data for internal and external users",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is NOT an internal user of financial statements?",
+      "diagram": null,
+      "options": [
+        "A. Lenders",
+        "B. Managers",
+        "C. Board of directors",
+        "D. Employees"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "Which of the following will NOT be recorded in the books of account?",
+      "diagram": null,
+      "options": [
+        "A. Paid rent for office premises ₦10,000",
+        "B. Paid commission for purchase of raw materials ₦200",
+        "C. Purchased goods on credit ₦15,000 for resale",
+        "D. Resignation of the manager, Mr. Mohammed"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "The last step in the accounting process is ________.",
+      "diagram": null,
+      "options": [
+        "A. Identifying business transactions and events",
+        "B. Recording business transactions",
+        "C. Classifying business transactions",
+        "D. Communication of financial statements or data"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 5,
+      "question": "Book-keeping and accounting are one and the same thing.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Who is regarded as the father of the double-entry system?",
+      "diagram": null,
+      "options": [
+        "A. Luca Pacioli",
+        "B. Pineer Peggler",
+        "C. Jeromee Lee",
+        "D. Eugene F. Fama"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "Assets − Liabilities = ________.",
+      "diagram": null,
+      "options": [
+        "A. Profit",
+        "B. Working capital",
+        "C. Capital",
+        "D. Long-term liability"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "If assets are ₦8,000 and capital is ₦6,000, the liability will be ________.",
+      "diagram": null,
+      "options": [
+        "A. ₦8,000",
+        "B. ₦2,000",
+        "C. ₦14,000",
+        "D. ₦6,000"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 9,
+      "question": "Purchasing goods partly on credit and partly for cash will affect ________.",
+      "diagram": null,
+      "options": [
+        "A. Cash and goods",
+        "B. Cash, goods and creditors",
+        "C. Cash and creditors",
+        "D. Cash, creditors and owner's equity"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "The accounting equation is reflected in a company's ________.",
+      "diagram": null,
+      "options": [
+        "A. Trial balance",
+        "B. Cost sheet",
+        "C. Final account",
+        "D. Balance sheet"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "S. Sule sets aside ₦20,000 from his private funds for business purposes. The ₦20,000 is referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. Drawings",
+        "B. Capital",
+        "C. Loan",
+        "D. Profit"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "The properties owned by a business are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Liabilities",
+        "B. Assets",
+        "C. Debts",
+        "D. Capital"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "The principle of double entry was postulated by ________.",
+      "diagram": null,
+      "options": [
+        "A. Richard Grafton",
+        "B. Lord Lugard",
+        "C. Luca Pacioli",
+        "D. Akintola Williams"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "Every transaction has ________ parts.",
+      "diagram": null,
+      "options": [
+        "A. Two",
+        "B. Four",
+        "C. Five",
+        "D. Six"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Transactions can be divided into ________.",
+      "diagram": null,
+      "options": [
+        "A. Credit and income",
+        "B. Cash and expenses",
+        "C. Receipt and payment",
+        "D. Cash and credit"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "If a trader purchases goods for cash valued at ₦400, he will credit the cash account and debit his ________.",
+      "diagram": null,
+      "options": [
+        "A. Sales account",
+        "B. Purchases account",
+        "C. Creditor account",
+        "D. Debtors account"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "If a trader sells goods for cash valued at ₦300, he will debit the cash account and credit his ________.",
+      "diagram": null,
+      "options": [
+        "A. Purchases account",
+        "B. Goods account",
+        "C. Sales account",
+        "D. Cash account"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Which of the following is an example of an asset?",
+      "diagram": null,
+      "options": [
+        "A. Creditors",
+        "B. Owing",
+        "C. Loan",
+        "D. Cash"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "Assets acquired and retained in the business for long-term use are termed ________.",
+      "diagram": null,
+      "options": [
+        "A. Current assets",
+        "B. Current liabilities",
+        "C. Long-term assets",
+        "D. Fixed assets"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "question": "Written evidence of business transactions that describes the essential facts of those transactions is referred to as a ________.",
+      "diagram": null,
+      "options": [
+        "A. Source document",
+        "B. Subsidiary book",
+        "C. Prime book",
+        "D. Original book"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 21,
+      "question": "Assets which can be seen or touched are classified as ________.",
+      "diagram": null,
+      "options": [
+        "A. Intangible assets",
+        "B. Liquid assets",
+        "C. Wasting assets",
+        "D. Tangible assets"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 22,
+      "question": "An evidence of payment for goods bought is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Invoice",
+        "B. Receipt",
+        "C. Voucher",
+        "D. Pay slip"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "The principle of double entry states that ________.",
+      "diagram": null,
+      "options": [
+        "A. Every debtor must have a creditor",
+        "B. Every account debited must be credited",
+        "C. For every debit entry, there must be a corresponding credit entry",
+        "D. For every double debit, there must be a double credit"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "Which of the following is NOT an external user of accounting information?",
+      "diagram": null,
+      "options": [
+        "A. Creditor",
+        "B. Customer",
+        "C. Government",
+        "D. Manager"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "When an entry is made on both sides of the cash book, it is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. General entry",
+        "B. Double entry",
+        "C. Compound entry",
+        "D. Contra entry"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "Introduction of capital by the owner of a business is recorded on which side of the cash book?",
+      "diagram": null,
+      "options": [
+        "A. Receipt",
+        "B. Payment",
+        "C. Income",
+        "D. Expenditure"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "Purchase of office equipment for cash will be recorded on which side of the cash book?",
+      "diagram": null,
+      "options": [
+        "A. Receipts",
+        "B. Payments",
+        "C. Income",
+        "D. Expenditure"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "The process of entering transactions from the journal into the ledger is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Entry",
+        "B. Accounting",
+        "C. Posting",
+        "D. Balancing"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 29,
+      "question": "What is the basic accounting equation?",
+      "diagram": null,
+      "options": [
+        "A. Assets + Liabilities = Capital",
+        "B. Liabilities − Capital = Assets",
+        "C. Capital + Liabilities = Assets",
+        "D. Capital + Assets = Liabilities"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "Which of the following is a liability?",
+      "diagram": null,
+      "options": [
+        "A. Cash",
+        "B. Equipment",
+        "C. Debtors",
+        "D. Creditors"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "Which of the following source documents is usually issued by a seller to a buyer showing details of goods sold?",
+      "diagram": null,
+      "options": [
+        "A. Invoice",
+        "B. Receipt",
+        "C. Cheque",
+        "D. Pay slip"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "An amount withdrawn by the owner of a business for personal use is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Capital",
+        "B. Drawings",
+        "C. Profit",
+        "D. Liability"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following will increase the capital of a business?",
+      "diagram": null,
+      "options": [
+        "A. Drawings",
+        "B. Loss",
+        "C. Additional capital introduced",
+        "D. Purchase of goods for cash"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "A person or business to whom money is owed is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Debtor",
+        "B. Creditor",
+        "C. Proprietor",
+        "D. Manager"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "A person who owes money to a business is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Debtor",
+        "B. Creditor",
+        "C. Supplier",
+        "D. Proprietor"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "Which of the following accounts normally has a debit balance?",
+      "diagram": null,
+      "options": [
+        "A. Capital",
+        "B. Sales",
+        "C. Cash",
+        "D. Creditors"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 37,
+      "question": "Cash received from a debtor is entered on the ________ side of the cash book.",
+      "diagram": null,
+      "options": [
+        "A. Debit",
+        "B. Credit",
+        "C. Balance",
+        "D. Contra"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Cash paid to a creditor is entered on the ________ side of the cash book.",
+      "diagram": null,
+      "options": [
+        "A. Debit",
+        "B. Credit",
+        "C. Receipt",
+        "D. Capital"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Which of the following is an example of a fixed asset?",
+      "diagram": null,
+      "options": [
+        "A. Stock",
+        "B. Cash",
+        "C. Furniture",
+        "D. Debtors"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "If total assets are ₦50,000 and total liabilities are ₦15,000, the capital is ________.",
+      "diagram": null,
+      "options": [
+        "A. ₦35,000",
+        "B. ₦65,000",
+        "C. ₦15,000",
+        "D. ₦50,000"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer all the questions in this section. Write your answers clearly and show all necessary workings.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Group the following items under Assets and Liabilities:\n(a) Land and building\n(b) Debtors\n(c) Cash\n(d) Creditors\n(e) Bank overdraft\n(f) Amounts owing\n(g) Loan\n(h) Furniture\n(i) Plant and machinery\n(j) Capital\n(k) Stock\n(l) Bank.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) What are source documents?\n(b) List five source documents.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "Enter the following transactions into a two-column cash book of Orimolade Nigeria Ltd:\n\nJan. 1: Started business with cash in hand ₦1,000 and cash at bank ₦5,000.\nJan. 2: Bought goods by cash ₦4,000.\nJan. 3: Withdrew cash from the bank ₦300.\nJan. 4: Cash sales ₦1,700.\nJan. 7: Paid wages by cash ₦230.\nJan. 9: Sold goods for cash ₦3,000.\nJan. 12: Cash sales paid directly into the bank ₦7,300.\nJan. 14: Paid for stationery by cheque ₦600.\nJan. 18: A supplier, Olowoake, was settled by cheque ₦3,000.\nJan. 24: Bought a motor van and paid by cheque ₦1,200.\nJan. 28: Received a loan from Olu by cheque ₦6,000.\nJan. 29: Paid cash into the bank ₦700.\nJan. 30: K. Sanusi paid his account by cheque ₦1,000.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "class_category": "SS1"
+}

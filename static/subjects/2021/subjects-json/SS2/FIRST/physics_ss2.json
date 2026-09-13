@@ -1,0 +1,529 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Physics",
+  "class": "SS2",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the density of a fuel of relative density 0.72? Take density of water as 1000 kg m⁻³.",
+      "diagram": null,
+      "options": [
+        "A. 72 kg m⁻³",
+        "B. 720 kg m⁻³",
+        "C. 7200 kg m⁻³",
+        "D. 72,000 kg m⁻³"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "A machine is a third-class lever when the ________.",
+      "diagram": null,
+      "options": [
+        "A. Load is between fulcrum and effort",
+        "B. Fulcrum is between effort and load",
+        "C. Effort is between fulcrum and load",
+        "D. Fulcrum is directly below the load"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "An object of mass 5.0 kg moves with velocity 10 m s⁻¹. Calculate its momentum.",
+      "diagram": null,
+      "options": [
+        "A. 0.5 kg m s⁻¹",
+        "B. 2 kg m s⁻¹",
+        "C. 50 kg m s⁻¹",
+        "D. 15 kg m s⁻¹"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "The tendency of a body to resist a change in its state of rest or motion is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Friction",
+        "B. Impulse",
+        "C. Inertia",
+        "D. Momentum"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "A metal ball of weight W falls through a viscous liquid. If upthrust is U and viscous drag is V, at terminal velocity ________.",
+      "diagram": null,
+      "options": [
+        "A. W > U+V",
+        "B. W = U−V",
+        "C. W = U+V",
+        "D. W < U+V"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 6,
+      "question": "A ball falling through a viscous liquid is acted upon by ________.",
+      "diagram": null,
+      "options": [
+        "A. Upthrust only",
+        "B. Upthrust and weight only",
+        "C. Weight and viscous force only",
+        "D. Upthrust, weight and viscous force"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "When the linear momentum of a body is constant, the net force acting on it is ________.",
+      "diagram": null,
+      "options": [
+        "A. Decreased",
+        "B. Increased",
+        "C. Constant but non-zero",
+        "D. Zero"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "The instrument used to measure the relative density of acid in a car battery is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Hypsometer",
+        "B. Manometer",
+        "C. Hygrometer",
+        "D. Hydrometer"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 9,
+      "question": "The two forces shown in the diagram act in the same direction. Find their resultant.",
+      "diagram": "/static/uploads/diagrams/2021/physics_ss2/diagram_9.PNG",
+      "options": [
+        "A. 10 N",
+        "B. 24 N",
+        "C. 2 N",
+        "D. 20 N"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "The SI unit of moment of a force is ________.",
+      "diagram": null,
+      "options": [
+        "A. N m⁻¹",
+        "B. N m",
+        "C. kg m⁻³",
+        "D. m s⁻²"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "Two equal and opposite forces of 4 N form a couple with perpendicular separation 0.4 m as shown. Find the moment of the couple.",
+      "diagram": "/static/uploads/diagrams/2021/physics_ss2/diagram_11.PNG",
+      "options": [
+        "A. 0.8 N m",
+        "B. 1.6 N m",
+        "C. 6.4 N m",
+        "D. 0.0 N m"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "The block-and-tackle system shown has efficiency 40%. An effort of 50 N just lifts the load W. Using the pulley arrangement shown, find W.",
+      "diagram": "/static/uploads/diagrams/2021/physics_ss2/diagram_12.PNG",
+      "options": [
+        "A. 120 N",
+        "B. 20 N",
+        "C. 140 N",
+        "D. 300 N"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "A fixed mass of gas occupies 600 cm³ at 27°C. It is cooled at constant pressure to 0°C. Find the decrease in volume.",
+      "diagram": null,
+      "options": [
+        "A. 54 cm³",
+        "B. 273 cm³",
+        "C. 546 cm³",
+        "D. 10 cm³"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "Which of the following is a scalar quantity?",
+      "diagram": null,
+      "options": [
+        "A. Distance",
+        "B. Displacement",
+        "C. Force",
+        "D. Velocity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Which of the following has the same SI unit as moment of a force?",
+      "diagram": null,
+      "options": [
+        "A. Work",
+        "B. Momentum",
+        "C. Impulse",
+        "D. Power"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "A constant force of 16 N acts on a 4 kg body for 2 s. What change in velocity is produced?",
+      "diagram": null,
+      "options": [
+        "A. 32.0 m s⁻¹",
+        "B. 8.0 m s⁻¹",
+        "C. 2.0 m s⁻¹",
+        "D. 0.5 m s⁻¹"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "The ability of a machine to overcome a large load with a small effort is measured by its ________.",
+      "diagram": null,
+      "options": [
+        "A. Velocity ratio",
+        "B. Mechanical advantage",
+        "C. Ideal condition",
+        "D. Efficiency"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 18,
+      "question": "The velocity ratio of an inclined plane inclined at angle θ to the horizontal is ________.",
+      "diagram": null,
+      "options": [
+        "A. tan θ",
+        "B. cos θ",
+        "C. 1/sin θ",
+        "D. sin θ"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "The point through which the line of action of the weight of a body always passes is its ________.",
+      "diagram": null,
+      "options": [
+        "A. Equilibrant force",
+        "B. Inertia",
+        "C. Mechanical advantage",
+        "D. Centre of gravity"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 20,
+      "question": "Impulse is mathematically expressed as ________.",
+      "diagram": null,
+      "options": [
+        "A. F−t",
+        "B. F×t",
+        "C. F/t",
+        "D. F+t"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "If a force of 2 N acts on a body for 10 s, the impulse is ________.",
+      "diagram": null,
+      "options": [
+        "A. 20 N s",
+        "B. 12 N s",
+        "C. 8 N s",
+        "D. 5 N s"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "An object immersed in a liquid displaces liquid weighing 6 N. The upthrust on the object is ________.",
+      "diagram": null,
+      "options": [
+        "A. 6 N",
+        "B. 4 N",
+        "C. 20 N",
+        "D. 10 N"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "The time rate of change of momentum is ________.",
+      "diagram": null,
+      "options": [
+        "A. Pressure",
+        "B. Power",
+        "C. Impulse",
+        "D. Force"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "The resultant force in a pure couple is ________.",
+      "diagram": null,
+      "options": [
+        "A. The product of the forces",
+        "B. The difference of the forces",
+        "C. The sum of the forces",
+        "D. Zero"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "A block-and-tackle system has velocity ratio 6 and efficiency 60%. Determine its mechanical advantage.",
+      "diagram": null,
+      "options": [
+        "A. 12.0",
+        "B. 10.0",
+        "C. 3.6",
+        "D. 1.8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 26,
+      "question": "Mechanical energy can be either ________.",
+      "diagram": null,
+      "options": [
+        "A. Kinetic or electrical",
+        "B. Chemical or potential",
+        "C. Electrical or heat",
+        "D. Kinetic or potential"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "Which set consists only of fundamental quantities?",
+      "diagram": null,
+      "options": [
+        "A. Speed, length and time",
+        "B. Distance, speed and time",
+        "C. Speed, mass and distance",
+        "D. Length, mass and time"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 28,
+      "question": "Which property of a steel bar can be expressed using the dimension of length only?",
+      "diagram": null,
+      "options": [
+        "A. Pressure",
+        "B. Weight",
+        "C. Volume",
+        "D. Length"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "In a vacuum flask, heat loss by radiation is minimized mainly by the ________.",
+      "diagram": null,
+      "options": [
+        "A. Plastic stopper",
+        "B. Cork support",
+        "C. Silvered surfaces",
+        "D. Vacuum"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "For a fixed mass of ideal gas, which relation is correct?",
+      "diagram": null,
+      "options": [
+        "A. PV = constant for all temperature changes",
+        "B. PV/T = constant",
+        "C. P/T = constant for all processes",
+        "D. V/T = constant for all processes"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 31,
+      "question": "A body of mass 2 kg moving at 6 m s⁻¹ has momentum ________.",
+      "diagram": null,
+      "options": [
+        "A. 3 kg m s⁻¹",
+        "B. 8 kg m s⁻¹",
+        "C. 12 kg m s⁻¹",
+        "D. 18 kg m s⁻¹"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "The principle of moments states that for a body in equilibrium ________.",
+      "diagram": null,
+      "options": [
+        "A. Clockwise moment exceeds anticlockwise moment",
+        "B. Clockwise moment equals anticlockwise moment",
+        "C. Resultant moment is maximum",
+        "D. Resultant force must be upward"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 33,
+      "question": "A machine has load 240 N and effort 60 N. Its mechanical advantage is ________.",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 6"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "A force of 10 N acts for 0.5 s. The impulse is ________.",
+      "diagram": null,
+      "options": [
+        "A. 5 N s",
+        "B. 10 N s",
+        "C. 20 N s",
+        "D. 0.05 N s"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "A body floating in a liquid displaces a weight of liquid ________ its own weight.",
+      "diagram": null,
+      "options": [
+        "A. Less than",
+        "B. Greater than",
+        "C. Equal to",
+        "D. Unrelated to"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "At constant temperature, Boyle's law states that pressure is ________ volume.",
+      "diagram": null,
+      "options": [
+        "A. Directly proportional to",
+        "B. Inversely proportional to",
+        "C. Equal to",
+        "D. Independent of"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "At constant pressure, Charles' law states that volume is directly proportional to ________.",
+      "diagram": null,
+      "options": [
+        "A. Celsius temperature",
+        "B. Absolute temperature",
+        "C. Pressure",
+        "D. Density"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "The efficiency of a machine is always ________ 100% for a real machine.",
+      "diagram": null,
+      "options": [
+        "A. Greater than",
+        "B. Equal to",
+        "C. Less than",
+        "D. Unrelated to"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "The turning effect of a force about a point is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Impulse",
+        "B. Moment",
+        "C. Momentum",
+        "D. Pressure"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "A body is in translational equilibrium when the vector sum of all forces on it is ________.",
+      "diagram": null,
+      "options": [
+        "A. Maximum",
+        "B. Zero",
+        "C. Constant",
+        "D. Vertical"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) State the principle of floatation and list factors affecting floatation.\n(b) A piece of iron weighs 250 N in air and 200 N in a liquid of density 1000 kg m⁻³. Find the volume of the iron. Take g = 10 m s⁻².\n(c) The relative density of gold is 19.2. Find the volume of 2.4 kg of gold.",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) State Boyle's law.\n(b) A gas has volume 40 m³ at 327 K and 9.52 × 10⁴ Pa. Calculate its volume at 273 K and 1.034 × 10⁵ Pa.\n(c) A gas has volume 76 m³ at 27°C and 800 mmHg. Calculate its volume at STP.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) State the principle of conservation of linear momentum and explain linear momentum and elastic collision.\n(b) A 12 kg body moving at 4.2 m s⁻¹ collides with an 18 kg body at rest. Find their common velocity if they coalesce.",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) Explain moment of a force and centre of gravity.\n(b) State two applications of moments.\n(c) Using the diagram, a uniform 50 cm rod is balanced on fulcrum F by a 200 N force and a 40 N force. Determine the weight of the rod.",
+        "diagram": "/static/uploads/diagrams/2021/physics_ss2/essay_4.PNG"
+      },
+      {
+        "id": 5,
+        "question": "(a) State the parallelogram law of vectors.\n(b) Determine the resultant vector represented in the first diagram.\n(c) Determine the resultant of the forces shown in the second diagram.",
+        "diagram": "/static/uploads/diagrams/2021/physics_ss2/essay_5.PNG"
+      },
+      {
+        "id": 6,
+        "question": "(a) Define a machine and the velocity ratio of a pair of gear wheels. State how the mechanical advantage of a gear system can be increased.\n(b) For the bicycle gear system shown, determine its velocity ratio. If efficiency is 90%, calculate the effort required to overcome a load of 70 N and explain why the actual effort may be greater.",
+        "diagram": "/static/uploads/diagrams/2021/physics_ss2/essay_6.PNG"
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

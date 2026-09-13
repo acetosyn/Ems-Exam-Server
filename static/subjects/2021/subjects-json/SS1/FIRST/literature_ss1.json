@@ -1,0 +1,524 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Literature-in-English",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Literature generally refers to ________.",
+      "diagram": null,
+      "options": [
+        "A. Dancing and singing",
+        "B. A body of written works or texts",
+        "C. Poetic works alone",
+        "D. All of the above"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 2,
+      "question": "The following are examples of non-fictional literature EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Biographies",
+        "B. Magazines",
+        "C. The Lion and the Jewel",
+        "D. A washing machine manual"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "The following are benefits of literature EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. It serves as entertainment",
+        "B. It helps one understand different aspects of life",
+        "C. It automatically helps one gain political office",
+        "D. It helps improve vocabulary"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "Which of the following normally comes first in the organization of a plot?",
+      "diagram": null,
+      "options": [
+        "A. Climax",
+        "B. Complication",
+        "C. Exposition",
+        "D. Resolution"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 5,
+      "question": "In a literary work, when an idea is emphasized by stating it again, the device used is ________.",
+      "diagram": null,
+      "options": [
+        "A. Pun",
+        "B. Repetition",
+        "C. Antithesis",
+        "D. Chorus"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "A technique whereby a supernatural being is suddenly introduced to resolve a crisis in drama is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Coincidence",
+        "B. Flashback",
+        "C. Foreshadowing",
+        "D. Deus ex machina"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Prose is usually written in ________.",
+      "diagram": null,
+      "options": [
+        "A. Lines",
+        "B. Paragraphs",
+        "C. Scenes",
+        "D. Verses"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Another name for enjambment in poetry is ________.",
+      "diagram": null,
+      "options": [
+        "A. Caesura",
+        "B. Canto",
+        "C. Run-on-line",
+        "D. Metre"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "When a literary work creates mental pictures in the mind of the reader, the device used is ________.",
+      "diagram": null,
+      "options": [
+        "A. Imagery",
+        "B. Allegory",
+        "C. Picturesque",
+        "D. Symbol"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "A short story in which animals are given human qualities and which often teaches a moral lesson is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Allegory",
+        "B. Fiction",
+        "C. Journal",
+        "D. Fable"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 11,
+      "question": "Use the passage below to answer Questions 11–15.\n\nThe teacher's stomach made a grunting noise like the sliding movement of a snake. His intestines protested the long abstinence imposed on them. Simultaneously, Nebe yawned. A long-protracted yawn which brought tears to his eyes. As he put out his hands to wipe the tears, he was stopped right in his tracks.\n\nThe angle of narration is ________.",
+      "diagram": null,
+      "options": [
+        "A. Eclectic",
+        "B. First-person point of view",
+        "C. Third-person point of view",
+        "D. Second-person point of view"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "In the passage in Question 11, the comparison of the stomach's grunting noise to the sliding movement of a snake is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Onomatopoeia",
+        "B. Pun",
+        "C. Simile",
+        "D. Assonance"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 13,
+      "question": "From the passage in Question 11, Nebe is most likely a ________.",
+      "diagram": null,
+      "options": [
+        "A. Athlete",
+        "B. Teacher",
+        "C. Clergyman",
+        "D. Student"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The mood in the passage in Question 11 is mainly one of ________.",
+      "diagram": null,
+      "options": [
+        "A. Deprivation",
+        "B. Desperation",
+        "C. Determination",
+        "D. Hope"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "The most suitable title for the passage in Question 11 is ________.",
+      "diagram": null,
+      "options": [
+        "A. Teachers on Strike",
+        "B. Sorrow in the Land",
+        "C. One Man Cries",
+        "D. Hunger Strike"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 16,
+      "question": "The following are major genres of literature EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Prose",
+        "B. Drama",
+        "C. Fiction",
+        "D. Poetry"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 17,
+      "question": "The following are characteristics of poetry EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. It is written in lines",
+        "B. Its lines may be arranged in stanzas",
+        "C. It is arranged mainly in scenes",
+        "D. It may make use of rhyme"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Drama is a form of literature intended primarily for performance before an audience.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. Only in poetry",
+        "D. Only in prose"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "The particular choice of words used by a writer is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Diction",
+        "B. Language",
+        "C. Rhyme",
+        "D. Symbolism"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "The central message or main idea conveyed by a literary work is its ________.",
+      "diagram": null,
+      "options": [
+        "A. Subject matter",
+        "B. Theme",
+        "C. Plot",
+        "D. Dialogue"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "The following are types of drama EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Comedy",
+        "B. Flashback",
+        "C. Tragedy",
+        "D. Melodrama"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "A play characterized by serious subject matter and a tense atmosphere is generally a ________.",
+      "diagram": null,
+      "options": [
+        "A. Comedy",
+        "B. Melodrama",
+        "C. Tragicomedy",
+        "D. Tragedy"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "The literary device involving an interruption of the present action to show an earlier event is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Allusion",
+        "B. Dramatic monologue",
+        "C. Flashback",
+        "D. Apostrophe"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "The classical dramatic principle that restricts the events of a play to approximately twenty-four hours is the unity of ________.",
+      "diagram": null,
+      "options": [
+        "A. Peripeteia",
+        "B. Time",
+        "C. Catharsis",
+        "D. Hubris"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "The artistic and imaginative expression of human thoughts and feelings in rhythmic language is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Language",
+        "B. Drama",
+        "C. Plot",
+        "D. Poetry"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is NOT a type of poetry?",
+      "diagram": null,
+      "options": [
+        "A. Ballad",
+        "B. Lyric",
+        "C. Elegy",
+        "D. Proverb"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 27,
+      "question": "An indirect reference to the Bible, history, mythology or another literary work is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Apostrophe",
+        "B. Allusion",
+        "C. Antithesis",
+        "D. Euphemism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 28,
+      "question": "A figure of speech in which an absent person, idea or inanimate object is directly addressed is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Metaphor",
+        "B. Synecdoche",
+        "C. Personification",
+        "D. Apostrophe"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "The placing together of two apparently contradictory terms is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Oxymoron",
+        "B. Simile",
+        "C. Symbolism",
+        "D. Pun"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "\"The boy is so strong that he got a broken head in a fight\" is best regarded as an example of ________.",
+      "diagram": null,
+      "options": [
+        "A. Irony",
+        "B. Personification",
+        "C. Alliteration",
+        "D. Pun"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 31,
+      "question": "A character who opposes the main character in a literary work is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Protagonist",
+        "B. Antagonist",
+        "C. Narrator",
+        "D. Chorus"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "The main character in a literary work is known as the ________.",
+      "diagram": null,
+      "options": [
+        "A. Protagonist",
+        "B. Antagonist",
+        "C. Minor character",
+        "D. Foil"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "A poem written to mourn the death of a person is called an ________.",
+      "diagram": null,
+      "options": [
+        "A. Epic",
+        "B. Elegy",
+        "C. Ode",
+        "D. Sonnet"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "The sequence of events in a literary work is known as the ________.",
+      "diagram": null,
+      "options": [
+        "A. Setting",
+        "B. Plot",
+        "C. Theme",
+        "D. Diction"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "The time and place in which the events of a literary work occur constitute its ________.",
+      "diagram": null,
+      "options": [
+        "A. Setting",
+        "B. Theme",
+        "C. Conflict",
+        "D. Style"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 36,
+      "question": "A comparison using \"like\" or \"as\" is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Metaphor",
+        "B. Simile",
+        "C. Hyperbole",
+        "D. Euphemism"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "Deliberate exaggeration for emphasis is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Hyperbole",
+        "B. Litotes",
+        "C. Irony",
+        "D. Metonymy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "The conversation between two or more characters in a play is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Dialogue",
+        "B. Soliloquy",
+        "C. Aside",
+        "D. Monologue"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 39,
+      "question": "A long speech made by a character alone on stage revealing private thoughts is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Dialogue",
+        "B. Soliloquy",
+        "C. Chorus",
+        "D. Prologue"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 40,
+      "question": "A character who remains essentially unchanged throughout a literary work is generally called a ________ character.",
+      "diagram": null,
+      "options": [
+        "A. Round",
+        "B. Dynamic",
+        "C. Static",
+        "D. Eponymous"
+      ],
+      "correctOption": "C"
+    }
+  ],
+  "essay": {
+    "title": "PAPER 2 - THEORY",
+    "instruction": "Answer four (4) questions. Question One is compulsory.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Write short notes on the following figures of speech:\n(i) Personification\n(ii) Metaphor\n(iii) Simile\n(iv) Symbolism\n(v) Allusion. (2 marks each)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Define Literature as a field of study. (2 marks)\n(b) State four importance of Literature. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Explain English Literature and Literature-in-English. (4 marks)\n(b) State three differences between English Literature and Literature-in-English. (6 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "Write short notes on the following elements of drama:\n(i) Theme\n(ii) Plot\n(iii) Dialogue\n(iv) Characters\n(v) Visual effect. (2 marks each)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "With two examples each, explain:\n(i) Fictional literature\n(ii) Non-fictional literature. (10 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

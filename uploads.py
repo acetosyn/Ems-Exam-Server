@@ -12,18 +12,22 @@ uploads_bp = Blueprint("uploads_bp", __name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
 # ============================================================
 # DIRECTORY STRUCTURE
 #
-# JSS:
+# JSS — STRICT TERM SYSTEM:
 # static/subjects/<YEAR>/subjects-json/JSS1/FIRST/file.json
 # static/subjects/<YEAR>/subjects-json/JSS1/SECOND/file.json
 # static/subjects/<YEAR>/subjects-json/JSS1/THIRD/file.json
 #
-# SS:
+# SS — HYBRID TERM SYSTEM:
 # static/subjects/<YEAR>/subjects-json/SS1/file.json
-# static/subjects/<YEAR>/subjects-json/SS2/file.json
-# static/subjects/<YEAR>/subjects-json/SS3/file.json
+# static/subjects/<YEAR>/subjects-json/SS1/FIRST/file.json
+# static/subjects/<YEAR>/subjects-json/SS1/SECOND/file.json
+# static/subjects/<YEAR>/subjects-json/SS1/THIRD/file.json
+#
+# SS root JSONs remain supported as general / legacy exams.
 # ============================================================
 
 SUBJECTS_ROOT = os.path.join(BASE_DIR, "static", "subjects")
@@ -32,10 +36,13 @@ ALLOWED_EXTENSIONS = {"json", "docx"}
 
 SUPPORTED_CLASSES = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]
 
+# JSS = compulsory term system.
 TERM_AWARE_CLASSES = {"JSS1", "JSS2", "JSS3"}
 
-VALID_TERMS = {"FIRST", "SECOND", "THIRD"}
+# SS = optional / hybrid term system.
+OPTIONAL_TERM_CLASSES = {"SS1", "SS2", "SS3"}
 
+VALID_TERMS = {"FIRST", "SECOND", "THIRD"}
 TERM_ORDER = {"FIRST": 1, "SECOND": 2, "THIRD": 3, None: 4}
 
 IGNORED_JSON_FILES = {"pushed_subjects.json"}
@@ -58,7 +65,17 @@ def normalize_class(value):
 
 
 def is_term_aware_class(class_cat):
+    """JSS classes: FIRST / SECOND / THIRD is compulsory."""
     return normalize_class(class_cat) in TERM_AWARE_CLASSES
+
+
+def is_optional_term_class(class_cat):
+    """SS classes: FIRST / SECOND / THIRD is optional; root/general JSON remains valid."""
+    return normalize_class(class_cat) in OPTIONAL_TERM_CLASSES
+
+
+def supports_term_folders(class_cat):
+    return is_term_aware_class(class_cat) or is_optional_term_class(class_cat)
 
 
 def is_valid_class(class_cat):
@@ -74,10 +91,8 @@ def valid_year(year):
 
 
 def get_file_size_kb(path):
-    try:
-        return round(os.path.getsize(path) / 1024, 1)
-    except OSError:
-        return 0
+    try: return round(os.path.getsize(path) / 1024, 1)
+    except OSError: return 0
 
 
 # ============================================================
@@ -87,7 +102,7 @@ def get_file_size_kb(path):
 def detect_class_from_filename(filename):
     low = str(filename or "").lower()
 
-    # JSS must be tested before SS because "jss1" also contains "ss1".
+    # JSS must be checked before SS because "jss1" also contains "ss1".
     patterns = [
         ("JSS1", r"(?<![a-z0-9])jss[\s_-]*1(?![0-9])"),
         ("JSS2", r"(?<![a-z0-9])jss[\s_-]*2(?![0-9])"),
@@ -98,26 +113,22 @@ def detect_class_from_filename(filename):
     ]
 
     for class_cat, pattern in patterns:
-        if re.search(pattern, low, re.IGNORECASE):
-            return class_cat
+        if re.search(pattern, low, re.IGNORECASE): return class_cat
 
     return None
 
 
 def detect_class_from_json(data):
-    if not isinstance(data, dict):
-        return None
+    if not isinstance(data, dict): return None
 
-    raw = data.get("class_category") or data.get("class_level") or data.get("class") or ""
-    raw = normalize_class(raw)
+    raw = normalize_class(data.get("class_category") or data.get("class_level") or data.get("class") or "")
 
     # Supports broad class and class-arm metadata:
     # JSS1A -> JSS1
     # JSS2B -> JSS2
     # SS1_GOLD -> SS1
     for class_cat in SUPPORTED_CLASSES:
-        if raw.startswith(class_cat):
-            return class_cat
+        if raw.startswith(class_cat): return class_cat
 
     return None
 
@@ -127,50 +138,28 @@ def detect_class_from_json(data):
 # ============================================================
 
 def normalize_term(value):
-    if value is None:
-        return None
+    if value is None: return None
 
     value = str(value).strip().upper()
-
-    if not value:
-        return None
+    if not value: return None
 
     aliases = {
-        "1": "FIRST",
-        "01": "FIRST",
-        "1ST": "FIRST",
-        "FIRST": "FIRST",
-        "FIRST TERM": "FIRST",
-        "1ST TERM": "FIRST",
-        "TERM 1": "FIRST",
-        "TERM1": "FIRST",
+        "1": "FIRST", "01": "FIRST", "1ST": "FIRST", "FIRST": "FIRST",
+        "FIRST TERM": "FIRST", "1ST TERM": "FIRST", "TERM 1": "FIRST", "TERM1": "FIRST",
 
-        "2": "SECOND",
-        "02": "SECOND",
-        "2ND": "SECOND",
-        "SECOND": "SECOND",
-        "SECOND TERM": "SECOND",
-        "2ND TERM": "SECOND",
-        "TERM 2": "SECOND",
-        "TERM2": "SECOND",
+        "2": "SECOND", "02": "SECOND", "2ND": "SECOND", "SECOND": "SECOND",
+        "SECOND TERM": "SECOND", "2ND TERM": "SECOND", "TERM 2": "SECOND", "TERM2": "SECOND",
 
-        "3": "THIRD",
-        "03": "THIRD",
-        "3RD": "THIRD",
-        "THIRD": "THIRD",
-        "THIRD TERM": "THIRD",
-        "3RD TERM": "THIRD",
-        "TERM 3": "THIRD",
-        "TERM3": "THIRD",
+        "3": "THIRD", "03": "THIRD", "3RD": "THIRD", "THIRD": "THIRD",
+        "THIRD TERM": "THIRD", "3RD TERM": "THIRD", "TERM 3": "THIRD", "TERM3": "THIRD",
     }
 
     return aliases.get(value)
 
 
 def term_label(term):
-    normalized = normalize_term(term)
     labels = {"FIRST": "1st Term", "SECOND": "2nd Term", "THIRD": "3rd Term"}
-    return labels.get(normalized, "—")
+    return labels.get(normalize_term(term), "—")
 
 
 # ============================================================
@@ -182,32 +171,22 @@ def detect_term_from_text(text):
 
     patterns = [
         ("FIRST", [
-            r"\bFIRST\s+TERM\b",
-            r"\b1ST\s+TERM\b",
-            r"\bTERM\s*1\b",
-            r"(?:^|[\s_-])FIRST(?:$|[\s_.-])",
-            r"(?:^|[\s_-])1ST(?:$|[\s_.-])",
+            r"\bFIRST\s+TERM\b", r"\b1ST\s+TERM\b", r"\bTERM\s*1\b",
+            r"(?:^|[\s_-])FIRST(?:$|[\s_.-])", r"(?:^|[\s_-])1ST(?:$|[\s_.-])",
         ]),
         ("SECOND", [
-            r"\bSECOND\s+TERM\b",
-            r"\b2ND\s+TERM\b",
-            r"\bTERM\s*2\b",
-            r"(?:^|[\s_-])SECOND(?:$|[\s_.-])",
-            r"(?:^|[\s_-])2ND(?:$|[\s_.-])",
+            r"\bSECOND\s+TERM\b", r"\b2ND\s+TERM\b", r"\bTERM\s*2\b",
+            r"(?:^|[\s_-])SECOND(?:$|[\s_.-])", r"(?:^|[\s_-])2ND(?:$|[\s_.-])",
         ]),
         ("THIRD", [
-            r"\bTHIRD\s+TERM\b",
-            r"\b3RD\s+TERM\b",
-            r"\bTERM\s*3\b",
-            r"(?:^|[\s_-])THIRD(?:$|[\s_.-])",
-            r"(?:^|[\s_-])3RD(?:$|[\s_.-])",
+            r"\bTHIRD\s+TERM\b", r"\b3RD\s+TERM\b", r"\bTERM\s*3\b",
+            r"(?:^|[\s_-])THIRD(?:$|[\s_.-])", r"(?:^|[\s_-])3RD(?:$|[\s_.-])",
         ]),
     ]
 
     for term, term_patterns in patterns:
         for pattern in term_patterns:
-            if re.search(pattern, text, re.IGNORECASE):
-                return term
+            if re.search(pattern, text, re.IGNORECASE): return term
 
     return None
 
@@ -217,22 +196,17 @@ def detect_term_from_text(text):
 # ============================================================
 
 def detect_term_from_json(data):
-    if not isinstance(data, dict):
-        return None
+    if not isinstance(data, dict): return None
 
     direct_fields = [data.get("term"), data.get("exam_term"), data.get("academic_term"), data.get("term_name")]
 
     for value in direct_fields:
         normalized = normalize_term(value)
-        if normalized:
-            return normalized
+        if normalized: return normalized
 
     searchable_fields = [
-        data.get("exam_title"),
-        data.get("title"),
-        data.get("instructions"),
-        data.get("school"),
-        data.get("description"),
+        data.get("exam_title"), data.get("title"), data.get("instructions"),
+        data.get("school"), data.get("description"),
     ]
 
     combined = " ".join(str(value) for value in searchable_fields if value)
@@ -241,11 +215,7 @@ def detect_term_from_json(data):
 
 def detect_term(filename=None, data=None):
     detected = detect_term_from_json(data)
-
-    if detected:
-        return detected
-
-    return detect_term_from_text(filename)
+    return detected if detected else detect_term_from_text(filename)
 
 
 # ============================================================
@@ -262,32 +232,28 @@ def get_class_path(year, class_cat):
 
 def get_term_path(year, class_cat, term):
     normalized_term = normalize_term(term)
-
-    if not normalized_term:
-        return None
+    if not normalized_term: return None
 
     return os.path.join(get_class_path(year, class_cat), normalized_term)
 
 
 def get_json_path(year, class_cat, filename, term=None):
-    class_cat = normalize_class(class_cat)
-    filename = safe_filename(filename)
+    class_cat, filename, normalized_term = normalize_class(class_cat), safe_filename(filename), normalize_term(term)
 
-    if class_cat not in SUPPORTED_CLASSES or not filename:
-        return None
+    if class_cat not in SUPPORTED_CLASSES or not filename: return None
 
     class_folder = get_class_path(year, class_cat)
 
-    # JSS MUST always use FIRST / SECOND / THIRD.
+    # JSS = term compulsory.
     if is_term_aware_class(class_cat):
-        normalized_term = normalize_term(term)
-
-        if not normalized_term:
-            return None
-
+        if not normalized_term: return None
         return os.path.join(class_folder, normalized_term, filename)
 
-    # SS1 / SS2 / SS3 are always flat.
+    # SS = term optional. Supplied term points to FIRST / SECOND / THIRD.
+    if is_optional_term_class(class_cat) and normalized_term:
+        return os.path.join(class_folder, normalized_term, filename)
+
+    # SS with no term = root/general JSON.
     return os.path.join(class_folder, filename)
 
 
@@ -297,12 +263,9 @@ def get_json_path(year, class_cat, filename, term=None):
 
 def read_json_file(path):
     try:
-        with open(path, "r", encoding="utf-8-sig") as file:
-            data = json.load(file)
+        with open(path, "r", encoding="utf-8-sig") as file: data = json.load(file)
 
-        if isinstance(data, dict):
-            return data, None
-
+        if isinstance(data, dict): return data, None
         return {}, "JSON root must be an object"
 
     except Exception as exc:
@@ -332,35 +295,25 @@ def read_json_metadata(path, filename, class_cat, fallback_term=None, force_fold
     detected_class = detect_class_from_json(data) or normalize_class(class_cat)
     folder_term = normalize_term(fallback_term)
 
-    # For JSS files already physically stored under FIRST / SECOND / THIRD,
-    # the physical folder is the authoritative source of the term.
+    # Physical FIRST / SECOND / THIRD folder is authoritative for both JSS and SS.
     detected_term = folder_term if force_folder_term and folder_term else detect_term(filename, data) or folder_term
 
     return {
-        "data": data,
-        "subject": subject,
+        "data": data, "subject": subject,
 
-        "questions": objective_count,
-        "objective_count": objective_count,
-        "objective_questions": objective_count,
+        "questions": objective_count, "objective_count": objective_count, "objective_questions": objective_count,
 
-        "essay_questions": essay_count,
-        "essay_count": essay_count,
-        "theory_questions": essay_count,
-        "theory_count": essay_count,
+        "essay_questions": essay_count, "essay_count": essay_count,
+        "theory_questions": essay_count, "theory_count": essay_count,
 
-        "has_essay": has_essay,
-        "hasEssay": has_essay,
-        "essay_present": has_essay,
-        "theory_present": has_essay,
+        "has_essay": has_essay, "hasEssay": has_essay,
+        "essay_present": has_essay, "theory_present": has_essay,
 
         "essay_title": str(essay.get("title") or "").strip() if isinstance(essay, dict) else "",
         "essay_instruction": str(essay.get("instruction") or "").strip() if isinstance(essay, dict) else "",
 
-        "class_category": detected_class,
-        "term": detected_term,
-        "valid": error is None,
-        "error": error,
+        "class_category": detected_class, "term": detected_term,
+        "valid": error is None, "error": error,
     }
 
 
@@ -369,27 +322,28 @@ def read_json_metadata(path, filename, class_cat, fallback_term=None, force_fold
 # ============================================================
 
 def build_library_item(year, filename, full_path, class_cat, term=None, legacy=False):
-    class_cat = normalize_class(class_cat)
+    class_cat, folder_term = normalize_class(class_cat), normalize_term(term)
 
-    # JSS term folders are authoritative.
-    force_folder_term = is_term_aware_class(class_cat) and bool(normalize_term(term))
+    # FIRST / SECOND / THIRD folder itself is authoritative.
+    force_folder_term = supports_term_folders(class_cat) and bool(folder_term)
 
     meta = read_json_metadata(
         full_path, filename, class_cat,
-        fallback_term=term,
+        fallback_term=folder_term,
         force_folder_term=force_folder_term,
     )
 
+    # JSS = strict term system.
     if is_term_aware_class(class_cat):
-        resolved_term = normalize_term(term) if force_folder_term else normalize_term(meta.get("term"))
+        resolved_term = folder_term if force_folder_term else normalize_term(meta.get("term"))
         status = "OK" if resolved_term else "TERM_REQUIRED"
-        resolved_term_label = term_label(resolved_term)
+
+    # SS = hybrid system. Root file is general; folder file receives folder term.
+    elif is_optional_term_class(class_cat):
+        resolved_term, status = (folder_term if force_folder_term else None), "OK"
 
     else:
-        # SS must never expose a term even if old JSON metadata contains one.
-        resolved_term = None
-        resolved_term_label = "—"
-        status = "OK"
+        resolved_term, status = None, "OK"
 
     if not meta.get("valid"): status = "INVALID_JSON"
 
@@ -398,39 +352,56 @@ def build_library_item(year, filename, full_path, class_cat, term=None, legacy=F
     has_essay = bool(meta.get("has_essay", False))
 
     return {
-        "year": int(year),
-        "filename": filename,
-        "subject": meta.get("subject") or filename,
+        "year": int(year), "filename": filename, "subject": meta.get("subject") or filename,
+        "class_category": class_cat, "class_level": class_cat,
+        "term": resolved_term, "term_label": term_label(resolved_term),
 
-        "class_category": class_cat,
-        "class_level": class_cat,
+        "questions": objective_count, "objective_count": objective_count, "objective_questions": objective_count,
 
-        "term": resolved_term,
-        "term_label": resolved_term_label,
+        "essay_questions": essay_count, "essay_count": essay_count,
+        "theory_questions": essay_count, "theory_count": essay_count,
 
-        # Objective metadata
-        "questions": objective_count,
-        "objective_count": objective_count,
-        "objective_questions": objective_count,
+        "has_essay": has_essay, "hasEssay": has_essay,
+        "essay_present": has_essay, "theory_present": has_essay,
 
-        # Theory / Essay metadata
-        "essay_questions": essay_count,
-        "essay_count": essay_count,
-        "theory_questions": essay_count,
-        "theory_count": essay_count,
+        "essay_title": meta.get("essay_title", ""), "essay_instruction": meta.get("essay_instruction", ""),
 
-        "has_essay": has_essay,
-        "hasEssay": has_essay,
-        "essay_present": has_essay,
-        "theory_present": has_essay,
-
-        "essay_title": meta.get("essay_title", ""),
-        "essay_instruction": meta.get("essay_instruction", ""),
-
-        "size": get_file_size_kb(full_path),
-        "status": status,
-        "legacy": bool(legacy),
+        "size": get_file_size_kb(full_path), "status": status, "legacy": bool(legacy),
     }
+
+
+# ============================================================
+# LIBRARY FOLDER SCANNER
+# ============================================================
+
+def scan_library_folder(year, class_cat, folder, term=None, legacy=False):
+    if not os.path.isdir(folder): return []
+
+    try:
+        entries = sorted(os.scandir(folder), key=lambda entry: entry.name.lower())
+    except OSError as exc:
+        print(f"[ERROR] Unable to scan {folder}: {exc}")
+        return []
+
+    items = []
+
+    for entry in entries:
+        if not entry.is_file(): continue
+
+        filename = entry.name
+
+        if not filename.lower().endswith(".json") or is_ignored_json(filename): continue
+
+        location = f"{class_cat}/{term}/{filename}" if term else f"{class_cat}/{filename}"
+        print(f"        [FOUND] {location}")
+
+        items.append(build_library_item(
+            year=year, filename=filename, full_path=entry.path,
+            class_cat=class_cat, term=term, legacy=legacy,
+        ))
+
+    return items
+
 
 # ============================================================
 # OPTIONAL UPLOAD API
@@ -438,28 +409,26 @@ def build_library_item(year, filename, full_path, class_cat, term=None, legacy=F
 
 @uploads_bp.route("/upload", methods=["POST"])
 def upload_handler():
-    if "file" not in request.files:
-        return jsonify({"success": False, "error": "No file part"}), 400
+    if "file" not in request.files: return jsonify({"success": False, "error": "No file part"}), 400
 
     files = request.files.getlist("file")
-
-    if not files:
-        return jsonify({"success": False, "error": "No selected files"}), 400
+    if not files: return jsonify({"success": False, "error": "No selected files"}), 400
 
     year = str(request.form.get("year", "")).strip()
-
-    if not valid_year(year):
-        return jsonify({"success": False, "error": "Missing or invalid year"}), 400
+    if not valid_year(year): return jsonify({"success": False, "error": "Missing or invalid year"}), 400
 
     requested_class = normalize_class(request.form.get("class") or request.form.get("class_category") or request.form.get("class_level"))
-    requested_term = normalize_term(request.form.get("term"))
 
-    results = []
-    failed = []
+    raw_requested_term = str(request.form.get("term") or "").strip()
+    requested_term = normalize_term(raw_requested_term)
+
+    if raw_requested_term and not requested_term:
+        return jsonify({"success": False, "error": "Invalid term. Use FIRST, SECOND or THIRD"}), 400
+
+    results, failed = [], []
 
     for file in files:
-        original_name = file.filename or ""
-        fname = safe_filename(original_name)
+        original_name, fname = file.filename or "", safe_filename(file.filename or "")
 
         if not fname or not allowed_file(fname):
             failed.append({"filename": original_name, "reason": "Unsupported file"})
@@ -485,70 +454,67 @@ def upload_handler():
                 continue
 
             detected_class = detect_class_from_json(data) or class_cat or filename_class
-
-            if detected_class:
-                class_cat = normalize_class(detected_class)
+            if detected_class: class_cat = normalize_class(detected_class)
 
             if class_cat not in SUPPORTED_CLASSES:
                 failed.append({"filename": fname, "reason": "Class could not be detected"})
                 continue
 
-            term = None
+            data["class_category"], data["class_level"] = class_cat, class_cat
 
             # ----------------------------------------------------
-            # JSS JSON
+            # JSS — STRICT TERM
             # ----------------------------------------------------
 
             if is_term_aware_class(class_cat):
-                # Explicit selected term has priority when supplied by the UI.
                 term = requested_term or detect_term(fname, data)
 
                 if not term:
                     failed.append({
-                        "filename": fname,
-                        "class_category": class_cat,
+                        "filename": fname, "class_category": class_cat,
                         "reason": "JSS JSON requires FIRST, SECOND or THIRD term",
                     })
                     continue
 
-                data["class_category"] = class_cat
-                data["class_level"] = class_cat
-                data["term"] = term
-                data["term_label"] = term_label(term)
-
+                data["term"], data["term_label"] = term, term_label(term)
                 save_folder = get_term_path(year, class_cat, term)
 
                 if not save_folder:
                     failed.append({"filename": fname, "class_category": class_cat, "reason": "Invalid JSS term"})
                     continue
 
-                os.makedirs(save_folder, exist_ok=True)
-                save_path = os.path.join(save_folder, fname)
-
             # ----------------------------------------------------
-            # SS JSON
+            # SS — HYBRID / OPTIONAL TERM
             # ----------------------------------------------------
 
             else:
-                term = None
+                # Selected UI term has priority. If no term was explicitly selected,
+                # term may still be detected from JSON metadata or filename.
+                term = requested_term or detect_term(fname, data)
 
-                data["class_category"] = class_cat
-                data["class_level"] = class_cat
+                if term:
+                    data["term"], data["term_label"] = term, term_label(term)
+                    save_folder = get_term_path(year, class_cat, term)
 
-                # SS is intentionally non-term-aware.
-                data.pop("term", None)
-                data.pop("term_label", None)
-                data.pop("exam_term", None)
-                data.pop("academic_term", None)
+                else:
+                    # No term = preserve existing general/root SS behaviour.
+                    data.pop("term", None)
+                    data.pop("term_label", None)
+                    data.pop("exam_term", None)
+                    data.pop("academic_term", None)
+                    data.pop("term_name", None)
 
-                save_folder = get_class_path(year, class_cat)
-                os.makedirs(save_folder, exist_ok=True)
-                save_path = os.path.join(save_folder, fname)
+                    save_folder = get_class_path(year, class_cat)
+
+            if not save_folder:
+                failed.append({"filename": fname, "class_category": class_cat, "reason": "Unable to determine save folder"})
+                continue
+
+            os.makedirs(save_folder, exist_ok=True)
+            save_path = os.path.join(save_folder, fname)
 
             try:
-                with open(save_path, "w", encoding="utf-8") as output:
-                    json.dump(data, output, indent=4, ensure_ascii=False)
-
+                with open(save_path, "w", encoding="utf-8") as output: json.dump(data, output, indent=4, ensure_ascii=False)
             except Exception as exc:
                 failed.append({"filename": fname, "reason": f"Failed to save JSON: {exc}"})
                 continue
@@ -562,51 +528,45 @@ def upload_handler():
                 failed.append({"filename": fname, "reason": "Class could not be detected from DOCX filename"})
                 continue
 
+            # Preserve the existing DOCX upload behaviour.
             term = requested_term if is_term_aware_class(class_cat) else None
 
-            # DOCX files are not the JSON repository itself. Keep this
-            # route backward-compatible by storing beneath the class.
             class_folder = get_class_path(year, class_cat)
             os.makedirs(class_folder, exist_ok=True)
             save_path = os.path.join(class_folder, fname)
 
-            try:
-                file.save(save_path)
+            try: file.save(save_path)
             except Exception as exc:
                 failed.append({"filename": fname, "reason": f"Failed to save DOCX: {exc}"})
                 continue
 
         results.append({
-            "filename": fname,
-            "year": int(year),
-            "class_category": class_cat,
-            "class_level": class_cat,
-            "term": term,
-            "term_label": term_label(term) if term else "—",
+            "filename": fname, "year": int(year),
+            "class_category": class_cat, "class_level": class_cat,
+            "term": term, "term_label": term_label(term),
             "status": "saved",
         })
 
     return jsonify({
         "success": bool(results),
-        "uploads": results,
-        "failed": failed,
-        "uploaded_count": len(results),
-        "failed_count": len(failed),
+        "uploads": results, "failed": failed,
+        "uploaded_count": len(results), "failed_count": len(failed),
     })
 
 
 # ============================================================
 # LIST JSON FILES FOR YEAR
 #
-# JSS:
+# JSS — STRICT:
 #   JSS1/FIRST/*.json
 #   JSS1/SECOND/*.json
 #   JSS1/THIRD/*.json
 #
-# SS:
+# SS — HYBRID:
 #   SS1/*.json
-#   SS2/*.json
-#   SS3/*.json
+#   SS1/FIRST/*.json
+#   SS1/SECOND/*.json
+#   SS1/THIRD/*.json
 # ============================================================
 
 @uploads_bp.route("/uploads/<year>", methods=["GET"])
@@ -620,10 +580,10 @@ def list_year_files(year):
 
     print("\n" + "=" * 90)
     print(f"EMIS UPLOAD LIBRARY SCAN | YEAR={year}")
-    print(f"BASE_DIR       : {BASE_DIR}")
-    print(f"SUBJECTS_ROOT  : {SUBJECTS_ROOT}")
-    print(f"YEAR_FOLDER    : {year_folder}")
-    print(f"YEAR_EXISTS    : {os.path.isdir(year_folder)}")
+    print(f"BASE_DIR      : {BASE_DIR}")
+    print(f"SUBJECTS_ROOT : {SUBJECTS_ROOT}")
+    print(f"YEAR_FOLDER   : {year_folder}")
+    print(f"YEAR_EXISTS   : {os.path.isdir(year_folder)}")
     print("=" * 90)
 
     if not os.path.isdir(year_folder):
@@ -636,8 +596,7 @@ def list_year_files(year):
 
         print(f"[CLASS] {class_cat:<4} | {class_folder} | exists={os.path.isdir(class_folder)}")
 
-        if not os.path.isdir(class_folder):
-            continue
+        if not os.path.isdir(class_folder): continue
 
         # ========================================================
         # JSS1 / JSS2 / JSS3 — STRICT TERM FOLDERS
@@ -649,104 +608,40 @@ def list_year_files(year):
 
                 print(f"    [TERM] {term:<6} | {term_folder} | exists={os.path.isdir(term_folder)}")
 
-                if not os.path.isdir(term_folder):
-                    continue
-
-                try:
-                    entries = sorted(os.scandir(term_folder), key=lambda entry: entry.name.lower())
-                except OSError as exc:
-                    print(f"    [ERROR] Unable to scan {term_folder}: {exc}")
-                    continue
-
-                for entry in entries:
-                    if not entry.is_file():
-                        continue
-
-                    filename = entry.name
-
-                    if not filename.lower().endswith(".json") or is_ignored_json(filename):
-                        continue
-
-                    print(f"        [FOUND JSS] {class_cat}/{term}/{filename}")
-
-                    results.append(build_library_item(
-                        year=year,
-                        filename=filename,
-                        full_path=entry.path,
-                        class_cat=class_cat,
-                        term=term,
-                        legacy=False,
-                    ))
-
-            # ----------------------------------------------------
-            # LEGACY FLAT JSS SUPPORT
-            #
-            # Old files such as:
-            # JSS1/mathematics_jss1.json
-            #
-            # They remain visible but TERM_REQUIRED if the JSON
-            # itself does not contain enough term information.
-            # ----------------------------------------------------
-
-            try:
-                legacy_entries = sorted(os.scandir(class_folder), key=lambda entry: entry.name.lower())
-            except OSError:
-                legacy_entries = []
-
-            for entry in legacy_entries:
-                if not entry.is_file():
-                    continue
-
-                filename = entry.name
-
-                if not filename.lower().endswith(".json") or is_ignored_json(filename):
-                    continue
-
-                print(f"        [FOUND LEGACY JSS] {class_cat}/{filename}")
-
-                results.append(build_library_item(
-                    year=year,
-                    filename=filename,
-                    full_path=entry.path,
-                    class_cat=class_cat,
-                    term=None,
-                    legacy=True,
+                results.extend(scan_library_folder(
+                    year=year, class_cat=class_cat,
+                    folder=term_folder, term=term, legacy=False,
                 ))
 
+            # Legacy flat JSS support remains available.
+            # Example: JSS1/mathematics_jss1.json
+            results.extend(scan_library_folder(
+                year=year, class_cat=class_cat,
+                folder=class_folder, term=None, legacy=True,
+            ))
+
         # ========================================================
-        # SS1 / SS2 / SS3 — STRICTLY FLAT
+        # SS1 / SS2 / SS3 — HYBRID ROOT + TERM FOLDERS
         # ========================================================
 
         else:
-            try:
-                entries = sorted(os.scandir(class_folder), key=lambda entry: entry.name.lower())
-            except OSError as exc:
-                print(f"    [ERROR] Unable to scan {class_folder}: {exc}")
-                continue
+            # General/root SS JSONs.
+            print(f"    [GENERAL] {class_folder}")
 
-            for entry in entries:
-                # IMPORTANT:
-                # Directories such as SS1/SECOND or SS2/THIRD are
-                # intentionally ignored because SS is not term-aware.
-                if not entry.is_file():
-                    if entry.is_dir():
-                        print(f"        [IGNORED SS DIRECTORY] {class_cat}/{entry.name}")
-                    continue
+            results.extend(scan_library_folder(
+                year=year, class_cat=class_cat,
+                folder=class_folder, term=None, legacy=False,
+            ))
 
-                filename = entry.name
+            # Optional FIRST / SECOND / THIRD SS JSONs.
+            for term in ("FIRST", "SECOND", "THIRD"):
+                term_folder = os.path.join(class_folder, term)
 
-                if not filename.lower().endswith(".json") or is_ignored_json(filename):
-                    continue
+                print(f"    [TERM] {term:<6} | {term_folder} | exists={os.path.isdir(term_folder)}")
 
-                print(f"        [FOUND SS] {class_cat}/{filename}")
-
-                results.append(build_library_item(
-                    year=year,
-                    filename=filename,
-                    full_path=entry.path,
-                    class_cat=class_cat,
-                    term=None,
-                    legacy=False,
+                results.extend(scan_library_folder(
+                    year=year, class_cat=class_cat,
+                    folder=term_folder, term=term, legacy=False,
                 ))
 
     # ========================================================
@@ -766,15 +661,13 @@ def list_year_files(year):
     print(f"TOTAL FILES RETURNED FOR {year}: {len(results)}")
 
     for item in results:
-        print(f" -> {item.get('class_category')} | {item.get('term') or 'NO TERM'} | {item.get('filename')}")
+        print(f" -> {item.get('class_category')} | {item.get('term') or 'GENERAL'} | {item.get('filename')}")
 
     print("=" * 90 + "\n")
 
     return jsonify({
-        "success": True,
-        "year": int(year),
-        "count": len(results),
-        "uploads": results,
+        "success": True, "year": int(year),
+        "count": len(results), "uploads": results,
     })
 
 
@@ -784,18 +677,19 @@ def list_year_files(year):
 # JSS:
 # /uploads/2017/mathematics_jss1.json?class=JSS1&term=FIRST
 #
-# SS:
-# /uploads/2025/mathematics_ss1.json?class=SS1
+# SS GENERAL:
+# /uploads/2026/mathematics_ss1.json?class=SS1
+#
+# SS TERM:
+# /uploads/2026/mathematics_ss1.json?class=SS1&term=FIRST
 # ============================================================
 
 @uploads_bp.route("/uploads/<year>/<filename>", methods=["GET"])
 def preview_json(year, filename):
     year = str(year or "").strip()
-
     if not valid_year(year): return jsonify({"error": "Invalid year"}), 400
 
     filename = safe_filename(filename)
-
     if not filename or not filename.lower().endswith(".json"): return jsonify({"error": "Invalid JSON filename"}), 400
 
     class_cat = request.args.get("class") or request.args.get("class_category") or detect_class_from_filename(filename)
@@ -803,25 +697,34 @@ def preview_json(year, filename):
 
     if class_cat not in SUPPORTED_CLASSES: return jsonify({"error": "Cannot detect class from filename"}), 400
 
-    term = normalize_term(request.args.get("term"))
+    raw_term = str(request.args.get("term") or "").strip()
+    term = normalize_term(raw_term)
 
-    if is_term_aware_class(class_cat) and not term: return jsonify({"error": "Term is required for JSS JSON preview"}), 400
-    if not is_term_aware_class(class_cat): term = None
+    if raw_term and not term: return jsonify({"error": "Invalid term. Use FIRST, SECOND or THIRD"}), 400
 
+    # JSS must always specify its term.
+    if is_term_aware_class(class_cat) and not term:
+        return jsonify({"error": "Term is required for JSS JSON preview"}), 400
+
+    # SS may have term or remain general/root.
     json_path = get_json_path(year, class_cat, filename, term)
 
     print("\n" + "=" * 90)
     print("EMIS JSON PREVIEW")
-    print(f"YEAR       : {year}")
-    print(f"CLASS      : {class_cat}")
-    print(f"TERM       : {term or 'NO TERM'}")
-    print(f"FILENAME   : {filename}")
-    print(f"JSON PATH  : {json_path}")
-    print(f"EXISTS     : {bool(json_path and os.path.isfile(json_path))}")
+    print(f"YEAR      : {year}")
+    print(f"CLASS     : {class_cat}")
+    print(f"TERM      : {term or 'GENERAL'}")
+    print(f"FILENAME  : {filename}")
+    print(f"JSON PATH : {json_path}")
+    print(f"EXISTS    : {bool(json_path and os.path.isfile(json_path))}")
     print("=" * 90)
 
     if not json_path or not os.path.isfile(json_path):
-        return jsonify({"error": "Not found", "year": int(year), "class_category": class_cat, "term": term, "filename": filename}), 404
+        return jsonify({
+            "error": "Not found", "year": int(year),
+            "class_category": class_cat, "term": term,
+            "filename": filename,
+        }), 404
 
     data, error = read_json_file(json_path)
 
@@ -832,9 +735,9 @@ def preview_json(year, filename):
     essay = data.get("essay") if isinstance(data, dict) else None
     essay_questions = essay.get("questions", []) if isinstance(essay, dict) else []
 
-    print(f"QUESTIONS  : {len(data.get('questions', [])) if isinstance(data.get('questions'), list) else 0}")
-    print(f"HAS ESSAY  : {isinstance(essay, dict)}")
-    print(f"ESSAY Qs   : {len(essay_questions) if isinstance(essay_questions, list) else 0}")
+    print(f"QUESTIONS : {len(data.get('questions', [])) if isinstance(data.get('questions'), list) else 0}")
+    print(f"HAS ESSAY : {isinstance(essay, dict)}")
+    print(f"ESSAY Qs  : {len(essay_questions) if isinstance(essay_questions, list) else 0}")
     print("=" * 90 + "\n")
 
     response = jsonify(data)
@@ -844,51 +747,51 @@ def preview_json(year, filename):
 
     return response
 
+
 # ============================================================
 # DELETE JSON
 #
 # JSS:
 # /uploads/2017/delete/mathematics_jss1.json?class=JSS1&term=FIRST
 #
-# SS:
-# /uploads/2025/delete/mathematics_ss1.json?class=SS1
+# SS GENERAL:
+# /uploads/2026/delete/mathematics_ss1.json?class=SS1
+#
+# SS TERM:
+# /uploads/2026/delete/mathematics_ss1.json?class=SS1&term=FIRST
 # ============================================================
 
 @uploads_bp.route("/uploads/<year>/delete/<filename>", methods=["DELETE"])
 def delete_json(year, filename):
     year = str(year or "").strip()
-
-    if not valid_year(year):
-        return jsonify({"error": "Invalid year"}), 400
+    if not valid_year(year): return jsonify({"error": "Invalid year"}), 400
 
     filename = safe_filename(filename)
-
-    if not filename or not filename.lower().endswith(".json"):
-        return jsonify({"error": "Invalid JSON filename"}), 400
+    if not filename or not filename.lower().endswith(".json"): return jsonify({"error": "Invalid JSON filename"}), 400
 
     class_cat = request.args.get("class") or request.args.get("class_category") or detect_class_from_filename(filename)
     class_cat = normalize_class(class_cat)
 
-    if class_cat not in SUPPORTED_CLASSES:
-        return jsonify({"error": "Cannot detect class"}), 400
+    if class_cat not in SUPPORTED_CLASSES: return jsonify({"error": "Cannot detect class"}), 400
 
-    term = normalize_term(request.args.get("term"))
+    raw_term = str(request.args.get("term") or "").strip()
+    term = normalize_term(raw_term)
 
+    if raw_term and not term: return jsonify({"error": "Invalid term. Use FIRST, SECOND or THIRD"}), 400
+
+    # JSS deletion always requires a specific term.
     if is_term_aware_class(class_cat) and not term:
         return jsonify({"error": "Term is required for JSS deletion"}), 400
 
-    # SS is always flat.
-    if not is_term_aware_class(class_cat):
-        term = None
-
+    # SS deletion:
+    # term supplied    -> delete from SS1/FIRST etc.
+    # no term supplied -> delete from SS1 root/general.
     json_path = get_json_path(year, class_cat, filename, term)
 
     if not json_path or not os.path.isfile(json_path):
         return jsonify({
-            "error": "File not found",
-            "year": int(year),
-            "class_category": class_cat,
-            "term": term,
+            "error": "File not found", "year": int(year),
+            "class_category": class_cat, "term": term,
             "filename": filename,
         }), 404
 
@@ -896,13 +799,10 @@ def delete_json(year, filename):
         os.remove(json_path)
 
         return jsonify({
-            "success": True,
-            "deleted": filename,
+            "success": True, "deleted": filename,
             "year": int(year),
-            "class_category": class_cat,
-            "class_level": class_cat,
-            "term": term,
-            "term_label": term_label(term) if term else "—",
+            "class_category": class_cat, "class_level": class_cat,
+            "term": term, "term_label": term_label(term),
         })
 
     except Exception as exc:

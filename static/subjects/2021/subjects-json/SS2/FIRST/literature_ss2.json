@@ -1,0 +1,524 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Literature-in-English",
+  "class": "SS2",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS2",
+  "questions": [
+    {
+      "id": 1,
+      "question": "A short story in which animals are given human characteristics and which normally teaches a moral lesson is a ________.",
+      "diagram": null,
+      "options": [
+        "A. Fable",
+        "B. Journal",
+        "C. Allegory",
+        "D. Fiction"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "A word whose sound imitates the sound associated with its meaning illustrates ________.",
+      "diagram": null,
+      "options": [
+        "A. Phonetics",
+        "B. Phoneme",
+        "C. Oxymoron",
+        "D. Onomatopoeia"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 3,
+      "question": "\"Jolliba stood in the middle of the road, unafraid of the surging traffic, as if he was no longer alive.\" The major literary device is ________.",
+      "diagram": null,
+      "options": [
+        "A. Synaesthesia",
+        "B. Innuendo",
+        "C. Syncopation",
+        "D. Simile"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 4,
+      "question": "A question asked for effect rather than to obtain an answer is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Leading question",
+        "B. Rhetorical question",
+        "C. Paradoxical question",
+        "D. Heeding question"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Use the extract below to answer Questions 5–10.\n\n\"What say you, Hermia? Be advised, fair maid.\nTo you your father should be as a god;\nOne that composed your beauties, yea, and one\nTo whom you are but as a form in wax,\nBy him imprinted and within his power\nTo leave the figure or disfigure it.\nDemetrius is a worthy gentleman.\"\n\nWho is the speaker?",
+      "diagram": null,
+      "options": [
+        "A. Robin",
+        "B. Titania",
+        "C. Egeus",
+        "D. Theseus"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is NOT present during the speech in Question 5?",
+      "diagram": null,
+      "options": [
+        "A. Egeus",
+        "B. Demetrius",
+        "C. Oberon",
+        "D. Philostrate"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 7,
+      "question": "The speaker in Question 5 is addressing ________.",
+      "diagram": null,
+      "options": [
+        "A. Helena",
+        "B. Hippolyta",
+        "C. Titania",
+        "D. Hermia"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 8,
+      "question": "In the line \"To you your father should be as a god\", Hermia's father is ________.",
+      "diagram": null,
+      "options": [
+        "A. Egeus",
+        "B. Theseus",
+        "C. Lysander",
+        "D. Demetrius"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "In the extract, \"composed\" most nearly means ________.",
+      "diagram": null,
+      "options": [
+        "A. Accomplished",
+        "B. Formed",
+        "C. Implemented",
+        "D. Documented"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 10,
+      "question": "Where do Lysander and Hermia plan to go in order to escape Athenian law and marry?",
+      "diagram": null,
+      "options": [
+        "A. Lysander's aunt's house",
+        "B. The forest glade",
+        "C. The temple of Diana",
+        "D. Theseus' palace"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "In Agostinho Neto's \"The Grieved Lands of Africa\", the poem is presented as a reflection on the suffering of ________.",
+      "diagram": null,
+      "options": [
+        "A. Europe",
+        "B. Africa",
+        "C. America",
+        "D. Asia"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 12,
+      "question": "Which of the following is a major theme in \"The Grieved Lands of Africa\"?",
+      "diagram": null,
+      "options": [
+        "A. Slavery and oppression",
+        "B. Dancing",
+        "C. Merriment",
+        "D. Prosperity"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is a character in John Kolosa Kargbo's \"Let Me Die Alone\"?",
+      "diagram": null,
+      "options": [
+        "A. Musa",
+        "B. Jilo",
+        "C. Lamboi",
+        "D. Mustapha"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 14,
+      "question": "\"Let Me Die Alone\" contains moments of comic relief.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. Only in the prologue",
+        "D. Only in the epilogue"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "\"The sunshine of her smile left me restless for days.\" The most prominent literary device in this expression is ________.",
+      "diagram": null,
+      "options": [
+        "A. Personification",
+        "B. Metaphor",
+        "C. Metonymy",
+        "D. Apostrophe"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "Prose is broadly divided into fiction and non-fiction.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. Only in drama",
+        "D. Only in poetry"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "An autobiography is ________.",
+      "diagram": null,
+      "options": [
+        "A. A story that never existed",
+        "B. A publication",
+        "C. The story of a person written by another person",
+        "D. The story of a person's life written by that person"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 18,
+      "question": "Faction is a type of prose in which ________.",
+      "diagram": null,
+      "options": [
+        "A. Fact and fiction are combined",
+        "B. Only facts are used",
+        "C. Only fiction is used",
+        "D. No narrative is used"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 19,
+      "question": "The following are techniques used in plot development EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Foreshadowing",
+        "B. Suspense",
+        "C. Character",
+        "D. Digression"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "A character who does not undergo significant change in the course of a literary work is generally a ________ character.",
+      "diagram": null,
+      "options": [
+        "A. Round",
+        "B. Flat",
+        "C. Eponymous",
+        "D. Dynamic"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "The physical and social environment in which characters operate is called the ________.",
+      "diagram": null,
+      "options": [
+        "A. Plot",
+        "B. Theatre",
+        "C. Setting",
+        "D. Theme"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "A poem that tells a story is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Narrative poem",
+        "B. Descriptive poem",
+        "C. Lyric",
+        "D. Dramatic poem"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 23,
+      "question": "A tercet is a group of three successive ________ in poetry.",
+      "diagram": null,
+      "options": [
+        "A. Lines",
+        "B. Stanzas",
+        "C. Words",
+        "D. Verses of ten lines each"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 24,
+      "question": "The tragic flaw of a character is also known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Hamartia",
+        "B. Harmony",
+        "C. Irony",
+        "D. Conflict"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 25,
+      "question": "The exchange of ideas between two or more characters in a play is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Dialogue",
+        "B. Monologue",
+        "C. Action",
+        "D. Conflict"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 26,
+      "question": "Run-on-lines in poetry are also called ________.",
+      "diagram": null,
+      "options": [
+        "A. Enjambment",
+        "B. Sonnet",
+        "C. Alliteration",
+        "D. Oxymoron"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 27,
+      "question": "A stanza is the poetic equivalent of a paragraph in prose.",
+      "diagram": null,
+      "options": [
+        "A. True",
+        "B. False",
+        "C. Only in sonnets",
+        "D. Only in epics"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 28,
+      "question": "Blank verse refers to ________.",
+      "diagram": null,
+      "options": [
+        "A. A melancholic poem",
+        "B. Verse that has not been written",
+        "C. A musical verse",
+        "D. Unrhymed verse, usually written in regular metre"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 29,
+      "question": "The general emotional feeling created by a poem is its ________.",
+      "diagram": null,
+      "options": [
+        "A. Verse",
+        "B. Weather",
+        "C. Atmosphere",
+        "D. Plot"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "\"A Midsummer Night's Dream\" was written by ________.",
+      "diagram": null,
+      "options": [
+        "A. William Adams",
+        "B. William Shakesware",
+        "C. William Shakespeare",
+        "D. John Osborne"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "Oberon is the king of the ________ in \"A Midsummer Night's Dream\".",
+      "diagram": null,
+      "options": [
+        "A. Athenians",
+        "B. Fairies",
+        "C. Mechanicals",
+        "D. Amazons"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 32,
+      "question": "Titania is the ________ in \"A Midsummer Night's Dream\".",
+      "diagram": null,
+      "options": [
+        "A. Queen of the fairies",
+        "B. Daughter of Egeus",
+        "C. Wife of Theseus",
+        "D. Sister of Helena"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "The love potion in \"A Midsummer Night's Dream\" mainly creates ________.",
+      "diagram": null,
+      "options": [
+        "A. Political conflict",
+        "B. Romantic confusion",
+        "C. War",
+        "D. Economic hardship"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 34,
+      "question": "Hermia is in love with ________.",
+      "diagram": null,
+      "options": [
+        "A. Demetrius",
+        "B. Lysander",
+        "C. Theseus",
+        "D. Oberon"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 35,
+      "question": "Helena is in love with ________.",
+      "diagram": null,
+      "options": [
+        "A. Lysander",
+        "B. Theseus",
+        "C. Demetrius",
+        "D. Bottom"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "A character who provides humour in an otherwise serious scene performs the function of ________.",
+      "diagram": null,
+      "options": [
+        "A. Comic relief",
+        "B. Catharsis",
+        "C. Foreshadowing",
+        "D. Tragic flaw"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "A direct comparison in which one thing is said to be another is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Simile",
+        "B. Metaphor",
+        "C. Allusion",
+        "D. Apostrophe"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "The repetition of initial consonant sounds in nearby words is known as ________.",
+      "diagram": null,
+      "options": [
+        "A. Assonance",
+        "B. Alliteration",
+        "C. Enjambment",
+        "D. Caesura"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "A pause within a line of poetry is called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Caesura",
+        "B. Tercet",
+        "C. Couplet",
+        "D. Canto"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "A fourteen-line poem is generally called a ________.",
+      "diagram": null,
+      "options": [
+        "A. Ballad",
+        "B. Sonnet",
+        "C. Ode",
+        "D. Elegy"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "PAPER 2 - THEORY",
+    "instruction": "Answer four (4) questions. Question One is compulsory.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Discuss the background and setting of Agostinho Neto's poem \"The Grieved Lands of Africa\". (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "Discuss the following themes in William Shakespeare's \"A Midsummer Night's Dream\":\n(a) Magic\n(b) The difficulties of love. (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "Discuss Oberon's love potion as a representation of power and the instability of love in \"A Midsummer Night's Dream\". (10 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) List two characters in \"A Midsummer Night's Dream\". (2 marks)\n(b) List and explain four literary devices used in \"Let Me Die Alone\". (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) List two characters in \"Let Me Die Alone\". (2 marks)\n(b) Discuss the physical setting and imagery in Maya Angelou's \"Caged Bird\". (8 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

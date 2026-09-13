@@ -1,0 +1,529 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Mathematics",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Evaluate (101.5)² − (100.5)².",
+      "diagram": null,
+      "options": [
+        "A. 202",
+        "B. 1",
+        "C. 2.02",
+        "D. 20.02"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "Express the product of 0.06 and 0.09 in standard form.",
+      "diagram": null,
+      "options": [
+        "A. 5.4 × 10⁻¹",
+        "B. 5.4 × 10⁻²",
+        "C. 5.4 × 10⁻³",
+        "D. 5.4 × 10⁻⁴"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 3,
+      "question": "Simplify 36½ × 64⁻¹⁄³ × 5⁰.",
+      "diagram": null,
+      "options": [
+        "A. 1½",
+        "B. 0",
+        "C. 2⁄3",
+        "D. 7½"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "Simplify (27¹⁄³)².",
+      "diagram": null,
+      "options": [
+        "A. 6",
+        "B. 9",
+        "C. 12",
+        "D. 15"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Find the quadratic equation whose roots are −2 and 1.",
+      "diagram": null,
+      "options": [
+        "A. x² + x − 2 = 0",
+        "B. x² − x − 2 = 0",
+        "C. x² + 2x − 1 = 0",
+        "D. x² − 2x + 1 = 0"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 6,
+      "question": "Evaluate log₁₀6 + log₁₀15 − log₁₀9 without logarithm tables.",
+      "diagram": null,
+      "options": [
+        "A. 0",
+        "B. 10",
+        "C. 11",
+        "D. 1"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Find the roots of 2x² − 3x − 2 = 0.",
+      "diagram": null,
+      "options": [
+        "A. −2 and ½",
+        "B. −½ and 2",
+        "C. −2 and 2",
+        "D. −1 and 2"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "What value of k makes x² + 8x + k a perfect square?",
+      "diagram": null,
+      "options": [
+        "A. 16",
+        "B. 2",
+        "C. 4",
+        "D. 64"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "If log₁₀q = 2.7078, approximately what is q?",
+      "diagram": null,
+      "options": [
+        "A. 510.2",
+        "B. 849.9",
+        "C. 84.99",
+        "D. 51.02"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 10,
+      "question": "Factorize 5y² + 2ay − 3a².",
+      "diagram": null,
+      "options": [
+        "A. (5y − a)(y + 3a)",
+        "B. (y + a)(5y − 3a)",
+        "C. (5y + a)(y − 3a)",
+        "D. (y − a)(5y + 3a)"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 11,
+      "question": "Simplify 0.6394 ÷ 0.03, correct to two significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 220",
+        "B. 213.18",
+        "C. 21",
+        "D. 22"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "If log₁₀a = 4, what is a?",
+      "diagram": null,
+      "options": [
+        "A. 0.4",
+        "B. 10000",
+        "C. 40",
+        "D. 1000"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 13,
+      "question": "If 3log a + 5log a − 6log a = log 64, find a.",
+      "diagram": null,
+      "options": [
+        "A. 8",
+        "B. 4",
+        "C. 6",
+        "D. 16"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 14,
+      "question": "Evaluate (5.34 × 67.4) ÷ 2.7, correct to four significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 1.332",
+        "B. 13.32",
+        "C. 1332",
+        "D. 133.3"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 15,
+      "question": "Factorize 35 − 2b − b².",
+      "diagram": null,
+      "options": [
+        "A. (7 + b)(5 − b)",
+        "B. (35 − 2b)(b − 1)",
+        "C. (b + 7)(b − 5)",
+        "D. (35 − b)(3b + 7)"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 16,
+      "question": "Evaluate 0.009 ÷ 0.012 and express the answer in standard form.",
+      "diagram": null,
+      "options": [
+        "A. 7.5 × 10²",
+        "B. 7.5 × 10¹",
+        "C. 7.5 × 10⁻²",
+        "D. 7.5 × 10⁻¹"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 17,
+      "question": "Factorize 2x² + x − 15.",
+      "diagram": null,
+      "options": [
+        "A. (2x − 5)(x + 3)",
+        "B. (2x + 5)(x − 3)",
+        "C. (2x − 3)(x + 5)",
+        "D. (2x + 3)(x − 5)"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 18,
+      "question": "Five times an integer is subtracted from twice its square and the result is 63. Find the positive integer.",
+      "diagram": null,
+      "options": [
+        "A. 21",
+        "B. 9",
+        "C. 7",
+        "D. 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "If 3ʸ = 243, find y.",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 2",
+        "C. 9",
+        "D. 7"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "If logₐx = p, express x in terms of a and p.",
+      "diagram": null,
+      "options": [
+        "A. aᵖ⁺¹",
+        "B. aᵖ",
+        "C. a + p",
+        "D. pa"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Solve x² + 2x + 1 = 25.",
+      "diagram": null,
+      "options": [
+        "A. −6 and 4",
+        "B. −6 and −4",
+        "C. 6 and −4",
+        "D. 6 and 4"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 22,
+      "question": "Given log p = 2log x + 3log q, express p in terms of x and q.",
+      "diagram": null,
+      "options": [
+        "A. 5xq",
+        "B. x² + q³",
+        "C. 2x + 3q",
+        "D. x²q³"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 23,
+      "question": "One-third of four-fifths of a number is 3. Find the number to 3 significant figures.",
+      "diagram": null,
+      "options": [
+        "A. 11.25",
+        "B. 3.80",
+        "C. 3.75",
+        "D. 11.3"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "Given √5 = 2.238, evaluate 3/(2√5), correct to 4 decimal places.",
+      "diagram": null,
+      "options": [
+        "A. 3.354",
+        "B. 0.6702",
+        "C. 1.000",
+        "D. 1.3416"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 25,
+      "question": "Convert 608₁₀ to base five.",
+      "diagram": null,
+      "options": [
+        "A. 4413₅",
+        "B. 4423₅",
+        "C. 4403₅",
+        "D. 4313₅"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "Express 0.012 × 1.401 in standard form.",
+      "diagram": null,
+      "options": [
+        "A. 1.6812 × 10⁻³",
+        "B. 1.6812 × 10⁻²",
+        "C. 1.6812 × 10¹",
+        "D. 1.6812 × 10²"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 27,
+      "question": "Simplify (log 9 − log 4)/(log 3 − log 2).",
+      "diagram": null,
+      "options": [
+        "A. −1",
+        "B. −2",
+        "C. 2",
+        "D. 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Evaluate log₁₀25 + log₁₀32 − log₁₀8 without tables.",
+      "diagram": null,
+      "options": [
+        "A. 0.2",
+        "B. 2",
+        "C. 4.9",
+        "D. 100"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "Simplify (1 − x²)/(x − x²).",
+      "diagram": null,
+      "options": [
+        "A. (1 + x)/x",
+        "B. 1/x",
+        "C. (1 − x)/x",
+        "D. (x − 1)/x"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "Evaluate (3.2)² − (1.8)².",
+      "diagram": null,
+      "options": [
+        "A. 13.48",
+        "B. 2.56",
+        "C. 2.0",
+        "D. 7.0"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 31,
+      "question": "If x² = 49 and x is positive, find x.",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 32,
+      "question": "Simplify 2³ × 2⁴.",
+      "diagram": null,
+      "options": [
+        "A. 2⁷",
+        "B. 4⁷",
+        "C. 2¹²",
+        "D. 4¹²"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 33,
+      "question": "Solve 5x − 7 = 18.",
+      "diagram": null,
+      "options": [
+        "A. 3",
+        "B. 4",
+        "C. 5",
+        "D. 6"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 34,
+      "question": "Express 0.00072 in standard form.",
+      "diagram": null,
+      "options": [
+        "A. 7.2 × 10⁻⁴",
+        "B. 7.2 × 10⁻³",
+        "C. 72 × 10⁻⁴",
+        "D. 0.72 × 10⁻⁴"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "If x:y = 3:5 and x = 12, find y.",
+      "diagram": null,
+      "options": [
+        "A. 15",
+        "B. 18",
+        "C. 20",
+        "D. 24"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 36,
+      "question": "Find the sum of the first 5 terms of the AP 2, 5, 8, ...",
+      "diagram": null,
+      "options": [
+        "A. 35",
+        "B. 40",
+        "C. 45",
+        "D. 50"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 37,
+      "question": "Find the common ratio of the GP 3, 6, 12, 24, ...",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 6"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 38,
+      "question": "Solve x² − 9 = 0.",
+      "diagram": null,
+      "options": [
+        "A. x = 3 only",
+        "B. x = −3 only",
+        "C. x = ±3",
+        "D. x = 9"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 39,
+      "question": "If log₁₀x = 3, find x.",
+      "diagram": null,
+      "options": [
+        "A. 30",
+        "B. 300",
+        "C. 1000",
+        "D. 10000"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 40,
+      "question": "Factorize x² − 7x + 12.",
+      "diagram": null,
+      "options": [
+        "A. (x−3)(x−4)",
+        "B. (x+3)(x+4)",
+        "C. (x−2)(x−6)",
+        "D. (x+2)(x−6)"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Solve the inequality (2/5)(x−2) − (1/6)(x+5) ≤ 0. (5 marks)\n(b) Given p = (x−y)/(x+xy), simplify p and find its value when x = −4 and y = −6. (5 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) Make Q the subject of P^(3/2) = rk/Q − ms. (5 marks)\n(b) If x + 2y = 5x − 10y, find x:y. (5 marks)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Simplify (4/25) × 24 ÷ (15/2). (5 marks)\n(b) Evaluate log₅(3/5) + 3log₅(15/2) − log₅(81/8). (5 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) Simplify 2⅗(3¼ × 16⅝ ÷ 5⅚). (5 marks)\n(b) Simplify an index expression equivalent to (27/81), leaving the answer with a positive index. (5 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) Evaluate (ax + bx + c)/(mx + c) for a=2, x=−3, b=−2, c=4 and m=−1. (5 marks)\n(b) Simplify 3{4x − 5(3x − 5)} − 1. (5 marks)",
+        "diagram": null
+      },
+      {
+        "id": 6,
+        "question": "For y = −x² + x + 2, complete a table for −3 ≤ x ≤ 3, draw the graph using suitable scales, and from the graph determine the roots of x² − x − 2 = 0 and the turning value of y.",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

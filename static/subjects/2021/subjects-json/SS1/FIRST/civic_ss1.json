@@ -1,0 +1,524 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Civic Education",
+  "class": "SS1",
+  "exam_title": "1st Term Examination",
+  "session": "2021/2022",
+  "time_allowed_minutes": 120,
+  "class_category": "SS1",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following is NOT an example of a negative value?",
+      "diagram": null,
+      "options": [
+        "A. Honesty",
+        "B. Indecency",
+        "C. Lies",
+        "D. Dishonesty"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 2,
+      "question": "The kind of value a society holds in high esteem can be referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. Modest value",
+        "B. Societal value",
+        "C. Individual value",
+        "D. Group value"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 3,
+      "question": "The drugs taken by people living with HIV to help suppress the virus and support the immune system are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Antiretroviral drugs",
+        "B. Supplements",
+        "C. HIV antivirus drugs",
+        "D. Immune booster drugs"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 4,
+      "question": "The Universal Declaration of Human Rights was adopted by the United Nations General Assembly on ________.",
+      "diagram": null,
+      "options": [
+        "A. May 29, 1999",
+        "B. December 10, 1948",
+        "C. October 1, 1960",
+        "D. December 10, 1968"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "The acronym NYSC stands for ________.",
+      "diagram": null,
+      "options": [
+        "A. Nigerian Youth Service Corps",
+        "B. National Youth Service Corps",
+        "C. National Youth Service Corpers",
+        "D. Nigeria Youth Service Scheme"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is a good value?",
+      "diagram": null,
+      "options": [
+        "A. Justice",
+        "B. Injustice",
+        "C. Hatred",
+        "D. Envy"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 7,
+      "question": "At breakfast, Lawal refused to share his bunch of groundnuts with his hungry friends. This shows that Lawal is ________.",
+      "diagram": null,
+      "options": [
+        "A. A selfless friend",
+        "B. A selfish friend",
+        "C. The best friend",
+        "D. An important friend"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 8,
+      "question": "Youth empowerment could also mean ________.",
+      "diagram": null,
+      "options": [
+        "A. Providing support for an independent and productive life",
+        "B. Giving youths electricity",
+        "C. Providing amenities for youths to fight insurgents",
+        "D. Neglecting the youths"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 9,
+      "question": "Which of the following is NOT a good means of providing youth empowerment?",
+      "diagram": null,
+      "options": [
+        "A. Provision of soft loans",
+        "B. Entrepreneurial programmes",
+        "C. Money laundering",
+        "D. Vocational training"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "Which of the following was NOT a Nigerian nationalist?",
+      "diagram": null,
+      "options": [
+        "A. Kwame Nkrumah",
+        "B. Dr. Nnamdi Azikiwe",
+        "C. Sir Abubakar Tafawa Balewa",
+        "D. Chief Ladipo Solanke"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following may occur as a symptom or complication associated with HIV/AIDS?",
+      "diagram": null,
+      "options": [
+        "A. Pneumonia",
+        "B. Improved immunity",
+        "C. Increased body weight",
+        "D. Perfect health"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 12,
+      "question": "Which of the following is NOT an attitude associated with honesty?",
+      "diagram": null,
+      "options": [
+        "A. Greed",
+        "B. Envy",
+        "C. Jealousy",
+        "D. All of the above"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 13,
+      "question": "One of the strong factors that encouraged African nationalism was the desire to ________.",
+      "diagram": null,
+      "options": [
+        "A. Train criminals",
+        "B. Encourage disunity",
+        "C. Promote ethnicity",
+        "D. Eradicate colonialism"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 14,
+      "question": "The acronym PLWHA means ________.",
+      "diagram": null,
+      "options": [
+        "A. People Lives Withers With HIV/AIDS",
+        "B. People Living with HIV/AIDS",
+        "C. Persons Left the World with HIV/AIDS",
+        "D. People Left the World Having AIDS"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 15,
+      "question": "Blood transfusion refers to ________.",
+      "diagram": null,
+      "options": [
+        "A. Transfer of blood by mosquitoes",
+        "B. Transfer of blood from one individual to another",
+        "C. Screening of blood only",
+        "D. Intake of infected blood"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "The type of values developed, upheld and cherished by cliques and gangs are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Group values",
+        "B. Negative values",
+        "C. Community values",
+        "D. Positive values"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 17,
+      "question": "World AIDS Day is observed on ________.",
+      "diagram": null,
+      "options": [
+        "A. December 15",
+        "B. January 15",
+        "C. December 1",
+        "D. March 28"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "Which of the following is NOT the proper name of a known virus or viral disease?",
+      "diagram": null,
+      "options": [
+        "A. Coronavirus",
+        "B. Lassa fever virus",
+        "C. Ebola virus",
+        "D. Killer virus"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 19,
+      "question": "The charter and declarations of the United Nations Organization can be referred to as ________.",
+      "diagram": null,
+      "options": [
+        "A. International law",
+        "B. Sub-regional law",
+        "C. National law",
+        "D. Local law"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 20,
+      "question": "Laws believed to be made by God are called ________.",
+      "diagram": null,
+      "options": [
+        "A. Constitutional law",
+        "B. Divine law",
+        "C. Natural law",
+        "D. Parliamentary law"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is NOT usually regarded as a major civic problem in society?",
+      "diagram": null,
+      "options": [
+        "A. Poverty",
+        "B. Overpopulation",
+        "C. Nuclear threat",
+        "D. Illiteracy"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 22,
+      "question": "AIDS stands for ________.",
+      "diagram": null,
+      "options": [
+        "A. Acquired Immediately Deadly Sickness",
+        "B. Acquired Immune Defect Sickness",
+        "C. Acquired Immune Deficiency Syndrome",
+        "D. All Infected Deadly Sickness"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 23,
+      "question": "All the following cannot transmit HIV except ________.",
+      "diagram": null,
+      "options": [
+        "A. Hugging",
+        "B. Sharing clothes",
+        "C. Handshake",
+        "D. Sharing unsterilized sharp objects"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 24,
+      "question": "The concept of moral rightness based on ethics, rational law and fairness is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Honesty",
+        "B. Integrity",
+        "C. Selflessness",
+        "D. Justice"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 25,
+      "question": "The state of being happy and satisfied with what one has is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Integrity",
+        "B. Contentment",
+        "C. Wealth",
+        "D. Selflessness"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 26,
+      "question": "The West African Students' Union (WASU) was headed by ________.",
+      "diagram": null,
+      "options": [
+        "A. Marcus Garvey",
+        "B. Ayatollah Khomeini",
+        "C. Chief Ladipo Solanke",
+        "D. The Director"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "The Nigerian Youth Movement was originally founded in ________.",
+      "diagram": null,
+      "options": [
+        "A. 1999",
+        "B. 1932",
+        "C. 1934",
+        "D. 1960"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is a goal of citizenship education?",
+      "diagram": null,
+      "options": [
+        "A. To train citizens to become wicked",
+        "B. To train citizens to live responsible lives",
+        "C. To make citizens hate one another",
+        "D. To make citizens jealous"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 29,
+      "question": "The National Congress of British West Africa was founded by ________.",
+      "diagram": null,
+      "options": [
+        "A. J. E. Casely Hayford of Gold Coast",
+        "B. Nnamdi Azikiwe of Nigeria",
+        "C. Nelson Mandela of South Africa",
+        "D. Thomas Sankara of Burkina Faso"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 30,
+      "question": "All the following are fundamental rights of individuals EXCEPT ________.",
+      "diagram": null,
+      "options": [
+        "A. Right to life",
+        "B. Right to fair hearing",
+        "C. Right to free feeding and accommodation",
+        "D. Right to freedom of association"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 31,
+      "question": "A value that encourages a person to tell the truth and avoid deception is called ________.",
+      "diagram": null,
+      "options": [
+        "A. Honesty",
+        "B. Envy",
+        "C. Selfishness",
+        "D. Greed"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 32,
+      "question": "One major benefit of youth empowerment is that it helps to reduce ________.",
+      "diagram": null,
+      "options": [
+        "A. Employment",
+        "B. Productivity",
+        "C. Unemployment",
+        "D. Education"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 33,
+      "question": "Which of the following is an example of a youth empowerment skill?",
+      "diagram": null,
+      "options": [
+        "A. Tailoring",
+        "B. Fighting",
+        "C. Stealing",
+        "D. Examination malpractice"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 34,
+      "question": "A citizen who obeys the laws of the country is demonstrating ________.",
+      "diagram": null,
+      "options": [
+        "A. Civic responsibility",
+        "B. Disobedience",
+        "C. Indiscipline",
+        "D. Intolerance"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 35,
+      "question": "Which of the following is a responsibility of a good citizen?",
+      "diagram": null,
+      "options": [
+        "A. Destroying public property",
+        "B. Obeying lawful authority",
+        "C. Avoiding payment of taxes",
+        "D. Promoting violence"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 36,
+      "question": "One of the major objectives of citizenship education is to promote ________.",
+      "diagram": null,
+      "options": [
+        "A. National unity",
+        "B. Ethnic hatred",
+        "C. Political violence",
+        "D. Religious intolerance"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 37,
+      "question": "Which of the following is a preventive measure against HIV transmission?",
+      "diagram": null,
+      "options": [
+        "A. Sharing needles",
+        "B. Screening blood before transfusion",
+        "C. Sharing unsterilized blades",
+        "D. Having multiple sexual partners"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 38,
+      "question": "The freedom to join any lawful association is known as freedom of ________.",
+      "diagram": null,
+      "options": [
+        "A. Movement",
+        "B. Association",
+        "C. Religion",
+        "D. Expression"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 39,
+      "question": "Which of the following is an example of a positive value?",
+      "diagram": null,
+      "options": [
+        "A. Integrity",
+        "B. Corruption",
+        "C. Dishonesty",
+        "D. Greed"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 40,
+      "question": "Poverty, illiteracy and unemployment are examples of ________.",
+      "diagram": null,
+      "options": [
+        "A. Civic problems",
+        "B. Political offices",
+        "C. Fundamental rights",
+        "D. National symbols"
+      ],
+      "correctOption": "A"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Answer four (4) questions in this section. Write your answers clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Define values. (2 marks)\n(b) Highlight four importance of values. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) State the meaning of HIV/AIDS. (2 marks)\n(b) Discuss four preventive measures against HIV/AIDS. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "(a) Briefly explain citizenship education. (2 marks)\n(b) Highlight four importance of citizenship education. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 4,
+        "question": "(a) Explain the meaning of world civic problems. (2 marks)\n(b) Discuss four major world civic problems. (8 marks)",
+        "diagram": null
+      },
+      {
+        "id": 5,
+        "question": "(a) Explain the concept of youth empowerment. (2 marks)\n(b) Discuss four benefits of youth empowerment skills. (8 marks)",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}
