@@ -37,11 +37,11 @@
 
   <title>EMIS Exam Portal | {{ subject or 'Exam' }}</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_gen.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_spec.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/hour-glass.css') }}">
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_gen.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_spec.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hour-glass.css') }}">
 
 <body class="exam-body {% if exam_started %}exam-started{% endif %}">
 
@@ -472,18 +472,24 @@
     </div>
   </div>
 
-  <!-- =====================================================
-       EXAM SCRIPTS
+<!-- =====================================================
+     EXAM SCRIPTS
+     Core first → experience → visual helpers → security LAST
+====================================================== -->
 
-       shuffle.js loads before exam-core.js so the shuffle
-       engine is available immediately when questions load.
-  ====================================================== -->
+<!-- =====================================================
+     EXAM SCRIPTS
+     app.py automatically adds the current asset version.
+     Security remains LAST.
+====================================================== -->
 
-  <script src="{{ url_for('static', filename='js/shuffle.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/exam-core.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/exam-realtime.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/exam-features.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/hour-glass.js') }}"></script>
+<script src="{{ url_for('static', filename='js/shuffle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/exam-core.js') }}"></script>
+<script src="{{ url_for('static', filename='js/exam-features.js') }}"></script>
+<script src="{{ url_for('static', filename='js/hour-glass.js') }}"></script>
+
+<!-- SECURITY ALWAYS LAST -->
+<script src="{{ url_for('static', filename='js/exam-realtime.js') }}"></script>
 
 </body>
 </html>

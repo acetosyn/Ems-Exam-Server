@@ -1,61 +1,60 @@
 /* =================================================================================================
-   exam-realtime.js — EMIS STRICT EXAM SECURITY v6.0
+   exam-realtime.js — EMIS STRICT EXAM SECURITY v6.1
 
-   SECURITY:
-   • Security activation does NOT depend on localhost/server loading speed
-   • Persistent watchdog activates security as soon as the real exam is ready
-   • First tab/window/minimize/focus loss = warning
-   • Second tab/window/minimize/focus loss = automatic termination
-   • visibilitychange + blur + focus watchdog deduplicated into ONE offence
-   • Right-click blocked
+   SECURITY RULES:
+   • Production-safe security activation with persistent readiness watchdog
+   • First REAL tab switch / minimize / browser-window focus loss = warning
+   • Second REAL tab switch / minimize / browser-window focus loss = termination
+   • visibilitychange + blur from ONE action count only once
+   • Right-click is ALWAYS blocked but NEVER counts as a tab/focus strike
+   • Repeated right-clicks can NEVER terminate an exam
    • Ctrl / Cmd shortcuts blocked
    • F12 blocked
    • Copy / Cut / Paste blocked
    • Dragging blocked
-   • Text selection blocked while exam is active
-   • Browser print output protected
-   • Backspace browser navigation blocked
-   • Offline > 30 seconds = automatic termination
-   • Network state continuously verified
-   • beforeunload protection
-   • Self-healing activation if another script changes startExam wrapping/order
-   • DevTools heuristic intentionally DISABLED to prevent false positives
+   • Text selection blocked
+   • Printing blocked
+   • Browser navigation shortcuts blocked
+   • Offline > 30 seconds = termination
+   • Page unload protected
+   • DevTools automatic heuristic intentionally disabled due false positives
+   • No document.hasFocus() polling — prevents false focus violations in Edge
+   • Security activates consistently on localhost and deployed hosting
 
    OWNERSHIP:
-   exam-core.js     = questions, scoring, timer, submission
+   exam-core.js     = questions, scoring, timer and submission
    exam-features.js = examination UI / experience
    exam-realtime.js = live examination security
 ================================================================================================= */
 
 (() => {
-  if (window.__EMIS_REALTIME_V60__) return;
-  window.__EMIS_REALTIME_V60__ = true;
+  if (window.__EMIS_REALTIME_V61__) return;
+  window.__EMIS_REALTIME_V61__ = true;
 
-  console.log("%c[exam-realtime] STRICT SECURITY v6.0 loaded ✓", "color:#0f766e;font-weight:900;font-size:13px");
+  console.log("%c[exam-realtime] STRICT SECURITY v6.1 loaded ✓", "color:#0f766e;font-weight:900;font-size:13px");
 
   /* ==============================================================================================
      CONFIG
   ============================================================================================== */
 
   const CONFIG = {
-    startupGraceMs: 700,
-    watchdogMs: 300,
-    focusCheckMs: 650,
-    focusDedupeMs: 1400,
-    warningPauseMs: 500,
-    offlineLimitMs: 30000,
-    networkCheckMs: 1000,
-    warningDurationMs: 9000,
-    dangerDurationMs: 7000,
-    infoDurationMs: 4200,
-    successDurationMs: 4500,
-
-    /* Deliberately false. Browser DevTools size heuristics caused false warnings. */
-    devtoolsDetectionEnabled: false
+    startupGraceMs:700,
+    activationWatchdogMs:350,
+    focusDedupeMs:1400,
+    blurConfirmMs:120,
+    blockedActionFocusSuppressMs:1600,
+    warningPauseMs:600,
+    offlineLimitMs:30000,
+    networkCheckMs:1000,
+    warningDurationMs:9000,
+    dangerDurationMs:7000,
+    infoDurationMs:3500,
+    successDurationMs:4500,
+    devtoolsDetectionEnabled:false
   };
 
   /* ==============================================================================================
-     GLOBAL SECURITY STATE
+     GLOBAL STATE
   ============================================================================================== */
 
   window.__ANTI_CHEAT_ACTIVE = false;
@@ -67,15 +66,17 @@
   window.__examTerminationReason = null;
 
   const state = {
-    startRequested: false,
-    activating: false,
-    activatedAt: 0,
-    lastFocusViolationAt: 0,
-    offline15Shown: false,
-    offline5Shown: false,
-    watchdogTimer: null,
-    focusTimer: null,
-    networkTimer: null
+    startRequested:false,
+    activating:false,
+    activatedAt:0,
+    lastFocusViolationAt:0,
+    suppressFocusUntil:0,
+    suppressFocusReason:"",
+    blurTimer:null,
+    offline15Shown:false,
+    offline5Shown:false,
+    activationWatchdogTimer:null,
+    networkTimer:null
   };
 
   /* ==============================================================================================
@@ -124,9 +125,10 @@
       .emis-security-flash.info .emis-security-copy strong{color:#205f82}
 
       body.emis-exam-secured,body.emis-exam-secured *{-webkit-user-select:none!important;user-select:none!important;-webkit-touch-callout:none!important}
-      body.emis-exam-secured input,body.emis-exam-secured textarea{user-select:text!important;-webkit-user-select:text!important}
+      body.emis-exam-secured input,body.emis-exam-secured textarea{-webkit-user-select:text!important;user-select:text!important}
 
       .emis-security-flash.is-leaving{animation:emisSecurityOut .25s ease forwards}
+
       @keyframes emisSecurityIn{0%{opacity:0;transform:translateY(-16px) scale(.965)}72%{opacity:1;transform:translateY(2px) scale(1.008)}100%{opacity:1;transform:translateY(0) scale(1)}}
       @keyframes emisSecurityOut{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-10px) scale(.985)}}
       @keyframes emisSecurityProgress{from{transform:scaleX(1)}to{transform:scaleX(0)}}
@@ -142,8 +144,10 @@
       @media(max-width:700px){
         .emis-security-stack{top:72px;width:calc(100vw - 20px)}
         .emis-security-flash{grid-template-columns:54px minmax(0,1fr);gap:12px;min-height:82px;padding:13px 14px 13px 15px;border-radius:16px}
-        .emis-security-flash::before{width:6px}.emis-security-icon{width:52px;height:52px;border-radius:15px;font-size:1.25rem}
-        .emis-security-copy strong{margin-bottom:4px;font-size:.96rem}.emis-security-copy span{font-size:.84rem;line-height:1.48}
+        .emis-security-flash::before{width:6px}
+        .emis-security-icon{width:52px;height:52px;border-radius:15px;font-size:1.25rem}
+        .emis-security-copy strong{margin-bottom:4px;font-size:.96rem}
+        .emis-security-copy span{font-size:.84rem;line-height:1.48}
         .emis-security-progress{left:6px;height:3px}
       }
 
@@ -151,10 +155,13 @@
         .emis-security-stack{top:66px;width:calc(100vw - 14px)}
         .emis-security-flash{grid-template-columns:48px minmax(0,1fr);gap:10px;min-height:76px;padding:12px}
         .emis-security-icon{width:46px;height:46px;font-size:1.1rem}
-        .emis-security-copy strong{font-size:.9rem}.emis-security-copy span{font-size:.79rem}
+        .emis-security-copy strong{font-size:.9rem}
+        .emis-security-copy span{font-size:.79rem}
       }
 
-      @media(prefers-reduced-motion:reduce){.emis-security-flash,.emis-security-progress,.emis-security-icon i{animation:none!important;transition:none!important}}
+      @media(prefers-reduced-motion:reduce){
+        .emis-security-flash,.emis-security-progress,.emis-security-icon i{animation:none!important;transition:none!important}
+      }
     `;
 
     document.head.appendChild(style);
@@ -162,6 +169,7 @@
 
   function getSecurityStack() {
     let stack = document.getElementById("emisSecurityStack");
+
     if (!stack) {
       stack = document.createElement("div");
       stack.id = "emisSecurityStack";
@@ -170,6 +178,7 @@
       stack.setAttribute("aria-atomic", "false");
       document.body.appendChild(stack);
     }
+
     return stack;
   }
 
@@ -219,9 +228,10 @@
 
   function examInterfaceVisible() {
     const examInterface = document.getElementById("examInterface");
+
     if (document.body.classList.contains("exam-started")) return true;
-    if (!examInterface) return false;
-    if (examInterface.classList.contains("hidden")) return false;
+    if (!examInterface || examInterface.classList.contains("hidden")) return false;
+
     return getComputedStyle(examInterface).display !== "none";
   }
 
@@ -233,8 +243,22 @@
     return !window.__examFinished && !window.__examSecurityTerminating && examInterfaceVisible() && examDataReady();
   }
 
+  function suppressFocusStrikes(duration = CONFIG.blockedActionFocusSuppressMs, reason = "blocked_action") {
+    const until = Date.now() + Math.max(250, Number(duration) || CONFIG.blockedActionFocusSuppressMs);
+
+    if (until > state.suppressFocusUntil) {
+      state.suppressFocusUntil = until;
+      state.suppressFocusReason = reason;
+    }
+  }
+
+  function focusStrikeSuppressed() {
+    return Date.now() < state.suppressFocusUntil;
+  }
+
   function temporarilyPauseAnticheat(duration = CONFIG.warningPauseMs) {
     if (!securityEngaged()) return;
+
     window.__ANTICHEAT_READY = false;
 
     setTimeout(() => {
@@ -256,12 +280,19 @@
     window.__examTerminationReason = null;
 
     state.lastFocusViolationAt = 0;
+    state.suppressFocusUntil = 0;
+    state.suppressFocusReason = "";
     state.offline15Shown = false;
     state.offline5Shown = false;
+
+    if (state.blurTimer) {
+      clearTimeout(state.blurTimer);
+      state.blurTimer = null;
+    }
   }
 
   /* ==============================================================================================
-     TERMINATION
+     TERMINATE EXAM
   ============================================================================================== */
 
   function terminateExam(reason = "security_violation", message = "Exam terminated for violating examination instructions.") {
@@ -272,9 +303,13 @@
     window.__ANTICHEAT_READY = false;
 
     emitSecurityEvent("terminated", { reason, tabStrikes:window.__TAB_STRIKES });
+
     flash(message, "danger", "Examination Terminated", CONFIG.dangerDurationMs);
 
-    console.error("[exam-realtime] EXAM TERMINATED:", { reason, tabStrikes:window.__TAB_STRIKES });
+    console.error("[exam-realtime] EXAM TERMINATED:", {
+      reason,
+      tabStrikes:window.__TAB_STRIKES
+    });
 
     setTimeout(() => {
       if (typeof window.submitExam === "function") window.submitExam(true);
@@ -285,26 +320,29 @@
   window.terminateExamForSecurity = terminateExam;
 
   /* ==============================================================================================
-     TAB / WINDOW / MINIMIZE / FOCUS VIOLATIONS
+     REAL PAGE-LEAVING VIOLATION
   ============================================================================================== */
 
   function strike(reason = "left_exam_page") {
-    if (!securityActive()) return;
+    if (!securityActive() || focusStrikeSuppressed()) return;
 
     const now = Date.now();
+
+    /* visibilitychange + blur from the same physical action count only once. */
     if (now - state.lastFocusViolationAt < CONFIG.focusDedupeMs) return;
 
     state.lastFocusViolationAt = now;
     window.__TAB_STRIKES++;
 
     emitSecurityEvent("focus_violation", { reason, strike:window.__TAB_STRIKES });
-    console.warn(`[exam-realtime] Focus violation ${window.__TAB_STRIKES}: ${reason}`);
+
+    console.warn(`[exam-realtime] REAL focus violation ${window.__TAB_STRIKES}: ${reason}`);
 
     if (window.__TAB_STRIKES === 1) {
       temporarilyPauseAnticheat();
 
       flash(
-        "You switched tab, minimized the browser, opened another window or left the examination page. This is your first and only warning. Leaving the exam again will terminate your examination automatically.",
+        "You left the examination window by switching tabs, minimizing the browser or moving away from the exam page. This is your first and only warning. If it happens again, your examination will be terminated automatically.",
         "warning",
         "⚠ First Warning • 1 of 2",
         CONFIG.warningDurationMs
@@ -313,26 +351,74 @@
       return;
     }
 
-    terminateExam("repeated_focus_violation", "You left the examination page again after receiving your first warning. Your examination has now been terminated.");
-  }
-
-  document.addEventListener("visibilitychange", () => {
-    if (securityActive() && document.hidden) strike("tab_switch_or_hidden_page");
-  }, true);
-
-  window.addEventListener("blur", () => {
-    if (securityActive()) strike("browser_window_focus_lost");
-  }, true);
-
-  /* A second line of defence for browsers that inconsistently emit blur/visibilitychange. */
-  function checkFocusIntegrity() {
-    if (!securityActive()) return;
-    if (document.hidden) { strike("focus_watchdog_hidden"); return; }
-    if (typeof document.hasFocus === "function" && !document.hasFocus()) strike("focus_watchdog_window_lost");
+    terminateExam(
+      "repeated_focus_violation",
+      "The examination window was left again after your first warning. Your examination has now been terminated."
+    );
   }
 
   /* ==============================================================================================
-     KEYBOARD SECURITY
+     TAB SWITCHING
+  ============================================================================================== */
+
+  document.addEventListener("visibilitychange", () => {
+    if (!securityActive() || !document.hidden || focusStrikeSuppressed()) return;
+    strike("page_hidden_or_tab_switch");
+  }, true);
+
+  /* ==============================================================================================
+     WINDOW BLUR / MINIMIZE / ANOTHER APPLICATION
+     Short confirmation delay prevents harmless browser UI events being misclassified.
+  ============================================================================================== */
+
+  window.addEventListener("blur", () => {
+    if (!securityActive() || focusStrikeSuppressed()) return;
+
+    if (state.blurTimer) clearTimeout(state.blurTimer);
+
+    state.blurTimer = setTimeout(() => {
+      state.blurTimer = null;
+
+      if (!securityActive() || focusStrikeSuppressed()) return;
+
+      /*
+       * Do not continuously poll document.hasFocus().
+       * We inspect it only after a real browser blur event.
+       */
+      if (document.hidden || (typeof document.hasFocus === "function" && !document.hasFocus())) {
+        strike(document.hidden ? "window_blur_hidden" : "window_blur_focus_lost");
+      }
+    }, CONFIG.blurConfirmMs);
+  }, true);
+
+  window.addEventListener("focus", () => {
+    if (state.blurTimer) {
+      clearTimeout(state.blurTimer);
+      state.blurTimer = null;
+    }
+  }, true);
+
+  /* ==============================================================================================
+     RIGHT-CLICK PRE-SUPPRESSION
+
+     pointerdown occurs before contextmenu. This prevents Edge from ever interpreting
+     a right-click/browser context interaction as a tab/window violation.
+  ============================================================================================== */
+
+  document.addEventListener("pointerdown", event => {
+    if (!securityEngaged()) return;
+
+    if (event.button === 2) suppressFocusStrikes(CONFIG.blockedActionFocusSuppressMs, "right_click");
+  }, true);
+
+  document.addEventListener("mousedown", event => {
+    if (!securityEngaged()) return;
+
+    if (event.button === 2) suppressFocusStrikes(CONFIG.blockedActionFocusSuppressMs, "right_click_fallback");
+  }, true);
+
+  /* ==============================================================================================
+     KEYBOARD RESTRICTIONS
   ============================================================================================== */
 
   document.addEventListener("keydown", event => {
@@ -341,36 +427,50 @@
     const key = String(event.key || "").toLowerCase();
     const ctrlOrMeta = event.ctrlKey || event.metaKey;
 
+    /* F12 */
     if (key === "f12") {
+      suppressFocusStrikes(1000, "f12_blocked");
+
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
+
       flash("Developer tools are disabled during the examination.", "warning", "Restricted Action", 4000);
       return false;
     }
 
+    /* All Ctrl / Command shortcuts */
     if (ctrlOrMeta) {
+      suppressFocusStrikes(900, "keyboard_shortcut_blocked");
+
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
+
       flash("Keyboard shortcuts are disabled while your examination is active.", "warning", "Restricted Shortcut", 3500);
       return false;
     }
 
+    /* Browser back/forward shortcuts */
     if (event.altKey && ["arrowleft","arrowright","home"].includes(key)) {
+      suppressFocusStrikes(900, "browser_navigation_shortcut_blocked");
+
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
+
       flash("Browser navigation shortcuts are disabled during the examination.", "warning", "Restricted Shortcut", 3500);
       return false;
     }
 
+    /* Backspace browser navigation */
     if (key === "backspace" && !["INPUT","TEXTAREA"].includes(String(document.activeElement?.tagName || "").toUpperCase())) {
       event.preventDefault();
       event.stopPropagation();
       return false;
     }
 
+    /* Print Screen — browser support varies, but block where exposed. */
     if (key === "printscreen") {
       event.preventDefault();
       flash("Screenshots are prohibited during the examination.", "warning", "Restricted Action", 4000);
@@ -379,33 +479,83 @@
   }, true);
 
   /* ==============================================================================================
-     RIGHT CLICK / COPY / CUT / PASTE / DRAG / SELECTION
+     RIGHT CLICK
+
+     IMPORTANT:
+     Right-click NEVER increments __TAB_STRIKES.
+     Right-click NEVER calls strike().
+     Right-click NEVER terminates the exam regardless of repetition.
   ============================================================================================== */
 
   document.addEventListener("contextmenu", event => {
     if (!securityEngaged()) return;
+
+    suppressFocusStrikes(CONFIG.blockedActionFocusSuppressMs, "right_click");
+
     event.preventDefault();
     event.stopPropagation();
     event.stopImmediatePropagation();
-    flash("Right-click is disabled while an examination is active.", "info", "Exam Protected", 3300);
+
+    flash(
+      "Right-click is disabled while an examination is active.",
+      "info",
+      "Exam Protected",
+      3000
+    );
+
     return false;
   }, true);
+
+  /* ==============================================================================================
+     MIDDLE CLICK
+  ============================================================================================== */
+
+  document.addEventListener("auxclick", event => {
+    if (!securityEngaged() || event.button !== 1) return;
+
+    suppressFocusStrikes(1000, "middle_click_blocked");
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    flash("Middle-click navigation is disabled during the examination.", "info", "Exam Protected", 3000);
+    return false;
+  }, true);
+
+  /* ==============================================================================================
+     COPY / CUT / PASTE
+  ============================================================================================== */
 
   ["copy","cut","paste"].forEach(eventName => {
     document.addEventListener(eventName, event => {
       if (!securityEngaged()) return;
+
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
-      flash("Copying, cutting and pasting are disabled during the examination.", "warning", "Restricted Action", 3500);
+
+      flash(
+        "Copying, cutting and pasting are disabled during the examination.",
+        "warning",
+        "Restricted Action",
+        3500
+      );
+
       return false;
     }, true);
   });
 
+  /* ==============================================================================================
+     DRAG / TEXT SELECTION
+  ============================================================================================== */
+
   document.addEventListener("dragstart", event => {
     if (!securityEngaged()) return;
+
     event.preventDefault();
     event.stopPropagation();
+
     return false;
   }, true);
 
@@ -413,6 +563,7 @@
     if (!securityEngaged()) return;
 
     const tag = String(event.target?.tagName || "").toUpperCase();
+
     if (tag === "INPUT" || tag === "TEXTAREA") return;
 
     event.preventDefault();
@@ -425,14 +576,49 @@
 
   window.addEventListener("beforeprint", () => {
     if (!securityEngaged()) return;
+
+    suppressFocusStrikes(1500, "print_blocked");
     emitSecurityEvent("print_attempt");
-    flash("Printing examination content is disabled.", "warning", "Restricted Action", 4000);
+
+    flash(
+      "Printing examination content is disabled.",
+      "warning",
+      "Restricted Action",
+      4000
+    );
   });
 
   /* ==============================================================================================
+     NAVIGATION LINK PROTECTION
+     Prevent students clicking links that would intentionally leave the live exam.
+  ============================================================================================== */
+
+  document.addEventListener("click", event => {
+    if (!securityEngaged()) return;
+
+    const link = event.target?.closest?.("a[href]");
+    if (!link) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    flash(
+      "Leaving the examination page is disabled while your exam is active.",
+      "warning",
+      "Navigation Disabled",
+      3500
+    );
+
+    return false;
+  }, true);
+
+  /* ==============================================================================================
      DEVTOOLS
-     Automatic heuristics intentionally disabled because browser dimensions caused false positives.
-     F12 and Ctrl/Cmd shortcuts remain blocked above.
+
+     Automatic size-based DevTools detection remains OFF because it produced false
+     positives on normal student browser windows.
+
+     F12 / Ctrl / Cmd shortcuts remain blocked above.
   ============================================================================================== */
 
   function devtoolsLooksOpen() {
@@ -440,7 +626,6 @@
     return false;
   }
 
-  /* Retained as a compatibility function in case other EMIS scripts reference it. */
   window.emisDevtoolsLooksOpen = devtoolsLooksOpen;
 
   /* ==============================================================================================
@@ -461,8 +646,9 @@
     state.offline5Shown = false;
 
     emitSecurityEvent("offline");
+
     flash(
-      "Internet connection lost. Reconnect within 30 seconds. Your examination remains open temporarily but will be terminated if the connection is not restored.",
+      "Internet connection lost. Reconnect within 30 seconds. Your examination will be terminated if the connection is not restored.",
       "warning",
       "⚠ Internet Connection Lost",
       7500
@@ -471,12 +657,19 @@
 
   function registerOnline() {
     const wasOffline = Boolean(window.__OFFLINE_SINCE);
+
     resetNetworkState();
 
     if (!securityEngaged() || !wasOffline) return;
 
     emitSecurityEvent("online");
-    flash("Your internet connection has been restored successfully. You may continue your examination.", "success", "Connection Restored", CONFIG.successDurationMs);
+
+    flash(
+      "Your internet connection has been restored successfully. You may continue your examination.",
+      "success",
+      "Connection Restored",
+      CONFIG.successDurationMs
+    );
   }
 
   window.addEventListener("offline", registerOffline);
@@ -485,9 +678,13 @@
   function checkNetworkGrace() {
     if (!securityEngaged()) return;
 
-    /* navigator.onLine is checked continuously in case browser online/offline events are missed. */
     if (!navigator.onLine && !window.__OFFLINE_SINCE) registerOffline();
-    if (navigator.onLine && window.__OFFLINE_SINCE) { registerOnline(); return; }
+
+    if (navigator.onLine && window.__OFFLINE_SINCE) {
+      registerOnline();
+      return;
+    }
+
     if (!window.__OFFLINE_SINCE) return;
 
     const elapsed = Date.now() - window.__OFFLINE_SINCE;
@@ -495,25 +692,44 @@
 
     if (remaining <= 15 && remaining > 5 && !state.offline15Shown) {
       state.offline15Shown = true;
-      flash(`${remaining} seconds remain to restore your internet connection.`, "warning", "Still Offline", 5000);
+
+      flash(
+        `${remaining} seconds remain to restore your internet connection.`,
+        "warning",
+        "Still Offline",
+        5000
+      );
     }
 
     if (remaining <= 5 && remaining > 0 && !state.offline5Shown) {
       state.offline5Shown = true;
-      flash("Reconnect immediately. Your examination is about to be terminated.", "danger", "Connection Critical", 5000);
+
+      flash(
+        "Reconnect immediately. Your examination is about to be terminated.",
+        "danger",
+        "Connection Critical",
+        5000
+      );
     }
 
-    if (elapsed >= CONFIG.offlineLimitMs) terminateExam("network_timeout", "Your examination remained offline for more than 30 seconds and has been terminated.");
+    if (elapsed >= CONFIG.offlineLimitMs) {
+      terminateExam(
+        "network_timeout",
+        "Your examination remained offline for more than 30 seconds and has been terminated."
+      );
+    }
   }
 
   /* ==============================================================================================
-     PAGE EXIT PROTECTION
+     PAGE UNLOAD PROTECTION
   ============================================================================================== */
 
   window.addEventListener("beforeunload", event => {
     if (!securityEngaged()) return;
+
     event.preventDefault();
     event.returnValue = "";
+
     return "";
   });
 
@@ -530,6 +746,7 @@
 
     window.__ANTI_CHEAT_ACTIVE = true;
     window.__ANTICHEAT_READY = false;
+
     document.body.classList.add("emis-exam-secured");
 
     console.log(`[exam-realtime] Security initializing via ${source}...`);
@@ -540,6 +757,7 @@
       if (window.__examFinished || window.__examSecurityTerminating || !examInterfaceVisible() || !examDataReady()) {
         window.__ANTI_CHEAT_ACTIVE = false;
         window.__ANTICHEAT_READY = false;
+
         document.body.classList.remove("emis-exam-secured");
         return;
       }
@@ -560,6 +778,7 @@
       );
 
       console.log("%c[exam-realtime] STRICT ANTICHEAT ACTIVATED ✓", "color:#16a34a;font-weight:900;font-size:13px");
+
       console.log("[exam-realtime] Security state:", {
         active:window.__ANTI_CHEAT_ACTIVE,
         ready:window.__ANTICHEAT_READY,
@@ -574,12 +793,14 @@
 
   window.activateExamSecurity = activateSecurity;
 
-  /*
-   * IMPORTANT:
-   * This is what removes the localhost-vs-deployed-server timing problem.
-   * It keeps checking until the exam interface AND exam data are genuinely ready.
-   */
-  function ensureSecurityActive(source = "security-watchdog") {
+  /* ==============================================================================================
+     PRODUCTION-SAFE ACTIVATION WATCHDOG
+
+     This solves the live-hosting problem without monitoring focus continuously.
+     It ONLY ensures that security starts once exam data/UI become ready.
+  ============================================================================================== */
+
+  function ensureSecurityActive(source = "activation-watchdog") {
     if (window.__examFinished || window.__examSecurityTerminating) return;
 
     if (securityEngaged()) {
@@ -598,28 +819,32 @@
     if (window.__EMIS_REALTIME_START_PATCHED__) return true;
 
     const originalStart = window.startExam;
+
     if (typeof originalStart !== "function") return false;
 
     window.startExam = async function (...args) {
       state.startRequested = true;
 
       let result;
+
       try {
         result = await originalStart.apply(this, args);
       } finally {
         ensureSecurityActive("startExam-wrapper");
 
-        /* Continue checking because production data may arrive after startExam resolves. */
         setTimeout(() => ensureSecurityActive("startExam-700ms"), 700);
         setTimeout(() => ensureSecurityActive("startExam-1500ms"), 1500);
         setTimeout(() => ensureSecurityActive("startExam-3000ms"), 3000);
+        setTimeout(() => ensureSecurityActive("startExam-5000ms"), 5000);
       }
 
       return result;
     };
 
     window.__EMIS_REALTIME_START_PATCHED__ = true;
+
     console.log("[exam-realtime] startExam security wrapper attached ✓");
+
     return true;
   }
 
@@ -629,6 +854,7 @@
 
   function installStartButtonFallback() {
     const startBtn = document.getElementById("startExamBtn");
+
     if (!startBtn || startBtn.__emisRealtimeFallback) return;
 
     startBtn.__emisRealtimeFallback = true;
@@ -644,12 +870,15 @@
   }
 
   /* ==============================================================================================
-     WATCHDOGS
+     BACKGROUND WATCHERS
+
+     Notice:
+     There is NO document.hasFocus() focus watchdog anymore.
+     Only the activation and network watchdogs run continuously.
   ============================================================================================== */
 
   function startWatchers() {
-    if (!state.watchdogTimer) state.watchdogTimer = setInterval(() => ensureSecurityActive("persistent-watchdog"), CONFIG.watchdogMs);
-    if (!state.focusTimer) state.focusTimer = setInterval(checkFocusIntegrity, CONFIG.focusCheckMs);
+    if (!state.activationWatchdogTimer) state.activationWatchdogTimer = setInterval(() => ensureSecurityActive("persistent-activation-watchdog"), CONFIG.activationWatchdogMs);
     if (!state.networkTimer) state.networkTimer = setInterval(checkNetworkGrace, CONFIG.networkCheckMs);
   }
 
@@ -658,7 +887,7 @@
   ============================================================================================== */
 
   window.getExamSecurityStatus = () => ({
-    version:"6.0",
+    version:"6.1",
     active:window.__ANTI_CHEAT_ACTIVE,
     ready:window.__ANTICHEAT_READY,
     examFinished:Boolean(window.__examFinished),
@@ -668,8 +897,10 @@
     examInterfaceVisible:examInterfaceVisible(),
     examDataReady:examDataReady(),
     questionCount:Array.isArray(window.realQuestionIndices) ? window.realQuestionIndices.length : 0,
-    browserFocused:typeof document.hasFocus === "function" ? document.hasFocus() : null,
     pageHidden:document.hidden,
+    browserFocused:typeof document.hasFocus === "function" ? document.hasFocus() : null,
+    focusSuppressed:focusStrikeSuppressed(),
+    focusSuppressionReason:state.suppressFocusReason,
     online:navigator.onLine,
     offlineSince:window.__OFFLINE_SINCE,
     activatedAt:state.activatedAt || null,
@@ -699,10 +930,6 @@
         return;
       }
 
-      /*
-       * Keep several delayed checks because production hosting, mobile networks and browser cache
-       * can make exam-core/data initialization much slower than localhost.
-       */
       setTimeout(() => ensureSecurityActive("boot-1s"), 1000);
       setTimeout(() => ensureSecurityActive("boot-2s"), 2000);
       setTimeout(() => ensureSecurityActive("boot-4s"), 4000);

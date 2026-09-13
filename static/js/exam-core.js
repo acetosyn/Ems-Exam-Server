@@ -1224,6 +1224,16 @@ function escapeHTMLGlobal(value) {
     .replaceAll("'", "&#039;");
 }
 
+// ======================================================
+// THEORY / ESSAY TEXT FORMATTER
+// Converts JSON newline characters into visible lines.
+// ======================================================
+
+function formatEssayQuestionText(value) {
+  return escapeHTMLGlobal(value)
+    .replace(/\r\n|\r|\n/g, "<br>");
+}
+
 
 // ======================================================
 // PROGRESS
@@ -1294,9 +1304,7 @@ window.updateNavigationButtons = function () {
 window.updateQuestionNavigation = function () {
   const grid = $("#questionGrid");
 
-  if (!grid || !window.examData) {
-    return;
-  }
+  if (!grid || !window.examData) return;
 
   let html = "";
 
@@ -1325,8 +1333,8 @@ window.updateQuestionNavigation = function () {
   });
 
   updateProgress();
+  syncFlagTracker();
 };
-
 
 
 
@@ -1383,7 +1391,7 @@ window.renderEssaySection = function () {
         <div class="essay-question-number">${escapeHTMLGlobal(number)}</div>
 
         <div class="essay-question-content">
-          <p>${escapeHTMLGlobal(question.question)}</p>
+          <p class="essay-question-text">${formatEssayQuestionText(question.question)}</p>
           ${diagramHTML}
         </div>
       </article>
@@ -2343,29 +2351,161 @@ window.startExam = async function () {
 
 
 // ======================================================
-// FLAG QUESTION
+// FLAG QUESTION — REVIEW MANAGEMENT
 // ======================================================
 
-window.toggleFlag = function () {
-  const questionIndex = window.currentQuestionIndex;
+function getQuestionDisplayNumber(questionIndex) {
+  const position = window.realQuestionIndices.indexOf(Number(questionIndex));
+  return position >= 0 ? position + 1 : Number(questionIndex) + 1;
+}
 
-  if (
-    questionIndex === null ||
-    questionIndex === undefined
-  ) {
+
+function ensureFlagReviewTracker() {
+  let tracker = document.getElementById("flagReviewTracker");
+
+  if (tracker) return tracker;
+
+  const questionHeader = document.querySelector(".question-header");
+  if (!questionHeader) return null;
+
+  tracker = document.createElement("div");
+  tracker.id = "flagReviewTracker";
+  tracker.className = "flag-review-tracker hidden";
+
+  tracker.innerHTML = `
+    <div class="flag-review-summary">
+      <i class="fa-solid fa-flag"></i>
+      <span>Flagged for Review</span>
+      <strong class="flag-review-count" id="flagReviewCount">0</strong>
+    </div>
+
+    <div class="flag-review-list" id="flagReviewList"></div>
+  `;
+
+  questionHeader.insertAdjacentElement("afterend", tracker);
+
+  tracker.addEventListener("click", (event) => {
+    const chip = event.target.closest(".flag-review-chip[data-q-index]");
+    if (!chip) return;
+
+    const questionIndex = Number(chip.dataset.qIndex);
+
+    if (Number.isInteger(questionIndex) && typeof window.loadQuestion === "function") {
+      window.loadQuestion(questionIndex);
+
+      document.querySelector(".question-stage")?.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+    }
+  });
+
+  return tracker;
+}
+
+
+// ======================================================
+// SYNC FLAG REVIEW TRACKER
+// ======================================================
+
+function syncFlagTracker() {
+  const tracker = ensureFlagReviewTracker();
+  if (!tracker) return;
+
+  const list = tracker.querySelector("#flagReviewList");
+  const count = tracker.querySelector("#flagReviewCount");
+
+  const flaggedIndices = [...(window.flaggedQuestions || [])]
+    .filter((index) => window.realQuestionIndices.includes(index))
+    .sort((a, b) => window.realQuestionIndices.indexOf(a) - window.realQuestionIndices.indexOf(b));
+
+  if (count) count.textContent = String(flaggedIndices.length);
+
+  if (!flaggedIndices.length) {
+    tracker.classList.add("hidden");
+    if (list) list.innerHTML = "";
     return;
   }
 
-  if (window.flaggedQuestions.has(questionIndex)) {
+  tracker.classList.remove("hidden");
+
+  if (!list) return;
+
+  list.innerHTML = flaggedIndices.map((questionIndex) => {
+    const number = getQuestionDisplayNumber(questionIndex);
+    const current = Number(questionIndex) === Number(window.currentQuestionIndex) ? " current" : "";
+
+    return `
+      <button
+        type="button"
+        class="flag-review-chip${current}"
+        data-q-index="${questionIndex}"
+        title="Go to Question ${number}">
+        <i class="fa-solid fa-flag"></i>
+        <span>Q${number}</span>
+      </button>
+    `;
+  }).join("");
+}
+
+
+// ======================================================
+// FLAG NOTIFICATION
+// ======================================================
+
+function showFlagNotification(isFlagged, questionNumber) {
+  const totalFlagged = window.flaggedQuestions?.size || 0;
+
+  if (typeof window.examFeatureToast === "function") {
+    if (isFlagged) {
+      window.examFeatureToast(
+        `Question ${questionNumber} Flagged`,
+        `Saved for review. You can still answer this question normally. ${totalFlagged} question${totalFlagged === 1 ? "" : "s"} currently flagged.`,
+        "warning",
+        4200
+      );
+    } else {
+      window.examFeatureToast(
+        `Question ${questionNumber} Removed`,
+        totalFlagged
+          ? `Removed from the review list. ${totalFlagged} question${totalFlagged === 1 ? "" : "s"} remain flagged.`
+          : "Removed from the review list. You currently have no flagged questions.",
+        "info",
+        3800
+      );
+    }
+
+    return;
+  }
+
+  examFlash(
+    isFlagged
+      ? `Question ${questionNumber} flagged for review.`
+      : `Question ${questionNumber} removed from review.`,
+    isFlagged ? "warning" : "info"
+  );
+}
+
+
+// ======================================================
+// TOGGLE FLAG
+// ======================================================
+
+window.toggleFlag = function () {
+  const questionIndex = Number(window.currentQuestionIndex);
+
+  if (!Number.isInteger(questionIndex)) return;
+
+  const questionNumber = getQuestionDisplayNumber(questionIndex);
+  const alreadyFlagged = window.flaggedQuestions.has(questionIndex);
+
+  if (alreadyFlagged) {
     window.flaggedQuestions.delete(questionIndex);
 
     updateFlagUI(false);
     updateQuestionNavigation();
-
-    examFlash(
-      "Flag removed.",
-      "info"
-    );
+    syncFlagTracker();
+    showFlagNotification(false, questionNumber);
 
     return;
   }
@@ -2374,37 +2514,32 @@ window.toggleFlag = function () {
 
   updateFlagUI(true);
   updateQuestionNavigation();
-
-  examFlash(
-    "🚩 Question flagged for review.",
-    "success"
-  );
+  syncFlagTracker();
+  showFlagNotification(true, questionNumber);
 };
 
 
 // ======================================================
-// FLAG UI
+// FLAG BUTTON UI
 // ======================================================
 
 function updateFlagUI(isFlagged) {
   const button = document.getElementById("flagBtn");
   const text = document.getElementById("flagText");
 
-  if (!button || !text) {
-    return;
-  }
+  if (!button || !text) return;
 
-  button.classList.toggle(
-    "flagged",
-    Boolean(isFlagged)
-  );
+  const flagged = Boolean(isFlagged);
 
-  text.textContent =
-    isFlagged
-      ? "Flagged"
-      : "Flag";
+  button.classList.toggle("flagged", flagged);
+  button.setAttribute("aria-pressed", String(flagged));
+
+  text.textContent = flagged ? "Flagged" : "Flag";
+
+  button.title = flagged
+    ? "Remove this question from your review list"
+    : "Flag this question for review";
 }
-
 
 // ======================================================
 // DOM READY
