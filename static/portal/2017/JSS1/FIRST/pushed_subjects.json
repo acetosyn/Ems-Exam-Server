@@ -6,10 +6,12 @@
     "target_arm": "JSS1",
     "term": "FIRST",
     "term_label": "1st Term",
+    "term_required": true,
+    "term_optional": false,
     "subjects": [
         "Mathematics",
         "English Language"
     ],
-    "updated_at": "2026-09-08T15:54:29",
+    "updated_at": "2026-09-14T13:51:27",
     "updated_by": "admin"
 }

@@ -1,0 +1,848 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance — EMIS CBT Server{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/attendance.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ ATTENDANCE STUDIO ROOT ____________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="attendanceStudio" class="attendance-studio attendance-compact-register" data-stage="frontend">
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ CLASS ARMS JSON DATA ____________________________________
+       ____________________________________________________________________________________________ -->
+
+  <script id="classArmsData" type="application/json">{{ class_arms|default({})|tojson }}</script>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ ATTENDANCE HERO / HEADER ________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="attendance-ribbon">
+
+    <div class="attendance-ribbon-left">
+
+      <!-- ______________________________ BREADCRUMB ______________________________ -->
+      <div class="attendance-crumb">
+        <a href="{{ url_for('admin_bp.admin_dashboard') }}"><i class="fa-solid fa-house"></i> Home</a>
+        <span>/</span>
+        <strong>Attendance Studio</strong>
+      </div>
+
+      <!-- ______________________________ PAGE TITLE ______________________________ -->
+      <div class="attendance-title-row">
+        <span class="title-icon"><i class="fa-solid fa-clipboard-user"></i></span>
+
+        <div>
+          <span class="attendance-badge"><i class="fa-solid fa-database"></i> EMIS Daily Attendance Register</span>
+          <h1>Attendance Marking Studio</h1>
+          <p>Mark daily attendance, review saved records, track student attendance history, and prepare attendance totals for EMIS report sheets.</p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ______________________________ HEADER ACTIONS ______________________________ -->
+
+    <div class="attendance-ribbon-right">
+
+      <div class="today-card">
+        <i class="fa-solid fa-calendar-day"></i>
+        <div><span id="todayDayLabel">Current Date</span><strong id="todayDateLabel">Loading...</strong></div>
+      </div>
+
+      <button type="button" class="attendance-top-btn" id="openHistoryBtn"><i class="fa-solid fa-clock-rotate-left"></i> View Saved</button>
+
+      <button type="button" class="attendance-top-btn" id="printRegisterBtn"><i class="fa-solid fa-print"></i> Print</button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ ATTENDANCE STATISTICS __________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="attendance-stats-grid">
+
+    <article class="attendance-stat-card present">
+      <span><i class="fa-solid fa-user-check"></i></span>
+      <div><small>Present</small><strong id="presentCount">0</strong></div>
+    </article>
+
+    <article class="attendance-stat-card absent">
+      <span><i class="fa-solid fa-user-xmark"></i></span>
+      <div><small>Absent</small><strong id="absentCount">0</strong></div>
+    </article>
+
+    <article class="attendance-stat-card late">
+      <span><i class="fa-solid fa-person-running"></i></span>
+      <div><small>Late</small><strong id="lateCount">0</strong></div>
+    </article>
+
+    <article class="attendance-stat-card sick">
+      <span><i class="fa-solid fa-kit-medical"></i></span>
+      <div><small>Sick</small><strong id="sickCount">0</strong></div>
+    </article>
+
+    <article class="attendance-stat-card pending">
+      <span><i class="fa-solid fa-hourglass-half"></i></span>
+      <div><small>Unmarked</small><strong id="pendingCount">0</strong></div>
+    </article>
+
+    <article class="attendance-stat-card total">
+      <span><i class="fa-solid fa-users"></i></span>
+      <div><small>Total</small><strong id="totalCount">0</strong></div>
+    </article>
+
+    <article class="attendance-stat-card open-days">
+      <span><i class="fa-solid fa-school-circle-check"></i></span>
+      <div><small>Days Open</small><strong id="daysOpenCount">0</strong></div>
+    </article>
+
+    <article class="attendance-stat-card history-total">
+      <span><i class="fa-solid fa-folder-open"></i></span>
+      <div><small>Saved Records</small><strong id="savedRecordsCount">0</strong></div>
+    </article>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ ATTENDANCE CLASS CONTROLS _______________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="attendance-control-dock">
+
+    <!-- ______________________________ SESSION ______________________________ -->
+    <div class="control-field">
+      <label for="sessionSelect"><i class="fa-solid fa-calendar-days"></i> Session</label>
+      <select id="sessionSelect">
+        <option value="2025/2026">2025/2026</option>
+        <option value="2026/2027" selected>2026/2027</option>
+        <option value="2027/2028">2027/2028</option>
+        <option value="2028/2029">2028/2029</option>
+        <option value="2029/2030">2029/2030</option>
+        <option value="2030/2031">2030/2031</option>
+      </select>
+    </div>
+
+    <!-- ______________________________ TERM ______________________________ -->
+    <div class="control-field">
+      <label for="termSelect"><i class="fa-solid fa-book-open"></i> Term</label>
+      <select id="termSelect">
+        <option value="FIRST TERM" selected>First Term</option>
+        <option value="SECOND TERM">Second Term</option>
+        <option value="THIRD TERM">Third Term</option>
+      </select>
+    </div>
+
+    <!-- ______________________________ CLASS LEVEL ______________________________ -->
+    <div class="control-field">
+      <label for="levelSelect"><i class="fa-solid fa-school"></i> Class Level</label>
+      <select id="levelSelect">
+        <option value="">Select level</option>
+        {% set attendance_levels = classes if classes is defined and classes else ['JSS1','JSS2','JSS3','SS1','SS2','SS3'] %}
+        {% for level in attendance_levels %}
+        <option value="{{ level }}">{{ level }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- ______________________________ CLASS ARM ______________________________ -->
+    <div class="control-field">
+      <label for="armSelect"><i class="fa-solid fa-layer-group"></i> Class Arm</label>
+      <select id="armSelect"><option value="">Select arm</option></select>
+    </div>
+
+    <!-- ______________________________ ATTENDANCE DATE ______________________________ -->
+    <div class="control-field">
+      <label for="attendanceDate"><i class="fa-solid fa-calendar-day"></i> Date</label>
+      <input type="date" id="attendanceDate">
+    </div>
+
+    <!-- ______________________________ LOAD / REFRESH ______________________________ -->
+    <div class="control-buttons">
+      <button type="button" class="attendance-btn primary" id="loadStudentsBtn"><i class="fa-solid fa-cloud-arrow-down"></i> Load Class</button>
+      <button type="button" class="attendance-btn ghost" id="refreshAttendanceBtn" title="Refresh"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ CURRENT ATTENDANCE CONTEXT ______________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="attendance-mini-dashboard">
+
+    <article>
+      <i class="fa-solid fa-calendar-check"></i>
+      <div><span>Current Date</span><strong id="activeDateChip">--</strong></div>
+    </article>
+
+    <article>
+      <i class="fa-solid fa-layer-group"></i>
+      <div><span>Loaded Class</span><strong id="loadedClassChip">None</strong></div>
+    </article>
+
+    <article>
+      <i class="fa-solid fa-file-csv"></i>
+      <div><span>Student Source</span><strong>EMIS Active Roster</strong></div>
+    </article>
+
+    <article>
+      <i class="fa-solid fa-chart-simple"></i>
+      <div><span>Report Ready</span><strong id="reportReadyChip">Waiting</strong></div>
+    </article>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ SEARCH / FILTER / QUICK MARK ____________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="attendance-toolbelt">
+
+    <!-- ______________________________ STUDENT SEARCH ______________________________ -->
+    <label class="attendance-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search" id="attendanceSearchInput" placeholder="Search student name, admission no, status...">
+    </label>
+
+
+    <!-- ______________________________ STATUS FILTERS ______________________________ -->
+    <div class="attendance-filter-group">
+
+      <button type="button" class="filter-pill active" data-filter="ALL"><i class="fa-solid fa-border-all"></i> All</button>
+      <button type="button" class="filter-pill" data-filter="PRESENT"><i class="fa-solid fa-user-check"></i> Present</button>
+      <button type="button" class="filter-pill" data-filter="ABSENT"><i class="fa-solid fa-user-xmark"></i> Absent</button>
+      <button type="button" class="filter-pill" data-filter="LATE"><i class="fa-solid fa-person-running"></i> Late</button>
+      <button type="button" class="filter-pill" data-filter="SICK"><i class="fa-solid fa-kit-medical"></i> Sick</button>
+      <button type="button" class="filter-pill" data-filter="EXCUSED"><i class="fa-solid fa-handshake-angle"></i> Excused</button>
+      <button type="button" class="filter-pill" data-filter="UNMARKED"><i class="fa-solid fa-clock"></i> Unmarked</button>
+
+    </div>
+
+
+    <!-- ______________________________ QUICK MARKING ACTIONS ______________________________ -->
+    <div class="quick-actions">
+
+      <button type="button" class="quick-btn success" id="markAllPresentBtn"><i class="fa-solid fa-circle-check"></i> All Present</button>
+      <button type="button" class="quick-btn danger" id="markAllAbsentBtn"><i class="fa-solid fa-circle-xmark"></i> All Absent</button>
+      <button type="button" class="quick-btn late" id="markSelectedLateBtn"><i class="fa-solid fa-person-running"></i> Selected Late</button>
+      <button type="button" class="quick-btn sick" id="markSelectedSickBtn"><i class="fa-solid fa-kit-medical"></i> Selected Sick</button>
+      <button type="button" class="quick-btn info" id="markSelectedExcusedBtn"><i class="fa-solid fa-handshake-angle"></i> Selected Excused</button>
+      <button type="button" class="quick-btn warning" id="markHolidayBtn"><i class="fa-solid fa-umbrella-beach"></i> Holiday</button>
+      <button type="button" class="quick-btn dark" id="clearMarksBtn"><i class="fa-solid fa-eraser"></i> Clear</button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ LIVE CLASS REGISTER ____________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="attendance-register-card compact-register-card">
+
+
+    <!-- ______________________________ REGISTER HEADER ______________________________ -->
+
+    <div class="register-head">
+
+      <div>
+        <span class="register-kicker"><i class="fa-solid fa-table-list"></i> Live Class Register</span>
+        <h2 id="registerTitle">Select class and load students</h2>
+        <p id="registerSubtitle">JSS uses A-C arms. SS uses Gold, Silver and Diamond arms.</p>
+      </div>
+
+
+      <!-- ______________________________ REGISTER ACTIONS ______________________________ -->
+
+      <div class="register-save-box">
+
+        <label class="overwrite-toggle">
+          <input type="checkbox" id="overwriteExisting">
+          <span>Overwrite existing date record</span>
+        </label>
+
+        <button type="button" class="attendance-btn info" id="viewSummaryBtn"><i class="fa-solid fa-chart-pie"></i> Summary</button>
+
+        <button type="button" class="attendance-btn history" id="viewCurrentClassHistoryBtn"><i class="fa-solid fa-table"></i> History</button>
+
+        <button type="button" class="attendance-btn danger" id="deleteCurrentAttendanceBtn" disabled><i class="fa-solid fa-trash"></i> Delete Attendance</button>
+
+        <button type="button" class="attendance-btn save" id="saveAttendanceBtn" disabled><i class="fa-solid fa-floppy-disk"></i> Save Attendance</button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ______________________________ REGISTER SESSION CHIPS ______________________________ -->
+
+    <div class="session-chip-row">
+      <span><i class="fa-solid fa-calendar"></i> Session: <strong id="chipSession">2026/2027</strong></span>
+      <span><i class="fa-solid fa-book-open-reader"></i> Term: <strong id="chipTerm">FIRST TERM</strong></span>
+      <span><i class="fa-solid fa-users-viewfinder"></i> Selected: <strong id="selectedCount">0</strong></span>
+      <span><i class="fa-solid fa-business-time"></i> Saved: <strong id="chipTimestamp">Not saved</strong></span>
+      <span><i class="fa-solid fa-clock-rotate-left"></i> Existing: <strong id="existingRecordCount">0</strong></span>
+    </div>
+
+
+    <!-- __________________________________________________________________________________________
+         ______________________________ ATTENDANCE NOTIFICATION AREA _______________________________
+         Notification deliberately lives directly above the table so teachers always see it.
+         __________________________________________________________________________________________ -->
+
+    <div id="attendanceToastHost" class="attendance-toast-host"></div>
+
+
+    <!-- __________________________________________________________________________________________
+         __________________________________ ATTENDANCE STUDENT TABLE _______________________________
+         __________________________________________________________________________________________ -->
+
+    <div class="attendance-table-wrap compact-table-wrap">
+
+      <table class="attendance-table compact-attendance-table" id="attendanceTable">
+
+        <!-- ______________________________ TABLE HEADER ______________________________ -->
+
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="selectAllStudents" title="Select all students"></th>
+            <th>S/N</th>
+            <th>Student</th>
+            <th>Admission No.</th>
+            <th>Class</th>
+            <th>Status</th>
+            <th>Reason</th>
+            <th>Note</th>
+            <th>Mark</th>
+          </tr>
+        </thead>
+
+
+        <!-- ______________________________ GENERATED STUDENT ROWS ______________________________ -->
+
+        <tbody id="attendanceTableBody">
+          <tr class="empty-row">
+            <td colspan="9">
+              <div class="attendance-empty-state">
+                <i class="fa-solid fa-calendar-check"></i>
+                <h3>Attendance Register Ready</h3>
+                <p>Select session, term, class level and class arm, then click Load Class.</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ SCHOOL HOLIDAY MODAL ______________________________________
+     ______________________________________________________________________________________________ -->
+
+<section class="attendance-confirm-modal" id="holidayConfirmModal" aria-hidden="true">
+
+  <div class="confirm-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+
+  <h2>Mark as School Holiday?</h2>
+
+  <p>This will save the selected class and date as school not in session. No student will be counted present or absent.</p>
+
+  <!-- ______________________________ HOLIDAY REASON ______________________________ -->
+  <div class="holiday-reason-box">
+    <label for="holidayReason">Reason</label>
+    <input type="text" id="holidayReason" placeholder="Public holiday, mid-term break, emergency closure...">
+  </div>
+
+  <!-- ______________________________ HOLIDAY ACTIONS ______________________________ -->
+  <div class="confirm-actions">
+    <button type="button" class="attendance-btn ghost" id="cancelHolidayBtn">Cancel</button>
+    <button type="button" class="attendance-btn warning" id="confirmHolidayBtn"><i class="fa-solid fa-check"></i> Confirm Holiday</button>
+  </div>
+
+</section>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ STUDENT ATTENDANCE PROFILE MODAL ___________________________
+     ______________________________________________________________________________________________ -->
+
+<section class="attendance-student-modal" id="attendanceStudentModal" aria-hidden="true">
+
+
+  <!-- ______________________________ STUDENT MODAL CLOSE ______________________________ -->
+
+  <button type="button" class="attendance-modal-close" id="closeStudentModal"><i class="fa-solid fa-xmark"></i></button>
+
+
+  <!-- ______________________________ STUDENT IDENTITY ______________________________ -->
+
+  <div class="student-modal-head">
+
+    <span id="modalStudentAvatar">ST</span>
+
+    <div>
+      <small>Attendance Profile</small>
+      <h2 id="modalStudentName">Student Name</h2>
+      <p id="modalStudentAdmission">Admission Number</p>
+    </div>
+
+  </div>
+
+
+  <!-- ______________________________ STUDENT ATTENDANCE SUMMARY ______________________________ -->
+
+  <div class="student-modal-grid">
+
+    <div><span>Class Arm</span><strong id="modalStudentClass">—</strong></div>
+    <div><span>Today Status</span><strong id="modalStudentStatus">—</strong></div>
+    <div><span>Reason</span><strong id="modalStudentReason">—</strong></div>
+    <div><span>Note</span><strong id="modalStudentNote">—</strong></div>
+    <div><span>Days Open</span><strong id="modalStudentDaysOpen">—</strong></div>
+    <div><span>Days Present</span><strong id="modalStudentDaysPresent">—</strong></div>
+    <div><span>Days Absent</span><strong id="modalStudentDaysAbsent">—</strong></div>
+    <div><span>Attendance %</span><strong id="modalStudentPercent">—</strong></div>
+
+  </div>
+
+
+  <!-- ______________________________ LOAD STUDENT HISTORY ______________________________ -->
+
+  <div class="student-history-actions">
+    <button type="button" class="attendance-btn primary" id="loadStudentHistoryBtn"><i class="fa-solid fa-clock-rotate-left"></i> Load Full History</button>
+  </div>
+
+
+  <!-- ______________________________ STUDENT HISTORY TABLE ______________________________ -->
+
+  <div class="student-history-table-wrap">
+
+    <table class="student-history-table">
+
+      <thead>
+        <tr><th>Date</th><th>Day</th><th>Status</th><th>Reason</th><th>Note</th></tr>
+      </thead>
+
+      <tbody id="studentHistoryTableBody">
+        <tr><td colspan="5">Click Load Full History to view this student’s saved attendance.</td></tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ ATTENDANCE HISTORY MODAL __________________________________
+     ______________________________________________________________________________________________ -->
+
+<section class="attendance-history-modal" id="attendanceHistoryModal" aria-hidden="true">
+
+
+  <!-- ______________________________ HISTORY MODAL CLOSE ______________________________ -->
+
+  <button type="button" class="attendance-modal-close" id="closeHistoryModal"><i class="fa-solid fa-xmark"></i></button>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ HISTORY MODAL HEADER ___________________________________
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-modal-head">
+
+    <div>
+      <span class="register-kicker"><i class="fa-solid fa-clock-rotate-left"></i> Saved Attendance Viewer</span>
+      <h2>Attendance History</h2>
+      <p>View, review, export or delete previously saved attendance records.</p>
+    </div>
+
+
+    <!-- ______________________________ HISTORY HEADER ACTIONS ______________________________ -->
+
+    <div class="history-head-actions">
+
+      <button type="button" class="attendance-btn ghost" id="printHistoryBtn"><i class="fa-solid fa-print"></i> Print</button>
+
+      <button type="button" class="attendance-btn save" id="exportHistoryCsvBtn"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+
+      <!--
+          Uses the existing .history-tab JavaScript listener.
+          Clicking this opens the Saved Dates panel where each saved attendance date has a trash button.
+      -->
+      <button type="button" class="attendance-btn danger history-tab history-delete-shortcut" data-history-tab="dates">
+        <i class="fa-solid fa-trash-can"></i> Delete Saved
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ HISTORY SEARCH / FILTERS ________________________________
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-filter-grid">
+
+    <!-- ______________________________ HISTORY SESSION ______________________________ -->
+    <div class="control-field">
+      <label for="historySessionSelect">Session</label>
+      <select id="historySessionSelect">
+        <option value="">All Sessions</option>
+        <option value="2025/2026">2025/2026</option>
+        <option value="2026/2027" selected>2026/2027</option>
+        <option value="2027/2028">2027/2028</option>
+        <option value="2028/2029">2028/2029</option>
+        <option value="2029/2030">2029/2030</option>
+        <option value="2030/2031">2030/2031</option>
+      </select>
+    </div>
+
+    <!-- ______________________________ HISTORY TERM ______________________________ -->
+    <div class="control-field">
+      <label for="historyTermSelect">Term</label>
+      <select id="historyTermSelect">
+        <option value="">All Terms</option>
+        <option value="FIRST TERM" selected>First Term</option>
+        <option value="SECOND TERM">Second Term</option>
+        <option value="THIRD TERM">Third Term</option>
+      </select>
+    </div>
+
+    <!-- ______________________________ HISTORY CLASS LEVEL ______________________________ -->
+    <div class="control-field">
+      <label for="historyLevelSelect">Class Level</label>
+      <select id="historyLevelSelect">
+        <option value="">Select level</option>
+        {% set attendance_levels = classes if classes is defined and classes else ['JSS1','JSS2','JSS3','SS1','SS2','SS3'] %}
+        {% for level in attendance_levels %}
+        <option value="{{ level }}">{{ level }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- ______________________________ HISTORY CLASS ARM ______________________________ -->
+    <div class="control-field">
+      <label for="historyArmSelect">Class Arm</label>
+      <select id="historyArmSelect"><option value="">Select arm</option></select>
+    </div>
+
+    <!-- ______________________________ HISTORY START DATE ______________________________ -->
+    <div class="control-field">
+      <label for="historyStartDate">Start Date</label>
+      <input type="date" id="historyStartDate">
+    </div>
+
+    <!-- ______________________________ HISTORY END DATE ______________________________ -->
+    <div class="control-field">
+      <label for="historyEndDate">End Date</label>
+      <input type="date" id="historyEndDate">
+    </div>
+
+    <!-- ______________________________ HISTORY STATUS ______________________________ -->
+    <div class="control-field">
+      <label for="historyStatusSelect">Status</label>
+      <select id="historyStatusSelect">
+        <option value="">All Status</option>
+        <option value="PRESENT">Present</option>
+        <option value="ABSENT">Absent</option>
+        <option value="LATE">Late</option>
+        <option value="SICK">Sick</option>
+        <option value="EXCUSED">Excused</option>
+        <option value="HOLIDAY">Holiday</option>
+        <option value="UNMARKED">Unmarked</option>
+      </select>
+    </div>
+
+    <!-- ______________________________ HISTORY SEARCH ______________________________ -->
+    <div class="control-field history-search-field">
+      <label for="historySearchInput">Search</label>
+      <input type="search" id="historySearchInput" placeholder="Name, admission no, reason, note...">
+    </div>
+
+    <!-- ______________________________ HISTORY LOAD / RESET ______________________________ -->
+    <div class="history-filter-actions">
+      <button type="button" class="attendance-btn primary" id="loadHistoryBtn"><i class="fa-solid fa-magnifying-glass-chart"></i> Load History</button>
+      <button type="button" class="attendance-btn ghost" id="resetHistoryBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+    </div>
+
+  </div>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ HISTORY SUMMARY CARDS __________________________________
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-summary-grid">
+
+    <article><span>Records</span><strong id="historyTotalRecords">0</strong></article>
+    <article><span>Days Open</span><strong id="historyDaysOpen">0</strong></article>
+    <article><span>Present</span><strong id="historyPresent">0</strong></article>
+    <article><span>Absent</span><strong id="historyAbsent">0</strong></article>
+    <article><span>Late</span><strong id="historyLate">0</strong></article>
+    <article><span>Sick</span><strong id="historySick">0</strong></article>
+    <article><span>Excused</span><strong id="historyExcused">0</strong></article>
+    <article><span>Holiday</span><strong id="historyHoliday">0</strong></article>
+
+  </div>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ HISTORY VIEW TABS ______________________________________
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-tabs">
+
+    <button type="button" class="history-tab active" data-history-tab="records"><i class="fa-solid fa-table"></i> Records</button>
+
+    <button type="button" class="history-tab" data-history-tab="daily"><i class="fa-solid fa-calendar-week"></i> Daily Breakdown</button>
+
+    <button type="button" class="history-tab" data-history-tab="students"><i class="fa-solid fa-user-graduate"></i> Student Summary</button>
+
+    <button type="button" class="history-tab" data-history-tab="dates"><i class="fa-solid fa-calendar-check"></i> Saved Dates</button>
+
+  </div>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ HISTORY RAW RECORDS ____________________________________
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-panel active" id="historyRecordsPanel">
+
+    <div class="history-table-wrap">
+
+      <table class="history-table" id="historyRecordsTable">
+
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Week</th>
+            <th>Student</th>
+            <th>Admission No.</th>
+            <th>Class</th>
+            <th>Status</th>
+            <th>Reason</th>
+            <th>Note</th>
+            <th>Saved</th>
+          </tr>
+        </thead>
+
+        <tbody id="historyRecordsBody">
+          <tr><td colspan="10">Select a class arm and click Load History.</td></tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ HISTORY DAILY BREAKDOWN _________________________________
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-panel" id="historyDailyPanel">
+
+    <div class="history-table-wrap">
+
+      <table class="history-table">
+
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Month</th>
+            <th>Week</th>
+            <th>Records</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Late</th>
+            <th>Sick</th>
+            <th>Holiday</th>
+          </tr>
+        </thead>
+
+        <tbody id="historyDailyBody">
+          <tr><td colspan="10">No daily breakdown loaded.</td></tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ HISTORY STUDENT SUMMARY _________________________________
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-panel" id="historyStudentsPanel">
+
+    <div class="history-table-wrap">
+
+      <table class="history-table">
+
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Admission No.</th>
+            <th>Class</th>
+            <th>Days Open</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Late</th>
+            <th>Sick</th>
+            <th>Score</th>
+            <th>%</th>
+          </tr>
+        </thead>
+
+        <tbody id="historyStudentsBody">
+          <tr><td colspan="10">No student summary loaded.</td></tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ SAVED DATES / DELETE ATTENDANCE _________________________
+       The JavaScript inserts Load and Delete buttons into every saved date row.
+       ____________________________________________________________________________________________ -->
+
+  <div class="history-panel" id="historyDatesPanel">
+
+
+    <!-- ______________________________ DELETE ATTENDANCE GUIDE ______________________________ -->
+
+    <div class="history-delete-guide">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Select the trash icon beside a saved date to permanently delete that attendance record.</span>
+    </div>
+
+
+    <!-- ______________________________ SAVED DATE TABLE ______________________________ -->
+
+    <div class="history-table-wrap">
+
+      <table class="history-table">
+
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Month</th>
+            <th>Week</th>
+            <th>Records</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Late</th>
+            <th>Sick</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="historyDatesBody">
+          <tr><td colspan="10">Load attendance history to view saved dates available for loading or deletion.</td></tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+<!-- ______________________________________________________________________________________________
+     ______________________________ DELETE ATTENDANCE CONFIRMATION MODAL ___________________________
+     ______________________________________________________________________________________________ -->
+
+<section class="attendance-delete-modal" id="attendanceDeleteModal" aria-hidden="true">
+
+  <button type="button" class="attendance-modal-close" id="closeDeleteAttendanceModal" aria-label="Close">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+
+  <div class="delete-modal-icon">
+    <i class="fa-solid fa-trash-can"></i>
+  </div>
+
+  <div class="delete-modal-content">
+    <span class="delete-modal-kicker"><i class="fa-solid fa-triangle-exclamation"></i> Delete Saved Attendance</span>
+
+    <h2>Delete this attendance record?</h2>
+
+    <p>This will permanently remove the saved attendance for:</p>
+
+    <div class="delete-attendance-target" id="deleteAttendanceTarget">—</div>
+
+    <p class="delete-modal-warning">This action cannot be undone.</p>
+  </div>
+
+  <div class="delete-modal-actions">
+    <button type="button" class="attendance-btn delete-cancel-btn" id="cancelDeleteAttendanceBtn">
+      <i class="fa-solid fa-arrow-left"></i>
+      No, Keep It
+    </button>
+
+    <button type="button" class="attendance-btn delete-confirm-btn" id="confirmDeleteAttendanceBtn">
+      <i class="fa-solid fa-trash-can"></i>
+      Yes, Delete
+    </button>
+  </div>
+
+</section>
+<!-- ______________________________________________________________________________________________
+     __________________________________ MODAL BACKDROP ____________________________________________
+     ______________________________________________________________________________________________ -->
+
+<div class="attendance-modal-backdrop" id="attendanceModalBackdrop"></div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ ATTENDANCE JAVASCRIPT _____________________________________
+     ______________________________________________________________________________________________ -->
+
+<script src="{{ url_for('static', filename='js/attendance.js') }}"></script>
+
+{% endblock %}

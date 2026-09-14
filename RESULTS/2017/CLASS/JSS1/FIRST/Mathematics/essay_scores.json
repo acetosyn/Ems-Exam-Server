@@ -15,9 +15,17 @@
       "score": 21,
       "updated_at": "2026-09-08 14:51:07",
       "updated_by": "admin"
+    },
+    "STD015": {
+      "admission_number": "std015",
+      "student_name": "Abbas Bello Aisha",
+      "class_arm": "JSS1A",
+      "score": 29,
+      "updated_at": "2026-09-14 14:18:34",
+      "updated_by": "admin"
     }
   },
   "class_category": "JSS1",
   "term_label": "1st Term",
-  "updated_at": "2026-09-08 14:51:07"
+  "updated_at": "2026-09-14 14:18:34"
 }

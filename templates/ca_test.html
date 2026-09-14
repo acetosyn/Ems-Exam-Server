@@ -1,0 +1,575 @@
+{% extends "base.html" %}
+
+{% block title %}CA Tests — EMIS CBT Server{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ca_test.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ CA / TEST PAGE ROOT ________________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caPage" class="ca-page ca-attendance-style" data-stage="frontend" data-student-source="students2026.csv">
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ CA / TEST HERO RIBBON ____________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="ca-hero">
+
+    <div class="ca-orb orb-one"></div>
+    <div class="ca-orb orb-two"></div>
+
+    <div class="ca-hero-left">
+
+      <div class="ca-title-row">
+        <span class="ca-title-icon"><i class="fa-solid fa-clipboard-check"></i></span>
+
+        <div>
+          <span class="ca-kicker"><i class="fa-solid fa-table-list"></i> EMIS Continuous Assessment Studio</span>
+          <h1>CA & Test Entry</h1>
+          <p>Enter, review and prepare manual assessment scores for each class, subject, session and term before report-sheet generation.</p>
+        </div>
+      </div>
+
+      <div class="ca-mini-row">
+        <span><i class="fa-solid fa-layer-group"></i> JSS / SS Smart Mode</span>
+        <span><i class="fa-solid fa-users"></i> EMIS Student Roster</span>
+        <span><i class="fa-solid fa-pen-to-square"></i> Editable Scores</span>
+        <span><i class="fa-solid fa-cloud-arrow-up"></i> Exam Merge Ready</span>
+      </div>
+
+    </div>
+
+    <div class="ca-live-card">
+      <div class="ca-live-icon"><i class="fa-solid fa-chart-column"></i></div>
+      <div>
+        <span>Current Structure</span>
+        <strong id="caStructureLabel">Select Class</strong>
+        <small id="caStructureHint">JSS: /60 CA + /40 Exam • SS: /30 CA + /70 Exam</small>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ CA / TEST COMPACT STATS __________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="ca-stats-grid">
+
+    <article class="ca-stat-card loaded">
+      <div class="ca-stat-icon blue"><i class="fa-solid fa-users"></i></div>
+      <div><span>Loaded Students</span><strong id="loadedStudentsCount">0</strong><small>Current class</small></div>
+    </article>
+
+    <article class="ca-stat-card saved">
+      <div class="ca-stat-icon green"><i class="fa-solid fa-floppy-disk"></i></div>
+      <div><span>Saved Records</span><strong id="savedRecordsCount">0</strong><small>Current subject</small></div>
+    </article>
+
+    <article class="ca-stat-card average">
+      <div class="ca-stat-icon orange"><i class="fa-solid fa-chart-simple"></i></div>
+      <div><span>Class CA Average</span><strong id="classAverageScore">--</strong><small>Live calculation</small></div>
+    </article>
+
+    <article class="ca-stat-card report">
+      <div class="ca-stat-icon purple"><i class="fa-solid fa-file-circle-check"></i></div>
+      <div><span>Report Status</span><strong id="reportReadyStatus">Waiting</strong><small>CA not loaded</small></div>
+    </article>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ ASSESSMENT CONTROL DOCK __________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="ca-control-panel">
+
+    <div class="ca-control-head">
+
+      <div>
+        <span class="section-kicker"><i class="fa-solid fa-sliders"></i> Assessment Filters</span>
+        <h2>Select Class, Subject & Term</h2>
+      </div>
+
+      <button type="button" id="openStructureModalBtn" class="ca-mini-btn">
+        <i class="fa-solid fa-circle-info"></i> View Structure
+      </button>
+
+    </div>
+
+
+    <div class="ca-control-grid">
+
+      <!-- ______________________________ SESSION ______________________________ -->
+      <div class="form-group">
+        <label class="form-label" for="caSession">Session</label>
+        <div class="ca-input-wrap">
+          <i class="fa-solid fa-calendar-days"></i>
+          <select id="caSession" class="form-input">
+            <option value="2025/2026">2025/2026</option>
+            <option value="2026/2027" selected>2026/2027</option>
+            <option value="2027/2028">2027/2028</option>
+            <option value="2028/2029">2028/2029</option>
+            <option value="2029/2030">2029/2030</option>
+            <option value="2030/2031">2030/2031</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ______________________________ TERM ______________________________ -->
+      <div class="form-group">
+        <label class="form-label" for="caTerm">Term</label>
+        <div class="ca-input-wrap">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <select id="caTerm" class="form-input">
+            <option value="FIRST TERM">FIRST TERM</option>
+            <option value="SECOND TERM">SECOND TERM</option>
+            <option value="THIRD TERM">THIRD TERM</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ______________________________ CLASS LEVEL ______________________________ -->
+      <div class="form-group">
+        <label class="form-label" for="caClassLevel">Class Level</label>
+        <div class="ca-input-wrap">
+          <i class="fa-solid fa-school"></i>
+          <select id="caClassLevel" class="form-input">
+            <option value="">Select level</option>
+            <option value="JSS1">JSS1</option>
+            <option value="JSS2">JSS2</option>
+            <option value="JSS3">JSS3</option>
+            <option value="SS1">SS1</option>
+            <option value="SS2">SS2</option>
+            <option value="SS3">SS3</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ______________________________ CLASS ARM ______________________________ -->
+      <div class="form-group">
+        <label class="form-label" for="caClassArm">Class Arm</label>
+        <div class="ca-input-wrap">
+          <i class="fa-solid fa-users-line"></i>
+          <select id="caClassArm" class="form-input" disabled>
+            <option value="">Select class level first</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ______________________________ SUBJECT ______________________________ -->
+      <div class="form-group ca-subject-field">
+        <label class="form-label" for="caSubject">Subject</label>
+        <div class="ca-input-wrap">
+          <i class="fa-solid fa-book"></i>
+          <select id="caSubject" class="form-input" disabled>
+            <option value="">Subject list connects in backend stage</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ______________________________ LOAD CLASS ______________________________ -->
+      <div class="form-group action">
+        <button id="loadCAStudentsBtn" type="button" class="ca-btn primary full-width">
+          <i class="fa-solid fa-cloud-arrow-down"></i> Load Students
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ CA DATABASE ACTION DOCK __________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="ca-action-dock">
+
+    <button type="button" id="loadSavedRecordsBtn" class="ca-dock-btn saved">
+      <i class="fa-solid fa-folder-open"></i><span>View Saved Records</span>
+    </button>
+
+    <button type="button" id="editSavedModeBtn" class="ca-dock-btn edit">
+      <i class="fa-solid fa-pen-to-square"></i><span>Edit Saved Scores</span>
+    </button>
+
+    <button type="button" id="deleteSubjectRecordsBtn" class="ca-dock-btn danger">
+      <i class="fa-solid fa-trash"></i><span>Delete Subject Records</span>
+    </button>
+
+    <button type="button" id="downloadTemplateBtn" class="ca-dock-btn template">
+      <i class="fa-solid fa-file-arrow-down"></i><span>Download Template</span>
+    </button>
+
+    <button type="button" id="openImportModalBtn" class="ca-dock-btn import">
+      <i class="fa-solid fa-file-import"></i><span>Import CSV</span>
+    </button>
+
+    <button type="button" id="openAuditModalBtn" class="ca-dock-btn audit">
+      <i class="fa-solid fa-clock-rotate-left"></i><span>Audit Log</span>
+    </button>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ JSS / SS STRUCTURE CARDS _________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="ca-mode-grid">
+
+    <article class="ca-mode-card active" id="jssModeCard">
+      <div class="ca-mode-heading">
+        <span class="mode-badge">JSS Mode</span>
+        <h3><i class="fa-solid fa-table-cells"></i> JSS Assessment Format</h3>
+      </div>
+
+      <div class="mode-score-row">
+        <span>CA1 /10</span><span>CA2 /10</span><span>TEST1 /20</span><span>TEST2 /20</span><span>EXAM /40</span>
+      </div>
+
+      <p>Used for JSS1, JSS2 and JSS3 report sheets.</p>
+    </article>
+
+    <article class="ca-mode-card" id="ssModeCard">
+      <div class="ca-mode-heading">
+        <span class="mode-badge">SS Mode</span>
+        <h3><i class="fa-solid fa-table-list"></i> SS Assessment Format</h3>
+      </div>
+
+      <div class="mode-score-row">
+        <span>1ST ASS /5</span><span>2ND ASS /5</span><span>TEST /20</span><span>EXAM /70</span>
+      </div>
+
+      <p>Used for SS1, SS2 and SS3 report sheets.</p>
+    </article>
+
+  </section>
+
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ SCORE ENTRY TOOLBELT ____________________________________
+       ____________________________________________________________________________________________ -->
+
+  <section class="ca-toolbar">
+
+    <div class="ca-search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="caSearchInput" type="search" placeholder="Search by student name or admission number...">
+    </div>
+
+    <div class="ca-toolbar-actions">
+      <button id="fillZerosBtn" type="button" class="ca-chip fill"><i class="fa-solid fa-0"></i> Fill Empty 0</button>
+      <button id="openBulkModalBtn" type="button" class="ca-chip bulk"><i class="fa-solid fa-wand-magic-sparkles"></i> Bulk Tools</button>
+      <button id="exportCAVisibleBtn" type="button" class="ca-chip export"><i class="fa-solid fa-file-export"></i> Export Visible</button>
+      <button id="clearCAScoresBtn" type="button" class="ca-chip danger"><i class="fa-solid fa-eraser"></i> Clear</button>
+    </div>
+
+  </section>
+
+
+<!-- ____________________________________________________________________________________________
+     __________________________________ STUDENT SCORE TABLE ______________________________________
+     ____________________________________________________________________________________________ -->
+
+<section class="ca-table-card">
+
+  <div class="ca-table-head">
+    <div><span class="section-kicker"><i class="fa-solid fa-table-list"></i> Score Entry</span><h2>Student Assessment Records</h2><p id="caTableSubtext">Select a class and subject to begin score entry.</p></div>
+    <div class="ca-score-legend" id="caScoreLegend"><span>Waiting for class</span></div>
+  </div>
+
+  <!-- ____________________________________________________________________________________________
+       __________________________________ CA / TEST NOTIFICATION AREA ______________________________
+       ____________________________________________________________________________________________ -->
+
+  <div id="caToastHost" class="ca-toast-host"></div>
+
+  <!-- ______________________________ SCORE TABLE ______________________________ -->
+
+  <div class="ca-table-wrap">
+    <table class="ca-table">
+      <thead id="caTableHead">
+        <tr><th>#</th><th>Admission No</th><th>Student Name</th><th>Class</th><th>Score Columns</th><th>Total</th><th>Status</th><th>Action</th></tr>
+      </thead>
+
+      <tbody id="caTableBody">
+        <tr>
+          <td colspan="8" class="ca-empty"><i class="fa-solid fa-clipboard-list"></i><strong>CA/Test score entry ready</strong><span>Select session, term, class, arm and subject, then load students to begin.</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <!-- ______________________________ TABLE FOOTER ACTIONS ______________________________ -->
+
+    <div class="ca-footer-actions">
+
+      <div id="caSaveMessage" class="ca-save-message">
+        <i class="fa-solid fa-circle-info"></i>
+        Frontend stage only. No score is written yet.
+      </div>
+
+      <div class="ca-footer-buttons">
+        <button id="previewReportMergeBtn" type="button" class="ca-btn ghost"><i class="fa-solid fa-eye"></i> Preview Merge</button>
+        <button id="openSaveConfirmBtn" type="button" class="ca-btn primary ca-save-primary"><i class="fa-solid fa-floppy-disk"></i> Save CA/Test Scores</button>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ CLASS ARM CONFIG JSON ______________________________________
+     ______________________________________________________________________________________________ -->
+
+<script id="caClassArmsConfig" type="application/json">{{ class_arms|default({})|tojson }}</script>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ STUDENT QUICK EDIT MODAL ___________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caStudentModal" class="ca-modal ca-quickedit-modal" aria-hidden="true">
+
+  <div class="ca-modal-panel ca-quickedit-panel">
+
+    <!-- ______________________________ QUICK EDIT HEADER ______________________________ -->
+    <div class="ca-modal-head ca-quickedit-head">
+
+      <div class="ca-quickedit-identity">
+
+        <span class="ca-quickedit-kicker">
+          <i class="fa-solid fa-pen-to-square"></i>
+          Quick Edit
+        </span>
+
+        <h3 id="modalStudentName">Student Score Entry</h3>
+
+        <p id="modalStudentMeta">
+          Admission number and class will appear here.
+        </p>
+
+      </div>
+
+      <button type="button"
+              class="ca-modal-close ca-quickedit-close"
+              data-close-modal="caStudentModal"
+              aria-label="Close student score modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+    </div>
+
+
+    <!-- ______________________________ SCORE ENTRY BODY ______________________________ -->
+    <div class="ca-modal-body ca-quickedit-body">
+
+      <div id="modalScoreGrid" class="modal-score-grid ca-quickedit-grid"></div>
+
+      <div class="modal-total-card ca-quickedit-total">
+
+        <span>CA/Test Total</span>
+
+        <strong id="modalStudentTotal">0</strong>
+
+        <small id="modalStudentTotalHint">
+          Based on active structure
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- ______________________________ MODAL ACTIONS ______________________________ -->
+    <div class="ca-modal-actions ca-quickedit-actions">
+
+      <button type="button"
+              class="ca-btn ghost ca-quickedit-cancel"
+              data-close-modal="caStudentModal">
+        Cancel
+      </button>
+
+      <button type="button"
+              id="applyStudentScoresBtn"
+              class="ca-btn primary ca-quickedit-apply">
+        <i class="fa-solid fa-check"></i>
+        Apply Scores
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ BULK SCORE TOOLS MODAL _____________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caBulkModal" class="ca-modal" aria-hidden="true">
+  <div class="ca-modal-panel small">
+
+    <div class="ca-modal-head">
+      <div><span class="section-kicker">Bulk Tools</span><h3>Fast Score Actions</h3><p>Apply safe score operations to visible rows only.</p></div>
+      <button type="button" class="ca-modal-close" data-close-modal="caBulkModal" aria-label="Close bulk tools"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="bulk-action-grid">
+      <button type="button" id="bulkFillZeroFromModal" class="bulk-action-card"><i class="fa-solid fa-0"></i><strong>Fill Empty Scores With 0</strong><span>Only blank score inputs will be affected.</span></button>
+      <button type="button" id="bulkMarkCompleteModal" class="bulk-action-card"><i class="fa-solid fa-list-check"></i><strong>Show Complete Rows</strong><span>Highlight students with every score entered.</span></button>
+      <button type="button" id="bulkClearVisibleModal" class="bulk-action-card danger"><i class="fa-solid fa-trash"></i><strong>Clear Visible Scores</strong><span>Clears only visible rows after search.</span></button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ SAVED CA RECORDS MODAL _____________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caSavedRecordsModal" class="ca-modal" aria-hidden="true">
+  <div class="ca-modal-panel wide saved-records-premium">
+
+    <div class="ca-modal-head">
+      <div><span class="section-kicker">Saved Database</span><h3>Saved CA/Test Records</h3><p>Review saved assessment records and reload them for editing when the CA backend is connected.</p></div>
+      <button type="button" class="ca-modal-close" data-close-modal="caSavedRecordsModal" aria-label="Close saved records"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="ca-modal-body">
+
+      <div class="saved-record-toolbar">
+        <button type="button" id="reloadSelectedSavedRecordBtn" class="ca-btn primary"><i class="fa-solid fa-rotate-left"></i> Reload for Editing</button>
+        <button type="button" id="deleteSelectedSavedRecordBtn" class="ca-btn ghost danger-text"><i class="fa-solid fa-trash"></i> Delete Selected</button>
+      </div>
+
+      <div class="saved-record-table-wrap">
+        <table class="saved-record-table">
+          <thead><tr><th>Select</th><th>Session</th><th>Term</th><th>Class</th><th>Subject</th><th>Students</th><th>Saved At</th></tr></thead>
+          <tbody id="savedRecordsTableBody"><tr><td colspan="7">No saved CA records yet.</td></tr></tbody>
+        </table>
+      </div>
+
+      <div id="savedRecordPreviewPanel" class="saved-record-preview-panel">
+        <div class="saved-preview-empty"><i class="fa-solid fa-table-list"></i><strong>No saved record selected</strong><span>Saved score details will appear here.</span></div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ IMPORT CSV MODAL ___________________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caImportModal" class="ca-modal" aria-hidden="true">
+  <div class="ca-modal-panel small">
+
+    <div class="ca-modal-head">
+      <div><span class="section-kicker">Import Scores</span><h3>Import CA Scores From CSV</h3><p>CSV import will be enabled with the CA backend module.</p></div>
+      <button type="button" class="ca-modal-close" data-close-modal="caImportModal" aria-label="Close import modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="ca-modal-body">
+      <label class="ca-import-box"><i class="fa-solid fa-file-csv"></i><strong>Select CSV File</strong><span>Frontend file selection only for now.</span><input type="file" id="caImportFile" accept=".csv"></label>
+    </div>
+
+    <div class="ca-modal-actions">
+      <button type="button" class="ca-btn ghost" data-close-modal="caImportModal">Cancel</button>
+      <button type="button" id="processImportBtn" class="ca-btn primary"><i class="fa-solid fa-upload"></i> Process Import</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ CA AUDIT LOG MODAL _________________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caAuditModal" class="ca-modal" aria-hidden="true">
+  <div class="ca-modal-panel">
+
+    <div class="ca-modal-head">
+      <div><span class="section-kicker">Audit Trail</span><h3>CA Activity Log</h3><p>Save, edit, delete and reload actions will appear here after backend integration.</p></div>
+      <button type="button" class="ca-modal-close" data-close-modal="caAuditModal" aria-label="Close audit log"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="ca-modal-body">
+      <div id="caAuditList" class="ca-audit-list">
+        <article><i class="fa-solid fa-circle-info"></i><div><strong>No activity yet</strong><span>The frontend is ready for the CA audit API.</span></div></article>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ ASSESSMENT STRUCTURE MODAL _________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caStructureModal" class="ca-modal" aria-hidden="true">
+  <div class="ca-modal-panel">
+
+    <div class="ca-modal-head">
+      <div><span class="section-kicker">Official Structure</span><h3>Report Sheet Assessment Format</h3><p>Use this as the score-entry guide.</p></div>
+      <button type="button" class="ca-modal-close" data-close-modal="caStructureModal" aria-label="Close assessment structure"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="structure-modal-grid">
+      <article><h4>JSS1 – JSS3</h4><ul><li>CA1 = 10 marks</li><li>CA2 = 10 marks</li><li>TEST1 = 20 marks</li><li>TEST2 = 20 marks</li><li>EXAM = 40 marks</li></ul></article>
+      <article><h4>SS1 – SS3</h4><ul><li>1ST ASS. = 5 marks</li><li>2ND ASS. = 5 marks</li><li>TEST = 20 marks</li><li>EXAM = 70 marks</li></ul></article>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ______________________________________________________________________________________________
+     __________________________________ SAVE CONFIRMATION MODAL ____________________________________
+     ______________________________________________________________________________________________ -->
+
+<div id="caSaveConfirmModal" class="ca-modal" aria-hidden="true">
+  <div class="ca-modal-panel small">
+
+    <div class="ca-modal-head">
+      <div><span class="section-kicker">Confirm Save</span><h3>Save CA/Test Scores?</h3><p>Saving is intentionally disabled until the EMIS CA backend module is connected.</p></div>
+      <button type="button" class="ca-modal-close" data-close-modal="caSaveConfirmModal" aria-label="Close save confirmation"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="save-summary-box">
+      <p><span>Class:</span> <strong id="saveSummaryClass">--</strong></p>
+      <p><span>Subject:</span> <strong id="saveSummarySubject">--</strong></p>
+      <p><span>Students:</span> <strong id="saveSummaryStudents">0</strong></p>
+    </div>
+
+    <div class="ca-modal-actions">
+      <button type="button" class="ca-btn ghost" data-close-modal="caSaveConfirmModal">Cancel</button>
+      <button type="button" id="saveCAScoresBtn" class="ca-btn primary" disabled><i class="fa-solid fa-floppy-disk"></i> Backend Not Connected</button>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ca_test.js') }}"></script>
+{% endblock %}

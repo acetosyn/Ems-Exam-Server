@@ -466,30 +466,23 @@ def find_subject_json(year, class_level, subject, term=""):
 
 def get_exam_essay_config(year, class_level, subject, term=""):
     path, data = find_subject_json(year, class_level, subject, term)
+    essay = data.get("essay") if isinstance(data, dict) and isinstance(data.get("essay"), dict) else {}
+    questions = essay.get("questions", []) if isinstance(essay.get("questions", []), list) else []
+    essay_defined = len(questions) > 0
 
-    essay = data.get("essay") if isinstance(data, dict) else None
-    questions = essay.get("questions", []) if isinstance(essay, dict) else []
+    # Manual Essay/Theory scoring belongs to Admin Results.
+    # It must remain available even when the online CBT JSON has no essay block.
+    essay_max = score_float(essay.get("max_score"), DEFAULT_ESSAY_MAX)
+    if essay_max is None or essay_max <= 0 or essay_max >= DEFAULT_TOTAL_MAX: essay_max = DEFAULT_ESSAY_MAX
 
-    available = isinstance(questions, list) and len(questions) > 0
-
-    essay_max = score_float(essay.get("max_score") if isinstance(essay, dict) else None, DEFAULT_ESSAY_MAX)
-
-    if essay_max is None or essay_max <= 0 or essay_max > DEFAULT_TOTAL_MAX: essay_max = DEFAULT_ESSAY_MAX
-
-    objective_max = round(DEFAULT_TOTAL_MAX - essay_max, 2) if available else DEFAULT_TOTAL_MAX
+    objective_max = round(DEFAULT_TOTAL_MAX - essay_max, 2)
 
     return {
-        "essay_available": available,
-        "essay_questions": len(questions) if isinstance(questions, list) else 0,
-        "essay_title": clean_text(essay.get("title")) if isinstance(essay, dict) else "",
-        "objective_max": objective_max,
-        "essay_max": essay_max if available else 0.0,
-        "total_max": DEFAULT_TOTAL_MAX,
-        "json_path": str(path) if path else "",
-        "term": normalize_term(term),
-        "term_label": term_label(term),
+        "essay_available": True, "essay_defined": essay_defined, "essay_questions": len(questions),
+        "essay_title": clean_text(essay.get("title")) or "Manual Essay / Theory",
+        "objective_max": objective_max, "essay_max": essay_max, "total_max": DEFAULT_TOTAL_MAX,
+        "json_path": str(path) if path else "", "term": normalize_term(term), "term_label": term_label(term),
     }
-
 
 # ============================================================
 # OBJECTIVE RESULTS

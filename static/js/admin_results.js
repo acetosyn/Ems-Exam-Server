@@ -1635,36 +1635,41 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================================================
 
 function validateEssayContext() {
+  const selectedRows = getSelectedRecords(), visibleRows = Array.isArray(state.filteredResults) ? state.filteredResults : [], sourceRows = selectedRows.length ? selectedRows : visibleRows;
   let year = selectedYear(), classLevel = selectedClass(), subject = selectedSubject(), term = selectedTerm(), arm = els.classArmSelector?.value || "all";
-  const visibleRows = Array.isArray(state.filteredResults) ? state.filteredResults : [];
 
-  const years = [...new Set(visibleRows.map(getYear).filter(Boolean))];
-  const classes = [...new Set(visibleRows.map(getClassLevel).filter(Boolean))];
-  const subjects = [...new Set(visibleRows.map((row) => getSubjectFolder(row) || getSubject(row)).filter(Boolean))];
-  const arms = [...new Set(visibleRows.map(getClassArm).filter(Boolean))];
+  const years = [...new Set(sourceRows.map(getYear).filter(Boolean))], classes = [...new Set(sourceRows.map(getClassLevel).filter(Boolean))];
+  const subjects = [...new Set(sourceRows.map((row) => getSubjectFolder(row) || getSubject(row)).filter(Boolean))], arms = [...new Set(sourceRows.map(getClassArm).filter(Boolean))];
+  const termContexts = [...new Set(sourceRows.map((row) => { const cls = getClassLevel(row); return getTerm(row) || (isSsClass(cls) ? "__GENERAL__" : ""); }).filter(Boolean))];
 
-  if (year === "all" && years.length === 1) year = years[0];
-  if (classLevel === "all" && classes.length === 1) classLevel = classes[0];
-  if (subject === "all" && subjects.length === 1) subject = subjects[0];
-  if (arm === "all" && arms.length === 1) arm = arms[0];
+  if (selectedRows.length) {
+    if (years.length > 1) return { ok: false, message: "The selected results belong to more than one examination year. Keep one year selected for essay entry." };
+    if (classes.length > 1) return { ok: false, message: "The selected results belong to more than one class. Keep one class selected for essay entry." };
+    if (subjects.length > 1) return { ok: false, message: "The selected results belong to more than one subject. Keep one subject selected for essay entry." };
+    if (termContexts.length > 1) return { ok: false, message: "The selected results belong to more than one term. Keep one term selected for essay entry." };
 
-  if (!year || year === "all") return { ok: false, message: years.length > 1 ? "More than one examination year is currently displayed. Please narrow the results to one year before entering essay scores." : "No examination year could be detected from the current results." };
-  if (!classLevel || classLevel === "all") return { ok: false, message: classes.length > 1 ? "More than one class is currently displayed. Please narrow the results to one class before entering essay scores." : "No class could be detected from the current results." };
-  if (!subject || subject === "all") return { ok: false, message: subjects.length > 1 ? "More than one subject is currently displayed. Please narrow the results to one subject before entering essay scores." : "No subject could be detected from the current results." };
+    year = years[0] || year; classLevel = classes[0] || classLevel; subject = subjects[0] || subject; arm = arms.length === 1 ? arms[0] : "all";
+    term = termContexts.length === 1 ? (termContexts[0] === "__GENERAL__" ? "" : termContexts[0]) : normalizeTerm(term);
+  } else {
+    if (year === "all" && years.length === 1) year = years[0];
+    if (classLevel === "all" && classes.length === 1) classLevel = classes[0];
+    if (subject === "all" && subjects.length === 1) subject = subjects[0];
+    if (arm === "all" && arms.length === 1) arm = arms[0];
 
-  const contextRows = visibleRows.filter((row) => String(getYear(row)) === String(year) && getClassLevel(row) === classLevel && normalizeText(getSubjectFolder(row) || getSubject(row)) === normalizeText(subject));
-  const termContexts = [...new Set(contextRows.map((row) => getTerm(row) || (isSsClass(classLevel) ? "__GENERAL__" : "")).filter(Boolean))];
+    if (!term || term === "all") {
+      if (termContexts.length === 1) term = termContexts[0] === "__GENERAL__" ? "" : termContexts[0];
+      else term = normalizeTerm(term);
+    } else term = normalizeTerm(term);
+  }
 
-  if (!term || term === "all") {
-    if (termContexts.length === 1) term = termContexts[0] === "__GENERAL__" ? "" : termContexts[0];
-    else if (isJssClass(classLevel) || termContexts.length > 1) return { ok: false, message: `More than one term is currently displayed for ${classLevel}. Please select one term before entering essay scores.` };
-    else term = "";
-  } else term = normalizeTerm(term);
+  if (!year || year === "all") return { ok: false, message: "Select an examination year or select a result row before entering essay scores." };
+  if (!classLevel || classLevel === "all") return { ok: false, message: "Select a class or select a result row before entering essay scores." };
+  if (!subject || subject === "all") return { ok: false, message: "Select a result row or choose one subject before entering essay scores." };
+  if (isJssClass(classLevel) && !term) return { ok: false, message: `Select one term for ${classLevel} before entering essay scores.` };
 
-  if (isJssClass(classLevel) && !term) return { ok: false, message: `A term is required for ${classLevel} essay scores.` };
-
-  return { ok: true, year, classLevel, term, subject, arm };
+  return { ok: true, year, classLevel, term: normalizeTerm(term), subject, arm };
 }
+
 
 function resetEssayState() {
   state.essay.students = [];

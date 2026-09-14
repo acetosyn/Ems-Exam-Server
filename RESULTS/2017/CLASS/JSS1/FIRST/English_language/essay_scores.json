@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "year": "2017",
+  "class_level": "JSS1",
+  "class_category": "JSS1",
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "subject": "English_language",
+  "objective_max": 60,
+  "essay_max": 40,
+  "total_max": 100,
+  "scores": {
+    "STD015": {
+      "admission_number": "std015",
+      "student_name": "Abbas Bello Aisha",
+      "class_arm": "JSS1A",
+      "score": 35,
+      "updated_at": "2026-09-14 14:18:06",
+      "updated_by": "admin"
+    }
+  },
+  "updated_at": "2026-09-14 14:18:06"
+}

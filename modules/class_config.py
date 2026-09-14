@@ -187,7 +187,7 @@ JSS_SUBJECTS_RAW = [
     "Heritage & Citizenship Studies", "National Value", "Yoruba Language",
     "Hausa Language", "Arabic Language", "CCA", "Business Studies", "History",
     "BST", "P.H.E", "PVS", "Hort & Crop Production", "Digital Tech.",
-    "Inter Science", "Garment Making",
+    "Inter Science", "Garment Making", "Soc. & Cit. Std",
 ]
 
 

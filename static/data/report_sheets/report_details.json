@@ -1,0 +1,30 @@
+{
+  "2026/2027|FIRST|JSS1|JSS1A|std015": {
+    "form_teacher": "Mr Tosin",
+    "teacher_remark": "",
+    "principal_remark": "",
+    "next_term": "2027-12-31",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": "",
+      "self_control": "",
+      "attentiveness": "",
+      "perseverance": ""
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-14 12:33:35",
+    "updated_by": "admin"
+  }
+}
