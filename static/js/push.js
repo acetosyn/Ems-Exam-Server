@@ -7,6 +7,10 @@
      • JSS1 / JSS2 / JSS3 — strict FIRST / SECOND / THIRD
      • SS1 / SS2 / SS3 — hybrid GENERAL + FIRST / SECOND / THIRD
      • SS selected-term pushes with General/root source fallback
+     • Historical JSON source year -> independent Current / Active target year
+     • Current / Active target years 2025-2040
+     • Multi-select batch push — one, many or complete subject set
+     • One-click Push All Subjects for the selected class / term target
      • Year-aware JSON selection
      • Term / mode-aware confirmation
      • Term-aware clear operations
@@ -29,6 +33,8 @@
     termRequiredClasses: ["JSS1", "JSS2", "JSS3"],
     optionalTermClasses: ["SS1", "SS2", "SS3"],
     validTerms: ["FIRST", "SECOND", "THIRD"],
+    targetYearMin: 2025,
+    targetYearMax: 2040,
 
     classArms: {
       JSS1: ["JSS1A", "JSS1B", "JSS1C"],
@@ -96,7 +102,6 @@
 
     return level;
   },
-
 
 
     normalizeTerm(value) {
@@ -187,61 +192,30 @@
        PUSH CONFIRMATION
     ========================================================== */
 
-    showPushConfirm({ year, classLevel, classArm, term = null, mode = "", count }) {
+    showPushConfirm({ targetYear, sourceYear = "", classLevel, classArm, term = null, mode = "", count }) {
       return new Promise((resolve) => {
-        const modal = document.querySelector("#pushConfirmModal");
-        const text = document.querySelector("#pushConfirmText");
-        const yearEl = document.querySelector("#pushConfirmYear");
-        const targetEl = document.querySelector("#pushConfirmTarget");
-        const termEl = document.querySelector("#pushConfirmTerm");
-        const countEl = document.querySelector("#pushConfirmCount");
-        const cancelBtn = document.querySelector("#cancelPushConfirm");
-        const acceptBtn = document.querySelector("#acceptPushConfirm");
-        const backdrop = modal?.querySelector(".push-confirm-backdrop");
+        const modal = document.querySelector("#pushConfirmModal"), text = document.querySelector("#pushConfirmText"), yearEl = document.querySelector("#pushConfirmYear"), targetEl = document.querySelector("#pushConfirmTarget"), termEl = document.querySelector("#pushConfirmTerm"), countEl = document.querySelector("#pushConfirmCount"), cancelBtn = document.querySelector("#cancelPushConfirm"), acceptBtn = document.querySelector("#acceptPushConfirm"), backdrop = modal?.querySelector(".push-confirm-backdrop");
+        const generalMode = this.isOptionalTermClass(classLevel) && String(mode || "").toUpperCase() === "GENERAL", modeLabel = term ? this.termLabel(term) : generalMode ? "General / Root" : "", targetText = modeLabel ? `${classArm} • ${modeLabel}` : classArm, sourceText = sourceYear ? ` from JSON ${sourceYear}` : "";
 
-        const generalMode = this.isOptionalTermClass(classLevel) && String(mode || "").toUpperCase() === "GENERAL";
-        const modeLabel = term ? this.termLabel(term) : generalMode ? "General / Root" : "";
-        const targetText = modeLabel ? `${classArm} • ${modeLabel}` : classArm;
+        if (!modal) { resolve(confirm(`Push ${count} subject(s)${sourceText} to ${targetYear} • ${targetText}?`)); return; }
 
-        if (!modal) {
-          resolve(confirm(`Push ${count} subject(s) to ${targetText}?`));
-          return;
-        }
-
-        if (text) text.textContent = `You are about to publish ${count} selected exam file(s) to ${targetText}.`;
-        if (yearEl) yearEl.textContent = `Year: ${year}`;
+        if (text) text.textContent = `You are about to publish ${count} selected exam file(s)${sourceText} to ${targetText}.`;
+        if (yearEl) yearEl.textContent = `Current / Active Year: ${targetYear}`;
         if (targetEl) targetEl.textContent = `Target: ${classArm}`;
 
         if (termEl) {
-          if (modeLabel) {
-            termEl.textContent = `Term / Mode: ${modeLabel}`;
-            termEl.classList.remove("hidden");
-          } else {
-            termEl.classList.add("hidden");
-          }
+          if (modeLabel) { termEl.textContent = `Term / Mode: ${modeLabel}`; termEl.classList.remove("hidden"); }
+          else termEl.classList.add("hidden");
         }
 
         if (countEl) countEl.textContent = `Subjects: ${count}`;
-
         modal.classList.remove("hidden");
 
-        const close = (answer) => {
-          modal.classList.add("hidden");
-          cancelBtn?.removeEventListener("click", onCancel);
-          acceptBtn?.removeEventListener("click", onAccept);
-          backdrop?.removeEventListener("click", onCancel);
-          resolve(answer);
-        };
-
-        const onCancel = () => close(false);
-        const onAccept = () => close(true);
-
-        cancelBtn?.addEventListener("click", onCancel);
-        acceptBtn?.addEventListener("click", onAccept);
-        backdrop?.addEventListener("click", onCancel);
+        const close = (answer) => { modal.classList.add("hidden"); cancelBtn?.removeEventListener("click", onCancel); acceptBtn?.removeEventListener("click", onAccept); backdrop?.removeEventListener("click", onCancel); resolve(answer); };
+        const onCancel = () => close(false), onAccept = () => close(true);
+        cancelBtn?.addEventListener("click", onCancel); acceptBtn?.addEventListener("click", onAccept); backdrop?.addEventListener("click", onCancel);
       });
     },
-
 
     /* ==========================================================
        INITIALIZATION
@@ -283,7 +257,30 @@
       const confirmClearTarget = root.querySelector("#confirmClearTarget");
       const confirmClearAllTargets = root.querySelector("#confirmClearAllTargets");
 
+
       if (!btnPush || !pushYearSel || !pushClassLevel || !pushClassArm) return;
+
+      /* ========================================================
+         CURRENT / ACTIVE TARGET YEAR — 2025 TO 2040
+      ======================================================== */
+
+      const buildPushTargetYears = () => {
+        const previous = String(pushYearSel.value || "").trim(), current = new Date().getFullYear();
+        pushYearSel.innerHTML = "";
+
+        for (let year = this.targetYearMin; year <= this.targetYearMax; year++) pushYearSel.add(new Option(String(year), String(year)));
+
+        const previousValid = Number(previous) >= this.targetYearMin && Number(previous) <= this.targetYearMax;
+        const currentValid = current >= this.targetYearMin && current <= this.targetYearMax;
+        pushYearSel.value = previousValid ? previous : currentValid ? String(current) : String(this.targetYearMin);
+        pushYearSel.setAttribute("aria-label", "Current / Active Year");
+        pushYearSel.title = `Current / Active examination year (${this.targetYearMin}-${this.targetYearMax})`;
+
+        const explicitLabel = root.querySelector('label[for="pushYearSelector"]');
+        if (explicitLabel) explicitLabel.textContent = "Current / Active Year";
+      };
+
+      buildPushTargetYears();
 
 
       /* ========================================================
@@ -522,15 +519,10 @@
       ======================================================== */
 
       const updateTargetPreview = () => {
-        const year = pushYearSel.value;
-        const classLevel = this.normalizeClassLevel(pushClassLevel.value);
-        const classArm = this.normalizeClassArm(pushClassArm.value, classLevel);
-        const rawMode = String(pushTermSelector?.value || "").trim().toUpperCase();
-        const term = this.normalizeTerm(rawMode);
-        const generalMode = this.isOptionalTermClass(classLevel) && rawMode === "GENERAL";
-        const modeLabel = term ? this.termLabel(term) : generalMode ? "General / Root" : "";
+        const targetYear = pushYearSel.value, classLevel = this.normalizeClassLevel(pushClassLevel.value), classArm = this.normalizeClassArm(pushClassArm.value, classLevel), rawMode = String(pushTermSelector?.value || "").trim().toUpperCase(), term = this.normalizeTerm(rawMode);
+        const generalMode = this.isOptionalTermClass(classLevel) && rawMode === "GENERAL", modeLabel = term ? this.termLabel(term) : generalMode ? "General / Root" : "";
 
-        if (activeYearLabel) activeYearLabel.textContent = year || "—";
+        if (activeYearLabel) activeYearLabel.textContent = targetYear || "—";
         if (activeTargetLabel) activeTargetLabel.textContent = classArm || classLevel || "—";
         if (statTargetArm) statTargetArm.textContent = classArm || classLevel || "—";
         if (activeTermLabelWrap) activeTermLabelWrap.classList.toggle("hidden", !modeLabel);
@@ -580,56 +572,28 @@
       ======================================================== */
 
       const syncTargetFromSelection = () => {
-        const selectedItems = this.getSelectedItems();
-
-        if (!selectedItems.length) return;
-
-        const years = [...new Set(selectedItems.map((item) => String(item.year || "")).filter(Boolean))];
+        const selectedItems = this.getSelectedItems(); if (!selectedItems.length) return;
         const classes = [...new Set(selectedItems.map((item) => this.getItemClass(item)).filter(Boolean))];
 
-        /* Year */
-        if (years.length === 1) {
-          const year = years[0];
-          if ([...pushYearSel.options].some((option) => option.value === year)) pushYearSel.value = year;
-        }
-
-        /* Class */
+        /* Historical JSON source year must NEVER overwrite Current / Active Target Year. */
         if (classes.length === 1) {
           const classLevel = classes[0];
 
           if ([...pushClassLevel.options].some((option) => option.value === classLevel)) {
-            const previousLevel = this.normalizeClassLevel(pushClassLevel.value);
-            const previousArm = this.normalizeClassArm(pushClassArm.value, previousLevel || classLevel);
-
+            const previousLevel = this.normalizeClassLevel(pushClassLevel.value), previousArm = this.normalizeClassArm(pushClassArm.value, previousLevel || classLevel);
             pushClassLevel.value = classLevel;
 
-            /*
-             * Do not rebuild when the class has not changed.
-             * Rebuilding would wipe the teacher's selected target arm.
-             */
             if (previousLevel !== classLevel || !pushClassArm.options.length) {
               buildArmOptions(pushClassArm, classLevel);
-
               const armStillExists = [...pushClassArm.options].some((option) => option.value === previousArm);
               if (previousArm && armStillExists) pushClassArm.value = previousArm;
             }
 
             updatePushTermUI();
 
-            const itemTerms = [...new Set(selectedItems.map((item) => this.getItemTerm(item)).filter(Boolean))];
-            const hasGeneralItems = selectedItems.some((item) => !this.getItemTerm(item));
+            const itemTerms = [...new Set(selectedItems.map((item) => this.getItemTerm(item)).filter(Boolean))], hasGeneralItems = selectedItems.some((item) => !this.getItemTerm(item));
+            if (this.isTermRequiredClass(classLevel) && pushTermSelector) pushTermSelector.value = itemTerms.length === 1 && !hasGeneralItems ? itemTerms[0] : "";
 
-            /* JSS = one strict term. */
-            if (this.isTermRequiredClass(classLevel) && pushTermSelector) {
-              pushTermSelector.value = itemTerms.length === 1 && !hasGeneralItems ? itemTerms[0] : "";
-            }
-
-            /*
-             * SS:
-             * root only             -> GENERAL
-             * FIRST + root fallback -> FIRST
-             * multiple real terms   -> blank / invalid
-             */
             if (this.isOptionalTermClass(classLevel) && pushTermSelector) {
               if (itemTerms.length === 0) pushTermSelector.value = "GENERAL";
               else if (itemTerms.length === 1) pushTermSelector.value = itemTerms[0];
@@ -646,74 +610,46 @@
          VALIDATE CURRENT PUSH SELECTION
       ======================================================== */
 
-      const validatePushSelection = (year, classLevel, term, mode, items) => {
+      const validatePushSelection = (targetYear, classLevel, term, mode, items) => {
         if (!items.length) return { valid: false, message: "No JSON file selected." };
         if (items.some((item) => !item?.filename)) return { valid: false, message: "One or more selected files are invalid." };
 
-        /* Year */
-        const years = [...new Set(items.map((item) => String(item.year || "")))];
+        const targetYearNumber = Number(targetYear), sourceYears = [...new Set(items.map((item) => String(item.year || "").trim()).filter(Boolean))];
+        if (!Number.isInteger(targetYearNumber) || targetYearNumber < this.targetYearMin || targetYearNumber > this.targetYearMax) return { valid: false, message: `Current / Active Year must be between ${this.targetYearMin} and ${this.targetYearMax}.` };
+        if (sourceYears.length > 1) return { valid: false, message: "Selected files contain different JSON source years. Push one source year at a time." };
 
-        if (years.length > 1) return { valid: false, message: "Selected files contain different exam years. Push one year at a time." };
-        if (years.length === 1 && years[0] && String(year) !== years[0]) return { valid: false, message: `Selected files belong to ${years[0]}, but Push Year is ${year}.` };
-
-        /* Class */
         const classes = [...new Set(items.map((item) => this.getItemClass(item)).filter(Boolean))];
-
         if (classes.length > 1) return { valid: false, message: "Selected files contain different classes. Push one class at a time." };
         if (classes.length === 1 && classes[0] !== classLevel) return { valid: false, message: `Selected files are for ${classes[0]}, not ${classLevel}.` };
 
-        const rawMode = String(mode || "").trim().toUpperCase();
-        const itemTerms = [...new Set(items.map((item) => this.getItemTerm(item)).filter(Boolean))];
-        const missingTerms = items.some((item) => !this.getItemTerm(item));
+        const rawMode = String(mode || "").trim().toUpperCase(), itemTerms = [...new Set(items.map((item) => this.getItemTerm(item)).filter(Boolean))], missingTerms = items.some((item) => !this.getItemTerm(item));
 
-        /* ====================================================
-           JSS = STRICT TERM
-        ==================================================== */
-
+        /* JSS = strict selected term. */
         if (this.isTermRequiredClass(classLevel)) {
           if (!term) return { valid: false, message: `Select a term for ${classLevel}.` };
           if (itemTerms.length > 1) return { valid: false, message: "Selected JSS files contain different terms. Push one term at a time." };
           if (missingTerms) return { valid: false, message: "One or more JSS files have no term assigned. Please fix the JSON metadata first." };
           if (itemTerms.length === 1 && itemTerms[0] !== term) return { valid: false, message: `Selected files are ${this.termLabel(itemTerms[0])}, but target is ${this.termLabel(term)}.` };
-
-          return { valid: true };
+          return { valid: true, sourceYear: sourceYears[0] || "" };
         }
 
-        /* ====================================================
-           SS = HYBRID GENERAL / TERM
-        ==================================================== */
-
+        /* SS = General/root or one selected term. */
         if (this.isOptionalTermClass(classLevel)) {
           if (!rawMode) return { valid: false, message: `Select General / Root or a term for ${classLevel}.` };
 
-          /* GENERAL ROOT PUSH */
           if (rawMode === "GENERAL") {
             if (itemTerms.length) return { valid: false, message: "General / Root push can only contain General SS files. Choose the matching term to push term-specific files." };
-
-            return { valid: true };
+            return { valid: true, sourceYear: sourceYears[0] || "" };
           }
 
-          /* TERM PUSH */
           if (!term) return { valid: false, message: `Select General / Root or a valid term for ${classLevel}.` };
-
-          /*
-           * Selected SS term may contain:
-           *   selected-term JSONs
-           *   + root/general JSON fallbacks.
-           *
-           * Another real term is never allowed.
-           */
           const wrongTerms = itemTerms.filter((itemTerm) => itemTerm !== term);
+          if (wrongTerms.length) return { valid: false, message: `Selected SS files include ${wrongTerms.map((itemTerm) => this.termLabel(itemTerm)).join(", ")}, but target is ${this.termLabel(term)}.` };
 
-          if (wrongTerms.length) {
-            const labels = wrongTerms.map((itemTerm) => this.termLabel(itemTerm)).join(", ");
-            return { valid: false, message: `Selected SS files include ${labels}, but target is ${this.termLabel(term)}.` };
-          }
-
-          return { valid: true };
+          return { valid: true, sourceYear: sourceYears[0] || "" };
         }
 
-        return { valid: true };
+        return { valid: true, sourceYear: sourceYears[0] || "" };
       };
 
 
@@ -738,201 +674,174 @@
 
 
       /* ========================================================
-         PUSH SELECTED
+         BATCH PUSH ENGINE — ONE, MANY OR ALL SUBJECTS
       ======================================================== */
 
-      btnPush.addEventListener("click", async () => {
-        syncTargetFromSelection();
+      const getTargetContext = () => {
+        const targetYear = String(pushYearSel.value || "").trim(), classLevel = this.normalizeClassLevel(pushClassLevel.value), classArm = this.normalizeClassArm(pushClassArm.value, classLevel);
+        const rawTermMode = String(pushTermSelector?.value || "").trim().toUpperCase(), term = this.isTermAwareClass(classLevel) && rawTermMode !== "GENERAL" ? this.normalizeTerm(rawTermMode) : null;
+        return { targetYear, classLevel, classArm, rawTermMode, term };
+      };
 
-        const year = String(pushYearSel.value || "").trim();
-        const classLevel = this.normalizeClassLevel(pushClassLevel.value);
-        const classArm = this.normalizeClassArm(pushClassArm.value, classLevel);
-        const rawTermMode = String(pushTermSelector?.value || "").trim().toUpperCase();
-        const term = this.isTermAwareClass(classLevel) && rawTermMode !== "GENERAL" ? this.normalizeTerm(rawTermMode) : null;
-        const selectedItems = this.getSelectedItems();
+      const formatPushFailures = (items) => (Array.isArray(items) ? items : []).slice(0, 8).map((item) => {
+        const subject = String(item?.subject || "").trim(), reason = String(item?.reason || "This subject could not be pushed.").trim();
+        return subject && !reason.toLowerCase().startsWith(subject.toLowerCase()) ? `${subject}: ${reason}` : reason;
+      }).filter(Boolean);
 
-        /* -----------------------------------------------------
-           BASIC TARGET / SELECTION VALIDATION
-        ----------------------------------------------------- */
+      const clearPushedQueue = () => {
+        if (window.EmisUploads?.clearSelection) window.EmisUploads.clearSelection();
+        else if (window.EmisUploads?.selectedFiles) window.EmisUploads.selectedFiles.clear();
 
-        if (!year) return showMessage("Select a year first.", "error");
+        root.querySelectorAll(".row-select").forEach((checkbox) => { checkbox.checked = false; });
+        const checkAll = root.querySelector("#checkAllUploads");
+        if (checkAll) { checkAll.checked = false; checkAll.indeterminate = false; }
+        updatePushCount();
+      };
+
+      const selectBatchItemsInQueue = (items) => {
+        const uploads = window.EmisUploads;
+        if (!uploads?.selectedFiles) return;
+
+        uploads.selectedFiles.clear();
+        items.forEach((item) => {
+          if (uploads.makeSelectionKey) uploads.selectedFiles.add(uploads.makeSelectionKey(item));
+          else uploads.selectedFiles.add(`${item.year}|${this.getItemClass(item)}|${this.getItemTerm(item) || "NONE"}|${item.filename}`);
+        });
+
+        root.querySelectorAll(".upload-row").forEach((row) => {
+          const checkbox = row.querySelector(".row-select"); if (!checkbox) return;
+          const year = row.dataset.year, filename = row.dataset.filename, cls = this.normalizeClassLevel(row.dataset.class), term = this.normalizeTerm(row.dataset.term) || "NONE";
+          checkbox.checked = uploads.selectedFiles.has(`${year}|${cls}|${term}|${filename}`);
+        });
+
+        const checkAll = root.querySelector("#checkAllUploads"), renderedChecks = [...root.querySelectorAll(".upload-row .row-select")];
+        if (checkAll && renderedChecks.length) {
+          const checkedCount = renderedChecks.filter((checkbox) => checkbox.checked).length;
+          checkAll.checked = checkedCount === renderedChecks.length; checkAll.indeterminate = checkedCount > 0 && checkedCount < renderedChecks.length;
+        }
+
+        updatePushCount();
+      };
+
+      const collectAllSubjectsForTarget = (classLevel, term, rawTermMode) => {
+        const uploads = window.EmisUploads;
+        if (!uploads?.convertedItems?.length || !classLevel) return [];
+
+        let items = uploads.convertedItems.filter((item) => this.getItemClass(item) === classLevel);
+        if (uploads.activeYear) items = items.filter((item) => String(item.year || "") === String(uploads.activeYear));
+
+        if (this.isTermRequiredClass(classLevel)) {
+          if (!term) return [];
+          items = items.filter((item) => this.getItemTerm(item) === term);
+
+        } else if (this.isOptionalTermClass(classLevel)) {
+          if (rawTermMode === "GENERAL") {
+            items = items.filter((item) => !this.getItemTerm(item));
+
+          } else if (term) {
+            const specificKeys = new Set(items.filter((item) => this.getItemTerm(item) === term).map((item) => `${item.year}|${this.getItemClass(item)}|${item.filename}`));
+            items = items.filter((item) => {
+              const itemTerm = this.getItemTerm(item);
+              if (itemTerm === term) return true;
+              if (itemTerm) return false;
+              return !specificKeys.has(`${item.year}|${this.getItemClass(item)}|${item.filename}`);
+            });
+          }
+        }
+
+        const unique = new Map();
+        items.forEach((item) => { const key = `${item.year}|${this.getItemClass(item)}|${this.getItemTerm(item) || "NONE"}|${item.filename}`; if (!unique.has(key)) unique.set(key, item); });
+        return [...unique.values()];
+      };
+
+      const executeBatchPush = async (items, triggerButton = btnPush, { clearQueue = true, actionLabel = "Push Selected" } = {}) => {
+        const { targetYear, classLevel, classArm, rawTermMode, term } = getTargetContext();
+        items = Array.isArray(items) ? items.filter(Boolean) : [];
+
+        if (!items.length) return showMessage("Select at least one JSON subject to push.", "error");
+        if (!targetYear) return showMessage("Select a Current / Active Year first.", "error");
         if (!this.isValidTarget(classLevel, classArm)) return showMessage("Select class level and class arm/group.", "error");
 
-        const validation = validatePushSelection(year, classLevel, term, rawTermMode, selectedItems);
+        const validation = validatePushSelection(targetYear, classLevel, term, rawTermMode, items);
         if (!validation.valid) return showMessage(validation.message, "error");
 
-        const files = this.getPushFileEntries(selectedItems);
+        const files = this.getPushFileEntries(items), sourceYear = validation.sourceYear || "";
+        if (!files.length) return showMessage("No valid JSON subjects were found in the selected batch.", "error");
 
-        /* -----------------------------------------------------
-           CONFIRMATION
-        ----------------------------------------------------- */
-
-        const confirmed = await this.showPushConfirm({ year, classLevel, classArm, term, mode: rawTermMode, count: files.length });
+        const confirmed = await this.showPushConfirm({ targetYear, sourceYear, classLevel, classArm, term, mode: rawTermMode, count: files.length });
         if (!confirmed) return;
 
-        /* -----------------------------------------------------
-           PUSH REQUEST
-        ----------------------------------------------------- */
+        const originalHtml = triggerButton?.innerHTML || "", generalMode = this.isOptionalTermClass(classLevel) && rawTermMode === "GENERAL";
+        const targetText = term ? `${classArm} / ${this.termLabel(term)}` : generalMode ? `${classArm} / General` : classArm, pushedTargetLabel = term ? `${classArm} • ${this.termLabel(term)}` : generalMode ? `${classArm} • General / Root` : classArm;
 
         try {
-          btnPush.disabled = true;
-          btnPush.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Pushing...`;
+          if (triggerButton) { triggerButton.disabled = true; triggerButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Pushing ${files.length}...`; }
+          if (btnPush && btnPush !== triggerButton) btnPush.disabled = true;
+          if (btnPushAll && btnPushAll !== triggerButton) btnPushAll.disabled = true;
 
-          const generalMode = this.isOptionalTermClass(classLevel) && rawTermMode === "GENERAL";
-          const targetText = term ? `${classArm} / ${this.termLabel(term)}` : generalMode ? `${classArm} / General` : classArm;
-          const pushedTargetLabel = term ? `${classArm} • ${this.termLabel(term)}` : generalMode ? `${classArm} • General / Root` : classArm;
-
-          log(`Pushing ${files.length} file(s) to ${targetText}...`);
+          log(`Batch push started — ${files.length} subject(s)${sourceYear ? ` from JSON ${sourceYear}` : ""} → active year ${targetYear} • ${targetText}.`);
 
           const response = await fetch("/api/push", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ files, year, class_level: classLevel, class_category: classLevel, class_arm: classArm, target_arm: classArm, term })
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ files, target_year: targetYear, year: targetYear, class_level: classLevel, class_category: classLevel, class_arm: classArm, target_arm: classArm, term, batch: true })
           });
 
           let output = {};
           try { output = await response.json(); } catch { output = {}; }
 
-          const failures = Array.isArray(output.failed) ? output.failed : [];
-          const warnings = Array.isArray(output.warnings) ? output.warnings : [];
-          const pushedCount = Number(output.subject_count ?? output.subjects_pushed?.length ?? 0) || 0;
-          const failedCount = Number(output.failed_count ?? failures.length ?? 0) || 0;
-          const warningCount = Number(output.warning_count ?? warnings.length ?? 0) || 0;
+          const failures = Array.isArray(output.failed) ? output.failed : [], warnings = Array.isArray(output.warnings) ? output.warnings : [];
+          const pushedCount = Number(output.subject_count ?? output.subjects_pushed?.length ?? 0) || 0, failedCount = Number(output.failed_count ?? failures.length ?? 0) || 0, warningCount = Number(output.warning_count ?? warnings.length ?? 0) || 0;
 
-          const formatFailures = (items) => items.slice(0, 5).map((item) => {
-            const subject = String(item?.subject || "").trim();
-            const reason = String(item?.reason || "This subject could not be pushed.").trim();
-            return subject && !reason.toLowerCase().startsWith(subject.toLowerCase()) ? `${subject}: ${reason}` : reason;
-          }).filter(Boolean);
-
-          /* ---------------------------------------------------
-             SERVER ERROR
-          --------------------------------------------------- */
-
-          if (!response.ok) throw new Error(output.error || failures[0]?.reason || "Push request failed.");
-
-          /* ---------------------------------------------------
-             EVERYTHING BLOCKED
-
-             Selection remains so teacher can simply change
-             the class arm/group and push again.
-          --------------------------------------------------- */
+          if (!response.ok) throw new Error(output.error || failures[0]?.reason || "Batch push request failed.");
 
           if (!output.success || !pushedCount) {
-            const blockedDetails = formatFailures(failures);
-
-            showPushNotice({
-              type: "error",
-              title: failedCount === 1 ? "Subject Not Pushed" : `${failedCount || files.length} Subjects Not Pushed`,
-              message: `Nothing was published to ${pushedTargetLabel}. Change the target arm/group and try again.`,
-              details: blockedDetails,
-              duration: 11000
-            });
-
-            blockedDetails.forEach((reason) => log(reason, "error"));
-            return;
+            const blockedDetails = formatPushFailures(failures);
+            showPushNotice({ type: "error", title: `${failedCount || files.length} Subject${(failedCount || files.length) === 1 ? "" : "s"} Not Pushed`, message: `Nothing was published to ${targetYear} • ${pushedTargetLabel}.`, details: blockedDetails, duration: 12000 });
+            blockedDetails.forEach((reason) => log(reason, "error")); return;
           }
 
-          /* ---------------------------------------------------
-             SUCCESS
-          --------------------------------------------------- */
-
-          showPushNotice({
-            type: "success",
-            title: pushedCount === 1 ? "Push Successful" : "Push Completed",
-            message: `${pushedCount} subject${pushedCount === 1 ? "" : "s"} published to ${pushedTargetLabel}.`,
-            duration: 6000
-          });
-
-          log(`Pushed ${pushedCount} subject(s) to ${pushedTargetLabel}.`, "success");
-
-          /* ---------------------------------------------------
-             STREAM / STUDENT VISIBILITY WARNINGS
-          --------------------------------------------------- */
+          showPushNotice({ type: failedCount ? "warning" : "success", title: failedCount ? "Batch Push Partially Completed" : pushedCount === 1 ? "Push Successful" : "Batch Push Successful", message: `${pushedCount} of ${files.length} selected subject${files.length === 1 ? "" : "s"} published${sourceYear ? ` from JSON ${sourceYear}` : ""} to active year ${targetYear} • ${pushedTargetLabel}.`, duration: failedCount ? 10000 : 6500 });
+          log(`Batch completed — ${pushedCount}/${files.length} subject(s) published to active year ${targetYear} • ${pushedTargetLabel}.`, failedCount ? "warn" : "success");
 
           if (warningCount) {
-            const warningDetails = warnings.slice(0, 5).map((item) => String(item?.message || item?.warning || "").trim()).filter(Boolean);
-
-            showPushNotice({
-              type: "warning",
-              title: warningCount === 1 ? "Check Student Visibility" : `${warningCount} Visibility Warnings`,
-              message: warningCount === 1
-                ? "The push succeeded, but this subject is not available to every student in the selected target."
-                : "The push succeeded, but some subjects are not available to every student in the selected target.",
-              details: warningDetails,
-              duration: 11000
-            });
-
+            const warningDetails = warnings.slice(0, 8).map((item) => String(item?.message || item?.warning || "").trim()).filter(Boolean);
+            showPushNotice({ type: "warning", title: `${warningCount} Visibility Warning${warningCount === 1 ? "" : "s"}`, message: "The compatible subjects were published, but some may not be available to every student in this target.", details: warningDetails, duration: 12000 });
             warningDetails.forEach((warning) => log(warning, "warn"));
           }
 
-          /* ---------------------------------------------------
-             PARTIAL FAILURE
-
-             Compatible subjects push successfully while
-             incompatible subjects are skipped.
-          --------------------------------------------------- */
-
           if (failedCount) {
-            const failureDetails = formatFailures(failures);
-
-            showPushNotice({
-              type: "error",
-              title: `${failedCount} ${failedCount === 1 ? "Subject" : "Subjects"} Skipped`,
-              message: pushedCount === 1 ? "1 compatible subject was published successfully." : `${pushedCount} compatible subjects were published successfully.`,
-              details: failureDetails,
-              duration: 11000
-            });
-
+            const failureDetails = formatPushFailures(failures);
+            showPushNotice({ type: "error", title: `${failedCount} Subject${failedCount === 1 ? "" : "s"} Skipped`, message: `${pushedCount} compatible subject${pushedCount === 1 ? "" : "s"} were still published successfully.`, details: failureDetails, duration: 12000 });
             failureDetails.forEach((reason) => log(reason, "warn"));
           }
 
-          /* ---------------------------------------------------
-             CLEAR SUCCESSFUL QUEUE
-          --------------------------------------------------- */
-
-          if (window.EmisUploads?.clearSelection) window.EmisUploads.clearSelection();
-          else if (window.EmisUploads?.selectedFiles) window.EmisUploads.selectedFiles.clear();
-
-          root.querySelectorAll(".row-select").forEach((checkbox) => { checkbox.checked = false; });
-
-          const checkAll = root.querySelector("#checkAllUploads");
-          if (checkAll) { checkAll.checked = false; checkAll.indeterminate = false; }
-
-          updatePushCount();
-
-          /* ---------------------------------------------------
-             UPDATE ACTIVE PORTAL STATE
-          --------------------------------------------------- */
-
-          updateServerActiveStatus(
-            output.active_year || output.latest_year || year,
-            output.class_active_years || {},
-            output.class_active_terms || {}
-          );
-
-          updateTargetPreview();
-          root.querySelector("#refreshPortalMap")?.click();
+          if (clearQueue) clearPushedQueue();
+          updateServerActiveStatus(output.active_year || output.target_year || output.latest_year || targetYear, output.class_active_years || {}, output.class_active_terms || {});
+          updateTargetPreview(); root.querySelector("#refreshPortalMap")?.click();
 
         } catch (error) {
-          console.error("Push error:", error);
-
-          showPushNotice({
-            type: "error",
-            title: "Push Failed",
-            message: error.message || "The portal push could not be completed.",
-            duration: 9000
-          });
-
-          log(error.message || "Push failed.", "error");
+          console.error("Batch push error:", error);
+          showPushNotice({ type: "error", title: "Batch Push Failed", message: error.message || "The portal batch push could not be completed.", duration: 10000 });
+          log(error.message || "Batch push failed.", "error");
 
         } finally {
-          btnPush.disabled = false;
-          btnPush.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Push Selected`;
+          if (triggerButton) { triggerButton.disabled = false; triggerButton.innerHTML = originalHtml || `<i class="fa-solid fa-cloud-arrow-up"></i> ${actionLabel}`; }
+          if (btnPush) btnPush.disabled = false;
+          if (btnPushAll) btnPushAll.disabled = false;
         }
+      };
+
+
+      /* ========================================================
+         PUSH SELECTED — MULTI-SELECT BATCH
+      ======================================================== */
+
+      btnPush.addEventListener("click", async () => {
+        syncTargetFromSelection();
+        const selectedItems = this.getSelectedItems();
+        await executeBatchPush(selectedItems, btnPush, { clearQueue: true, actionLabel: "Push Selected" });
       });
 
-      
 
       /* ========================================================
          OPEN CLEAR TARGET MODAL
@@ -1008,7 +917,7 @@
 
 
         if (!year) {
-          showMessage("Select a year first.", "error");
+          showMessage("Select a Current / Active Year first.", "error");
           return;
         }
 
@@ -1165,125 +1074,35 @@
 
 
       /* ========================================================
-         SELECT / QUEUE ALL VISIBLE SUBJECTS
+         PUSH ALL SUBJECTS — ONE CLICK BATCH
+         Uses the loaded JSON source year + selected target class/term.
       ======================================================== */
 
-      btnPushAll?.addEventListener("click", () => {
+      btnPushAll?.addEventListener("click", async () => {
         const uploads = window.EmisUploads;
+        if (!uploads?.convertedItems?.length) return showMessage("No subjects found in the JSON library.", "error");
 
-        if (!uploads?.convertedItems?.length) {
-          showMessage("No subjects found in the library.", "error");
-          return;
-        }
+        let { classLevel, rawTermMode, term } = getTargetContext();
 
-
-        let items = [...uploads.convertedItems];
-
-
-        /* Current class filter */
-
-        if (uploads.activeClass && uploads.activeClass !== "ALL") {
-          items = items.filter((item) => this.getItemClass(item) === uploads.activeClass);
-        }
-
-
-        /* ====================================================
-           CURRENT TERM FILTER — JSS + HYBRID SS
-        ==================================================== */
-
-        if (uploads.activeClass && this.isTermAwareClass(uploads.activeClass) && uploads.activeTerm && uploads.activeTerm !== "ALL") {
-
-          /* SS GENERAL */
-
-          if (uploads.activeTerm === "GENERAL") {
-            items = items.filter((item) => !this.getItemTerm(item));
-
-
-          /* FIRST / SECOND / THIRD */
-
-          } else {
-            const wantedTerm = this.normalizeTerm(uploads.activeTerm);
-
-
-            /* JSS exact term only */
-
-            if (this.isTermRequiredClass(uploads.activeClass)) {
-              items = items.filter((item) => this.getItemTerm(item) === wantedTerm);
-
-
-            /* SS selected term + General fallback */
-
-            } else {
-              const specificKeys = new Set(
-                items
-                  .filter((item) => this.getItemTerm(item) === wantedTerm)
-                  .map((item) => `${item.year}|${this.getItemClass(item)}|${item.filename}`)
-              );
-
-              items = items.filter((item) => {
-                const itemTerm = this.getItemTerm(item);
-
-                if (itemTerm === wantedTerm) return true;
-                if (itemTerm) return false;
-
-                return !specificKeys.has(`${item.year}|${this.getItemClass(item)}|${item.filename}`);
-              });
-            }
+        /* If Push Target class is blank, use the active Repository class when it is one exact class. */
+        if (!classLevel && uploads.activeClass && uploads.activeClass !== "ALL") {
+          classLevel = this.normalizeClassLevel(uploads.activeClass);
+          if (classLevel && [...pushClassLevel.options].some((option) => option.value === classLevel)) {
+            pushClassLevel.value = classLevel; buildArmOptions(pushClassArm, classLevel); updatePushTermUI();
+            rawTermMode = String(pushTermSelector?.value || "").trim().toUpperCase();
+            term = this.isTermAwareClass(classLevel) && rawTermMode !== "GENERAL" ? this.normalizeTerm(rawTermMode) : null;
           }
         }
 
+        if (!classLevel) return showMessage("Select one class in Push Target before using Push All Subjects.", "error");
+        if (this.isTermRequiredClass(classLevel) && !term) return showMessage(`Select a term for ${classLevel} before pushing all subjects.`, "error");
+        if (this.isOptionalTermClass(classLevel) && !rawTermMode) return showMessage(`Select General / Root or a term for ${classLevel} before pushing all subjects.`, "error");
 
-        /* Current subject filter */
+        const items = collectAllSubjectsForTarget(classLevel, term, rawTermMode);
+        if (!items.length) return showMessage(`No ${classLevel} subjects were found for the selected term/mode in this JSON year.`, "error");
 
-        if (uploads.activeSubject && uploads.activeSubject !== "ALL") {
-          const wantedSubject = String(uploads.activeSubject).toLowerCase().trim();
-
-          items = items.filter((item) => String(item.subject || "").toLowerCase().trim() === wantedSubject);
-        }
-
-
-        if (!items.length) {
-          showMessage("No visible subjects to queue.", "error");
-          return;
-        }
-
-
-        uploads.selectedFiles.clear();
-
-
-        items.forEach((item) => {
-          if (uploads.makeSelectionKey) {
-            uploads.selectedFiles.add(uploads.makeSelectionKey(item));
-
-          } else {
-            const year = item.year;
-            const cls = this.getItemClass(item);
-            const term = this.getItemTerm(item) || "NONE";
-
-            uploads.selectedFiles.add(`${year}|${cls}|${term}|${item.filename}`);
-          }
-        });
-
-
-        root.querySelectorAll(".upload-row").forEach((row) => {
-          const checkbox = row.querySelector(".row-select");
-
-          if (!checkbox) return;
-
-          const year = row.dataset.year;
-          const filename = row.dataset.filename;
-          const cls = this.normalizeClassLevel(row.dataset.class);
-          const term = this.normalizeTerm(row.dataset.term) || "NONE";
-          const key = `${year}|${cls}|${term}|${filename}`;
-
-          checkbox.checked = uploads.selectedFiles.has(key);
-        });
-
-
-        updatePushCount();
-        syncTargetFromSelection();
-
-        showMessage(`${items.length} file(s) queued. Select target arm and push.`, "success");
+        selectBatchItemsInQueue(items);
+        await executeBatchPush(items, btnPushAll, { clearQueue: true, actionLabel: "Push All Subjects" });
       });
 
 

@@ -16,7 +16,7 @@
         // ============================================================
 
         render(report = {}, payload = {}) {
-            const subjects = Array.isArray(report.subjects) ? report.subjects : [], count = subjects.length, isJss = String(report.class_level || payload.class_level || "").toUpperCase().startsWith("JSS"), isThird = String(report.term || payload.term || "").toUpperCase().includes("THIRD"), density = count >= 15 ? "report-density-ultra" : count >= 12 || isThird ? "report-density-tight" : "report-density-normal";
+            const subjects = Array.isArray(report.subjects) ? report.subjects : [], count = subjects.length, isJss = String(report.class_level || payload.class_level || "").toUpperCase().startsWith("JSS"), isThird = String(report.term || payload.term || "").toUpperCase().includes("THIRD"), density = count >= 15 ? "report-density-ultra" : count >= 10 || isThird ? "report-density-tight" : "report-density-normal";
             return `<article class="emis-report-card generated-report-sheet ${density}" data-report-admission="${this.escape(report.admission_number || "")}" data-result-name="${this.escape(report.result_name || "")}" data-source-mode="${this.escape(report.source_mode || "auto")}">${this.header(report, payload)}${this.identity(report, payload)}${this.summaryStrip(report)}${this.subjectSection(report, subjects, isJss, isThird)}${this.insightStrip(report)}${isThird ? this.cumulativeStrip(report) : ""}${this.traitsAndAttendance(report)}${this.remarks(report, payload)}${this.footer(report)}</article>`;
         },
 
@@ -34,8 +34,8 @@
         // ============================================================
 
         identity(report, payload) {
-            const klass = this.classLabel(report.class_arm || report.class_level || payload.class_arm), sex = report.sex || "—", subjectCount = report.subject_count ?? report.subjects?.length ?? 0;
-            return `<section class="emis-report-identity"><div class="emis-student-primary"><span>Student Name</span><strong>${this.escape(report.full_name || "—")}</strong><small>${this.escape(report.admission_number || "—")} • ${this.escape(klass)}</small></div><div class="emis-student-facts"><p><span>Admission No.</span><strong>${this.escape(report.admission_number || "—")}</strong></p><p><span>Class</span><strong>${this.escape(klass)}</strong></p><p><span>Sex</span><strong>${this.escape(sex)}</strong></p><p><span>Subjects</span><strong>${this.escape(subjectCount)}</strong></p></div></section>`;
+            const klass = this.classLabel(report.class_arm || report.class_level || payload.class_arm), sex = report.sex || "—", age = report.age ?? report.student?.age ?? "—", session = report.session || payload.session || "—", term = report.term_label || this.termLabel(report.term || payload.term);
+            return `<section class="emis-report-identity"><div class="emis-student-primary"><span>Student Name</span><strong>${this.escape(report.full_name || "—")}</strong><small>${this.escape(report.admission_number || "—")} • ${this.escape(klass)}</small></div><div class="emis-student-facts"><p><span>Admission No.</span><strong>${this.escape(report.admission_number || "—")}</strong></p><p><span>Class</span><strong>${this.escape(klass)}</strong></p><p><span>Sex</span><strong>${this.escape(sex)}</strong></p><p><span>Age</span><strong>${this.escape(age)}</strong></p><p><span>Session</span><strong>${this.escape(session)}</strong></p><p><span>Term</span><strong>${this.escape(term)}</strong></p></div></section>`;
         },
 
         // ============================================================
@@ -43,8 +43,8 @@
         // ============================================================
 
         summaryStrip(report) {
-            const attendance = report.attendance || {}, average = this.percent(report.average), grade = report.grade || "—", position = report.position_text || report.position || "—", outOf = report.out_of || "—", attendancePct = this.percent(attendance.attendance_percentage, 1), classAverage = this.percent(report.performance_insights?.class_average, 2);
-            return `<section class="emis-report-summary"><article><span>Final Average</span><strong>${average}</strong><small>Student overall</small></article><article><span>Final Grade</span><strong>${this.escape(grade)}</strong><small>${this.gradeMeaning(grade)}</small></article><article><span>Class Position</span><strong>${this.escape(position)} <em>/ ${this.escape(outOf)}</em></strong><small>Overall standing</small></article><article><span>Attendance</span><strong>${attendancePct}</strong><small>${this.escape(attendance.present_credit ?? attendance.present ?? 0)} of ${this.escape(attendance.days_open ?? 0)} days</small></article><article><span>Class Average</span><strong>${classAverage}</strong><small>Comparison point</small></article></section>`;
+            const attendance = report.attendance || {}, average = this.percent(report.average), grade = report.grade || "—", position = report.position_text || report.position || "—", outOf = report.out_of || "—", attendancePct = this.percent(attendance.attendance_percentage, 1), classAverage = this.percent(report.performance_insights?.class_average ?? report.class_average, 2), totalScore = this.num(report.total_score ?? report.total_score_number ?? report.total);
+            return `<section class="emis-report-summary"><article><span>Final Average</span><strong>${average}</strong><small>Total score: ${totalScore}</small></article><article><span>Final Grade</span><strong>${this.escape(grade)}</strong><small>${this.gradeMeaning(grade)}</small></article><article><span>Class Position</span><strong>${this.escape(position)} <em>/ ${this.escape(outOf)}</em></strong><small>No. in class: ${this.escape(outOf)}</small></article><article><span>Attendance</span><strong>${attendancePct}</strong><small>${this.escape(attendance.present_credit ?? attendance.present ?? 0)} present • ${this.escape(attendance.absent_total ?? attendance.absent ?? 0)} absent</small></article><article><span>Class Average</span><strong>${classAverage}</strong><small>Comparison point</small></article></section>`;
         },
 
         // ============================================================
@@ -107,7 +107,7 @@
 
         remarks(report, payload) {
             const formTeacher = report.form_teacher || payload.form_teacher || "—", nextTerm = report.next_term || payload.next_term || "—";
-            return `<section class="emis-report-remarks"><div class="emis-remark-main"><p><span>Form Teacher</span><strong>${this.escape(formTeacher)}</strong></p><p><span>Form Teacher's Remark</span><strong>${this.escape(report.teacher_remark || "—")}</strong></p><p><span>Principal's Remark</span><strong>${this.escape(report.principal_remark || "—")}</strong></p><p><span>Next Term Begins</span><strong>${this.escape(this.dateLabel(nextTerm))}</strong></p></div><div class="emis-report-signatures"><div><span>Form Teacher</span><i></i></div><div><span>Principal</span><i></i></div></div></section>`;
+            return `<section class="emis-report-remarks"><div class="emis-remark-main"><div class="emis-remark-row"><span>Form Teacher</span><strong>${this.escape(formTeacher)}</strong></div><div class="emis-remark-row"><span>Form Teacher's Remark</span><strong>${this.escape(report.teacher_remark || "—")}</strong></div><div class="emis-remark-row"><span>Principal's Remark</span><strong>${this.escape(report.principal_remark || "—")}</strong></div><div class="emis-remark-row"><span>Next Term Begins</span><strong>${this.escape(this.dateLabel(nextTerm))}</strong></div></div><div class="emis-report-signatures"><div><span>Form Teacher</span><i></i></div><div><span>Principal</span><i></i></div></div></section>`;
         },
 
         // ============================================================

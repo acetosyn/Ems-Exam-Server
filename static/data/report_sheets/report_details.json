@@ -1,8 +1,8 @@
 {
   "2026/2027|FIRST|JSS1|JSS1A|std015": {
     "form_teacher": "Mr Tosin",
-    "teacher_remark": "",
-    "principal_remark": "",
+    "teacher_remark": "He can do Better",
+    "principal_remark": "Average result",
     "next_term": "2027-12-31",
     "affective": {
       "punctuality": 6,
@@ -11,10 +11,10 @@
       "neatness": 6,
       "politeness": 6,
       "honesty": 6,
-      "relationship": "",
-      "self_control": "",
-      "attentiveness": "",
-      "perseverance": ""
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
     },
     "psychomotor": {
       "handwriting": 6,
@@ -24,7 +24,35 @@
       "crafts": 6,
       "musical_skills": 6
     },
-    "updated_at": "2026-09-14 12:33:35",
+    "updated_at": "2026-09-15 16:14:33",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std013": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "Poor performance. Serious improvement is required.",
+    "principal_remark": "Unsatisfactory performance.",
+    "next_term": "2026-12-28",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-15 15:48:07",
     "updated_by": "admin"
   }
 }

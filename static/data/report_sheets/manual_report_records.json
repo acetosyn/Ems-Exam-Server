@@ -1,0 +1,283 @@
+{
+  "2026/2027|FIRST|JSS1|JSS1A|std013": {
+    "session": "2026/2027",
+    "term": "FIRST",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std013",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 3,
+        "ca2": 3,
+        "test1": 5,
+        "test2": 5,
+        "exam": 5
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 7,
+        "ca2": 6,
+        "test1": 7,
+        "test2": 7,
+        "exam": 7
+      },
+      "IRS": {
+        "subject": "IRK",
+        "subject_key": "IRS",
+        "included": true,
+        "ca1": 6,
+        "ca2": 6,
+        "test1": 6,
+        "test2": 6,
+        "exam": 6
+      }
+    },
+    "attendance": {
+      "days_open": 0,
+      "present": 0,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 0,
+      "absent_total": 0,
+      "attendance_percentage": 0
+    },
+    "attendance_override_enabled": false,
+    "prefer_manual_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "updated_at": "2026-09-15 15:46:49",
+    "updated_by": "admin"
+  },
+  "2025/2026|FIRST|JSS1|JSS1A|std015": {
+    "session": "2025/2026",
+    "term": "FIRST",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std015",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 8,
+        "ca2": 8,
+        "test1": 7,
+        "test2": 10,
+        "exam": 18
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 7,
+        "ca2": 5,
+        "test1": 7,
+        "test2": 12,
+        "exam": 19
+      },
+      "IRS": {
+        "subject": "IRK",
+        "subject_key": "IRS",
+        "included": true,
+        "ca1": 7,
+        "ca2": 9,
+        "test1": 10,
+        "test2": 16,
+        "exam": 28
+      },
+      "ISLAMIYYAH": {
+        "subject": "Islamiyyah",
+        "subject_key": "ISLAMIYYAH",
+        "included": true,
+        "ca1": 9,
+        "ca2": 7,
+        "test1": 17,
+        "test2": 19,
+        "exam": 32
+      },
+      "POISE": {
+        "subject": "Poise",
+        "subject_key": "POISE",
+        "included": true,
+        "ca1": 4,
+        "ca2": 8,
+        "test1": 16,
+        "test2": 14,
+        "exam": 19
+      },
+      "CIT AND HER STD": {
+        "subject": "Cit & Her. Std",
+        "subject_key": "CIT AND HER STD",
+        "included": true,
+        "ca1": 4,
+        "ca2": 6,
+        "test1": 17,
+        "test2": 12,
+        "exam": 6
+      },
+      "YORUBA LANGUAGE": {
+        "subject": "Yoruba Language",
+        "subject_key": "YORUBA LANGUAGE",
+        "included": true,
+        "ca1": 7,
+        "ca2": 5,
+        "test1": 16,
+        "test2": 18,
+        "exam": 28
+      },
+      "CCA": {
+        "subject": "CCA",
+        "subject_key": "CCA",
+        "included": true,
+        "ca1": 7,
+        "ca2": 5,
+        "test1": 19,
+        "test2": 20,
+        "exam": 23
+      },
+      "HISTORY": {
+        "subject": "History",
+        "subject_key": "HISTORY",
+        "included": true,
+        "ca1": 6,
+        "ca2": 8,
+        "test1": 11,
+        "test2": 15,
+        "exam": 29
+      },
+      "BST": {
+        "subject": "BST",
+        "subject_key": "BST",
+        "included": true,
+        "ca1": 5,
+        "ca2": 6,
+        "test1": 13,
+        "test2": 14,
+        "exam": 35
+      },
+      "PHE": {
+        "subject": "P.H.E",
+        "subject_key": "PHE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 7,
+        "test1": 11,
+        "test2": 14,
+        "exam": 28
+      },
+      "DIGITAL TECH": {
+        "subject": "Digital Tech.",
+        "subject_key": "DIGITAL TECH",
+        "included": true,
+        "ca1": 5,
+        "ca2": 9,
+        "test1": 14,
+        "test2": 16,
+        "exam": 22
+      },
+      "INTER SCIENCE": {
+        "subject": "Inter Science",
+        "subject_key": "INTER SCIENCE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 7,
+        "test1": 8,
+        "test2": 15,
+        "exam": 30
+      }
+    },
+    "attendance": {
+      "days_open": 0,
+      "present": 0,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 0,
+      "absent_total": 0,
+      "attendance_percentage": 0
+    },
+    "attendance_override_enabled": false,
+    "prefer_manual_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "updated_at": "2026-09-15 23:53:28",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std015": {
+    "session": "2026/2027",
+    "term": "FIRST",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std015",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 7,
+        "ca2": 6,
+        "test1": 7,
+        "test2": 9,
+        "exam": 8
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 2,
+        "test1": 8,
+        "test2": 10,
+        "exam": 25
+      },
+      "CCA": {
+        "subject": "CCA",
+        "subject_key": "CCA",
+        "included": true,
+        "ca1": 8,
+        "ca2": 9,
+        "test1": 18,
+        "test2": 13,
+        "exam": 27
+      },
+      "BST": {
+        "subject": "BST",
+        "subject_key": "BST",
+        "included": true,
+        "ca1": 6,
+        "ca2": 7,
+        "test1": 1,
+        "test2": 16,
+        "exam": 25
+      }
+    },
+    "attendance": {
+      "days_open": 0,
+      "present": 0,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 0,
+      "absent_total": 0,
+      "attendance_percentage": 0
+    },
+    "attendance_override_enabled": false,
+    "prefer_manual_scores": false,
+    "status": "DRAFT",
+    "teacher_note": "",
+    "updated_at": "2026-09-16 00:12:04",
+    "updated_by": "admin"
+  }
+}

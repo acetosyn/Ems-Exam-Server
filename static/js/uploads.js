@@ -246,7 +246,6 @@ updatePushCount() {
       const selectAllVisibleBtn = root.querySelector("#selectAllVisible");
       const clearQueueBtn = root.querySelector("#clearQueue");
 
-      const activeYearLabel = root.querySelector("#activeYearLabel");
       const statSelectedYear = root.querySelector("#statSelectedYear");
       const statLoadedFiles = root.querySelector("#statLoadedFiles");
 
@@ -276,10 +275,7 @@ updatePushCount() {
 
       const escapeHtml = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
 
-      const setActiveYearLabel = (year) => {
-        if (activeYearLabel) activeYearLabel.textContent = year || "—";
-      };
-
+  
       const updateStats = () => {
         if (statSelectedYear) statSelectedYear.textContent = this.activeYear || "—";
         if (statLoadedFiles) statLoadedFiles.textContent = Array.isArray(this.convertedItems) ? this.convertedItems.length : 0;
@@ -1057,7 +1053,7 @@ updatePushCount() {
         this.selectedFiles.clear();
 
         resetPreview();
-        setActiveYearLabel(this.activeYear);
+
         loadYearFiles(this.activeYear);
       });
 

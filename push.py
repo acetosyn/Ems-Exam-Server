@@ -4,6 +4,9 @@
 # Supports:
 #   - Broad class push: JSS1, JSS2, JSS3, SS1, SS2, SS3
 #   - Exact class-arm push: JSS1A, JSS2B, SS3_GOLD, SS3B, etc.
+#   - Historical JSON source year -> independent Current / Active target year
+#   - Current / Active target years restricted to 2025-2040
+#   - Multi-subject batch push: one, many or complete subject set
 #   - Per-target active years
 #   - JSS strict FIRST / SECOND / THIRD routing
 #   - SS hybrid routing: GENERAL root + optional FIRST / SECOND / THIRD
@@ -62,6 +65,15 @@ OPTIONAL_TERM_CLASSES = {"SS1", "SS2", "SS3"}
 
 VALID_TERMS = {"FIRST", "SECOND", "THIRD"}
 TERM_ORDER = {"FIRST": 1, "SECOND": 2, "THIRD": 3}
+
+TARGET_YEAR_MIN = 2025
+TARGET_YEAR_MAX = 2040
+MAX_PUSH_BATCH = 500
+
+
+def valid_target_year(value):
+    try: return TARGET_YEAR_MIN <= int(str(value or "").strip()) <= TARGET_YEAR_MAX
+    except (TypeError, ValueError): return False
 
 
 # ============================================================
@@ -183,17 +195,14 @@ def get_payload_term(payload):
 # ============================================================
 
 def get_latest_year():
-    if LATEST_YEAR_FILE.exists():
-        year = LATEST_YEAR_FILE.read_text(encoding="utf-8").strip()
-        return year or None
-    return None
+    if not LATEST_YEAR_FILE.exists(): return None
+    year = LATEST_YEAR_FILE.read_text(encoding="utf-8").strip()
+    return year if valid_target_year(year) else None
 
 
 def set_latest_year(year):
-    if not year: return
-    PORTAL_ROOT.mkdir(parents=True, exist_ok=True)
-    LATEST_YEAR_FILE.write_text(str(year), encoding="utf-8")
-
+    if not valid_target_year(year): return
+    PORTAL_ROOT.mkdir(parents=True, exist_ok=True); LATEST_YEAR_FILE.write_text(str(year), encoding="utf-8")
 
 def clear_latest_year():
     if LATEST_YEAR_FILE.exists(): LATEST_YEAR_FILE.unlink()
@@ -204,12 +213,14 @@ def clear_latest_year():
 # ============================================================
 
 def get_class_active_years():
-    return read_json(CLASS_ACTIVE_YEARS_FILE, default={}) or {}
+    data = read_json(CLASS_ACTIVE_YEARS_FILE, default={}) or {}
+    if not isinstance(data, dict): return {}
+    return {str(target): str(year) for target, year in data.items() if valid_target_year(year)}
 
 
 def save_class_active_years(data):
-    write_json(CLASS_ACTIVE_YEARS_FILE, data or {})
-
+    clean = {str(target): str(year) for target, year in (data or {}).items() if valid_target_year(year)}
+    write_json(CLASS_ACTIVE_YEARS_FILE, clean)
 
 def get_active_year_for_class(class_cat):
     """Exact arm first, then broad class fallback."""
@@ -234,25 +245,15 @@ def get_active_year_for_target(target_arm, fallback_level=""):
 
 def set_active_year_for_class(class_cat, year):
     class_level, target_arm = normalize_target(class_cat)
-    if not class_level or not target_arm: return
-
-    active_years = get_class_active_years()
-    active_years[target_arm] = str(year)
-
-    save_class_active_years(active_years)
-    set_latest_year(year)
-
+    if not class_level or not target_arm or not valid_target_year(year): return
+    active_years = get_class_active_years(); active_years[target_arm] = str(year)
+    save_class_active_years(active_years); set_latest_year(year)
 
 def set_active_year_for_target(target_arm, year, class_level=""):
     class_level, target_arm = normalize_target(target_arm, class_level)
-    if not class_level or not target_arm: return
-
-    active_years = get_class_active_years()
-    active_years[target_arm] = str(year)
-
-    save_class_active_years(active_years)
-    set_latest_year(year)
-
+    if not class_level or not target_arm or not valid_target_year(year): return
+    active_years = get_class_active_years(); active_years[target_arm] = str(year)
+    save_class_active_years(active_years); set_latest_year(year)
 
 def remove_active_year_for_class(class_cat):
     class_level, target_arm = normalize_target(class_cat)
@@ -377,7 +378,7 @@ def recalculate_active_years():
         return {}
 
     for year_folder in PORTAL_ROOT.iterdir():
-        if not year_folder.is_dir() or not year_folder.name.isdigit(): continue
+        if not year_folder.is_dir() or not valid_target_year(year_folder.name): continue
 
         year = year_folder.name
 
@@ -723,332 +724,138 @@ def get_subject_name_from_json(content, filename):
 @push_bp.route("/push", methods=["POST"])
 def push_subjects():
     payload = request.get_json(silent=True) or {}
+    raw_files = payload.get("files", []); class_level, target_arm = get_payload_target(payload); term = get_payload_term(payload)
+    target_year = str(payload.get("target_year") or payload.get("year") or "").strip()
 
-    raw_files = payload.get("files", [])
-    class_level, target_arm = get_payload_target(payload)
-    term = get_payload_term(payload)
+    # ========================================================
+    # VALIDATE CURRENT / ACTIVE TARGET + BATCH
+    # ========================================================
+    if not isinstance(raw_files, list): return jsonify({"success": False, "error": "files must be a JSON array"}), 400
+    if not raw_files: return jsonify({"success": False, "error": "No files provided"}), 400
+    if len(raw_files) > MAX_PUSH_BATCH: return jsonify({"success": False, "error": f"Too many files in one push. Maximum batch size is {MAX_PUSH_BATCH}."}), 400
+    if not valid_target_year(target_year): return jsonify({"success": False, "error": f"Current / Active Year must be between {TARGET_YEAR_MIN} and {TARGET_YEAR_MAX}"}), 400
+    if not is_valid_target(class_level, target_arm): return jsonify({"success": False, "error": f"Invalid class target: {target_arm or class_level}"}), 400
+    if is_term_aware_class(class_level) and not term: return jsonify({"success": False, "error": f"Term is required for {class_level}", "term_required": True}), 400
 
-    # --------------------------------------------------------
-    # VALIDATION
-    # --------------------------------------------------------
-
-    if not raw_files:
-        return jsonify({"success": False, "error": "No files provided"}), 400
-
-    if not is_valid_target(class_level, target_arm):
-        return jsonify({
-            "success": False,
-            "error": f"Invalid class target: {target_arm or class_level}",
-        }), 400
-
-    # JSS = term compulsory.
-    # SS  = term optional / hybrid.
-    if is_term_aware_class(class_level) and not term:
-        return jsonify({
-            "success": False,
-            "error": f"Term is required for {class_level}",
-            "term_required": True,
-        }), 400
-
-    pushed_summary, failed, warnings, years_used = [], [], [], set()
-
-    # --------------------------------------------------------
-    # PROCESS SELECTED JSON FILES
-    # --------------------------------------------------------
-
+    # De-duplicate repeated checkbox / queue entries while preserving order.
+    normalized_files, seen_entries = [], set()
     for entry in raw_files:
-        try:
-            year, filename = str(entry).split(":", 1)
+        value = str(entry or "").strip()
+        if not value or value in seen_entries: continue
+        seen_entries.add(value); normalized_files.append(value)
+    raw_files = normalized_files
+
+    if not raw_files: return jsonify({"success": False, "error": "No valid file entries were supplied"}), 400
+
+    requested_count = len(raw_files)
+    pushed_summary, failed, warnings, source_years_used = [], [], [], set()
+
+    # ========================================================
+    # PROCESS SOURCE JSON -> ACTIVE TARGET YEAR
+    # ========================================================
+    for entry in raw_files:
+        try: source_year, filename = str(entry).split(":", 1)
         except Exception:
-            failed.append({
-                "entry": entry,
-                "reason": "Invalid entry format. Expected YEAR:FILENAME",
-            })
-            continue
+            failed.append({"entry": entry, "reason": "Invalid entry format. Expected SOURCE_YEAR:FILENAME"}); continue
 
-        year = str(year).strip()
-        filename = os.path.basename(str(filename).strip())
+        source_year, filename = str(source_year).strip(), os.path.basename(str(filename).strip())
+        if not source_year.isdigit(): failed.append({"entry": entry, "reason": "Invalid source JSON year"}); continue
+        if not filename.lower().endswith(".json"): failed.append({"entry": entry, "reason": "Only JSON files can be pushed"}); continue
 
-        if not year.isdigit():
-            failed.append({"entry": entry, "reason": "Invalid year"})
-            continue
-
-        if not filename.lower().endswith(".json"):
-            failed.append({"entry": entry, "reason": "Only JSON files can be pushed"})
-            continue
-
-        # ----------------------------------------------------
-        # SOURCE LOOKUP
-        #
-        # JSS:
-        #   strict selected term only.
-        #
-        # SS:
-        #   selected term file first -> root/general fallback.
-        # ----------------------------------------------------
-
-        src = get_subject_source_path(year, class_level, filename, term)
-
+        # SOURCE YEAR is only for locating the historical JSON repository file.
+        src = get_subject_source_path(source_year, class_level, filename, term)
         if not src or not src.exists():
-            failed.append({
-                "entry": entry,
-                "reason": f"Missing source JSON: {src}",
-            })
-            print(f"Missing JSON: {src}")
-            continue
+            failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "reason": f"Missing source JSON: {src}"}); print(f"Missing JSON: {src}"); continue
 
-        # ----------------------------------------------------
-        # LOAD SOURCE JSON
-        # ----------------------------------------------------
-
-        try:
-            content = json.loads(src.read_text(encoding="utf-8-sig"))
+        try: content = json.loads(src.read_text(encoding="utf-8-sig"))
         except Exception as exc:
-            failed.append({
-                "entry": entry,
-                "reason": f"Invalid JSON: {exc}",
-            })
-            print(f"Invalid JSON {src}: {exc}")
-            continue
+            failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "reason": f"Invalid JSON: {exc}"}); print(f"Invalid JSON {src}: {exc}"); continue
 
-        if not isinstance(content, dict):
-            failed.append({
-                "entry": entry,
-                "reason": "JSON root must be an object",
-            })
-            continue
+        if not isinstance(content, dict): failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "reason": "JSON root must be an object"}); continue
 
-        # ----------------------------------------------------
+        # ====================================================
         # TERM VERIFICATION / NORMALIZATION
-        # ----------------------------------------------------
-
+        # ====================================================
         if term:
-            json_term = normalize_term(
-                content.get("term")
-                or content.get("exam_term")
-                or content.get("academic_term")
-                or content.get("term_name")
-            )
-
-            # A physical FIRST / SECOND / THIRD source must not
-            # contradict the selected target term.
-            #
-            # SS root/general fallback files remain reusable for
-            # a selected SS term.
+            json_term = normalize_term(content.get("term") or content.get("exam_term") or content.get("academic_term") or content.get("term_name"))
             if is_term_specific_source(src, term) and json_term and json_term != term:
-                failed.append({
-                    "entry": entry,
-                    "reason": f"Term mismatch: JSON is {term_label(json_term)}, target is {term_label(term)}",
-                })
-                continue
-
-            content["term"] = term
-            content["term_label"] = term_label(term)
+                failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "reason": f"Term mismatch: JSON is {term_label(json_term)}, target is {term_label(term)}"}); continue
+            content["term"], content["term_label"] = term, term_label(term)
 
         elif is_optional_term_class(class_level):
-            # SS GENERAL mode.
-            # Remove stale term metadata so a root push cannot
-            # accidentally become a term-specific examination.
-            content.pop("term", None)
-            content.pop("term_label", None)
-            content.pop("exam_term", None)
-            content.pop("academic_term", None)
-            content.pop("term_name", None)
+            for key in ("term", "term_label", "exam_term", "academic_term", "term_name"): content.pop(key, None)
 
-        content["class_category"] = class_level
-        content["class_level"] = class_level
+        # ====================================================
+        # PORTAL COPY METADATA
+        # Source JSON is never modified. The copied exam belongs
+        # to the selected Current / Active target year.
+        # ====================================================
+        content["source_year"] = source_year; content["year"] = target_year; content["active_year"] = target_year; content["result_year"] = target_year
+        content["class_category"] = class_level; content["class_level"] = class_level
 
-        # ----------------------------------------------------
+        # ====================================================
         # SUBJECT / TARGET COMPATIBILITY
-        #
-        # Examples:
-        #
-        # Accounts -> SS1_GOLD
-        #   ❌ Reject: Science arm.
-        #
-        # Accounts -> SS1_B/C
-        #   ✅ Push + warn: Commercial students only.
-        #
-        # Accounts -> SS1
-        #   ✅ Broad push + warn: eligible students only.
-        #
-        # Chemistry -> SS1_B/C
-        #   ❌ Reject: Science-only subject.
-        #
-        # Mathematics -> SS1 / SS1_GOLD / SS1_B/C
-        #   ✅ Push normally.
-        # ----------------------------------------------------
-
+        # ====================================================
         subject_name = get_subject_name_from_json(content, filename)
         compatibility = get_subject_target_compatibility(class_level, target_arm, subject_name)
 
         if not compatibility.get("allowed", True):
-            failed.append({
-                "entry": entry,
-                "subject": subject_name,
-                "class_level": class_level,
-                "class_arm": target_arm,
-                "reason": compatibility.get("reason") or f"{subject_name} cannot be pushed to {target_arm}.",
-            })
-
-            print(
-                f"[PUSH BLOCKED] {subject_name} -> {target_arm}: "
-                f"{compatibility.get('reason') or 'Incompatible subject target'}"
-            )
-            continue
+            failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "subject": subject_name, "class_level": class_level, "class_arm": target_arm, "reason": compatibility.get("reason") or f"{subject_name} cannot be pushed to {target_arm}."})
+            print(f"[PUSH BLOCKED] {subject_name} -> {target_arm}: {compatibility.get('reason') or 'Incompatible subject target'}"); continue
 
         pending_warning = str(compatibility.get("warning") or "").strip()
 
-        # ----------------------------------------------------
-        # DESTINATION
-        # ----------------------------------------------------
-
-        dst_folder = get_portal_target_folder(year, class_level, target_arm, term)
-
+        # ====================================================
+        # DESTINATION — ALWAYS CURRENT / ACTIVE TARGET YEAR
+        # ====================================================
+        dst_folder = get_portal_target_folder(target_year, class_level, target_arm, term)
         if dst_folder is None:
-            failed.append({
-                "entry": entry,
-                "subject": subject_name,
-                "reason": "Unable to resolve destination",
-            })
-            continue
+            failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "subject": subject_name, "reason": "Unable to resolve destination"}); continue
 
-        dst_folder.mkdir(parents=True, exist_ok=True)
-        dst = dst_folder / filename
-
-        try:
-            dst.write_text(
-                json.dumps(content, indent=4, ensure_ascii=False),
-                encoding="utf-8",
-            )
+        dst_folder.mkdir(parents=True, exist_ok=True); dst = dst_folder / filename
+        try: dst.write_text(json.dumps(content, indent=4, ensure_ascii=False), encoding="utf-8")
         except Exception as exc:
-            failed.append({
-                "entry": entry,
-                "subject": subject_name,
-                "reason": f"Failed to write portal JSON: {exc}",
-            })
-            continue
+            failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "subject": subject_name, "reason": f"Failed to write portal JSON: {exc}"}); continue
 
-        # ----------------------------------------------------
-        # PORTAL SUBJECT MANIFEST
-        # ----------------------------------------------------
+        # ====================================================
+        # TARGET-YEAR SUBJECT MANIFEST
+        # ====================================================
+        pushed_list = load_pushed_list(target_year, target_arm, term)
+        if subject_name not in pushed_list: pushed_list.append(subject_name)
 
-        pushed_list = load_pushed_list(year, target_arm, term)
-
-        if subject_name not in pushed_list:
-            pushed_list.append(subject_name)
-
-        try:
-            save_pushed_list(year, target_arm, pushed_list, class_level, term)
-
+        try: save_pushed_list(target_year, target_arm, pushed_list, class_level, term)
         except Exception as exc:
-            failed.append({
-                "entry": entry,
-                "subject": subject_name,
-                "reason": f"Failed to update subject manifest: {exc}",
-            })
-
-            # Roll back copied JSON if manifest update failed.
+            failed.append({"entry": entry, "source_year": source_year, "target_year": target_year, "subject": subject_name, "reason": f"Failed to update subject manifest: {exc}"})
             try:
                 if dst.exists(): dst.unlink()
-            except Exception:
-                pass
-
+            except Exception: pass
             continue
 
-        # ----------------------------------------------------
-        # SUCCESSFUL PUSH
-        # ----------------------------------------------------
+        if subject_name not in pushed_summary: pushed_summary.append(subject_name)
+        source_years_used.add(source_year)
 
-        if subject_name not in pushed_summary:
-            pushed_summary.append(subject_name)
-
-        years_used.add(year)
-
-        # Only add the warning after the actual push succeeded.
         if pending_warning:
-            warning_item = {
-                "entry": entry,
-                "year": year,
-                "subject": subject_name,
-                "class_level": class_level,
-                "class_arm": target_arm,
-                "term": term,
-                "message": pending_warning,
-            }
+            warning_item = {"entry": entry, "source_year": source_year, "year": target_year, "target_year": target_year, "subject": subject_name, "class_level": class_level, "class_arm": target_arm, "term": term, "message": pending_warning}
+            duplicate_warning = any(item.get("source_year") == source_year and item.get("target_year") == target_year and item.get("subject") == subject_name and item.get("class_arm") == target_arm and item.get("term") == term and item.get("message") == pending_warning for item in warnings)
+            if not duplicate_warning: warnings.append(warning_item)
 
-            duplicate_warning = any(
-                item.get("year") == year
-                and item.get("subject") == subject_name
-                and item.get("class_arm") == target_arm
-                and item.get("term") == term
-                and item.get("message") == pending_warning
-                for item in warnings
-            )
-
-            if not duplicate_warning:
-                warnings.append(warning_item)
-
-    # --------------------------------------------------------
-    # ACTIVE YEAR / TERM
-    # --------------------------------------------------------
-
-    active_year = None
-    success = bool(pushed_summary)
-
-    if years_used and success:
-        active_year = str(max(int(year) for year in years_used))
-        set_active_year_for_target(target_arm, active_year, class_level)
-
-        # JSS or SS selected term.
-        if term and supports_term_folders(class_level):
-            set_active_term_for_target(target_arm, term, class_level)
-
-        # SS push without a term means GENERAL mode.
-        elif is_optional_term_class(class_level):
-            set_general_term_for_target(target_arm, class_level)
-
-    # --------------------------------------------------------
-    # RESPONSE
-    # --------------------------------------------------------
+    # ========================================================
+    # ACTIVE YEAR / ACTIVE TERM
+    # ========================================================
+    success = bool(pushed_summary); active_year = target_year if success else None
+    if success:
+        set_active_year_for_target(target_arm, target_year, class_level)
+        if term and supports_term_folders(class_level): set_active_term_for_target(target_arm, term, class_level)
+        elif is_optional_term_class(class_level): set_general_term_for_target(target_arm, class_level)
 
     return jsonify({
-        "success": success,
-
-        "class": class_level,
-        "class_level": class_level,
-        "class_category": class_level,
-
-        "class_arm": target_arm,
-        "target_arm": target_arm,
-
-        "term": term,
-        "term_label": term_label(term) if term else None,
-
-        "term_required": is_term_aware_class(class_level),
-        "term_optional": is_optional_term_class(class_level),
-
-        "subjects_pushed": pushed_summary,
-        "subject_count": len(pushed_summary),
-
-        "failed": failed,
-        "failed_count": len(failed),
-
-        "warnings": warnings,
-        "warning_count": len(warnings),
-
-        "active_year": active_year,
-
-        "active_term": (
-            term
-            if success and term and supports_term_folders(class_level)
-            else None
-        ),
-
-        "latest_year": get_latest_year(),
-
-        "class_active_years": get_class_active_years(),
-        "class_active_terms": get_class_active_terms(),
+        "success": success, "source_years": sorted(source_years_used, key=lambda value: int(value)), "target_year": target_year, "active_year": active_year,
+        "class": class_level, "class_level": class_level, "class_category": class_level, "class_arm": target_arm, "target_arm": target_arm,
+        "term": term, "term_label": term_label(term) if term else None, "term_required": is_term_aware_class(class_level), "term_optional": is_optional_term_class(class_level),
+        "batch": True, "requested_count": requested_count, "processed_count": len(pushed_summary) + len(failed),
+        "subjects_pushed": pushed_summary, "subject_count": len(pushed_summary), "failed": failed, "failed_count": len(failed), "warnings": warnings, "warning_count": len(warnings),
+        "active_term": term if success and term and supports_term_folders(class_level) else None, "latest_year": get_latest_year(),
+        "class_active_years": get_class_active_years(), "class_active_terms": get_class_active_terms(),
     })
 
 # ============================================================
@@ -1371,19 +1178,9 @@ def student_get_pushed():
 @push_bp.route("/push_latest_year", methods=["GET"])
 def push_latest_year():
     active_years = get_class_active_years()
-
-    if not active_years:
-        active_years = recalculate_active_years()
-
-    latest = get_latest_year()
-
-    return jsonify({
-        "year": latest,
-        "latest_year": latest,
-
-        "class_active_years": active_years,
-        "class_active_terms": get_class_active_terms(),
-    })
+    if not active_years: active_years = recalculate_active_years()
+    latest = get_latest_year() or (str(max(int(year) for year in active_years.values())) if active_years else None)
+    return jsonify({"year": latest, "latest_year": latest, "class_active_years": active_years, "class_active_terms": get_class_active_terms()})
 
 
 # ============================================================

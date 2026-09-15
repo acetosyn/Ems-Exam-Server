@@ -3,7 +3,7 @@
 {% block title %}Report Sheets — EMIS CBT Server{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/report_sheets.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report_sheets.css', v='20260915-voice-v2') }}">
 {% endblock %}
 
 
@@ -967,7 +967,14 @@
   <div class="report-modal-panel fullscreen manual-result-panel">
     <div class="report-modal-head manual-result-head">
       <div><span class="section-kicker">Manual Backup Engine</span><h3>Manual Result Studio</h3><p>Enter student scores locally when automated academic sources are unavailable or need approved fallback data.</p></div>
-      <div class="manual-head-actions"><span id="manualDraftStatus" class="manual-draft-status">No draft loaded</span><button type="button" class="report-modal-close" data-close-modal="manualResultStudioModal"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="manual-head-actions">
+        <span id="manualDraftStatus" class="manual-draft-status">No draft loaded</span>
+        <div class="manual-window-controls" aria-label="Manual Result Studio window controls">
+          <button type="button" id="manualStudioMinimizeBtn" class="manual-window-btn" title="Minimize studio" aria-label="Minimize studio"><i class="fa-solid fa-minus"></i></button>
+          <button type="button" id="manualStudioMaximizeBtn" class="manual-window-btn" title="Maximize or restore studio" aria-label="Maximize or restore studio"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+          <button type="button" id="manualStudioCloseBtn" class="report-modal-close" data-close-modal="manualResultStudioModal" title="Close studio" aria-label="Close studio"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
     </div>
 
     <div class="manual-studio-toolbar">
@@ -975,6 +982,34 @@
       <div class="manual-student-meta" id="manualStudentMeta">Load a class, then select a student.</div>
       <div class="manual-progress"><span id="manualProgressLabel">0 subjects entered</span><div><i id="manualProgressBar"></i></div></div>
     </div>
+
+
+    <!-- ============================================================
+         SMART VOICE SCORE ENTRY — OPTIONAL STT / TTS EXTENSION
+    ============================================================ -->
+    <section id="manualVoiceBar" class="manual-voice-bar" aria-label="Smart Voice Score Entry">
+      <div class="manual-voice-summary">
+        <span id="manualVoiceStateDot" class="manual-voice-dot"></span>
+        <div><strong>Smart Voice Entry</strong><small id="manualVoiceStatus">Optional • microphone is off</small></div>
+      </div>
+
+      <div class="manual-voice-actions">
+        <button type="button" id="manualVoiceStartBtn" class="manual-voice-btn start"><i class="fa-solid fa-microphone"></i><span>Start Voice</span></button>
+        <button type="button" id="manualVoicePauseBtn" class="manual-voice-btn" disabled><i class="fa-solid fa-pause"></i><span>Pause</span></button>
+        <button type="button" id="manualVoiceStopBtn" class="manual-voice-btn stop" disabled><i class="fa-solid fa-stop"></i><span>Stop</span></button>
+      </div>
+
+      <div class="manual-voice-options">
+        <label class="manual-voice-check"><input id="manualVoicePromptEach" type="checkbox"><span>Speak each field</span></label>
+        <label class="manual-voice-check"><input id="manualVoiceSafeMode" type="checkbox"><span>Safe confirm</span></label>
+        <select id="manualVoiceSelect" class="manual-voice-select" title="Choose text-to-speech voice"><option value="">Best available voice</option></select>
+      </div>
+
+      <div class="manual-voice-live">
+        <span id="manualVoiceField">Ready</span>
+        <strong id="manualVoiceTranscript">Say a score when a box is highlighted</strong>
+      </div>
+    </section>
 
     <div class="manual-studio-grid">
       <section class="manual-score-card">
@@ -1144,13 +1179,19 @@
      Must load before report_sheet.js because the main controller
      calls window.ReportSheetPDF.render(...)
 ============================================================ -->
-<script src="{{ url_for('static', filename='js/report_sheet_pdf.js') }}"></script>
+<script src="{{ url_for('static', filename='js/report_sheet_pdf.js', v='20260915-voice-v2') }}"></script>
 
 <!-- ============================================================
      REPORT SHEET MAIN BACKEND / UI CONTROLLER
      Handles arms, students, generation, notifications, remarks,
      printing, saved reports, exports and source readiness.
 ============================================================ -->
-<script src="{{ url_for('static', filename='js/report_sheet.js') }}"></script>
+<script src="{{ url_for('static', filename='js/report_sheet.js', v='20260915-voice-v2') }}"></script>
+
+<!-- ============================================================
+     SMART VOICE / AUTO-NAVIGATION EXTENSION
+     Loads after report_sheet.js and does not replace the core studio.
+============================================================ -->
+<script src="{{ url_for('static', filename='js/report_voice_entry.js', v='20260915-voice-v2') }}"></script>
 
 {% endblock %}

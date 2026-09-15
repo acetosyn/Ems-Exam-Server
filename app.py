@@ -181,4 +181,4 @@ if __name__ == "__main__":
 
     print_academic_routes()
 
-    app.run(host="0.0.0.0", port=5005, debug=True)
+    app.run(host="0.0.0.0", port=5005, debug=True) 

@@ -27,6 +27,7 @@ SNAPSHOT_FILE = REPORT_DIR / "generated_reports.jsonl"
 DETAILS_FILE = REPORT_DIR / "report_details.json"
 DEFAULTS_FILE = REPORT_DIR / "report_defaults.json"
 USAGE_FILE = REPORT_DIR / "report_usage.jsonl"
+PORTAL_ACTIVE_YEARS_FILE = BASE_DIR / "static" / "portal" / "class_active_years.json"
 REPORT_LOCK = RLock()
 
 GRADE_SCALE = [
@@ -87,15 +88,45 @@ def resolve_class(class_level="", class_arm="", require_arm=True):
     return result["class_level"], result["class_arm"], ""
 
 
-def resolve_result_year(academic_session="", explicit_year=""):
-    explicit = clean(explicit_year)
+# ============================================================
+# RESULT YEAR RESOLUTION — SESSION YEAR + ACTIVE PORTAL FALLBACK
+# ============================================================
 
+def read_portal_active_years():
+    try:
+        if not PORTAL_ACTIVE_YEARS_FILE.exists(): return {}
+        data = json.loads(PORTAL_ACTIVE_YEARS_FILE.read_text(encoding="utf-8-sig"))
+        return data if isinstance(data, dict) else {}
+    except Exception as error:
+        print("REPORT ACTIVE YEAR READ ERROR:", error); return {}
+
+
+def get_portal_active_result_year(class_level="", class_arm=""):
+    level, arm = normalize_academic_class(class_level or class_arm, class_arm or class_level)
+    active_years = read_portal_active_years()
+    return clean(active_years.get(arm) or active_years.get(level))
+
+
+def session_result_year(academic_session=""):
+    academic_session = normalize_academic_session(academic_session)
+    if "/" in academic_session:
+        first = clean(academic_session.split("/", 1)[0])
+        if first.isdigit(): return first
+    return ""
+
+
+def resolve_result_year(academic_session="", explicit_year="", class_level="", class_arm=""):
+    explicit = clean(explicit_year)
     if explicit: return explicit
 
-    academic_session = normalize_academic_session(academic_session)
+    # Report session is authoritative for historical report generation:
+    # 2026/2027 -> RESULTS/2026. Active portal year is a fallback when
+    # the session does not provide a usable start year.
+    session_year = session_result_year(academic_session)
+    if session_year: return session_year
 
-    if "/" in academic_session:
-        return academic_session.split("/", 1)[0]
+    active_year = get_portal_active_result_year(class_level, class_arm)
+    if active_year: return active_year
 
     return str(datetime.now().year)
 
@@ -153,25 +184,30 @@ def ordinal(number):
 # ============================================================
 
 def exam_percentage(row):
-    if not isinstance(row, dict): return 0.0
+    if not isinstance(row, dict): return None
 
-    candidates = [
-        "Final Score (%)", "Final Score", "Combined Score (%)", "Combined Score",
-        "Overall Score (%)", "Overall Score", "Score (%)", "Score Number",
-        "score_percentage", "percentage", "score",
-    ]
+    # Essay-enriched CBT records expose result_state. Never convert an
+    # objective-only "AWAITING ESSAY" record into a false final exam score.
+    result_state = clean_upper(row.get("result_state") or row.get("Result State") or row.get("result_status"))
+    if result_state and result_state != "COMPLETE": return None
 
-    for field in candidates:
+    final_candidates = ["final_score", "combined_score", "total_score", "Final Score (%)", "Final Score", "Combined Score (%)", "Combined Score", "Overall Score (%)", "Overall Score"]
+    for field in final_candidates:
         value = row.get(field)
+        if value not in (None, ""): return max(0.0, min(100.0, safe_float(value)))
 
-        if value not in (None, ""):
-            return max(0.0, min(100.0, safe_float(value)))
+    # Legacy objective-only results may not have essay enrichment/state.
+    if not result_state:
+        for field in ["Score (%)", "Score Number", "score_percentage", "percentage", "score"]:
+            value = row.get(field)
+            if value not in (None, ""): return max(0.0, min(100.0, safe_float(value)))
 
-    return 0.0
+    return None
 
 
 def scale_exam_score(row, class_level):
     percentage = exam_percentage(row)
+    if percentage is None: return None
     maximum = 40 if clean_upper(class_level).startswith("JSS") else 70
     return round((percentage / 100) * maximum, 2)
 
@@ -189,17 +225,14 @@ def result_row_timestamp(row):
 
 
 def exam_row_matches(row, academic_session, class_level, class_arm):
-    row_level, row_arm = normalize_academic_class(
-        row.get("Class Level") or row.get("Class Category") or row.get("Class"),
-        row.get("Class Arm") or row.get("Class")
-    )
+    row_level, row_arm = normalize_academic_class(row.get("Class Level") or row.get("Class Category") or row.get("Class"), row.get("Class Arm") or row.get("Class"))
 
     if row_level != class_level: return False
     if row_arm and row_arm != class_level and row_arm != class_arm: return False
 
-    row_session = normalize_academic_session(row.get("Session"))
-    if academic_session and row_session and row_session != academic_session: return False
-
+    # Result year + term are already enforced by the RESULTS folder being read.
+    # A reused historical JSON may carry an old Session value, so Session metadata
+    # must not reject a valid result saved in the selected current result year.
     return True
 
 
@@ -260,14 +293,14 @@ def pretty_optional(value):
 
 
 def build_subject_row(class_level, subject_key, ca=None, exam_row=None, subject_name=""):
-    """Build a subject row without converting missing CA/Exam data into false zero scores."""
+    """Build a subject row without converting missing/incomplete CA or CBT data into false zero scores."""
     ca, exam_row = ca if isinstance(ca, dict) else {}, exam_row if isinstance(exam_row, dict) else {}
     subject = normalize_academic_subject(ca.get("subject") or exam_row.get("Subject") or subject_name or subject_key)
     has_ca, has_exam = bool(ca), bool(exam_row); ca_complete = bool(ca.get("complete")) if has_ca else False
-    ca_total = safe_float(ca.get("ca_total")) if has_ca else None; exam_score = scale_exam_score(exam_row, class_level) if has_exam else None
-    complete = bool(ca_complete and has_exam); total = round(ca_total + exam_score, 2) if complete else None
+    ca_total = safe_float(ca.get("ca_total")) if has_ca else None; exam_score = scale_exam_score(exam_row, class_level) if has_exam else None; exam_complete = exam_score is not None
+    complete = bool(ca_complete and exam_complete); total = round(ca_total + exam_score, 2) if complete else None
     grade, comment = grade_for_score(total) if total is not None else ("-", "Pending")
-    row = {"subject": subject, "subject_key": subject_key, "mode": "JSS" if class_level.startswith("JSS") else "SS", "has_ca": has_ca, "has_exam": has_exam, "ca_complete": ca_complete, "complete": complete, "ca_total": pretty_optional(ca_total), "exam": pretty_optional(exam_score), "total": pretty_optional(total), "grade": grade, "comment": comment, "position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}
+    row = {"subject": subject, "subject_key": subject_key, "mode": "JSS" if class_level.startswith("JSS") else "SS", "has_ca": has_ca, "has_exam": has_exam, "exam_complete": exam_complete, "ca_complete": ca_complete, "complete": complete, "ca_total": pretty_optional(ca_total), "exam": pretty_optional(exam_score), "total": pretty_optional(total), "grade": grade, "comment": comment, "position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}
     if class_level.startswith("JSS"): row.update({"ca1": ca.get("ca1") if has_ca else None, "ca2": ca.get("ca2") if has_ca else None, "test1": ca.get("test1") if has_ca else None, "test2": ca.get("test2") if has_ca else None})
     else: row.update({"ass1": ca.get("ass1") if has_ca else None, "ass2": ca.get("ass2") if has_ca else None, "test": ca.get("test") if has_ca else None})
     return row
@@ -303,16 +336,19 @@ def resolve_report_subject_keys(allowed_subjects, ca_records=None, exam_records=
 
 def build_student_source_status(student, ca_records, exam_records, attendance):
     ca_records = ca_records if isinstance(ca_records, dict) else {}; exam_records = exam_records if isinstance(exam_records, dict) else {}
-    ca_keys, exam_keys = set(ca_records), set(exam_records); matched = sorted(ca_keys & exam_keys)
-    complete_ca_keys = {key for key, record in ca_records.items() if isinstance(record, dict) and record.get("complete")}
-    matched_complete = sorted(complete_ca_keys & exam_keys)
-    if matched_complete: status, label = "ready", "CA/Test + Exam Found"
+    ca_keys, exam_keys = set(ca_records), set(exam_records); complete_ca_keys = {key for key, record in ca_records.items() if isinstance(record, dict) and record.get("complete")}
+    complete_exam_keys = {key for key, record in exam_records.items() if isinstance(record, dict) and exam_percentage(record) is not None}
+    matched = sorted(ca_keys & exam_keys); matched_complete = sorted(complete_ca_keys & complete_exam_keys)
+
+    if matched_complete: status, label = "ready", "CA/Test + Final CBT Found"
+    elif ca_keys and exam_keys and not complete_exam_keys: status, label = "exam_pending", "CBT Found • Final Exam Score Pending"
     elif ca_keys and exam_keys: status, label = "partial_ca", "Academic Scores Partially Ready"
     elif ca_keys: status, label = "missing_exam", "CA/Test Found • Exam Pending"
-    elif exam_keys: status, label = "missing_ca", "Exam Found • CA/Test Missing"
+    elif exam_keys: status, label = "missing_ca", "CBT Found • CA/Test Missing"
     elif attendance: status, label = "scores_pending", "Attendance Found • Scores Pending"
     else: status, label = "scores_pending", "Scores Pending"
-    return {**student, "status": status, "status_label": label, "has_ca": bool(ca_keys), "has_complete_ca": bool(complete_ca_keys), "has_exam": bool(exam_keys), "has_attendance": bool(attendance), "ca_subjects": sorted(ca_keys), "ca_complete_subjects": sorted(complete_ca_keys), "exam_subjects": sorted(exam_keys), "matched_subjects": matched, "matched_complete_subjects": matched_complete, "missing_ca_subjects": sorted(exam_keys - ca_keys), "missing_exam_subjects": sorted(ca_keys - exam_keys)}
+
+    return {**student, "status": status, "status_label": label, "has_ca": bool(ca_keys), "has_complete_ca": bool(complete_ca_keys), "has_exam": bool(exam_keys), "has_complete_exam": bool(complete_exam_keys), "has_attendance": bool(attendance), "ca_subjects": sorted(ca_keys), "ca_complete_subjects": sorted(complete_ca_keys), "exam_subjects": sorted(exam_keys), "exam_complete_subjects": sorted(complete_exam_keys), "matched_subjects": matched, "matched_complete_subjects": matched_complete, "missing_ca_subjects": sorted(complete_exam_keys - ca_keys), "missing_exam_subjects": sorted(ca_keys - complete_exam_keys)}
 
 
 # ============================================================
@@ -321,7 +357,7 @@ def build_student_source_status(student, ca_records, exam_records, attendance):
 
 def build_term_report_payload(academic_session, term, class_level, class_arm, result_year="", admission_number="", include_cumulative=True):
     academic_session, term = normalize_academic_session(academic_session), normalize_academic_term(term)
-    level, arm = normalize_academic_class(class_level, class_arm); result_year = resolve_result_year(academic_session, result_year)
+    level, arm = normalize_academic_class(class_level, class_arm); result_year = resolve_result_year(academic_session, result_year, level, arm)
     students = get_students_for_class(level, arm, active_only=True)
     if admission_number:
         wanted = normalize_admission_number(admission_number); students = [student for student in students if normalize_admission_number(student.get("admission_number")) == wanted]
@@ -477,7 +513,7 @@ def api_report_config():
         "success": True, "session": academic_session, "term": term, "term_label": academic_term_label(term),
         "class_level": level, "class_arm": arm,
         "subjects": get_subjects_for_selection(level, arm) if level else [],
-        "result_year": resolve_result_year(academic_session, request.args.get("year")),
+        "result_year": resolve_result_year(academic_session, request.args.get("year"), level, arm),
     })
 
 
@@ -502,11 +538,11 @@ def api_report_source_status():
     if error: return jsonify({"success": False, "message": error}), 400
 
     academic_session, term = resolve_context(request.args.get("session"), request.args.get("term"))
-    year = resolve_result_year(academic_session, request.args.get("year"))
+    year = resolve_result_year(academic_session, request.args.get("year"), level, arm)
 
     payload = build_term_report_payload(academic_session, term, level, arm, year, include_cumulative=False)
 
-    return jsonify({"success": True, "students": payload.get("students", []), "source_status": payload.get("source_status", {}), "summary": payload.get("summary", {}), "blocked_students": payload.get("blocked_students", []), "readiness_warnings": payload.get("readiness_warnings", []), "ca_available_contexts": payload.get("ca_available_contexts", [])})
+    return jsonify({"success": True, "result_year": payload.get("result_year") or year, "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "students": payload.get("students", []), "source_status": payload.get("source_status", {}), "summary": payload.get("summary", {}), "blocked_students": payload.get("blocked_students", []), "readiness_warnings": payload.get("readiness_warnings", []), "ca_available_contexts": payload.get("ca_available_contexts", [])})
 
 
 # ============================================================
@@ -796,7 +832,7 @@ def export_report_rows(payload):
 def export_payload_from_request():
     class_level, class_arm = request_class_values(); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
     if error: return None, error
-    academic_session, term = resolve_context(request.args.get("session"), request.args.get("term")); year = resolve_result_year(academic_session, request.args.get("year"))
+    academic_session, term = resolve_context(request.args.get("session"), request.args.get("term")); year = resolve_result_year(academic_session, request.args.get("year"), level, arm)
     if not academic_session or not term: return None, "Academic session and term are required."
     admissions = request.args.get("admission_numbers") or request.args.get("admissions") or ""
     return build_term_report_payload(academic_session, term, level, arm, year, include_cumulative=True, admission_numbers=admissions), ""
@@ -848,7 +884,6 @@ def api_report_mark_used():
     with REPORT_LOCK:
         with USAGE_FILE.open("a", encoding="utf-8") as file: file.write(json.dumps(record, ensure_ascii=False) + "\n")
     return jsonify({"success": True, "message": f"{len(admissions)} report result set(s) marked as used in the report audit.", "count": len(admissions)})
-
 
 
 # ============================================================
@@ -1063,8 +1098,57 @@ def apply_manual_attendance_overrides(payload):
     return payload
 
 
+def apply_saved_manual_score_overrides(payload):
+    """Merge saved Manual Studio scores into normal report generation.
+
+    Saved manual values fill missing automated CA/CBT fields immediately, so closing
+    the Studio and using the normal Generate button keeps the same student data.
+    Automated values remain authoritative unless Prefer Manual is enabled.
+    """
+    if not isinstance(payload, dict): return payload
+    session_value, term, level, arm = payload.get("session", ""), payload.get("term", ""), payload.get("class_level", ""), payload.get("class_arm", "")
+    store = _read_json_store(MANUAL_FILE); manual_payload = build_manual_report_payload(session_value, term, level, arm); manual_map = report_map(manual_payload)
+    reports = payload.get("reports") if isinstance(payload.get("reports"), list) else []; report_by_admission = {normalize_admission_number(report.get("admission_number")): report for report in reports if normalize_admission_number(report.get("admission_number"))}
+    saved_records, used_fields = 0, 0
+
+    for admission, manual_report in manual_map.items():
+        record = store.get(manual_context_key(session_value, term, level, arm, admission), {}) if admission else {}
+        status = clean_upper(record.get("status") or "DRAFT")
+        if status not in {"DRAFT", "FINAL"}: continue
+        saved_records += 1; target = report_by_admission.get(admission)
+        if not target:
+            target = dict(manual_report); target["source_mode"] = "manual-saved"; reports.append(target); report_by_admission[admission] = target
+            used_fields += sum(1 for row in target.get("subjects", []) for field in manual_score_fields(level) if row.get(field) not in (None, ""))
+            continue
+
+        prefer_manual = bool(record.get("prefer_manual_scores")); auto_rows = {row.get("subject_key"): row for row in target.get("subjects", []) if row.get("subject_key")}; manual_rows = {row.get("subject_key"): row for row in manual_report.get("subjects", []) if row.get("subject_key")}; order = list(auto_rows) + [key for key in manual_rows if key not in auto_rows]; merged, used = [], 0
+        for key in order:
+            row = merge_hybrid_subject_row(level, auto_rows.get(key), manual_rows.get(key), prefer_manual); merged.append(row); used += sum(1 for field in manual_score_fields(level) if manual_rows.get(key, {}).get(field) not in (None, "") and (prefer_manual or auto_rows.get(key, {}).get(field) in (None, "")))
+        target["subjects"] = merged; target["subject_count"] = len(merged); target["has_ca"] = any(row.get("has_ca") for row in merged); target["has_exam"] = any(row.get("has_exam") for row in merged); target["missing_ca_subjects"] = [row.get("subject_key") for row in merged if not row.get("has_ca")]; target["missing_exam_subjects"] = [row.get("subject_key") for row in merged if not row.get("has_exam")]; target["source_mode"] = "auto+manual-saved" if used else clean(target.get("source_mode") or "auto"); target["manual_status"] = status; target["manual_subjects_used"] = used; used_fields += used
+        manual_attendance = record.get("attendance") if isinstance(record.get("attendance"), dict) else {}
+        if manual_attendance and (record.get("attendance_override_enabled") or not target.get("attendance")): target["attendance"] = manual_attendance; target["has_attendance"] = True; target["manual_attendance_used"] = True
+
+    stats = finalize_report_statistics(reports); summary = dict(payload.get("summary") or {}); summary.update(stats); summary["generated"] = len(reports); summary["saved_manual_records"] = saved_records; summary["saved_manual_score_fields_used"] = used_fields; summary["complete_reports"] = sum(1 for report in reports if report.get("academic_complete")); summary["partial_reports"] = sum(1 for report in reports if not report.get("academic_complete")); payload["summary"] = summary; payload["reports"] = reports; payload["success"] = bool(reports)
+    student_map = {normalize_admission_number(student.get("admission_number")): student for student in payload.get("students", []) if normalize_admission_number(student.get("admission_number"))}
+    for admission in manual_map:
+        record = store.get(manual_context_key(session_value, term, level, arm, admission), {}) if admission else {}
+        status = clean_upper(record.get("status") or "DRAFT")
+        if status in {"DRAFT", "FINAL"} and admission in student_map: student_map[admission]["has_manual"] = True; student_map[admission]["manual_status"] = status
+    for report in reports: report["result_name"] = result_file_stem(report)
+    return payload
+
+
 def build_term_report_payload(academic_session, term, class_level, class_arm, result_year="", admission_number="", include_cumulative=True, admission_numbers=None):
-    return apply_manual_attendance_overrides(_AUTO_BUILD_TERM_REPORT_PAYLOAD(academic_session, term, class_level, class_arm, result_year, admission_number, include_cumulative, admission_numbers))
+    # Build the full class first so Manual Studio values still receive correct class
+    # statistics/positions, then filter to the requested student(s).
+    payload = _AUTO_BUILD_TERM_REPORT_PAYLOAD(academic_session, term, class_level, class_arm, result_year, "", include_cumulative, None)
+    payload = apply_saved_manual_score_overrides(payload); payload = apply_manual_attendance_overrides(payload)
+    if normalize_academic_term(term) == "THIRD" and include_cumulative and payload.get("reports"): attach_cumulative_results(payload, normalize_academic_session(academic_session), payload.get("class_level") or class_level, payload.get("class_arm") or class_arm, resolve_result_year(academic_session, result_year, payload.get("class_level") or class_level, payload.get("class_arm") or class_arm))
+    requested = normalize_admission_selection(admission_numbers); single = normalize_admission_number(admission_number)
+    if single and single not in requested: requested.insert(0, single)
+    if requested:
+        wanted = set(requested); payload["reports"] = [report for report in payload.get("reports", []) if normalize_admission_number(report.get("admission_number")) in wanted]; payload["students"] = [student for student in payload.get("students", []) if normalize_admission_number(student.get("admission_number")) in wanted]; payload["blocked_students"] = [student for student in payload.get("blocked_students", []) if normalize_admission_number(student.get("admission_number")) in wanted]; payload["readiness_warnings"] = [student for student in payload.get("readiness_warnings", []) if normalize_admission_number(student.get("admission_number")) in wanted]; payload["summary"] = dict(payload.get("summary") or {}); payload["summary"]["generated"] = len(payload["reports"]); payload["summary"]["blocked"] = len(payload.get("blocked_students", [])); payload["summary"]["selected_requested"] = len(requested); payload["success"] = bool(payload["reports"])
+    return payload
 
 
 # ============================================================

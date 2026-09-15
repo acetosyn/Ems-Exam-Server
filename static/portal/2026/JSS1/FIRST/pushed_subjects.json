@@ -1,0 +1,20 @@
+{
+    "year": "2026",
+    "class_level": "JSS1",
+    "class_category": "JSS1",
+    "class_arm": "JSS1",
+    "target_arm": "JSS1",
+    "term": "FIRST",
+    "term_label": "1st Term",
+    "term_required": true,
+    "term_optional": false,
+    "subjects": [
+        "English Language",
+        "Business Studies",
+        "History",
+        "Mathematics",
+        "P.H.E"
+    ],
+    "updated_at": "2026-09-14T15:34:52",
+    "updated_by": "admin"
+}
