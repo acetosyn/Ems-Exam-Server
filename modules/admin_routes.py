@@ -26,9 +26,6 @@ CLASS_ARMS = CLASS_ARMS_BY_LEVEL
 
 # ==========================================================
 # ADMIN / TEACHER SESSION
-#
-# Staff sessions remain active while being used.
-# They expire only after 2 hours without staff activity.
 # ==========================================================
 
 STAFF_SESSION_TIMEOUT_SECONDS = 2 * 60 * 60
@@ -219,58 +216,32 @@ def admin_students():
 
 
 # ==========================================================
-# NEW STAFF MANAGEMENT MODULES
-#
-# These three functions replace:
-#
-# Past Questions -> Attendance
-# Mock Exam      -> CA Tests
-# Third Party    -> Report Sheets
-#
-# The OLD Staff Management student database is NOT used here.
-# These pages will later be connected to the current EMIS
-# student database / Promotion database system.
+# STAFF MANAGEMENT MODULES
 # ==========================================================
 
 @admin_bp.route("/admin/attendance")
 @teacher_allowed
 def admin_attendance():
-    return render_template(
-        "attendance.html",
-        user_type=session.get("user_type"),
-        classes=CLASSES,
-        class_arms=CLASS_ARMS
-    )
+    return render_template("attendance.html", user_type=session.get("user_type"), classes=CLASSES, class_arms=CLASS_ARMS)
 
 
 @admin_bp.route("/admin/ca-tests")
 @teacher_allowed
 def admin_ca_tests():
-    return render_template(
-        "ca_test.html",
-        user_type=session.get("user_type"),
-        classes=CLASSES,
-        class_arms=CLASS_ARMS
-    )
+    return render_template("ca_test.html", user_type=session.get("user_type"), classes=CLASSES, class_arms=CLASS_ARMS)
 
 
+# Report Sheet generation is intentionally ADMIN ONLY.
+# Teachers can enter Attendance and CA/Test data, but cannot open
+# the Report Sheet generator from a direct URL.
 @admin_bp.route("/admin/report-sheets")
-@teacher_allowed
+@admin_only
 def admin_report_sheets():
-    return render_template(
-        "report_sheets.html",
-        user_type=session.get("user_type"),
-        classes=CLASSES,
-        class_arms=CLASS_ARMS
-    )
+    return render_template("report_sheets.html", user_type="admin", classes=CLASSES, class_arms=CLASS_ARMS)
 
 
 # ==========================================================
 # LEGACY ROUTE COMPATIBILITY
-#
-# Keep these temporarily so dashboard.html, old bookmarks,
-# page-routes.js or other frontend files do not break while
-# we migrate everything to the three new modules.
 # ==========================================================
 
 @admin_bp.route("/admin/past_questions")
@@ -358,9 +329,6 @@ def view_credentials():
 
 # ==========================================================
 # VIEW OLD MOCK EXAM RESULTS
-#
-# Retained because historical/mock results may still exist
-# even though the Mock Exam frontend navigation is replaced.
 # ==========================================================
 
 @admin_bp.route("/view_results")

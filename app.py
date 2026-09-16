@@ -22,6 +22,7 @@ from modules.document_routes import document_bp
 from modules.notifications import notifications_bp
 from modules.promotion_manager import promotion_bp
 from modules.convert_routes import convert_bp
+from modules.result_sync import sync_bp
 
 
 # ==========================================================
@@ -55,19 +56,6 @@ app.secret_key = os.getenv("SECRET_KEY", "fallback_secret_key")
 
 # ==========================================================
 # STATIC ASSET CACHE BUSTING
-#
-# Every app restart generates a new version automatically.
-#
-# Example:
-#
-#   /static/css/admin1.css
-#
-# becomes:
-#
-#   /static/css/admin1.css?v=20260913224500
-#
-# This prevents browsers, proxies and LiteSpeed from serving
-# stale CSS or JavaScript after deployment.
 # ==========================================================
 
 ASSET_VERSION = os.getenv("ASSET_VERSION", "").strip() or datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
@@ -100,6 +88,7 @@ app.register_blueprint(api_bp)
 app.register_blueprint(document_bp)
 app.register_blueprint(promotion_bp)
 app.register_blueprint(convert_bp)
+app.register_blueprint(sync_bp)
 
 
 # ==========================================================
@@ -114,17 +103,6 @@ app.register_blueprint(exam_document_export_bp, url_prefix="/api")
 
 # ==========================================================
 # REGISTER ACADEMIC MANAGEMENT BLUEPRINTS
-#
-# IMPORTANT:
-# Do NOT add url_prefix="/api" here.
-#
-# These modules already define full routes such as:
-#
-#   /api/attendance/...
-#   /api/ca-tests/...
-#   /api/report-sheets/...
-#
-# Adding another /api prefix would create /api/api/...
 # ==========================================================
 
 app.register_blueprint(attendance_bp)
@@ -142,21 +120,17 @@ def home():
 
 
 # ==========================================================
-# ACADEMIC ROUTE DEBUGGING
-#
-# Prints Attendance, CA/Test and Report Sheet routes during
-# startup so missing blueprint registration is immediately
-# visible in the Flask terminal.
+# ACADEMIC / SYNC ROUTE DEBUGGING
 # ==========================================================
 
 def print_academic_routes():
-    prefixes = ("/api/attendance", "/api/ca-tests", "/api/report-sheets")
+    prefixes = ("/api/attendance", "/api/ca-tests", "/api/report-sheets", "/api/sync")
     rules = sorted((rule for rule in app.url_map.iter_rules() if str(rule).startswith(prefixes)), key=lambda rule: str(rule))
 
-    print("\n[EMIS] ACADEMIC MANAGEMENT ROUTES")
+    print("\n[EMIS] ACADEMIC + RESULT SYNC ROUTES")
 
     if not rules:
-        print("[EMIS] WARNING: No academic-management API routes were registered.")
+        print("[EMIS] WARNING: No academic-management or result-sync API routes were registered.")
         return
 
     for rule in rules:
@@ -178,7 +152,8 @@ if __name__ == "__main__":
     print("[EMIS] Attendance Manager: registered")
     print("[EMIS] CA/Test Manager: registered")
     print("[EMIS] Report Sheet Manager: registered")
+    print("[EMIS] Result Sync Engine: registered")
 
     print_academic_routes()
 
-    app.run(host="0.0.0.0", port=5005, debug=True) 
+    app.run(host="0.0.0.0", port=5005, debug=True)

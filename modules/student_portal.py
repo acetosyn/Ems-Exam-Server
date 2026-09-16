@@ -4,9 +4,10 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from pathlib import Path
 from datetime import datetime
 import json
+import os
 
-from modules.supabase_results import save_exam_result_to_supabase, get_academic_settings
 from modules.student_results import save_result, get_latest_result
+from modules.result_sync import queue_result_for_sync, trigger_background_sync
 from modules.excel_manager import read_results
 from modules.class_config import get_subjects_for_class, normalize_class_level, normalize_class_arm, get_ss_track
 from modules.api_routes import push_admin_notification
@@ -720,13 +721,16 @@ def submit_exam():
 
     selected_term = normalize_term(session.get("selected_term"))
 
-    try:
-        academic_settings = get_academic_settings() or {}
-        academic_session = str(academic_settings.get("current_session") or "2025/2026").strip()
-        settings_term = normalize_term(academic_settings.get("current_term") or "")
-    except Exception as error:
-        print("ACADEMIC SETTINGS FETCH ERROR:", error)
-        academic_session, settings_term = "2025/2026", None
+    # Result storage no longer depends on Supabase academic settings.
+    # Prefer an explicit local/deployed EMIS session setting. If none is
+    # configured, use the normal Aug/Sept school-year boundary as a safe
+    # fallback (e.g. September 2026 -> 2026/2027).
+    academic_session = str(session.get("academic_session") or os.getenv("EMIS_ACADEMIC_SESSION") or "").strip()
+
+    if not academic_session:
+        calendar_now = datetime.now()
+        session_start_year = calendar_now.year if calendar_now.month >= 8 else calendar_now.year - 1
+        academic_session = f"{session_start_year}/{session_start_year + 1}"
 
     # The term actually used to enter the exam is authoritative.
     #
@@ -737,7 +741,7 @@ def submit_exam():
     #   selected term -> FIRST / SECOND / THIRD
     #   GENERAL      -> empty term
     if is_term_aware_class(class_level):
-        term = selected_term or settings_term or resolve_student_active_term(class_level, class_arm)
+        term = selected_term or resolve_student_active_term(class_level, class_arm)
 
         if not term:
             return jsonify({"error": "No active term is available for this JSS examination"}), 400
@@ -818,13 +822,23 @@ def submit_exam():
         return jsonify({"error": "Could not save examination result"}), 500
 
     # =====================================================
-    # SUPABASE RESULT SAVE
+    # CLOUD RESULT SYNC QUEUE
+    #
+    # IMPORTANT:
+    # The examination has already been saved locally above.
+    # Any sync/network failure from this point must NEVER make
+    # the student's local submission fail.
     # =====================================================
 
+    sync_info = {"queued": False, "status": "DISABLED", "sync_id": ""}
+
     try:
-        save_exam_result_to_supabase(data)
+        sync_info = queue_result_for_sync(data)
+        if sync_info.get("queued"):
+            trigger_background_sync()
     except Exception as error:
-        print("SUPABASE SAVE ERROR:", error)
+        print("RESULT SYNC QUEUE ERROR:", error)
+        sync_info = {"queued": False, "status": "QUEUE_ERROR", "sync_id": "", "error": str(error)}
 
     # =====================================================
     # UPDATE EXAM SESSION STATE
@@ -901,6 +915,11 @@ def submit_exam():
         "score": score,
         "result_status": status,
         "sex": sex,
+        "sync": {
+            "queued": bool(sync_info.get("queued")),
+            "status": sync_info.get("status", ""),
+            "sync_id": sync_info.get("sync_id", ""),
+        },
     }), 200
 
 

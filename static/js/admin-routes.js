@@ -5,49 +5,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const breadcrumbs = document.getElementById("breadcrumbs");
   const pageTitle = document.querySelector(".page-title");
 
-  // -----------------------------
-  // Core: Activate a panel
-  // -----------------------------
   function activatePanel(target, triggerEl = null) {
     if (!target) return;
 
-    // Hide all panels
     panels.forEach(panel => panel.classList.remove("is-active"));
 
-    // Show selected panel
     const activePanel = document.querySelector(target);
     if (activePanel) {
       activePanel.classList.add("is-active");
-
-      // Smooth scroll to top of panel for better UX
       activePanel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    // Highlight sidebar nav items only (not quick actions)
     navItems.forEach(btn => btn.classList.remove("is-active"));
-    if (triggerEl && triggerEl.classList.contains("nav-item")) {
-      triggerEl.classList.add("is-active");
-    }
+    if (triggerEl && triggerEl.classList.contains("nav-item")) triggerEl.classList.add("is-active");
 
-    // Update page title + breadcrumbs
-    const label =
-      triggerEl?.innerText.trim() ||
-      activePanel?.querySelector(".panel-title, .card-title")?.textContent ||
-      "";
+    const label = triggerEl?.innerText.trim() || activePanel?.querySelector(".panel-title, .card-title")?.textContent || "";
     if (pageTitle && label) pageTitle.textContent = label;
     if (breadcrumbs && label) breadcrumbs.textContent = `Home / ${label}`;
   }
 
-  // -----------------------------
-  // Sidebar navigation clicks
-  // -----------------------------
   navItems.forEach(item => {
     item.addEventListener("click", () => {
       const action = item.dataset.action;
       const target = item.dataset.panel;
 
       if (action === "open-candidate-login") {
-        window.open("/user_login", "_blank");
+        window.open("/student_login", "_blank", "noopener");
         return;
       }
 
@@ -55,41 +38,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // -----------------------------
-  // Special Quick Actions (modals, refresh, etc)
-  // -----------------------------
   document.querySelectorAll("[data-action]").forEach(btn => {
-    btn.addEventListener("click", async e => {
-      e.preventDefault();
+    btn.addEventListener("click", async event => {
+      event.preventDefault();
       const action = btn.dataset.action;
 
       switch (action) {
         case "open-candidate-login":
-          window.open("/user_login", "_blank");
+          window.open("/student_login", "_blank", "noopener");
           break;
 
         case "refresh-dashboard":
           location.reload();
           break;
 
-        // -----------------------------
-        // ✅ NEW: Open Upload Section
-        // -----------------------------
         case "open-upload":
-          console.log("Navigating to Upload Document panel...");
           activatePanel("#panel-uploads");
           break;
 
-        // -----------------------------
-        // 🔹 MODAL ACTIONS — STAY IN DASHBOARD
-        // -----------------------------
         case "view-credentials":
           try {
             const res = await fetch("/view_credentials");
             const data = await res.json();
             showCredentialsModal(data.credentials);
-          } catch (err) {
-            console.error("Failed to load credentials", err);
+          } catch (error) {
+            console.error("Failed to load credentials", error);
             showToast("Failed to load credentials", "error");
           }
           break;
@@ -99,15 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const res = await fetch("/view_results");
             const data = await res.json();
             showResultsModal(data.results);
-          } catch (err) {
-            console.error("Failed to load results", err);
+          } catch (error) {
+            console.error("Failed to load results", error);
             showToast("Failed to load results", "error");
           }
           break;
 
-        // -----------------------------
-        // 🔹 REFRESH INSIDE MODALS
-        // -----------------------------
         case "refresh-results-modal":
           try {
             const res = await fetch("/view_results");
@@ -129,23 +99,16 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
 
         default:
-          console.warn(`⚠️ No handler defined for action: ${action}`);
+          console.warn(`No handler defined for action: ${action}`);
       }
     });
   });
 
-  // -----------------------------
-  // Default active dashboard
-  // -----------------------------
   const defaultPanel = document.querySelector("#panel-dashboard");
-  if (defaultPanel) {
-    defaultPanel.classList.add("is-active");
-  }
+  if (defaultPanel) defaultPanel.classList.add("is-active");
 });
 
 
-document.querySelectorAll("a[href$='/admin/results']").forEach(a => {
-    a.addEventListener("click", () => {
-        window.location.href = "/admin/results";
-    });
+document.querySelectorAll("a[href$='/admin/results']").forEach(anchor => {
+  anchor.addEventListener("click", () => { window.location.href = "/admin/results"; });
 });
