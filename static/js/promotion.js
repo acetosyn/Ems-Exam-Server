@@ -93,7 +93,14 @@ document.addEventListener("DOMContentLoaded", () => {
         graduateYearFilter: $("graduateYearFilter"),
         graduatesBody: $("graduatesBody"),
         graduatesCount: $("graduatesCount"),
-        graduatesPagination: $("graduatesPagination")
+        graduatesPagination: $("graduatesPagination"),
+        clearGraduateArchiveBtn: $("clearGraduateArchiveBtn"),
+        graduateClearPanel: $("graduateClearPanel"),
+        graduateClearTitle: $("graduateClearTitle"),
+        graduateClearMessage: $("graduateClearMessage"),
+        graduateClearConfirmInput: $("graduateClearConfirmInput"),
+        cancelGraduateClearBtn: $("cancelGraduateClearBtn"),
+        confirmGraduateClearBtn: $("confirmGraduateClearBtn")
     };
 
 
@@ -104,7 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
         destinationContext: null, pendingPreview: null, pendingGuard: null,
         graduates: [],
         graduatePage: 1,
-        graduateRowsPerPage: 15
+        graduateRowsPerPage: 15,
+        graduateClearBusy: false
     };
 
 
@@ -157,8 +165,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         els.graduateYearFilter?.addEventListener("change", () => {
             promotionState.graduatePage = 1;
+            closeGraduateClearPanel();
             renderGraduates();
         });
+        els.clearGraduateArchiveBtn?.addEventListener("click", openGraduateClearPanel);
+        els.cancelGraduateClearBtn?.addEventListener("click", closeGraduateClearPanel);
+        els.graduateClearConfirmInput?.addEventListener("input", updateGraduateClearConfirmation);
+        els.graduateClearConfirmInput?.addEventListener("keydown", event => {
+            if (event.key === "Enter" && String(els.graduateClearConfirmInput?.value || "").trim().toUpperCase() === "DELETE") applyGraduateArchiveClear();
+        });
+        els.confirmGraduateClearBtn?.addEventListener("click", applyGraduateArchiveClear);
 
         // ESCAPE
         document.addEventListener("keydown", (event) => {
@@ -705,20 +721,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
     async function openGraduates() {
         showModal(els.graduatesModal, els.graduatesOverlay);
+        closeGraduateClearPanel();
+        await loadGraduatesArchive(false);
+    }
 
+
+    async function loadGraduatesArchive(preserveYear = true) {
+        const preferredYear = preserveYear ? (els.graduateYearFilter?.value || "all") : "all";
         if (els.graduatesBody) els.graduatesBody.innerHTML = loadingGraduateRow();
 
         try {
             const data = await api("/api/promotion/graduates");
-
             promotionState.graduates = Array.isArray(data.graduates) ? data.graduates : [];
             promotionState.graduatePage = 1;
-
-            populateGraduateYears(data.summary || {});
+            populateGraduateYears(data.summary || {}, preferredYear);
             renderGraduates();
-
         } catch (error) {
             promotionState.graduates = [];
+            updateGraduateClearButton();
 
             if (els.graduatesBody) {
                 els.graduatesBody.innerHTML = `
@@ -735,19 +755,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function closeGraduates() {
+        closeGraduateClearPanel();
         hideModal(els.graduatesModal, els.graduatesOverlay);
     }
 
 
-    function populateGraduateYears(summary) {
+    function populateGraduateYears(summary, preferredYear = "all") {
         if (!els.graduateYearFilter) return;
 
         const years = Object.keys(summary.years || {}).sort((a, b) => Number(b) - Number(a));
-
         els.graduateYearFilter.innerHTML = `
             <option value="all">All Years</option>
             ${years.map((year) => `<option value="${escapeHtml(year)}">${escapeHtml(year)}</option>`).join("")}
         `;
+
+        els.graduateYearFilter.value = years.includes(String(preferredYear)) ? String(preferredYear) : "all";
     }
 
 
@@ -769,6 +791,101 @@ document.addEventListener("DOMContentLoaded", () => {
                 graduate.Graduation_year
             ].join(" ")).includes(query);
         });
+    }
+
+
+    function getGraduateClearTargets() {
+        const year = els.graduateYearFilter?.value || "all";
+        if (year === "all") return [...promotionState.graduates];
+        return promotionState.graduates.filter(graduate => String(graduate.Graduation_year || "") === year);
+    }
+
+
+    function updateGraduateClearButton() {
+        if (!els.clearGraduateArchiveBtn) return;
+        const year = els.graduateYearFilter?.value || "all";
+        const targets = getGraduateClearTargets();
+        els.clearGraduateArchiveBtn.disabled = promotionState.graduateClearBusy || !targets.length;
+        els.clearGraduateArchiveBtn.innerHTML = year === "all"
+            ? `<i class="fa-solid fa-trash-can"></i><span>Clear Archive</span>`
+            : `<i class="fa-solid fa-trash-can"></i><span>Clear ${escapeHtml(year)}</span>`;
+        els.clearGraduateArchiveBtn.title = !targets.length
+            ? "There are no archived graduates in this scope."
+            : year === "all"
+                ? `Clear all ${targets.length} archived graduate record(s). A backup will be created first.`
+                : `Clear all ${targets.length} archived graduate record(s) from ${year}. A backup will be created first.`;
+    }
+
+
+    function openGraduateClearPanel() {
+        const targets = getGraduateClearTargets();
+        const year = els.graduateYearFilter?.value || "all";
+        if (!targets.length) return showToast("There are no archived graduates to clear in this scope.", "warning");
+
+        const scopeName = year === "all" ? "the entire Graduate Archive" : `the ${year} Graduate Archive`;
+        if (els.graduateClearTitle) els.graduateClearTitle.textContent = year === "all" ? "Clear Entire Graduate Archive?" : `Clear ${year} Graduate Archive?`;
+        if (els.graduateClearMessage) els.graduateClearMessage.textContent = `You are about to remove ${targets.length} archived graduate record${targets.length === 1 ? "" : "s"} from ${scopeName}. Search text does not limit this action. Students will NOT return to SS3, and admission numbers will NOT be released again or otherwise changed.`;
+        if (els.graduateClearConfirmInput) els.graduateClearConfirmInput.value = "";
+        if (els.confirmGraduateClearBtn) els.confirmGraduateClearBtn.disabled = true;
+        els.graduateClearPanel?.classList.remove("hidden");
+        setTimeout(() => els.graduateClearConfirmInput?.focus(), 50);
+    }
+
+
+    function closeGraduateClearPanel() {
+        if (promotionState.graduateClearBusy) return;
+        els.graduateClearPanel?.classList.add("hidden");
+        if (els.graduateClearConfirmInput) els.graduateClearConfirmInput.value = "";
+        if (els.confirmGraduateClearBtn) els.confirmGraduateClearBtn.disabled = true;
+    }
+
+
+    function updateGraduateClearConfirmation() {
+        if (!els.confirmGraduateClearBtn) return;
+        const confirmed = String(els.graduateClearConfirmInput?.value || "").trim().toUpperCase() === "DELETE";
+        els.confirmGraduateClearBtn.disabled = promotionState.graduateClearBusy || !confirmed;
+    }
+
+
+    async function applyGraduateArchiveClear() {
+        if (promotionState.graduateClearBusy) return;
+
+        const confirmation = String(els.graduateClearConfirmInput?.value || "").trim().toUpperCase();
+        if (confirmation !== "DELETE") return showToast("Type DELETE exactly to confirm this archive clear.", "warning");
+
+        const year = els.graduateYearFilter?.value || "all";
+        const targets = getGraduateClearTargets();
+        if (!targets.length) return showToast("There are no archived graduates to clear in this scope.", "warning");
+
+        promotionState.graduateClearBusy = true;
+        updateGraduateClearButton();
+        if (els.confirmGraduateClearBtn) {
+            els.confirmGraduateClearBtn.disabled = true;
+            els.confirmGraduateClearBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Creating backup...</span>`;
+        }
+        if (els.cancelGraduateClearBtn) els.cancelGraduateClearBtn.disabled = true;
+
+        try {
+            const data = await api("/api/promotion/graduates/clear", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ scope: year === "all" ? "all" : "year", year: year === "all" ? "" : year, confirmation })
+            });
+
+            showToast(data.message || "Graduate archive cleared successfully.", "success");
+            els.graduateClearPanel?.classList.add("hidden");
+            if (els.graduateSearch) els.graduateSearch.value = "";
+            await Promise.allSettled([loadGraduatesArchive(false), loadLogs()]);
+            document.dispatchEvent(new CustomEvent("emis:graduate-archive-cleared", { detail: data }));
+        } catch (error) {
+            showToast(error.message, "error");
+        } finally {
+            promotionState.graduateClearBusy = false;
+            if (els.cancelGraduateClearBtn) els.cancelGraduateClearBtn.disabled = false;
+            if (els.confirmGraduateClearBtn) els.confirmGraduateClearBtn.innerHTML = `<i class="fa-solid fa-trash-can"></i><span>Clear Graduate Archive</span>`;
+            updateGraduateClearConfirmation();
+            updateGraduateClearButton();
+        }
     }
 
 
@@ -828,7 +945,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (els.graduatesCount) els.graduatesCount.textContent = `${filtered.length} graduate${filtered.length === 1 ? "" : "s"}`;
-
+        updateGraduateClearButton();
         renderGraduatePagination(filtered.length, totalPages);
     }
 

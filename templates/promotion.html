@@ -3,7 +3,7 @@
 {% block title %}EMIS — Promotion Manager{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=13-flex-placement">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=14-graduate-clear">
 {% endblock %}
 
 {% block content %}
@@ -936,7 +936,29 @@
       <i class="fa-solid fa-chevron-down"></i>
     </div>
 
+    <button id="clearGraduateArchiveBtn" class="pm-btn graduate-clear-btn" type="button" title="Clear archived graduate records">
+      <i class="fa-solid fa-trash-can"></i><span>Clear Archive</span>
+    </button>
+
   </div>
+
+  <section id="graduateClearPanel" class="graduate-clear-panel hidden" aria-labelledby="graduateClearTitle">
+    <div class="graduate-clear-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <div class="graduate-clear-copy">
+      <span>Archive Safety Check</span>
+      <h3 id="graduateClearTitle">Clear Graduate Archive?</h3>
+      <p id="graduateClearMessage">This removes graduate-history records only. It does not return students to SS3 or change admission-number status.</p>
+      <div class="graduate-clear-safety"><i class="fa-solid fa-database"></i><span>EMIS creates and verifies a safety backup before any archive file is deleted.</span></div>
+      <label for="graduateClearConfirmInput">Type <strong>DELETE</strong> to continue</label>
+      <input id="graduateClearConfirmInput" type="text" autocomplete="off" spellcheck="false" placeholder="DELETE">
+      <div class="graduate-clear-actions">
+        <button id="cancelGraduateClearBtn" class="pm-btn pm-btn-secondary" type="button">Cancel</button>
+        <button id="confirmGraduateClearBtn" class="pm-btn pm-btn-danger-soft" type="button" disabled>
+          <i class="fa-solid fa-trash-can"></i><span>Clear Graduate Archive</span>
+        </button>
+      </div>
+    </div>
+  </section>
 
 
   <div class="graduates-table-scroll">
@@ -1085,6 +1107,6 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/student_database.js') }}?v=1"></script>
-<script src="{{ url_for('static', filename='js/promotion.js') }}?v=13-flex-placement"></script>
+<script src="{{ url_for('static', filename='js/promotion.js') }}?v=14-graduate-clear"></script>
 <script src="{{ url_for('static', filename='js/promotion_import.js') }}?v=13-flex-placement"></script>
 {% endblock %}

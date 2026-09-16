@@ -855,6 +855,34 @@ body.pm-modal-open { overflow: hidden; }
 
 .graduates-year-wrap select { width: 100%; min-height: 42px; padding: 0 34px 0 11px; appearance: none; border: 1px solid #cfd8e2; border-radius: 9px; outline: none; color: #344054; background: #fff; font-size: .84rem; font-weight: 650; }
 
+.graduate-clear-btn { min-height: 42px; flex: 0 0 auto; color: var(--pm-red); border-color: #efc3c3; background: #fff7f7; box-shadow: none; }
+
+.graduate-clear-btn:hover:not(:disabled) { color: #fff; border-color: var(--pm-red); background: var(--pm-red); }
+
+.graduate-clear-btn:disabled { color: #9ca3af; border-color: #e5e7eb; background: #f8fafc; }
+
+.graduate-clear-panel { margin: 12px 14px; padding: 14px; display: grid; grid-template-columns: 44px minmax(0,1fr); gap: 12px; border: 1px solid #efc3c3; border-radius: 12px; background: linear-gradient(135deg, #fffafa, #fff4f4); box-shadow: var(--pm-shadow-xs); }
+
+.graduate-clear-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 11px; color: var(--pm-red); background: var(--pm-red-soft); font-size: 17px; }
+
+.graduate-clear-copy > span { display: block; color: var(--pm-red); font-size: .69rem; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+
+.graduate-clear-copy h3 { margin: 3px 0 0; color: var(--pm-text-strong); font-size: 1rem; font-weight: 850; }
+
+.graduate-clear-copy p { margin: 6px 0 0; color: #5d6673; font-size: .82rem; line-height: 1.5; }
+
+.graduate-clear-safety { margin-top: 9px; padding: 8px 10px; display: flex; align-items: flex-start; gap: 8px; border: 1px solid #cfe2db; border-radius: 9px; color: #315d50; background: #f0f9f6; font-size: .77rem; line-height: 1.42; font-weight: 650; }
+
+.graduate-clear-safety i { margin-top: 2px; color: var(--pm-primary); }
+
+.graduate-clear-copy label { margin-top: 11px; display: block; color: #344054; font-size: .78rem; font-weight: 750; }
+
+.graduate-clear-copy input { width: min(310px, 100%); min-height: 40px; margin-top: 6px; padding: 8px 11px; border: 1px solid #d8a9a9; border-radius: 9px; outline: none; color: var(--pm-text-strong); background: #fff; font-size: .85rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+
+.graduate-clear-copy input:focus { border-color: var(--pm-red); box-shadow: 0 0 0 3px rgba(198,40,40,.08); }
+
+.graduate-clear-actions { margin-top: 11px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
 .graduates-table-scroll { width: 100%; max-height: 500px; overflow: auto; }
 
 .graduates-table { width: 100%; min-width: 800px; border-collapse: separate; border-spacing: 0; }
@@ -1189,6 +1217,14 @@ body.pm-modal-open { overflow: hidden; }
   .graduates-toolbar { align-items: stretch; flex-direction: column; }
 
   .graduates-year-wrap { width: 100%; }
+
+  .graduate-clear-btn { width: 100%; }
+
+  .graduate-clear-panel { grid-template-columns: 1fr; margin: 10px 12px; }
+
+  .graduate-clear-icon { width: 40px; height: 40px; }
+
+  .graduate-clear-actions .pm-btn { flex: 1; }
 
   .graduates-footer { align-items: flex-start; flex-direction: column; }
 

@@ -27,6 +27,7 @@ from modules.student_database.admission_manager import (
 
 from modules.student_database.graduation_manager import (
     graduate_students, read_graduates, search_graduates, get_graduation_summary,
+    clear_graduate_archive,
 )
 
 from modules.student_database.promotion_safeguards import (
@@ -921,6 +922,89 @@ def api_promotion_graduates():
 
     except Exception as error:
         return jsonify({"success": False, "message": str(error)}), 500
+
+
+# ============================================================
+# CLEAR GRADUATE ARCHIVE
+#
+# Removes archive history only. It does NOT restore students to
+# SS3 and does NOT change/re-release admission numbers.
+# ============================================================
+
+@promotion_bp.route("/api/promotion/graduates/clear", methods=["POST"])
+def api_clear_promotion_graduates():
+    data = request.get_json(silent=True) or {}
+
+    try:
+        confirmation = clean(data.get("confirmation")).upper()
+
+        if confirmation != "DELETE":
+            return jsonify({
+                "success": False,
+                "message": "Type DELETE exactly to confirm clearing the graduate archive.",
+            }), 400
+
+        scope = clean(data.get("scope") or "all").lower()
+        year = clean(data.get("year"))
+
+        if scope not in {"all", "year"}:
+            return jsonify({
+                "success": False,
+                "message": "Invalid graduate archive clear scope.",
+            }), 400
+
+        if scope == "year":
+            if not year or not year.isdigit():
+                return jsonify({
+                    "success": False,
+                    "message": "Choose a valid graduation year before clearing that year.",
+                }), 400
+            clear_year = int(year)
+        else:
+            clear_year = None
+
+        result = clear_graduate_archive(
+            year=clear_year,
+            requested_by=get_admin_name(),
+        )
+
+        scope_text = str(clear_year) if clear_year else "ALL YEARS"
+        log_action(
+            "CLEAR_GRADUATE_ARCHIVE",
+            "GRADUATE ARCHIVE",
+            scope_text,
+            result.get("admissions") or [],
+            (
+                f"Cleared {result['count']} archived graduate record(s). "
+                f"Safety backup: {result['backup_directory']}. "
+                "Active students and admission-number status were not changed."
+            ),
+        )
+
+        return jsonify({
+            "success": True,
+            "message": (
+                f"{result['count']} archived graduate record(s) cleared successfully "
+                f"from {scope_text}. A safety backup was created first."
+            ),
+            "count": result["count"],
+            "scope": result["scope"],
+            "year": result["year"],
+            "backup_directory": result["backup_directory"],
+            "graduation_log_preserved": result["graduation_log_preserved"],
+            "active_student_database_changed": result["active_student_database_changed"],
+            "admission_number_pool_changed": result["admission_number_pool_changed"],
+            "summary": get_graduation_summary(),
+        })
+
+    except ValueError as error:
+        return jsonify({"success": False, "message": str(error)}), 400
+
+    except Exception as error:
+        return jsonify({
+            "success": False,
+            "message": f"Graduate archive clear failed: {error}",
+        }), 500
 
 
 # ============================================================

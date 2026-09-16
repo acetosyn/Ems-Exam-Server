@@ -1,6 +1,8 @@
 # MODULE: Graduation Manager — Archives graduating SS3 students and releases completed admission numbers
 
 import csv
+import json
+import shutil
 from pathlib import Path
 from datetime import datetime
 
@@ -20,6 +22,7 @@ DATABASE_DIR = BASE_DIR / "static" / "data" / "database"
 
 GRADUATES_DIR = DATABASE_DIR / "graduates"
 GRADUATION_LOG_FILE = GRADUATES_DIR / "graduation_log.csv"
+GRADUATE_BACKUP_DIR = DATABASE_DIR / "backups" / "graduates"
 
 GRADUATE_HEADERS = [
     "Admission_number", "Last_name", "First_name", "Other_names", "Phone", "Sex",
@@ -557,3 +560,143 @@ def get_graduation_summary():
         "years": dict(sorted(years.items(), reverse=True)),
         "latest_year": max(years.keys()) if years else None,
     }
+
+# ============================================================
+# CLEAR GRADUATE ARCHIVE
+#
+# IMPORTANT SAFETY RULES:
+#   • Clearing the archive NEVER restores students to SS3.
+#   • Clearing the archive NEVER releases admission numbers.
+#   • A verified filesystem backup is created before deletion.
+#   • The graduation activity log is preserved.
+# ============================================================
+
+def _graduate_archive_files(year=None):
+    ensure_graduation_directories()
+
+    if year is not None:
+        year = int(year)
+        path = GRADUATES_DIR / str(year) / f"graduated_students_{year}.xlsx"
+        return [path] if path.exists() else []
+
+    return sorted(GRADUATES_DIR.glob("*/graduated_students_*.xlsx"))
+
+
+def _verified_copy(source, destination):
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+
+    if not destination.exists() or destination.stat().st_size != source.stat().st_size:
+        raise IOError(f"Graduate archive backup verification failed for {source.name}.")
+
+    return destination
+
+
+def clear_graduate_archive(year=None, requested_by="Admin"):
+    """
+    Remove one graduation year or the full visible graduate archive.
+
+    This function intentionally touches ONLY the archived graduate workbook(s).
+    It does not edit students2026.csv, class XLSX files, the recycled admission
+    number pool, or the historical graduation_log.csv.
+    """
+    ensure_graduation_directories()
+
+    normalized_year = None
+    if year not in (None, "", "all", "ALL"):
+        try:
+            normalized_year = int(year)
+        except (TypeError, ValueError):
+            raise ValueError("Invalid graduation year.")
+
+        if normalized_year < 1900 or normalized_year > 9999:
+            raise ValueError("Invalid graduation year.")
+
+    archive_files = _graduate_archive_files(normalized_year)
+
+    if not archive_files:
+        scope = f"{normalized_year}" if normalized_year else "the graduate archive"
+        raise ValueError(f"No archived graduates were found for {scope}.")
+
+    records = read_graduates(normalized_year) if normalized_year else read_graduates()
+    admissions = [
+        normalize_admission(row.get("Admission_number"))
+        for row in records
+        if normalize_admission(row.get("Admission_number"))
+    ]
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+    scope_slug = str(normalized_year) if normalized_year else "all_years"
+    backup_dir = GRADUATE_BACKUP_DIR / f"archive_clear_{scope_slug}_{timestamp}"
+    backup_dir.mkdir(parents=True, exist_ok=False)
+
+    backed_up_files = []
+
+    try:
+        for source in archive_files:
+            relative = source.relative_to(GRADUATES_DIR)
+            destination = backup_dir / relative
+            _verified_copy(source, destination)
+            backed_up_files.append(str(destination))
+
+        if GRADUATION_LOG_FILE.exists():
+            log_backup = backup_dir / GRADUATION_LOG_FILE.name
+            _verified_copy(GRADUATION_LOG_FILE, log_backup)
+            backed_up_files.append(str(log_backup))
+
+        manifest = {
+            "action": "CLEAR_GRADUATE_ARCHIVE",
+            "scope": "year" if normalized_year else "all_years",
+            "year": normalized_year,
+            "requested_by": clean(requested_by) or "Admin",
+            "cleared_at": datetime.now().isoformat(timespec="seconds"),
+            "record_count": len(records),
+            "admissions": admissions,
+            "source_files": [str(path) for path in archive_files],
+            "backup_files": backed_up_files,
+            "graduation_log_preserved": True,
+            "active_student_database_changed": False,
+            "admission_number_pool_changed": False,
+        }
+        manifest_path = backup_dir / "clear_manifest.json"
+        manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+        # Delete only after every requested archive file has a verified copy.
+        for source in archive_files:
+            source.unlink()
+
+            parent = source.parent
+            try:
+                if parent != GRADUATES_DIR and not any(parent.iterdir()):
+                    parent.rmdir()
+            except OSError:
+                pass
+
+    except Exception:
+        # The source archives are not modified until backups finish, so a backup
+        # failure leaves the live archive untouched. If deletion failed midway,
+        # restore any missing source workbook from the verified backup.
+        for source in archive_files:
+            if source.exists():
+                continue
+            relative = source.relative_to(GRADUATES_DIR)
+            backup_source = backup_dir / relative
+            if backup_source.exists():
+                source.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(backup_source, source)
+        raise
+
+    return {
+        "success": True,
+        "scope": "year" if normalized_year else "all_years",
+        "year": normalized_year,
+        "count": len(records),
+        "admissions": admissions,
+        "backup_directory": str(backup_dir),
+        "backup_manifest": str(backup_dir / "clear_manifest.json"),
+        "cleared_files": [str(path) for path in archive_files],
+        "graduation_log_preserved": True,
+        "active_student_database_changed": False,
+        "admission_number_pool_changed": False,
+    }
+
