@@ -2,7 +2,6 @@
 
 import csv
 import io
-import random
 from pathlib import Path
 from datetime import datetime
 
@@ -11,6 +10,7 @@ from openpyxl import Workbook
 
 from modules.class_config import (
     SUPPORTED_CLASSES, CLASS_ARMS_BY_LEVEL, normalize_class_level, get_ss_stream,
+    get_class_arm_stream_label,
 )
 
 from modules.student_database.student_database import (
@@ -27,6 +27,13 @@ from modules.student_database.admission_manager import (
 
 from modules.student_database.graduation_manager import (
     graduate_students, read_graduates, search_graduates, get_graduation_summary,
+)
+
+from modules.student_database.promotion_safeguards import (
+    DEMOTION_PATH, build_guard, recommended_promotion_sequence, recommended_first_action,
+)
+from modules.student_database.student_import_manager import (
+    analyze_student_upload, commit_student_import, canonical_csv_template, SUPPORTED_EXTENSIONS,
 )
 
 
@@ -76,6 +83,21 @@ def normalize_admissions(values):
             result.append(admission)
 
     return result
+
+
+def resolve_request_mode(data, allow_all=True):
+    """Protect selected-student actions from accidentally becoming whole-class actions."""
+    mode = clean((data or {}).get("mode") or "selected").lower()
+    if mode not in {"selected", "all"}:
+        raise ValueError("Invalid promotion scope. Use selected or all.")
+    if mode == "all":
+        if not allow_all:
+            raise ValueError("Whole-class mode is not allowed for this action.")
+        confirmed = (data or {}).get("confirm_entire_class")
+        confirmed = confirmed is True or str(confirmed or "").strip().lower() in {"1", "true", "yes"}
+        if not confirmed:
+            raise ValueError("Whole-class action was not explicitly confirmed. Re-open Promote Entire Class and confirm the full-class scope.")
+    return mode
 
 
 # ============================================================
@@ -130,6 +152,7 @@ def frontend_student(student):
     row["Class_level"] = class_level
     row["Class_arm"] = class_arm
     row["Stream"] = get_ss_stream(class_arm)
+    row["Stream_label"] = get_class_arm_stream_label(class_arm)
     row["Status"] = "ACTIVE"
 
     return row
@@ -179,41 +202,43 @@ def get_selected_students(class_category, admissions=None, mode="selected"):
 # NEW STUDENT CLASS ARM ASSIGNMENT
 # ============================================================
 
+def _balanced_arm(class_category, stream=""):
+    available_arms = list(CLASS_ARMS_BY_LEVEL.get(class_category, []))
+    stream = clean(stream).upper()
+    if stream == "SCIENCE": available_arms = [arm for arm in available_arms if get_ss_stream(arm) == "SCIENCE"]
+    elif stream in {"ART_COMMERCIAL", "ART", "COMMERCIAL"}: available_arms = [arm for arm in available_arms if get_ss_stream(arm) == "ART_COMMERCIAL"]
+    if not available_arms: raise ValueError(f"No compatible class arms are configured for {class_category}.")
+    counts = {arm: 0 for arm in available_arms}
+    for student in get_students_by_class(class_category):
+        arm = normalize_student_arm(student.get("Class"), class_category)
+        if arm in counts: counts[arm] += 1
+    return min(available_arms, key=lambda arm: (counts.get(arm, 0), available_arms.index(arm)))
+
+
 def resolve_student_arm(class_category, requested_arm=""):
     class_category = normalize_requested_class(class_category)
-
-    if not class_category:
-        raise ValueError("Invalid class category.")
-
+    if not class_category: raise ValueError("Invalid class category.")
     available_arms = list(CLASS_ARMS_BY_LEVEL.get(class_category, []))
-
-    if not available_arms:
-        raise ValueError(f"No class arms are configured for {class_category}.")
+    if not available_arms: raise ValueError(f"No class arms are configured for {class_category}.")
 
     requested_arm = clean(requested_arm)
+    requested_key = requested_arm.upper().replace(" ", "_")
+    auto_stream = ""
+    if requested_key in {"AUTO", "AUTOMATIC", "BALANCED", "AUTOMATIC_ASSIGNMENT"}: requested_arm = ""
+    elif requested_key in {"AUTO_SCIENCE", "SCIENCE_AUTO"}: requested_arm = ""; auto_stream = "SCIENCE"
+    elif requested_key in {"AUTO_ART_COMMERCIAL", "AUTO_ARTS_COMMERCIAL", "ART_COMMERCIAL_AUTO"}: requested_arm = ""; auto_stream = "ART_COMMERCIAL"
 
-    # --------------------------------------------------------
-    # TEACHER SELECTED AN ARM
-    # --------------------------------------------------------
     if requested_arm:
         class_arm = normalize_student_arm(requested_arm, class_category)
-
         if not class_arm:
             available = ", ".join(available_arms)
-            raise ValueError(
-                f"Invalid class arm for {class_category}. Choose one of: {available}."
-            )
-
+            raise ValueError(f"Invalid class arm for {class_category}. Choose one of: {available}.")
         validate_student_class(class_category, class_arm)
         return class_arm, "manual"
 
-    # --------------------------------------------------------
-    # NO ARM SELECTED — RANDOM AUTOMATIC ASSIGNMENT
-    # --------------------------------------------------------
-    class_arm = random.choice(available_arms)
-
+    class_arm = _balanced_arm(class_category, auto_stream)
     validate_student_class(class_category, class_arm)
-    return class_arm, "automatic"
+    return class_arm, "automatic-balanced"
 
 
 # ============================================================
@@ -249,17 +274,13 @@ def resolve_destination_arm(student, destination_level, explicit_arm=""):
         return destination_arm
 
     # --------------------------------------------------------
-    # JSS1 → JSS2 / JSS2 → JSS3
-    # PRESERVE A / B / C
+    # JSS ↔ JSS
+    # Preserve A / B / C for both promotion and demotion.
     # --------------------------------------------------------
-    if source_level in {"JSS1", "JSS2"} and destination_level in {"JSS2", "JSS3"}:
+    if source_level.startswith("JSS") and destination_level.startswith("JSS"):
         suffix = class_suffix(source_arm, source_level)
-        destination_arm = normalize_student_arm(
-            f"{destination_level}{suffix}", destination_level
-        )
-
-        if destination_arm:
-            return destination_arm
+        destination_arm = normalize_student_arm(f"{destination_level}{suffix}", destination_level)
+        if destination_arm: return destination_arm
 
     # --------------------------------------------------------
     # JSS3 → SS1
@@ -401,6 +422,8 @@ def api_promotion_summary():
             "summary": summary,
             "graduation": graduation_summary,
             "admission_numbers": admission_summary,
+            "promotion_roadmap": recommended_promotion_sequence(summary),
+            "recommended_first_action": recommended_first_action(summary),
         })
 
     except Exception as error:
@@ -683,10 +706,11 @@ def api_promote_students():
                 ),
             }), 400
 
+        mode = resolve_request_mode(data, allow_all=True)
         students = get_selected_students(
             source_class,
             data.get("admissions"),
-            data.get("mode", "selected"),
+            mode,
         )
 
         admissions = [
@@ -709,12 +733,14 @@ def api_promote_students():
             reason="promotion",
         )
 
+        placement_counts = {}
+        for item in result["moved"]:
+            key = f"{item.get('From', '')} → {item.get('To', '')}"
+            placement_counts[key] = placement_counts.get(key, 0) + 1
+        placement_text = "; ".join(f"{key}: {count}" for key, count in sorted(placement_counts.items()))
         log_action(
-            "PROMOTE",
-            source_class,
-            destination_class,
-            result["admissions"],
-            f"Promotion completed. Backup: {result['backup']}",
+            "PROMOTE", source_class, destination_class, result["admissions"],
+            f"Promotion completed. Scope: {mode}. Placements: {placement_text}. Backup: {result['backup']}",
         )
 
         return jsonify({
@@ -727,6 +753,8 @@ def api_promote_students():
             "source_class": source_class,
             "destination_class": destination_class,
             "moved": result["moved"],
+            "placements": placement_counts,
+            "scope": mode,
             "backup": result["backup"],
         })
 
@@ -812,10 +840,11 @@ def api_graduate_students():
                 "message": "Only SS3 students can be graduated.",
             }), 400
 
+        mode = resolve_request_mode(data, allow_all=True)
         students = get_selected_students(
             "SS3",
             data.get("admissions"),
-            data.get("mode", "selected"),
+            mode,
         )
 
         admissions = [
@@ -892,6 +921,89 @@ def api_promotion_graduates():
 
     except Exception as error:
         return jsonify({"success": False, "message": str(error)}), 500
+
+
+# ============================================================
+# SMART PROMOTION GUARD / ROADMAP
+# ============================================================
+
+@promotion_bp.route("/api/promotion/guard", methods=["POST"])
+def api_promotion_guard():
+    data = request.get_json(silent=True) or {}
+    try:
+        action = clean(data.get("action") or "promote").lower()
+        source_class = normalize_requested_class(data.get("class_category") or data.get("class") or data.get("from_class"))
+        if not source_class: return jsonify({"success": False, "message": "Invalid source class."}), 400
+        admissions = normalize_admissions(data.get("admissions") or [])
+        mode = clean(data.get("mode") or "selected").lower()
+        selected_count = None
+        if mode != "all" and admissions:
+            selected_count = len(get_selected_students(source_class, admissions, "selected"))
+        result = build_guard(
+            action=action, source_class=source_class, selected_admissions=admissions, selected_count=selected_count,
+            mode=mode, destination_classes=data.get("destination_classes") or {}, use_ai=bool(data.get("use_ai")),
+        )
+        return jsonify({"success": True, **result})
+    except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
+    except Exception as error: return jsonify({"success": False, "message": f"Promotion guard failed: {error}"}), 500
+
+
+# ============================================================
+# DEMOTE SELECTED STUDENTS
+# ============================================================
+
+@promotion_bp.route("/api/promotion/demote", methods=["POST"])
+def api_demote_students():
+    data = request.get_json(silent=True) or {}
+    try:
+        source_class = normalize_requested_class(data.get("class_category") or data.get("from_class"))
+        if not source_class: return jsonify({"success": False, "message": "Invalid source class."}), 400
+        destination_class = DEMOTION_PATH.get(source_class)
+        if not destination_class: return jsonify({"success": False, "message": f"{source_class} does not have a lower class in the EMIS progression path."}), 400
+        if clean(data.get("mode")).lower() == "all": return jsonify({"success": False, "message": "Whole-class demotion is intentionally disabled. Select the individual students to demote."}), 400
+        students = get_selected_students(source_class, data.get("admissions"), "selected")
+        admissions = [normalize_admission(student.get("Admission_number")) for student in students]
+        destination_map = build_destination_map(students=students, destination_level=destination_class, destination_arm=data.get("destination_arm", ""), destination_classes=data.get("destination_classes") or {})
+        result = move_students(source_class=source_class, destination_class=destination_class, admissions=admissions, destination_classes=destination_map, reason="demotion")
+        log_action("DEMOTE", source_class, destination_class, result["admissions"], f"Selected-student demotion completed. Backup: {result['backup']}")
+        return jsonify({"success": True, "message": f"{result['count']} student(s) demoted from {source_class} to {destination_class}.", "count":result["count"], "source_class":source_class, "destination_class":destination_class, "moved":result["moved"], "backup":result["backup"]})
+    except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
+    except Exception as error: return jsonify({"success": False, "message": f"Demotion failed: {error}"}), 500
+
+
+# ============================================================
+# SMART STUDENT IMPORT
+# ============================================================
+
+@promotion_bp.route("/api/promotion/import/analyze", methods=["POST"])
+def api_analyze_student_import():
+    try:
+        upload = request.files.get("file")
+        if not upload or not clean(upload.filename): return jsonify({"success": False, "message": "Choose a student file to analyze."}), 400
+        payload = upload.read(12 * 1024 * 1024 + 1)
+        if len(payload) > 12 * 1024 * 1024: return jsonify({"success": False, "message": "Student import file is larger than 12 MB."}), 400
+        result = analyze_student_upload(payload, upload.filename, default_class_category=request.form.get("default_class_category", ""), default_class_arm=request.form.get("default_class_arm", ""), use_ai=clean(request.form.get("use_ai", "1")).lower() not in {"0","false","no","off"})
+        return jsonify({"success": True, **result})
+    except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
+    except Exception as error: return jsonify({"success": False, "message": f"Student import analysis failed: {error}"}), 500
+
+
+@promotion_bp.route("/api/promotion/import/commit", methods=["POST"])
+def api_commit_student_import():
+    data = request.get_json(silent=True) or {}
+    try:
+        result = commit_student_import(data.get("rows") or [], mode=data.get("mode") or "add")
+        admissions = [normalize_admission(row.get("Admission_number")) for row in result.get("added", []) + result.get("updated", []) if normalize_admission(row.get("Admission_number"))]
+        log_action("IMPORT_STUDENTS", "UPLOAD", "ACTIVE_DATABASE", admissions, f"Smart student import: {result['added_count']} added, {result['updated_count']} updated. Backup: {result['backup']}")
+        return jsonify({**result, "message": f"Student import completed: {result['added_count']} added and {result['updated_count']} updated."})
+    except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
+    except Exception as error: return jsonify({"success": False, "message": f"Student import failed: {error}"}), 500
+
+
+@promotion_bp.route("/api/promotion/import/template")
+def api_student_import_template():
+    content = canonical_csv_template().encode("utf-8-sig")
+    return send_file(io.BytesIO(content), as_attachment=True, download_name="EMIS_student_import_template.csv", mimetype="text/csv; charset=utf-8")
 
 
 # ============================================================

@@ -406,6 +406,30 @@ def get_ss_track(class_arm, preferred_track=""):
     return "GENERAL"
 
 
+def get_class_arm_stream_label(class_arm):
+    """Human-readable stream label used by promotion/student-placement UIs."""
+    arm = normalize_class_arm(class_arm)
+    level = normalize_class_level(arm)
+    if not level: return ""
+    if level.startswith("JSS"): return "Junior"
+    stream = get_ss_stream(arm)
+    if stream == "SCIENCE": return "Science"
+    if stream == "ART_COMMERCIAL": return "Arts / Commercial"
+    return "General"
+
+
+def get_class_arm_metadata(class_arm):
+    """Small normalized metadata object for UI labels and movement warnings."""
+    arm = normalize_class_arm(class_arm)
+    level = normalize_class_level(arm)
+    return {
+        "class_arm": arm,
+        "class_level": level,
+        "stream": get_ss_stream(arm) if level.startswith("SS") else "JUNIOR",
+        "stream_label": get_class_arm_stream_label(arm),
+    }
+
+
 # =========================================================
 # SUBJECT LOOKUP
 # =========================================================

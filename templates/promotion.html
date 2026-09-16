@@ -3,7 +3,7 @@
 {% block title %}EMIS — Promotion Manager{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=1">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=13-flex-placement">
 {% endblock %}
 
 {% block content %}
@@ -31,6 +31,10 @@
     <div class="promotion-header-actions">
       <button id="openAddStudentBtn" class="pm-btn pm-btn-primary" type="button">
         <i class="fa-solid fa-user-plus"></i><span>Add Student</span>
+      </button>
+
+      <button id="openStudentImportBtn" class="pm-btn pm-btn-import" type="button">
+        <i class="fa-solid fa-file-arrow-up"></i><span>Import Students</span>
       </button>
 
       <button id="refreshBtn" class="pm-btn pm-btn-secondary" type="button">
@@ -84,6 +88,14 @@
       <div class="overview-content"><span>SS3 Students</span><strong id="summarySS3">0</strong></div>
     </article>
 
+  </section>
+
+  <section class="promotion-roadmap-panel" aria-label="Recommended promotion order">
+    <div class="promotion-roadmap-head">
+      <div><span class="section-icon"><i class="fa-solid fa-route"></i></span><div><h2>Smart Promotion Order</h2><p id="promotionRoadmapHint">Loading promotion guidance...</p></div></div>
+      <span class="roadmap-guide-badge"><i class="fa-solid fa-shield-halved"></i> Guidance only — never blocks a valid move</span>
+    </div>
+    <div id="promotionRoadmap" class="promotion-roadmap"></div>
   </section>
 
 
@@ -294,6 +306,13 @@
           <span id="promoteButtonText">Promote</span>
         </button>
 
+        <button id="promoteAllClassBtn" class="pm-btn pm-btn-class-promote" type="button">
+          <i class="fa-solid fa-people-arrow-up"></i><span>Promote Entire Class</span>
+        </button>
+
+        <button id="demoteSelectedBtn" class="pm-btn pm-btn-demote" type="button" disabled>
+          <i class="fa-solid fa-arrow-down"></i><span>Demote Selected</span>
+        </button>
 
         <button id="repeatSelectedBtn" class="pm-btn pm-btn-secondary" type="button" disabled>
           <i class="fa-solid fa-rotate-left"></i><span>Repeat</span>
@@ -330,8 +349,9 @@
 
 
     <div class="table-scroll-hint">
-      <i class="fa-solid fa-arrows-left-right"></i>
-      Scroll sideways to view all columns.
+      <i class="fa-solid fa-circle-info"></i>
+      The top checkbox selects only students visible on this page. When a <strong>Class Arm</strong> filter is active, the bulk promotion button processes only that arm; with <strong>All Arms</strong> selected, it processes the entire class.
+      <span><i class="fa-solid fa-arrows-left-right"></i> Scroll sideways to view all columns.</span>
     </div>
 
 
@@ -346,7 +366,7 @@
           <tr>
 
             <th class="select-col" data-column-name="select">
-              <input type="checkbox" id="masterCheck" aria-label="Select all visible students">
+              <input type="checkbox" id="masterCheck" aria-label="Select students on this page" title="Select students on this page only">
             </th>
 
             <th class="sortable" data-sort="name" data-column-name="student">
@@ -734,6 +754,7 @@
           <small class="form-field-help">
             Leave as <strong>Automatic Assignment</strong> and EMIS will choose an available class arm.
           </small>
+          <div id="studentArmTrackLabel" class="arm-track-preview muted"><i class="fa-solid fa-tag"></i><span>Select an SS arm to see its stream label.</span></div>
         </div>
 
       </div>
@@ -771,57 +792,49 @@
 
 
 <!-- ===========================================================
-     DESTINATION ARM
+     FLEXIBLE DESTINATION PLACEMENT
 ============================================================ -->
 <div id="destinationArmOverlay" class="pm-overlay"></div>
 
-<section id="destinationArmModal" class="pm-dialog-modal" role="dialog" aria-modal="true" aria-labelledby="destinationArmTitle">
-
+<section id="destinationArmModal" class="pm-dialog-modal placement-planner-modal" role="dialog" aria-modal="true" aria-labelledby="destinationArmTitle">
   <header class="dialog-modal-header">
-
     <span class="dialog-modal-icon"><i class="fa-solid fa-route"></i></span>
-
-    <div>
-      <span>Promotion Placement</span>
-      <h3 id="destinationArmTitle">Select Destination Class</h3>
-    </div>
-
+    <div><span>Flexible Promotion Placement</span><h3 id="destinationArmTitle">Choose Destination Arms</h3></div>
   </header>
 
+  <div class="dialog-modal-body placement-planner-body">
+    <p id="destinationArmDescription">Choose where each selected student should move. Unselected students remain in their current class.</p>
 
-  <div class="dialog-modal-body">
-
-    <p id="destinationArmDescription">
-      Select the class arm these students should enter after promotion.
-    </p>
-
-    <div class="form-field">
-      <label for="destinationArmSelector">Destination Class Arm</label>
-
-      <div class="form-select-wrap">
-        <select id="destinationArmSelector">
-          <option value="">Select destination arm</option>
-        </select>
-
-        <i class="fa-solid fa-chevron-down"></i>
-      </div>
+    <div id="destinationScopeBanner" class="placement-scope-banner">
+      <i class="fa-solid fa-shield-halved"></i><div><strong>Selected-student scope</strong><span>Only the students listed below will be moved.</span></div>
     </div>
 
-    <div id="destinationStudentSummary" class="dialog-selection-summary">0 students selected</div>
+    <div class="placement-bulk-bar">
+      <div class="form-field placement-bulk-field">
+        <label for="destinationArmSelector">Quick apply destination</label>
+        <div class="form-select-wrap">
+          <select id="destinationArmSelector"><option value="">Choose destination arm</option></select>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+      <button id="applyDestinationArmBtn" class="pm-btn pm-btn-secondary" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Apply to Listed</span></button>
+      <button id="resetDestinationPlacementBtn" class="pm-btn pm-btn-secondary" type="button"><i class="fa-solid fa-rotate-left"></i><span>Smart Defaults</span></button>
+    </div>
 
+    <div class="placement-stream-legend" aria-label="Senior school stream labels">
+      <span class="stream-chip science"><i class="fa-solid fa-flask"></i> Science</span>
+      <span class="stream-chip arts-commercial"><i class="fa-solid fa-book-open"></i> Arts / Commercial</span>
+      <small>Gold, Silver and Diamond are Science arms. B/C is the combined Arts / Commercial arm in the current class configuration.</small>
+    </div>
+
+    <div id="destinationPlacementGroups" class="placement-groups"></div>
+    <div id="destinationStudentSummary" class="dialog-selection-summary">0 students selected</div>
   </div>
 
-
   <footer class="dialog-modal-footer">
-
     <button id="cancelDestinationArmBtn" class="pm-btn pm-btn-secondary" type="button">Cancel</button>
-
-    <button id="confirmDestinationArmBtn" class="pm-btn pm-btn-primary" type="button">
-      <i class="fa-solid fa-arrow-up"></i> Continue Promotion
-    </button>
-
+    <button id="confirmDestinationArmBtn" class="pm-btn pm-btn-primary" type="button"><i class="fa-solid fa-arrow-up"></i> Review Placement</button>
   </footer>
-
 </section>
 
 
@@ -859,6 +872,11 @@
 
   </div>
 
+  <div class="promotion-guard-zone">
+    <div id="previewWarnings" class="promotion-guard-list"></div>
+    <div class="promotion-ai-guide-actions"><button id="previewAiGuideBtn" class="pm-btn pm-btn-ai" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Ask AI to Explain</span></button></div>
+    <div id="previewAiGuide" class="promotion-ai-guide hidden"></div>
+  </div>
 
   <div id="previewBody" class="action-preview-list">
     No students selected.
@@ -960,6 +978,67 @@
 
 
 <!-- ===========================================================
+     SMART STUDENT IMPORT
+============================================================ -->
+<div id="studentImportOverlay" class="pm-overlay"></div>
+
+<section id="studentImportModal" class="student-import-modal" role="dialog" aria-modal="true" aria-labelledby="studentImportModalTitle">
+  <header class="student-modal-header">
+    <div class="student-modal-brand"><span class="student-modal-header-icon import-icon"><i class="fa-solid fa-file-arrow-up"></i></span><div><span>Student Database</span><h2 id="studentImportModalTitle">Smart Student Import</h2></div></div>
+    <button id="closeStudentImportBtn" class="modal-close-btn" type="button" aria-label="Close student import"><i class="fa-solid fa-xmark"></i></button>
+  </header>
+
+  <div class="student-import-body">
+    <section class="import-setup-card">
+      <div class="import-drop-zone" id="studentImportDropZone">
+        <input id="studentImportFile" type="file" accept=".csv,.xlsx,.xlsm,.docx,.pdf,.txt,.text,.md" hidden>
+        <span class="import-drop-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+        <div><strong>Choose or drop a student record file</strong><span>CSV, Excel, DOCX, text/notes, Markdown or text-based PDF • up to 12 MB</span></div>
+        <button id="chooseStudentImportFileBtn" class="pm-btn pm-btn-secondary" type="button">Choose File</button>
+      </div>
+      <div class="import-selected-file" id="studentImportSelectedFile">No file selected.</div>
+
+      <div class="import-default-grid">
+        <label><span>Default Class Level</span><select id="studentImportDefaultClass"><option value="">Use class from file</option><option>JSS1</option><option>JSS2</option><option>JSS3</option><option>SS1</option><option>SS2</option><option>SS3</option></select></label>
+        <label><span>Default Class Arm</span><select id="studentImportDefaultArm"><option value="">Use arm from file</option><option value="AUTO">Automatic / Balanced</option></select></label>
+        <label><span>Import Mode</span><select id="studentImportMode"><option value="add">Add new students</option><option value="upsert">Update matching admission numbers + add new</option></select></label>
+        <label class="import-ai-switch"><input id="studentImportAiAssist" type="checkbox" checked><span><strong>AI Assist</strong><small>Use OpenAI first, Groq fallback, only when column mapping or notes need help.</small></span></label>
+      </div>
+
+      <div class="import-setup-actions">
+        <a class="pm-btn pm-btn-secondary" href="/api/promotion/import/template"><i class="fa-solid fa-file-csv"></i> Download CSV Template</a>
+        <button id="analyzeStudentImportBtn" class="pm-btn pm-btn-primary" type="button"><i class="fa-solid fa-magnifying-glass-chart"></i> Analyze File</button>
+      </div>
+    </section>
+
+    <section id="studentImportWorkspace" class="import-workspace hidden">
+      <div class="import-summary-grid">
+        <article><span>Rows Found</span><strong id="importRowsFound">0</strong></article>
+        <article class="good"><span>Ready</span><strong id="importRowsReady">0</strong></article>
+        <article class="warning"><span>Needs Attention</span><strong id="importRowsAttention">0</strong></article>
+        <article class="info"><span>Possible Duplicates</span><strong id="importRowsDuplicates">0</strong></article>
+      </div>
+
+      <div class="import-mapping-card">
+        <div><span>Detected column mapping</span><strong id="importMappingSummary">—</strong></div>
+        <div class="import-ai-result"><span>Mapping engine</span><strong id="importAiProvider">Rules only</strong><small id="importAiNote">—</small></div>
+      </div>
+
+      <div class="import-preview-toolbar">
+        <div><strong>Review Before Import</strong><span>Last name, first name, sex, class level and class arm must be resolved. Admission numbers are assigned automatically unless Update mode matches an active admission number.</span></div>
+        <label><input id="importAttentionOnly" type="checkbox"> Show rows needing attention only</label>
+      </div>
+
+      <div class="import-table-scroll"><table class="import-preview-table"><thead><tr><th>Use</th><th>#</th><th>Admission</th><th>Last Name</th><th>First Name</th><th>Other Names</th><th>Phone</th><th>Sex *</th><th>Class *</th><th>Arm / Stream *</th><th>Status</th></tr></thead><tbody id="studentImportPreviewBody"></tbody></table></div>
+      <div class="import-pagination"><span id="importPaginationInfo">0 rows</span><div><button id="importPrevPage" type="button"><i class="fa-solid fa-chevron-left"></i></button><span id="importPageLabel">1 / 1</span><button id="importNextPage" type="button"><i class="fa-solid fa-chevron-right"></i></button></div></div>
+    </section>
+  </div>
+
+  <footer class="student-modal-footer import-modal-footer"><span id="studentImportValidation" class="import-validation">Analyze a file to begin.</span><div><button id="cancelStudentImportBtn" class="pm-btn pm-btn-secondary" type="button">Cancel</button><button id="commitStudentImportBtn" class="pm-btn pm-btn-primary" type="button" disabled><i class="fa-solid fa-user-check"></i> Import Approved Rows</button></div></footer>
+</section>
+
+
+<!-- ===========================================================
      CONFIRMATION MODAL
 ============================================================ -->
 <div id="confirmModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
@@ -1006,5 +1085,6 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/student_database.js') }}?v=1"></script>
-<script src="{{ url_for('static', filename='js/promotion.js') }}?v=8"></script>
+<script src="{{ url_for('static', filename='js/promotion.js') }}?v=13-flex-placement"></script>
+<script src="{{ url_for('static', filename='js/promotion_import.js') }}?v=13-flex-placement"></script>
 {% endblock %}
