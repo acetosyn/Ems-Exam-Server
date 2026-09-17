@@ -1,11 +1,12 @@
-# MODULE: EMIS Result Sync — Durable local result queue + authenticated cloud receiver
+# MODULE: EMIS Sync Engine — Durable offline-first result + academic-module synchronization
 #
 # Core rule:
-#   1. Exam submission is saved locally first.
-#   2. Sync is queued only after the local save succeeds.
-#   3. Network failure never makes the student's local submission fail.
-#   4. The deployed receiver writes through the normal student_results.save_result()
-#      path, so Admin Results continues reading the normal RESULTS/.../results.xlsx files.
+#   1. Every operation is committed locally first.
+#   2. Synchronization is queued only after the local write succeeds.
+#   3. Network failure never makes a local academic operation fail.
+#   4. Results retain the proven Excel-authoritative result receiver.
+#   5. Attendance, CA/Test, Essay/Theory and Report Sheet events use the same
+#      signed durable queue, retry engine, receipts and stale-event protection.
 
 import hashlib
 import hmac
@@ -22,8 +23,8 @@ from urllib import request as urllib_request
 
 from flask import Blueprint, jsonify, request, session
 
-from modules.student_results import result_exists, save_result
-from modules.excel_manager import read_results, normalize_result_term
+from modules.student_results import save_result, normalize_result_year, academic_session_from_year
+from modules.excel_manager import read_results, normalize_result_term, append_result_to_excel
 from modules.class_config import normalize_class_level
 
 
@@ -125,6 +126,41 @@ def _payload_hash(payload):
     return hashlib.sha256(_json_dumps(payload).encode("utf-8")).hexdigest()
 
 
+def _normalize_sync_payload(result):
+    """Canonicalize year/session/term before queueing or receiving a result."""
+    payload = dict(result or {})
+    year = normalize_result_year(payload.get("year"))
+
+    if not year:
+        raise ValueError("A valid four-digit result year is required for synchronization.")
+
+    payload["year"] = year
+    payload["academic_session"] = academic_session_from_year(year)
+    payload["session"] = payload["academic_session"]
+
+    raw_term = _clean(payload.get("term") or payload.get("exam_term") or payload.get("academic_term"))
+    term = normalize_result_term(raw_term)
+
+    if raw_term and not term:
+        raise ValueError(f"Invalid synchronized result term: {raw_term}")
+
+    payload["term"] = term
+
+    class_level = normalize_class_level(
+        payload.get("class_level") or payload.get("class_category") or payload.get("class_arm")
+        or payload.get("class") or payload.get("class_name")
+    )
+
+    if class_level:
+        payload["class_level"] = class_level
+        payload["class_category"] = class_level
+
+    if class_level.startswith("JSS") and not term:
+        raise ValueError(f"Term is required for synchronized JSS result: {class_level}")
+
+    return payload
+
+
 def _new_sync_id(payload):
     # A stable UUID for this exact submission. submitted_at is part of the source
     # payload, so an intentionally different future submission receives a new id.
@@ -183,6 +219,21 @@ def init_sync_db():
                 receipt_status TEXT NOT NULL,
                 received_at TEXT NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS sync_meta (
+                meta_key TEXT PRIMARY KEY,
+                meta_value INTEGER NOT NULL DEFAULT 0
+            );
+
+            CREATE TABLE IF NOT EXISTS sync_entity_versions (
+                server_id TEXT NOT NULL,
+                module TEXT NOT NULL,
+                entity_key TEXT NOT NULL,
+                revision INTEGER NOT NULL DEFAULT 0,
+                event_id TEXT,
+                updated_at TEXT NOT NULL,
+                PRIMARY KEY (server_id, module, entity_key)
+            );
         """)
         conn.commit()
     finally:
@@ -193,6 +244,101 @@ def init_sync_db():
 # LOCAL QUEUE
 # ============================================================
 
+def _next_event_revision():
+    """
+    Return a durable, time-based monotonically increasing event revision.
+
+    Why this is deliberately NOT a simple 1, 2, 3 counter:
+      * the sender queue database can be restored, replaced or recreated;
+      * the cloud may still remember a higher revision for the same entity;
+      * restarting a small integer counter would make valid new changes look stale.
+
+    time.time_ns() gives each newly-created event an epoch-based 64-bit revision.
+    The persisted sync_meta value then guarantees monotonicity even when multiple
+    events are created inside the same clock tick or the local clock moves slightly
+    backwards while this database remains intact. SQLite INTEGER safely holds the
+    current nanosecond epoch value.
+    """
+    init_sync_db()
+    conn = _connect()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        row = conn.execute("SELECT meta_value FROM sync_meta WHERE meta_key = 'event_revision'").fetchone()
+        previous = int(row["meta_value"] or 0) if row else 0
+        clock_revision = int(time.time_ns())
+        revision = max(clock_revision, previous + 1)
+        conn.execute(
+            "INSERT INTO sync_meta(meta_key, meta_value) VALUES('event_revision', ?) "
+            "ON CONFLICT(meta_key) DO UPDATE SET meta_value = excluded.meta_value",
+            (revision,),
+        )
+        conn.commit()
+        return revision
+    finally:
+        conn.close()
+
+
+def queue_emis_event(module, action, payload, entity_key="", event_id=""):
+    """Queue a non-result EMIS mutation for secure Local -> Cloud delivery."""
+    if not sender_enabled():
+        return {"queued": False, "status": "DISABLED", "sync_id": ""}
+    if not sync_target() or not sync_secret():
+        return {"queued": False, "status": "NOT_CONFIGURED", "sync_id": ""}
+
+    module = _clean(module).lower()
+    action = _clean(action).lower()
+    entity_key = _clean(entity_key)
+    if module not in {"attendance", "ca_tests", "essay", "report_sheets", "academic_settings"}:
+        raise ValueError(f"Unsupported EMIS sync module: {module}")
+    if not action:
+        raise ValueError("Sync action is required.")
+    if not isinstance(payload, dict):
+        raise ValueError("Sync event payload must be an object.")
+
+    event_id = _clean(event_id) or str(uuid.uuid4())
+    event = {
+        "__sync_kind": "event",
+        "event_id": event_id,
+        "module": module,
+        "action": action,
+        "entity_key": entity_key or event_id,
+        "revision": _next_event_revision(),
+        "occurred_at": _utc_now_iso(),
+        "payload": dict(payload),
+    }
+    serialized = _json_dumps(event)
+    digest = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+    now = _utc_now_iso()
+
+    init_sync_db()
+    conn = _connect()
+    try:
+        existing = conn.execute("SELECT status FROM sync_queue WHERE sync_id = ?", (event_id,)).fetchone()
+        if existing:
+            return {"queued": True, "status": existing["status"], "sync_id": event_id, "existing": True}
+        conn.execute("""
+            INSERT INTO sync_queue (sync_id, server_id, payload, payload_hash, status, retry_count, created_at, updated_at, next_attempt_at)
+            VALUES (?, ?, ?, ?, 'PENDING', 0, ?, ?, 0)
+        """, (event_id, server_id(), serialized, digest, now, now))
+        conn.commit()
+    finally:
+        conn.close()
+
+    return {"queued": True, "status": "PENDING", "sync_id": event_id, "existing": False, "revision": event["revision"]}
+
+
+def queue_emis_event_safely(module, action, payload, entity_key=""):
+    """Queue and immediately wake the retry worker without ever breaking the local save."""
+    try:
+        info = queue_emis_event(module, action, payload, entity_key=entity_key)
+        if info.get("queued"):
+            trigger_background_sync()
+        return info
+    except Exception as exc:
+        print(f"[EMIS SYNC] Could not queue {module}/{action}: {exc}")
+        return {"queued": False, "status": "QUEUE_ERROR", "sync_id": "", "error": str(exc)}
+
+
 def queue_result_for_sync(result):
     """Persist a result for delivery. Never performs the network call inline."""
     if not sender_enabled():
@@ -201,7 +347,7 @@ def queue_result_for_sync(result):
     if not sync_target() or not sync_secret():
         return {"queued": False, "status": "NOT_CONFIGURED", "sync_id": ""}
 
-    payload = dict(result or {})
+    payload = _normalize_sync_payload(result)
     sync_id = _clean(payload.get("sync_id")) or _new_sync_id(payload)
     payload["sync_id"] = sync_id
     serialized = _json_dumps(payload)
@@ -254,6 +400,8 @@ def _pending_rows(limit=50, force=False):
 
 
 def _result_key(payload):
+    if isinstance(payload, dict) and payload.get("__sync_kind") == "event":
+        return "|".join([_clean(payload.get("module")), _clean(payload.get("action")), _clean(payload.get("entity_key"))])
     return "|".join([
         _clean(payload.get("admission_number") or payload.get("student_id")).lower(),
         _clean(payload.get("subject")).upper(),
@@ -320,7 +468,7 @@ def _signed_headers(raw_body, sync_id):
     return {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "User-Agent": "EMIS-Result-Sync/1.0",
+        "User-Agent": "EMIS-Sync-Engine/2.0",
         "X-EMIS-Server-ID": server_id(),
         "X-EMIS-Sync-ID": sync_id,
         "X-EMIS-Timestamp": timestamp,
@@ -328,18 +476,35 @@ def _signed_headers(raw_body, sync_id):
     }
 
 
-def _send_queue_row(row):
-    payload = _safe_json_loads(row.get("payload"), {})
-    sync_id = _clean(row.get("sync_id"))
-    envelope = {"sync_id": sync_id, "server_id": server_id(), "result": payload}
-    raw = _json_dumps(envelope).encode("utf-8")
+def sync_events_target():
+    explicit = _clean(os.getenv("EMIS_SYNC_EVENTS_TARGET"))
+    if explicit:
+        return explicit
+    target = sync_target().rstrip("/")
+    if target.endswith("/api/sync/results"):
+        return target[:-len("/api/sync/results")] + "/api/sync/events"
+    return target + "/events" if target else ""
 
-    req = urllib_request.Request(
-        sync_target(),
-        data=raw,
-        headers=_signed_headers(raw, sync_id),
-        method="POST",
-    )
+
+def _send_queue_row(row):
+    queued_payload = _safe_json_loads(row.get("payload"), {})
+    sync_id = _clean(row.get("sync_id"))
+
+    if isinstance(queued_payload, dict) and queued_payload.get("__sync_kind") == "event":
+        event = queued_payload
+        envelope = {"sync_id": sync_id, "server_id": server_id(), "event": event}
+        target = sync_events_target()
+        noun = "event"
+    else:
+        # Backward-compatible result synchronization. Old queued V1/V2 result payloads
+        # are still normalized at send time so stale session metadata is repaired.
+        payload = _normalize_sync_payload(queued_payload)
+        envelope = {"sync_id": sync_id, "server_id": server_id(), "result": payload}
+        target = sync_target()
+        noun = "result"
+
+    raw = _json_dumps(envelope).encode("utf-8")
+    req = urllib_request.Request(target, data=raw, headers=_signed_headers(raw, sync_id), method="POST")
 
     try:
         with urllib_request.urlopen(req, timeout=sync_timeout_seconds()) as response:
@@ -348,9 +513,8 @@ def _send_queue_row(row):
             if int(response.status) < 200 or int(response.status) >= 300:
                 raise RuntimeError(f"Remote sync returned HTTP {response.status}")
             if acknowledgement.get("ok") is not True or acknowledgement.get("acknowledged") is not True:
-                raise RuntimeError(acknowledgement.get("error") or "Remote server did not acknowledge the result")
+                raise RuntimeError(acknowledgement.get("error") or f"Remote server did not acknowledge the {noun}")
             return acknowledgement
-
     except urllib_error.HTTPError as exc:
         try:
             detail = exc.read().decode("utf-8", errors="replace")
@@ -428,7 +592,7 @@ def sync_status_summary():
             counts[str(row["status"] or "").upper()] = int(row["count"] or 0)
 
         latest = conn.execute("""
-            SELECT sync_id, status, retry_count, updated_at, last_attempt_at, last_error
+            SELECT sync_id, status, retry_count, updated_at, last_attempt_at, last_error, payload, remote_ack
             FROM sync_queue ORDER BY updated_at DESC LIMIT 1
         """).fetchone()
         received_count = int(conn.execute("SELECT COUNT(*) FROM sync_receipts").fetchone()[0] or 0)
@@ -437,6 +601,29 @@ def sync_status_summary():
             FROM sync_receipts ORDER BY received_at DESC LIMIT 1
         """).fetchone()
 
+        latest_info = None
+        if latest:
+            latest_info = {key: latest[key] for key in ("sync_id", "status", "retry_count", "updated_at", "last_attempt_at", "last_error")}
+            queued_payload = _safe_json_loads(latest["payload"], {})
+            remote_ack = _safe_json_loads(latest["remote_ack"], {})
+            if isinstance(queued_payload, dict) and queued_payload.get("__sync_kind") == "event":
+                latest_info.update({
+                    "kind": "event",
+                    "module": _clean(queued_payload.get("module")),
+                    "action": _clean(queued_payload.get("action")),
+                    "entity_key": _clean(queued_payload.get("entity_key")),
+                    "revision": int(queued_payload.get("revision") or 0),
+                    "remote_receipt_status": _clean(remote_ack.get("receipt_status")),
+                    "remote_result": _clean(remote_ack.get("result")),
+                    "remote_current_revision": remote_ack.get("current_revision"),
+                })
+            else:
+                latest_info.update({
+                    "kind": "result",
+                    "remote_receipt_status": _clean(remote_ack.get("receipt_status")),
+                    "remote_result": _clean(remote_ack.get("result")),
+                })
+
         return {
             "sender_enabled": sender_enabled(),
             "sender_configured": sender_configured(),
@@ -444,11 +631,12 @@ def sync_status_summary():
             "receiver_configured": receiver_configured(),
             "server_id": server_id(),
             "target": sync_target(),
+            "events_target": sync_events_target(),
             "pending": counts.get("PENDING", 0),
             "failed": counts.get("FAILED", 0),
             "synced": counts.get("SYNCED", 0),
             "received": received_count,
-            "latest": dict(latest) if latest else None,
+            "latest": latest_info,
             "latest_receipt": dict(latest_receipt) if latest_receipt else None,
         }
     finally:
@@ -475,6 +663,46 @@ def api_sync_flush():
     return jsonify(result), 200
 
 
+@sync_bp.route("/api/sync/requeue", methods=["POST"])
+def api_sync_requeue():
+    """Requeue an old V1 acknowledgement so the upgraded receiver can repair Excel."""
+    if not _staff_allowed():
+        return jsonify({"error": "Unauthorized"}), 403
+
+    data = request.get_json(silent=True) or {}
+    sync_id = _clean(data.get("sync_id"))
+    requeue_all = bool(data.get("all"))
+
+    if not sync_id and not requeue_all:
+        return jsonify({"error": "Provide sync_id or set all=true"}), 400
+
+    init_sync_db()
+    conn = _connect()
+    try:
+        now = _utc_now_iso()
+        if sync_id:
+            cursor = conn.execute("""
+                UPDATE sync_queue
+                SET status = 'PENDING', updated_at = ?, next_attempt_at = 0, last_error = '', remote_ack = ''
+                WHERE sync_id = ?
+            """, (now, sync_id))
+        else:
+            cursor = conn.execute("""
+                UPDATE sync_queue
+                SET status = 'PENDING', updated_at = ?, next_attempt_at = 0, last_error = '', remote_ack = ''
+                WHERE status IN ('SYNCED', 'FAILED')
+            """, (now,))
+        conn.commit()
+        updated = int(cursor.rowcount or 0)
+    finally:
+        conn.close()
+
+    if updated:
+        trigger_background_sync()
+
+    return jsonify({"success": True, "requeued": updated, "status": sync_status_summary()}), 200
+
+
 # ============================================================
 # DEPLOYED RECEIVER AUTHENTICATION
 # ============================================================
@@ -486,11 +714,11 @@ def _allowed_server(server_name):
 
 def _verify_receiver_request(raw_body):
     if not receiver_enabled():
-        return False, "Result sync receiver is disabled", 404
+        return False, "EMIS sync receiver is disabled", 404
 
     secret = sync_secret()
     if not secret:
-        return False, "Result sync receiver is not configured", 503
+        return False, "EMIS sync receiver is not configured", 503
 
     remote_server = _clean(request.headers.get("X-EMIS-Server-ID"))
     timestamp = _clean(request.headers.get("X-EMIS-Timestamp"))
@@ -539,9 +767,15 @@ def _store_receipt(sync_id, remote_server, payload, receipt_status):
     conn = _connect()
     try:
         conn.execute("""
-            INSERT OR IGNORE INTO sync_receipts (
+            INSERT INTO sync_receipts (
                 sync_id, server_id, payload_hash, result_key, receipt_status, received_at
             ) VALUES (?, ?, ?, ?, ?, ?)
+            ON CONFLICT(sync_id) DO UPDATE SET
+                server_id = excluded.server_id,
+                payload_hash = excluded.payload_hash,
+                result_key = excluded.result_key,
+                receipt_status = excluded.receipt_status,
+                received_at = excluded.received_at
         """, (
             sync_id,
             remote_server,
@@ -597,18 +831,10 @@ def _excel_result_exists(payload):
 
 
 def _semantic_result_exists(payload):
-    # Excel is the Admin Results source of truth. SQLite remains part of the
-    # existing save_result() write-through path, so check both stores.
-    if _excel_result_exists(payload):
-        return True
-
-    return result_exists(
-        admission_number=_clean(payload.get("admission_number") or payload.get("student_id")),
-        subject=_clean(payload.get("subject")),
-        year=_clean(payload.get("year")),
-        academic_session=_clean(payload.get("academic_session") or payload.get("session")),
-        term=_clean(payload.get("term")),
-    )
+    # Admin Results reads the Excel workbooks, so Excel is the authoritative
+    # duplicate source for cloud synchronization. A stale SQLite row must never
+    # prevent a missing Excel result from being repaired.
+    return _excel_result_exists(payload)
 
 
 # ============================================================
@@ -640,6 +866,11 @@ def receive_synced_result():
     if not isinstance(payload, dict) or not payload:
         return jsonify({"ok": False, "error": "Result payload is required"}), 400
 
+    try:
+        payload = _normalize_sync_payload(payload)
+    except ValueError as exc:
+        return jsonify({"ok": False, "error": str(exc), "sync_id": sync_id}), 400
+
     envelope_server = _clean(envelope.get("server_id"))
     if envelope_server and envelope_server != remote_server:
         return jsonify({"ok": False, "error": "Sync server identity mismatch"}), 400
@@ -649,7 +880,7 @@ def receive_synced_result():
     # race between receipt lookup and semantic duplicate detection.
     with _receiver_lock:
         existing_receipt = _receipt(sync_id)
-        if existing_receipt:
+        if existing_receipt and _excel_result_exists(payload):
             return jsonify({
                 "ok": True,
                 "acknowledged": True,
@@ -674,9 +905,19 @@ def receive_synced_result():
             saved = save_result(dict(payload))
 
             if saved is False:
-                _store_receipt(sync_id, remote_server, payload, "DUPLICATE_EXISTING")
-                receipt_status = "DUPLICATE_EXISTING"
-                result_text = "already_exists"
+                # SQLite may already contain this result from an old deployment
+                # while the Excel workbook is missing it. Because Admin Results
+                # reads Excel, repair the workbook instead of acknowledging a
+                # false duplicate. Re-check first in case another worker wrote it.
+                if _excel_result_exists(payload):
+                    receipt_status = "DUPLICATE_EXISTING"
+                    result_text = "already_exists"
+                else:
+                    append_result_to_excel(dict(payload))
+                    receipt_status = "REPAIRED_EXCEL"
+                    result_text = "repaired_excel"
+
+                _store_receipt(sync_id, remote_server, payload, receipt_status)
             else:
                 _store_receipt(sync_id, remote_server, payload, "SAVED")
                 receipt_status = "SAVED"
@@ -696,3 +937,120 @@ def receive_synced_result():
         except Exception as exc:
             print(f"[RESULT SYNC] Receiver save error [{sync_id}]:", exc)
             return jsonify({"ok": False, "error": "Could not save synchronized result", "details": str(exc), "sync_id": sync_id}), 500
+
+
+# ============================================================
+# GENERAL EMIS EVENT RECEIVER
+# ============================================================
+
+def _get_entity_revision(remote_server, module, entity_key):
+    init_sync_db()
+    conn = _connect()
+    try:
+        row = conn.execute(
+            "SELECT revision FROM sync_entity_versions WHERE server_id = ? AND module = ? AND entity_key = ?",
+            (remote_server, module, entity_key),
+        ).fetchone()
+        return int(row["revision"] or 0) if row else 0
+    finally:
+        conn.close()
+
+
+def _store_entity_revision(remote_server, module, entity_key, revision, event_id):
+    init_sync_db()
+    conn = _connect()
+    try:
+        conn.execute("""
+            INSERT INTO sync_entity_versions(server_id, module, entity_key, revision, event_id, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            ON CONFLICT(server_id, module, entity_key) DO UPDATE SET
+                revision = excluded.revision, event_id = excluded.event_id, updated_at = excluded.updated_at
+        """, (remote_server, module, entity_key, int(revision), event_id, _utc_now_iso()))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def _dispatch_sync_event(event):
+    module = _clean(event.get("module")).lower()
+    action = _clean(event.get("action")).lower()
+    payload = event.get("payload")
+    if not isinstance(payload, dict):
+        raise ValueError("Synchronized event payload must be an object.")
+
+    if module == "attendance":
+        from modules.attendance_manager import apply_attendance_sync_event
+        return apply_attendance_sync_event(action, payload, event)
+    if module == "ca_tests":
+        from modules.ca_test_manager import apply_ca_sync_event
+        return apply_ca_sync_event(action, payload, event)
+    if module == "essay":
+        from modules.essay_results import apply_essay_sync_event
+        return apply_essay_sync_event(action, payload, event)
+    if module == "report_sheets":
+        from modules.report_sheet_manager import apply_report_sync_event
+        return apply_report_sync_event(action, payload, event)
+    if module == "academic_settings":
+        from modules.academic_settings import apply_academic_settings_sync_event
+        return apply_academic_settings_sync_event(action, payload, event)
+
+    raise ValueError(f"Unsupported synchronized module: {module}")
+
+
+@sync_bp.route("/api/sync/events", methods=["POST"])
+def receive_synced_event():
+    raw_body = request.get_data(cache=True) or b""
+    if not raw_body:
+        return jsonify({"ok": False, "error": "Empty sync request"}), 400
+    if len(raw_body) > 5 * 1024 * 1024:
+        return jsonify({"ok": False, "error": "Sync event request is too large"}), 413
+
+    verified, auth_value, status_code = _verify_receiver_request(raw_body)
+    if not verified:
+        return jsonify({"ok": False, "error": auth_value}), status_code
+
+    remote_server = auth_value
+    envelope = request.get_json(silent=True) or {}
+    sync_id = _clean(envelope.get("sync_id") or request.headers.get("X-EMIS-Sync-ID"))
+    event = envelope.get("event")
+    if not sync_id:
+        return jsonify({"ok": False, "error": "sync_id is required"}), 400
+    if not isinstance(event, dict) or not event:
+        return jsonify({"ok": False, "error": "EMIS sync event is required"}), 400
+    if _clean(event.get("event_id")) and _clean(event.get("event_id")) != sync_id:
+        return jsonify({"ok": False, "error": "Event identity mismatch"}), 400
+
+    envelope_server = _clean(envelope.get("server_id"))
+    if envelope_server and envelope_server != remote_server:
+        return jsonify({"ok": False, "error": "Sync server identity mismatch"}), 400
+
+    module = _clean(event.get("module")).lower()
+    action = _clean(event.get("action")).lower()
+    entity_key = _clean(event.get("entity_key")) or sync_id
+    try:
+        revision = int(event.get("revision") or 0)
+    except (TypeError, ValueError):
+        revision = 0
+    if not module or not action or revision <= 0:
+        return jsonify({"ok": False, "error": "Invalid event module, action or revision", "sync_id": sync_id}), 400
+
+    with _receiver_lock:
+        existing_receipt = _receipt(sync_id)
+        if existing_receipt:
+            return jsonify({"ok": True, "acknowledged": True, "sync_id": sync_id, "server_id": remote_server, "result": "already_received", "receipt_status": existing_receipt.get("receipt_status")}), 200
+
+        current_revision = _get_entity_revision(remote_server, module, entity_key)
+        if current_revision >= revision:
+            _store_receipt(sync_id, remote_server, event, "STALE_IGNORED")
+            return jsonify({"ok": True, "acknowledged": True, "sync_id": sync_id, "server_id": remote_server, "result": "stale_ignored", "receipt_status": "STALE_IGNORED", "current_revision": current_revision}), 200
+
+        try:
+            applied = _dispatch_sync_event(event) or {}
+            _store_entity_revision(remote_server, module, entity_key, revision, sync_id)
+            _store_receipt(sync_id, remote_server, event, "APPLIED")
+            return jsonify({"ok": True, "acknowledged": True, "sync_id": sync_id, "server_id": remote_server, "result": "applied", "receipt_status": "APPLIED", "module": module, "action": action, "revision": revision, "applied": applied}), 200
+        except ValueError as exc:
+            return jsonify({"ok": False, "error": str(exc), "sync_id": sync_id}), 400
+        except Exception as exc:
+            print(f"[EMIS SYNC] Receiver event error [{sync_id}] {module}/{action}:", exc)
+            return jsonify({"ok": False, "error": "Could not apply synchronized EMIS event", "details": str(exc), "sync_id": sync_id}), 500

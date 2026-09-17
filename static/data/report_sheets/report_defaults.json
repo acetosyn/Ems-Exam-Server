@@ -1,8 +1,8 @@
 {
   "2025/2026|FIRST|JSS1|JSS1A|": {
-    "form_teacher": "Mr Ace",
+    "form_teacher": "",
     "next_term": "2026-11-30",
-    "updated_at": "2026-09-16 00:07:38",
+    "updated_at": "2026-09-17 11:53:01",
     "updated_by": "admin"
   },
   "2025/2026|FIRST|JSS1|JSS1B|": {
@@ -18,9 +18,9 @@
     "updated_by": "admin"
   },
   "2026/2027|FIRST|JSS1|JSS1A|": {
-    "form_teacher": "Mr Ace",
+    "form_teacher": "ACE",
     "next_term": "2026-11-30",
-    "updated_at": "2026-09-16 00:12:18",
+    "updated_at": "2026-09-17 12:24:04",
     "updated_by": "admin"
   },
   "2026/2027|FIRST|SS1|SS1_GOLD|": {

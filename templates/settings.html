@@ -1,256 +1,156 @@
-<!-- settings.html -->
 {% extends "base.html" %}
 
-{% block title %}Settings — EMIS CBT Server{% endblock %}
+{% block title %}Academic Settings — EMIS CBT Server{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
 {% endblock %}
 
 {% block content %}
+<div class="academic-settings-page" id="academicSettingsPage">
 
-<div class="settings-page">
+  <section class="academic-hero">
+    <div class="academic-hero-copy">
+      <span class="academic-eyebrow"><i class="fa-solid fa-sliders"></i> Global Academic Control</span>
+      <h1>Academic Settings</h1>
+      <p>Set the active academic year and term once. Attendance, CA/Test, Results, Essay entry and Report Sheets will use the same period automatically as their default.</p>
 
-  <section class="settings-hero">
-    <div class="hero-orb orb-one"></div>
-    <div class="hero-orb orb-two"></div>
-
-    <div class="settings-hero-left">
-      <span class="settings-kicker">
-        <i class="fa-solid fa-sliders"></i>
-        System Settings
-      </span>
-
-      <h1>Academic Configuration</h1>
-
-      <p>
-        Manage the active academic session and term used for every exam result saved to Supabase.
-      </p>
-
-      <div class="hero-mini-row">
-        <span><i class="fa-solid fa-database"></i> Supabase Sync</span>
-        <span><i class="fa-solid fa-shield-check"></i> Result Safe</span>
-        <span><i class="fa-solid fa-clock"></i> Live Term</span>
+      <div class="academic-feature-row">
+        <span><i class="fa-solid fa-link"></i> One shared period</span>
+        <span><i class="fa-solid fa-arrows-rotate"></i> Local → Cloud sync</span>
+        <span><i class="fa-solid fa-clock-rotate-left"></i> Historical override stays available</span>
       </div>
     </div>
 
-    <div class="settings-live-card">
-      <div class="live-dot"></div>
-      <span>Current Active Term</span>
+    <div class="academic-live-card">
+      <div class="academic-live-head"><span class="academic-pulse"></span><span>Active Academic Period</span></div>
       <strong id="activeAcademicLabel">Loading...</strong>
-      <small id="settingsLastUpdated">Checking Supabase...</small>
+      <small id="settingsLastUpdated">Reading local academic settings...</small>
     </div>
   </section>
 
-  <section class="settings-stats-grid">
-
-    <article class="settings-stat-card">
-      <div class="stat-icon cloud">
-        <i class="fa-solid fa-cloud"></i>
-      </div>
-      <div>
-        <span>Supabase Status</span>
-        <strong id="supabaseStatusText">Checking...</strong>
-      </div>
+  <section class="academic-status-grid" aria-label="Academic setting status">
+    <article class="academic-status-card">
+      <span class="academic-status-icon year"><i class="fa-solid fa-calendar"></i></span>
+      <div><small>Active Result Year</small><strong id="activeAcademicYear">—</strong></div>
     </article>
 
-    <article class="settings-stat-card">
-      <div class="stat-icon session">
-        <i class="fa-solid fa-calendar-days"></i>
-      </div>
-      <div>
-        <span>Academic Session</span>
-        <strong id="currentSessionText">--</strong>
-      </div>
+    <article class="academic-status-card">
+      <span class="academic-status-icon session"><i class="fa-solid fa-calendar-days"></i></span>
+      <div><small>Academic Session</small><strong id="activeAcademicSession">—</strong></div>
     </article>
 
-    <article class="settings-stat-card">
-      <div class="stat-icon term">
-        <i class="fa-solid fa-layer-group"></i>
-      </div>
-      <div>
-        <span>Current Term</span>
-        <strong id="currentTermText">--</strong>
-      </div>
+    <article class="academic-status-card">
+      <span class="academic-status-icon term"><i class="fa-solid fa-book-open-reader"></i></span>
+      <div><small>Active Term</small><strong id="activeAcademicTerm">—</strong></div>
     </article>
 
+    <article class="academic-status-card">
+      <span class="academic-status-icon sync"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+      <div><small>Sync Engine</small><strong id="syncRoleText">Checking...</strong><span id="syncQueueText">—</span></div>
+    </article>
   </section>
 
-  <section class="settings-grid">
-
-    <article class="settings-card settings-main-card">
-
-      <div class="settings-card-header">
+  <section class="academic-main-grid">
+    <article class="academic-panel academic-control-panel">
+      <div class="academic-panel-head">
         <div>
-          <span class="section-kicker">Academic Control</span>
-          <h2>
-            <i class="fa-solid fa-school-circle-check"></i>
-            Session & Term Setup
-          </h2>
+          <span class="academic-panel-kicker">School-wide default</span>
+          <h2><i class="fa-solid fa-school-circle-check"></i> Set Active Academic Period</h2>
         </div>
-
-        <span class="settings-pill live">
-          <i class="fa-solid fa-circle"></i>
-          Live Setting
-        </span>
+        <span class="academic-state-badge" id="syncStateBadge"><i class="fa-solid fa-circle"></i> Ready</span>
       </div>
 
-      <p class="settings-description">
-        Select the active session and term before students start writing exams.
-      </p>
+      <p class="academic-panel-copy">This becomes the default period across staff modules. Staff can still deliberately switch to an older session or term when reviewing historical records.</p>
 
-      <form id="academicSettingsForm" class="settings-form">
-
-        <div class="form-grid two">
-
-          <div class="form-group">
-            <label for="currentSession" class="form-label">Academic Session</label>
-            <div class="select-wrap">
+      <form id="academicSettingsForm" class="academic-form" autocomplete="off">
+        <div class="academic-form-grid">
+          <div class="academic-form-group">
+            <label for="currentYear">Active Result Year</label>
+            <div class="academic-input-wrap">
               <i class="fa-solid fa-calendar-check"></i>
-              <select id="currentSession" class="form-input" required>
-                <option value="">Select session</option>
-                <option value="2025/2026">2025/2026</option>
-                <option value="2026/2027">2026/2027</option>
-                <option value="2027/2028">2027/2028</option>
-                <option value="2028/2029">2028/2029</option>
-                <option value="2029/2030">2029/2030</option>
-                <option value="2030/2031">2030/2031</option>
-              </select>
+              <select id="currentYear" required><option value="">Select year</option></select>
             </div>
+            <small>Example: 2026 automatically means the 2026/2027 academic session.</small>
           </div>
 
-          <div class="form-group">
-            <label for="currentTerm" class="form-label">Academic Term</label>
-            <div class="select-wrap">
-              <i class="fa-solid fa-book-open-reader"></i>
-              <select id="currentTerm" class="form-input" required>
+          <div class="academic-form-group">
+            <label for="derivedSession">Academic Session</label>
+            <div class="academic-input-wrap readonly">
+              <i class="fa-solid fa-calendar-days"></i>
+              <input id="derivedSession" type="text" readonly value="—" aria-readonly="true">
+            </div>
+            <small>Derived automatically from the active result year to prevent mismatches.</small>
+          </div>
+
+          <div class="academic-form-group">
+            <label for="currentTerm">Active Term</label>
+            <div class="academic-input-wrap">
+              <i class="fa-solid fa-layer-group"></i>
+              <select id="currentTerm" required>
                 <option value="">Select term</option>
-                <option value="FIRST TERM">FIRST TERM</option>
-                <option value="SECOND TERM">SECOND TERM</option>
-                <option value="THIRD TERM">THIRD TERM</option>
+                <option value="FIRST">FIRST TERM</option>
+                <option value="SECOND">SECOND TERM</option>
+                <option value="THIRD">THIRD TERM</option>
               </select>
             </div>
+            <small>This term will preselect automatically on Attendance, CA/Test, Results and Report Sheets.</small>
           </div>
-
         </div>
 
-        <div class="settings-warning-box">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <p>
-            Confirm this setting before exams begin. Changing it later may push new results into another report period.
-          </p>
+        <div class="academic-impact-note">
+          <i class="fa-solid fa-circle-info"></i>
+          <div><strong>What changes after you save?</strong><span>New page visits inherit this academic period. Existing records are not moved, renamed or rewritten.</span></div>
         </div>
 
-        <div class="settings-actions">
-          <button type="button" id="refreshAcademicSettings" class="settings-btn ghost">
-            <i class="fa-solid fa-rotate"></i>
-            Refresh
-          </button>
-
-          <button type="submit" id="saveAcademicSettings" class="settings-btn primary">
-            <i class="fa-solid fa-floppy-disk"></i>
-            Save Settings
-          </button>
+        <div class="academic-actions">
+          <button type="button" id="refreshAcademicSettings" class="academic-btn secondary"><i class="fa-solid fa-rotate"></i> Refresh</button>
+          <button type="submit" id="saveAcademicSettings" class="academic-btn primary"><i class="fa-solid fa-floppy-disk"></i> Save Academic Period</button>
         </div>
 
-        <div id="academicSettingsMsg" class="settings-message"></div>
-
+        <div id="academicSettingsMsg" class="academic-message" role="status" aria-live="polite"></div>
       </form>
-
     </article>
 
-    <article class="settings-card">
-      <div class="settings-card-header">
-        <div>
-          <span class="section-kicker orange">Result Pipeline</span>
-          <h2>
-            <i class="fa-solid fa-route"></i>
-            How Results Save
-          </h2>
-        </div>
-      </div>
-
-      <div class="flow-list">
-        <div class="flow-item">
-          <span>1</span>
-          <div>
-            <strong>Student submits exam</strong>
-            <p>Exam Server calculates the raw percentage score.</p>
-          </div>
+    <aside class="academic-side-stack">
+      <article class="academic-panel compact">
+        <div class="academic-panel-head compact">
+          <div><span class="academic-panel-kicker">Automatic inheritance</span><h2><i class="fa-solid fa-diagram-project"></i> Modules Using This Setting</h2></div>
         </div>
 
-        <div class="flow-item">
-          <span>2</span>
-          <div>
-            <strong>Score converts to /70</strong>
-            <p>The report-sheet exam score is saved as 70% maximum.</p>
-          </div>
+        <div class="academic-module-list">
+          <div><span><i class="fa-solid fa-calendar-check"></i></span><div><strong>Attendance</strong><small>Session and term preselected automatically.</small></div><i class="fa-solid fa-check"></i></div>
+          <div><span><i class="fa-solid fa-clipboard-list"></i></span><div><strong>CA / Test</strong><small>Score entry opens on the active period.</small></div><i class="fa-solid fa-check"></i></div>
+          <div><span><i class="fa-solid fa-chart-line"></i></span><div><strong>Results & Essay</strong><small>Result filters start on the active year and term.</small></div><i class="fa-solid fa-check"></i></div>
+          <div><span><i class="fa-solid fa-file-lines"></i></span><div><strong>Report Sheets</strong><small>Generation defaults to the same academic period.</small></div><i class="fa-solid fa-check"></i></div>
         </div>
+      </article>
 
-        <div class="flow-item">
-          <span>3</span>
-          <div>
-            <strong>Supabase receives result</strong>
-            <p>Student, class, subject, session, term and time are saved.</p>
-          </div>
+      <article class="academic-panel compact sync-panel">
+        <div class="academic-panel-head compact">
+          <div><span class="academic-panel-kicker">Offline-first</span><h2><i class="fa-solid fa-arrows-rotate"></i> Local → Deployed Sync</h2></div>
         </div>
-
-        <div class="flow-item">
-          <span>4</span>
-          <div>
-            <strong>Staff software reads it</strong>
-            <p>CA/Test scores are added before report generation.</p>
-          </div>
-        </div>
-      </div>
-    </article>
-
+        <p>When saved on the local EMIS server, the same academic setting is queued through the existing secure sync engine and applied on the deployed site.</p>
+        <div class="academic-sync-meta"><span>Storage</span><strong id="settingsStorageText">Local JSON</strong></div>
+        <div class="academic-sync-meta"><span>Source</span><strong id="settingsSourceText">—</strong></div>
+      </article>
+    </aside>
   </section>
 
-  <section class="settings-card full">
-
-    <div class="settings-card-header">
-      <div>
-        <span class="section-kicker green">Important Rules</span>
-        <h2>
-          <i class="fa-solid fa-shield-halved"></i>
-          Result Saving Rules
-        </h2>
-      </div>
+  <section class="academic-panel academic-rules-panel">
+    <div class="academic-panel-head compact">
+      <div><span class="academic-panel-kicker">Safety rules</span><h2><i class="fa-solid fa-shield-halved"></i> How the Global Period Behaves</h2></div>
     </div>
 
-    <div class="rules-grid">
-
-      <div class="rule-box">
-        <i class="fa-solid fa-id-card"></i>
-        <strong>Admission number is the main key</strong>
-        <p>Names can repeat, but admission numbers identify students correctly.</p>
-      </div>
-
-      <div class="rule-box">
-        <i class="fa-solid fa-book"></i>
-        <strong>One result per subject per term</strong>
-        <p>A student should not have duplicate subject results for one term.</p>
-      </div>
-
-      <div class="rule-box">
-        <i class="fa-solid fa-database"></i>
-        <strong>Local + Supabase saving</strong>
-        <p>CSV/Excel remains while Supabase becomes the shared bridge.</p>
-      </div>
-
-      <div class="rule-box">
-        <i class="fa-solid fa-lock"></i>
-        <strong>Backend only</strong>
-        <p>The Supabase service key must never enter frontend JavaScript.</p>
-      </div>
-
+    <div class="academic-rules-grid">
+      <article><i class="fa-solid fa-bullseye"></i><strong>Default, not a lock</strong><p>The active period is selected automatically, but staff can intentionally choose a historical period where a page allows it.</p></article>
+      <article><i class="fa-solid fa-box-archive"></i><strong>Existing data stays untouched</strong><p>Changing the active term does not move old attendance, CA/Test, essay or result records into another term.</p></article>
+      <article><i class="fa-solid fa-cloud-arrow-up"></i><strong>Local saves first</strong><p>The local setting is committed immediately. Cloud synchronization follows through the durable EMIS queue when Internet is available.</p></article>
+      <article><i class="fa-solid fa-graduation-cap"></i><strong>Exam push remains protected</strong><p>Class-specific pushed exam year/term remains authoritative for a live student exam so a global default cannot misfile an examination.</p></article>
     </div>
-
   </section>
 
 </div>
-
 {% endblock %}
 
 {% block scripts %}

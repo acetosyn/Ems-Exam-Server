@@ -1,107 +1,196 @@
 {% extends "base.html" %}
-{% block title %}EMIS Admin Dashboard — Control Center{% endblock %}
+{% block title %}EMIS Admin Dashboard — Live Control Center{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="admin-dashboard">
+<div class="emis-dashboard" id="emisDashboard" data-role="{{ user_type|default('admin') }}">
 
-  <!-- ================= HEADER ================= -->
-  <div class="dash-header">
-    <div class="title-block">
-      <h2>Admin Dashboard</h2>
-      <p>Real-time analytics • Performance tracking • Exam control</p>
+  <!-- ==========================================================
+       LIVE TOAST NOTIFICATIONS
+  =========================================================== -->
+  <div id="dashboardToastHost" class="dashboard-toast-host" aria-live="polite" aria-atomic="false"></div>
 
-      <div class="user-role-badge" data-role="{{ user_type|default('admin') }}">
-        <i class="fa-solid fa-shield-halved"></i> Admin Account
+  <!-- ==========================================================
+       HERO / CONTROL STRIP
+  =========================================================== -->
+  <section class="dash-hero">
+    <div class="dash-hero-main">
+      <div class="dash-eyebrow"><span class="live-beacon"></span><span>EMIS Live Control Center</span></div>
+      <h1>Admin Dashboard</h1>
+      <p>Monitor examinations, results, attendance, CA/Test progress, report sheets and server synchronization from one place.</p>
+
+      <div class="dash-identity-row">
+        <span class="dash-role"><i class="fa-solid fa-shield-halved"></i> Admin Account</span>
+        <span class="dash-user"><i class="fa-regular fa-circle-user"></i> Signed in as <strong>{{ session.get('username') or session.get('admin_username') or 'Admin' }}</strong></span>
+      </div>
+    </div>
+
+    <aside class="academic-period-card" aria-label="Active academic period">
+      <div class="period-card-top">
+        <span><i class="fa-solid fa-calendar-check"></i> Active Academic Period</span>
+        <span id="academicPeriodState" class="period-state">Loading</span>
+      </div>
+      <strong id="activeAcademicPeriod">Loading...</strong>
+      <div class="period-meta">
+        <span><small>Year</small><b id="activeAcademicYear">—</b></span>
+        <span><small>Session</small><b id="activeAcademicSession">—</b></span>
+        <span><small>Term</small><b id="activeAcademicTerm">—</b></span>
+      </div>
+    </aside>
+
+    <div class="dash-hero-actions">
+      <div class="connection-pill" id="connectionPill"><span class="connection-dot"></span><span id="connectionText">Checking network</span></div>
+      <button id="autoRefreshToggle" class="dash-btn dash-btn-soft" type="button" aria-pressed="true"><i class="fa-solid fa-arrows-rotate"></i><span>Auto Refresh</span></button>
+      <button id="refreshDashboard" class="dash-btn dash-btn-primary" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh Now</span></button>
+      <button class="dash-btn dash-btn-ghost" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_settings') }}'"><i class="fa-solid fa-sliders"></i><span>Settings</span></button>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       MODERN LIVE STATS
+  =========================================================== -->
+  <section class="dash-stat-grid" aria-label="Live EMIS statistics">
+    <article class="dash-stat-card">
+      <span class="dash-stat-icon students"><i class="fa-solid fa-users"></i></span>
+      <div class="dash-stat-copy"><span>Active Students</span><strong id="statTotalStudents">—</strong><small id="statStudentsMeta">Master student database</small></div>
+      <span class="stat-live-mark"><i class="fa-solid fa-database"></i></span>
+    </article>
+
+    <article class="dash-stat-card">
+      <span class="dash-stat-icon results"><i class="fa-solid fa-file-circle-check"></i></span>
+      <div class="dash-stat-copy"><span>Results Recorded</span><strong id="statTotalResults">—</strong><small><b id="statPending">—</b> pending completion</small></div>
+      <span class="stat-live-mark"><i class="fa-solid fa-chart-line"></i></span>
+    </article>
+
+    <article class="dash-stat-card">
+      <span class="dash-stat-icon exams"><i class="fa-solid fa-display"></i></span>
+      <div class="dash-stat-copy"><span>Active Exams</span><strong id="statActiveExams">—</strong><small id="statActiveExamsMeta">Live student sessions</small></div>
+      <span class="stat-live-mark live"><i class="fa-solid fa-signal"></i></span>
+    </article>
+
+    <article class="dash-stat-card">
+      <span class="dash-stat-icon average"><i class="fa-solid fa-chart-simple"></i></span>
+      <div class="dash-stat-copy"><span>Average Result</span><strong id="statAvg">—</strong><small id="statAvgMeta">Current academic period</small></div>
+      <span class="stat-live-mark"><i class="fa-solid fa-percent"></i></span>
+    </article>
+
+    <article class="dash-stat-card">
+      <span class="dash-stat-icon attendance"><i class="fa-solid fa-calendar-day"></i></span>
+      <div class="dash-stat-copy"><span>Attendance Today</span><strong id="statAttendanceToday">—</strong><small id="statAttendanceMeta">Class registers marked</small></div>
+      <span class="stat-live-mark"><i class="fa-solid fa-user-check"></i></span>
+    </article>
+
+    <article class="dash-stat-card">
+      <span class="dash-stat-icon ca"><i class="fa-solid fa-clipboard-check"></i></span>
+      <div class="dash-stat-copy"><span>CA/Test Completion</span><strong id="statCACompletion">—</strong><small id="statCAMeta">Saved assessment records</small></div>
+      <span class="stat-live-mark"><i class="fa-solid fa-list-check"></i></span>
+    </article>
+  </section>
+
+  <!-- ==========================================================
+       RESULT PERFORMANCE RIBBON
+  =========================================================== -->
+  <section class="result-pulse-card">
+    <div class="result-pulse-heading">
+      <div><span class="section-label">Performance Pulse</span><h2>Current Result Snapshot</h2></div>
+      <a href="{{ url_for('admin_bp.admin_results') }}" class="text-link">Open Results <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="result-pulse-layout">
+      <div class="pulse-metrics">
+        <div><small>Pass Rate</small><strong id="resultPulsePassRate">—</strong></div>
+        <div><small>Subjects</small><strong id="resultPulseSubjects">—</strong></div>
+        <div><small>Awaiting Completion</small><strong id="resultPulsePending">—</strong></div>
+      </div>
+      <div class="spark-wrap">
+        <div class="spark-caption"><span>Recent completed scores</span><small id="resultSparkMeta">Waiting for data</small></div>
+        <div id="resultSparkline" class="result-sparkline" aria-label="Recent result score bars"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       LIVE OPERATIONS
+  =========================================================== -->
+  <section class="operations-layout">
+    <article class="dash-panel activity-panel">
+      <header class="panel-header">
+        <div>
+          <span class="section-label">Real-Time Activity</span>
+          <h2><i class="fa-regular fa-bell"></i> Live Activity Center</h2>
+        </div>
+        <span class="live-count-badge"><span class="live-beacon"></span><b id="liveActivityCount">0</b> recent</span>
+      </header>
+
+      <div class="activity-tabs" role="tablist">
+        <button class="activity-tab active" type="button" data-activity-tab="live" role="tab" aria-selected="true"><i class="fa-solid fa-bolt"></i> Live Updates</button>
+        <button class="activity-tab" type="button" data-activity-tab="system" role="tab" aria-selected="false"><i class="fa-solid fa-clock-rotate-left"></i> System Log</button>
       </div>
 
-      <div class="logged-user-display">
-        <i class="fa-solid fa-user-circle"></i>
-        <span>Logged in as:</span>
-        <strong>{{ session.get('username') or session.get('admin_username') }}</strong>
+      <div id="liveActivityFeed" class="activity-feed" aria-live="polite">
+        <div class="dash-empty-state"><i class="fa-regular fa-bell"></i><strong>Waiting for activity</strong><span>Exam starts, submissions and module changes will appear here.</span></div>
       </div>
-    </div>
+    </article>
 
-    <div class="header-actions">
-      <button class="btn-secondary" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_settings') }}'">
-        <i class="fa-solid fa-gear"></i> Manage System
-      </button>
-      <button id="refreshDashboard" class="btn-primary" type="button">
-        <i class="fa-solid fa-rotate"></i> Refresh
-      </button>
-    </div>
-  </div>
+    <aside class="operations-rail">
+      <article class="dash-panel system-pulse-panel">
+        <header class="panel-header compact">
+          <div><span class="section-label">Module Health</span><h2>System Pulse</h2></div>
+          <span id="systemPulseState" class="health-badge neutral">Checking</span>
+        </header>
 
-  <!-- ================= STATS OVERVIEW ================= -->
-  <section class="stat-grid fade-in">
-    <div class="stat-card glass"><div class="icon"><i class="fa-solid fa-users"></i></div><div class="details"><p>Total Candidates</p><h2 id="statTotalStudents">--</h2></div></div>
-    <div class="stat-card glass"><div class="icon"><i class="fa-solid fa-pen-to-square"></i></div><div class="details"><p>Active Exams</p><h2 id="statActiveExams">--</h2></div></div>
-    <div class="stat-card glass"><div class="icon"><i class="fa-solid fa-hourglass-half"></i></div><div class="details"><p>Pending Results</p><h2 id="statPending">--</h2></div></div>
-    <div class="stat-card glass"><div class="icon"><i class="fa-solid fa-chart-line"></i></div><div class="details"><p>Average Score</p><h2 id="statAvg">--</h2></div></div>
+        <div class="module-health-list">
+          <div class="health-row"><span class="health-icon"><i class="fa-solid fa-calendar-check"></i></span><div><strong>Attendance</strong><small id="pulseAttendanceMeta">Checking today's registers…</small></div><b id="pulseAttendance" class="health-status neutral">—</b></div>
+          <div class="health-row"><span class="health-icon"><i class="fa-solid fa-clipboard-check"></i></span><div><strong>CA / Test</strong><small id="pulseCAMeta">Checking assessment records…</small></div><b id="pulseCA" class="health-status neutral">—</b></div>
+          <div class="health-row"><span class="health-icon"><i class="fa-solid fa-chart-column"></i></span><div><strong>Results</strong><small id="pulseResultsMeta">Checking result records…</small></div><b id="pulseResults" class="health-status neutral">—</b></div>
+          <div class="health-row"><span class="health-icon"><i class="fa-solid fa-file-lines"></i></span><div><strong>Report Sheets</strong><small id="pulseReportsMeta">Checking saved reports…</small></div><b id="pulseReports" class="health-status neutral">—</b></div>
+          <div class="health-row"><span class="health-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span><div><strong>Local ↔ Cloud Sync</strong><small id="pulseSyncMeta">Checking synchronization…</small></div><b id="pulseSync" class="health-status neutral">—</b></div>
+        </div>
+      </article>
+
+      <article class="dash-panel alerts-panel">
+        <header class="panel-header compact"><div><span class="section-label">Attention</span><h2>Smart Alerts</h2></div><span id="smartAlertCount" class="alert-count">0</span></header>
+        <div id="smartAlerts" class="smart-alerts"><div class="mini-empty"><i class="fa-solid fa-shield-check"></i> No critical alerts.</div></div>
+      </article>
+    </aside>
   </section>
 
-  <!-- ================= QUICK MODULES ================= -->
-  <section class="quick-modules card">
-    <h3><i class="fa-solid fa-bolt text-accent"></i> Quick Access Modules</h3>
-    <p class="sub-text">Direct links to the active EMIS modules in the current sidebar.</p>
+  <!-- ==========================================================
+       QUICK ACCESS — LINKS PRESERVED
+  =========================================================== -->
+  <section class="quick-access-panel">
+    <header class="quick-access-header">
+      <div><span class="section-label">Navigation</span><h2>Quick Access Modules</h2><p>Jump directly into any major EMIS workspace.</p></div>
+      <label class="module-search" for="moduleSearch"><i class="fa-solid fa-magnifying-glass"></i><input id="moduleSearch" type="search" autocomplete="off" placeholder="Find a module…"><kbd>/</kbd></label>
+    </header>
 
-    <div class="modules-grid">
-      <button class="module-item blue" type="button" onclick="window.open('/student_login', '_blank')"><i class="fa-solid fa-user-graduate"></i><span>Student Exam Login</span></button>
-      <button class="module-item green" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_teachers') }}'"><i class="fa-solid fa-chalkboard-user"></i><span>Teachers</span></button>
-      <button class="module-item purple" type="button" onclick="window.location.href='/admin/teachers?open=uploads'"><i class="fa-solid fa-file-arrow-up"></i><span>Upload Exams</span></button>
-      <button class="module-item teal" type="button" onclick="window.location.href='/admin/teachers?open=convert'"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Convert Questions</span></button>
-      <button class="module-item orange" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_results') }}'"><i class="fa-solid fa-chart-line"></i><span>Results</span></button>
-      <button class="module-item teal" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_attendance') }}'"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></button>
-      <button class="module-item yellow" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_ca_tests') }}'"><i class="fa-solid fa-clipboard-check"></i><span>CA Tests</span></button>
-      <button class="module-item purple" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_report_sheets') }}'"><i class="fa-solid fa-file-lines"></i><span>Report Sheets</span></button>
-      <button class="module-item pink" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_ids') }}'"><i class="fa-solid fa-id-card"></i><span>IDs</span></button>
-      <button class="module-item red" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_promotion') }}'"><i class="fa-solid fa-arrow-up-right-dots"></i><span>Promotion</span></button>
-      <button class="module-item dark" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_settings') }}'"><i class="fa-solid fa-sliders"></i><span>Settings</span></button>
-      <button class="module-item gray" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_support') }}'"><i class="fa-solid fa-headset"></i><span>Support</span></button>
+    <div class="module-link-grid" id="moduleLinkGrid">
+      <a class="module-link" data-module-name="student exam login" href="/student_login" target="_blank"><span class="module-icon"><i class="fa-solid fa-user-graduate"></i></span><span><strong>Student Exam Login</strong><small>Open student CBT portal</small></span><i class="fa-solid fa-arrow-up-right-from-square module-arrow"></i></a>
+      <a class="module-link" data-module-name="teachers" href="{{ url_for('admin_bp.admin_teachers') }}"><span class="module-icon"><i class="fa-solid fa-chalkboard-user"></i></span><span><strong>Teachers</strong><small>Teacher accounts & access</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="upload exams questions" href="/admin/teachers?open=uploads"><span class="module-icon"><i class="fa-solid fa-file-arrow-up"></i></span><span><strong>Upload Exams</strong><small>Add examination files</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="convert questions" href="/admin/teachers?open=convert"><span class="module-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span><span><strong>Convert Questions</strong><small>Prepare CBT question sets</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="results examination essay" href="{{ url_for('admin_bp.admin_results') }}"><span class="module-icon"><i class="fa-solid fa-chart-line"></i></span><span><strong>Results</strong><small>Objective, essay & totals</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="attendance" href="{{ url_for('admin_bp.admin_attendance') }}"><span class="module-icon"><i class="fa-solid fa-calendar-check"></i></span><span><strong>Attendance</strong><small>Daily attendance register</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="ca tests assessment" href="{{ url_for('admin_bp.admin_ca_tests') }}"><span class="module-icon"><i class="fa-solid fa-clipboard-check"></i></span><span><strong>CA Tests</strong><small>Continuous assessment scores</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="report sheets reports" href="{{ url_for('admin_bp.admin_report_sheets') }}"><span class="module-icon"><i class="fa-solid fa-file-lines"></i></span><span><strong>Report Sheets</strong><small>Generate student reports</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="ids student ids" href="{{ url_for('admin_bp.admin_ids') }}"><span class="module-icon"><i class="fa-solid fa-id-card"></i></span><span><strong>IDs</strong><small>Student credentials</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="promotion student database" href="{{ url_for('admin_bp.admin_promotion') }}"><span class="module-icon"><i class="fa-solid fa-arrow-up-right-dots"></i></span><span><strong>Promotion</strong><small>Class movement & graduation</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="settings academic settings" href="{{ url_for('admin_bp.admin_settings') }}"><span class="module-icon"><i class="fa-solid fa-sliders"></i></span><span><strong>Settings</strong><small>Academic & system settings</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
+      <a class="module-link" data-module-name="support help" href="{{ url_for('admin_bp.admin_support') }}"><span class="module-icon"><i class="fa-solid fa-headset"></i></span><span><strong>Support</strong><small>Help and system support</small></span><i class="fa-solid fa-chevron-right module-arrow"></i></a>
     </div>
+    <div id="moduleSearchEmpty" class="module-search-empty" hidden>No matching EMIS module found.</div>
   </section>
 
-  <!-- ================= INFORMATION PANELS ================= -->
-  <section class="info-panels-grid fade-in">
-    <div class="panel notifications">
-      <h4><i class="fa-solid fa-bell text-accent"></i> Live Notifications</h4>
-      <div id="notificationsPanel" class="panel-body"><p>No notifications yet</p></div>
-    </div>
-
-    <div class="panel activity">
-      <h4><i class="fa-solid fa-clock text-green-600"></i> Recent Activity</h4>
-      <div id="recentActivity" class="panel-body"><p>No activity logged</p></div>
-    </div>
-
-    <div class="panel system-status">
-      <h4><i class="fa-solid fa-server text-gray-600"></i> System Status</h4>
-      <ul class="status-list">
-        <li>Database — <span class="status success">Online</span></li>
-        <li>Exam Server — <span class="status success">Running</span></li>
-        <li>Storage — <span class="status warn">80% Used</span></li>
-      </ul>
-      <div class="progress-bar-wrapper"><div class="progress-bar" style="width:80%"></div></div>
-    </div>
-  </section>
-
-  <!-- ================= TEACHER & STUDENT ACTIVITY ================= -->
-  <section class="dual-panel fade-in">
-    <div class="panel teacher">
-      <h4><i class="fa-solid fa-chalkboard-user text-accent"></i> Teacher Uploads</h4>
-      <p class="sub-text">Latest exam uploads and drafts</p>
-      <div id="teacherUploadsList" class="panel-body scrollable"><ul><li>No uploads yet</li></ul></div>
-    </div>
-
-    <div class="panel student">
-      <h4><i class="fa-solid fa-user-graduate text-green-600"></i> Student Activity</h4>
-      <p class="sub-text">Ongoing exams and automatic marking</p>
-      <div id="studentActivityList" class="panel-body scrollable"><ul><li>No activity yet</li></ul></div>
-    </div>
-  </section>
-
+  <!-- ==========================================================
+       DATA FRESHNESS FOOTER
+  =========================================================== -->
+  <footer class="dashboard-freshness-bar">
+    <span><i class="fa-solid fa-circle-nodes"></i> Live dashboard uses existing EMIS module data.</span>
+    <span id="lastRefreshText"><i class="fa-regular fa-clock"></i> Waiting for first refresh…</span>
+  </footer>
 </div>
 {% endblock %}
 

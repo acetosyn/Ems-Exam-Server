@@ -486,6 +486,13 @@
 
 
   <!-- ============================================================
+       GLOBAL ACADEMIC CONTEXT
+       One server-side year/session/term is exposed to every staff page.
+  ============================================================ -->
+  <script id="emisAcademicContextData" type="application/json">{{ (global_academic_context or {}) | tojson }}</script>
+  <script src="{{ url_for('static', filename='js/academic_context.js') }}"></script>
+
+  <!-- ============================================================
        GLOBAL SCRIPTS
   ============================================================ -->
   <script src="{{ url_for('static', filename='js/toggle.js') }}"></script>

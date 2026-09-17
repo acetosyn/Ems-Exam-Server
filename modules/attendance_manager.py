@@ -11,6 +11,7 @@ from flask import Blueprint, jsonify, request, session
 
 from modules.academic_records import clean, clean_upper, safe_bool, normalize_academic_session, normalize_academic_term, academic_term_label, get_current_academic_context, normalize_academic_class, validate_class_selection, get_students_for_class, get_student, student_display_name
 from modules.student_lookup import normalize_admission_number
+from modules.result_sync import queue_emis_event_safely
 
 attendance_bp = Blueprint("attendance_bp", __name__)
 
@@ -561,6 +562,58 @@ def get_register_for_date(academic_session, term, class_level, class_arm, date_v
     }
 
 
+
+
+# ============================================================
+# SYNC HELPERS
+# ============================================================
+
+def attendance_sync_entity_key(academic_session, term, class_arm, date_value):
+    return "|".join([clean(academic_session), clean_upper(term), clean_upper(class_arm), clean(date_value)])
+
+
+def queue_attendance_scope_sync(academic_session, term, class_level, class_arm, date_value, rows):
+    payload = {
+        "session": normalize_academic_session(academic_session), "term": normalize_academic_term(term),
+        "class_level": clean_upper(class_level), "class_arm": clean_upper(class_arm),
+        "date": normalize_date(date_value), "rows": [dict(row) for row in (rows or [])],
+    }
+    return queue_emis_event_safely(
+        "attendance", "replace_scope", payload,
+        entity_key=attendance_sync_entity_key(payload["session"], payload["term"], payload["class_arm"], payload["date"]),
+    )
+
+
+def apply_attendance_sync_event(action, payload, event=None):
+    if clean(action).lower() != "replace_scope": raise ValueError(f"Unsupported attendance sync action: {action}")
+    if not isinstance(payload, dict): raise ValueError("Attendance sync payload must be an object.")
+
+    academic_session = normalize_academic_session(payload.get("session") or payload.get("academic_session"))
+    term = normalize_academic_term(payload.get("term"))
+    level, arm, error = resolve_class_selection(payload.get("class_level") or payload.get("class_category"), payload.get("class_arm") or payload.get("class"), require_arm=True)
+    date_value = normalize_date(payload.get("date"))
+    rows = payload.get("rows") or []
+
+    if error: raise ValueError(error)
+    if not academic_session or not term or not date_value: raise ValueError("Attendance sync requires session, term and date.")
+    if not isinstance(rows, list): raise ValueError("Attendance synchronized rows must be a list.")
+
+    normalized_rows = []
+    for row in rows:
+        if not isinstance(row, dict): continue
+        item = {header: row.get(header, "") for header in ATTENDANCE_HEADERS}
+        item["Session"], item["Term"], item["Class"], item["Class_category"], item["Date"] = academic_session, term, arm, level, date_value
+        normalized_rows.append(item)
+
+    with ATTENDANCE_LOCK:
+        existing = read_attendance_rows(arm)
+        if existing: backup_attendance_file(arm, "cloud_sync")
+        remaining = [row for row in existing if not record_matches(row, academic_session, term, level, arm, date_value)]
+        write_attendance_rows(arm, remaining + normalized_rows)
+
+    return {"class_arm": arm, "date": date_value, "saved_count": len(normalized_rows), "deleted": not bool(normalized_rows)}
+
+
 # ============================================================
 # API — STUDENTS / REGISTER
 # ============================================================
@@ -678,10 +731,12 @@ def api_attendance_save():
 
     for row in new_rows: counts[normalize_status(row.get("Status"))] += 1
 
+    sync_info = queue_attendance_scope_sync(academic_session, term, level, arm, date_value, new_rows)
+
     return jsonify({
         "success": True, "message": "Attendance saved successfully.", "session": academic_session, "term": term,
         "class_level": level, "class_arm": arm, "date": date_value, "saved_count": len(new_rows),
-        "overwrite": bool(matching), "counts": counts, "saved_at": saved_at, "backup": backup,
+        "overwrite": bool(matching), "counts": counts, "saved_at": saved_at, "backup": backup, "sync": sync_info,
     })
 
 
@@ -723,10 +778,12 @@ def api_attendance_holiday():
 
         write_attendance_rows(arm, remaining + [holiday_row])
 
+    sync_info = queue_attendance_scope_sync(academic_session, term, level, arm, date_value, [holiday_row])
+
     return jsonify({
         "success": True, "message": "Holiday saved successfully.", "session": academic_session, "term": term,
         "class_level": level, "class_arm": arm, "date": date_value, "reason": reason, "note": note,
-        "overwrite": bool(matching), "saved_at": holiday_row["Saved_at"], "backup": backup,
+        "overwrite": bool(matching), "saved_at": holiday_row["Saved_at"], "backup": backup, "sync": sync_info,
     })
 
 
@@ -906,10 +963,12 @@ def api_attendance_delete():
         backup = backup_attendance_file(arm, "delete")
         write_attendance_rows(arm, remaining)
 
+    sync_info = queue_attendance_scope_sync(academic_session, term, level, arm, date_value, [])
+
     return jsonify({
         "success": True, "message": "Saved attendance deleted successfully.",
         "session": academic_session, "term": term, "class_level": level,
-        "class_arm": arm, "date": date_value, "deleted_count": deleted_count, "backup": backup,
+        "class_arm": arm, "date": date_value, "deleted_count": deleted_count, "backup": backup, "sync": sync_info,
     })
 
 

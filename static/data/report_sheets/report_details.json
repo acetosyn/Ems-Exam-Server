@@ -1,9 +1,9 @@
 {
   "2026/2027|FIRST|JSS1|JSS1A|std015": {
-    "form_teacher": "Mr Tosin",
-    "teacher_remark": "He can do Better",
-    "principal_remark": "Average result",
-    "next_term": "2027-12-31",
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
     "affective": {
       "punctuality": 6,
       "attendance": 6,
@@ -24,14 +24,14 @@
       "crafts": 6,
       "musical_skills": 6
     },
-    "updated_at": "2026-09-15 16:14:33",
+    "updated_at": "2026-09-17 11:21:58",
     "updated_by": "admin"
   },
   "2026/2027|FIRST|JSS1|JSS1A|std013": {
     "form_teacher": "Mr Ace",
-    "teacher_remark": "Poor performance. Serious improvement is required.",
-    "principal_remark": "Unsatisfactory performance.",
-    "next_term": "2026-12-28",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
     "affective": {
       "punctuality": 6,
       "attendance": 6,
@@ -52,7 +52,567 @@
       "crafts": 6,
       "musical_skills": 6
     },
-    "updated_at": "2026-09-15 15:48:07",
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std001": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "An average performance. More effort is needed.",
+    "principal_remark": "Average performance.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std007": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A very good performance. Keep it up.",
+    "principal_remark": "A very good result. Keep it up.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std005": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std002": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std021": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std016": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std010": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std004": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std003": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std011": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std008": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std006": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std012": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std017": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std019": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std020": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std009": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std014": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std018": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std022": {
+    "form_teacher": "Mr Ace",
+    "teacher_remark": "A good result with room for more improvement.",
+    "principal_remark": "Good result.",
+    "next_term": "2026-11-30",
+    "affective": {
+      "punctuality": 6,
+      "attendance": 6,
+      "reliability": 6,
+      "neatness": 6,
+      "politeness": 6,
+      "honesty": 6,
+      "relationship": 6,
+      "self_control": 6,
+      "attentiveness": 6,
+      "perseverance": 6
+    },
+    "psychomotor": {
+      "handwriting": 6,
+      "games": 6,
+      "sport": 6,
+      "drawing": 6,
+      "crafts": 6,
+      "musical_skills": 6
+    },
+    "updated_at": "2026-09-17 11:21:58",
     "updated_by": "admin"
   }
 }

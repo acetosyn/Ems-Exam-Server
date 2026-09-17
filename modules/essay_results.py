@@ -14,6 +14,7 @@ from openpyxl import load_workbook
 
 from modules.class_config import SUPPORTED_CLASSES, normalize_class_level, normalize_class_arm
 from modules.excel_manager import read_results, get_preferred_excel_path, normalize_result_term, result_term_label
+from modules.result_sync import queue_emis_event_safely
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -728,6 +729,56 @@ def build_essay_roster(year, class_level, subject, term="", arm=""):
     return roster, config
 
 
+
+
+# ============================================================
+# SYNC HELPERS
+# ============================================================
+
+def essay_sync_entity_key(year, class_level, subject, term=""):
+    return "|".join([clean_text(year), clean_text(class_level).upper(), normalize_term(term), normalize_subject_key(subject)])
+
+
+def queue_essay_store_sync(year, class_level, subject, term, store):
+    payload = {
+        "year": clean_text(year), "class_level": normalize_class(class_level), "subject": clean_text(subject),
+        "term": normalize_term(term), "store": dict(store or {}),
+    }
+    return queue_emis_event_safely(
+        "essay", "replace_store", payload,
+        entity_key=essay_sync_entity_key(payload["year"], payload["class_level"], payload["subject"], payload["term"]),
+    )
+
+
+def apply_essay_sync_event(action, payload, event=None):
+    if clean_text(action).lower() != "replace_store": raise ValueError(f"Unsupported essay sync action: {action}")
+    if not isinstance(payload, dict): raise ValueError("Essay sync payload must be an object.")
+
+    year = clean_text(payload.get("year"))
+    class_level = normalize_class(payload.get("class_level") or payload.get("class"))
+    subject = clean_text(payload.get("subject"))
+    raw_term = clean_text(payload.get("term")); term = normalize_term(raw_term)
+    store = payload.get("store")
+
+    if not year or not year.isdigit(): raise ValueError("Essay sync requires a valid result year.")
+    if class_level not in SUPPORTED_CLASSES: raise ValueError("Essay sync requires a valid class.")
+    if not subject: raise ValueError("Essay sync requires a subject.")
+    if raw_term and not term: raise ValueError("Essay sync received an invalid term.")
+    if is_jss_class(class_level) and not term: raise ValueError("Essay sync requires a term for JSS.")
+    if not isinstance(store, dict): raise ValueError("Essay synchronized store must be an object.")
+
+    normalized_store = dict(store)
+    normalized_store["year"] = year
+    normalized_store["class_level"] = class_level
+    normalized_store["class_category"] = class_level
+    normalized_store["term"] = term
+    normalized_store["term_label"] = term_label(term)
+    normalized_store["subject"] = clean_text(normalized_store.get("subject") or subject)
+    if not isinstance(normalized_store.get("scores"), dict): normalized_store["scores"] = {}
+    path = write_essay_store(year, class_level, subject, term, normalized_store)
+    return {"year": year, "class_level": class_level, "subject": subject, "term": term, "score_count": len(normalized_store["scores"]), "path": str(path)}
+
+
 # ============================================================
 # ROUTES
 # ============================================================
@@ -931,6 +982,7 @@ def register_essay_routes(api_bp):
             }), 400
 
         path = write_essay_store(year, class_level, subject, term, store)
+        sync_info = queue_essay_store_sync(year, class_level, subject, term, store)
 
         return jsonify({
             "success": True,
@@ -956,4 +1008,5 @@ def register_essay_routes(api_bp):
             "essay_max": score_output(essay_max),
 
             "path": str(path),
+            "sync": sync_info,
         }), 200

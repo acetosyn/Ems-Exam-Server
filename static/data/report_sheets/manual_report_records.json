@@ -35,6 +35,106 @@
         "test1": 6,
         "test2": 6,
         "exam": 6
+      },
+      "ISLAMIYYAH": {
+        "subject": "Islamiyyah",
+        "subject_key": "ISLAMIYYAH",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 18,
+        "exam": 39
+      },
+      "POISE": {
+        "subject": "Poise",
+        "subject_key": "POISE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 8,
+        "test1": 8,
+        "test2": 8,
+        "exam": 18
+      },
+      "CIT AND HER STD": {
+        "subject": "Cit & Her. Std",
+        "subject_key": "CIT AND HER STD",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 1,
+        "test2": 9,
+        "exam": 29
+      },
+      "NATIONAL VALUE": {
+        "subject": "National Value",
+        "subject_key": "NATIONAL VALUE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 19,
+        "test2": 19,
+        "exam": 37
+      },
+      "YORUBA LANGUAGE": {
+        "subject": "Yoruba Language",
+        "subject_key": "YORUBA LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 18,
+        "test2": 19,
+        "exam": 39
+      },
+      "HAUSA LANGUAGE": {
+        "subject": "Hausa Language",
+        "subject_key": "HAUSA LANGUAGE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "ARABIC LANGUAGE": {
+        "subject": "Arabic Language",
+        "subject_key": "ARABIC LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "CCA": {
+        "subject": "CCA",
+        "subject_key": "CCA",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "HISTORY": {
+        "subject": "History",
+        "subject_key": "HISTORY",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 19,
+        "exam": 39
       }
     },
     "attendance": {
@@ -51,9 +151,9 @@
     },
     "attendance_override_enabled": false,
     "prefer_manual_scores": false,
-    "status": "FINAL",
+    "status": "DRAFT",
     "teacher_note": "",
-    "updated_at": "2026-09-15 15:46:49",
+    "updated_at": "2026-09-17 11:03:09",
     "updated_by": "admin"
   },
   "2025/2026|FIRST|JSS1|JSS1A|std015": {
@@ -213,32 +313,112 @@
     "updated_at": "2026-09-15 23:53:28",
     "updated_by": "admin"
   },
-  "2026/2027|FIRST|JSS1|JSS1A|std015": {
+  "2026/2027|FIRST|JSS1|JSS1A|std007": {
     "session": "2026/2027",
     "term": "FIRST",
     "class_level": "JSS1",
     "class_arm": "JSS1A",
-    "admission_number": "std015",
+    "admission_number": "std007",
     "subjects": {
       "MATHEMATICS": {
         "subject": "Mathematics",
         "subject_key": "MATHEMATICS",
         "included": true,
-        "ca1": 7,
-        "ca2": 6,
-        "test1": 7,
-        "test2": 9,
-        "exam": 8
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 10,
+        "exam": 10
       },
       "ENGLISH LANGUAGE": {
         "subject": "English Language",
         "subject_key": "ENGLISH LANGUAGE",
         "included": true,
-        "ca1": 9,
-        "ca2": 2,
-        "test1": 8,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
         "test2": 10,
-        "exam": 25
+        "exam": 10
+      },
+      "IRS": {
+        "subject": "IRK",
+        "subject_key": "IRS",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 19,
+        "exam": 39
+      },
+      "ISLAMIYYAH": {
+        "subject": "Islamiyyah",
+        "subject_key": "ISLAMIYYAH",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 18,
+        "exam": 29
+      },
+      "POISE": {
+        "subject": "Poise",
+        "subject_key": "POISE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 19,
+        "exam": 39
+      },
+      "CIT AND HER STD": {
+        "subject": "Cit & Her. Std",
+        "subject_key": "CIT AND HER STD",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 19,
+        "exam": 30
+      },
+      "NATIONAL VALUE": {
+        "subject": "National Value",
+        "subject_key": "NATIONAL VALUE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 18,
+        "exam": 29
+      },
+      "YORUBA LANGUAGE": {
+        "subject": "Yoruba Language",
+        "subject_key": "YORUBA LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 19,
+        "test2": 18,
+        "exam": 29
+      },
+      "HAUSA LANGUAGE": {
+        "subject": "Hausa Language",
+        "subject_key": "HAUSA LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 18,
+        "test2": 19,
+        "exam": 39
+      },
+      "ARABIC LANGUAGE": {
+        "subject": "Arabic Language",
+        "subject_key": "ARABIC LANGUAGE",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 19,
+        "test2": 18,
+        "exam": 39
       },
       "CCA": {
         "subject": "CCA",
@@ -246,19 +426,29 @@
         "included": true,
         "ca1": 8,
         "ca2": 9,
-        "test1": 18,
-        "test2": 13,
-        "exam": 27
+        "test1": 19,
+        "test2": 18,
+        "exam": 29
       },
-      "BST": {
-        "subject": "BST",
-        "subject_key": "BST",
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
         "included": true,
-        "ca1": 6,
-        "ca2": 7,
-        "test1": 1,
-        "test2": 16,
-        "exam": 25
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 17,
+        "test2": 18,
+        "exam": 29
+      },
+      "HISTORY": {
+        "subject": "History",
+        "subject_key": "HISTORY",
+        "included": true,
+        "ca1": 8,
+        "ca2": 8,
+        "test1": 9,
+        "test2": 9,
+        "exam": 29
       }
     },
     "attendance": {
@@ -277,7 +467,398 @@
     "prefer_manual_scores": false,
     "status": "DRAFT",
     "teacher_note": "",
-    "updated_at": "2026-09-16 00:12:04",
+    "updated_at": "2026-09-17 11:07:46",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std021": {
+    "session": "2026/2027",
+    "term": "FIRST",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std021",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 29
+      },
+      "IRS": {
+        "subject": "IRK",
+        "subject_key": "IRS",
+        "included": true,
+        "ca1": 8,
+        "ca2": 9,
+        "test1": 10,
+        "test2": 19,
+        "exam": 29
+      },
+      "ISLAMIYYAH": {
+        "subject": "Islamiyyah",
+        "subject_key": "ISLAMIYYAH",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 19,
+        "exam": 30
+      },
+      "POISE": {
+        "subject": "Poise",
+        "subject_key": "POISE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 18,
+        "exam": 39
+      },
+      "CIT AND HER STD": {
+        "subject": "Cit & Her. Std",
+        "subject_key": "CIT AND HER STD",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 18,
+        "exam": 39
+      },
+      "NATIONAL VALUE": {
+        "subject": "National Value",
+        "subject_key": "NATIONAL VALUE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 18,
+        "exam": 37
+      },
+      "YORUBA LANGUAGE": {
+        "subject": "Yoruba Language",
+        "subject_key": "YORUBA LANGUAGE",
+        "included": true,
+        "ca1": 9.5,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 8.5,
+        "exam": 20
+      },
+      "HAUSA LANGUAGE": {
+        "subject": "Hausa Language",
+        "subject_key": "HAUSA LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9.5,
+        "exam": 17.5
+      },
+      "ARABIC LANGUAGE": {
+        "subject": "Arabic Language",
+        "subject_key": "ARABIC LANGUAGE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 18.7
+      },
+      "CCA": {
+        "subject": "CCA",
+        "subject_key": "CCA",
+        "included": true,
+        "ca1": 2,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 10,
+        "exam": 19
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 20,
+        "exam": 20
+      },
+      "HISTORY": {
+        "subject": "History",
+        "subject_key": "HISTORY",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 19,
+        "exam": 39
+      },
+      "BST": {
+        "subject": "BST",
+        "subject_key": "BST",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 11,
+        "test2": 11,
+        "exam": 38
+      }
+    },
+    "attendance": {
+      "days_open": 90,
+      "present": 90,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 90,
+      "absent_total": 0,
+      "attendance_percentage": 100.0
+    },
+    "attendance_override_enabled": true,
+    "prefer_manual_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "updated_at": "2026-09-17 12:27:40",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std001": {
+    "session": "2026/2027",
+    "term": "FIRST",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std001",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "IRS": {
+        "subject": "IRK",
+        "subject_key": "IRS",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "ISLAMIYYAH": {
+        "subject": "Islamiyyah",
+        "subject_key": "ISLAMIYYAH",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "POISE": {
+        "subject": "Poise",
+        "subject_key": "POISE",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "CIT AND HER STD": {
+        "subject": "Cit & Her. Std",
+        "subject_key": "CIT AND HER STD",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "NATIONAL VALUE": {
+        "subject": "National Value",
+        "subject_key": "NATIONAL VALUE",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "YORUBA LANGUAGE": {
+        "subject": "Yoruba Language",
+        "subject_key": "YORUBA LANGUAGE",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "HAUSA LANGUAGE": {
+        "subject": "Hausa Language",
+        "subject_key": "HAUSA LANGUAGE",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "ARABIC LANGUAGE": {
+        "subject": "Arabic Language",
+        "subject_key": "ARABIC LANGUAGE",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "CCA": {
+        "subject": "CCA",
+        "subject_key": "CCA",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      },
+      "HISTORY": {
+        "subject": "History",
+        "subject_key": "HISTORY",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 10,
+        "test2": 10,
+        "exam": 10
+      }
+    },
+    "attendance": {
+      "days_open": 0,
+      "present": 0,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 0,
+      "absent_total": 0,
+      "attendance_percentage": 0
+    },
+    "attendance_override_enabled": false,
+    "prefer_manual_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "updated_at": "2026-09-17 11:14:14",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|JSS1|JSS1A|std015": {
+    "session": "2026/2027",
+    "term": "FIRST",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std015",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 6,
+        "ca2": 6,
+        "test1": 6,
+        "test2": 6,
+        "exam": 6
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 8,
+        "test1": 8,
+        "test2": 8,
+        "exam": 8
+      },
+      "IRS": {
+        "subject": "IRK",
+        "subject_key": "IRS",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 9
+      },
+      "ISLAMIYYAH": {
+        "subject": "Islamiyyah",
+        "subject_key": "ISLAMIYYAH",
+        "included": true,
+        "ca1": 9,
+        "ca2": 9,
+        "test1": 9,
+        "test2": 9,
+        "exam": 20
+      }
+    },
+    "attendance": {
+      "days_open": 90,
+      "present": 90,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 90,
+      "absent_total": 0,
+      "attendance_percentage": 100.0
+    },
+    "attendance_override_enabled": true,
+    "prefer_manual_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "updated_at": "2026-09-17 12:28:19",
     "updated_by": "admin"
   }
 }

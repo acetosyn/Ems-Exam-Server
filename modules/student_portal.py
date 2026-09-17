@@ -4,9 +4,8 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from pathlib import Path
 from datetime import datetime
 import json
-import os
 
-from modules.student_results import save_result, get_latest_result
+from modules.student_results import save_result, get_latest_result, normalize_result_year, academic_session_from_year
 from modules.result_sync import queue_result_for_sync, trigger_background_sync
 from modules.excel_manager import read_results
 from modules.class_config import get_subjects_for_class, normalize_class_level, normalize_class_arm, get_ss_track
@@ -713,45 +712,41 @@ def submit_exam():
     full_name = get_student_full_name(student)
     admission_no = str(student.get("admission_number", "")).strip()
     sex = get_student_sex(student)
-    year = str(session.get("selected_year") or datetime.now().year).strip()
+
+    # The exam page stores the exact active target year in the Flask session.
+    # If a submission is received without it, fall back to the class/arm active
+    # year before using the calendar year. Historical source JSON years never
+    # become result years; only the active target year does.
+    active_target_year = get_active_year_for_target(class_arm, class_level)
+    year = normalize_result_year(session.get("selected_year") or active_target_year, datetime.now().year) or str(datetime.now().year)
+    academic_session = academic_session_from_year(year)
 
     # =====================================================
     # ACADEMIC SESSION / TERM
     # =====================================================
 
+    # exam-core.js submits the term rendered on the actual exam page. Prefer
+    # that exact value, then the server-side exam session, then the currently
+    # active class/arm term. This prevents a global/default term from moving a
+    # student's result into the wrong folder.
+    submitted_term = normalize_term(data.get("term") or data.get("exam_term") or data.get("academic_term"))
     selected_term = normalize_term(session.get("selected_term"))
+    active_term = resolve_student_active_term(class_level, class_arm)
 
-    # Result storage no longer depends on Supabase academic settings.
-    # Prefer an explicit local/deployed EMIS session setting. If none is
-    # configured, use the normal Aug/Sept school-year boundary as a safe
-    # fallback (e.g. September 2026 -> 2026/2027).
-    academic_session = str(session.get("academic_session") or os.getenv("EMIS_ACADEMIC_SESSION") or "").strip()
-
-    if not academic_session:
-        calendar_now = datetime.now()
-        session_start_year = calendar_now.year if calendar_now.month >= 8 else calendar_now.year - 1
-        academic_session = f"{session_start_year}/{session_start_year + 1}"
-
-    # The term actually used to enter the exam is authoritative.
-    #
-    # JSS:
-    #   must have FIRST / SECOND / THIRD
-    #
-    # SS:
-    #   selected term -> FIRST / SECOND / THIRD
-    #   GENERAL      -> empty term
     if is_term_aware_class(class_level):
-        term = selected_term or resolve_student_active_term(class_level, class_arm)
+        term = submitted_term or selected_term or active_term
 
         if not term:
             return jsonify({"error": "No active term is available for this JSS examination"}), 400
 
     elif is_optional_term_class(class_level):
-        term = selected_term or resolve_student_active_term(class_level, class_arm) or ""
+        term = submitted_term or selected_term or active_term or ""
 
     else:
         term = ""
 
+    session["selected_year"] = year
+    session["academic_session"] = academic_session
     session["selected_term"] = term
 
     # =====================================================

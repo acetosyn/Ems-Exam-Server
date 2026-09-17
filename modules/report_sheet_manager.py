@@ -13,6 +13,7 @@ from flask import Blueprint, jsonify, request, session, Response, send_file
 
 from modules.academic_records import clean, clean_upper, normalize_academic_session, normalize_academic_term, academic_term_label, get_current_academic_context, normalize_academic_class, validate_class_selection, get_students_for_class, get_student, get_subjects_for_selection, get_subjects_for_student, normalize_academic_subject, academic_subject_key
 from modules.student_lookup import normalize_admission_number
+from modules.result_sync import queue_emis_event_safely
 from modules.attendance_manager import get_student_attendance_summary, get_attendance_summary_map
 from modules.ca_test_manager import get_ca_scores_map, get_ca_available_contexts
 from modules.api_routes import read_results_term_aware, normalize_result_record, enrich_records_with_essay, get_subject_folders
@@ -659,6 +660,9 @@ def api_delete_saved_report():
         with SNAPSHOT_FILE.open("w", encoding="utf-8") as file:
             for row in remaining: file.write(json.dumps(row, ensure_ascii=False) + "\n")
 
+    for row in deleted:
+        snapshot_id = clean(row.get("snapshot_id"))
+        if snapshot_id: queue_emis_event_safely("report_sheets", "snapshot_delete", {"snapshot_id": snapshot_id}, entity_key=f"snapshot|{snapshot_id}")
     return jsonify({"success": True, "message": f"{len(deleted)} saved report snapshot(s) deleted successfully.", "deleted_count": len(deleted), "deleted_snapshot_ids": [row.get("snapshot_id") for row in deleted], "deleted_admission_numbers": [row.get("admission_number") for row in deleted]})
 
 
@@ -720,7 +724,9 @@ def get_report_details(academic_session, term, class_level, class_arm, admission
 
 def save_report_details(academic_session, term, class_level, class_arm, admission_number, data):
     store = _read_json_store(DETAILS_FILE); key = report_context_key(academic_session, term, class_level, class_arm, admission_number)
-    store[key] = normalize_report_details(data, store.get(key, {})); _write_json_store(DETAILS_FILE, store); return store[key]
+    store[key] = normalize_report_details(data, store.get(key, {})); _write_json_store(DETAILS_FILE, store)
+    queue_emis_event_safely("report_sheets", "details_upsert", {"key": key, "item": store[key]}, entity_key=f"details|{key}")
+    return store[key]
 
 
 def get_report_defaults(academic_session, term, class_level, class_arm):
@@ -732,7 +738,9 @@ def save_report_defaults(academic_session, term, class_level, class_arm, data):
     store = _read_json_store(DEFAULTS_FILE); key = report_context_key(academic_session, term, class_level, class_arm)
     current = store.get(key, {}) if isinstance(store.get(key), dict) else {}
     item = {"form_teacher": clean(data.get("form_teacher", current.get("form_teacher", ""))), "next_term": clean(data.get("next_term", current.get("next_term", ""))), "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or current.get("updated_by") or "Staff")}
-    store[key] = item; _write_json_store(DEFAULTS_FILE, store); return item
+    store[key] = item; _write_json_store(DEFAULTS_FILE, store)
+    queue_emis_event_safely("report_sheets", "defaults_upsert", {"key": key, "item": item}, entity_key=f"defaults|{key}")
+    return item
 
 
 def apply_saved_report_details(payload):
@@ -880,9 +888,10 @@ def api_report_mark_used():
     if isinstance(admissions, str): admissions = [admissions]
     admissions = [normalize_admission_number(value) for value in admissions if normalize_admission_number(value)]
     if not admissions: return jsonify({"success": False, "message": "Select at least one generated student report first."}), 400
-    ensure_report_dir(); record = {"marked_at": now_string(), "marked_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff"), "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "admission_numbers": admissions}
+    ensure_report_dir(); record = {"audit_id": uuid.uuid4().hex, "marked_at": now_string(), "marked_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff"), "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "admission_numbers": admissions}
     with REPORT_LOCK:
         with USAGE_FILE.open("a", encoding="utf-8") as file: file.write(json.dumps(record, ensure_ascii=False) + "\n")
+    queue_emis_event_safely("report_sheets", "usage_append", {"record": record}, entity_key=f"usage|{record['audit_id']}")
     return jsonify({"success": True, "message": f"{len(admissions)} report result set(s) marked as used in the report audit.", "count": len(admissions)})
 
 
@@ -920,6 +929,8 @@ def save_report_snapshots(reports):
                     "source_mode": clean(report.get("source_mode") or "auto"), "report": report,
                 }
                 file.write(json.dumps(snapshot, ensure_ascii=False) + "\n"); saved.append(snapshot)
+    for snapshot in saved:
+        queue_emis_event_safely("report_sheets", "snapshot_upsert", {"snapshot": snapshot}, entity_key=f"snapshot|{clean(snapshot.get('snapshot_id'))}")
     return saved
 
 
@@ -988,7 +999,9 @@ def save_manual_record(academic_session, term, class_level, class_arm, admission
         "status": "FINAL" if clean_upper(data.get("status")) == "FINAL" else "DRAFT", "teacher_note": clean(data.get("teacher_note", current.get("teacher_note", ""))),
         "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or current.get("updated_by") or "Staff"),
     }
-    store[key] = item; _write_json_store(MANUAL_FILE, store); return item
+    store[key] = item; _write_json_store(MANUAL_FILE, store)
+    queue_emis_event_safely("report_sheets", "manual_upsert", {"key": key, "item": item}, entity_key=f"manual|{key}")
+    return item
 
 
 def manual_record_summary(record):
@@ -1171,7 +1184,7 @@ def api_report_manual():
     key = manual_context_key(academic_session, term, level, arm, admission)
     if request.method == "DELETE":
         if key not in store: return jsonify({"success": False, "message": "No manual record exists for this student."}), 404
-        del store[key]; _write_json_store(MANUAL_FILE, store); return jsonify({"success": True, "message": "Manual student record deleted successfully.", "admission_number": admission})
+        del store[key]; _write_json_store(MANUAL_FILE, store); queue_emis_event_safely("report_sheets", "manual_delete", {"key": key}, entity_key=f"manual|{key}"); return jsonify({"success": True, "message": "Manual student record deleted successfully.", "admission_number": admission})
     try: record = save_manual_record(academic_session, term, level, arm, admission, source)
     except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
     return jsonify({"success": True, "message": f"Manual report draft saved for {roster_map[admission].get('full_name') or admission}.", "record": record, "summary": manual_record_summary(record)})
@@ -1223,6 +1236,85 @@ def api_report_bulk_details():
         if detail_data: details_store[key] = normalize_report_details(detail_data, current)
         if normalized_attendance is not None:
             mkey = manual_context_key(academic_session, term, level, arm, admission); record = manual_store.get(mkey, {}) if isinstance(manual_store.get(mkey), dict) else {}; record.update({"session": academic_session, "term": term, "class_level": level, "class_arm": arm, "admission_number": clean(student.get("admission_number")), "attendance": normalized_attendance, "attendance_override_enabled": bool(data.get("attendance_override_enabled", True)), "status": clean(record.get("status") or "DRAFT"), "subjects": record.get("subjects", {}), "prefer_manual_scores": bool(record.get("prefer_manual_scores", False)), "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff")}); manual_store[mkey] = record
-    if any(key in data for key in ["form_teacher", "teacher_remark", "principal_remark", "next_term", "affective", "psychomotor", "auto_teacher_remark", "auto_principal_remark"]): _write_json_store(DETAILS_FILE, details_store)
+    details_changed = any(key in data for key in ["form_teacher", "teacher_remark", "principal_remark", "next_term", "affective", "psychomotor", "auto_teacher_remark", "auto_principal_remark"])
+    if details_changed: _write_json_store(DETAILS_FILE, details_store)
     if normalized_attendance is not None: _write_json_store(MANUAL_FILE, manual_store)
+    for student in selected:
+        admission = normalize_admission_number(student.get("admission_number")); dkey = report_context_key(academic_session, term, level, arm, admission)
+        if details_changed and isinstance(details_store.get(dkey), dict): queue_emis_event_safely("report_sheets", "details_upsert", {"key": dkey, "item": details_store[dkey]}, entity_key=f"details|{dkey}")
+        mkey = manual_context_key(academic_session, term, level, arm, admission)
+        if normalized_attendance is not None and isinstance(manual_store.get(mkey), dict): queue_emis_event_safely("report_sheets", "manual_upsert", {"key": mkey, "item": manual_store[mkey]}, entity_key=f"manual|{mkey}")
     return jsonify({"success": True, "message": f"Class-wide report details applied to {len(selected)} student(s).", "count": len(selected), "admission_numbers": [student.get("admission_number") for student in selected], "attendance": normalized_attendance})
+
+
+# ============================================================
+# CLOUD SYNC EVENT APPLICATION
+# ============================================================
+
+def _rewrite_snapshot_rows(rows):
+    ensure_report_dir()
+    with REPORT_LOCK:
+        with SNAPSHOT_FILE.open("w", encoding="utf-8") as file:
+            for row in rows:
+                if isinstance(row, dict): file.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def _read_usage_rows():
+    if not USAGE_FILE.exists(): return []
+    rows = []
+    with REPORT_LOCK:
+        with USAGE_FILE.open("r", encoding="utf-8") as file:
+            for line in file:
+                try:
+                    item = json.loads(line)
+                    if isinstance(item, dict): rows.append(item)
+                except Exception: continue
+    return rows
+
+
+def apply_report_sync_event(action, payload, event=None):
+    action = clean(action).lower()
+    if not isinstance(payload, dict): raise ValueError("Report Sheet sync payload must be an object.")
+
+    if action in {"details_upsert", "defaults_upsert", "manual_upsert"}:
+        key, item = clean(payload.get("key")), payload.get("item")
+        if not key or not isinstance(item, dict): raise ValueError(f"{action} requires a key and item.")
+        target = DETAILS_FILE if action == "details_upsert" else DEFAULTS_FILE if action == "defaults_upsert" else MANUAL_FILE
+        store = _read_json_store(target); store[key] = item; _write_json_store(target, store)
+        return {"store": target.name, "key": key, "operation": "upsert"}
+
+    if action == "manual_delete":
+        key = clean(payload.get("key"))
+        if not key: raise ValueError("manual_delete requires a key.")
+        store = _read_json_store(MANUAL_FILE); existed = key in store; store.pop(key, None); _write_json_store(MANUAL_FILE, store)
+        return {"store": MANUAL_FILE.name, "key": key, "deleted": existed}
+
+    if action == "snapshot_upsert":
+        snapshot = payload.get("snapshot")
+        if not isinstance(snapshot, dict) or not clean(snapshot.get("snapshot_id")): raise ValueError("snapshot_upsert requires a valid snapshot.")
+        snapshot_id = clean(snapshot.get("snapshot_id")); rows = read_saved_report_snapshots()[::-1]; replaced = False
+        for index, row in enumerate(rows):
+            if clean(row.get("snapshot_id")) == snapshot_id: rows[index] = snapshot; replaced = True; break
+        if not replaced: rows.append(snapshot)
+        _rewrite_snapshot_rows(rows)
+        return {"snapshot_id": snapshot_id, "operation": "replace" if replaced else "append"}
+
+    if action == "snapshot_delete":
+        snapshot_id = clean(payload.get("snapshot_id"))
+        if not snapshot_id: raise ValueError("snapshot_delete requires snapshot_id.")
+        rows = read_saved_report_snapshots()[::-1]; remaining = [row for row in rows if clean(row.get("snapshot_id")) != snapshot_id]; deleted = len(rows) - len(remaining); _rewrite_snapshot_rows(remaining)
+        return {"snapshot_id": snapshot_id, "deleted": deleted}
+
+    if action == "usage_append":
+        record = payload.get("record")
+        if not isinstance(record, dict): raise ValueError("usage_append requires a record.")
+        audit_id = clean(record.get("audit_id")) or clean((event or {}).get("event_id"))
+        record = dict(record); record["audit_id"] = audit_id
+        existing = _read_usage_rows()
+        if any(clean(row.get("audit_id")) == audit_id for row in existing): return {"audit_id": audit_id, "duplicate": True}
+        ensure_report_dir()
+        with REPORT_LOCK:
+            with USAGE_FILE.open("a", encoding="utf-8") as file: file.write(json.dumps(record, ensure_ascii=False) + "\n")
+        return {"audit_id": audit_id, "appended": True}
+
+    raise ValueError(f"Unsupported Report Sheet sync action: {action}")

@@ -558,6 +558,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function selectedTerm() { return els.termSelector?.value || "all"; }
   function selectedSubject() { return els.subjectSelector?.value || "all"; }
 
+  function globalAcademicContext() { return window.EMISAcademicContext || {}; }
+
+  function applyGlobalAcademicDefaults() {
+    const academic = globalAcademicContext();
+    const year = String(academic.current_year || academic.year || "").trim();
+    const term = normalizeTerm(academic.current_term || academic.term || "");
+    const academicSession = String(academic.current_session || academic.academic_session || academic.session || "").trim();
+
+    if (year && els.yearSelector && [...els.yearSelector.options].some(option => option.value === year)) els.yearSelector.value = year;
+    if (term && els.termSelector) { const option = [...els.termSelector.options].find(item => normalizeTerm(item.value) === term); if (option) els.termSelector.value = option.value; }
+    if (academicSession && els.sessionSelector) {
+      els.sessionSelector.dataset.academicDefault = academicSession;
+      if (!els.sessionSelector.dataset.academicDefaultApplied) els.sessionSelector.dataset.academicDefaultApplied = "0";
+    }
+  }
+
 
   // ==========================================================
   // 12. TERM UI
@@ -721,7 +737,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function rebuildSessions() {
     if (!els.sessionSelector) return;
 
-    const current = els.sessionSelector.value || "all";
+    const academic = globalAcademicContext();
+    const globalSession = String(academic.current_session || academic.academic_session || academic.session || els.sessionSelector.dataset.academicDefault || "").trim();
+    const currentValue = els.sessionSelector.value || "all";
+    const shouldApplyGlobal = els.sessionSelector.dataset.academicDefaultApplied !== "1";
+    const current = shouldApplyGlobal && globalSession ? globalSession : currentValue;
 
     const sessions = [...new Set(
       state.allResults.map(getSession).filter(Boolean)
@@ -741,6 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const exists = [...els.sessionSelector.options].some((option) => option.value === current);
 
     els.sessionSelector.value = exists ? current : "all";
+    els.sessionSelector.dataset.academicDefaultApplied = "1";
 
     const field = els.sessionSelector.closest(".session-filter");
 
@@ -3168,6 +3189,7 @@ function essayStudentKey(student) {
 
   async function init() {
     populateTermOptions(DEFAULT_TERMS, false);
+    applyGlobalAcademicDefaults();
 
     updateTermUi();
     syncClassPills();
@@ -3178,6 +3200,7 @@ function essayStudentKey(student) {
     updateEssayUnsavedCount();
 
     await loadAvailableTerms();
+    applyGlobalAcademicDefaults();
     await loadAllResults();
   }
 

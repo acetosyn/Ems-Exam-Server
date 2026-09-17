@@ -1,6 +1,7 @@
 # modules/student_results.py
 
 import sqlite3
+import re
 from pathlib import Path
 from datetime import datetime
 
@@ -83,6 +84,46 @@ def is_jss_class(value):
 
 def is_ss_class(value):
     return str(normalize_class_level(value) or "").upper().startswith("SS")
+
+
+def normalize_result_year(value, fallback=""):
+    """Return the four-digit result/portal year used by RESULTS/<year>/... ."""
+    raw = clean(value)
+    match = re.search(r"(?:19|20)\d{2}", raw)
+
+    if match:
+        return match.group(0)
+
+    fallback_raw = clean(fallback)
+    fallback_match = re.search(r"(?:19|20)\d{2}", fallback_raw)
+    return fallback_match.group(0) if fallback_match else ""
+
+
+def academic_session_from_year(year, fallback_year=""):
+    """2026 -> 2026/2027. The active exam year is the session start year."""
+    normalized_year = normalize_result_year(year, fallback_year)
+
+    if not normalized_year:
+        return ""
+
+    start_year = int(normalized_year)
+    return f"{start_year}/{start_year + 1}"
+
+
+def normalize_academic_session(value="", year=""):
+    """Keep session/year consistent; when a result year exists it is authoritative."""
+    derived = academic_session_from_year(year)
+    if derived:
+        return derived
+
+    raw = clean(value)
+    match = re.fullmatch(r"((?:19|20)\d{2})\s*/\s*((?:19|20)\d{2})", raw)
+
+    if not match:
+        return ""
+
+    start_year, end_year = int(match.group(1)), int(match.group(2))
+    return f"{start_year}/{end_year}" if end_year == start_year + 1 else f"{start_year}/{start_year + 1}"
 
 
 # ============================================================
@@ -337,8 +378,8 @@ def result_exists(admission_number, subject, year, academic_session="", term="")
 
     admission_number = clean(admission_number)
     subject = normalize_subject(subject)
-    year = clean(year)
-    academic_session = clean(academic_session)
+    year = normalize_result_year(year)
+    academic_session = normalize_academic_session(academic_session, year)
     term = normalize_result_term(term)
 
     if not admission_number or not subject:
@@ -387,8 +428,14 @@ def save_result(data):
         raise ValueError("Student full name is required.")
 
     subject = normalize_subject(data.get("subject"))
-    year = clean(data.get("year") or now.year)
-    academic_session = clean(data.get("academic_session") or data.get("session"))
+    year = normalize_result_year(data.get("year"), now.year) or str(now.year)
+    academic_session = normalize_academic_session(data.get("academic_session") or data.get("session"), year)
+
+    # The active exam year is authoritative for the school session.
+    # Example: year 2026 always saves as session 2026/2027.
+    data["year"] = year
+    data["academic_session"] = academic_session
+    data["session"] = academic_session
 
     class_level, class_arm, stream = resolve_class_meta(data)
 

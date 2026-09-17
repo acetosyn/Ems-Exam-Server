@@ -12,9 +12,12 @@ from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.page import PageMargins
 
-from modules.supabase_results import get_academic_settings, update_academic_settings
 from modules.excel_manager import read_results, get_excel_path, EXPECTED_HEADERS, repair_missing_headers
 from modules.class_config import SUPPORTED_CLASSES, normalize_class_level
+from modules.student_results import normalize_result_year, academic_session_from_year
+from modules.academic_settings import get_academic_settings as get_global_academic_settings, save_academic_settings, YEAR_MIN as ACADEMIC_YEAR_MIN, YEAR_MAX as ACADEMIC_YEAR_MAX
+from modules.result_sync import queue_emis_event_safely
+from push import get_latest_year, get_active_term_for_target, valid_target_year
 from modules.essay_results import register_essay_routes, enrich_results_with_essay
 
 
@@ -177,11 +180,19 @@ def get_requested_term(class_cat=""):
     if term:
         return term
 
+    # Global academic settings are the normal staff-module default.
     try:
-        return normalize_term((get_academic_settings() or {}).get("current_term"))
-
+        term = normalize_term((get_global_academic_settings() or {}).get("current_term"))
+        if term:
+            return term
     except Exception as error:
-        print("ACADEMIC TERM RESOLUTION ERROR:", error)
+        print("GLOBAL TERM RESOLUTION ERROR:", error)
+
+    # Class/arm push settings remain a final compatibility fallback.
+    try:
+        return normalize_term(get_active_term_for_target(class_cat, class_cat))
+    except Exception as error:
+        print("ACTIVE TERM RESOLUTION ERROR:", error)
         return ""
 
 
@@ -2136,124 +2147,73 @@ def search_admission():
 
 
 # ============================================================
-# ACADEMIC SETTINGS
+# ACADEMIC SETTINGS — GLOBAL PERSISTENT DEFAULT
+#
+# One admin-controlled academic year/session/term is stored locally and used
+# as the default context across Attendance, CA/Test, Results and Report Sheets.
+# Explicit page selections can still override the default for historical work.
+# Local changes are queued through the existing offline-first sync engine so
+# the deployed EMIS receives the same active academic period.
 # ============================================================
 
 @api_bp.route("/api/academic-settings", methods=["GET"])
 def api_get_academic_settings():
     if not can_view_results():
-        return jsonify({
-            "error": "Unauthorized"
-        }), 403
+        return jsonify({"error": "Unauthorized"}), 403
 
-    try:
-        settings = (
-            get_academic_settings()
-            or {}
-        )
+    settings = get_global_academic_settings()
 
-        current_term = normalize_term(
-            settings.get(
-                "current_term"
-            )
-        )
-
-        settings["current_term"] = (
-            current_term
-            or settings.get(
-                "current_term",
-                "",
-            )
-        )
-
-        settings["current_term_label"] = (
-            term_label(current_term)
-            if current_term
-            else ""
-        )
-
-        return jsonify({
-            "success": True,
-            "settings": settings,
-        })
-
-    except Exception as error:
-        print(
-            "ACADEMIC SETTINGS FETCH ERROR:",
-            error,
-        )
-
-        return jsonify({
-            "success": False,
-            "error": str(error),
-        }), 500
+    return jsonify({
+        "success": True,
+        "settings": settings,
+        "year_min": ACADEMIC_YEAR_MIN,
+        "year_max": ACADEMIC_YEAR_MAX,
+        "persistent_source": "local_academic_settings",
+    })
 
 
 @api_bp.route("/api/academic-settings", methods=["POST"])
 def api_update_academic_settings():
-    if not can_view_results():
-        return jsonify({
-            "error": "Unauthorized"
-        }), 403
+    if str(session.get("user_type") or "").strip().lower() != "admin":
+        return jsonify({"success": False, "error": "Admin access is required to change the global academic period."}), 403
+
+    data = request.get_json(silent=True) or {}
+    raw_year = data.get("current_year") or data.get("year") or ""
+    raw_session = data.get("current_session") or data.get("academic_session") or data.get("session") or ""
+    raw_term = data.get("current_term") or data.get("term") or ""
 
     try:
-        data = request.get_json(
-            silent=True
-        ) or {}
-
-        session_value = str(
-            data.get(
-                "current_session"
-            )
-            or ""
-        ).strip()
-
-        term_value = normalize_term(
-            data.get(
-                "current_term"
-            )
+        settings = save_academic_settings(
+            current_year=raw_year,
+            current_session=raw_session,
+            current_term=raw_term,
+            updated_by=session.get("username") or session.get("admin_username") or "EMIS Admin",
+            source="local",
         )
+    except ValueError as error:
+        return jsonify({"success": False, "error": str(error)}), 400
 
-        if not session_value:
-            return jsonify({
-                "success": False,
-                "error": "Academic session is required",
-            }), 400
+    # Keep the current staff browser aligned immediately. These session values
+    # are conveniences only; the JSON setting above remains authoritative.
+    session["selected_year"] = settings["current_year"]
+    session["academic_session"] = settings["current_session"]
+    session["selected_term"] = settings["current_term"]
 
-        if not term_value:
-            return jsonify({
-                "success": False,
-                "error": "A valid academic term is required. Use FIRST, SECOND or THIRD.",
-            }), 400
+    sync_payload = {
+        "current_year": settings["current_year"],
+        "current_session": settings["current_session"],
+        "current_term": settings["current_term"],
+        "updated_at": settings["updated_at"],
+        "updated_by": settings["updated_by"],
+    }
+    sync_info = queue_emis_event_safely("academic_settings", "set", sync_payload, entity_key="global")
 
-        update_academic_settings(
-            session_value,
-            term_value,
-        )
-
-        session["selected_term"] = term_value
-
-        return jsonify({
-            "success": True,
-            "message": "Academic settings updated successfully",
-
-            "settings": {
-                "current_session": session_value,
-                "current_term": term_value,
-                "current_term_label": term_label(term_value),
-            },
-        })
-
-    except Exception as error:
-        print(
-            "ACADEMIC SETTINGS UPDATE ERROR:",
-            error,
-        )
-
-        return jsonify({
-            "success": False,
-            "error": str(error),
-        }), 500
+    return jsonify({
+        "success": True,
+        "message": "Global academic period updated successfully.",
+        "settings": settings,
+        "sync": sync_info,
+    })
 
 
 # ============================================================

@@ -11,6 +11,7 @@ from flask import Blueprint, jsonify, request, session
 
 from modules.academic_records import clean, clean_upper, safe_bool, normalize_academic_session, normalize_academic_term, academic_term_label, get_current_academic_context, normalize_academic_class, validate_class_selection, get_students_for_class, get_subjects_for_selection, normalize_academic_subject, academic_subject_key, subject_is_valid_for_class
 from modules.student_lookup import normalize_admission_number
+from modules.result_sync import queue_emis_event_safely
 
 
 ca_test_bp = Blueprint("ca_test_bp", __name__)
@@ -278,6 +279,58 @@ def get_ca_subjects_saved(academic_session, term, class_level, class_arm):
 # API — CONFIG / STUDENTS
 # ============================================================
 
+
+
+# ============================================================
+# SYNC HELPERS
+# ============================================================
+
+def ca_sync_entity_key(academic_session, term, class_arm, subject):
+    return "|".join([clean(academic_session), clean_upper(term), clean_upper(class_arm), academic_subject_key(subject)])
+
+
+def queue_ca_scope_sync(academic_session, term, class_level, class_arm, subject, rows):
+    payload = {
+        "session": normalize_academic_session(academic_session), "term": normalize_academic_term(term),
+        "class_level": clean_upper(class_level), "class_arm": clean_upper(class_arm),
+        "subject": safe_subject_display(subject), "rows": [dict(row) for row in (rows or [])],
+    }
+    return queue_emis_event_safely(
+        "ca_tests", "replace_scope", payload,
+        entity_key=ca_sync_entity_key(payload["session"], payload["term"], payload["class_arm"], payload["subject"]),
+    )
+
+
+def apply_ca_sync_event(action, payload, event=None):
+    if clean(action).lower() != "replace_scope": raise ValueError(f"Unsupported CA/Test sync action: {action}")
+    if not isinstance(payload, dict): raise ValueError("CA/Test sync payload must be an object.")
+
+    academic_session, term = resolve_context(payload.get("session") or payload.get("academic_session"), payload.get("term"))
+    level, arm, error = resolve_class(payload.get("class_level") or payload.get("class_category"), payload.get("class_arm") or payload.get("class"), require_arm=True)
+    subject = safe_subject_display(payload.get("subject"))
+    rows = payload.get("rows") or []
+
+    if error: raise ValueError(error)
+    if not academic_session or not term or not subject: raise ValueError("CA/Test sync requires session, term and subject.")
+    if not isinstance(rows, list): raise ValueError("CA/Test synchronized rows must be a list.")
+
+    normalized_rows = []
+    for row in rows:
+        if not isinstance(row, dict): continue
+        item = {header: row.get(header, "") for header in CA_HEADERS}
+        item["Session"], item["Term"], item["Class"], item["Class_category"] = academic_session, term, arm, level
+        item["Subject"], item["Subject_key"] = subject, academic_subject_key(subject)
+        normalized_rows.append(item)
+
+    with CA_LOCK:
+        existing = read_ca_rows()
+        if existing: backup_ca_file("cloud_sync")
+        remaining = [row for row in existing if not ca_row_matches(row, academic_session, term, level, arm, subject)]
+        write_ca_rows(remaining + normalized_rows)
+
+    return {"class_arm": arm, "subject": subject, "saved_count": len(normalized_rows), "deleted": not bool(normalized_rows)}
+
+
 @ca_test_bp.route("/api/ca-tests/config")
 @ca_staff_required
 def api_ca_config():
@@ -427,6 +480,7 @@ def api_ca_save():
         remaining = [row for row in existing if not ca_row_matches(row, academic_session, term, level, arm, subject)]
         write_ca_rows(remaining + list(submitted.values()))
 
+    sync_info = queue_ca_scope_sync(academic_session, term, level, arm, subject, list(submitted.values()))
     complete = sum(1 for row in submitted.values() if clean_upper(row.get("CA_Complete")) == "YES")
 
     return jsonify({
@@ -434,7 +488,7 @@ def api_ca_save():
         "session": academic_session, "term": term, "class_level": level, "class_arm": arm,
         "subject": safe_subject_display(subject), "mode": assessment_mode(level),
         "saved_count": len(submitted), "complete_count": complete, "incomplete_count": len(submitted) - complete,
-        "skipped_blank_count": skipped_blank, "overwrite": bool(matching), "backup": backup,
+        "skipped_blank_count": skipped_blank, "overwrite": bool(matching), "backup": backup, "sync": sync_info,
     })
 
 
@@ -512,8 +566,10 @@ def api_ca_delete():
         backup = backup_ca_file("delete")
         write_ca_rows(remaining)
 
+    sync_info = queue_ca_scope_sync(academic_session, term, level, arm, subject, [])
+
     return jsonify({
         "success": True, "message": "CA/Test records deleted successfully.",
         "session": academic_session, "term": term, "class_level": level, "class_arm": arm,
-        "subject": safe_subject_display(subject), "deleted_count": deleted_count, "backup": backup,
+        "subject": safe_subject_display(subject), "deleted_count": deleted_count, "backup": backup, "sync": sync_info,
     })

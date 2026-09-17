@@ -6,7 +6,7 @@ import re
 
 from modules.class_config import SUPPORTED_CLASSES, CLASS_ARMS_BY_LEVEL, normalize_class_level, normalize_class_arm, normalize_subject_key, normalize_subject_display, get_subjects_for_class, get_ss_track
 from modules.student_lookup import read_student_database, find_student_by_admission, normalize_admission_number
-from modules.supabase_results import get_academic_settings
+from modules.academic_settings import get_academic_settings
 
 VALID_TERMS = ("FIRST", "SECOND", "THIRD")
 
@@ -70,19 +70,27 @@ def is_valid_academic_session(value):
 
 
 def get_current_academic_context(session_value="", term_value=""):
-    """Explicit session/term take priority; otherwise use existing EMIS academic settings."""
+    """Explicit page values take priority; otherwise use the persistent global EMIS academic period."""
     try: settings = get_academic_settings() or {}
     except Exception as error:
         print("ACADEMIC SETTINGS READ ERROR:", error)
         settings = {}
 
-    academic_session = normalize_academic_session(session_value or settings.get("current_session") or "")
-    term = normalize_academic_term(term_value or settings.get("current_term") or "")
+    academic_session = normalize_academic_session(session_value or settings.get("current_session") or settings.get("session") or "")
+    term = normalize_academic_term(term_value or settings.get("current_term") or settings.get("term") or "")
+    current_year = clean(settings.get("current_year") or settings.get("year"))
+
+    if not current_year and "/" in academic_session:
+        current_year = clean(academic_session.split("/", 1)[0])
 
     return {
-        "session": academic_session, "academic_session": academic_session, "term": term,
-        "term_label": academic_term_label(term), "short_term_label": short_term_label(term),
+        "year": current_year, "current_year": current_year,
+        "session": academic_session, "academic_session": academic_session, "current_session": academic_session,
+        "term": term, "current_term": term,
+        "term_label": academic_term_label(term), "current_term_label": academic_term_label(term), "short_term_label": short_term_label(term),
         "valid_session": is_valid_academic_session(academic_session), "valid_term": bool(term),
+        "configured": bool(academic_session and term), "updated_at": clean(settings.get("updated_at")), "updated_by": clean(settings.get("updated_by")),
+        "source": clean(settings.get("source")) or "local",
     }
 
 
