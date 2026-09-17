@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}EMIS Support — Developer Contact{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/support.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="support-page" id="emisSupportPage">
+  <div class="support-toast-host" id="supportToastHost" aria-live="polite" aria-atomic="true"></div>
+
+  <section class="support-hero">
+    <span class="support-orb orb-one" aria-hidden="true"></span><span class="support-orb orb-two" aria-hidden="true"></span>
+
+    <div class="support-hero-copy">
+      <span class="support-kicker"><i class="fa-solid fa-headset"></i> EMIS Technical Support</span>
+      <h1>Help & Developer Support</h1>
+      <p>Need assistance with the EMIS CBT Server? Contact the developer directly for technical support, troubleshooting, access issues, exam operations, results, reports and other system-related help.</p>
+
+      <div class="support-mini-row">
+        <span><i class="fa-solid fa-display"></i> CBT & Exam Support</span>
+        <span><i class="fa-solid fa-database"></i> Data & Results</span>
+        <span><i class="fa-solid fa-shield-halved"></i> Admin Assistance</span>
+        <span><i class="fa-solid fa-code"></i> Developer Support</span>
+      </div>
+
+      <div class="support-hero-actions">
+        <a class="support-btn primary" href="https://wa.me/2348036691680?text=Hello%20Hakeem%2C%20I%20need%20support%20with%20the%20EMIS%20CBT%20Server." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp Support</a>
+        <a class="support-btn secondary" href="mailto:tosinhakeem4@gmail.com?subject=EMIS%20Support%20Request"><i class="fa-solid fa-envelope"></i> Send Email</a>
+      </div>
+    </div>
+
+    <aside class="developer-card" aria-label="EMIS developer details">
+      <div class="developer-card-top"><span class="developer-status"><i></i> Developer Contact</span><span class="developer-code">&lt;/&gt;</span></div>
+      <div class="developer-monogram" aria-hidden="true">HT</div>
+      <span class="developer-label">EMIS CBT Server Developer</span>
+      <h2>Hakeem Tosin</h2>
+      <p class="developer-role">AI/ML Developer</p>
+      <div class="developer-meta">
+        <span><i class="fa-solid fa-location-dot"></i> Abuja, Nigeria</span>
+        <span><i class="fa-solid fa-circle-check"></i> Technical Support</span>
+      </div>
+      <div class="developer-stack"><span>Python</span><span>Flask</span><span>AI/ML</span><span>Automation</span></div>
+    </aside>
+  </section>
+
+  <section class="support-section support-contact-section">
+    <div class="support-section-head">
+      <div><span class="section-kicker"><i class="fa-solid fa-address-card"></i> Direct Contact</span><h2>Contact the Developer</h2><p>Choose the channel that is most convenient for you. For urgent EMIS issues, WhatsApp or a phone call is the fastest option.</p></div>
+      <span class="support-availability"><span></span> Direct support contact</span>
+    </div>
+
+    <div class="contact-grid">
+      <article class="contact-card whatsapp-card">
+        <span class="contact-icon"><i class="fa-brands fa-whatsapp"></i></span>
+        <div class="contact-copy"><small>WhatsApp</small><strong>+234 803 669 1680</strong><span>Primary support line</span></div>
+        <div class="contact-actions"><a href="https://wa.me/2348036691680?text=Hello%20Hakeem%2C%20I%20need%20support%20with%20the%20EMIS%20CBT%20Server." target="_blank" rel="noopener noreferrer">Chat <i class="fa-solid fa-arrow-up-right-from-square"></i></a><button type="button" data-copy-value="+2348036691680" data-copy-label="WhatsApp number"><i class="fa-regular fa-copy"></i></button></div>
+      </article>
+
+      <article class="contact-card phone-card">
+        <span class="contact-icon"><i class="fa-solid fa-phone"></i></span>
+        <div class="contact-copy"><small>Primary Phone</small><strong>+234 803 669 1680</strong><span>Call for direct support</span></div>
+        <div class="contact-actions"><a href="tel:+2348036691680">Call <i class="fa-solid fa-phone-volume"></i></a><button type="button" data-copy-value="+2348036691680" data-copy-label="Primary phone number"><i class="fa-regular fa-copy"></i></button></div>
+      </article>
+
+      <article class="contact-card phone-card alternate">
+        <span class="contact-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+        <div class="contact-copy"><small>Alternate Phone</small><strong>+234 707 766 9406</strong><span>Secondary contact line</span></div>
+        <div class="contact-actions"><a href="tel:+2347077669406">Call <i class="fa-solid fa-phone-volume"></i></a><button type="button" data-copy-value="+2347077669406" data-copy-label="Alternate phone number"><i class="fa-regular fa-copy"></i></button></div>
+      </article>
+
+      <article class="contact-card email-card">
+        <span class="contact-icon"><i class="fa-solid fa-envelope"></i></span>
+        <div class="contact-copy"><small>Email</small><strong>tosinhakeem4@gmail.com</strong><span>Detailed support requests</span></div>
+        <div class="contact-actions"><a href="mailto:tosinhakeem4@gmail.com?subject=EMIS%20Support%20Request">Email <i class="fa-solid fa-paper-plane"></i></a><button type="button" data-copy-value="tosinhakeem4@gmail.com" data-copy-label="Email address"><i class="fa-regular fa-copy"></i></button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="support-layout">
+    <article class="support-panel social-panel">
+      <div class="panel-heading"><div><span class="section-kicker"><i class="fa-solid fa-link"></i> Social Links</span><h2>Connect with Hakeem</h2></div><span class="panel-icon"><i class="fa-solid fa-share-nodes"></i></span></div>
+
+      <div class="social-grid">
+        <a class="social-card linkedin" href="https://www.linkedin.com/in/acetosyn" target="_blank" rel="noopener noreferrer"><span><i class="fa-brands fa-linkedin-in"></i></span><div><strong>LinkedIn</strong><small>@acetosyn</small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a class="social-card github" href="https://github.com/acetosyn" target="_blank" rel="noopener noreferrer"><span><i class="fa-brands fa-github"></i></span><div><strong>GitHub</strong><small>@acetosyn</small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a class="social-card instagram" href="https://instagram.com/acetosyn" target="_blank" rel="noopener noreferrer"><span><i class="fa-brands fa-instagram"></i></span><div><strong>Instagram</strong><small>@acetosyn</small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a class="social-card email" href="mailto:tosinhakeem4@gmail.com"><span><i class="fa-solid fa-at"></i></span><div><strong>Email</strong><small>tosinhakeem4@gmail.com</small></div><i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </article>
+
+    <aside class="support-panel checklist-panel">
+      <div class="panel-heading"><div><span class="section-kicker"><i class="fa-solid fa-list-check"></i> Faster Support</span><h2>What to Send</h2></div><span class="panel-icon"><i class="fa-solid fa-screwdriver-wrench"></i></span></div>
+      <div class="support-checklist">
+        <div><span>1</span><p><strong>Describe the issue</strong><small>Tell me exactly what happened and what you were trying to do.</small></p></div>
+        <div><span>2</span><p><strong>Attach a screenshot</strong><small>Include the error message or the screen where the problem occurred.</small></p></div>
+        <div><span>3</span><p><strong>Mention the module</strong><small>For example: CBT, Results, Attendance, CA/Test, Report Sheets or Promotion.</small></p></div>
+        <div><span>4</span><p><strong>Add useful details</strong><small>Class, student, subject, exam or time of occurrence where relevant.</small></p></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="support-template-card">
+    <div class="template-copy">
+      <span class="section-kicker light"><i class="fa-solid fa-message"></i> Support Message</span>
+      <h2>Send a clear support request</h2>
+      <p>Use this short format when reporting an issue so the problem can be identified faster.</p>
+      <button type="button" class="support-btn template-btn" id="copySupportTemplate"><i class="fa-regular fa-copy"></i> Copy Support Template</button>
+    </div>
+    <div class="support-message-template" id="supportMessageTemplate" aria-label="Support message template">Hello Hakeem, I need support with the EMIS CBT Server.
+
+Module: [e.g. CBT / Results / Attendance]
+Issue: [brief description]
+Class/Student/Subject: [if applicable]
+Error message: [if any]
+Time it happened: [approximate time]
+
+I have attached a screenshot where applicable.</div>
+  </section>
+
+  <footer class="support-footer"><span><i class="fa-solid fa-code"></i> EMIS CBT Server Support</span><span>Developer: <strong>Hakeem Tosin</strong> • AI/ML Developer</span><span id="supportCopyright"></span></footer>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/support.js') }}"></script>
+{% endblock %}

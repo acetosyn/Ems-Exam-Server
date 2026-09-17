@@ -1,5 +1,5 @@
 /* ======================================================================
-   EMIS ADMIN DASHBOARD — LIVE CONTROL CENTER V1
+   EMIS ADMIN DASHBOARD — COMPACT COLOR SHORTCUT REDESIGN V2
    Uses existing EMIS APIs only. No backend changes required.
 
    LIVE SOURCES:
