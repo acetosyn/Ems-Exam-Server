@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "year": "2026",
+  "class_level": "JSS1",
+  "class_category": "JSS1",
+  "term": "FIRST",
+  "term_label": "1st Term",
+  "subject": "Business_studies",
+  "objective_max": 60,
+  "essay_max": 40,
+  "total_max": 100,
+  "scores": {
+    "STD001": {
+      "admission_number": "std001",
+      "student_name": "Abdulhakeem Maryam",
+      "class_arm": "JSS1A",
+      "score": 12,
+      "updated_at": "2026-09-18 10:31:06",
+      "updated_by": "admin"
+    }
+  },
+  "updated_at": "2026-09-18 10:31:06"
+}

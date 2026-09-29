@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Academic History — EMIS{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_history.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_document.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="history-shell" id="academicHistoryApp">
+  <div class="history-toast-host" id="historyToastHost" aria-live="polite"></div>
+
+  <section class="history-hero">
+    <div class="history-hero-main"><span class="history-eyebrow"><i class="fa-solid fa-box-archive"></i> PERMANENT ACADEMIC RECORDS</span><h1>Student Academic History</h1><p>Search verified records, follow progress and compile an official transcript.</p><div class="history-hero-actions"><button type="button" class="history-btn primary" id="focusHistorySearch"><i class="fa-solid fa-magnifying-glass"></i> Find Student</button><button type="button" class="history-btn ghost" id="rebuildAcademicArchive"><i class="fa-solid fa-arrows-rotate"></i> Rebuild Archive</button></div></div>
+    <aside class="history-hero-card"><div class="vault-icon"><i class="fa-solid fa-shield-halved"></i></div><div><small>Archive Status</small><strong>Permanent Record Vault</strong><span>Scores • History • Transcript • Revisions</span></div></aside>
+  </section>
+
+  <section class="history-stats" aria-label="Academic history statistics">
+    <article><span class="history-stat-icon blue"><i class="fa-solid fa-user-graduate"></i></span><div><small>Students</small><strong data-history-counter id="historyStatStudents">0</strong><em>Archived identities</em></div></article>
+    <article><span class="history-stat-icon purple"><i class="fa-solid fa-file-circle-check"></i></span><div><small>Term Records</small><strong data-history-counter id="historyStatRecords">0</strong><em>Saved academic periods</em></div></article>
+    <article><span class="history-stat-icon teal"><i class="fa-solid fa-calendar-days"></i></span><div><small>Sessions</small><strong data-history-counter id="historyStatSessions">0</strong><em>Academic years retained</em></div></article>
+    <article><span class="history-stat-icon green"><i class="fa-solid fa-circle-check"></i></span><div><small>Complete</small><strong data-history-counter id="historyStatComplete">0</strong><em>Complete report records</em></div></article>
+    <article><span class="history-stat-icon amber"><i class="fa-solid fa-clock-rotate-left"></i></span><div><small>Revisions</small><strong data-history-counter id="historyStatRevisions">0</strong><em>Protected replacements</em></div></article>
+  </section>
+
+  <section class="history-toolbar-card">
+    <div class="history-search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="historySearchInput" type="search" autocomplete="off" placeholder="Student name or admission number"><kbd>Enter</kbd></div><select id="historySessionFilter"><option value="">All sessions</option></select><select id="historyClassFilter"><option value="">All classes</option></select><select id="historyTermFilter"><option value="">All terms</option><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select><select id="historyScoreMode" title="Score display"><option value="both">Score + %</option><option value="score">Score only</option><option value="percent">% only</option></select><button type="button" class="history-btn primary" id="runHistorySearch"><i class="fa-solid fa-search"></i> Search</button><button type="button" class="history-btn ghost icon-only" id="clearHistorySearch" title="Clear filters"><i class="fa-solid fa-eraser"></i></button>
+  </section>
+
+  <section class="history-workspace">
+    <aside class="history-results-pane"><header class="pane-heading"><div><span class="section-kicker">Search Results</span><h2>Academic Records</h2></div><span id="historyResultCount" class="record-count">0</span></header><div id="historySearchResults" class="history-search-results"><div class="history-empty compact"><i class="fa-solid fa-magnifying-glass"></i><strong>Search the archive</strong><span>Use a name, admission number or filter.</span></div></div></aside>
+
+    <main class="history-profile-pane">
+      <div id="historyProfileEmpty" class="history-empty large"><i class="fa-solid fa-user-graduate"></i><strong>Select a student</strong><span>History and transcript tools will appear here.</span></div>
+
+      <div id="historyProfileContent" class="history-profile-content" hidden>
+        <section class="student-profile-banner">
+          <div class="student-avatar"><i class="fa-solid fa-user-graduate"></i></div><div class="student-profile-main"><span class="section-kicker">Student Record</span><h2 id="historyStudentName">—</h2><div class="student-meta"><span id="historyStudentAdmission">—</span><span id="historyStudentSex">—</span><span id="historyStudentCurrentClass">—</span></div></div>
+          <div class="student-profile-actions"><button type="button" class="history-btn ghost" id="exportStudentHistory"><i class="fa-solid fa-file-excel"></i> Export History</button><button type="button" class="history-btn primary" id="openStudentTranscript"><i class="fa-solid fa-file-signature"></i> Transcript</button></div>
+        </section>
+
+        <section id="identityWarning" class="identity-warning" hidden><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Admission number reused</strong><span>Select the correct student identity.</span></div><select id="historyIdentitySelect"></select></section>
+
+        <nav class="history-view-tabs" aria-label="Student academic record views"><button type="button" class="active" data-history-view="timeline"><i class="fa-solid fa-timeline"></i> History</button><button type="button" data-history-view="transcript"><i class="fa-solid fa-file-signature"></i> Transcript</button></nav>
+
+        <div id="historyTimelineView">
+          <section class="history-insight-grid">
+            <article class="history-trend-card"><header><div><span class="section-kicker">Performance</span><h3>Progress Trend</h3></div><span id="trendLatestAverage" class="trend-score">—</span></header><div id="historyTrendChart" class="history-trend-chart"></div></article>
+            <article class="history-summary-card"><header><span class="section-kicker">Quick Summary</span><h3>Academic Journey</h3></header><div class="journey-metrics"><div><small>Sessions</small><strong id="journeySessions">0</strong></div><div><small>Terms</small><strong id="journeyTerms">0</strong></div><div><small>Latest Class</small><strong id="journeyClass">—</strong></div><div><small>Latest Grade</small><strong id="journeyGrade">—</strong></div></div></article>
+          </section>
+          <section class="history-timeline-section"><header class="timeline-heading"><div><span class="section-kicker">Academic Timeline</span><h3>Session & Term History</h3></div><span class="timeline-hint"><i class="fa-solid fa-arrow-pointer"></i> Select a term for the official sheet</span></header><div id="academicTimeline" class="academic-timeline"></div></section>
+        </div>
+
+        <section id="historyTranscriptView" class="transcript-workspace" hidden>
+          <div class="transcript-action-bar"><div><span class="section-kicker">Official Record</span><h3>Academic Transcript</h3></div><div><button type="button" class="history-btn ghost" id="copyTranscriptReference"><i class="fa-regular fa-copy"></i> Copy Ref</button><button type="button" class="history-btn ghost" id="exportStudentTranscript"><i class="fa-solid fa-file-excel"></i> Export Excel</button><button type="button" class="history-btn primary" id="printStudentTranscript"><i class="fa-solid fa-print"></i> Print / Save PDF</button></div></div>
+          <div id="transcriptLoading" class="history-empty compact"><i class="fa-solid fa-circle-notch fa-spin"></i><strong>Compiling transcript…</strong></div>
+          <div id="transcriptDocumentCanvas" class="emis-document-preview-shell" hidden></div>
+        </section>
+      </div>
+    </main>
+  </section>
+
+  <section id="historyRecordPanel" class="history-record-panel" hidden>
+    <header class="record-panel-heading"><div><span class="section-kicker">Term Record</span><h2 id="recordPanelTitle">Academic Record</h2></div><div class="record-panel-actions"><button type="button" class="history-btn primary" id="printHistoryRecord"><i class="fa-solid fa-print"></i> Official Sheet</button><button type="button" class="history-btn ghost icon-only" id="closeRecordPanel"><i class="fa-solid fa-xmark"></i></button></div></header>
+    <div class="record-kpi-grid"><article><small>Actual Score</small><strong id="recordScore">—</strong></article><article><small>Average</small><strong id="recordAverage">—</strong></article><article><small>Grade</small><strong id="recordGrade">—</strong></article><article><small>Position</small><strong id="recordPosition">—</strong></article><article><small>Attendance</small><strong id="recordAttendance">—</strong></article><article><small>Subjects</small><strong id="recordSubjects">—</strong></article></div>
+    <div class="record-table-wrap"><table class="record-table"><thead><tr><th>#</th><th>Subject</th><th>CA</th><th>Exam</th><th>Total /100</th><th>Grade</th><th>Position</th><th>Comment</th></tr></thead><tbody id="recordSubjectBody"><tr><td colspan="8" class="record-empty">No subject record loaded.</td></tr></tbody></table></div>
+    <div class="record-remarks"><article><small>Form Teacher</small><strong id="recordTeacher">—</strong></article><article><small>Teacher's Remark</small><span id="recordTeacherRemark">—</span></article><article><small>Principal's Remark</small><span id="recordPrincipalRemark">—</span></article></div>
+    <div id="historyRecordDocumentCanvas" class="emis-document-preview-shell record-document-preview" hidden></div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/academic_document.js') }}"></script>
+<script src="{{ url_for('static', filename='js/academic_history.js') }}"></script>
+{% endblock %}

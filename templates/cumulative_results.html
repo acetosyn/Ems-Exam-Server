@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Cumulative Results — EMIS{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='css/cumulative_results.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/academic_document.css') }}">{% endblock %}
+
+{% block content %}
+<div class="cum-shell" id="cumulativeApp">
+  <div class="cum-toast-host" id="cumToastHost" aria-live="polite"></div>
+
+  <section class="cum-hero">
+    <div class="cum-hero-copy"><span class="cum-kicker"><i class="fa-solid fa-layer-group"></i> EMIS ANNUAL RESULTS</span><h1>Cumulative Result Sheets</h1><p>Compile First, Second and Third Term into the official annual result sheet.</p><div class="cum-hero-pills"><span><i class="fa-solid fa-file-lines"></i> Official Sheet</span><span><i class="fa-solid fa-list-ol"></i> Actual Scores</span><span><i class="fa-solid fa-percent"></i> Percentages</span><span><i class="fa-solid fa-file-pdf"></i> PDF Ready</span></div></div>
+    <aside class="cum-hero-card"><div><small>Selected Session</small><strong id="heroSession">—</strong></div><div><small>Selected Class</small><strong id="heroClass">—</strong></div><div class="hero-card-status"><span></span><b>History-powered</b></div></aside>
+  </section>
+
+  <section class="cum-stats"><article><i class="fa-solid fa-users"></i><div><span>Students</span><strong id="statStudents" data-counter>0</strong></div></article><article><i class="fa-solid fa-circle-check"></i><div><span>3-Term Complete</span><strong id="statComplete" data-counter>0</strong></div></article><article><i class="fa-solid fa-chart-line"></i><div><span>Class Average</span><strong id="statAverage">—</strong></div></article><article><i class="fa-solid fa-bars-progress"></i><div><span>Annual Coverage</span><strong id="statCoverage">0%</strong></div></article></section>
+
+  <section class="cum-workspace">
+    <div class="cum-filter-card"><label><span>Academic Session</span><select id="cumSession"><option value="">Select session…</option></select></label><label><span>Class</span><select id="cumClass"><option value="">Select class…</option></select></label><label><span>Class Arm</span><select id="cumArm"><option value="">All class arms</option></select></label><button type="button" class="cum-btn primary" id="loadCumulative"><i class="fa-solid fa-bolt"></i> Compile Results</button><button type="button" class="cum-btn" id="exportClassCumulative" disabled><i class="fa-solid fa-file-excel"></i> Export Class</button><button type="button" class="cum-btn pdf-btn" id="generateClassCumulativePdf" disabled><i class="fa-solid fa-file-pdf"></i> Class PDF</button></div>
+
+    <div class="cum-coverage-card"><div class="coverage-copy"><span>Annual Completion</span><strong id="coverageLabel">No class loaded</strong></div><div class="coverage-track"><span id="coverageBar"></span></div><em id="coverageMeta">Select a session and class.</em></div>
+
+    <div class="cum-layout">
+      <section class="cum-list-card">
+        <div class="cum-card-head"><div><span class="cum-kicker">Class Overview</span><h2>Students</h2></div><div class="cum-head-tools"><div class="emis-score-view-toggle" id="cumScoreMode"><button type="button" class="active" data-score-mode="both">Score + %</button><button type="button" data-score-mode="score">Score</button><button type="button" data-score-mode="percent">%</button></div><label class="cum-search"><i class="fa-solid fa-magnifying-glass"></i><input id="cumStudentSearch" type="search" placeholder="Find student"></label></div></div>
+        <div class="cum-help-strip"><i class="fa-solid fa-circle-info"></i><span>Click any student row or <strong>View Sheet</strong> to open the official cumulative report. The first student opens automatically after compilation.</span></div>
+        <div class="cum-table-wrap"><table class="cum-table"><thead><tr><th>#</th><th>Student</th><th class="sheet-action-col">Sheet</th><th>1st Term</th><th>2nd Term</th><th>3rd Term</th><th>Annual</th><th>Pos.</th><th>Status</th></tr></thead><tbody id="cumStudentBody"><tr><td colspan="9" class="cum-empty"><i class="fa-solid fa-layer-group"></i><strong>No cumulative class loaded</strong><span>Select a session and class above.</span></td></tr></tbody></table></div>
+      </section>
+
+      <aside class="cum-preview-card" id="cumPreviewCard">
+        <div class="cum-preview-empty" id="cumPreviewEmpty"><i class="fa-regular fa-file-lines"></i><strong>Official cumulative sheet</strong><span>Compile a class to preview a student's printable result here.</span></div>
+        <div class="cum-preview-content" id="cumPreviewContent" hidden>
+          <div class="preview-title-row"><div><span class="cum-kicker">Official Sheet Preview</span><strong id="previewStudentLabel">Selected Student</strong></div><div class="preview-toolbar no-print"><button type="button" class="cum-btn" id="exportStudentCumulative"><i class="fa-solid fa-file-excel"></i> Excel</button><button type="button" class="cum-btn primary" id="printStudentCumulative"><i class="fa-solid fa-file-pdf"></i> Generate PDF</button></div></div>
+          <div id="cumDocumentCanvas" class="emis-document-preview-shell"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/academic_document.js') }}"></script><script src="{{ url_for('static', filename='js/cumulative_results.js') }}"></script>{% endblock %}

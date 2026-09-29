@@ -1,0 +1,4166 @@
+{
+  "version": 2,
+  "created_at": "2026-09-22T12:10:17Z",
+  "updated_at": "2026-09-22T12:10:17Z",
+  "subjects": {
+    "LETTER WORKS": {
+      "id": "SUBJ_F964760A8D0E",
+      "key": "LETTER WORKS",
+      "name": "Letter Works",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "NUMBER WORK": {
+      "id": "SUBJ_ECA2AAF9AFAC",
+      "key": "NUMBER WORK",
+      "name": "Number Work",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "PICTURE READING": {
+      "id": "SUBJ_44572AF8A624",
+      "key": "PICTURE READING",
+      "name": "Picture Reading",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "CREATIVE ART": {
+      "id": "SUBJ_61A2DDC96AB3",
+      "key": "CREATIVE ART",
+      "name": "Creative Art",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "FREE WRITING SKILL": {
+      "id": "SUBJ_5546EEC9523E",
+      "key": "FREE WRITING SKILL",
+      "name": "Free Writing Skill",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ISLAMIYYAH": {
+      "id": "SUBJ_10020B8F29E9",
+      "key": "ISLAMIYYAH",
+      "name": "Islamiyyah",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "PRE SCIENCE": {
+      "id": "SUBJ_0B83DC18F87E",
+      "key": "PRE SCIENCE",
+      "name": "Pre-Science",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "SOCIAL HABITS": {
+      "id": "SUBJ_70404C64FFD1",
+      "key": "SOCIAL HABITS",
+      "name": "Social Habits",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "WRITING SKILL": {
+      "id": "SUBJ_91F1A770AD80",
+      "key": "WRITING SKILL",
+      "name": "Writing Skill",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ARABIC": {
+      "id": "SUBJ_03D133DA9301",
+      "key": "ARABIC",
+      "name": "Arabic",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "IRS": {
+      "id": "SUBJ_9497431DBC38",
+      "key": "IRS",
+      "name": "IRK",
+      "active": true,
+      "source": "school_document",
+      "aliases": [
+        "I. R. S"
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "QURAN": {
+      "id": "SUBJ_79F81BABF2D2",
+      "key": "QURAN",
+      "name": "Quran",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "MATHEMATICS": {
+      "id": "SUBJ_40FEE0A0A578",
+      "key": "MATHEMATICS",
+      "name": "Mathematics",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ENGLISH STUDIES": {
+      "id": "SUBJ_8FF821E88B49",
+      "key": "ENGLISH STUDIES",
+      "name": "English Studies",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "BASIC SCIENCE": {
+      "id": "SUBJ_29536337F609",
+      "key": "BASIC SCIENCE",
+      "name": "Basic Science",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "SOC AND CIT STD": {
+      "id": "SUBJ_9BB1B84B6DBE",
+      "key": "SOC AND CIT STD",
+      "name": "Social & Citizenship Studies",
+      "active": true,
+      "source": "school_document",
+      "aliases": [
+        "Social and Citizenship Studies",
+        "Soc. & Cit. Std"
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "HAND WRITING": {
+      "id": "SUBJ_4EAA7232CC95",
+      "key": "HAND WRITING",
+      "name": "Hand Writing",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "HAUSA LANGUAGE": {
+      "id": "SUBJ_5F9BEE5E7C26",
+      "key": "HAUSA LANGUAGE",
+      "name": "Hausa Language",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "YORUBA LANGUAGE": {
+      "id": "SUBJ_986AAA8A95E0",
+      "key": "YORUBA LANGUAGE",
+      "name": "Yoruba Language",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "BASIC DIGITAL LITERACY": {
+      "id": "SUBJ_76C42E86E017",
+      "key": "BASIC DIGITAL LITERACY",
+      "name": "Basic Digital Literacy",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "PHE": {
+      "id": "SUBJ_C6686A087820",
+      "key": "PHE",
+      "name": "Physical & Health Education",
+      "active": true,
+      "source": "school_document",
+      "aliases": [
+        "P.H.E"
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "NIGERIAN HISTORY": {
+      "id": "SUBJ_40F2C1D213F9",
+      "key": "NIGERIAN HISTORY",
+      "name": "Nigerian History",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "CCA": {
+      "id": "SUBJ_C66D7077AFAC",
+      "key": "CCA",
+      "name": "Culture & Creative Arts (CCA)",
+      "active": true,
+      "source": "school_document",
+      "aliases": [
+        "CCA"
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "BST": {
+      "id": "SUBJ_554D9F76CCA5",
+      "key": "BST",
+      "name": "Basic Science & Technology",
+      "active": true,
+      "source": "school_document",
+      "aliases": [
+        "BST"
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "PRE VOCATIONAL STUDIES": {
+      "id": "SUBJ_78DE5DED09F5",
+      "key": "PRE VOCATIONAL STUDIES",
+      "name": "Pre-Vocational Studies",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ENGLISH LANGUAGE": {
+      "id": "SUBJ_ACFDB79CCD58",
+      "key": "ENGLISH LANGUAGE",
+      "name": "English Language",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "POISE": {
+      "id": "SUBJ_8FBB89622833",
+      "key": "POISE",
+      "name": "Poise",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "CIT AND HER STD": {
+      "id": "SUBJ_40C9B8C6575D",
+      "key": "CIT AND HER STD",
+      "name": "Heritage & Citizenship Studies",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [
+        "Cit & Her. Std"
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "NATIONAL VALUE": {
+      "id": "SUBJ_FC5919D594CC",
+      "key": "NATIONAL VALUE",
+      "name": "National Value",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ARABIC LANGUAGE": {
+      "id": "SUBJ_37B7F386339F",
+      "key": "ARABIC LANGUAGE",
+      "name": "Arabic Language",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "BUSINESS STUDIES": {
+      "id": "SUBJ_B0681D5E025E",
+      "key": "BUSINESS STUDIES",
+      "name": "Business Studies",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "HISTORY": {
+      "id": "SUBJ_F6DC58F5E803",
+      "key": "HISTORY",
+      "name": "History",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "PVS": {
+      "id": "SUBJ_545AD0A25978",
+      "key": "PVS",
+      "name": "PVS",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "HORT AND CROP PRODUCTION": {
+      "id": "SUBJ_9A2CCD357EE7",
+      "key": "HORT AND CROP PRODUCTION",
+      "name": "Horticulture & Crop Production",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [
+        "Hort & Crop Production"
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "DIGITAL TECH": {
+      "id": "SUBJ_42F0CC20FC17",
+      "key": "DIGITAL TECH",
+      "name": "Digital Technology",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [
+        "Digital Tech."
+      ],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "INTER SCIENCE": {
+      "id": "SUBJ_1A01E9911B1F",
+      "key": "INTER SCIENCE",
+      "name": "Inter Science",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "GARMENT MAKING": {
+      "id": "SUBJ_80DC4BF35BC1",
+      "key": "GARMENT MAKING",
+      "name": "Garment Making",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "CHEMISTRY": {
+      "id": "SUBJ_B351CA249371",
+      "key": "CHEMISTRY",
+      "name": "Chemistry",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "PHYSICS": {
+      "id": "SUBJ_854F08BE3419",
+      "key": "PHYSICS",
+      "name": "Physics",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "BIOLOGY": {
+      "id": "SUBJ_84FCFB2AD31D",
+      "key": "BIOLOGY",
+      "name": "Biology",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "TECHNICAL DRAWING": {
+      "id": "SUBJ_D3C7E4F78426",
+      "key": "TECHNICAL DRAWING",
+      "name": "Technical Drawing",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "COMPUTER SCIENCE": {
+      "id": "SUBJ_2D485EC0ABED",
+      "key": "COMPUTER SCIENCE",
+      "name": "Computer Science",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "FURTHER MATHEMATICS": {
+      "id": "SUBJ_4B511310EF25",
+      "key": "FURTHER MATHEMATICS",
+      "name": "Further Mathematics",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "AGRICULTURAL SCIENCE": {
+      "id": "SUBJ_AD3B06DA4B95",
+      "key": "AGRICULTURAL SCIENCE",
+      "name": "Agricultural Science",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "CIVIC EDUCATION": {
+      "id": "SUBJ_6195E7D586DE",
+      "key": "CIVIC EDUCATION",
+      "name": "Civic Education",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "GEOGRAPHY": {
+      "id": "SUBJ_250F82C65E6F",
+      "key": "GEOGRAPHY",
+      "name": "Geography",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ECONOMICS": {
+      "id": "SUBJ_1C6C10D4A0DA",
+      "key": "ECONOMICS",
+      "name": "Economics",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "LITERATURE": {
+      "id": "SUBJ_BE47680B0F0C",
+      "key": "LITERATURE",
+      "name": "Literature",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "GOVERNMENT": {
+      "id": "SUBJ_4C914641D3A7",
+      "key": "GOVERNMENT",
+      "name": "Government",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "MARKETING": {
+      "id": "SUBJ_48D843BDA531",
+      "key": "MARKETING",
+      "name": "Marketing",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "FINANCIAL ACCOUNT": {
+      "id": "SUBJ_90D32BA68CB9",
+      "key": "FINANCIAL ACCOUNT",
+      "name": "Financial Account",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "COMMERCE": {
+      "id": "SUBJ_822031470499",
+      "key": "COMMERCE",
+      "name": "Commerce",
+      "active": true,
+      "source": "existing_emis_config",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "HADITH": {
+      "id": "SUBJ_7B75FE7DACE3",
+      "key": "HADITH",
+      "name": "Hadith",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ARABIYAH": {
+      "id": "SUBJ_EB5CF3BF0D27",
+      "key": "ARABIYAH",
+      "name": "Arabiyah",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "ARQAAM": {
+      "id": "SUBJ_095F105927ED",
+      "key": "ARQAAM",
+      "name": "Arqaam",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "HURUF": {
+      "id": "SUBJ_B7223EE706FA",
+      "key": "HURUF",
+      "name": "Huruf",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "FIQH": {
+      "id": "SUBJ_5A402594DD07",
+      "key": "FIQH",
+      "name": "Fiqh",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "TAWHEED": {
+      "id": "SUBJ_283AD2097A00",
+      "key": "TAWHEED",
+      "name": "Tawheed",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "MURTALA": {
+      "id": "SUBJ_84D42FFC1C06",
+      "key": "MURTALA",
+      "name": "Murtala",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "HISAB": {
+      "id": "SUBJ_12C3D2AE6C41",
+      "key": "HISAB",
+      "name": "Hisab",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "AZKHAR": {
+      "id": "SUBJ_A79D3C3A3AD2",
+      "key": "AZKHAR",
+      "name": "Azkhar",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "SIRAH": {
+      "id": "SUBJ_EB0F733167B3",
+      "key": "SIRAH",
+      "name": "Sirah",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    },
+    "TAJWEED": {
+      "id": "SUBJ_C8B31CAAABCB",
+      "key": "TAJWEED",
+      "name": "Tajweed",
+      "active": true,
+      "source": "school_document",
+      "aliases": [],
+      "name_overridden": false,
+      "created_at": "2026-09-22T12:10:17Z",
+      "updated_at": "2026-09-22T12:10:17Z"
+    }
+  },
+  "assignments": {
+    "STARTER": [
+      {
+        "subject_id": "SUBJ_F964760A8D0E",
+        "subject_key": "LETTER WORKS",
+        "display_name": "Letter Works",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ECA2AAF9AFAC",
+        "subject_key": "NUMBER WORK",
+        "display_name": "Number Work",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_44572AF8A624",
+        "subject_key": "PICTURE READING",
+        "display_name": "Picture Reading",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_61A2DDC96AB3",
+        "subject_key": "CREATIVE ART",
+        "display_name": "Creative Art",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_5546EEC9523E",
+        "subject_key": "FREE WRITING SKILL",
+        "display_name": "Free Writing Skill",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      }
+    ],
+    "PRE_CLASS": [
+      {
+        "subject_id": "SUBJ_F964760A8D0E",
+        "subject_key": "LETTER WORKS",
+        "display_name": "Letter Works",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ECA2AAF9AFAC",
+        "subject_key": "NUMBER WORK",
+        "display_name": "Number Work",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_44572AF8A624",
+        "subject_key": "PICTURE READING",
+        "display_name": "Picture Reading",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_61A2DDC96AB3",
+        "subject_key": "CREATIVE ART",
+        "display_name": "Creative Art",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_5546EEC9523E",
+        "subject_key": "FREE WRITING SKILL",
+        "display_name": "Free Writing Skill",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      }
+    ],
+    "NURSERY1": [
+      {
+        "subject_id": "SUBJ_F964760A8D0E",
+        "subject_key": "LETTER WORKS",
+        "display_name": "Letter Works",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ECA2AAF9AFAC",
+        "subject_key": "NUMBER WORK",
+        "display_name": "Number Work",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_0B83DC18F87E",
+        "subject_key": "PRE SCIENCE",
+        "display_name": "Pre-Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_70404C64FFD1",
+        "subject_key": "SOCIAL HABITS",
+        "display_name": "Social Habits",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_61A2DDC96AB3",
+        "subject_key": "CREATIVE ART",
+        "display_name": "Creative Art",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_91F1A770AD80",
+        "subject_key": "WRITING SKILL",
+        "display_name": "Writing Skill",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "I. R. S",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      }
+    ],
+    "NURSERY2": [
+      {
+        "subject_id": "SUBJ_F964760A8D0E",
+        "subject_key": "LETTER WORKS",
+        "display_name": "Letter Works",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ECA2AAF9AFAC",
+        "subject_key": "NUMBER WORK",
+        "display_name": "Number Work",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_0B83DC18F87E",
+        "subject_key": "PRE SCIENCE",
+        "display_name": "Pre-Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_70404C64FFD1",
+        "subject_key": "SOCIAL HABITS",
+        "display_name": "Social Habits",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_61A2DDC96AB3",
+        "subject_key": "CREATIVE ART",
+        "display_name": "Creative Art",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_91F1A770AD80",
+        "subject_key": "WRITING SKILL",
+        "display_name": "Writing Skill",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "I. R. S",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      }
+    ],
+    "TAHFEEZ1": [
+      {
+        "subject_id": "SUBJ_F964760A8D0E",
+        "subject_key": "LETTER WORKS",
+        "display_name": "Letter Works",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ECA2AAF9AFAC",
+        "subject_key": "NUMBER WORK",
+        "display_name": "Number Work",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_0B83DC18F87E",
+        "subject_key": "PRE SCIENCE",
+        "display_name": "Pre-Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_70404C64FFD1",
+        "subject_key": "SOCIAL HABITS",
+        "display_name": "Social Habits",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_61A2DDC96AB3",
+        "subject_key": "CREATIVE ART",
+        "display_name": "Creative Art",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_91F1A770AD80",
+        "subject_key": "WRITING SKILL",
+        "display_name": "Writing Skill",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      }
+    ],
+    "TAHFEEZ2": [
+      {
+        "subject_id": "SUBJ_F964760A8D0E",
+        "subject_key": "LETTER WORKS",
+        "display_name": "Letter Works",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ECA2AAF9AFAC",
+        "subject_key": "NUMBER WORK",
+        "display_name": "Number Work",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_0B83DC18F87E",
+        "subject_key": "PRE SCIENCE",
+        "display_name": "Pre-Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_70404C64FFD1",
+        "subject_key": "SOCIAL HABITS",
+        "display_name": "Social Habits",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_61A2DDC96AB3",
+        "subject_key": "CREATIVE ART",
+        "display_name": "Creative Art",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_91F1A770AD80",
+        "subject_key": "WRITING SKILL",
+        "display_name": "Writing Skill",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      }
+    ],
+    "TAHFEEZ3": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_29536337F609",
+        "subject_key": "BASIC SCIENCE",
+        "display_name": "Basic Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social and Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_4EAA7232CC95",
+        "subject_key": "HAND WRITING",
+        "display_name": "Hand Writing",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "I. R. S",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_76C42E86E017",
+        "subject_key": "BASIC DIGITAL LITERACY",
+        "display_name": "Basic Digital Literacy",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      }
+    ],
+    "TAHFEEZ4": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_29536337F609",
+        "subject_key": "BASIC SCIENCE",
+        "display_name": "Basic Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social and Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_4EAA7232CC95",
+        "subject_key": "HAND WRITING",
+        "display_name": "Hand Writing",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "I. R. S",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_76C42E86E017",
+        "subject_key": "BASIC DIGITAL LITERACY",
+        "display_name": "Basic Digital Literacy",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      }
+    ],
+    "TAHFEEZ5": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_29536337F609",
+        "subject_key": "BASIC SCIENCE",
+        "display_name": "Basic Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social and Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_4EAA7232CC95",
+        "subject_key": "HAND WRITING",
+        "display_name": "Hand Writing",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "I. R. S",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_76C42E86E017",
+        "subject_key": "BASIC DIGITAL LITERACY",
+        "display_name": "Basic Digital Literacy",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      }
+    ],
+    "PRIMARY1": [
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_29536337F609",
+        "subject_key": "BASIC SCIENCE",
+        "display_name": "Basic Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "Physical & Health Education",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_40F2C1D213F9",
+        "subject_key": "NIGERIAN HISTORY",
+        "display_name": "Nigerian History",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social & Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "Culture & Creative Arts (CCA)",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      }
+    ],
+    "PRIMARY2": [
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_29536337F609",
+        "subject_key": "BASIC SCIENCE",
+        "display_name": "Basic Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "Physical & Health Education",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_40F2C1D213F9",
+        "subject_key": "NIGERIAN HISTORY",
+        "display_name": "Nigerian History",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social & Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "Culture & Creative Arts (CCA)",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      }
+    ],
+    "PRIMARY3": [
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_29536337F609",
+        "subject_key": "BASIC SCIENCE",
+        "display_name": "Basic Science",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "Physical & Health Education",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_40F2C1D213F9",
+        "subject_key": "NIGERIAN HISTORY",
+        "display_name": "Nigerian History",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social & Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "Culture & Creative Arts (CCA)",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      }
+    ],
+    "PRIMARY4": [
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_554D9F76CCA5",
+        "subject_key": "BST",
+        "display_name": "Basic Science & Technology",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "Physical & Health Education",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_76C42E86E017",
+        "subject_key": "BASIC DIGITAL LITERACY",
+        "display_name": "Basic Digital Literacy",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_40F2C1D213F9",
+        "subject_key": "NIGERIAN HISTORY",
+        "display_name": "Nigerian History",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social & Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "Culture & Creative Arts (CCA)",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_78DE5DED09F5",
+        "subject_key": "PRE VOCATIONAL STUDIES",
+        "display_name": "Pre-Vocational Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 13
+      }
+    ],
+    "PRIMARY5": [
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_554D9F76CCA5",
+        "subject_key": "BST",
+        "display_name": "Basic Science & Technology",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "Physical & Health Education",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_76C42E86E017",
+        "subject_key": "BASIC DIGITAL LITERACY",
+        "display_name": "Basic Digital Literacy",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_40F2C1D213F9",
+        "subject_key": "NIGERIAN HISTORY",
+        "display_name": "Nigerian History",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social & Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "Culture & Creative Arts (CCA)",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_78DE5DED09F5",
+        "subject_key": "PRE VOCATIONAL STUDIES",
+        "display_name": "Pre-Vocational Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 13
+      }
+    ],
+    "PRIMARY6": [
+      {
+        "subject_id": "SUBJ_8FF821E88B49",
+        "subject_key": "ENGLISH STUDIES",
+        "display_name": "English Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_554D9F76CCA5",
+        "subject_key": "BST",
+        "display_name": "Basic Science & Technology",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "Physical & Health Education",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_76C42E86E017",
+        "subject_key": "BASIC DIGITAL LITERACY",
+        "display_name": "Basic Digital Literacy",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_40F2C1D213F9",
+        "subject_key": "NIGERIAN HISTORY",
+        "display_name": "Nigerian History",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Social & Citizenship Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "Culture & Creative Arts (CCA)",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_78DE5DED09F5",
+        "subject_key": "PRE VOCATIONAL STUDIES",
+        "display_name": "Pre-Vocational Studies",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_03D133DA9301",
+        "subject_key": "ARABIC",
+        "display_name": "Arabic",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 13
+      }
+    ],
+    "JSS1": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ACFDB79CCD58",
+        "subject_key": "ENGLISH LANGUAGE",
+        "display_name": "English Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_8FBB89622833",
+        "subject_key": "POISE",
+        "display_name": "Poise",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_40C9B8C6575D",
+        "subject_key": "CIT AND HER STD",
+        "display_name": "Cit & Her. Std",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_FC5919D594CC",
+        "subject_key": "NATIONAL VALUE",
+        "display_name": "National Value",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_37B7F386339F",
+        "subject_key": "ARABIC LANGUAGE",
+        "display_name": "Arabic Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "CCA",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_B0681D5E025E",
+        "subject_key": "BUSINESS STUDIES",
+        "display_name": "Business Studies",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_F6DC58F5E803",
+        "subject_key": "HISTORY",
+        "display_name": "History",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 13
+      },
+      {
+        "subject_id": "SUBJ_554D9F76CCA5",
+        "subject_key": "BST",
+        "display_name": "BST",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 14
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "P.H.E",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 15
+      },
+      {
+        "subject_id": "SUBJ_545AD0A25978",
+        "subject_key": "PVS",
+        "display_name": "PVS",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 16
+      },
+      {
+        "subject_id": "SUBJ_9A2CCD357EE7",
+        "subject_key": "HORT AND CROP PRODUCTION",
+        "display_name": "Hort & Crop Production",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 17
+      },
+      {
+        "subject_id": "SUBJ_42F0CC20FC17",
+        "subject_key": "DIGITAL TECH",
+        "display_name": "Digital Tech.",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 18
+      },
+      {
+        "subject_id": "SUBJ_1A01E9911B1F",
+        "subject_key": "INTER SCIENCE",
+        "display_name": "Inter Science",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 19
+      },
+      {
+        "subject_id": "SUBJ_80DC4BF35BC1",
+        "subject_key": "GARMENT MAKING",
+        "display_name": "Garment Making",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 20
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Soc. & Cit. Std",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 21
+      }
+    ],
+    "JSS2": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ACFDB79CCD58",
+        "subject_key": "ENGLISH LANGUAGE",
+        "display_name": "English Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_8FBB89622833",
+        "subject_key": "POISE",
+        "display_name": "Poise",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_40C9B8C6575D",
+        "subject_key": "CIT AND HER STD",
+        "display_name": "Cit & Her. Std",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_FC5919D594CC",
+        "subject_key": "NATIONAL VALUE",
+        "display_name": "National Value",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_37B7F386339F",
+        "subject_key": "ARABIC LANGUAGE",
+        "display_name": "Arabic Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "CCA",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_B0681D5E025E",
+        "subject_key": "BUSINESS STUDIES",
+        "display_name": "Business Studies",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_F6DC58F5E803",
+        "subject_key": "HISTORY",
+        "display_name": "History",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 13
+      },
+      {
+        "subject_id": "SUBJ_554D9F76CCA5",
+        "subject_key": "BST",
+        "display_name": "BST",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 14
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "P.H.E",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 15
+      },
+      {
+        "subject_id": "SUBJ_545AD0A25978",
+        "subject_key": "PVS",
+        "display_name": "PVS",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 16
+      },
+      {
+        "subject_id": "SUBJ_9A2CCD357EE7",
+        "subject_key": "HORT AND CROP PRODUCTION",
+        "display_name": "Hort & Crop Production",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 17
+      },
+      {
+        "subject_id": "SUBJ_42F0CC20FC17",
+        "subject_key": "DIGITAL TECH",
+        "display_name": "Digital Tech.",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 18
+      },
+      {
+        "subject_id": "SUBJ_1A01E9911B1F",
+        "subject_key": "INTER SCIENCE",
+        "display_name": "Inter Science",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 19
+      },
+      {
+        "subject_id": "SUBJ_80DC4BF35BC1",
+        "subject_key": "GARMENT MAKING",
+        "display_name": "Garment Making",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 20
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Soc. & Cit. Std",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 21
+      }
+    ],
+    "JSS3": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ACFDB79CCD58",
+        "subject_key": "ENGLISH LANGUAGE",
+        "display_name": "English Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_8FBB89622833",
+        "subject_key": "POISE",
+        "display_name": "Poise",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_40C9B8C6575D",
+        "subject_key": "CIT AND HER STD",
+        "display_name": "Cit & Her. Std",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_FC5919D594CC",
+        "subject_key": "NATIONAL VALUE",
+        "display_name": "National Value",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_37B7F386339F",
+        "subject_key": "ARABIC LANGUAGE",
+        "display_name": "Arabic Language",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_C66D7077AFAC",
+        "subject_key": "CCA",
+        "display_name": "CCA",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_B0681D5E025E",
+        "subject_key": "BUSINESS STUDIES",
+        "display_name": "Business Studies",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_F6DC58F5E803",
+        "subject_key": "HISTORY",
+        "display_name": "History",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 13
+      },
+      {
+        "subject_id": "SUBJ_554D9F76CCA5",
+        "subject_key": "BST",
+        "display_name": "BST",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 14
+      },
+      {
+        "subject_id": "SUBJ_C6686A087820",
+        "subject_key": "PHE",
+        "display_name": "P.H.E",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 15
+      },
+      {
+        "subject_id": "SUBJ_545AD0A25978",
+        "subject_key": "PVS",
+        "display_name": "PVS",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 16
+      },
+      {
+        "subject_id": "SUBJ_9A2CCD357EE7",
+        "subject_key": "HORT AND CROP PRODUCTION",
+        "display_name": "Hort & Crop Production",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 17
+      },
+      {
+        "subject_id": "SUBJ_42F0CC20FC17",
+        "subject_key": "DIGITAL TECH",
+        "display_name": "Digital Tech.",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 18
+      },
+      {
+        "subject_id": "SUBJ_1A01E9911B1F",
+        "subject_key": "INTER SCIENCE",
+        "display_name": "Inter Science",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 19
+      },
+      {
+        "subject_id": "SUBJ_80DC4BF35BC1",
+        "subject_key": "GARMENT MAKING",
+        "display_name": "Garment Making",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 20
+      },
+      {
+        "subject_id": "SUBJ_9BB1B84B6DBE",
+        "subject_key": "SOC AND CIT STD",
+        "display_name": "Soc. & Cit. Std",
+        "active": true,
+        "tracks": [],
+        "source": "existing_emis_config",
+        "order": 21
+      }
+    ],
+    "SS1": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ACFDB79CCD58",
+        "subject_key": "ENGLISH LANGUAGE",
+        "display_name": "English Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_B351CA249371",
+        "subject_key": "CHEMISTRY",
+        "display_name": "Chemistry",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_854F08BE3419",
+        "subject_key": "PHYSICS",
+        "display_name": "Physics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_84FCFB2AD31D",
+        "subject_key": "BIOLOGY",
+        "display_name": "Biology",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_D3C7E4F78426",
+        "subject_key": "TECHNICAL DRAWING",
+        "display_name": "Technical Drawing",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_2D485EC0ABED",
+        "subject_key": "COMPUTER SCIENCE",
+        "display_name": "Computer Science",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_4B511310EF25",
+        "subject_key": "FURTHER MATHEMATICS",
+        "display_name": "Further Mathematics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_AD3B06DA4B95",
+        "subject_key": "AGRICULTURAL SCIENCE",
+        "display_name": "Agricultural Science",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_6195E7D586DE",
+        "subject_key": "CIVIC EDUCATION",
+        "display_name": "Civic Education",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_250F82C65E6F",
+        "subject_key": "GEOGRAPHY",
+        "display_name": "Geography",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_1C6C10D4A0DA",
+        "subject_key": "ECONOMICS",
+        "display_name": "Economics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 13
+      },
+      {
+        "subject_id": "SUBJ_42F0CC20FC17",
+        "subject_key": "DIGITAL TECH",
+        "display_name": "Digital Tech.",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 14
+      },
+      {
+        "subject_id": "SUBJ_40C9B8C6575D",
+        "subject_key": "CIT AND HER STD",
+        "display_name": "Cit & Her. Std",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 15
+      },
+      {
+        "subject_id": "SUBJ_80DC4BF35BC1",
+        "subject_key": "GARMENT MAKING",
+        "display_name": "Garment Making",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 16
+      },
+      {
+        "subject_id": "SUBJ_8FBB89622833",
+        "subject_key": "POISE",
+        "display_name": "Poise",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 17
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 18
+      },
+      {
+        "subject_id": "SUBJ_BE47680B0F0C",
+        "subject_key": "LITERATURE",
+        "display_name": "Literature",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 19
+      },
+      {
+        "subject_id": "SUBJ_4C914641D3A7",
+        "subject_key": "GOVERNMENT",
+        "display_name": "Government",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 20
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 21
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 22
+      },
+      {
+        "subject_id": "SUBJ_37B7F386339F",
+        "subject_key": "ARABIC LANGUAGE",
+        "display_name": "Arabic Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 23
+      },
+      {
+        "subject_id": "SUBJ_48D843BDA531",
+        "subject_key": "MARKETING",
+        "display_name": "Marketing",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 24
+      },
+      {
+        "subject_id": "SUBJ_90D32BA68CB9",
+        "subject_key": "FINANCIAL ACCOUNT",
+        "display_name": "Financial Account",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 25
+      },
+      {
+        "subject_id": "SUBJ_822031470499",
+        "subject_key": "COMMERCE",
+        "display_name": "Commerce",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 26
+      }
+    ],
+    "SS2": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ACFDB79CCD58",
+        "subject_key": "ENGLISH LANGUAGE",
+        "display_name": "English Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_B351CA249371",
+        "subject_key": "CHEMISTRY",
+        "display_name": "Chemistry",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_854F08BE3419",
+        "subject_key": "PHYSICS",
+        "display_name": "Physics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_84FCFB2AD31D",
+        "subject_key": "BIOLOGY",
+        "display_name": "Biology",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_D3C7E4F78426",
+        "subject_key": "TECHNICAL DRAWING",
+        "display_name": "Technical Drawing",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_9497431DBC38",
+        "subject_key": "IRS",
+        "display_name": "IRK",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_2D485EC0ABED",
+        "subject_key": "COMPUTER SCIENCE",
+        "display_name": "Computer Science",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_4B511310EF25",
+        "subject_key": "FURTHER MATHEMATICS",
+        "display_name": "Further Mathematics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_AD3B06DA4B95",
+        "subject_key": "AGRICULTURAL SCIENCE",
+        "display_name": "Agricultural Science",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_6195E7D586DE",
+        "subject_key": "CIVIC EDUCATION",
+        "display_name": "Civic Education",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_250F82C65E6F",
+        "subject_key": "GEOGRAPHY",
+        "display_name": "Geography",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_1C6C10D4A0DA",
+        "subject_key": "ECONOMICS",
+        "display_name": "Economics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 13
+      },
+      {
+        "subject_id": "SUBJ_8FBB89622833",
+        "subject_key": "POISE",
+        "display_name": "Poise",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 14
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 15
+      },
+      {
+        "subject_id": "SUBJ_BE47680B0F0C",
+        "subject_key": "LITERATURE",
+        "display_name": "Literature",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 16
+      },
+      {
+        "subject_id": "SUBJ_4C914641D3A7",
+        "subject_key": "GOVERNMENT",
+        "display_name": "Government",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 17
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 18
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 19
+      },
+      {
+        "subject_id": "SUBJ_37B7F386339F",
+        "subject_key": "ARABIC LANGUAGE",
+        "display_name": "Arabic Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 20
+      },
+      {
+        "subject_id": "SUBJ_48D843BDA531",
+        "subject_key": "MARKETING",
+        "display_name": "Marketing",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 21
+      },
+      {
+        "subject_id": "SUBJ_90D32BA68CB9",
+        "subject_key": "FINANCIAL ACCOUNT",
+        "display_name": "Financial Account",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 22
+      },
+      {
+        "subject_id": "SUBJ_822031470499",
+        "subject_key": "COMMERCE",
+        "display_name": "Commerce",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 23
+      }
+    ],
+    "SS3": [
+      {
+        "subject_id": "SUBJ_40FEE0A0A578",
+        "subject_key": "MATHEMATICS",
+        "display_name": "Mathematics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_ACFDB79CCD58",
+        "subject_key": "ENGLISH LANGUAGE",
+        "display_name": "English Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_B351CA249371",
+        "subject_key": "CHEMISTRY",
+        "display_name": "Chemistry",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_854F08BE3419",
+        "subject_key": "PHYSICS",
+        "display_name": "Physics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_84FCFB2AD31D",
+        "subject_key": "BIOLOGY",
+        "display_name": "Biology",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_4B511310EF25",
+        "subject_key": "FURTHER MATHEMATICS",
+        "display_name": "Further Mathematics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_AD3B06DA4B95",
+        "subject_key": "AGRICULTURAL SCIENCE",
+        "display_name": "Agricultural Science",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_6195E7D586DE",
+        "subject_key": "CIVIC EDUCATION",
+        "display_name": "Civic Education",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 8
+      },
+      {
+        "subject_id": "SUBJ_1C6C10D4A0DA",
+        "subject_key": "ECONOMICS",
+        "display_name": "Economics",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 9
+      },
+      {
+        "subject_id": "SUBJ_8FBB89622833",
+        "subject_key": "POISE",
+        "display_name": "Poise",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 10
+      },
+      {
+        "subject_id": "SUBJ_10020B8F29E9",
+        "subject_key": "ISLAMIYYAH",
+        "display_name": "Islamiyyah",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 11
+      },
+      {
+        "subject_id": "SUBJ_BE47680B0F0C",
+        "subject_key": "LITERATURE",
+        "display_name": "Literature",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 12
+      },
+      {
+        "subject_id": "SUBJ_4C914641D3A7",
+        "subject_key": "GOVERNMENT",
+        "display_name": "Government",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 13
+      },
+      {
+        "subject_id": "SUBJ_5F9BEE5E7C26",
+        "subject_key": "HAUSA LANGUAGE",
+        "display_name": "Hausa Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 14
+      },
+      {
+        "subject_id": "SUBJ_986AAA8A95E0",
+        "subject_key": "YORUBA LANGUAGE",
+        "display_name": "Yoruba Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 15
+      },
+      {
+        "subject_id": "SUBJ_37B7F386339F",
+        "subject_key": "ARABIC LANGUAGE",
+        "display_name": "Arabic Language",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 16
+      },
+      {
+        "subject_id": "SUBJ_48D843BDA531",
+        "subject_key": "MARKETING",
+        "display_name": "Marketing",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 17
+      },
+      {
+        "subject_id": "SUBJ_822031470499",
+        "subject_key": "COMMERCE",
+        "display_name": "Commerce",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 18
+      },
+      {
+        "subject_id": "SUBJ_90D32BA68CB9",
+        "subject_key": "FINANCIAL ACCOUNT",
+        "display_name": "Financial Account",
+        "active": true,
+        "tracks": [
+          "SCIENCE",
+          "ART",
+          "COMMERCIAL"
+        ],
+        "source": "existing_emis_config",
+        "order": 19
+      }
+    ],
+    "ISLAMIYAH_STARTER": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_EB5CF3BF0D27",
+        "subject_key": "ARABIYAH",
+        "display_name": "Arabiyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_095F105927ED",
+        "subject_key": "ARQAAM",
+        "display_name": "Arqaam",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_B7223EE706FA",
+        "subject_key": "HURUF",
+        "display_name": "Huruf",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      }
+    ],
+    "ISLAMIYAH_PREP1": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_84D42FFC1C06",
+        "subject_key": "MURTALA",
+        "display_name": "Murtala",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_EB5CF3BF0D27",
+        "subject_key": "ARABIYAH",
+        "display_name": "Arabiyah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      },
+      {
+        "subject_id": "SUBJ_12C3D2AE6C41",
+        "subject_key": "HISAB",
+        "display_name": "Hisab",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 7
+      },
+      {
+        "subject_id": "SUBJ_A79D3C3A3AD2",
+        "subject_key": "AZKHAR",
+        "display_name": "Azkhar",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 8
+      }
+    ],
+    "ISLAMIYAH1": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_B7223EE706FA",
+        "subject_key": "HURUF",
+        "display_name": "Huruf",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      }
+    ],
+    "ISLAMIYAH2": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_B7223EE706FA",
+        "subject_key": "HURUF",
+        "display_name": "Huruf",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      }
+    ],
+    "ISLAMIYAH3": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_B7223EE706FA",
+        "subject_key": "HURUF",
+        "display_name": "Huruf",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      }
+    ],
+    "ISLAMIYAH4": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_EB0F733167B3",
+        "subject_key": "SIRAH",
+        "display_name": "Sirah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_C8B31CAAABCB",
+        "subject_key": "TAJWEED",
+        "display_name": "Tajweed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      }
+    ],
+    "ISLAMIYAH5": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_EB0F733167B3",
+        "subject_key": "SIRAH",
+        "display_name": "Sirah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_C8B31CAAABCB",
+        "subject_key": "TAJWEED",
+        "display_name": "Tajweed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      }
+    ],
+    "ISLAMIYAH6": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_EB0F733167B3",
+        "subject_key": "SIRAH",
+        "display_name": "Sirah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_C8B31CAAABCB",
+        "subject_key": "TAJWEED",
+        "display_name": "Tajweed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      }
+    ],
+    "ISLAMIYAH7": [
+      {
+        "subject_id": "SUBJ_79F81BABF2D2",
+        "subject_key": "QURAN",
+        "display_name": "Quran",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 1
+      },
+      {
+        "subject_id": "SUBJ_7B75FE7DACE3",
+        "subject_key": "HADITH",
+        "display_name": "Hadith",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 2
+      },
+      {
+        "subject_id": "SUBJ_5A402594DD07",
+        "subject_key": "FIQH",
+        "display_name": "Fiqh",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 3
+      },
+      {
+        "subject_id": "SUBJ_283AD2097A00",
+        "subject_key": "TAWHEED",
+        "display_name": "Tawheed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 4
+      },
+      {
+        "subject_id": "SUBJ_EB0F733167B3",
+        "subject_key": "SIRAH",
+        "display_name": "Sirah",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 5
+      },
+      {
+        "subject_id": "SUBJ_C8B31CAAABCB",
+        "subject_key": "TAJWEED",
+        "display_name": "Tajweed",
+        "active": true,
+        "tracks": [],
+        "source": "school_document",
+        "order": 6
+      }
+    ]
+  },
+  "history": [
+    {
+      "at": "2026-09-22T12:10:17Z",
+      "action": "migrate_v1_to_v2",
+      "detail": "Phase 1 class-based subject registry migrated to stable global subjects + class assignments."
+    }
+  ],
+  "source_notes": {
+    "immutable_keys": "Subject keys/IDs remain stable when display names are edited so historical academic records can still resolve the subject."
+  }
+}

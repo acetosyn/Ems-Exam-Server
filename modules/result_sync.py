@@ -5,8 +5,9 @@
 #   2. Synchronization is queued only after the local write succeeds.
 #   3. Network failure never makes a local academic operation fail.
 #   4. Results retain the proven Excel-authoritative result receiver.
-#   5. Attendance, CA/Test, Essay/Theory and Report Sheet events use the same
-#      signed durable queue, retry engine, receipts and stale-event protection.
+#   5. Attendance, CA/Test, Essay/Theory, Report Sheet, Academic Settings and
+#      Subject Registry, Teacher Assignment and Islamiyah School events use the same signed durable queue, retry engine,
+#      receipts and stale-event protection.
 
 import hashlib
 import hmac
@@ -288,7 +289,7 @@ def queue_emis_event(module, action, payload, entity_key="", event_id=""):
     module = _clean(module).lower()
     action = _clean(action).lower()
     entity_key = _clean(entity_key)
-    if module not in {"attendance", "ca_tests", "essay", "report_sheets", "academic_settings"}:
+    if module not in {"attendance", "ca_tests", "essay", "report_sheets", "academic_settings", "subject_registry", "teacher_assignments", "islamiyah", "academic_history"}:
         raise ValueError(f"Unsupported EMIS sync module: {module}")
     if not action:
         raise ValueError("Sync action is required.")
@@ -993,6 +994,18 @@ def _dispatch_sync_event(event):
     if module == "academic_settings":
         from modules.academic_settings import apply_academic_settings_sync_event
         return apply_academic_settings_sync_event(action, payload, event)
+    if module == "subject_registry":
+        from modules.subject_registry import apply_subject_registry_sync_event
+        return apply_subject_registry_sync_event(action, payload, event)
+    if module == "teacher_assignments":
+        from modules.teacher_assignment_manager import apply_teacher_assignment_sync_event
+        return apply_teacher_assignment_sync_event(action, payload, event)
+    if module == "islamiyah":
+        from modules.islamiyah_manager import apply_islamiyah_sync_event
+        return apply_islamiyah_sync_event(action, payload, event)
+    if module == "academic_history":
+        from modules.academic_history import apply_academic_history_sync_event
+        return apply_academic_history_sync_event(action, payload, event)
 
     raise ValueError(f"Unsupported synchronized module: {module}")
 

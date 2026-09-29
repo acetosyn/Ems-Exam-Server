@@ -92,6 +92,41 @@
 
 
   <!-- ============================================================
+       PHASE 5 — VISUAL REPORT INTELLIGENCE
+  ============================================================ -->
+  <section class="report-intelligence-grid" aria-label="Report class readiness overview">
+    <article class="report-intel-card readiness">
+      <div class="report-intel-head"><div><span class="section-kicker">Class Readiness</span><h3>Source Completion</h3></div><div id="reportReadinessDonut" class="report-readiness-donut"><strong id="reportReadinessPercent">0%</strong><span>Ready</span></div></div>
+      <div class="report-readiness-bars">
+        <div><span><i class="fa-solid fa-clipboard-check"></i> CA/Test <b id="reportCaProgressText">0 / 0</b></span><div><i id="reportCaProgressBar"></i></div></div>
+        <div><span><i class="fa-solid fa-cloud"></i> CBT Exam <b id="reportExamProgressText">0 / 0</b></span><div><i id="reportExamProgressBar"></i></div></div>
+        <div><span><i class="fa-solid fa-calendar-check"></i> Attendance <b id="reportAttendanceProgressText">0 / 0</b></span><div><i id="reportAttendanceProgressBar"></i></div></div>
+      </div>
+    </article>
+
+    <article class="report-intel-card completion">
+      <div class="report-intel-head"><div><span class="section-kicker">Generation Progress</span><h3>Class Completion</h3></div><span class="report-intel-icon"><i class="fa-solid fa-chart-simple"></i></span></div>
+      <div class="report-class-progress"><div><i id="reportClassCompletionBar"></i></div><strong id="reportClassCompletionText">0 of 0 reports</strong></div>
+      <div class="report-mini-chart" id="reportMiniChart" aria-label="Report summary chart">
+        <div class="chart-column ready"><i id="reportChartReady" style="height:8%"></i><span>Ready</span><b id="reportChartReadyValue">0</b></div>
+        <div class="chart-column partial"><i id="reportChartPartial" style="height:8%"></i><span>Partial</span><b id="reportChartPartialValue">0</b></div>
+        <div class="chart-column generated"><i id="reportChartGenerated" style="height:8%"></i><span>Generated</span><b id="reportChartGeneratedValue">0</b></div>
+      </div>
+    </article>
+
+    <article class="report-intel-card shortcuts">
+      <div class="report-intel-head"><div><span class="section-kicker">Quick Workspace</span><h3>Teacher Shortcuts</h3></div><span class="report-intel-icon"><i class="fa-solid fa-bolt"></i></span></div>
+      <div class="report-smart-shortcuts">
+        <button type="button" data-phase5-action="load"><i class="fa-solid fa-users-viewfinder"></i><span>Load Class</span></button>
+        <button type="button" data-phase5-action="auto"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Auto Generate</span></button>
+        <button type="button" data-phase5-action="manual"><i class="fa-solid fa-pen-ruler"></i><span>Manual / Hybrid</span></button>
+        <button type="button" data-phase5-action="saved"><i class="fa-solid fa-folder-open"></i><span>Saved Reports</span></button>
+      </div>
+    </article>
+  </section>
+
+
+  <!-- ============================================================
        REPORT SETUP
   ============================================================ -->
   <section class="report-control-panel report-control-panel-v2 report-control-premium">
@@ -263,26 +298,52 @@
 
 
   <!-- ============================================================
-       GENERATION METHODS — AUTOMATED / MANUAL / HYBRID
+       GENERATION METHODS — SIMPLE MODE SWITCHER
   ============================================================ -->
-  <section class="report-generation-methods">
+  <section class="report-generation-methods phase5-generation-methods">
     <article class="generation-method-card automated">
       <div class="generation-method-icon"><i class="fa-solid fa-bolt"></i></div>
-      <div class="generation-method-copy"><span>Primary Workflow</span><h3>Automated Generation</h3><p>Uses saved CA/Test, EMIS CBT results and attendance. Best when normal academic sources are available.</p></div>
+      <div class="generation-method-copy"><span>Fastest</span><h3>Automatic</h3><p>Uses available EMIS academic records.</p></div>
       <div class="generation-method-actions"><button type="button" id="autoGenerateSelectedLaneBtn" class="report-mini-btn"><i class="fa-solid fa-user-check"></i> Selected</button><button type="button" id="autoGenerateClassLaneBtn" class="report-mini-btn success-soft"><i class="fa-solid fa-users"></i> Full Class</button></div>
     </article>
 
     <article class="generation-method-card manual">
       <div class="generation-method-icon"><i class="fa-solid fa-pen-ruler"></i></div>
-      <div class="generation-method-copy"><span>Backup Workflow</span><h3>Manual Result Studio</h3><p>Teachers can manually enter CA, tests, exams and attendance for each student, save drafts and generate official report sheets.</p></div>
-      <div class="generation-method-actions"><button type="button" id="openManualReportStudioBtn" class="report-mini-btn manual-open"><i class="fa-solid fa-table-list"></i> Open Studio</button><button type="button" id="generateManualSelectedBtn" class="report-mini-btn"><i class="fa-solid fa-user-check"></i> Manual Selected</button><button type="button" id="generateManualClassBtn" class="report-mini-btn"><i class="fa-solid fa-users"></i> Manual Class</button></div>
+      <div class="generation-method-copy"><span>Editable</span><h3>Manual Workspace</h3><p>Enter or correct student scores directly.</p></div>
+      <div class="generation-method-actions"><button type="button" id="openManualReportStudioBtn" class="report-mini-btn manual-open"><i class="fa-solid fa-arrow-down"></i> Open Workspace</button><button type="button" id="generateManualSelectedBtn" class="report-mini-btn"><i class="fa-solid fa-user-check"></i> Selected</button><button type="button" id="generateManualClassBtn" class="report-mini-btn"><i class="fa-solid fa-users"></i> Class</button></div>
     </article>
 
     <article class="generation-method-card hybrid">
       <div class="generation-method-icon"><i class="fa-solid fa-code-merge"></i></div>
-      <div class="generation-method-copy"><span>Fail-Safe Workflow</span><h3>Smart Hybrid</h3><p>Uses automated records first, then fills missing score or attendance gaps from approved manual records.</p></div>
-      <div class="generation-method-actions"><button type="button" id="generateHybridSelectedBtn" class="report-mini-btn"><i class="fa-solid fa-user-shield"></i> Hybrid Selected</button><button type="button" id="generateHybridClassBtn" class="report-mini-btn"><i class="fa-solid fa-people-group"></i> Hybrid Class</button><button type="button" id="openBulkAttendanceBtn" class="report-mini-btn"><i class="fa-solid fa-calendar-check"></i> Bulk Attendance</button><button type="button" id="openBulkRemarksBtn" class="report-mini-btn"><i class="fa-solid fa-comments"></i> Bulk Remarks</button></div>
+      <div class="generation-method-copy"><span>Recommended Fallback</span><h3>Smart Hybrid</h3><p>Automatic records first; approved manual values fill gaps.</p></div>
+      <div class="generation-method-actions"><button type="button" id="generateHybridSelectedBtn" class="report-mini-btn"><i class="fa-solid fa-user-shield"></i> Selected</button><button type="button" id="generateHybridClassBtn" class="report-mini-btn"><i class="fa-solid fa-people-group"></i> Class</button><button type="button" id="openBulkAttendanceBtn" class="report-mini-btn"><i class="fa-solid fa-calendar-check"></i> Attendance</button><button type="button" id="openBulkRemarksBtn" class="report-mini-btn"><i class="fa-solid fa-comments"></i> Remarks</button></div>
     </article>
+  </section>
+
+
+  <!-- ============================================================
+       PHASE 8 — CUMULATIVE COMPILATION HUB
+  ============================================================ -->
+  <section class="report-cumulative-hub" id="reportCumulativeHub">
+    <div class="report-cumulative-head">
+      <div><span class="section-kicker">Annual Compilation</span><h2><i class="fa-solid fa-layer-group"></i> Cumulative Result Compiler</h2><p>Compile First, Second and Third Term from permanent Academic History.</p></div>
+      <div class="report-cumulative-actions"><span id="reportCumulativePrintBadge" class="cumulative-print-badge"><i class="fa-solid fa-file-circle-check"></i> Third Term reports include annual summary</span><button type="button" id="compileCumulativeBtn" class="report-mini-btn success-soft"><i class="fa-solid fa-gears"></i> Compile</button><button type="button" id="openCumulativeStudioBtn" class="report-mini-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Full Studio</button><button type="button" id="openBroadsheetsBtn" class="report-mini-btn"><i class="fa-solid fa-table-cells-large"></i> Broadsheets</button></div>
+    </div>
+
+    <div class="report-cumulative-grid">
+      <article><span>First Term</span><strong id="reportCumFirst">0</strong><em>records available</em></article>
+      <article><span>Second Term</span><strong id="reportCumSecond">0</strong><em>records available</em></article>
+      <article><span>Third Term</span><strong id="reportCumThird">0</strong><em>records available</em></article>
+      <article class="annual"><span>3-Term Complete</span><strong id="reportCumComplete">0</strong><em id="reportCumCoverage">0% annual coverage</em></article>
+      <article class="average"><span>Annual Class Avg.</span><strong id="reportCumAverage">—</strong><em>complete students only</em></article>
+    </div>
+
+    <div class="report-cumulative-progress"><div><i id="reportCumProgressBar"></i></div><span id="reportCumProgressText">Select a session and class, then compile.</span></div>
+
+    <div class="report-cumulative-preview">
+      <div class="cumulative-preview-head"><strong>Compiled Annual Snapshot</strong><span id="reportCumPreviewMeta">No cumulative data loaded</span></div>
+      <div class="cumulative-preview-table-wrap"><table class="cumulative-preview-table"><thead><tr><th>#</th><th>Student</th><th>1st Score / %</th><th>2nd Score / %</th><th>3rd Score / %</th><th>Annual Score / %</th><th>Position</th><th>Status</th></tr></thead><tbody id="reportCumPreviewBody"><tr><td colspan="8" class="cumulative-empty">Compile the selected class to preview annual results.</td></tr></tbody></table></div>
+    </div>
   </section>
 
 
@@ -961,82 +1022,59 @@
 
 
 <!-- ============================================================
-     MANUAL RESULT STUDIO MODAL
+     PHASE 5 — INLINE MANUAL + HYBRID WORKSPACE
+     This is deliberately NOT a modal. Detail editors remain modal-based.
 ============================================================ -->
-<div id="manualResultStudioModal" class="report-modal report-premium-modal manual-result-modal" aria-hidden="true">
-  <div class="report-modal-panel fullscreen manual-result-panel">
-    <div class="report-modal-head manual-result-head">
-      <div><span class="section-kicker">Manual Backup Engine</span><h3>Manual Result Studio</h3><p>Enter student scores locally when automated academic sources are unavailable or need approved fallback data.</p></div>
-      <div class="manual-head-actions">
-        <span id="manualDraftStatus" class="manual-draft-status">No draft loaded</span>
-        <div class="manual-window-controls" aria-label="Manual Result Studio window controls">
-          <button type="button" id="manualStudioMinimizeBtn" class="manual-window-btn" title="Minimize studio" aria-label="Minimize studio"><i class="fa-solid fa-minus"></i></button>
-          <button type="button" id="manualStudioMaximizeBtn" class="manual-window-btn" title="Maximize or restore studio" aria-label="Maximize or restore studio"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
-          <button type="button" id="manualStudioCloseBtn" class="report-modal-close" data-close-modal="manualResultStudioModal" title="Close studio" aria-label="Close studio"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-      </div>
-    </div>
+<section id="manualResultStudioModal" class="report-hybrid-workspace" aria-hidden="false">
+  <div class="hybrid-workspace-head">
+    <div><span class="section-kicker">Manual + Hybrid Workspace</span><h2><i class="fa-solid fa-code-merge"></i> Result Entry Workspace</h2><p>One student, one clear workspace. Enter only what is needed; Hybrid can keep valid automated records.</p></div>
+    <div class="hybrid-head-status"><span id="manualDraftStatus" class="manual-draft-status">No draft loaded</span><span class="hybrid-safety"><i class="fa-solid fa-shield-halved"></i> Safety Draft Active</span></div>
+  </div>
 
-    <div class="manual-studio-toolbar">
-      <div class="manual-student-picker"><button type="button" id="manualPrevStudentBtn" class="report-mini-btn" title="Previous student"><i class="fa-solid fa-chevron-left"></i></button><select id="manualStudentSelect" class="form-input"><option value="">Select student</option></select><button type="button" id="manualNextStudentBtn" class="report-mini-btn" title="Next student"><i class="fa-solid fa-chevron-right"></i></button></div>
-      <div class="manual-student-meta" id="manualStudentMeta">Load a class, then select a student.</div>
-      <div class="manual-progress"><span id="manualProgressLabel">0 subjects entered</span><div><i id="manualProgressBar"></i></div></div>
-    </div>
+  <div class="manual-studio-toolbar phase5-manual-toolbar">
+    <div class="manual-student-picker"><button type="button" id="manualPrevStudentBtn" class="report-mini-btn" title="Previous student"><i class="fa-solid fa-chevron-left"></i></button><select id="manualStudentSelect" class="form-input"><option value="">Select student</option></select><button type="button" id="manualNextStudentBtn" class="report-mini-btn" title="Next student"><i class="fa-solid fa-chevron-right"></i></button></div>
+    <div class="manual-student-meta" id="manualStudentMeta">Load a class, then select a student.</div>
+    <div class="manual-progress"><span id="manualProgressLabel">0 subjects entered</span><div><i id="manualProgressBar"></i></div></div>
+  </div>
 
+  <div class="hybrid-mode-strip">
+    <article><i class="fa-solid fa-robot"></i><div><span>Automatic Data</span><strong>Preserved when available</strong></div></article>
+    <article><i class="fa-solid fa-pen-to-square"></i><div><span>Manual Data</span><strong>Enter only required corrections</strong></div></article>
+    <article><i class="fa-solid fa-code-merge"></i><div><span>Hybrid Output</span><strong>Best available value wins</strong></div></article>
+    <article><i class="fa-solid fa-mosque"></i><div><span>Islamiyyah</span><strong>Auto-linked from Phase 4</strong></div></article>
+  </div>
 
-    <!-- ============================================================
-         SMART VOICE SCORE ENTRY — OPTIONAL STT / TTS EXTENSION
-    ============================================================ -->
-    <section id="manualVoiceBar" class="manual-voice-bar" aria-label="Smart Voice Score Entry">
-      <div class="manual-voice-summary">
-        <span id="manualVoiceStateDot" class="manual-voice-dot"></span>
-        <div><strong>Smart Voice Entry</strong><small id="manualVoiceStatus">Optional • microphone is off</small></div>
-      </div>
+  <section id="manualVoiceBar" class="manual-voice-bar" aria-label="Smart Voice Score Entry">
+    <div class="manual-voice-summary"><span id="manualVoiceStateDot" class="manual-voice-dot"></span><div><strong>Smart Voice Entry</strong><small id="manualVoiceStatus">Optional • microphone is off</small></div></div>
+    <div class="manual-voice-actions"><button type="button" id="manualVoiceStartBtn" class="manual-voice-btn start"><i class="fa-solid fa-microphone"></i><span>Start Voice</span></button><button type="button" id="manualVoicePauseBtn" class="manual-voice-btn" disabled><i class="fa-solid fa-pause"></i><span>Pause</span></button><button type="button" id="manualVoiceStopBtn" class="manual-voice-btn stop" disabled><i class="fa-solid fa-stop"></i><span>Stop</span></button></div>
+    <div class="manual-voice-options"><label class="manual-voice-check"><input id="manualVoicePromptEach" type="checkbox"><span>Speak fields</span></label><label class="manual-voice-check"><input id="manualVoiceSafeMode" type="checkbox"><span>Safe confirm</span></label><select id="manualVoiceSelect" class="manual-voice-select" title="Choose text-to-speech voice"><option value="">Best available voice</option></select></div>
+    <div class="manual-voice-live"><span id="manualVoiceField">Ready</span><strong id="manualVoiceTranscript">Say a score when a box is highlighted</strong></div>
+  </section>
 
-      <div class="manual-voice-actions">
-        <button type="button" id="manualVoiceStartBtn" class="manual-voice-btn start"><i class="fa-solid fa-microphone"></i><span>Start Voice</span></button>
-        <button type="button" id="manualVoicePauseBtn" class="manual-voice-btn" disabled><i class="fa-solid fa-pause"></i><span>Pause</span></button>
-        <button type="button" id="manualVoiceStopBtn" class="manual-voice-btn stop" disabled><i class="fa-solid fa-stop"></i><span>Stop</span></button>
-      </div>
-
-      <div class="manual-voice-options">
-        <label class="manual-voice-check"><input id="manualVoicePromptEach" type="checkbox"><span>Speak each field</span></label>
-        <label class="manual-voice-check"><input id="manualVoiceSafeMode" type="checkbox"><span>Safe confirm</span></label>
-        <select id="manualVoiceSelect" class="manual-voice-select" title="Choose text-to-speech voice"><option value="">Best available voice</option></select>
-      </div>
-
-      <div class="manual-voice-live">
-        <span id="manualVoiceField">Ready</span>
-        <strong id="manualVoiceTranscript">Say a score when a box is highlighted</strong>
-      </div>
+  <div class="manual-studio-grid phase5-manual-grid">
+    <section class="manual-score-card phase5-score-card">
+      <div class="manual-card-head"><div><span>Academic Scores</span><h4 id="manualScoreModeTitle">Manual Subject Entry</h4></div><label class="manual-switch"><input id="manualPreferScores" type="checkbox"><span>Prefer manual values in Hybrid</span></label></div>
+      <div class="manual-score-table-wrap"><table class="manual-score-table"><thead id="manualScoreTableHead"></thead><tbody id="manualScoreTableBody"><tr><td colspan="10" class="report-table-empty">Load a class and choose a student.</td></tr></tbody></table></div>
+      <div class="manual-validation-bar"><span id="manualValidationText">Scores are checked against the configured maximum marks.</span><strong id="manualEnteredCount">0 / 0</strong></div>
     </section>
 
-    <div class="manual-studio-grid">
-      <section class="manual-score-card">
-        <div class="manual-card-head"><div><span>Academic Scores</span><h4 id="manualScoreModeTitle">Manual Subject Entry</h4></div><label class="manual-switch"><input id="manualPreferScores" type="checkbox"><span>Prefer manual scores in Hybrid mode</span></label></div>
-        <div class="manual-score-table-wrap"><table class="manual-score-table"><thead id="manualScoreTableHead"></thead><tbody id="manualScoreTableBody"><tr><td colspan="10" class="report-table-empty">Select a student to begin.</td></tr></tbody></table></div>
-        <div class="manual-validation-bar"><span id="manualValidationText">Scores are validated against JSS/SS maximum marks.</span><strong id="manualEnteredCount">0 / 0</strong></div>
+    <aside class="manual-side-column">
+      <section class="manual-side-card phase5-attendance-card">
+        <div class="manual-card-head"><div><span>Attendance</span><h4>Attendance Override</h4></div><label class="manual-switch"><input id="manualAttendanceOverride" type="checkbox"><span>Use manual attendance</span></label></div>
+        <div class="manual-attendance-grid"><label>Days Open<input id="manualDaysOpen" type="number" min="0"></label><label>Present<input id="manualPresent" type="number" min="0"></label><label>Absent<input id="manualAbsent" type="number" min="0"></label><label>Late<input id="manualLate" type="number" min="0"></label><label>Sick<input id="manualSick" type="number" min="0"></label><label>Excused<input id="manualExcused" type="number" min="0"></label></div>
+        <div class="manual-attendance-summary"><span>Attendance</span><strong id="manualAttendancePercent">0%</strong></div>
       </section>
 
-      <aside class="manual-side-column">
-        <section class="manual-side-card">
-          <div class="manual-card-head"><div><span>Attendance</span><h4>Manual Attendance</h4></div><label class="manual-switch"><input id="manualAttendanceOverride" type="checkbox"><span>Override automated attendance</span></label></div>
-          <div class="manual-attendance-grid">
-            <label>Days Open<input id="manualDaysOpen" type="number" min="0"></label><label>Present<input id="manualPresent" type="number" min="0"></label><label>Absent<input id="manualAbsent" type="number" min="0"></label><label>Late<input id="manualLate" type="number" min="0"></label><label>Sick<input id="manualSick" type="number" min="0"></label><label>Excused<input id="manualExcused" type="number" min="0"></label>
-          </div>
-          <div class="manual-attendance-summary"><span>Attendance %</span><strong id="manualAttendancePercent">0%</strong></div>
-        </section>
-
-        <section class="manual-side-card manual-safety-card"><span>Safety Draft</span><h4>Resilient manual workflow</h4><p>Changes are mirrored in a browser safety draft while you type. Use Save Draft to persist them on the EMIS server.</p><textarea id="manualTeacherNote" class="form-input report-textarea" rows="3" placeholder="Optional internal note for this manual entry"></textarea></section>
-      </aside>
-    </div>
-
-    <div class="report-modal-footer manual-result-footer">
-      <div class="manual-footer-left"><button type="button" id="clearManualStudentBtn" class="report-btn neutral"><i class="fa-solid fa-trash-arrow-up"></i> Clear Student Manual Data</button><span id="manualUnsavedIndicator" class="manual-unsaved-indicator">Saved</span></div>
-      <div class="manual-footer-right"><button type="button" id="saveManualDraftBtn" class="report-btn neutral"><i class="fa-solid fa-floppy-disk"></i> Save Draft</button><button type="button" id="saveGenerateManualBtn" class="report-btn success"><i class="fa-solid fa-file-circle-check"></i> Save & Generate</button><button type="button" id="saveGenerateHybridBtn" class="report-btn primary"><i class="fa-solid fa-code-merge"></i> Save & Hybrid Generate</button></div>
-    </div>
+      <section class="manual-side-card manual-safety-card phase5-safety-card"><span>Safety Draft</span><h4>Protected while you work</h4><p>Browser draft + server Save Draft keep manual entry safe.</p><textarea id="manualTeacherNote" class="form-input report-textarea" rows="3" placeholder="Optional internal note"></textarea></section>
+    </aside>
   </div>
-</div>
+
+  <div class="manual-result-footer phase5-inline-footer">
+    <div class="manual-footer-left"><button type="button" id="clearManualStudentBtn" class="report-btn neutral"><i class="fa-solid fa-trash-arrow-up"></i> Clear Student</button><span id="manualUnsavedIndicator" class="manual-unsaved-indicator">Saved</span></div>
+    <div class="manual-footer-right"><button type="button" id="saveManualDraftBtn" class="report-btn neutral"><i class="fa-solid fa-floppy-disk"></i> Save Draft</button><button type="button" id="saveGenerateManualBtn" class="report-btn success"><i class="fa-solid fa-file-circle-check"></i> Save & Manual Generate</button><button type="button" id="saveGenerateHybridBtn" class="report-btn primary"><i class="fa-solid fa-code-merge"></i> Save & Hybrid Generate</button></div>
+  </div>
+</section>
+
 
 <!-- ============================================================
      BULK ATTENDANCE MODAL

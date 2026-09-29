@@ -2469,12 +2469,14 @@ textarea:focus-visible {
 /* Subtle Staff-style icon accents — navigation only */
 .nav-dashboard { color: #7db7ff; background: rgba(59, 130, 246, 0.16); border-color: rgba(96, 165, 250, 0.14); }
 .nav-teachers { color: #49d6a2; background: rgba(16, 185, 129, 0.15); border-color: rgba(52, 211, 153, 0.14); }
+.nav-subjects { color: #58d4e8; background: rgba(6, 182, 212, 0.15); border-color: rgba(34, 211, 238, 0.14); }
 .nav-ids { color: #f8c45a; background: rgba(245, 158, 11, 0.15); border-color: rgba(251, 191, 36, 0.14); }
 .nav-promotion { color: #f18cbd; background: rgba(236, 72, 153, 0.14); border-color: rgba(244, 114, 182, 0.14); }
 .nav-results { color: #b9a5ff; background: rgba(139, 92, 246, 0.15); border-color: rgba(167, 139, 250, 0.14); }
 .nav-attendance { color: #43d7e8; background: rgba(6, 182, 212, 0.15); border-color: rgba(34, 211, 238, 0.14); }
 .nav-ca { color: #ffad65; background: rgba(249, 115, 22, 0.15); border-color: rgba(251, 146, 60, 0.14); }
 .nav-reports { color: #d3a5ff; background: rgba(168, 85, 247, 0.15); border-color: rgba(192, 132, 252, 0.14); }
+.nav-history { color: #8ad9ff; background: rgba(14, 165, 233, 0.15); border-color: rgba(56, 189, 248, 0.14); }
 .nav-settings { color: #bdc9d8; background: rgba(148, 163, 184, 0.14); border-color: rgba(203, 213, 225, 0.12); }
 .nav-support { color: #f5d64e; background: rgba(234, 179, 8, 0.14); border-color: rgba(250, 204, 21, 0.13); }
 

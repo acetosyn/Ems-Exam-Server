@@ -1,10 +1,19 @@
 # modules/class_config.py
 
+from modules.school_structure import REGULAR_CLASS_LEVELS, ISLAMIYAH_CLASS_LEVELS, PENDING_DATABASE_CLASSES, SCHOOL_SECTIONS, ASSESSMENT_SCHEMES, ALL_CONFIGURED_CLASSES, class_label, get_class_metadata, get_source_subjects, normalize_school_class, school_section_for_class
+
+
 # =========================================================
 # CORE CLASS CONFIGURATION
 # =========================================================
 
 SUPPORTED_CLASSES = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]
+
+# Expanded school structure is staged separately so current JSS/SS roster logic remains stable
+# until Nursery/Primary/Tahfeez databases are supplied and activated in a later phase.
+ALL_CONFIGURED_REGULAR_CLASSES = list(REGULAR_CLASS_LEVELS)
+PLANNED_DATABASE_CLASSES = list(PENDING_DATABASE_CLASSES)
+ISLAMIYAH_CLASSES = list(ISLAMIYAH_CLASS_LEVELS)
 
 CLASS_ARMS_BY_LEVEL = {
     "JSS1": ["JSS1A", "JSS1B", "JSS1C"],
@@ -100,11 +109,31 @@ def normalize_subject_key(subject):
         "GARMENT MAKING": "GARMENT MAKING",
     }
 
-    return aliases.get(value, value)
+    canonical = aliases.get(value, value)
+
+    # Phase 2 dynamic subject registry keeps an immutable machine key even if
+    # Admin later edits the visible subject name. Registry lookup is deliberately
+    # non-seeding here so importing class_config never creates/migrates files.
+    try:
+        from modules.subject_registry import resolve_subject_key
+        return resolve_subject_key(canonical, seed_if_missing=False) or canonical
+    except Exception:
+        return canonical
 
 
 def normalize_subject_display(subject):
     key = normalize_subject_key(subject)
+
+    # Admin-created subjects and Admin-renamed catalogue names should retain
+    # their configured visible label while the immutable subject key stays stable.
+    try:
+        from modules.subject_registry import get_subject
+        registry_subject = get_subject(key)
+        if registry_subject and (registry_subject.get("name_overridden") or registry_subject.get("source") == "admin"):
+            configured_name = str(registry_subject.get("name") or "").strip()
+            if configured_name: return configured_name
+    except Exception:
+        pass
 
     display = {
         "MATHEMATICS": "Mathematics",
@@ -315,6 +344,23 @@ def normalize_class_level(value):
     return ""
 
 
+def normalize_configured_class_level(value):
+    """Normalize any configured EMIS class, including pending Nursery/Primary/Tahfeez and Islamiyah levels.
+
+    This is intentionally separate from normalize_class_level(), which remains limited to the
+    six active JSS/SS student-database classes until the new rosters are supplied.
+    """
+    return normalize_school_class(value)
+
+
+def get_configured_class_metadata(value):
+    return get_class_metadata(normalize_configured_class_level(value))
+
+
+def is_configured_class(value):
+    return normalize_configured_class_level(value) in ALL_CONFIGURED_CLASSES
+
+
 def normalize_class_arm(value, fallback_level=""):
     """
     Canonical senior arms:
@@ -438,29 +484,72 @@ def unique_subjects(subjects):
     return unique_ordered(subjects)
 
 
-def get_subjects_for_class(class_category, class_arm=None, preferred_track=""):
+def _registry_subject_rows(class_level, track="", active_only=True):
+    try:
+        from modules.subject_registry import get_class_subject_rows
+        return get_class_subject_rows(class_level, track=track, active_only=active_only)
+    except Exception:
+        return []
+
+
+def _registry_manages_class(class_level):
+    """True when the Phase 2 registry is present and owns this configured class.
+
+    This distinction matters when Admin intentionally deactivates every subject
+    for a class: an empty dynamic result must stay empty instead of falling back
+    to the old hard-coded lists and silently re-enabling those subjects.
     """
-    Returns subjects appropriate to the actual class arm / track.
+    level = normalize_school_class(class_level)
+    if not level: return False
+    try:
+        from modules.subject_registry import REGISTRY_FILE, REGISTRY_VERSION, read_subject_registry
+        if not REGISTRY_FILE.exists(): return False
+        data = read_subject_registry(seed_if_missing=False)
+        return int(data.get("version") or 0) >= REGISTRY_VERSION and level in data.get("assignments", {})
+    except Exception:
+        return False
 
-    Examples:
-        get_subjects_for_class("JSS1", "JSS1A")
-        get_subjects_for_class("SS1", "SS1_GOLD")
-        get_subjects_for_class("SS1", "SS1_B/C", "COMMERCIAL")
-    """
 
-    level = normalize_class_level(class_category)
-    arm = normalize_class_arm(class_arm or class_category, level)
+def _unique_subject_names(rows):
+    seen, output = set(), []
+    for row in rows or []:
+        name = str(row.get("name") if isinstance(row, dict) else row or "").strip()
+        key = str(row.get("key") if isinstance(row, dict) else normalize_subject_key(name) or "").strip()
+        if not name or key in seen: continue
+        seen.add(key); output.append(name)
+    return output
 
+
+def get_configured_subjects_for_class(class_category, preferred_track="", active_only=True):
+    """Return dynamic subjects for any configured class without activating its student database."""
+    level = normalize_configured_class_level(class_category)
     if not level: return []
+    track = str(preferred_track or "").upper().strip() if level.startswith("SS") else ""
+    rows = _registry_subject_rows(level, track=track, active_only=active_only)
+    if rows or _registry_manages_class(level): return _unique_subject_names(rows)
+    source = get_source_subjects(level)
+    if source: return list(source)
+    if level in SUPPORTED_CLASSES: return unique_ordered(CLASS_SUBJECTS.get(level, []))
+    return []
+
+
+def get_subjects_for_class(class_category, class_arm=None, preferred_track=""):
+    """Return subjects for the six active database classes, honoring the Phase 2 dynamic registry.
+
+    Pending Nursery/Primary/Tahfeez and independent Islamiyah classes use
+    get_configured_subjects_for_class() until their student databases/modules are activated.
+    """
+    level = normalize_class_level(class_category); arm = normalize_class_arm(class_arm or class_category, level)
+    if not level: return []
+    track = get_ss_track(arm, preferred_track) if level.startswith("SS") else ""
+    registry_rows = _registry_subject_rows(level, track=track, active_only=True)
+    if registry_rows or _registry_manages_class(level): return _unique_subject_names(registry_rows)
+
     if level.startswith("JSS"): return unique_ordered(JSS_SUBJECTS)
-
-    track = get_ss_track(arm, preferred_track)
-
     if track == "SCIENCE": return unique_ordered(SS_SCIENCE_SUBJECTS_BY_LEVEL.get(level, []))
     if track == "ART": return unique_ordered(SS_ART_SUBJECTS_BY_LEVEL.get(level, []))
     if track == "COMMERCIAL": return unique_ordered(SS_COMMERCIAL_SUBJECTS_BY_LEVEL.get(level, []))
     if track == "ART_COMMERCIAL": return unique_ordered(SS_ART_COMMERCIAL_SUBJECTS_BY_LEVEL.get(level, []))
-
     return unique_ordered(CLASS_SUBJECTS.get(level, []))
 
 
@@ -472,31 +561,22 @@ def get_subjects_for_class(class_category, class_arm=None, preferred_track=""):
 # =========================================================
 
 def get_ss_subject_tracks(class_level, subject):
-    """
-    Returns the SS tracks where a subject exists.
+    """Return SS tracks for a subject, preferring the dynamic registry over legacy hard-coded lists."""
+    level = normalize_class_level(class_level); wanted = normalize_subject_key(subject)
+    if not level.startswith("SS") or not wanted: return set()
 
-    Examples:
-        Financial Account -> {"COMMERCIAL"}
-        Chemistry         -> {"SCIENCE"}
-        Literature        -> {"ART"}
-        Mathematics       -> {"SCIENCE", "ART", "COMMERCIAL"}
-    """
+    try:
+        from modules.subject_registry import get_class_subject_rows, get_subject_tracks, resolve_subject_key
+        registry_key = resolve_subject_key(subject, seed_if_missing=False); all_rows = get_class_subject_rows(level, active_only=False)
+        defined = next((row for row in all_rows if str(row.get("key") or "") == registry_key), None)
+        if defined is not None: return set(get_subject_tracks(level, registry_key)) if defined.get("active", False) else set()
+    except Exception:
+        pass
 
-    level = normalize_class_level(class_level)
-    subject_key = normalize_subject_key(subject)
-
-    if not level.startswith("SS") or not subject_key: return set()
-
-    tracks = set()
-
-    science_keys = {normalize_subject_key(item) for item in SS_SCIENCE_SUBJECTS_BY_LEVEL.get(level, [])}
-    art_keys = {normalize_subject_key(item) for item in SS_ART_SUBJECTS_BY_LEVEL.get(level, [])}
-    commercial_keys = {normalize_subject_key(item) for item in SS_COMMERCIAL_SUBJECTS_BY_LEVEL.get(level, [])}
-
-    if subject_key in science_keys: tracks.add("SCIENCE")
-    if subject_key in art_keys: tracks.add("ART")
-    if subject_key in commercial_keys: tracks.add("COMMERCIAL")
-
+    tracks = set(); science_keys = {normalize_subject_key(item) for item in SS_SCIENCE_SUBJECTS_BY_LEVEL.get(level, [])}; art_keys = {normalize_subject_key(item) for item in SS_ART_SUBJECTS_BY_LEVEL.get(level, [])}; commercial_keys = {normalize_subject_key(item) for item in SS_COMMERCIAL_SUBJECTS_BY_LEVEL.get(level, [])}
+    if wanted in science_keys: tracks.add("SCIENCE")
+    if wanted in art_keys: tracks.add("ART")
+    if wanted in commercial_keys: tracks.add("COMMERCIAL")
     return tracks
 
 
@@ -551,12 +631,9 @@ def get_subject_target_compatibility(class_level, class_arm, subject):
     # -----------------------------------------------------
 
     if level.startswith("JSS"):
-        allowed_keys = {normalize_subject_key(item) for item in JSS_SUBJECTS}
-
+        allowed_keys = {normalize_subject_key(item) for item in get_subjects_for_class(level, arm)}
         if subject_key not in allowed_keys:
-            result["allowed"] = False
-            result["reason"] = f"{subject_display} is not configured as a subject for {level}."
-
+            result["allowed"] = False; result["reason"] = f"{subject_display} is not configured as a subject for {level}."
         return result
 
     # -----------------------------------------------------

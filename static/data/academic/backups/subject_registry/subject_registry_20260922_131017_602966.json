@@ -1,0 +1,2172 @@
+{
+  "version": 1,
+  "classes": {
+    "STARTER": {
+      "label": "Starter",
+      "subjects": [
+        {
+          "name": "Letter Works",
+          "key": "LETTER WORKS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Number Work",
+          "key": "NUMBER WORK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Picture Reading",
+          "key": "PICTURE READING",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Creative Art",
+          "key": "CREATIVE ART",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Free Writing Skill",
+          "key": "FREE WRITING SKILL",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "PRE_CLASS": {
+      "label": "Pre-Class",
+      "subjects": [
+        {
+          "name": "Letter Works",
+          "key": "LETTER WORKS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Number Work",
+          "key": "NUMBER WORK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Picture Reading",
+          "key": "PICTURE READING",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Creative Art",
+          "key": "CREATIVE ART",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Free Writing Skill",
+          "key": "FREE WRITING SKILL",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "NURSERY1": {
+      "label": "Nursery 1",
+      "subjects": [
+        {
+          "name": "Letter Works",
+          "key": "LETTER WORKS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Number Work",
+          "key": "NUMBER WORK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Pre-Science",
+          "key": "PRE SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social Habits",
+          "key": "SOCIAL HABITS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Creative Art",
+          "key": "CREATIVE ART",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Writing Skill",
+          "key": "WRITING SKILL",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "I. R. S",
+          "key": "I. R. S",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "NURSERY2": {
+      "label": "Nursery 2",
+      "subjects": [
+        {
+          "name": "Letter Works",
+          "key": "LETTER WORKS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Number Work",
+          "key": "NUMBER WORK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Pre-Science",
+          "key": "PRE SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social Habits",
+          "key": "SOCIAL HABITS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Creative Art",
+          "key": "CREATIVE ART",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Writing Skill",
+          "key": "WRITING SKILL",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "I. R. S",
+          "key": "I. R. S",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "TAHFEEZ1": {
+      "label": "Tahfeez 1",
+      "subjects": [
+        {
+          "name": "Letter Works",
+          "key": "LETTER WORKS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Number Work",
+          "key": "NUMBER WORK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Pre-Science",
+          "key": "PRE SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social Habits",
+          "key": "SOCIAL HABITS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Creative Art",
+          "key": "CREATIVE ART",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Writing Skill",
+          "key": "WRITING SKILL",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "TAHFEEZ2": {
+      "label": "Tahfeez 2",
+      "subjects": [
+        {
+          "name": "Letter Works",
+          "key": "LETTER WORKS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Number Work",
+          "key": "NUMBER WORK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Pre-Science",
+          "key": "PRE SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social Habits",
+          "key": "SOCIAL HABITS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Creative Art",
+          "key": "CREATIVE ART",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Writing Skill",
+          "key": "WRITING SKILL",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "TAHFEEZ3": {
+      "label": "Tahfeez 3",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science",
+          "key": "BASIC SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social and Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hand Writing",
+          "key": "HAND WRITING",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "I. R. S",
+          "key": "I. R. S",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Digital Literacy",
+          "key": "BASIC DIGITAL LITERACY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "TAHFEEZ4": {
+      "label": "Tahfeez 4",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science",
+          "key": "BASIC SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social and Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hand Writing",
+          "key": "HAND WRITING",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "I. R. S",
+          "key": "I. R. S",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Digital Literacy",
+          "key": "BASIC DIGITAL LITERACY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "TAHFEEZ5": {
+      "label": "Tahfeez 5",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science",
+          "key": "BASIC SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social and Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hand Writing",
+          "key": "HAND WRITING",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "I. R. S",
+          "key": "I. R. S",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Digital Literacy",
+          "key": "BASIC DIGITAL LITERACY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "PRIMARY1": {
+      "label": "Primary 1",
+      "subjects": [
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science",
+          "key": "BASIC SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Physical & Health Education",
+          "key": "PHYSICAL AND HEALTH EDUCATION",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Nigerian History",
+          "key": "NIGERIAN HISTORY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social & Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Culture & Creative Arts (CCA)",
+          "key": "CULTURE AND CREATIVE ARTS (CCA)",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "PRIMARY2": {
+      "label": "Primary 2",
+      "subjects": [
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science",
+          "key": "BASIC SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Physical & Health Education",
+          "key": "PHYSICAL AND HEALTH EDUCATION",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Nigerian History",
+          "key": "NIGERIAN HISTORY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social & Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Culture & Creative Arts (CCA)",
+          "key": "CULTURE AND CREATIVE ARTS (CCA)",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "PRIMARY3": {
+      "label": "Primary 3",
+      "subjects": [
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science",
+          "key": "BASIC SCIENCE",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Physical & Health Education",
+          "key": "PHYSICAL AND HEALTH EDUCATION",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Nigerian History",
+          "key": "NIGERIAN HISTORY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social & Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Culture & Creative Arts (CCA)",
+          "key": "CULTURE AND CREATIVE ARTS (CCA)",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "PRIMARY4": {
+      "label": "Primary 4",
+      "subjects": [
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science & Technology",
+          "key": "BASIC SCIENCE AND TECHNOLOGY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Physical & Health Education",
+          "key": "PHYSICAL AND HEALTH EDUCATION",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Digital Literacy",
+          "key": "BASIC DIGITAL LITERACY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Nigerian History",
+          "key": "NIGERIAN HISTORY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social & Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Culture & Creative Arts (CCA)",
+          "key": "CULTURE AND CREATIVE ARTS (CCA)",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Pre-Vocational Studies",
+          "key": "PRE VOCATIONAL STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "PRIMARY5": {
+      "label": "Primary 5",
+      "subjects": [
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science & Technology",
+          "key": "BASIC SCIENCE AND TECHNOLOGY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Physical & Health Education",
+          "key": "PHYSICAL AND HEALTH EDUCATION",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Digital Literacy",
+          "key": "BASIC DIGITAL LITERACY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Nigerian History",
+          "key": "NIGERIAN HISTORY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social & Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Culture & Creative Arts (CCA)",
+          "key": "CULTURE AND CREATIVE ARTS (CCA)",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Pre-Vocational Studies",
+          "key": "PRE VOCATIONAL STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "PRIMARY6": {
+      "label": "Primary 6",
+      "subjects": [
+        {
+          "name": "English Studies",
+          "key": "ENGLISH STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hausa/Yoruba",
+          "key": "HAUSA/YORUBA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Science & Technology",
+          "key": "BASIC SCIENCE AND TECHNOLOGY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Physical & Health Education",
+          "key": "PHYSICAL AND HEALTH EDUCATION",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Basic Digital Literacy",
+          "key": "BASIC DIGITAL LITERACY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Nigerian History",
+          "key": "NIGERIAN HISTORY",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Social & Citizenship Studies",
+          "key": "SOCIAL AND CITIZENSHIP STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Culture & Creative Arts (CCA)",
+          "key": "CULTURE AND CREATIVE ARTS (CCA)",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Pre-Vocational Studies",
+          "key": "PRE VOCATIONAL STUDIES",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabic",
+          "key": "ARABIC",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "JSS1": {
+      "label": "JSS1",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "English Language",
+          "key": "ENGLISH LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Poise",
+          "key": "POISE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Cit & Her. Std",
+          "key": "CIT AND HER. STD",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "National Value",
+          "key": "NATIONAL VALUE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Yoruba Language",
+          "key": "YORUBA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hausa Language",
+          "key": "HAUSA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Arabic Language",
+          "key": "ARABIC LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "CCA",
+          "key": "CCA",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Business Studies",
+          "key": "BUSINESS STUDIES",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "History",
+          "key": "HISTORY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "BST",
+          "key": "BST",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "P.H.E",
+          "key": "P.H.E",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "PVS",
+          "key": "PVS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hort & Crop Production",
+          "key": "HORT AND CROP PRODUCTION",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Digital Tech.",
+          "key": "DIGITAL TECH.",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Inter Science",
+          "key": "INTER SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Garment Making",
+          "key": "GARMENT MAKING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Soc. & Cit. Std",
+          "key": "SOC. AND CIT. STD",
+          "active": true,
+          "source": "existing_emis_config"
+        }
+      ]
+    },
+    "JSS2": {
+      "label": "JSS2",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "English Language",
+          "key": "ENGLISH LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Poise",
+          "key": "POISE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Cit & Her. Std",
+          "key": "CIT AND HER. STD",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "National Value",
+          "key": "NATIONAL VALUE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Yoruba Language",
+          "key": "YORUBA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hausa Language",
+          "key": "HAUSA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Arabic Language",
+          "key": "ARABIC LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "CCA",
+          "key": "CCA",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Business Studies",
+          "key": "BUSINESS STUDIES",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "History",
+          "key": "HISTORY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "BST",
+          "key": "BST",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "P.H.E",
+          "key": "P.H.E",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "PVS",
+          "key": "PVS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hort & Crop Production",
+          "key": "HORT AND CROP PRODUCTION",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Digital Tech.",
+          "key": "DIGITAL TECH.",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Inter Science",
+          "key": "INTER SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Garment Making",
+          "key": "GARMENT MAKING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Soc. & Cit. Std",
+          "key": "SOC. AND CIT. STD",
+          "active": true,
+          "source": "existing_emis_config"
+        }
+      ]
+    },
+    "JSS3": {
+      "label": "JSS3",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "English Language",
+          "key": "ENGLISH LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Poise",
+          "key": "POISE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Cit & Her. Std",
+          "key": "CIT AND HER. STD",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "National Value",
+          "key": "NATIONAL VALUE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Yoruba Language",
+          "key": "YORUBA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hausa Language",
+          "key": "HAUSA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Arabic Language",
+          "key": "ARABIC LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "CCA",
+          "key": "CCA",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Business Studies",
+          "key": "BUSINESS STUDIES",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "History",
+          "key": "HISTORY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "BST",
+          "key": "BST",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "P.H.E",
+          "key": "P.H.E",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "PVS",
+          "key": "PVS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hort & Crop Production",
+          "key": "HORT AND CROP PRODUCTION",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Digital Tech.",
+          "key": "DIGITAL TECH.",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Inter Science",
+          "key": "INTER SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Garment Making",
+          "key": "GARMENT MAKING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Soc. & Cit. Std",
+          "key": "SOC. AND CIT. STD",
+          "active": true,
+          "source": "existing_emis_config"
+        }
+      ]
+    },
+    "SS1": {
+      "label": "SS1",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "English Language",
+          "key": "ENGLISH LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Chemistry",
+          "key": "CHEMISTRY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Physics",
+          "key": "PHYSICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Biology",
+          "key": "BIOLOGY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Technical Drawing",
+          "key": "TECHNICAL DRAWING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Computer Science",
+          "key": "COMPUTER SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Further Mathematics",
+          "key": "FURTHER MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Agricultural Science",
+          "key": "AGRICULTURAL SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Civic Education",
+          "key": "CIVIC EDUCATION",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Geography",
+          "key": "GEOGRAPHY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Economics",
+          "key": "ECONOMICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Digital Tech.",
+          "key": "DIGITAL TECH.",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Cit & Her. Std",
+          "key": "CIT AND HER. STD",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Garment Making",
+          "key": "GARMENT MAKING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Poise",
+          "key": "POISE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Literature",
+          "key": "LITERATURE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Government",
+          "key": "GOVERNMENT",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hausa Language",
+          "key": "HAUSA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Yoruba Language",
+          "key": "YORUBA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Arabic Language",
+          "key": "ARABIC LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Marketing",
+          "key": "MARKETING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Financial Account",
+          "key": "FINANCIAL ACCOUNT",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Commerce",
+          "key": "COMMERCE",
+          "active": true,
+          "source": "existing_emis_config"
+        }
+      ]
+    },
+    "SS2": {
+      "label": "SS2",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "English Language",
+          "key": "ENGLISH LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Chemistry",
+          "key": "CHEMISTRY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Physics",
+          "key": "PHYSICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Biology",
+          "key": "BIOLOGY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Technical Drawing",
+          "key": "TECHNICAL DRAWING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "IRK",
+          "key": "IRK",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Computer Science",
+          "key": "COMPUTER SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Further Mathematics",
+          "key": "FURTHER MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Agricultural Science",
+          "key": "AGRICULTURAL SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Civic Education",
+          "key": "CIVIC EDUCATION",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Geography",
+          "key": "GEOGRAPHY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Economics",
+          "key": "ECONOMICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Poise",
+          "key": "POISE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Literature",
+          "key": "LITERATURE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Government",
+          "key": "GOVERNMENT",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hausa Language",
+          "key": "HAUSA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Yoruba Language",
+          "key": "YORUBA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Arabic Language",
+          "key": "ARABIC LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Marketing",
+          "key": "MARKETING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Financial Account",
+          "key": "FINANCIAL ACCOUNT",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Commerce",
+          "key": "COMMERCE",
+          "active": true,
+          "source": "existing_emis_config"
+        }
+      ]
+    },
+    "SS3": {
+      "label": "SS3",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "key": "MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "English Language",
+          "key": "ENGLISH LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Chemistry",
+          "key": "CHEMISTRY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Physics",
+          "key": "PHYSICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Biology",
+          "key": "BIOLOGY",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Further Mathematics",
+          "key": "FURTHER MATHEMATICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Agricultural Science",
+          "key": "AGRICULTURAL SCIENCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Civic Education",
+          "key": "CIVIC EDUCATION",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Economics",
+          "key": "ECONOMICS",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Poise",
+          "key": "POISE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Islamiyyah",
+          "key": "ISLAMIYYAH",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Literature",
+          "key": "LITERATURE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Government",
+          "key": "GOVERNMENT",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Hausa Language",
+          "key": "HAUSA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Yoruba Language",
+          "key": "YORUBA LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Arabic Language",
+          "key": "ARABIC LANGUAGE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Marketing",
+          "key": "MARKETING",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Commerce",
+          "key": "COMMERCE",
+          "active": true,
+          "source": "existing_emis_config"
+        },
+        {
+          "name": "Financial Account",
+          "key": "FINANCIAL ACCOUNT",
+          "active": true,
+          "source": "existing_emis_config"
+        }
+      ]
+    },
+    "ISLAMIYAH_STARTER": {
+      "label": "Islamiyah Starter",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabiyah",
+          "key": "ARABIYAH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arqaam",
+          "key": "ARQAAM",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Huruf",
+          "key": "HURUF",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH_PREP1": {
+      "label": "Islamiyah Prep-1",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Murtala",
+          "key": "MURTALA",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Arabiyah",
+          "key": "ARABIYAH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hisab",
+          "key": "HISAB",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Azkhar",
+          "key": "AZKHAR",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH1": {
+      "label": "Islamiyah 1",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Huruf",
+          "key": "HURUF",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH2": {
+      "label": "Islamiyah 2",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Huruf",
+          "key": "HURUF",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH3": {
+      "label": "Islamiyah 3",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Huruf",
+          "key": "HURUF",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH4": {
+      "label": "Islamiyah 4",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Sirah",
+          "key": "SIRAH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tajweed",
+          "key": "TAJWEED",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH5": {
+      "label": "Islamiyah 5",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Sirah",
+          "key": "SIRAH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tajweed",
+          "key": "TAJWEED",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH6": {
+      "label": "Islamiyah 6",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Sirah",
+          "key": "SIRAH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tajweed",
+          "key": "TAJWEED",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    },
+    "ISLAMIYAH7": {
+      "label": "Islamiyah 7",
+      "subjects": [
+        {
+          "name": "Quran",
+          "key": "QURAN",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Hadith",
+          "key": "HADITH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Fiqh",
+          "key": "FIQH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tawheed",
+          "key": "TAWHEED",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Sirah",
+          "key": "SIRAH",
+          "active": true,
+          "source": "school_document"
+        },
+        {
+          "name": "Tajweed",
+          "key": "TAJWEED",
+          "active": true,
+          "source": "school_document"
+        }
+      ]
+    }
+  },
+  "custom_subjects": []
+}

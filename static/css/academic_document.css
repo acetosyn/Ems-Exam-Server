@@ -1,0 +1,97 @@
+/* ======================================================================
+   EMIS OFFICIAL ACADEMIC DOCUMENT TEMPLATE
+   Portable version of the approved Student Report Sheet visual language.
+   Used by Cumulative Results, Academic History, Transcripts and Broadsheets.
+   ====================================================================== */
+.emis-document-stack { display:grid; gap:26px; }
+.emis-academic-document { --report-ink:#172033; --report-muted:#64748b; --report-line:#cbd5e1; --report-soft:#f8fafc; --report-blue:#1d4ed8; --report-blue-soft:#eff6ff; --report-green:#15803d; width:210mm; min-height:297mm; box-sizing:border-box; padding:7.5mm 8mm 7mm; border:1.4px solid #94a3b8; border-radius:4px; background:#fff; color:var(--report-ink); box-shadow:0 20px 55px rgba(15,23,42,.14); font-family:"Nunito Sans",Arial,sans-serif; margin:0 auto; }
+.emis-academic-document *, .emis-academic-document *::before, .emis-academic-document *::after { box-sizing:border-box; }
+.emis-academic-document .emis-report-header { display:grid; grid-template-columns:22mm 1fr auto; align-items:center; gap:4mm; padding-bottom:3.2mm; border-bottom:1.5px solid #334155; }
+.emis-academic-document .emis-report-logo { width:19mm; height:19mm; display:grid; place-items:center; overflow:hidden; border-radius:50%; background:#fff; }
+.emis-academic-document .emis-report-logo img { width:100%; height:100%; object-fit:contain; }
+.emis-academic-document .emis-report-school { text-align:center; }
+.emis-academic-document .emis-report-school h1 { margin:0; color:#05070b; font-size:18.5pt; line-height:1; font-weight:800; letter-spacing:-.025em; }
+.emis-academic-document .emis-report-school p { margin:1.5px 0 0; color:#101827; font-size:8.1pt; line-height:1.05; font-weight:800; letter-spacing:.09em; }
+.emis-academic-document .emis-report-school span { display:block; margin-top:2px; color:#334155; font-size:7.7pt; line-height:1.08; font-weight:700; }
+.emis-academic-document .emis-report-document { min-width:39mm; padding:3mm; border:1px solid #bfdbfe; border-radius:10px; background:#eff6ff; text-align:center; }
+.emis-academic-document .emis-report-document strong { display:block; color:#1d4ed8; font-size:8.3px; font-weight:1000; }
+.emis-academic-document .emis-report-document span { display:block; margin-top:2px; color:#475569; font-size:6.8px; font-weight:850; line-height:1.3; }
+.emis-academic-document .emis-report-identity { display:grid; grid-template-columns:1.08fr 1fr; gap:4mm; margin-top:3mm; }
+.emis-academic-document .emis-student-primary { padding:3mm 3.2mm; border:1px solid #dbeafe; border-radius:10px; background:linear-gradient(135deg,#eff6ff,#fff); }
+.emis-academic-document .emis-student-primary span { display:block; color:#64748b; font-size:6.9px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+.emis-academic-document .emis-student-primary strong { display:block; margin-top:1px; color:#0f172a; font-size:13px; line-height:1.15; font-weight:1000; }
+.emis-academic-document .emis-student-primary small { display:block; margin-top:2px; color:#475569; font-size:7.2px; font-weight:850; }
+.emis-academic-document .emis-student-facts { display:grid; grid-template-columns:repeat(2,1fr); gap:2px 8px; padding:2.4mm 3mm; border:1px solid #e2e8f0; border-radius:10px; background:#fff; }
+.emis-academic-document .emis-student-facts p { display:grid; grid-template-columns:1fr auto; gap:6px; align-items:center; margin:0; padding:2px 0; border-bottom:1px dashed #e2e8f0; font-size:7px; }
+.emis-academic-document .emis-student-facts p:nth-last-child(-n+2) { border-bottom:0; }
+.emis-academic-document .emis-student-facts span { color:#64748b; font-weight:850; }
+.emis-academic-document .emis-student-facts strong { color:#0f172a; font-weight:950; text-align:right; }
+.emis-academic-document .emis-report-summary { display:grid; grid-template-columns:repeat(5,1fr); gap:2mm; margin-top:2.5mm; }
+.emis-academic-document .emis-report-summary article { min-height:15mm; padding:2.2mm; border:1px solid #dbe4ee; border-radius:9px; background:#fff; text-align:center; }
+.emis-academic-document .emis-report-summary article.primary, .emis-academic-document .emis-report-summary article:first-child, .emis-academic-document .emis-report-summary article:nth-child(2) { background:#eff6ff; border-color:#bfdbfe; }
+.emis-academic-document .emis-report-summary span { display:block; color:#64748b; font-size:6.6px; font-weight:900; text-transform:uppercase; letter-spacing:.04em; }
+.emis-academic-document .emis-report-summary strong { display:block; margin-top:1px; color:#0f172a; font-size:11px; line-height:1.1; font-weight:1000; }
+.emis-academic-document .emis-report-summary small { display:block; margin-top:1px; color:#64748b; font-size:6.2px; font-weight:800; }
+.emis-doc-progress { margin-top:2mm; padding:1.5mm 2mm; border:1px solid #dbeafe; border-radius:8px; background:#f8fbff; }
+.emis-doc-progress > div { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:1mm; color:#475569; font-size:6.3px; font-weight:900; text-transform:uppercase; }
+.emis-doc-progress i { display:block; height:2.2mm; overflow:hidden; border-radius:999px; background:#e2e8f0; }
+.emis-doc-progress i b { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#2563eb,#16a34a); }
+.emis-academic-document .emis-report-academics { margin-top:2.6mm; }
+.emis-academic-document .emis-section-heading { display:flex; justify-content:space-between; align-items:end; gap:10px; margin-bottom:1.2mm; }
+.emis-academic-document .emis-section-heading div span { display:block; color:#1d4ed8; font-size:7px; font-weight:1000; text-transform:uppercase; letter-spacing:.08em; }
+.emis-academic-document .emis-section-heading div strong { display:block; color:#0f172a; font-size:10px; font-weight:1000; }
+.emis-academic-document .emis-section-heading > small { color:#64748b; font-size:6.4px; font-weight:850; }
+.emis-academic-document .emis-report-table-wrap { overflow:hidden; border:1.2px solid #64748b; border-radius:3px; }
+.emis-academic-document .emis-report-result-table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:6.45px; line-height:1.15; }
+.emis-academic-document .emis-report-result-table th, .emis-academic-document .emis-report-result-table td { padding:1.18mm .55mm; border-right:.65px solid #94a3b8; border-bottom:.65px solid #cbd5e1; text-align:center; vertical-align:middle; }
+.emis-academic-document .emis-report-result-table th:last-child, .emis-academic-document .emis-report-result-table td:last-child { border-right:0; }
+.emis-academic-document .emis-report-result-table tbody tr:last-child td { border-bottom:0; }
+.emis-academic-document .emis-report-result-table th { padding-top:1.3mm; padding-bottom:1.3mm; background:#eaf2ff; color:#1e3a5f; font-size:5.9px; font-weight:1000; text-transform:uppercase; }
+.emis-academic-document .emis-report-result-table th small { font-size:5.2px; font-weight:900; }
+.emis-academic-document .emis-report-result-table .subject-col { width:25mm; text-align:left; padding-left:1.4mm; font-weight:950; }
+.emis-academic-document .emis-report-result-table .comment-col { width:19mm; text-align:left; font-size:5.8px; font-weight:850; }
+.emis-academic-document .emis-report-result-table .total-cell { background:#f8fafc; font-weight:1000; }
+.emis-academic-document .emis-report-result-table .annual-cell { background:#f0fdf4; color:#166534; font-weight:1000; }
+.emis-academic-document .emis-report-result-table .grade-cell { color:#0f172a; font-size:7px; font-weight:1000; }
+.emis-academic-document .emis-grade-legend { display:flex; flex-wrap:wrap; align-items:center; gap:2px 9px; padding:1.1mm 1.5mm; border:1px solid #e2e8f0; border-top:0; border-radius:0 0 5px 5px; background:#f8fafc; color:#475569; font-size:5.9px; font-weight:800; }
+.emis-academic-document .emis-grade-legend strong { color:#0f172a; font-weight:1000; }
+.emis-academic-document .emis-report-insights { display:grid; grid-template-columns:repeat(4,1fr); gap:1.6mm; margin-top:2.2mm; }
+.emis-academic-document .emis-report-insights article { padding:1.8mm 2mm; border:1px solid #dbe4ee; border-radius:8px; background:#fff; }
+.emis-academic-document .emis-report-insights article:first-child { background:#f0fdf4; border-color:#bbf7d0; }
+.emis-academic-document .emis-report-insights article:nth-child(2) { background:#fff7ed; border-color:#fed7aa; }
+.emis-academic-document .emis-report-insights span { display:block; color:#64748b; font-size:5.9px; font-weight:900; text-transform:uppercase; }
+.emis-academic-document .emis-report-insights strong { display:block; margin-top:1px; color:#0f172a; font-size:8px; font-weight:1000; }
+.emis-academic-document .emis-report-insights small { display:block; margin-top:1px; color:#64748b; font-size:5.7px; font-weight:800; }
+.emis-trend-chip { display:inline-flex; align-items:center; justify-content:center; gap:3px; min-width:12mm; padding:.8mm 1.2mm; border-radius:999px; font-weight:1000; }
+.emis-trend-chip.up { color:#166534; background:#dcfce7; }.emis-trend-chip.down { color:#b91c1c; background:#fee2e2; }.emis-trend-chip.neutral { color:#475569; background:#f1f5f9; }
+.emis-academic-document .emis-report-remarks { display:grid; grid-template-columns:1fr 58mm; gap:4mm; align-items:stretch; margin-top:2.2mm; padding:2mm; border:1px solid #dbe4ee; border-radius:8px; background:#fff; }
+.emis-academic-document .emis-remark-main { display:flex; flex-direction:column; gap:.35mm; min-width:0; }
+.emis-academic-document .emis-remark-row { display:grid; grid-template-columns:30mm minmax(0,1fr); gap:2mm; align-items:start; padding:.45mm 0; min-width:0; color:#101722; font-size:7.15pt; line-height:1.12; }
+.emis-academic-document .emis-remark-row span { color:#334155; font-weight:700; white-space:nowrap; }.emis-academic-document .emis-remark-row strong { min-width:0; color:#05070b; font-weight:800; overflow-wrap:anywhere; }
+.emis-academic-document .emis-report-signatures { display:grid; grid-template-columns:1fr 1fr; gap:5mm; align-items:end; }.emis-academic-document .emis-report-signatures div { display:grid; gap:7mm; color:#334155; font-size:6.4px; font-weight:900; text-align:center; }.emis-academic-document .emis-report-signatures i { display:block; border-bottom:1px solid #334155; }
+.emis-academic-document .emis-report-footer { display:flex; justify-content:space-between; gap:8px; margin-top:1.7mm; padding-top:1mm; border-top:1px solid #cbd5e1; color:#475569; font-size:5.7px; font-weight:800; }
+.emis-academic-document .emis-report-footer strong { text-align:right; }
+.emis-academic-document .emis-no-subject-row { padding:8mm 2mm !important; color:#64748b; text-align:center !important; }
+.emis-academic-document.report-density-tight .emis-report-result-table { font-size:5.9px; }.emis-academic-document.report-density-tight .emis-report-result-table th,.emis-academic-document.report-density-tight .emis-report-result-table td { padding:.92mm .45mm; }
+.emis-academic-document.report-density-ultra .emis-report-result-table { font-size:5.35px; }.emis-academic-document.report-density-ultra .emis-report-result-table th,.emis-academic-document.report-density-ultra .emis-report-result-table td { padding:.72mm .35mm; }.emis-academic-document.report-density-ultra .emis-report-summary article { min-height:13mm; padding:1.6mm; }
+.emis-academic-document.landscape { width:297mm; min-height:210mm; padding:7mm 7.5mm; }.emis-academic-document.landscape .emis-report-result-table { font-size:5.4px; }.emis-academic-document.landscape .emis-report-result-table .subject-col { width:31mm; }.emis-academic-document.landscape .emis-report-summary article { min-height:13mm; }
+.emis-document-preview-shell { overflow:auto; padding:20px; border:1px solid #d9e5ef; border-radius:18px; background:linear-gradient(180deg,#eef4f8,#f8fafc); }
+.emis-document-preview-shell .emis-academic-document { transform-origin:top center; }
+.emis-score-view-toggle { display:inline-flex; gap:4px; padding:4px; border:1px solid #d8e4ee; border-radius:12px; background:#f8fbfd; }.emis-score-view-toggle button { min-height:34px; padding:0 12px; border:0; border-radius:9px; background:transparent; color:#64748b; font-size:10px; font-weight:950; cursor:pointer; }.emis-score-view-toggle button.active { background:#173f76; color:#fff; box-shadow:0 5px 12px rgba(23,63,118,.18); }
+@media (max-width:1000px) { .emis-document-preview-shell { padding:12px; }.emis-academic-document { transform:scale(.78); transform-origin:top left; margin-bottom:-65mm; }.emis-academic-document.landscape { transform:scale(.58); margin-bottom:-85mm; } }
+@media (max-width:700px) { .emis-academic-document { transform:scale(.52); margin-bottom:-138mm; }.emis-academic-document.landscape { transform:scale(.36); margin-bottom:-130mm; } }
+@media print {
+  body.academic-document-printing * { visibility:hidden !important; }
+  body.academic-document-printing .academic-document-print-target, body.academic-document-printing .academic-document-print-target * { visibility:visible !important; }
+  body.academic-document-printing .academic-document-print-target { position:absolute !important; left:0 !important; top:0 !important; width:100% !important; margin:0 !important; padding:0 !important; background:#fff !important; }
+  body.academic-document-printing .emis-document-stack { display:block !important; }
+  body.academic-document-printing .emis-academic-document { width:210mm !important; min-width:210mm !important; max-width:210mm !important; min-height:297mm !important; height:auto !important; margin:0 !important; padding:7.5mm 8mm 7mm !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; transform:none !important; page-break-after:always !important; break-after:page !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  body.academic-document-printing .emis-academic-document.landscape { width:297mm !important; min-width:297mm !important; max-width:297mm !important; min-height:210mm !important; padding:7mm 7.5mm !important; }
+  body.academic-document-printing .emis-document-stack .emis-academic-document:last-child { page-break-after:auto !important; break-after:auto !important; }
+  body.academic-document-printing .emis-report-header, body.academic-document-printing .emis-report-identity, body.academic-document-printing .emis-report-summary, body.academic-document-printing .emis-doc-progress, body.academic-document-printing .emis-report-insights, body.academic-document-printing .emis-report-remarks, body.academic-document-printing .emis-report-footer, body.academic-document-printing .emis-grade-legend { break-inside:avoid-page !important; page-break-inside:avoid !important; }
+  body.academic-document-printing .emis-report-result-table thead { display:table-header-group !important; }
+  body.academic-document-printing .emis-report-result-table tr { break-inside:avoid-page !important; page-break-inside:avoid !important; }
+}
+
+/* ============================================================ SCORE INTERPRETATION + PAGE ORIENTATION ============================================================ */
+.emis-academic-document .emis-report-result-table td small{display:block;margin-top:.35mm;color:#64748b;font-size:4.9px;font-weight:800;line-height:1.05}.emis-academic-document{page:emis-portrait}.emis-academic-document.landscape{page:emis-landscape}@page emis-portrait{size:A4 portrait;margin:0}@page emis-landscape{size:A4 landscape;margin:0}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Broadsheets — EMIS{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/broadsheets.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_document.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="broad-shell" id="broadsheetApp">
+  <div class="broad-toast-host" id="broadToastHost" aria-live="polite"></div>
+
+  <section class="broad-hero">
+    <div class="broad-hero-copy"><span class="broad-kicker"><i class="fa-solid fa-table-cells-large"></i> EMIS CLASS ANALYTICS</span><h1>Summary & Cumulative Broadsheets</h1><p>Term, annual and subject performance in one class workspace.</p><div class="broad-hero-pills"><span><i class="fa-solid fa-table"></i> Term Matrix</span><span><i class="fa-solid fa-layer-group"></i> Annual Matrix</span><span><i class="fa-solid fa-chart-simple"></i> Analytics</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet Excel</span></div></div>
+    <aside class="broad-hero-card"><div><small>Session</small><strong id="broadHeroSession">—</strong></div><div><small>Class</small><strong id="broadHeroClass">—</strong></div><div><small>View</small><strong id="broadHeroView">Term Broadsheet</strong></div><span class="hero-live"><i></i> History-powered</span></aside>
+  </section>
+
+  <section class="broad-stats">
+    <article><i class="fa-solid fa-users"></i><div><span>Students</span><strong id="broadStatStudents">0</strong></div></article>
+    <article><i class="fa-solid fa-circle-check"></i><div><span>Complete</span><strong id="broadStatComplete">0</strong></div></article>
+    <article><i class="fa-solid fa-chart-line"></i><div><span>Class Average</span><strong id="broadStatAverage">—</strong></div></article>
+    <article><i class="fa-solid fa-trophy"></i><div><span>Highest Average</span><strong id="broadStatHighest">—</strong></div></article>
+    <article><i class="fa-solid fa-bars-progress"></i><div><span>Coverage</span><strong id="broadStatCoverage">0%</strong></div></article>
+  </section>
+
+  <section class="broad-controls">
+    <label><span>Academic Session</span><select id="broadSession"><option value="">Select session…</option></select></label>
+    <label><span>Term</span><select id="broadTerm"><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select></label>
+    <label><span>Class</span><select id="broadClass"><option value="">Select class…</option></select></label>
+    <label><span>Class Arm</span><select id="broadArm"><option value="">All class arms</option></select></label>
+    <label><span>Score View</span><select id="broadScoreMode"><option value="both">Score + %</option><option value="score">Scores</option><option value="percent">Percent</option></select></label>
+    <button type="button" id="loadBroadsheets" class="broad-btn primary"><i class="fa-solid fa-bolt"></i> Load</button>
+    <button type="button" id="exportBroadsheets" class="broad-btn" disabled><i class="fa-solid fa-file-excel"></i> Export</button>
+    <button type="button" id="printBroadsheets" class="broad-btn" disabled><i class="fa-solid fa-print"></i> Print Current</button>
+  </section>
+
+  <section class="broad-health-card"><div><span>Academic Coverage</span><strong id="broadCoverageLabel">No class loaded</strong></div><div class="broad-progress"><i id="broadCoverageBar"></i></div><em id="broadCoverageMeta">Select a session and class.</em></section>
+
+  <nav class="broad-tabs" aria-label="Broadsheet views">
+    <button type="button" class="active" data-broad-tab="term"><i class="fa-solid fa-table"></i><span>Term Broadsheet</span></button>
+    <button type="button" data-broad-tab="annual"><i class="fa-solid fa-layer-group"></i><span>Cumulative Broadsheet</span></button>
+    <button type="button" data-broad-tab="analytics"><i class="fa-solid fa-chart-column"></i><span>Performance Analytics</span></button>
+  </nav>
+
+  <section class="broad-view active" data-broad-panel="term">
+    <div class="broad-view-head"><div><span class="broad-kicker">Selected Term</span><h2 id="termBroadsheetTitle">Term Broadsheet</h2></div><div class="broad-tools"><label class="broad-search"><i class="fa-solid fa-magnifying-glass"></i><input id="broadTermSearch" type="search" placeholder="Find student"></label><select id="broadTermFilter"><option value="all">All Students</option><option value="complete">Complete</option><option value="partial">Partial</option></select></div></div>
+    <div class="broad-table-wrap"><table class="broad-table matrix"><thead id="termBroadsheetHead"></thead><tbody id="termBroadsheetBody"><tr><td class="broad-empty"><i class="fa-solid fa-table"></i><strong>No broadsheet loaded</strong><span>Select a session, term and class above.</span></td></tr></tbody></table></div>
+  </section>
+
+  <section class="broad-view" data-broad-panel="annual">
+    <div class="broad-view-head"><div><span class="broad-kicker">Annual Result</span><h2>Cumulative Broadsheet</h2></div><div class="broad-tools"><label class="broad-search"><i class="fa-solid fa-magnifying-glass"></i><input id="broadAnnualSearch" type="search" placeholder="Find student"></label><select id="broadAnnualFilter"><option value="all">All Students</option><option value="complete">3-Term Complete</option><option value="partial">Incomplete Year</option></select></div></div>
+    <div class="term-coverage-strip"><article><span>First Term</span><strong id="termCoverageFirst">0</strong></article><article><span>Second Term</span><strong id="termCoverageSecond">0</strong></article><article><span>Third Term</span><strong id="termCoverageThird">0</strong></article><article class="annual"><span>3-Term Complete</span><strong id="termCoverageAnnual">0</strong></article></div>
+    <div class="broad-table-wrap"><table class="broad-table matrix"><thead id="annualBroadsheetHead"></thead><tbody id="annualBroadsheetBody"><tr><td class="broad-empty"><i class="fa-solid fa-layer-group"></i><strong>No cumulative broadsheet loaded</strong><span>Load a class to compile First–Third Term.</span></td></tr></tbody></table></div>
+  </section>
+
+  <section class="broad-view" data-broad-panel="analytics">
+    <div class="analytics-grid">
+      <article class="analytics-card distribution-card"><div class="analytics-head"><div><span class="broad-kicker">Distribution</span><h3>Grade Spread</h3></div><select id="analyticsScope"><option value="term">Selected Term</option><option value="annual">Annual</option></select></div><div id="gradeDistributionChart" class="grade-chart"></div></article>
+      <article class="analytics-card"><div class="analytics-head"><div><span class="broad-kicker">Leaders</span><h3>Top 5</h3></div><i class="fa-solid fa-trophy"></i></div><div id="topStudentsList" class="rank-list"><div class="analytics-empty">Load a class to view rankings.</div></div></article>
+      <article class="analytics-card"><div class="analytics-head"><div><span class="broad-kicker">Attention</span><h3>Lowest 5</h3></div><i class="fa-solid fa-arrow-trend-up"></i></div><div id="bottomStudentsList" class="rank-list"><div class="analytics-empty">Load a class to view rankings.</div></div></article>
+      <article class="analytics-card subject-highlight"><div class="analytics-head"><div><span class="broad-kicker">Subjects</span><h3>Strength & Focus</h3></div><i class="fa-solid fa-book-open"></i></div><div class="subject-highlight-grid"><div><span>Strongest</span><strong id="bestSubjectName">—</strong><em id="bestSubjectScore">—</em></div><div><span>Focus</span><strong id="focusSubjectName">—</strong><em id="focusSubjectScore">—</em></div></div></article>
+    </div>
+    <section class="subject-analytics-card"><div class="broad-view-head"><div><span class="broad-kicker">Subject Analytics</span><h2>Average, Range & Pass Rate</h2></div><label class="broad-search"><i class="fa-solid fa-magnifying-glass"></i><input id="subjectAnalyticsSearch" type="search" placeholder="Find subject"></label></div><div class="subject-analytics-grid" id="subjectAnalyticsGrid"><div class="analytics-empty">Load a class to view subject analytics.</div></div></section>
+  </section>
+
+  <div id="broadsheetDocumentCanvas" class="emis-document-preview-shell broad-print-canvas" hidden></div>
+
+  <footer class="broad-footer"><span><i class="fa-solid fa-database"></i> Permanent Academic History</span><span><i class="fa-solid fa-calculator"></i> Actual score / maximum</span><span><i class="fa-solid fa-shield-halved"></i> Missing scores stay blank</span><span><i class="fa-solid fa-table-columns"></i> Sticky headers</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet export</span></footer>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/academic_document.js') }}"></script>
+<script src="{{ url_for('static', filename='js/broadsheets.js') }}"></script>
+{% endblock %}

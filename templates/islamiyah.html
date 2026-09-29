@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}Islamiyah School — EMIS{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/islamiyah.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="islamiyah-shell" id="islamiyahApp" data-role="{{ user_type|default(session.get('user_type','')) }}">
+  <div class="islamiyah-toast-host" id="islamiyahToastHost" aria-live="polite"></div>
+
+  <section class="islamiyah-hero">
+    <div class="islamiyah-hero-copy">
+      <span class="islamiyah-eyebrow"><i class="fa-solid fa-mosque"></i> EMIS ISLAMIYAH SCHOOL</span>
+      <h1>Islamiyah Academic Center</h1>
+      <p class="hero-lead">A clean, robust workspace for independent Islamiyah placement, score entry, progress tracking, academic history, and automatic report sheet integration.</p>
+
+      <div class="islamiyah-hero-tags">
+        <span><i class="fa-solid fa-pen-to-square"></i> CA /30</span>
+        <span><i class="fa-solid fa-file-circle-check"></i> Exam /70</span>
+        <span><i class="fa-solid fa-calculator"></i> Total /100</span>
+        <span><i class="fa-solid fa-link"></i> Linked by Admission Number</span>
+      </div>
+
+      <div class="hero-action-row">
+        <button type="button" class="module-btn primary" data-islamiyah-tab="scores"><i class="fa-solid fa-table-list"></i> Open Score Entry</button>
+        {% if session.get('user_type') == 'admin' %}
+        <button type="button" class="module-btn ghost" data-islamiyah-tab="roster"><i class="fa-solid fa-users-gear"></i> Manage Placement</button>
+        {% endif %}
+        <button type="button" class="module-btn ghost" data-islamiyah-tab="results"><i class="fa-solid fa-clock-rotate-left"></i> View History</button>
+      </div>
+    </div>
+
+    <aside class="islamiyah-context-card">
+      <div class="context-top">
+        <div>
+          <span class="context-label">Academic Session</span>
+          <strong id="islamiyahSession">—</strong>
+        </div>
+        <div>
+          <span class="context-label">Active Term</span>
+          <strong id="islamiyahTerm">—</strong>
+        </div>
+      </div>
+
+      <div class="context-mid">
+        <article>
+          <span>Access</span>
+          <strong id="islamiyahRole">—</strong>
+        </article>
+        <article>
+          <span>Integration</span>
+          <strong class="success">Active</strong>
+        </article>
+      </div>
+
+      <div class="context-foot">
+        <div class="assessment-pill"><i class="fa-solid fa-star-and-crescent"></i><span>Islamiyah Assessment Model</span></div>
+        <div class="assessment-split">
+          <b>30%</b><span>CA</span>
+          <i></i>
+          <b>70%</b><span>Exam</span>
+        </div>
+        <button type="button" id="refreshIslamiyah"><i class="fa-solid fa-rotate"></i> Refresh Module</button>
+      </div>
+    </aside>
+  </section>
+
+  <section class="islamiyah-stat-grid" aria-label="Islamiyah statistics">
+    <article class="metric-card metric-blue"><span class="stat-icon"><i class="fa-solid fa-users"></i></span><div><small>Imported Students</small><strong id="statIslamiyahRoster">0</strong><em>Current school database</em></div></article>
+    <article class="metric-card metric-green"><span class="stat-icon"><i class="fa-solid fa-user-check"></i></span><div><small>Placed Students</small><strong id="statIslamiyahAssigned">0</strong><em>Islamiyah class assigned</em></div></article>
+    <article class="metric-card metric-amber"><span class="stat-icon"><i class="fa-solid fa-user-clock"></i></span><div><small>Awaiting Placement</small><strong id="statIslamiyahUnassigned">0</strong><em>Needs Islamiyah class</em></div></article>
+    <article class="metric-card metric-purple"><span class="stat-icon"><i class="fa-solid fa-clipboard-check"></i></span><div><small>Score Records</small><strong id="statIslamiyahScores">0</strong><em id="statIslamiyahScoreMeta">Current term</em></div></article>
+    <article class="metric-card metric-teal"><span class="stat-icon"><i class="fa-solid fa-circle-check"></i></span><div><small>Complete Records</small><strong id="statIslamiyahComplete">0</strong><em>CA + Exam entered</em></div></article>
+  </section>
+
+  <section class="islamiyah-feature-grid" aria-label="Key Islamiyah module features">
+    <article><i class="fa-solid fa-school"></i><span>Independent Islamiyah classes</span></article>
+    <article><i class="fa-solid fa-wand-magic-sparkles"></i><span>Automatic report integration</span></article>
+    <article><i class="fa-solid fa-cloud-arrow-down"></i><span>Sync current EMIS roster</span></article>
+    <article><i class="fa-solid fa-user-plus"></i><span>Bulk placement tools</span></article>
+    <article><i class="fa-solid fa-floppy-disk"></i><span>Autosave score entry</span></article>
+    <article><i class="fa-solid fa-chart-line"></i><span>Class results dashboard</span></article>
+    <article><i class="fa-solid fa-timeline"></i><span>Student result history</span></article>
+    <article><i class="fa-solid fa-file-excel"></i><span>Excel export support</span></article>
+  </section>
+
+  <nav class="islamiyah-tabs" aria-label="Islamiyah workspace sections">
+    <button type="button" class="active" data-islamiyah-tab="overview"><i class="fa-solid fa-chart-pie"></i><span>Overview</span></button>
+    <button type="button" data-islamiyah-tab="scores"><i class="fa-solid fa-table-list"></i><span>Score Entry</span></button>
+    {% if session.get('user_type') == 'admin' %}<button type="button" data-islamiyah-tab="roster"><i class="fa-solid fa-users-gear"></i><span>Student Placement</span></button>{% endif %}
+    <button type="button" data-islamiyah-tab="results"><i class="fa-solid fa-chart-column"></i><span>Results & History</span></button>
+  </nav>
+
+  <section class="islamiyah-panel active" data-islamiyah-panel="overview">
+    <div class="panel-heading-row">
+      <div>
+        <span class="section-kicker">School Structure</span>
+        <h2>Islamiyah Classes & Subjects</h2>
+        <p>Islamiyah classification is independent from the student's regular JSS, SS, Primary or Nursery class.</p>
+      </div>
+      <div class="integration-badge"><i class="fa-solid fa-link"></i><span>Report Sheet Integration</span><strong>ACTIVE</strong></div>
+    </div>
+
+    <div class="overview-top-grid">
+      <article class="overview-card emphasis-card">
+        <div class="mini-kicker">Assessment Guide</div>
+        <h3>Simple, consistent scoring model</h3>
+        <div class="assessment-board">
+          <div><span>CA</span><strong>30</strong></div>
+          <div><span>Exam</span><strong>70</strong></div>
+          <div><span>Total</span><strong>100</strong></div>
+        </div>
+        <p>Islamiyah does not use the normal JSS/SS split. It uses a direct <strong>CA /30</strong> and <strong>Exam /70</strong> structure.</p>
+      </article>
+
+      <article class="overview-card quick-actions-card">
+        <div class="mini-kicker">Quick Actions</div>
+        <h3>Get things done faster</h3>
+        <div class="quick-actions-grid">
+          {% if session.get('user_type') == 'admin' %}<button type="button" class="quick-action-btn" data-islamiyah-tab="roster"><i class="fa-solid fa-users-gear"></i><span>Place Students</span></button>{% endif %}
+          <button type="button" class="quick-action-btn" data-islamiyah-tab="scores"><i class="fa-solid fa-keyboard"></i><span>Enter Scores</span></button>
+          <button type="button" class="quick-action-btn" data-islamiyah-tab="results"><i class="fa-solid fa-chart-column"></i><span>View Results</span></button>
+          <button type="button" class="quick-action-btn" data-islamiyah-tab="results"><i class="fa-solid fa-clock-rotate-left"></i><span>Open History</span></button>
+        </div>
+      </article>
+    </div>
+
+    <div id="islamiyahClassCards" class="islamiyah-class-grid"><div class="module-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading Islamiyah structure…</div></div>
+
+    <div class="islamiyah-workflow-strip">
+      <article><b>1</b><div><strong>Import / Sync</strong><span>Bring the current EMIS student database into Islamiyah School.</span></div></article>
+      <i class="fa-solid fa-arrow-right"></i>
+      <article><b>2</b><div><strong>Place Students</strong><span>Assign each admission number to the appropriate Islamiyah level.</span></div></article>
+      <i class="fa-solid fa-arrow-right"></i>
+      <article><b>3</b><div><strong>Enter Scores</strong><span>Islamiyah teachers enter CA /30 and Exam /70 with autosave.</span></div></article>
+      <i class="fa-solid fa-arrow-right"></i>
+      <article><b>4</b><div><strong>Automatic Report</strong><span>The regular report receives the student's aggregated Islamiyyah /100 score.</span></div></article>
+    </div>
+  </section>
+
+  <section class="islamiyah-panel" data-islamiyah-panel="scores">
+    <div class="panel-heading-row">
+      <div><span class="section-kicker">Manual Assessment</span><h2>Islamiyah Score Entry</h2><p>Scores save automatically as you type. Blank values remain incomplete and are never converted to zero.</p></div>
+      <div class="autosave-state" id="islamiyahAutosaveState"><span></span><strong>Autosave Ready</strong></div>
+    </div>
+
+    <div class="workspace-card">
+      <div class="islamiyah-filter-bar">
+        <label><span>Islamiyah Class</span><select id="scoreIslamiyahClass"><option value="">Select class…</option></select></label>
+        <label><span>Subject</span><select id="scoreIslamiyahSubject"><option value="">Select subject…</option></select></label>
+        <label class="search-field"><span>Find Student</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="scoreStudentSearch" placeholder="Name or admission no."></div></label>
+        <button type="button" class="module-btn ghost" id="exportIslamiyahScores" disabled><i class="fa-solid fa-file-excel"></i> Export Excel</button>
+      </div>
+
+      <div class="score-context-summary" id="scoreContextSummary">
+        <span><i class="fa-solid fa-circle-info"></i> Select an Islamiyah class and subject to load students.</span>
+      </div>
+
+      <div class="islamiyah-table-wrap score-table-wrap">
+        <table class="islamiyah-table islamiyah-score-table">
+          <thead><tr><th>#</th><th>Admission No.</th><th class="student-col">Student</th><th>Regular Class</th><th>Islamiyah Class</th><th>CA <small>/30</small></th><th>Exam <small>/70</small></th><th>Total <small>/100</small></th><th>Status</th><th>Saved</th></tr></thead>
+          <tbody id="islamiyahScoreBody"><tr><td colspan="10" class="empty-table">Select a class and subject to begin score entry.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {% if session.get('user_type') == 'admin' %}
+  <section class="islamiyah-panel" data-islamiyah-panel="roster">
+    <div class="panel-heading-row">
+      <div><span class="section-kicker">Student Database</span><h2>Islamiyah Student Placement</h2><p>Import the current school roster, then independently place each student into Islamiyah Starter, Prep-1 or Islamiyah 1–7.</p></div>
+      <button type="button" class="module-btn primary" id="importIslamiyahRoster"><i class="fa-solid fa-database"></i> Import / Sync Current School Database</button>
+    </div>
+
+    <div class="workspace-card">
+      <div class="roster-control-grid">
+        <label class="search-field"><span>Search Roster</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="rosterSearch" placeholder="Student name, admission no. or class"></div></label>
+        <label><span>Regular Class</span><select id="rosterRegularClass"><option value="">All regular classes</option></select></label>
+        <label><span>Islamiyah Placement</span><select id="rosterIslamiyahFilter"><option value="">All placements</option><option value="__UNASSIGNED__">Unassigned only</option></select></label>
+        <div class="bulk-placement-control"><span>Assign Selected To</span><div><select id="bulkIslamiyahClass"><option value="">Choose Islamiyah class…</option></select><button type="button" class="module-btn compact" id="assignSelectedIslamiyah" disabled><i class="fa-solid fa-user-plus"></i> Assign</button><button type="button" class="module-btn compact ghost" id="unassignSelectedIslamiyah" disabled>Unassign</button></div></div>
+      </div>
+
+      <div class="selection-status" id="rosterSelectionStatus"><strong>0</strong> student(s) selected</div>
+      <div class="islamiyah-table-wrap roster-table-wrap">
+        <table class="islamiyah-table">
+          <thead><tr><th class="check-col"><input type="checkbox" id="selectAllIslamiyahRoster" aria-label="Select all visible students"></th><th>#</th><th>Admission No.</th><th class="student-col">Student</th><th>Sex</th><th>Regular Class</th><th>Islamiyah Class</th><th>Placement Status</th><th>Updated</th></tr></thead>
+          <tbody id="islamiyahRosterBody"><tr><td colspan="9" class="empty-table">Import the current school database to begin Islamiyah placement.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="islamiyah-panel" data-islamiyah-panel="results">
+    <div class="panel-heading-row">
+      <div><span class="section-kicker">Academic Records</span><h2>Islamiyah Results & Student History</h2><p>Review term completion, class averages, student progress and previously saved Islamiyah academic records.</p></div>
+    </div>
+
+    <div class="results-layout">
+      <div class="results-class-pane workspace-card">
+        <div class="islamiyah-filter-bar results-filters">
+          <label><span>Islamiyah Class</span><select id="resultIslamiyahClass"><option value="">Select class…</option></select></label>
+          <button type="button" class="module-btn" id="loadIslamiyahResults"><i class="fa-solid fa-chart-column"></i> Load Class Results</button>
+        </div>
+        <div class="result-summary-mini" id="islamiyahResultSummary"><span>Class results have not been loaded.</span></div>
+        <div class="islamiyah-table-wrap result-table-wrap">
+          <table class="islamiyah-table"><thead><tr><th>#</th><th>Admission No.</th><th class="student-col">Student</th><th>Regular Class</th><th>Subjects Complete</th><th>Average</th><th>Status</th><th>History</th></tr></thead><tbody id="islamiyahResultsBody"><tr><td colspan="8" class="empty-table">Select an Islamiyah class to review results.</td></tr></tbody></table>
+        </div>
+      </div>
+
+      <aside class="student-history-pane workspace-card">
+        <div class="history-heading"><div><span class="section-kicker">Student Record</span><h3>Islamiyah History</h3></div><i class="fa-solid fa-clock-rotate-left"></i></div>
+        <div class="history-search"><input id="historyAdmission" type="text" placeholder="Enter admission number"><button type="button" id="loadIslamiyahHistory"><i class="fa-solid fa-magnifying-glass"></i></button></div>
+        <div id="islamiyahHistoryBody" class="history-body"><div class="history-empty"><i class="fa-regular fa-folder-open"></i><span>Choose a student or enter an admission number.</span></div></div>
+      </aside>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/islamiyah.js') }}"></script>
+{% endblock %}

@@ -51,6 +51,12 @@ from modules.academic_settings import get_academic_settings
 from modules.attendance_manager import attendance_bp
 from modules.ca_test_manager import ca_test_bp
 from modules.report_sheet_manager import report_sheet_bp
+from modules.subject_manager import subject_manager_bp
+from modules.teacher_assignment_routes import teacher_assignment_bp
+from modules.islamiyah_routes import islamiyah_bp
+from modules.academic_history import academic_history_bp
+from modules.cumulative_results import cumulative_results_bp
+from modules.broadsheet_manager import broadsheet_bp
 
 
 # ==========================================================
@@ -549,6 +555,12 @@ app.register_blueprint(exam_document_export_bp, url_prefix="/api")
 app.register_blueprint(attendance_bp)
 app.register_blueprint(ca_test_bp)
 app.register_blueprint(report_sheet_bp)
+app.register_blueprint(subject_manager_bp)
+app.register_blueprint(teacher_assignment_bp)
+app.register_blueprint(islamiyah_bp)
+app.register_blueprint(academic_history_bp)
+app.register_blueprint(cumulative_results_bp)
+app.register_blueprint(broadsheet_bp)
 
 
 # ==========================================================
@@ -603,6 +615,7 @@ def print_academic_routes():
         "/api/attendance",
         "/api/ca-tests",
         "/api/report-sheets",
+        "/api/cumulative-results",
         "/api/sync",
     )
 

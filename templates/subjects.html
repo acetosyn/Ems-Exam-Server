@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Subject Manager — EMIS CBT Server{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/subjects.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="subject-manager-page" id="subjectManagerPage">
+  <div id="subjectToastHost" class="subject-toast-host" aria-live="polite" aria-atomic="false"></div>
+
+  <section class="subject-hero">
+    <div class="subject-hero-copy">
+      <span class="subject-eyebrow"><i class="fa-solid fa-book-open"></i> EMIS Academic Configuration</span>
+      <h1>Subject Manager</h1>
+      <p>Manage the school subject catalogue from one place, assign subjects to classes, control Senior Secondary stream visibility and prepare Nursery, Tahfeez, Primary and Islamiyah classes before their student databases are activated.</p>
+      <div class="subject-feature-row"><span><i class="fa-solid fa-layer-group"></i> Dynamic subjects</span><span><i class="fa-solid fa-school"></i> 6 school sections</span><span><i class="fa-solid fa-shield-halved"></i> History-safe subject keys</span></div>
+    </div>
+
+    <aside class="subject-registry-card">
+      <div class="subject-registry-top"><span><i class="fa-solid fa-database"></i> Subject Registry</span><span id="registryState" class="registry-state">Loading</span></div>
+      <strong id="registryHeadline">Reading configuration…</strong>
+      <small id="registryUpdated">Local academic configuration</small>
+      <div class="registry-meta"><span><small>Version</small><b id="registryVersion">—</b></span><span><small>Configured Classes</small><b id="registryClasses">—</b></span></div>
+    </aside>
+  </section>
+
+  <section class="subject-stat-grid" aria-label="Subject registry statistics">
+    <article class="subject-stat-card"><span class="subject-stat-icon blue"><i class="fa-solid fa-book"></i></span><div><small>Total Subjects</small><strong id="statTotalSubjects">—</strong><span>Persistent catalogue</span></div></article>
+    <article class="subject-stat-card"><span class="subject-stat-icon green"><i class="fa-solid fa-circle-check"></i></span><div><small>Active Subjects</small><strong id="statActiveSubjects">—</strong><span id="statInactiveSubjects">— inactive</span></div></article>
+    <article class="subject-stat-card"><span class="subject-stat-icon purple"><i class="fa-solid fa-link"></i></span><div><small>Class Assignments</small><strong id="statAssignments">—</strong><span>Across all sections</span></div></article>
+    <article class="subject-stat-card"><span class="subject-stat-icon gold"><i class="fa-solid fa-school-flag"></i></span><div><small>School Sections</small><strong id="statSections">—</strong><span>Regular + Islamiyah</span></div></article>
+  </section>
+
+  <section class="subject-workspace">
+    <article class="subject-panel subject-catalog-panel">
+      <header class="subject-panel-head">
+        <div><span class="subject-panel-kicker">Central catalogue</span><h2><i class="fa-solid fa-list-check"></i> Subjects & Assignments</h2></div>
+        <button id="newSubjectBtn" class="subject-btn primary" type="button"><i class="fa-solid fa-plus"></i> Add Subject</button>
+      </header>
+
+      <div class="subject-filter-bar">
+        <label class="subject-search"><i class="fa-solid fa-magnifying-glass"></i><input id="subjectSearch" type="search" autocomplete="off" placeholder="Search subject, class or section…"></label>
+        <select id="sectionFilter" aria-label="Filter by school section"><option value="">All Sections</option></select>
+        <select id="classFilter" aria-label="Filter by class"><option value="">All Classes</option></select>
+        <select id="statusFilter" aria-label="Filter by subject status"><option value="all">All Status</option><option value="active">Active</option><option value="inactive">Inactive</option></select>
+        <button id="refreshSubjectsBtn" class="icon-filter-btn" type="button" title="Refresh subjects"><i class="fa-solid fa-rotate"></i></button>
+      </div>
+
+      <div class="catalog-summary"><span id="catalogCount">0 subjects</span><span><i class="fa-solid fa-circle-info"></i> Deactivation hides a subject from current selection but preserves its stable identity for history.</span></div>
+
+      <div class="subject-table-wrap">
+        <table class="subject-table">
+          <thead><tr><th>Subject</th><th>Status</th><th>Assigned Classes</th><th>Sections</th><th class="subject-action-col">Action</th></tr></thead>
+          <tbody id="subjectTableBody"><tr><td colspan="5" class="subject-loading-cell"><i class="fa-solid fa-spinner fa-spin"></i> Loading subject registry…</td></tr></tbody>
+        </table>
+      </div>
+      <div id="subjectEmptyState" class="subject-empty-state" hidden><i class="fa-solid fa-book-open-reader"></i><strong>No subjects match this filter</strong><span>Adjust the filters or add a new subject.</span></div>
+    </article>
+
+    <aside class="subject-panel subject-editor-panel" id="subjectEditorPanel">
+      <header class="subject-panel-head editor-head">
+        <div><span class="subject-panel-kicker" id="editorKicker">New subject</span><h2 id="editorTitle"><i class="fa-solid fa-pen-to-square"></i> Subject Editor</h2></div>
+        <button id="clearEditorBtn" class="subject-icon-btn" type="button" title="Clear editor"><i class="fa-solid fa-xmark"></i></button>
+      </header>
+
+      <form id="subjectEditorForm" autocomplete="off">
+        <input type="hidden" id="editingSubjectId" value="">
+
+        <div class="subject-form-group">
+          <label for="subjectName">Subject Name</label>
+          <div class="subject-input-wrap"><i class="fa-solid fa-book"></i><input id="subjectName" type="text" maxlength="100" required placeholder="e.g. Robotics"></div>
+          <small>Editing the visible name does not change the subject's permanent machine identity.</small>
+        </div>
+
+        <div class="subject-identity-box" id="subjectIdentityBox" hidden>
+          <span><i class="fa-solid fa-fingerprint"></i> Stable Subject Key</span><code id="subjectStableKey">—</code>
+        </div>
+
+        <div class="subject-status-row">
+          <div><strong>Subject Status</strong><small>Inactive subjects remain stored but are excluded from active class subject lists.</small></div>
+          <label class="subject-switch"><input id="subjectActive" type="checkbox" checked><span></span></label>
+        </div>
+
+        <div class="assignment-heading"><div><span class="subject-panel-kicker">Current offering</span><h3>Assign to Classes</h3></div><div class="assignment-tools"><button id="selectAllClassesBtn" type="button">Select All</button><button id="clearAllClassesBtn" type="button">Clear</button></div></div>
+        <p class="assignment-help">Nursery, Tahfeez and Primary classes can be configured now even though their student databases are still pending. Senior Secondary assignments can be restricted by stream.</p>
+
+        <div id="classAssignmentGroups" class="class-assignment-groups"><div class="assignment-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading school structure…</div></div>
+
+        <div class="subject-safe-note"><i class="fa-solid fa-shield-halved"></i><div><strong>Academic-history protection</strong><span>Subjects are deactivated or unassigned instead of being hard-deleted. Existing result/history records can continue resolving the original subject identity.</span></div></div>
+
+        <div class="subject-editor-actions"><button id="cancelEditBtn" class="subject-btn secondary" type="button">Reset</button><button id="saveSubjectBtn" class="subject-btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Subject</button></div>
+      </form>
+    </aside>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/subjects.js') }}"></script>
+{% endblock %}

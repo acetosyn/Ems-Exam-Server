@@ -1,81 +1,123 @@
 {% extends "base.html" %}
-{% block title %}Teacher Dashboard | EMIS Portal{% endblock %}
+{% block title %}{% if user_type == 'admin' %}Teacher Management{% else %}Teacher Dashboard{% endif %} | EMIS Portal{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/teachers.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/exam_document_export.css') }}">
 
 <div id="flashMessage" class="flash-message hidden"></div>
+<div class="admin-dashboard teacher-phase3 fade-in" data-staff-role="{{ user_type or session.get('user_type') or '' }}">
 
-<div class="admin-dashboard fade-in">
-
-  <!-- HEADER -->
-  <div class="dash-header">
+  <div class="dash-header teacher-page-header">
     <div>
-      <h2>Teacher Dashboard</h2>
-      <p>Manage exams, results, attendance and continuous assessment tools.</p>
+      <span class="teacher-eyebrow"><i class="fa-solid fa-chalkboard-user"></i> EMIS TEACHING STAFF</span>
+      <h2>{% if user_type == 'admin' %}Teacher Management & Subject Assignment{% else %}Teacher Dashboard{% endif %}</h2>
+      <p>{% if user_type == 'admin' %}Assign teachers to the correct classes, arms and subjects for each academic session.{% else %}View your teaching assignments and open the academic tools available to your account.{% endif %}</p>
     </div>
     <div class="header-actions">
-      <button class="btn-secondary" type="button" onclick="window.open('/student_login', '_blank')">
-        <i class="fa-solid fa-user-graduate"></i> Student Exam Login
-      </button>
-      <button id="refreshDashboard" class="btn-primary" type="button">
-        <i class="fa-solid fa-rotate"></i> Refresh
-      </button>
+      {% if user_type == 'admin' %}
+      <a class="btn-secondary teacher-link-button" href="{{ url_for('admin_bp.admin_ids') }}"><i class="fa-solid fa-id-card"></i> Teacher IDs</a>
+      {% else %}
+      <button class="btn-secondary" type="button" onclick="window.open('/student_login', '_blank')"><i class="fa-solid fa-user-graduate"></i> Student Exam Login</button>
+      {% endif %}
+      <button id="refreshDashboard" class="btn-primary" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button>
     </div>
   </div>
 
-  <!-- TEACHER STATS -->
-  <div class="stat-grid">
-    <div class="stat-card"><i class="fa-solid fa-users icon"></i><div><p>Total Students</p><h2 id="totalStudents">--</h2></div></div>
-    <div class="stat-card"><i class="fa-solid fa-book-open icon"></i><div><p>Exams Uploaded</p><h2 id="totalExams">--</h2></div></div>
-    <div class="stat-card"><i class="fa-solid fa-chart-line icon"></i><div><p>Average Performance</p><h2 id="avgScore">--%</h2></div></div>
-    <div class="stat-card"><i class="fa-solid fa-clock-rotate-left icon"></i><div><p>Recent Uploads</p><h2 id="recentUploads">--</h2></div></div>
-  </div>
+  <div id="teacherAssignmentNotice" class="teacher-assignment-notice hidden" role="status"></div>
 
-  <!-- QUICK TEACHER TOOLS -->
-  <div class="quick-modules">
-    <h3><i class="fa-solid fa-bolt text-accent"></i> Quick Teacher Tools</h3>
-    <p class="sub-text">Only modules available to Teacher accounts are shown here. Report Sheet generation remains Admin-only.</p>
+  {% if user_type == 'admin' %}
+  <section class="teacher-admin-workspace" id="teacherAdminWorkspace">
+    <div class="teacher-stats-grid">
+      <article class="teacher-stat-card"><span class="teacher-stat-icon blue"><i class="fa-solid fa-users"></i></span><div><small>Total Teachers</small><strong id="taTotalTeachers">—</strong><span>Teacher accounts</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon green"><i class="fa-solid fa-user-check"></i></span><div><small>Active Teachers</small><strong id="taActiveTeachers">—</strong><span>Can sign in</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon purple"><i class="fa-solid fa-link"></i></span><div><small>Teachers Assigned</small><strong id="taTeachersAssigned">—</strong><span id="taSessionStat">Current session</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon orange"><i class="fa-solid fa-book-open-reader"></i></span><div><small>Teaching Assignments</small><strong id="taAssignmentCount">—</strong><span>Class-subject links</span></div></article>
+    </div>
 
+    <div class="teacher-manager-grid">
+      <aside class="teacher-directory-card">
+        <div class="teacher-card-heading">
+          <div><span class="teacher-section-kicker">STAFF DIRECTORY</span><h3>Teachers</h3></div>
+          <span id="taTeacherCountBadge" class="teacher-count-badge">0</span>
+        </div>
+        <div class="teacher-directory-controls">
+          <label class="teacher-search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="taTeacherSearch" type="search" placeholder="Search name or Teacher ID"></label>
+          <select id="taTeacherStatusFilter" aria-label="Filter teacher status"><option value="all">All teachers</option><option value="active">Active</option><option value="inactive">Inactive</option><option value="assigned">Assigned</option><option value="unassigned">Unassigned</option></select>
+        </div>
+        <div id="taTeacherList" class="teacher-directory-list"><div class="teacher-empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading teachers...</p></div></div>
+      </aside>
+
+      <section class="teacher-assignment-card">
+        <div id="taEmptyEditor" class="teacher-editor-empty"><div class="teacher-editor-empty-icon"><i class="fa-solid fa-arrow-pointer"></i></div><h3>Select a teacher</h3><p>Choose a teacher from the directory to edit their profile and teaching assignments.</p></div>
+
+        <div id="taEditor" class="hidden">
+          <div class="teacher-editor-header">
+            <div class="teacher-editor-identity"><span id="taTeacherAvatar" class="teacher-avatar">T</span><div><span class="teacher-section-kicker">SELECTED TEACHER</span><h3 id="taTeacherTitle">Teacher</h3><p id="taTeacherIdText">—</p></div></div>
+            <span id="taTeacherStatusPill" class="teacher-status-pill active">Active</span>
+          </div>
+
+          <div class="teacher-profile-strip">
+            <div class="teacher-field"><label for="taFullName">Teacher Name</label><input id="taFullName" type="text" maxlength="120" placeholder="Enter teacher's full name"></div>
+            <div class="teacher-field compact"><label for="taTeacherStatus">Account Status</label><select id="taTeacherStatus"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+            <button id="taSaveProfile" type="button" class="teacher-soft-button"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+          </div>
+
+          <div class="teacher-session-bar">
+            <div><span class="teacher-section-kicker">ACADEMIC SESSION</span><strong>Assignment Period</strong><p>Assignments apply to the whole session, not to one term.</p></div>
+            <label><span>Session</span><input id="taAcademicSession" type="text" inputmode="numeric" placeholder="2026/2027" maxlength="9"></label>
+          </div>
+
+          <div class="teacher-assignment-builder">
+            <div class="teacher-builder-heading"><div><span class="teacher-section-kicker">ADD ASSIGNMENT</span><h4>Class & Subject</h4></div><small>One teacher can have as many assignments as required.</small></div>
+            <div class="teacher-builder-grid">
+              <div class="teacher-field"><label for="taSectionSelect">School Section</label><select id="taSectionSelect"><option value="">Select section</option></select></div>
+              <div class="teacher-field"><label for="taClassSelect">Class</label><select id="taClassSelect" disabled><option value="">Select class</option></select></div>
+              <div class="teacher-field"><label for="taArmSelect">Class Arm</label><select id="taArmSelect" disabled><option value="">All applicable arms</option></select><small id="taArmHint">Choose a class first.</small></div>
+              <div class="teacher-field"><label for="taSubjectSelect">Subject</label><select id="taSubjectSelect" disabled><option value="">Select subject</option></select></div>
+              <button id="taAddAssignment" type="button" class="teacher-add-button" disabled><i class="fa-solid fa-plus"></i> Add Assignment</button>
+            </div>
+          </div>
+
+          <div class="teacher-current-assignments">
+            <div class="teacher-builder-heading"><div><span class="teacher-section-kicker">CURRENT LOAD</span><h4>Assigned Classes & Subjects</h4></div><span id="taDraftCount" class="teacher-count-badge">0</span></div>
+            <div id="taAssignmentList" class="teacher-assignment-list"></div>
+          </div>
+
+          <div class="teacher-editor-actions"><span id="taDirtyState" class="teacher-dirty-state"><i class="fa-solid fa-circle-check"></i> No unsaved changes</span><button id="taSaveAssignments" type="button" class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Assignments</button></div>
+        </div>
+      </section>
+    </div>
+  </section>
+  {% else %}
+  <section class="teacher-self-overview" id="teacherSelfOverview">
+    <div class="teacher-self-heading"><div><span class="teacher-section-kicker">MY TEACHING LOAD</span><h3 id="myTeacherName">Your Assignments</h3><p id="myTeacherSession">Loading current academic session...</p></div><span id="myTeacherId" class="teacher-id-chip">{{ session.get('teacher_id') or session.get('username') }}</span></div>
+    <div class="teacher-stats-grid teacher-self-stats">
+      <article class="teacher-stat-card"><span class="teacher-stat-icon blue"><i class="fa-solid fa-link"></i></span><div><small>Assignments</small><strong id="myAssignmentCount">—</strong><span>Class-subject links</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon green"><i class="fa-solid fa-school"></i></span><div><small>Classes</small><strong id="myClassCount">—</strong><span>Assigned classes/arms</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon purple"><i class="fa-solid fa-book"></i></span><div><small>Subjects</small><strong id="mySubjectCount">—</strong><span>Distinct subjects</span></div></article>
+    </div>
+    <div id="myAssignmentList" class="teacher-self-assignment-list"><div class="teacher-empty-state compact"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading assignments...</p></div></div>
+  </section>
+  {% endif %}
+
+  <div class="quick-modules teacher-tools-panel">
+    <h3><i class="fa-solid fa-bolt text-accent"></i> {% if user_type == 'admin' %}Teaching Tools{% else %}Quick Teacher Tools{% endif %}</h3>
+    <p class="sub-text">{% if user_type == 'admin' %}Open the same operational modules available from the Teacher workspace.{% else %}Only modules available to Teacher accounts are shown here. Report Sheet generation remains Admin-only.{% endif %}</p>
     <div class="modules-grid">
-      <div class="module-item blue" data-external="/student_login" role="button" tabindex="0">
-        <i class="fa-solid fa-user-graduate"></i>
-        <span>Student Exam Login</span>
-      </div>
-
-      <div class="module-item blue" data-page="uploads.html" role="button" tabindex="0">
-        <i class="fa-solid fa-upload"></i>
-        <span>Upload Exams</span>
-      </div>
-
-      <div class="module-item purple" data-page="convert.html" role="button" tabindex="0">
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
-        <span>Convert Questions</span>
-      </div>
-
-      <div class="module-item green" data-route="{{ url_for('admin_bp.admin_results') }}" role="button" tabindex="0">
-        <i class="fa-solid fa-chart-bar"></i>
-        <span>Results</span>
-      </div>
-
-      <div class="module-item teal" data-route="{{ url_for('admin_bp.admin_attendance') }}" role="button" tabindex="0">
-        <i class="fa-solid fa-calendar-check"></i>
-        <span>Attendance</span>
-      </div>
-
-      <div class="module-item yellow" data-route="{{ url_for('admin_bp.admin_ca_tests') }}" role="button" tabindex="0">
-        <i class="fa-solid fa-clipboard-check"></i>
-        <span>CA Tests</span>
-      </div>
+      <div class="module-item blue" data-external="/student_login" role="button" tabindex="0"><i class="fa-solid fa-user-graduate"></i><span>Student Exam Login</span></div>
+      <div class="module-item blue" data-page="uploads.html" role="button" tabindex="0"><i class="fa-solid fa-upload"></i><span>Upload Exams</span></div>
+      <div class="module-item purple" data-page="convert.html" role="button" tabindex="0"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Convert Questions</span></div>
+      <div class="module-item green" data-route="{{ url_for('admin_bp.admin_results') }}" role="button" tabindex="0"><i class="fa-solid fa-chart-bar"></i><span>Results</span></div>
+      <div class="module-item teal" data-route="{{ url_for('admin_bp.admin_attendance') }}" role="button" tabindex="0"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></div>
+      <div class="module-item yellow" data-route="{{ url_for('admin_bp.admin_ca_tests') }}" role="button" tabindex="0"><i class="fa-solid fa-clipboard-check"></i><span>CA Tests</span></div>
     </div>
   </div>
 
-  <!-- DYNAMIC CONTENT AREA -->
   <div id="teacherDynamicContent" class="fade-in"></div>
-
 </div>
 
+<script src="{{ url_for('static', filename='js/teacher_assignments.js') }}"></script>
 <script src="{{ url_for('static', filename='js/teacher_pageroutes.js') }}"></script>
 <script src="{{ url_for('static', filename='js/uploads.js') }}"></script>
 <script src="{{ url_for('static', filename='js/exam_document_export.js') }}"></script>
@@ -84,5 +126,4 @@
 <script src="{{ url_for('static', filename='js/convert.js') }}"></script>
 <script src="{{ url_for('static', filename='js/push.js') }}"></script>
 <script src="{{ url_for('static', filename='js/available_years.js') }}"></script>
-
 {% endblock %}

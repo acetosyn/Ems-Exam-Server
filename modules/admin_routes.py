@@ -231,6 +231,12 @@ def admin_ca_tests():
     return render_template("ca_test.html", user_type=session.get("user_type"), classes=CLASSES, class_arms=CLASS_ARMS)
 
 
+@admin_bp.route("/admin/islamiyah")
+@teacher_allowed
+def admin_islamiyah():
+    return render_template("islamiyah.html", user_type=session.get("user_type"))
+
+
 # Report Sheet generation is intentionally ADMIN ONLY.
 # Teachers can enter Attendance and CA/Test data, but cannot open
 # the Report Sheet generator from a direct URL.
@@ -238,6 +244,24 @@ def admin_ca_tests():
 @admin_only
 def admin_report_sheets():
     return render_template("report_sheets.html", user_type="admin", classes=CLASSES, class_arms=CLASS_ARMS)
+
+
+@admin_bp.route("/admin/academic-history")
+@admin_only
+def admin_academic_history():
+    return render_template("academic_history.html", user_type="admin")
+
+
+@admin_bp.route("/admin/cumulative-results")
+@admin_only
+def admin_cumulative_results():
+    return render_template("cumulative_results.html", user_type="admin")
+
+
+@admin_bp.route("/admin/broadsheets")
+@admin_only
+def admin_broadsheets():
+    return render_template("broadsheets.html", user_type="admin")
 
 
 # ==========================================================
@@ -276,6 +300,12 @@ def admin_ids():
 @admin_only
 def admin_promotion():
     return render_template("promotion.html", user_type="admin", classes=CLASSES, class_arms=CLASS_ARMS)
+
+
+@admin_bp.route("/admin/subjects")
+@admin_only
+def admin_subjects():
+    return render_template("subjects.html", user_type="admin")
 
 
 @admin_bp.route("/admin/settings")
