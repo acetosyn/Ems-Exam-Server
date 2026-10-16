@@ -4,7 +4,8 @@
 
 import re
 
-from modules.class_config import SUPPORTED_CLASSES, CLASS_ARMS_BY_LEVEL, normalize_class_level, normalize_class_arm, normalize_subject_key, normalize_subject_display, get_subjects_for_class, get_ss_track
+from modules.class_config import SUPPORTED_CLASSES, STUDENT_DATABASE_CLASSES, TAHFEEZ_CLASSES, ISLAMIYAH_CLASSES, CLASS_ARMS_BY_LEVEL, normalize_class_level, normalize_class_arm, normalize_subject_key, normalize_subject_display, get_subjects_for_class, get_configured_subjects_for_class, get_ss_track
+from modules.school_structure import normalize_school_class, class_label, is_islamiyah_class
 from modules.student_lookup import read_student_database, find_student_by_admission, normalize_admission_number
 from modules.academic_settings import get_academic_settings
 
@@ -134,6 +135,47 @@ def validate_class_selection(class_level="", class_arm="", require_arm=False):
 
 
 # ============================================================
+# OPERATIONAL ROSTER CLASS NORMALIZATION
+#
+# Report Sheets / historical academic logic continues to use the
+# secondary-only normalize_academic_class() compatibility boundary
+# until Phase 4. Attendance and CA/Test use the operational helpers
+# below so Starter → Primary6 and Tahfeez1 → Tahfeez5 can be loaded
+# safely without making lower school inherit the SS assessment model.
+# ============================================================
+
+def normalize_database_class(class_level="", class_arm=""):
+    """Normalize any regular class physically stored in students2026.csv."""
+    level = normalize_class_level(class_level or class_arm)
+    if level not in STUDENT_DATABASE_CLASSES: return "", ""
+    arm = normalize_class_arm(class_arm or class_level, level) or level
+    return level, arm
+
+
+def normalize_operational_class(class_level="", class_arm=""):
+    """Normalize a regular students2026 class or a parallel Tahfeez class."""
+    raw = normalize_school_class(class_level or class_arm)
+    if raw in TAHFEEZ_CLASSES or raw in ISLAMIYAH_CLASSES: return raw, raw
+    return normalize_database_class(class_level, class_arm)
+
+
+def get_operational_class_arms(class_level):
+    level, _ = normalize_operational_class(class_level, class_level)
+    if not level: return []
+    if level in TAHFEEZ_CLASSES or level in ISLAMIYAH_CLASSES: return [level]
+    return list(CLASS_ARMS_BY_LEVEL.get(level, [])) or [level]
+
+
+def validate_operational_class_selection(class_level="", class_arm="", require_arm=False):
+    level, arm = normalize_operational_class(class_level, class_arm)
+    if not level: return {"valid": False, "class_level": "", "class_arm": "", "message": "Invalid class level."}
+    configured_arms = get_operational_class_arms(level)
+    if require_arm and not clean(class_arm): return {"valid": False, "class_level": level, "class_arm": "", "message": f"Class selection is required for {class_label(level)}."}
+    if class_arm and arm not in configured_arms: return {"valid": False, "class_level": level, "class_arm": arm, "message": f"{arm} is not a configured class for {class_label(level)}."}
+    return {"valid": True, "class_level": level, "class_arm": arm, "message": "", "is_tahfeez": level in TAHFEEZ_CLASSES, "is_islamiyah": level in ISLAMIYAH_CLASSES}
+
+
+# ============================================================
 # STUDENT HELPERS
 # ============================================================
 
@@ -152,7 +194,7 @@ def student_frontend_record(student):
     """Return one standard student structure used by Attendance, CA and Reports."""
     if not isinstance(student, dict): return {}
 
-    level, arm = normalize_academic_class(
+    level, arm = normalize_database_class(
         student.get("class_level") or student.get("class_category") or student.get("class"),
         student.get("class_arm") or student.get("class")
     )
@@ -247,6 +289,132 @@ def get_class_roster_summary(class_level, class_arm=""):
     }
 
 
+def student_matches_database_class(student, class_level="", class_arm=""):
+    if not isinstance(student, dict): return False
+    requested_level, requested_arm = normalize_database_class(class_level, class_arm)
+    if not requested_level: return False
+    student_level, student_arm = normalize_database_class(student.get("class_level") or student.get("class_category") or student.get("class"), student.get("class_arm") or student.get("class"))
+    if student_level != requested_level: return False
+    if class_arm and student_arm != requested_arm: return False
+    return True
+
+
+def get_database_students_for_class(class_level, class_arm="", active_only=True):
+    validation = validate_operational_class_selection(class_level, class_arm)
+    if not validation.get("valid") or validation.get("class_level") in TAHFEEZ_CLASSES: return []
+    rows = [student for student in get_all_students(active_only=active_only) if student_matches_database_class(student, validation["class_level"], class_arm)]
+    rows.sort(key=lambda student: (clean(student.get("last_name")).lower(), clean(student.get("first_name")).lower(), clean(student.get("other_names")).lower(), clean(student.get("admission_number")).lower()))
+    for student in rows: student["roster_source"] = "students2026.csv"
+    return rows
+
+
+def get_operational_students_for_class(class_level, class_arm="", active_only=True):
+    """Return Attendance/CA roster from students2026.csv or the parallel tahfeez2026.csv."""
+    level, arm = normalize_operational_class(class_level, class_arm)
+    if not level: return []
+    if level in TAHFEEZ_CLASSES:
+        try:
+            from modules.tahfeez_database import get_tahfeez_students_by_class
+            rows = [dict(student) for student in get_tahfeez_students_by_class(level, active_only=active_only)]
+            for student in rows:
+                student["class"] = arm; student["class_arm"] = arm; student["class_level"] = level; student["class_category"] = level; student["roster_source"] = "tahfeez2026.csv"
+            return rows
+        except Exception as error:
+            print("[ACADEMIC RECORDS] Tahfeez roster read error:", error)
+            return []
+    if level in ISLAMIYAH_CLASSES:
+        try:
+            from modules.islamiyah_database import read_register
+            rows = []
+            for source in read_register():
+                if normalize_school_class(source.get("Islamiyah_Class")) != level: continue
+                academy_id = clean(source.get("Admission_number")); regular_id = clean(source.get("Regular_Admission_number"))
+                row = {
+                    "admission_number": academy_id, "id": academy_id, "academy_admission_number": academy_id, "regular_admission_number": regular_id,
+                    "last_name": clean(source.get("Last_name")), "first_name": clean(source.get("First_name")), "other_names": clean(source.get("Other_names")),
+                    "full_name": " ".join(part for part in [clean(source.get("Last_name")), clean(source.get("First_name")), clean(source.get("Other_names"))] if part),
+                    "phone": clean(source.get("Phone")), "sex": clean_upper(source.get("Sex")), "class": level, "class_arm": level, "class_level": level, "class_category": level,
+                    "regular_class": clean(source.get("Regular_Class")), "regular_class_level": clean_upper(source.get("Regular_Class_category")),
+                    "status": "ACTIVE", "is_active": True, "roster_source": "tahfeez2026.csv / Islamiyyah roster",
+                }
+                rows.append(row)
+            rows.sort(key=lambda student: (clean(student.get("last_name")).lower(), clean(student.get("first_name")).lower(), clean(student.get("admission_number")).lower()))
+            return rows
+        except Exception as error:
+            print("[ACADEMIC RECORDS] Islamiyyah roster read error:", error)
+            return []
+    return get_database_students_for_class(level, arm, active_only=active_only)
+
+
+def operational_roster_source(class_level):
+    level, _ = normalize_operational_class(class_level, class_level)
+    return "tahfeez2026.csv" if level in TAHFEEZ_CLASSES else "tahfeez2026.csv / Islamiyyah roster" if level in ISLAMIYAH_CLASSES else "students2026.csv" if level else ""
+
+
+# ============================================================
+# PHASE 4 REPORT / HISTORY OPERATIONAL HELPERS
+#
+# Report Sheets can now see every active regular-school class and the
+# parallel Tahfeez roster. Assessment generation is still controlled by
+# assessment_rules.py, so exposing a roster here never invents a score scheme.
+# ============================================================
+
+def normalize_report_class(class_level="", class_arm=""):
+    return normalize_operational_class(class_level, class_arm)
+
+
+def validate_report_class_selection(class_level="", class_arm="", require_arm=False):
+    return validate_operational_class_selection(class_level, class_arm, require_arm=require_arm)
+
+
+def get_report_class_arms(class_level):
+    return get_operational_class_arms(class_level)
+
+
+def get_report_students_for_class(class_level, class_arm="", active_only=True):
+    return get_operational_students_for_class(class_level, class_arm, active_only=active_only)
+
+
+def report_roster_source(class_level):
+    return operational_roster_source(class_level)
+
+
+def get_report_subjects_for_selection(class_level, class_arm="", preferred_track=""):
+    return get_operational_subjects_for_selection(class_level, class_arm, preferred_track)
+
+
+def get_report_subjects_for_student(student, class_level="", class_arm="", preferred_track=""):
+    """Resolve the configured subject pool for a report student.
+
+    Tahfeez rows carry the pupil's regular profile as metadata, so the requested
+    report class must remain authoritative instead of accidentally resolving the
+    regular Primary/JSS class.
+    """
+    requested_level, requested_arm = normalize_report_class(class_level, class_arm)
+    if requested_level:
+        preferred = preferred_track
+        if requested_level.startswith("SS") and isinstance(student, dict):
+            preferred = preferred or student.get("track") or student.get("ss_stream") or student.get("stream") or ""
+        return get_report_subjects_for_selection(requested_level, requested_arm, preferred)
+    if not isinstance(student, dict): return []
+    level, arm = normalize_report_class(student.get("class_level") or student.get("class_category") or student.get("class"), student.get("class_arm") or student.get("class"))
+    return get_report_subjects_for_selection(level, arm, preferred_track)
+
+
+def get_operational_subjects_for_selection(class_level, class_arm="", preferred_track=""):
+    level, arm = normalize_operational_class(class_level, class_arm)
+    if not level: return []
+    if level in TAHFEEZ_CLASSES or level in ISLAMIYAH_CLASSES: return get_configured_subjects_for_class(level, active_only=True)
+    return get_subjects_for_class(level, arm, preferred_track)
+
+
+def subject_is_valid_for_operational_class(subject, class_level, class_arm="", preferred_track=""):
+    wanted = normalize_subject_key(subject)
+    if not wanted: return False
+    allowed = {normalize_subject_key(item) for item in get_operational_subjects_for_selection(class_level, class_arm, preferred_track)}
+    return wanted in allowed
+
+
 # ============================================================
 # STUDENT TRACK
 # ============================================================
@@ -316,7 +484,7 @@ def subject_is_valid_for_class(subject, class_level, class_arm="", preferred_tra
 
 def build_academic_record_key(admission_number, academic_session, term, class_level="", class_arm="", subject=""):
     """Create one normalized identity structure shared by Attendance, CA/Test and Report Sheets."""
-    level, arm = normalize_academic_class(class_level, class_arm)
+    level, arm = normalize_report_class(class_level, class_arm)
 
     return {
         "admission_number": normalize_admission_number(admission_number),

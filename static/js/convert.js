@@ -9,7 +9,7 @@
    - Multiple DOCX batch conversion
    - DOCX/TXT extraction
    - Backend subject/class/year detection
-   - JSS term metadata support
+   - Primary/JSS term metadata support
    - OpenAI answer solving + verification
    - Temporary drafts
    - Save to JSON Exam Library
@@ -51,7 +51,7 @@ window.EmisConvert = (() => {
      CONFIGURATION
   ========================================================== */
 
-  const TERM_AWARE_CLASSES = ["JSS1", "JSS2", "JSS3"];
+  const TERM_AWARE_CLASSES = ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3"];
 
   let state = getFreshState();
 
@@ -100,7 +100,7 @@ window.EmisConvert = (() => {
       .replace(/\s+/g, "")
       .trim();
 
-    for (const cls of ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]) {
+    for (const cls of ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]) {
       if (raw === cls || raw.startsWith(cls)) return cls;
     }
 

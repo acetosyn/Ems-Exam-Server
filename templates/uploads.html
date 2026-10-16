@@ -213,13 +213,22 @@
            CLASS NAVIGATION
 
            data-term-mode:
-           required = JSS
+           required = Primary + JSS
            optional = SS
       ======================================================= -->
 
       <div class="class-navigation">
 
         <button class="class-pill active" data-class="ALL" data-term-aware="false" data-term-mode="all" type="button">All</button>
+
+        <button class="class-pill primary" data-class="PRIMARY1" data-term-aware="true" data-term-mode="required" type="button">P1</button>
+        <button class="class-pill primary" data-class="PRIMARY2" data-term-aware="true" data-term-mode="required" type="button">P2</button>
+        <button class="class-pill primary" data-class="PRIMARY3" data-term-aware="true" data-term-mode="required" type="button">P3</button>
+        <button class="class-pill primary" data-class="PRIMARY4" data-term-aware="true" data-term-mode="required" type="button">P4</button>
+        <button class="class-pill primary" data-class="PRIMARY5" data-term-aware="true" data-term-mode="required" type="button">P5</button>
+        <button class="class-pill primary" data-class="PRIMARY6" data-term-aware="true" data-term-mode="required" type="button">P6</button>
+
+        <span class="class-nav-divider"></span>
 
         <button class="class-pill" data-class="JSS1" data-term-aware="true" data-term-mode="required" type="button">JSS1</button>
         <button class="class-pill" data-class="JSS2" data-term-aware="true" data-term-mode="required" type="button">JSS2</button>
@@ -237,7 +246,7 @@
 <!-- ======================================================
      TERM FILTER
 
-     JSS:
+     PRIMARY / JSS:
      ALL / FIRST / SECOND / THIRD
 
      SS:
@@ -434,9 +443,20 @@
 
               <option value="" disabled selected>Select</option>
 
+              <optgroup label="Primary School">
+                <option value="PRIMARY1" data-term-aware="true" data-term-mode="required">Primary 1</option>
+                <option value="PRIMARY2" data-term-aware="true" data-term-mode="required">Primary 2</option>
+                <option value="PRIMARY3" data-term-aware="true" data-term-mode="required">Primary 3</option>
+                <option value="PRIMARY4" data-term-aware="true" data-term-mode="required">Primary 4</option>
+                <option value="PRIMARY5" data-term-aware="true" data-term-mode="required">Primary 5</option>
+                <option value="PRIMARY6" data-term-aware="true" data-term-mode="required">Primary 6</option>
+              </optgroup>
+
+              <optgroup label="Junior Secondary">
               <option value="JSS1" data-term-aware="true" data-term-mode="required">JSS1</option>
               <option value="JSS2" data-term-aware="true" data-term-mode="required">JSS2</option>
               <option value="JSS3" data-term-aware="true" data-term-mode="required">JSS3</option>
+              </optgroup>
 
               <option value="SS1" data-term-aware="true" data-term-mode="optional">SS1</option>
               <option value="SS2" data-term-aware="true" data-term-mode="optional">SS2</option>
@@ -452,7 +472,7 @@
         <!-- ==================================================
              TERM / MODE
 
-             JSS:
+             PRIMARY / JSS:
              FIRST / SECOND / THIRD required
 
              SS:
@@ -866,9 +886,13 @@
 
               <option value="" disabled selected>Select Class</option>
 
-              <option value="JSS1" data-term-mode="required">JSS1</option>
-              <option value="JSS2" data-term-mode="required">JSS2</option>
-              <option value="JSS3" data-term-mode="required">JSS3</option>
+              <optgroup label="Primary School">
+                <option value="PRIMARY1" data-term-mode="required">Primary 1</option><option value="PRIMARY2" data-term-mode="required">Primary 2</option><option value="PRIMARY3" data-term-mode="required">Primary 3</option>
+                <option value="PRIMARY4" data-term-mode="required">Primary 4</option><option value="PRIMARY5" data-term-mode="required">Primary 5</option><option value="PRIMARY6" data-term-mode="required">Primary 6</option>
+              </optgroup>
+              <optgroup label="Junior Secondary">
+                <option value="JSS1" data-term-mode="required">JSS1</option><option value="JSS2" data-term-mode="required">JSS2</option><option value="JSS3" data-term-mode="required">JSS3</option>
+              </optgroup>
 
               <option value="SS1" data-term-mode="optional">SS1</option>
               <option value="SS2" data-term-mode="optional">SS2</option>

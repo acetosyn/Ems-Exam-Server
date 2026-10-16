@@ -13,6 +13,8 @@ from modules.academic_history import ensure_history_bootstrap, read_academic_rec
 from modules.academic_records import academic_term_label, normalize_academic_session, normalize_academic_term
 from modules.cumulative_results import TERM_LABELS, build_class_cumulative, cumulative_config, grade_for_score, ordinal
 from modules.student_lookup import normalize_admission_number
+from modules.grading_system import grading_system_for_class, grading_system_ready
+from modules.school_structure import CLASS_LABELS
 
 broadsheet_bp = Blueprint("broadsheet_bp", __name__)
 
@@ -45,6 +47,12 @@ def _record_rows(academic_session, term, class_level, class_arm=""):
 
 def _subject_key(row): return clean_upper(row.get("subject_key") or row.get("subject"))
 
+def _subject_maximum(row):
+    row = row if isinstance(row, dict) else {}; value = safe_float(row.get("total_max")); value = value if value is not None else safe_float(row.get("maximum")); value = value if value is not None else safe_float(row.get("max_score")); return value if value and value > 0 else 100.0
+
+def _grading_payload(class_level):
+    system = grading_system_for_class(class_level); return {"system": system, "ready": grading_system_ready(system)}
+
 
 def _subject_catalog(records):
     catalog = {}
@@ -53,27 +61,29 @@ def _subject_catalog(records):
         for subject in report.get("subjects") or []:
             if not isinstance(subject, dict): continue
             key = _subject_key(subject)
-            if key and key not in catalog: catalog[key] = clean(subject.get("subject")) or key.title()
-    return [{"key": key, "name": value} for key, value in sorted(catalog.items(), key=lambda item: item[1].lower())]
+            if key and key not in catalog: catalog[key] = {"name": clean(subject.get("subject")) or key.title(), "maximum": _subject_maximum(subject)}
+    return [{"key": key, "name": value.get("name"), "maximum": value.get("maximum")} for key, value in sorted(catalog.items(), key=lambda item: item[1].get("name", "").lower())]
 
 
-def _term_student(record, subject_keys):
-    report = record.get("report") if isinstance(record.get("report"), dict) else {}; mapping = {}
+def _term_student(record, subjects):
+    report = record.get("report") if isinstance(record.get("report"), dict) else {}; mapping, maxima = {}, {}
     for subject in report.get("subjects") or []:
         if not isinstance(subject, dict): continue
         key = _subject_key(subject)
         if not key: continue
-        mapping[key] = safe_float(subject.get("total"))
-    average = safe_float(record.get("average")); provisional = safe_float(report.get("provisional_average")); attendance = safe_float(record.get("attendance_percentage")); academic_complete = bool(record.get("academic_complete")); display_average = average if average is not None else provisional; subject_count = int(record.get("subject_count") or len(subject_keys)); total_score = safe_float(record.get("total_score")); total_score = total_score if total_score is not None else safe_float(report.get("total_score")); maximum_score = round(subject_count * 100, 2) if subject_count else None; score_percentage = round(total_score / maximum_score * 100, 2) if total_score is not None and maximum_score else display_average
-    return {"record_id": clean(record.get("record_id")), "student_key": clean(record.get("student_key")), "admission_number": normalize_admission_number(record.get("admission_number")), "full_name": clean(record.get("full_name")), "sex": clean(record.get("sex")), "class_level": clean(record.get("class_level")), "class_arm": clean(record.get("class_arm")), "scores": {key: mapping.get(key) for key in subject_keys}, "total_score": total_score, "maximum_score": maximum_score, "score_percentage": score_percentage, "average": average, "provisional_average": provisional, "display_average": display_average, "grade": clean(record.get("grade")) or grade_for_score(display_average)[0], "position": int(record.get("position") or 0), "position_text": clean(record.get("position_text")) or "--", "out_of": int(record.get("out_of") or 0), "attendance_percentage": attendance, "academic_complete": academic_complete, "subjects_complete": int(record.get("subjects_complete") or 0), "subject_count": subject_count, "source_mode": clean(record.get("source_mode") or "auto"), "generated_at": clean(record.get("generated_at"))}
+        mapping[key] = safe_float(subject.get("total")); maxima[key] = _subject_maximum(subject)
+    subject_keys = [subject.get("key") for subject in subjects]; average = safe_float(record.get("average")); provisional = safe_float(report.get("provisional_average")); attendance = safe_float(record.get("attendance_percentage")); academic_complete = bool(record.get("academic_complete")); display_average = average if average is not None else provisional; subject_count = int(record.get("subject_count") or len(subject_keys)); total_score = safe_float(record.get("total_score")); total_score = total_score if total_score is not None else safe_float(report.get("total_score")); maximum_score = safe_float(record.get("maximum_score")); maximum_score = maximum_score if maximum_score is not None else (round(sum(float(maxima.get(key) or 100) for key in subject_keys), 2) if subject_keys else None); score_percentage = round(total_score / maximum_score * 100, 2) if total_score is not None and maximum_score else display_average; class_level = clean_upper(record.get("class_level")); grading = _grading_payload(class_level); grade = clean(record.get("grade")); grade = grade if grade and grade != "-" else grade_for_score(display_average, class_level)[0]
+    return {"record_id": clean(record.get("record_id")), "student_key": clean(record.get("student_key")), "admission_number": normalize_admission_number(record.get("admission_number")), "full_name": clean(record.get("full_name")), "sex": clean(record.get("sex")), "class_level": class_level, "class_arm": clean(record.get("class_arm")), "class_label": CLASS_LABELS.get(class_level, class_level), "grading_system": grading.get("system"), "grading_ready": grading.get("ready"), "scores": {key: mapping.get(key) for key in subject_keys}, "score_maxima": {key: maxima.get(key) for key in subject_keys}, "total_score": total_score, "maximum_score": maximum_score, "score_percentage": score_percentage, "average": average, "provisional_average": provisional, "display_average": display_average, "grade": grade or "-", "position": int(record.get("position") or 0), "position_text": clean(record.get("position_text")) or "--", "out_of": int(record.get("out_of") or 0), "attendance_percentage": attendance, "academic_complete": academic_complete, "subjects_complete": int(record.get("subjects_complete") or 0), "subject_count": subject_count, "source_mode": clean(record.get("source_mode") or "auto"), "generated_at": clean(record.get("generated_at"))}
 
 
-def _grade_distribution(students, field="display_average"):
-    output = {grade: 0 for grade in ("A", "B", "C", "D", "E", "F")}
+def _grade_distribution(students, field="display_average", class_level=""):
+    grading = _grading_payload(class_level)
+    if not grading.get("ready"): return {"Pending": sum(1 for student in students if safe_float(student.get(field)) is not None)}
+    output = {}
     for student in students:
         score = safe_float(student.get(field))
         if score is None: continue
-        output[grade_for_score(score)[0]] = output.get(grade_for_score(score)[0], 0) + 1
+        grade = grade_for_score(score, class_level)[0]; output[grade] = output.get(grade, 0) + 1
     return output
 
 
@@ -83,26 +93,26 @@ def _ranked_extremes(students, field="display_average"):
     return {"top": [{"admission_number": row.get("admission_number"), "full_name": row.get("full_name"), "average": safe_float(row.get(field)), "position_text": row.get("position_text")} for row in top], "bottom": [{"admission_number": row.get("admission_number"), "full_name": row.get("full_name"), "average": safe_float(row.get(field)), "position_text": row.get("position_text")} for row in bottom]}
 
 
-def _term_subject_stats(students, subjects):
-    output = []
+def _term_subject_stats(students, subjects, class_level=""):
+    output = []; grading_ready = _grading_payload(class_level).get("ready")
     for subject in subjects:
-        key = subject.get("key"); values = [safe_float(student.get("scores", {}).get(key)) for student in students]; values = [value for value in values if value is not None]; passed = sum(1 for value in values if value >= 40); failed = sum(1 for value in values if value < 40)
-        output.append({"subject_key": key, "subject": subject.get("name"), "students_scored": len(values), "average": round(sum(values) / len(values), 2) if values else None, "highest": max(values) if values else None, "lowest": min(values) if values else None, "passed": passed, "failed": failed, "pass_rate": round(passed / len(values) * 100, 2) if values else None})
+        key = subject.get("key"); maximum = safe_float(subject.get("maximum")) or 100.0; values = [safe_float(student.get("scores", {}).get(key)) for student in students]; values = [value for value in values if value is not None]; percentages = [round(value / maximum * 100, 2) for value in values] if maximum else []; passed = sum(1 for value in percentages if value >= 40) if grading_ready else None; failed = (len(percentages) - passed) if grading_ready and passed is not None else None
+        output.append({"subject_key": key, "subject": subject.get("name"), "maximum": maximum, "students_scored": len(values), "average_score": round(sum(values) / len(values), 2) if values else None, "average": round(sum(percentages) / len(percentages), 2) if percentages else None, "highest_score": max(values) if values else None, "lowest_score": min(values) if values else None, "highest": max(percentages) if percentages else None, "lowest": min(percentages) if percentages else None, "passed": passed, "failed": failed, "pass_rate": round(passed / len(percentages) * 100, 2) if grading_ready and percentages and passed is not None else None, "grading_ready": grading_ready})
     return output
 
 
 def build_term_broadsheet(academic_session, term, class_level, class_arm=""):
-    academic_session = normalize_academic_session(academic_session); term = normalize_academic_term(term); rows = _record_rows(academic_session, term, class_level, class_arm); subjects = _subject_catalog(rows); subject_keys = [subject.get("key") for subject in subjects]; students = [_term_student(record, subject_keys) for record in rows]; students.sort(key=lambda row: clean(row.get("full_name")).lower())
+    academic_session = normalize_academic_session(academic_session); term = normalize_academic_term(term); level = clean_upper(class_level); grading = _grading_payload(level); rows = _record_rows(academic_session, term, level, class_arm); subjects = _subject_catalog(rows); students = [_term_student(record, subjects) for record in rows]; students.sort(key=lambda row: clean(row.get("full_name")).lower())
     complete_students = [row for row in students if row.get("academic_complete") and safe_float(row.get("average")) is not None]; ranked_values = sorted([float(row.get("average")) for row in complete_students], reverse=True)
     for row in students:
         if row.get("academic_complete") and safe_float(row.get("average")) is not None:
             position = ranked_values.index(float(row.get("average"))) + 1; row["position"], row["position_text"], row["out_of"] = position, ordinal(position), len(complete_students)
-    averages = [safe_float(row.get("average")) for row in complete_students]; averages = [value for value in averages if value is not None]; subject_stats = _term_subject_stats(students, subjects); best_subject = max([row for row in subject_stats if row.get("average") is not None], key=lambda row: row.get("average"), default=None); focus_subject = min([row for row in subject_stats if row.get("average") is not None], key=lambda row: row.get("average"), default=None); extremes = _ranked_extremes(students, "average")
-    return {"session": academic_session, "term": term, "term_label": academic_term_label(term), "class_level": clean_upper(class_level), "class_arm": clean_upper(class_arm), "count": len(students), "complete_students": len(complete_students), "partial_students": max(0, len(students) - len(complete_students)), "coverage_percentage": round(len(complete_students) / len(students) * 100, 2) if students else 0, "class_average": round(sum(averages) / len(averages), 2) if averages else None, "highest_average": max(averages) if averages else None, "lowest_average": min(averages) if averages else None, "subjects": subjects, "students": students, "subject_stats": subject_stats, "grade_distribution": _grade_distribution(students, "average"), "top_students": extremes.get("top", []), "bottom_students": extremes.get("bottom", []), "best_subject": best_subject, "focus_subject": focus_subject}
+    averages = [safe_float(row.get("average")) for row in complete_students]; averages = [value for value in averages if value is not None]; subject_stats = _term_subject_stats(students, subjects, level); best_subject = max([row for row in subject_stats if row.get("average") is not None], key=lambda row: row.get("average"), default=None); focus_subject = min([row for row in subject_stats if row.get("average") is not None], key=lambda row: row.get("average"), default=None); extremes = _ranked_extremes(students, "average")
+    return {"session": academic_session, "term": term, "term_label": academic_term_label(term), "class_level": level, "class_label": CLASS_LABELS.get(level, level), "class_arm": clean_upper(class_arm), "grading_system": grading.get("system"), "grading_ready": grading.get("ready"), "count": len(students), "complete_students": len(complete_students), "partial_students": max(0, len(students) - len(complete_students)), "coverage_percentage": round(len(complete_students) / len(students) * 100, 2) if students else 0, "class_average": round(sum(averages) / len(averages), 2) if averages else None, "highest_average": max(averages) if averages else None, "lowest_average": min(averages) if averages else None, "subjects": subjects, "students": students, "subject_stats": subject_stats, "grade_distribution": _grade_distribution(students, "average", level), "top_students": extremes.get("top", []), "bottom_students": extremes.get("bottom", []), "best_subject": best_subject, "focus_subject": focus_subject}
 
 
-def _annual_subject_stats(students):
-    catalog = {}
+def _annual_subject_stats(students, class_level=""):
+    catalog = {}; grading_ready = _grading_payload(class_level).get("ready")
     for student in students:
         for subject in student.get("subjects") or []:
             key = clean_upper(subject.get("subject_key") or subject.get("subject")); name = clean(subject.get("subject")) or key.title(); entry = catalog.setdefault(key, {"subject_key": key, "subject": name, "available": [], "final": []})
@@ -112,23 +122,23 @@ def _annual_subject_stats(students):
             if subject.get("complete"): entry["final"].append(value)
     output = []
     for entry in catalog.values():
-        values = entry.get("final") or entry.get("available") or []; passed = sum(1 for value in values if value >= 40); output.append({"subject_key": entry.get("subject_key"), "subject": entry.get("subject"), "students_scored": len(values), "complete_scores": len(entry.get("final") or []), "average": round(sum(values) / len(values), 2) if values else None, "highest": max(values) if values else None, "lowest": min(values) if values else None, "passed": passed, "failed": len(values) - passed, "pass_rate": round(passed / len(values) * 100, 2) if values else None, "provisional": not bool(entry.get("final")) and bool(entry.get("available"))})
+        values = entry.get("final") or entry.get("available") or []; passed = sum(1 for value in values if value >= 40) if grading_ready else None
+        output.append({"subject_key": entry.get("subject_key"), "subject": entry.get("subject"), "students_scored": len(values), "complete_scores": len(entry.get("final") or []), "average": round(sum(values) / len(values), 2) if values else None, "highest": max(values) if values else None, "lowest": min(values) if values else None, "passed": passed, "failed": len(values) - passed if grading_ready and passed is not None else None, "pass_rate": round(passed / len(values) * 100, 2) if grading_ready and values and passed is not None else None, "provisional": not bool(entry.get("final")) and bool(entry.get("available")), "grading_ready": grading_ready})
     output.sort(key=lambda row: clean(row.get("subject")).lower()); return output
 
 
 def build_cumulative_broadsheet(academic_session, class_level, class_arm=""):
-    payload = build_class_cumulative(academic_session, class_level, class_arm); students = payload.get("students") or []; subject_stats = _annual_subject_stats(students); complete = [student for student in students if student.get("complete") and safe_float(student.get("annual_average")) is not None]; ranked = sorted(complete, key=lambda student: (-float(student.get("annual_average")), clean(student.get("profile", {}).get("full_name")).lower())); top = ranked[:5]; bottom = list(reversed(ranked[-5:])) if ranked else []; distribution = {grade: 0 for grade in ("A", "B", "C", "D", "E", "F")}
-    for student in complete: distribution[clean(student.get("annual_grade")) or grade_for_score(student.get("annual_average"))[0]] = distribution.get(clean(student.get("annual_grade")) or grade_for_score(student.get("annual_average"))[0], 0) + 1
+    level = clean_upper(class_level); grading = _grading_payload(level); payload = build_class_cumulative(academic_session, level, class_arm); students = payload.get("students") or []; subject_stats = _annual_subject_stats(students, level); complete = [student for student in students if student.get("complete") and safe_float(student.get("annual_average")) is not None]; ranked = sorted(complete, key=lambda student: (-float(student.get("annual_average")), clean(student.get("profile", {}).get("full_name")).lower())); top = ranked[:5]; bottom = list(reversed(ranked[-5:])) if ranked else []; distribution = _grade_distribution([{"display_average": student.get("annual_average")} for student in complete], "display_average", level)
     term_completion = {}
     for term in ("FIRST", "SECOND", "THIRD"): term_completion[term] = sum(1 for student in students if (student.get("terms", {}).get(term) or {}).get("average") is not None)
     averages = [safe_float(student.get("annual_average")) for student in complete]; averages = [value for value in averages if value is not None]; best_subject = max([row for row in subject_stats if row.get("average") is not None], key=lambda row: row.get("average"), default=None); focus_subject = min([row for row in subject_stats if row.get("average") is not None], key=lambda row: row.get("average"), default=None)
-    payload.update({"subject_stats": subject_stats, "grade_distribution": distribution, "top_students": [{"admission_number": student.get("profile", {}).get("admission_number"), "student_key": student.get("profile", {}).get("student_key"), "full_name": student.get("profile", {}).get("full_name"), "average": student.get("annual_average"), "position_text": student.get("annual_position_text")} for student in top], "bottom_students": [{"admission_number": student.get("profile", {}).get("admission_number"), "student_key": student.get("profile", {}).get("student_key"), "full_name": student.get("profile", {}).get("full_name"), "average": student.get("annual_average"), "position_text": student.get("annual_position_text")} for student in bottom], "term_completion": term_completion, "highest_average": max(averages) if averages else None, "lowest_average": min(averages) if averages else None, "best_subject": best_subject, "focus_subject": focus_subject})
+    payload.update({"grading_system": grading.get("system"), "grading_ready": grading.get("ready"), "subject_stats": subject_stats, "grade_distribution": distribution, "top_students": [{"admission_number": student.get("profile", {}).get("admission_number"), "student_key": student.get("profile", {}).get("student_key"), "full_name": student.get("profile", {}).get("full_name"), "average": student.get("annual_average"), "position_text": student.get("annual_position_text")} for student in top], "bottom_students": [{"admission_number": student.get("profile", {}).get("admission_number"), "student_key": student.get("profile", {}).get("student_key"), "full_name": student.get("profile", {}).get("full_name"), "average": student.get("annual_average"), "position_text": student.get("annual_position_text")} for student in bottom], "term_completion": term_completion, "highest_average": max(averages) if averages else None, "lowest_average": min(averages) if averages else None, "best_subject": best_subject, "focus_subject": focus_subject})
     return payload
 
 
 def build_broadsheet_bundle(academic_session, term, class_level, class_arm=""):
     term_payload = build_term_broadsheet(academic_session, term, class_level, class_arm); cumulative_payload = build_cumulative_broadsheet(academic_session, class_level, class_arm)
-    return {"session": normalize_academic_session(academic_session), "term": normalize_academic_term(term), "term_label": academic_term_label(term), "class_level": clean_upper(class_level), "class_arm": clean_upper(class_arm), "term_broadsheet": term_payload, "cumulative_broadsheet": cumulative_payload}
+    level = clean_upper(class_level); return {"session": normalize_academic_session(academic_session), "term": normalize_academic_term(term), "term_label": academic_term_label(term), "class_level": level, "class_label": CLASS_LABELS.get(level, level), "class_arm": clean_upper(class_arm), "term_broadsheet": term_payload, "cumulative_broadsheet": cumulative_payload}
 
 
 def broadsheet_config():
@@ -161,8 +171,8 @@ def _write_overview_sheet(workbook, bundle):
 
 
 def _write_term_sheet(workbook, data):
-    sheet = workbook.create_sheet(_safe_sheet_title(data.get("term_label") or "Term Broadsheet")); subjects = data.get("subjects") or []; headers = ["S/N", "Admission No.", "Student"] + [f"{subject.get('name')} /100" for subject in subjects] + ["Total Score", "Maximum", "Average %", "Grade", "Position", "Attendance %", "Status"]; sheet.append(headers); _style_header(sheet, 1); keys = [subject.get("key") for subject in subjects]
-    for index, student in enumerate(data.get("students") or [], 1): sheet.append([index, student.get("admission_number"), student.get("full_name")] + [student.get("scores", {}).get(key) for key in keys] + [student.get("total_score"), student.get("maximum_score"), student.get("average"), student.get("grade"), student.get("position_text"), student.get("attendance_percentage"), "Complete" if student.get("academic_complete") else "Partial"])
+    sheet = workbook.create_sheet(_safe_sheet_title(data.get("term_label") or "Term Broadsheet")); subjects = data.get("subjects") or []; headers = ["S/N", "Admission No.", "Student"] + [f"{subject.get('name')} /{int(subject.get('maximum') or 100)}" for subject in subjects] + ["Total Score", "Maximum", "Average %", "Grade", "Position", "Attendance %", "Status"]; sheet.append(headers); _style_header(sheet, 1); keys = [subject.get("key") for subject in subjects]
+    for index, student in enumerate(data.get("students") or [], 1): sheet.append([index, student.get("admission_number"), student.get("full_name")] + [f"{student.get('scores', {}).get(key)} / {student.get('score_maxima', {}).get(key)}" if student.get("scores", {}).get(key) is not None and student.get("score_maxima", {}).get(key) else "" for key in keys] + [student.get("total_score"), student.get("maximum_score"), student.get("average"), student.get("grade"), student.get("position_text"), student.get("attendance_percentage"), "Complete" if student.get("academic_complete") else "Partial"])
     sheet.freeze_panes = "D2"; sheet.sheet_view.showGridLines = False; _auto_width(sheet, 20)
 
 

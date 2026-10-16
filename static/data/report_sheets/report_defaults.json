@@ -18,9 +18,9 @@
     "updated_by": "admin"
   },
   "2026/2027|FIRST|JSS1|JSS1A|": {
-    "form_teacher": "Mr Ace",
-    "next_term": "2026-09-30",
-    "updated_at": "2026-09-22 15:45:22",
+    "form_teacher": "Mrs Rahma Adetobi",
+    "next_term": "2027-01-11",
+    "updated_at": "2026-10-16 08:49:31",
     "updated_by": "admin"
   },
   "2026/2027|FIRST|SS1|SS1_GOLD|": {
@@ -33,6 +33,18 @@
     "form_teacher": "Ace",
     "next_term": "2026-09-24",
     "updated_at": "2026-09-18 11:07:13",
+    "updated_by": "admin"
+  },
+  "2026/2027|FIRST|ISLAMIYAH1A|ISLAMIYAH1A|": {
+    "form_teacher": "",
+    "next_term": "",
+    "updated_at": "2026-10-13 12:58:30",
+    "updated_by": "admin"
+  },
+  "2026/2027|THIRD|JSS1|JSS1A|": {
+    "form_teacher": "Mrs Rahma Adetobi",
+    "next_term": "2026-12-28",
+    "updated_at": "2026-10-15 13:31:58",
     "updated_by": "admin"
   }
 }

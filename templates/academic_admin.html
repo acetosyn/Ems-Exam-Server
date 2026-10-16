@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% block title %}Academic Administration — EMIS{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/teachers.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/subjects.css') }}?v=20261016-class-viewer4">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_admin_hub.css') }}">
+{% endblock %}
+{% block content %}
+<div class="academic-admin-hub" id="academicAdminHub" data-staff-role="{{ session.get('user_type') or 'guest' }}" data-initial-view="{{ initial_view or 'teachers' }}">
+  <div id="flashMessage" class="flash-message hidden"></div><div id="subjectToastHost" class="subject-toast-host" aria-live="polite"></div>
+
+  <section class="admin-hub-hero">
+    <div class="admin-hub-hero-copy"><span class="admin-hub-eyebrow"><i class="fa-solid fa-shield-halved"></i> ACADEMIC CONTROL CENTRE</span><h1>Staff, Subjects & Access</h1><p>Manage teaching staff, class-subject assignments and role-based credentials from one secure workspace.</p><div class="admin-hub-hero-meta"><span><i class="fa-solid fa-user-shield"></i> Admin controlled</span><span><i class="fa-solid fa-key"></i> EMT + IMS identities</span><span><i class="fa-solid fa-mobile-screen"></i> Mobile ready</span></div></div>
+    <div class="admin-hub-hero-actions"><span class="admin-current-role"><small>Signed in as</small><strong>Administrator</strong></span><button id="adminHubRefresh" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh Workspace</span></button></div>
+  </section>
+
+  <section class="access-policy-strip" aria-label="Staff access policy">
+    <article class="access-role-card admin"><span class="access-role-icon"><i class="fa-solid fa-crown"></i></span><div><strong>Admin</strong><small>Full system access</small></div><span class="access-role-scope">ALL MODULES</span></article>
+    <article class="access-role-card teacher"><span class="access-role-icon"><i class="fa-solid fa-chalkboard-user"></i></span><div><strong>Teacher</strong><small>All teaching modules except Academy and History</small></div><span class="access-role-scope">EMT…</span></article>
+    <article class="access-role-card islamiyyah"><span class="access-role-icon"><i class="fa-solid fa-mosque"></i></span><div><strong>Islamiyyah Teacher</strong><small>Dashboard, Students & Classes, Tahfeez & Islamiyyah only</small></div><span class="access-role-scope">IMS…</span></article>
+  </section>
+
+  <nav class="admin-hub-tabs" aria-label="Academic administration sections"><button type="button" class="active" data-admin-hub-tab="teachers"><i class="fa-solid fa-people-group"></i><span>Staff & Assignments</span></button><button type="button" data-admin-hub-tab="subjects"><i class="fa-solid fa-book-open"></i><span>Subjects</span></button><button type="button" data-admin-hub-tab="ids"><i class="fa-solid fa-id-card-clip"></i><span>IDs & Access</span></button></nav>
+
+  <section class="admin-hub-panel active" data-admin-hub-panel="teachers"><div class="admin-dashboard teacher-phase3 fade-in" data-staff-role="admin"><div id="teacherAssignmentNotice" class="teacher-assignment-notice hidden" role="status"></div>
+
+  <section class="teacher-admin-workspace" id="teacherAdminWorkspace">
+    <div class="teacher-stats-grid">
+      <article class="teacher-stat-card"><span class="teacher-stat-icon blue"><i class="fa-solid fa-users"></i></span><div><small>Teaching Staff</small><strong id="taTotalTeachers">—</strong><span>EMT + IMS accounts</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon green"><i class="fa-solid fa-user-check"></i></span><div><small>Active Staff</small><strong id="taActiveTeachers">—</strong><span>Enabled accounts</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon purple"><i class="fa-solid fa-link"></i></span><div><small>Staff Assigned</small><strong id="taTeachersAssigned">—</strong><span id="taSessionStat">Current session</span></div></article>
+      <article class="teacher-stat-card"><span class="teacher-stat-icon orange"><i class="fa-solid fa-book-open-reader"></i></span><div><small>Teaching Assignments</small><strong id="taAssignmentCount">—</strong><span>Class-subject links</span></div></article>
+    </div>
+
+    <div class="teacher-manager-grid">
+      <aside class="teacher-directory-card">
+        <div class="teacher-card-heading">
+          <div><span class="teacher-section-kicker">STAFF DIRECTORY</span><h3>Teaching Staff</h3></div>
+          <span id="taTeacherCountBadge" class="teacher-count-badge">0</span>
+        </div>
+        <div class="teacher-directory-controls">
+          <label class="teacher-search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="taTeacherSearch" type="search" placeholder="Search name, EMT or IMS ID"></label>
+          <select id="taTeacherStatusFilter" aria-label="Filter teacher status"><option value="all">All staff</option><option value="active">Active</option><option value="inactive">Inactive</option><option value="assigned">Assigned</option><option value="unassigned">Unassigned</option></select>
+        </div>
+        <div id="taTeacherList" class="teacher-directory-list"><div class="teacher-empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading teachers...</p></div></div>
+      </aside>
+
+      <section class="teacher-assignment-card">
+        <div id="taEmptyEditor" class="teacher-editor-empty"><div class="teacher-editor-empty-icon"><i class="fa-solid fa-arrow-pointer"></i></div><h3>Select a teacher</h3><p>Choose a staff account from the directory to edit the profile and teaching assignments.</p></div>
+
+        <div id="taEditor" class="hidden">
+          <div class="teacher-editor-header">
+            <div class="teacher-editor-identity"><span id="taTeacherAvatar" class="teacher-avatar">T</span><div><span class="teacher-section-kicker">SELECTED STAFF</span><h3 id="taTeacherTitle">Teacher</h3><p id="taTeacherIdText">—</p></div></div>
+            <span id="taTeacherStatusPill" class="teacher-status-pill active">Active</span>
+          </div>
+
+          <div class="teacher-profile-strip">
+            <div class="teacher-field"><label for="taFullName">Staff Name</label><input id="taFullName" type="text" maxlength="120" placeholder="Enter staff full name"></div>
+            <div class="teacher-field compact"><label for="taTeacherStatus">Account Status</label><select id="taTeacherStatus"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+            <button id="taSaveProfile" type="button" class="teacher-soft-button"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+          </div>
+
+          <div class="teacher-session-bar">
+            <div><span class="teacher-section-kicker">ACADEMIC SESSION</span><strong>Assignment Period</strong><p>Assignments apply to the whole session, not to one term.</p></div>
+            <label><span>Session</span><input id="taAcademicSession" type="text" inputmode="numeric" placeholder="2026/2027" maxlength="9"></label>
+          </div>
+
+          <div class="teacher-assignment-builder">
+            <div class="teacher-builder-heading"><div><span class="teacher-section-kicker">ADD ASSIGNMENT</span><h4>Class & Subject</h4></div><small>One staff account can have as many assignments as required.</small></div>
+            <div class="teacher-builder-grid">
+              <div class="teacher-field"><label for="taSectionSelect">School Section</label><select id="taSectionSelect"><option value="">Select section</option></select></div>
+              <div class="teacher-field"><label for="taClassSelect">Class</label><select id="taClassSelect" disabled><option value="">Select class</option></select></div>
+              <div class="teacher-field"><label for="taArmSelect">Class Arm</label><select id="taArmSelect" disabled><option value="">All applicable arms</option></select><small id="taArmHint">Choose a class first.</small></div>
+              <div class="teacher-field"><label for="taSubjectSelect">Subject</label><select id="taSubjectSelect" disabled><option value="">Select subject</option></select></div>
+              <button id="taAddAssignment" type="button" class="teacher-add-button" disabled><i class="fa-solid fa-plus"></i> Add Assignment</button>
+            </div>
+          </div>
+
+          <div class="teacher-current-assignments">
+            <div class="teacher-builder-heading"><div><span class="teacher-section-kicker">CURRENT LOAD</span><h4>Assigned Classes & Subjects</h4></div><span id="taDraftCount" class="teacher-count-badge">0</span></div>
+            <div id="taAssignmentList" class="teacher-assignment-list"></div>
+          </div>
+
+          <div class="teacher-editor-actions"><span id="taDirtyState" class="teacher-dirty-state"><i class="fa-solid fa-circle-check"></i> No unsaved changes</span><button id="taSaveAssignments" type="button" class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Assignments</button></div>
+        </div>
+      </section>
+    </div>
+  </section></div></section>
+  <section class="admin-hub-panel" data-admin-hub-panel="subjects">
+    <div class="subject-manager-page subject-manager-hub" id="subjectManagerPage">
+      <div class="subject-command-head">
+        <div><span class="subject-panel-kicker"><i class="fa-solid fa-diagram-project"></i> CENTRAL SUBJECT ENGINE</span><h2>Subjects & Class Offerings</h2><p>One catalogue controls class configuration, exam conversion/uploads, portal visibility, teacher assignments and result filtering.</p></div>
+        <div class="subject-command-actions"><span class="subject-registry-live"><i class="fa-solid fa-circle"></i><b id="registryState">Loading</b></span><button id="refreshSubjectsBtn" class="subject-btn secondary" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button><button id="newSubjectBtn" class="subject-btn primary" type="button"><i class="fa-solid fa-plus"></i> Add Subject</button></div>
+      </div>
+
+      <section class="subject-sync-pipeline" aria-label="Subject synchronization pipeline">
+        <div class="subject-sync-node registry"><span><i class="fa-solid fa-database"></i></span><div><small>1 • Source</small><strong>Subject Registry</strong><em>Add, rename, activate or archive once.</em></div></div><i class="fa-solid fa-arrow-right sync-arrow"></i>
+        <div class="subject-sync-node config"><span><i class="fa-solid fa-school"></i></span><div><small>2 • Classes</small><strong>Class Config</strong><em>Offerings update by class and SS stream.</em></div></div><i class="fa-solid fa-arrow-right sync-arrow"></i>
+        <div class="subject-sync-node upload"><span><i class="fa-solid fa-cloud-arrow-up"></i></span><div><small>3 • Exams</small><strong>Convert & Upload</strong><em>New subjects become valid exam targets.</em></div></div><i class="fa-solid fa-arrow-right sync-arrow"></i>
+        <div class="subject-sync-node portal"><span><i class="fa-solid fa-laptop-file"></i></span><div><small>4 • Students</small><strong>CBT Portal</strong><em>Students see only pushed + assigned subjects.</em></div></div><i class="fa-solid fa-arrow-right sync-arrow"></i>
+        <div class="subject-sync-node results"><span><i class="fa-solid fa-chart-column"></i></span><div><small>5 • Records</small><strong>Results & Reports</strong><em>Results and report workflows resolve the same identity.</em></div></div>
+      </section>
+
+      <section class="subject-stat-grid subject-hub-stats" aria-label="Subject registry statistics">
+        <article class="subject-stat-card"><span class="subject-stat-icon blue"><i class="fa-solid fa-book"></i></span><div><small>Total Subjects</small><strong id="statTotalSubjects">—</strong><span>Persistent catalogue</span></div></article>
+        <article class="subject-stat-card"><span class="subject-stat-icon green"><i class="fa-solid fa-circle-check"></i></span><div><small>Active Subjects</small><strong id="statActiveSubjects">—</strong><span id="statInactiveSubjects">— inactive</span></div></article>
+        <article class="subject-stat-card"><span class="subject-stat-icon purple"><i class="fa-solid fa-link"></i></span><div><small>Class Assignments</small><strong id="statAssignments">—</strong><span>Live class offerings</span></div></article>
+        <article class="subject-stat-card"><span class="subject-stat-icon gold"><i class="fa-solid fa-school-flag"></i></span><div><small>Configured Classes</small><strong id="registryClasses">—</strong><span id="statSections">— sections</span></div></article>
+      </section>
+
+      <section class="subject-catalog-shell">
+        <header class="subject-catalog-toolbar">
+          <div class="subject-catalog-title"><span class="subject-panel-kicker">LIVE CATALOGUE</span><h3>Subjects & Assignments</h3><p id="registryHeadline">Reading subject configuration…</p></div>
+          <div class="subject-catalog-meta"><span><i class="fa-solid fa-code-branch"></i><b id="registryVersion">—</b></span><span><i class="fa-regular fa-clock"></i><b id="registryUpdated">—</b></span><button id="viewClassSubjectsBtn" type="button" class="subject-class-view-btn"><i class="fa-solid fa-eye"></i><span>View Subjects</span></button><div class="subject-view-toggle" role="group" aria-label="Subject catalogue view"><button id="subjectGridViewBtn" type="button" class="active" aria-pressed="true" title="Compact card view"><i class="fa-solid fa-grip"></i><span>Grid</span></button><button id="subjectTableViewBtn" type="button" aria-pressed="false" title="Table view"><i class="fa-solid fa-table-list"></i><span>Table</span></button></div></div>
+        </header>
+
+        <div class="subject-filter-bar modern">
+          <label class="subject-search"><i class="fa-solid fa-magnifying-glass"></i><input id="subjectSearch" type="search" autocomplete="off" placeholder="Search subject, class, section or stable key…"></label>
+          <select id="sectionFilter" aria-label="Filter by school section"><option value="">All Sections</option></select>
+          <select id="classFilter" aria-label="Filter by class"><option value="">All Classes</option></select>
+          <select id="statusFilter" aria-label="Filter by subject status"><option value="all">All Status</option><option value="active">Active</option><option value="inactive">Archived / Inactive</option></select>
+        </div>
+
+        <div class="catalog-summary"><span id="catalogCount">0 subjects</span><span><i class="fa-solid fa-shield-halved"></i> Delete safely archives a subject while preserving historical result identity.</span></div>
+        <div id="subjectCatalogGrid" class="subject-catalog-grid" aria-live="polite"><div class="subject-grid-loading"><i class="fa-solid fa-spinner fa-spin"></i><strong>Loading subject catalogue</strong><span>Preparing class coverage and school sections…</span></div></div>
+        <div id="subjectTableView" class="subject-table-view" hidden><div class="subject-table-wrap"><table class="subject-table"><thead><tr><th>Subject</th><th>Status</th><th>Class Coverage</th><th>School Sections</th><th class="subject-action-col">Manage</th></tr></thead><tbody id="subjectTableBody"><tr><td colspan="5" class="subject-loading-cell"><i class="fa-solid fa-spinner fa-spin"></i> Loading subject registry…</td></tr></tbody></table></div></div>
+        <div id="subjectEmptyState" class="subject-empty-state" hidden><i class="fa-solid fa-book-open-reader"></i><strong>No subjects match this filter</strong><span>Adjust the filters or add a new subject.</span></div>
+      </section>
+
+      <div id="classSubjectViewerOverlay" class="class-subject-viewer-overlay" hidden></div>
+      <section id="classSubjectViewerModal" class="class-subject-viewer-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="classSubjectViewerTitle">
+        <header class="class-subject-viewer-head">
+          <div><span class="subject-panel-kicker"><i class="fa-solid fa-list-check"></i> LIVE CLASS OFFERING</span><h2 id="classSubjectViewerTitle">View Subjects by Class</h2><p>Choose a class to see its complete active subject list from top to finish. This view reads the same live Subject Registry used across EMIS.</p></div>
+          <button id="closeClassSubjectViewerBtn" class="class-subject-viewer-close" type="button" aria-label="Close class subject viewer"><i class="fa-solid fa-xmark"></i></button>
+        </header>
+        <div class="class-subject-viewer-tools"><label><i class="fa-solid fa-magnifying-glass"></i><input id="classSubjectViewerSearch" type="search" autocomplete="off" placeholder="Find class, section or subject…"></label><span id="classSubjectViewerCount">—</span></div>
+        <div class="class-subject-viewer-layout">
+          <aside class="class-subject-classlist"><div id="classSubjectViewerClassList" class="class-subject-classlist-scroll"></div></aside>
+          <main class="class-subject-display">
+            <div class="class-subject-display-head"><div><span id="classSubjectViewerSection" class="class-subject-section-badge">School Section</span><h3 id="classSubjectViewerClassName">Select a class</h3><p id="classSubjectViewerMeta">Choose a class from the left to display all subjects offered.</p></div><span id="classSubjectViewerSubjectCount" class="class-subject-count-badge">0 subjects</span></div>
+            <div id="classSubjectViewerList" class="class-subject-list"><div class="class-subject-empty"><i class="fa-solid fa-book-open-reader"></i><strong>Select a class</strong><span>The full subject list will appear here.</span></div></div>
+            <footer class="class-subject-viewer-footer"><button id="classSubjectViewerPrev" type="button"><i class="fa-solid fa-arrow-left"></i> Previous</button><span><i class="fa-solid fa-arrows-rotate"></i> Live Subject Registry</span><button id="classSubjectViewerNext" type="button">Next <i class="fa-solid fa-arrow-right"></i></button></footer>
+          </main>
+        </div>
+      </section>
+
+      <div id="subjectEditorOverlay" class="subject-editor-overlay" hidden></div>
+      <aside class="subject-panel subject-editor-panel subject-editor-drawer" id="subjectEditorPanel" aria-hidden="true">
+        <header class="subject-panel-head editor-head"><div><span class="subject-panel-kicker" id="editorKicker">New subject</span><h2 id="editorTitle"><i class="fa-solid fa-pen-to-square"></i> Subject Editor</h2><p>Save once and EMIS updates every class-aware workflow automatically.</p></div><button id="clearEditorBtn" class="subject-icon-btn" type="button" title="Close editor"><i class="fa-solid fa-xmark"></i></button></header>
+        <form id="subjectEditorForm" autocomplete="off">
+          <input type="hidden" id="editingSubjectId" value="">
+          <div class="subject-form-group"><label for="subjectName">Subject Name</label><div class="subject-input-wrap"><i class="fa-solid fa-book"></i><input id="subjectName" type="text" maxlength="100" required placeholder="e.g. Robotics"></div><small>The visible name can change while the permanent machine identity stays stable for old results.</small></div>
+          <div class="subject-identity-box" id="subjectIdentityBox" hidden><span><i class="fa-solid fa-fingerprint"></i> Stable Subject Key</span><code id="subjectStableKey">—</code></div>
+          <div class="subject-status-row"><div><strong>Subject Status</strong><small>Inactive subjects disappear from active class lists but remain resolvable in history.</small></div><label class="subject-switch"><input id="subjectActive" type="checkbox" checked><span></span></label></div>
+          <div class="assignment-heading"><div><span class="subject-panel-kicker">CLASS OFFERING</span><h3>Assign to Classes</h3></div><div class="assignment-tools"><button id="selectAllClassesBtn" type="button">Select All</button><button id="clearAllClassesBtn" type="button">Clear</button></div></div>
+          <p class="assignment-help">Primary, JSS and SS exam modules now read this registry live. Senior Secondary subjects can still be restricted by Science, Arts or Commercial stream.</p>
+          <div id="classAssignmentGroups" class="class-assignment-groups"><div class="assignment-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading school structure…</div></div>
+          <div class="subject-safe-note"><i class="fa-solid fa-arrows-rotate"></i><div><strong>Live sync guarantee</strong><span>Saving updates the central registry used by teacher assignment, conversion, uploads/push validation, student portal subject visibility, Results and report workflows.</span></div></div>
+          <div class="subject-editor-actions"><button id="cancelEditBtn" class="subject-btn secondary" type="button">Cancel</button><button id="archiveSubjectBtn" class="subject-btn danger" type="button" hidden><i class="fa-solid fa-box-archive"></i> Delete / Archive</button><button id="saveSubjectBtn" class="subject-btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Subject</button></div>
+        </form>
+      </aside>
+    </div>
+  </section>
+  <section class="admin-hub-panel" data-admin-hub-panel="ids">
+    <div class="staff-id-workspace" id="staffIdWorkspace">
+      <div class="admin-hub-section-head identity-section-head"><div><span>IDENTITY & ROLE CONTROL</span><h2>Staff IDs & Access</h2><p>Only an Administrator can view passwords, create IDs, disable accounts or delete credentials.</p></div><div class="identity-security-badge"><i class="fa-solid fa-lock"></i><span>ADMIN ONLY</span></div></div>
+
+      <section class="identity-summary-grid" aria-label="Staff identity summary">
+        <article><span class="identity-summary-icon total"><i class="fa-solid fa-id-card"></i></span><div><small>Total Staff IDs</small><strong id="staffIdTotal">—</strong><span>All active and inactive accounts</span></div></article>
+        <article><span class="identity-summary-icon teacher"><i class="fa-solid fa-chalkboard-user"></i></span><div><small>Teacher IDs</small><strong id="staffIdTeachers">—</strong><span>EMT prefix</span></div></article>
+        <article><span class="identity-summary-icon islamiyyah"><i class="fa-solid fa-mosque"></i></span><div><small>Islamiyyah IDs</small><strong id="staffIdIslamiyyah">—</strong><span>IMS prefix</span></div></article>
+        <article><span class="identity-summary-icon active"><i class="fa-solid fa-user-check"></i></span><div><small>Active Accounts</small><strong id="staffIdActive">—</strong><span>Can sign in now</span></div></article>
+      </section>
+
+      <div class="identity-main-grid">
+        <aside class="identity-generator-card">
+          <div class="identity-card-heading"><span class="identity-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span><div><span>CREATE CREDENTIALS</span><h3>Generate Staff IDs</h3><p>Select exactly who the ID belongs to before generating.</p></div></div>
+          <form id="staffIdGenerateForm" class="identity-generator-form">
+            <label class="identity-field"><span>ID For Who?</span><select id="staffIdRole" required><option value="teacher">Normal Teacher</option><option value="islamiyyah_teacher">Islamiyyah Teacher</option></select></label>
+            <div class="identity-prefix-preview"><span>Generated prefix</span><strong id="staffIdPrefixPreview">EMT</strong><small id="staffIdAccessPreview">Normal Teacher • Academy + History restricted</small></div>
+            <label class="identity-field"><span>How many IDs?</span><input id="staffIdCount" type="number" min="1" max="100" value="1" required></label>
+            <button id="staffIdGenerateBtn" type="submit" class="identity-primary-btn"><i class="fa-solid fa-bolt"></i><span>Generate Credentials</span></button>
+          </form>
+          <div class="identity-rule-note"><i class="fa-solid fa-circle-info"></i><div><strong>Role is permanent for the generated prefix</strong><span>EMT accounts use the normal Teacher permission set. IMS accounts use the restricted Islamiyyah permission set.</span></div></div>
+        </aside>
+
+        <section class="identity-register-card">
+          <div class="identity-register-head"><div><span>SECURE REGISTER</span><h3>Staff Credentials</h3><p>Passwords are visible only inside this Admin session.</p></div><div class="identity-register-actions"><button id="staffIdTogglePasswords" type="button"><i class="fa-solid fa-eye-slash"></i><span>Hide Passwords</span></button><button id="staffIdRefresh" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button></div></div>
+          <div class="identity-filter-row"><label><i class="fa-solid fa-magnifying-glass"></i><input id="staffIdSearch" type="search" placeholder="Search staff ID or name..."></label><select id="staffIdRoleFilter"><option value="all">All Roles</option><option value="teacher">Teachers</option><option value="islamiyyah_teacher">Islamiyyah Teachers</option></select><select id="staffIdStatusFilter"><option value="all">All Status</option><option value="active">Active</option><option value="inactive">Inactive</option></select><button id="staffIdExportCsv" type="button"><i class="fa-solid fa-file-csv"></i><span>CSV</span></button></div>
+          <div class="identity-table-meta"><span id="staffIdResultCount">0 credentials</span><span><i class="fa-solid fa-shield-halved"></i> Credential data never appears to Teacher accounts.</span></div>
+          <div class="identity-table-scroll"><table class="identity-table"><thead><tr><th>Staff ID</th><th>Role</th><th>Name</th><th>Password</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody id="staffIdTableBody"><tr><td colspan="7" class="identity-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading credentials…</td></tr></tbody></table></div>
+        </section>
+      </div>
+
+      <details class="identity-audit-card"><summary><div><span class="identity-card-icon audit"><i class="fa-solid fa-clock-rotate-left"></i></span><div><strong>Credential Activity Log</strong><small>Generation, status changes and deletions</small></div></div><span>View activity <i class="fa-solid fa-chevron-down"></i></span></summary><div id="staffIdAuditList" class="identity-audit-list"><div class="identity-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading audit history…</div></div></details>
+    </div>
+
+    <div id="staffGeneratedModal" class="aa-modal hidden" role="dialog" aria-modal="true" aria-labelledby="staffGeneratedTitle"><div class="aa-modal-card wide"><button class="aa-modal-close" type="button" data-close-staff-modal="staffGeneratedModal"><i class="fa-solid fa-xmark"></i></button><div class="aa-modal-heading success"><span><i class="fa-solid fa-circle-check"></i></span><div><small>CREATED SUCCESSFULLY</small><h3 id="staffGeneratedTitle">New Staff Credentials</h3><p>Copy or export these credentials before closing the dialog.</p></div></div><div id="staffGeneratedList" class="generated-credential-list"></div><div class="aa-modal-actions"><button id="staffGeneratedCsv" type="button" class="identity-secondary-btn"><i class="fa-solid fa-file-csv"></i> Download CSV</button><button type="button" class="identity-primary-btn" data-close-staff-modal="staffGeneratedModal">Done</button></div></div></div>
+
+    <div id="staffDeleteModal" class="aa-modal hidden" role="dialog" aria-modal="true" aria-labelledby="staffDeleteTitle"><div class="aa-modal-card"><button class="aa-modal-close" type="button" data-close-staff-modal="staffDeleteModal"><i class="fa-solid fa-xmark"></i></button><div class="aa-modal-heading danger"><span><i class="fa-solid fa-triangle-exclamation"></i></span><div><small>ADMIN CONFIRMATION</small><h3 id="staffDeleteTitle">Delete Staff Credential?</h3><p id="staffDeleteCopy">This ID will no longer be able to sign in.</p></div></div><div class="aa-modal-actions"><button type="button" class="identity-secondary-btn" data-close-staff-modal="staffDeleteModal">Cancel</button><button id="staffDeleteConfirm" type="button" class="identity-danger-btn"><i class="fa-solid fa-trash"></i> Delete ID</button></div></div></div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="{{ url_for('static', filename='js/teacher_assignments.js') }}"></script>
+<script src="{{ url_for('static', filename='js/subjects.js') }}?v=20261016-class-viewer4"></script>
+<script src="{{ url_for('static', filename='js/ids.js') }}"></script>
+<script src="{{ url_for('static', filename='js/academic_admin_hub.js') }}"></script>
+{% endblock %}

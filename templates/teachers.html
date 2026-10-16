@@ -103,14 +103,16 @@
 
   <div class="quick-modules teacher-tools-panel">
     <h3><i class="fa-solid fa-bolt text-accent"></i> {% if user_type == 'admin' %}Teaching Tools{% else %}Quick Teacher Tools{% endif %}</h3>
-    <p class="sub-text">{% if user_type == 'admin' %}Open the same operational modules available from the Teacher workspace.{% else %}Only modules available to Teacher accounts are shown here. Report Sheet generation remains Admin-only.{% endif %}</p>
+    <p class="sub-text">{% if user_type == 'admin' %}Open the same operational modules available from the Teacher workspace.{% else %}Your Teacher account can use the regular-school workflow. Tahfeez & Islamiyyah and History & Broadsheets remain restricted.{% endif %}</p>
     <div class="modules-grid">
       <div class="module-item blue" data-external="/student_login" role="button" tabindex="0"><i class="fa-solid fa-user-graduate"></i><span>Student Exam Login</span></div>
+      <div class="module-item teal" data-route="{{ url_for('admin_bp.admin_promotion') }}" role="button" tabindex="0"><i class="fa-solid fa-users"></i><span>Students & Classes</span></div>
       <div class="module-item blue" data-page="uploads.html" role="button" tabindex="0"><i class="fa-solid fa-upload"></i><span>Upload Exams</span></div>
       <div class="module-item purple" data-page="convert.html" role="button" tabindex="0"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Convert Questions</span></div>
       <div class="module-item green" data-route="{{ url_for('admin_bp.admin_results') }}" role="button" tabindex="0"><i class="fa-solid fa-chart-bar"></i><span>Results</span></div>
       <div class="module-item teal" data-route="{{ url_for('admin_bp.admin_attendance') }}" role="button" tabindex="0"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></div>
       <div class="module-item yellow" data-route="{{ url_for('admin_bp.admin_ca_tests') }}" role="button" tabindex="0"><i class="fa-solid fa-clipboard-check"></i><span>CA Tests</span></div>
+      <div class="module-item purple" data-route="{{ url_for('admin_bp.admin_report_sheets') }}" role="button" tabindex="0"><i class="fa-solid fa-file-lines"></i><span>Report Sheets</span></div>
     </div>
   </div>
 

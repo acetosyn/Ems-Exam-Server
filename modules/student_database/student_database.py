@@ -8,7 +8,7 @@ from datetime import datetime
 from openpyxl import Workbook, load_workbook
 
 from modules.class_config import (
-    SUPPORTED_CLASSES, CLASS_ARMS_BY_LEVEL, STUDENT_CSV_FILE,
+    STUDENT_DATABASE_CLASSES, CLASS_ARMS_BY_LEVEL, STUDENT_CSV_FILE,
     normalize_class_level, normalize_class_arm, is_valid_class, is_valid_class_arm,
 )
 
@@ -23,14 +23,10 @@ BACKUP_DIR = DATABASE_DIR / "backups" / "student_database"
 # CLASS EXCEL DATABASES
 # ============================================================
 
-CLASS_DATABASE_FILES = {
-    "JSS1": DATABASE_DIR / "JSS1_Students.xlsx",
-    "JSS2": DATABASE_DIR / "JSS2_Students.xlsx",
-    "JSS3": DATABASE_DIR / "JSS3_Students.xlsx",
-    "SS1": DATABASE_DIR / "SS1_Students.xlsx",
-    "SS2": DATABASE_DIR / "SS2_Students.xlsx",
-    "SS3": DATABASE_DIR / "SS3_Students.xlsx",
-}
+# One synchronized workbook mirror is maintained for every active regular-school class.
+# Early Years/Primary preserve their real Gold/Silver or A/B group identity, while
+# JSS/SS continue to preserve their configured arms inside each class workbook.
+CLASS_DATABASE_FILES = {level: DATABASE_DIR / f"{level}_Students.xlsx" for level in STUDENT_DATABASE_CLASSES}
 
 
 # ============================================================
@@ -105,7 +101,7 @@ def full_name(row):
 
 def normalize_student_level(value, fallback=""):
     level = normalize_class_level(value) or normalize_class_level(fallback)
-    return level if level in SUPPORTED_CLASSES else ""
+    return level if level in STUDENT_DATABASE_CLASSES else ""
 
 
 def normalize_student_arm(value, class_level=""):
@@ -203,8 +199,9 @@ def validate_student_record(row, require_admission=True):
     if not student["First_name"]:
         raise ValueError("First name is required.")
 
-    if student["Sex"] not in {"Male", "Female"}:
-        raise ValueError("Sex must be Male or Female.")
+    lower_school = student["Class_category"] in {"CRECHE", "STARTER", "PRE_CLASS", "NURSERY1", "NURSERY2", "PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6"}
+    if student["Sex"] not in {"Male", "Female"} and not (lower_school and not student["Sex"]):
+        raise ValueError("Sex must be Male or Female. Blank is permitted only for imported lower-school records awaiting verification.")
 
     validate_student_class(student["Class_category"], student["Class"])
     return student
@@ -494,7 +491,7 @@ def sync_all_class_workbooks(master_rows=None):
     master_rows = read_master_students() if master_rows is None else master_rows
     result = {}
 
-    for level in SUPPORTED_CLASSES:
+    for level in STUDENT_DATABASE_CLASSES:
         result[level] = len(sync_class_workbook(level, master_rows))
 
     return result
@@ -587,7 +584,7 @@ def verify_database_sync(master_rows=None):
         "errors": [],
     }
 
-    for level in SUPPORTED_CLASSES:
+    for level in STUDENT_DATABASE_CLASSES:
         master_class = [
             row
             for row in master_rows
@@ -663,9 +660,9 @@ def verify_database_sync(master_rows=None):
 # Transaction sequence:
 #
 #   1. Validate complete proposed master database.
-#   2. Backup master CSV + all six class XLSX files.
+#   2. Backup master CSV + all active regular-class XLSX files.
 #   3. Write students2026.csv.
-#   4. Rebuild all six class XLSX files.
+#   4. Rebuild all active regular-class XLSX files.
 #   5. Verify master CSV against all class workbooks.
 #   6. Roll back everything if any stage fails.
 # ============================================================
@@ -1065,7 +1062,7 @@ def update_student_class(admission_number, destination_class, destination_arm, r
 #
 # students2026.csv is treated as authoritative.
 #
-# This function rebuilds all six class workbooks from the
+# This function rebuilds all active regular-class workbooks from the
 # master CSV.
 # ============================================================
 
@@ -1111,7 +1108,7 @@ def get_database_summary():
     rows = read_master_students()
     summary = {}
 
-    for level in SUPPORTED_CLASSES:
+    for level in STUDENT_DATABASE_CLASSES:
         level_rows = [
             row
             for row in rows
@@ -1146,7 +1143,7 @@ def get_database_summary():
 #   • master CSV exists
 #   • duplicate admission numbers
 #   • invalid student records
-#   • all six class XLSX files
+#   • all active regular-class XLSX files
 #   • CSV ↔ XLSX synchronization
 # ============================================================
 

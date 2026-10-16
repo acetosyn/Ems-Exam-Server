@@ -4551,3 +4551,395 @@ body.dark .report-hybrid-workspace input,body.dark-mode .report-hybrid-workspace
 
 /* ============================================================ UNIFIED REAL-SCORE CUMULATIVE DISPLAY ============================================================ */
 .emis-cumulative-wrap .emis-cumulative-strip small{display:block;margin-top:.35mm;color:#64748b;font-size:4.35px;font-weight:800;line-height:1.15}.emis-cumulative-wrap .emis-cumulative-strip .annual-score{background:#e7f8f1;border-radius:5px}.emis-cumulative-wrap .emis-cumulative-strip .annual-score strong{color:#0c7657}.cumulative-preview-table .score-with-percent{min-width:82px}.cumulative-preview-table .score-with-percent strong{display:block;color:#23445e;font-size:8.8px;white-space:nowrap}.cumulative-preview-table .score-with-percent small{display:block;margin-top:2px;color:#7a8e9e;font-size:7.1px;font-weight:850;white-space:nowrap}
+
+/* ============================================================
+   NEW UPGRADE PHASE 4 — ALL-CLASS REPORTING / PROTECTED MODE
+============================================================ */
+.report-page.report-attendance-style .report-mode-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
+.report-page.report-attendance-style .report-mode-card.report-mode-pending .mode-badge{background:#fff7ed !important;color:#b45309 !important;}
+.report-page.report-attendance-style .report-mode-card.report-mode-pending h3 i{color:#d97706 !important;}
+.report-page.report-attendance-style .report-mode-card.report-mode-pending.active{border-color:#fed7aa !important;background:linear-gradient(135deg,#fffaf0,#f8fafc) !important;}
+.report-page .assessment-disabled{opacity:.48 !important;cursor:not-allowed !important;filter:saturate(.55);}
+@media(max-width:1100px){.report-page.report-attendance-style .report-mode-grid{grid-template-columns:1fr !important;}}
+
+/* ======================================================================
+   PREMIUM COMPACT REBRAND — 2026-09-30
+   Goal: bring the working report engine above the fold, reduce card bulk,
+   turn Sources into a clean app-style health dock, and add teacher guidance.
+   This block intentionally overrides older phase styling without removing
+   report/PDF/print compatibility rules above.
+   ====================================================================== */
+
+.report-page {
+  --rp-navy:#0c2b46; --rp-navy-2:#143f63; --rp-blue:#1778d4; --rp-cyan:#0d9c9a;
+  --rp-green:#15956f; --rp-gold:#e5a814; --rp-gold-soft:#fff7d9; --rp-purple:#7156d9;
+  --rp-red:#d54258; --rp-ink:#17344e; --rp-muted:#71869a; --rp-line:#dbe7f0;
+  --rp-surface:#ffffff; --rp-soft:#f6f9fc; --rp-shadow:0 10px 26px rgba(21,55,84,.065);
+  max-width:1780px !important; padding:12px 14px 22px !important;
+  background:linear-gradient(180deg,#fbfdff 0%,#f6f9fc 36%,#fbfdff 100%) !important;
+}
+.report-page > section { scroll-margin-top:165px; }
+.report-page button,.report-page select,.report-page input,.report-page textarea { font-family:"Nunito Sans",Inter,system-ui,-apple-system,"Segoe UI",sans-serif; }
+
+/* 1) Slim, app-like hero */
+.report-page .report-hero { min-height:112px !important; grid-template-columns:minmax(0,1fr) 330px !important; gap:12px !important; padding:13px 15px !important; margin-bottom:8px !important; border-radius:18px !important; box-shadow:var(--rp-shadow) !important; }
+.report-page .report-title-row { gap:10px !important; }
+.report-page .report-title-icon { width:42px !important; height:42px !important; border-radius:13px !important; font-size:17px !important; }
+.report-page .report-kicker,.report-page .section-kicker { margin-bottom:4px !important; padding:4px 7px !important; font-size:8px !important; line-height:1 !important; letter-spacing:.08em !important; }
+.report-page .report-hero h1 { font-size:clamp(21px,2vw,29px) !important; line-height:1.08 !important; }
+.report-page .report-hero p { margin-top:5px !important; max-width:930px !important; font-size:11px !important; line-height:1.45 !important; }
+.report-page .report-mini-row { gap:5px !important; margin-top:7px !important; }
+.report-page .report-mini-row span { gap:5px !important; padding:5px 8px !important; font-size:8px !important; box-shadow:none !important; }
+.report-page .report-live-card { min-height:78px !important; display:flex !important; align-items:center !important; gap:10px !important; padding:11px 12px !important; border-radius:15px !important; box-shadow:0 10px 26px rgba(12,43,70,.18) !important; }
+.report-page .report-live-card::before { display:none !important; }
+.report-page .report-live-icon { width:36px !important; height:36px !important; flex:0 0 36px !important; border-radius:11px !important; display:grid !important; place-items:center !important; background:rgba(255,255,255,.1) !important; }
+.report-page .report-live-copy { min-width:0; }
+.report-page .report-live-card span { font-size:7.5px !important; }
+.report-page .report-live-card strong { margin-top:2px !important; font-size:14px !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.report-page .report-live-card small { margin-top:3px !important; font-size:8.5px !important; line-height:1.3 !important; }
+
+/* 2) Desktop/app launcher dock */
+.report-app-dock { position:sticky; top:92px; z-index:28; display:flex; align-items:stretch; justify-content:space-between; gap:9px; margin:0 0 8px; padding:7px; border:1px solid rgba(205,220,232,.92); border-radius:17px; background:rgba(255,255,255,.92); box-shadow:0 8px 24px rgba(15,49,78,.08); backdrop-filter:blur(16px); }
+.report-app-dock-main,.report-app-dock-tools { display:flex; align-items:stretch; gap:6px; min-width:0; }
+.report-app-dock-main { flex:1 1 auto; }
+.report-app-item,.report-app-tool { min-width:0; border:1px solid transparent; border-radius:12px; background:transparent; color:#4c657b; cursor:pointer; transition:.2s ease; }
+.report-app-item { min-height:50px; display:grid; grid-template-columns:28px auto; grid-template-rows:auto auto; column-gap:7px; align-content:center; padding:5px 9px; text-align:left; }
+.report-app-item i { grid-row:1/3; width:28px; height:28px; display:grid; place-items:center; align-self:center; border-radius:9px; background:#edf4fb; color:var(--rp-blue); font-size:12px; }
+.report-app-item span { align-self:end; color:#193b58; font-size:9.5px; font-weight:1000; white-space:nowrap; }
+.report-app-item small { align-self:start; color:#8798a7; font-size:7px; font-weight:800; white-space:nowrap; }
+.report-app-item:hover,.report-app-item.active { border-color:#cfe0ed; background:#f7fbfe; box-shadow:0 5px 14px rgba(19,58,89,.06); transform:translateY(-1px); }
+.report-app-item.active i { background:#0e527d; color:#fff; }
+.report-app-tool { min-height:50px; min-width:82px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:5px 9px; background:#f8fafc; }
+.report-app-tool i { color:#0f7e69; font-size:12px; }.report-app-tool span { color:#294962; font-size:8px; font-weight:1000; }.report-app-tool kbd { padding:1px 5px; border:1px solid #d6e1ea; border-bottom-width:2px; border-radius:5px; background:#fff; color:#8293a1; font-size:6px; font-family:inherit; }
+.report-app-tool:hover { border-color:#cde3d9; background:#f1faf6; transform:translateY(-1px); }
+
+/* 3) Micro stats: deliberately tiny so useful work appears immediately */
+.report-page .report-stats-grid { grid-template-columns:repeat(4,minmax(0,1fr)) !important; gap:7px !important; margin:0 0 8px !important; }
+.report-page .report-stat-card { min-height:58px !important; gap:8px !important; padding:7px 9px !important; border-radius:13px !important; box-shadow:0 5px 14px rgba(15,47,84,.045) !important; }
+.report-page .report-stat-card:hover { transform:translateY(-2px) !important; }
+.report-page .report-stat-card::after { width:54px !important; height:54px !important; right:-22px !important; top:auto !important; bottom:-24px !important; }
+.report-page .report-stat-icon { width:32px !important; height:32px !important; flex:0 0 32px !important; border-radius:10px !important; font-size:11px !important; }
+.report-page .report-stat-card span { font-size:7.5px !important; line-height:1 !important; }
+.report-page .report-stat-card strong { margin-top:2px !important; font-size:17px !important; line-height:1 !important; }
+.report-page .report-stat-card small { margin-top:2px !important; font-size:6.8px !important; line-height:1 !important; }
+
+/* 4) Intelligence becomes one compact telemetry band */
+.report-page .report-intelligence-grid { grid-template-columns:1.1fr .9fr 1fr !important; gap:7px !important; margin:0 0 8px !important; }
+.report-page .report-intel-card { min-height:86px !important; padding:9px 10px !important; border-radius:14px !important; box-shadow:0 5px 14px rgba(15,47,84,.045) !important; }
+.report-page .report-intel-head { gap:8px !important; margin-bottom:7px !important; }
+.report-page .report-intel-head h3 { margin:2px 0 0 !important; font-size:11px !important; }
+.report-page .report-intel-icon { width:30px !important; height:30px !important; flex-basis:30px !important; border-radius:9px !important; font-size:11px !important; }
+.report-page .report-readiness-donut { width:46px !important; height:46px !important; flex-basis:46px !important; }.report-page .report-readiness-donut::after { inset:5px !important; }.report-page .report-readiness-donut strong { font-size:10px !important; }.report-page .report-readiness-donut span { font-size:5.5px !important; margin-top:1px !important; }
+.report-page .report-readiness-bars { gap:4px !important; }.report-page .report-readiness-bars > div > span { margin-bottom:2px !important; font-size:6.8px !important; }.report-page .report-readiness-bars > div > div,.report-page .report-class-progress > div { height:5px !important; }.report-page .report-class-progress { gap:4px !important; margin-bottom:4px !important; }.report-page .report-class-progress strong { font-size:7px !important; }
+.report-page .report-mini-chart { height:44px !important; gap:6px !important; padding-top:4px !important; }.report-page .chart-column span,.report-page .chart-column b { font-size:6px !important; }
+.report-page .report-smart-shortcuts { display:grid !important; grid-template-columns:repeat(4,minmax(0,1fr)) !important; gap:5px !important; }.report-page .report-smart-shortcuts button { min-height:39px !important; padding:4px !important; border-radius:9px !important; }.report-page .report-smart-shortcuts button i { font-size:10px !important; }.report-page .report-smart-shortcuts button span { font-size:6.5px !important; }
+
+/* 5) Setup panel: compressed control center + setup readiness meter */
+.report-page .report-control-panel { padding:9px 10px !important; margin-bottom:8px !important; border-radius:16px !important; box-shadow:var(--rp-shadow) !important; }
+.report-page .report-control-head { align-items:center !important; margin-bottom:7px !important; }.report-page .report-control-head h2 { font-size:11px !important; }.report-page .report-head-actions { display:flex; align-items:center; justify-content:flex-end; gap:6px; flex-wrap:wrap; }
+.report-setup-meter { width:150px; display:grid; gap:4px; padding:5px 8px; border:1px solid #dae7ef; border-radius:10px; background:#f8fbfd; }
+.report-setup-meter span { display:flex; align-items:center; gap:5px; color:#557086; font-size:7px; font-weight:950; }.report-setup-meter span i { color:var(--rp-gold); }.report-setup-meter > div { height:4px; overflow:hidden; border-radius:999px; background:#e7eef4; }.report-setup-meter > div i { display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#d79c11,#20a17a); transition:width .25s ease; }
+.report-page .report-control-grid.compact-grid { gap:7px !important; }.report-page .report-action-group { padding:7px !important; border-radius:12px !important; }.report-page .report-group-title { margin-bottom:5px !important; font-size:7px !important; }.report-page .report-group-title i { width:20px !important; height:20px !important; border-radius:7px !important; font-size:8px !important; }
+.report-page .form-group { gap:3px !important; }.report-page .form-label { font-size:7px !important; }.report-page .form-input { height:39px !important; padding-top:0 !important; padding-bottom:0 !important; border-radius:10px !important; font-size:10px !important; }.report-page .report-input-wrap > i { width:25px !important; height:25px !important; border-radius:8px !important; font-size:9px !important; }.report-page .report-action-group .report-input-wrap .form-input { padding-left:2.75rem !important; }.report-page .report-field-note { font-size:6px !important; line-height:1.2 !important; }
+.report-page .report-btn,.report-page .report-mini-btn { min-height:34px !important; height:auto !important; padding:0 9px !important; border-radius:10px !important; font-size:7.5px !important; box-shadow:none !important; }.report-page .report-mini-save-btn { min-height:24px !important; padding:0 7px !important; border-radius:8px !important; font-size:6.5px !important; }
+
+/* 6) Automatic / Manual / Hybrid = compact app cards */
+.report-page .phase5-generation-methods { grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:7px !important; margin:0 0 8px !important; }
+.report-page .generation-method-card { min-height:98px !important; display:grid !important; grid-template-columns:34px minmax(0,1fr) !important; grid-template-rows:auto auto !important; gap:7px 9px !important; padding:9px 10px !important; border-radius:15px !important; box-shadow:0 5px 16px rgba(15,47,84,.05) !important; }
+.report-page .generation-method-icon { width:34px !important; height:34px !important; border-radius:10px !important; font-size:12px !important; }.report-page .generation-method-copy { min-width:0; }.report-page .generation-method-copy > span { font-size:6px !important; }.report-page .generation-method-copy h3 { margin:1px 0 !important; font-size:12px !important; }.report-page .generation-method-copy p { margin:0 !important; font-size:7.2px !important; line-height:1.3 !important; }
+.report-page .generation-method-actions { grid-column:1/-1; display:flex !important; flex-wrap:wrap !important; gap:5px !important; margin-top:0 !important; }.report-page .generation-method-actions .report-mini-btn { min-height:27px !important; padding:0 8px !important; font-size:6.6px !important; }
+
+/* 7) Sources is now a full-width app health dock, never a narrow broken sidebar */
+.report-page .report-data-board { display:grid !important; grid-template-columns:1fr !important; gap:8px !important; margin-top:0 !important; }.report-page .report-source-panel { grid-row:1 !important; grid-column:1/-1 !important; width:100% !important; min-width:0 !important; padding:9px !important; border-radius:16px !important; overflow:visible !important; }.report-page .report-students-panel { grid-row:2 !important; grid-column:1/-1 !important; min-width:0 !important; }
+.report-page .report-source-panel .report-data-head { margin-bottom:6px !important; padding:0 2px !important; }.report-page .report-source-panel h2 { font-size:11px !important; }.report-page .report-source-list.compact,.report-page .report-source-list { display:grid !important; grid-template-columns:repeat(5,minmax(0,1fr)) !important; gap:7px !important; }
+.report-page .report-source-list article { position:relative; min-width:0 !important; min-height:70px !important; display:grid !important; grid-template-columns:31px minmax(0,1fr) !important; align-items:center !important; gap:8px !important; padding:8px !important; border:1px solid #dce7ef !important; border-radius:12px !important; background:#fff !important; box-shadow:none !important; overflow:hidden !important; }
+.report-page .report-source-list article::before { content:""; position:absolute; inset:0 auto 0 0; width:3px; background:#d2dde6; }.report-page .report-source-list article[data-source-state="ready"]::before { background:#18a175; }.report-page .report-source-list article[data-source-state="warning"]::before { background:#e2a31b; }.report-page .report-source-list article[data-source-state="error"]::before { background:#d94b60; }.report-page .report-source-list article[data-source-state="info"]::before { background:#357fca; }
+.report-page .report-source-list article > i { width:31px !important; height:31px !important; margin:0 !important; border-radius:9px !important; font-size:11px !important; }.report-page .report-source-list article > div { min-width:0 !important; }.report-page .report-source-list strong { display:block !important; margin-bottom:2px !important; color:#274961 !important; font-size:7.7px !important; line-height:1.15 !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }.report-page .report-source-list span { display:-webkit-box !important; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden !important; color:#7b8f9f !important; font-size:6.8px !important; line-height:1.35 !important; overflow-wrap:anywhere !important; word-break:normal !important; }
+.report-page .report-source-list article[data-source-state="ready"] { background:linear-gradient(145deg,#fff,#f1fbf7) !important; }.report-page .report-source-list article[data-source-state="warning"] { background:linear-gradient(145deg,#fff,#fff9eb) !important; }.report-page .report-source-list article[data-source-state="error"] { background:linear-gradient(145deg,#fff,#fff3f5) !important; }
+
+/* 8) Loaded students: strong primary workspace, not squeezed by Sources */
+.report-page .report-data-card { border-radius:16px !important; box-shadow:var(--rp-shadow) !important; }.report-page .report-data-head { padding:10px 11px !important; gap:8px !important; }.report-page .report-data-head h2 { font-size:14px !important; }.report-page .report-table-tools { gap:5px !important; }.report-page .report-table-search { min-width:260px !important; height:36px !important; border-radius:10px !important; }.report-page .report-table-search input { font-size:8.5px !important; }.report-page .report-table-summary-strip { grid-template-columns:repeat(5,minmax(0,1fr)) !important; gap:6px !important; padding:7px 10px !important; }.report-page .report-table-summary-strip article { min-height:46px !important; padding:7px 9px !important; border-radius:10px !important; }.report-page .report-table-summary-strip span { font-size:6.8px !important; }.report-page .report-table-summary-strip strong { font-size:15px !important; }
+.report-page .report-table-filter-strip { gap:5px !important; padding:0 10px 7px !important; }.report-page .report-table-filter { min-height:30px !important; padding:0 9px !important; border-radius:9px !important; font-size:7px !important; }.report-page .report-students-table th { padding:9px 10px !important; font-size:7.5px !important; }.report-page .report-students-table td { padding:8px 10px !important; font-size:8px !important; }.report-page .report-table-footer { min-height:46px !important; padding:7px 10px !important; }
+
+/* 9) Main report engine gets visual priority */
+.report-page .report-toolbar { margin:8px 0 !important; padding:7px !important; border-radius:14px !important; box-shadow:none !important; }.report-page .report-search-box { height:36px !important; border-radius:10px !important; }.report-page .report-search-box input { font-size:8px !important; }.report-page .report-chip { min-height:30px !important; padding:0 8px !important; border-radius:9px !important; font-size:6.8px !important; }
+.report-page .report-preview-shell { grid-template-columns:250px minmax(0,1fr) !important; gap:8px !important; margin-bottom:8px !important; border-radius:16px !important; }.report-page .report-student-list-card,.report-page .report-preview-card { border-radius:16px !important; }.report-page .report-list-head,.report-page .report-preview-head { padding:10px !important; }.report-page .report-list-head h2,.report-page .report-preview-head h2 { font-size:12px !important; }.report-page .report-preview-head p { margin-top:3px !important; font-size:7.5px !important; }.report-page .report-preview-actions { gap:5px !important; }.report-page .report-sheet-canvas { min-height:640px !important; padding:10px !important; background:linear-gradient(180deg,#f7fafc,#eef4f8) !important; }
+
+/* 10) Action dock becomes a tiny desktop tool shelf */
+.report-page .report-action-dock { display:flex !important; align-items:stretch !important; gap:7px !important; margin:8px 0 !important; padding:7px !important; border:1px solid var(--rp-line) !important; border-radius:15px !important; background:#fff !important; box-shadow:var(--rp-shadow) !important; }.report-page .report-dock-group { min-width:0 !important; flex:1 1 auto !important; display:grid !important; grid-template-columns:auto repeat(5,minmax(48px,1fr)) !important; gap:5px !important; align-items:center !important; padding:0 !important; border:0 !important; background:transparent !important; }.report-page .report-dock-group:nth-child(1){flex:.45}.report-page .report-dock-group:nth-child(3){flex:.6}.report-page .report-dock-group:nth-child(4){flex:.7}.report-page .dock-group-label { writing-mode:vertical-rl; transform:rotate(180deg); justify-content:center !important; padding:4px 2px !important; color:#8a9baa !important; font-size:6px !important; letter-spacing:.08em !important; }.report-page .report-dock-btn { min-width:0 !important; min-height:44px !important; flex-direction:column !important; gap:3px !important; padding:4px !important; border-radius:10px !important; font-size:6.3px !important; box-shadow:none !important; }.report-page .report-dock-btn i { font-size:11px !important; }
+
+/* 11) Annual compiler: micro summary; heavy table hidden until requested */
+.report-page .report-cumulative-hub { gap:6px !important; margin:8px 0 !important; padding:8px 9px !important; border-radius:15px !important; box-shadow:var(--rp-shadow) !important; }.report-page .report-cumulative-head { align-items:center !important; gap:8px !important; }.report-page .report-cumulative-head h2 { margin:2px 0 !important; font-size:12px !important; }.report-page .report-cumulative-head p { font-size:7px !important; }.report-page .report-cumulative-actions { gap:5px !important; }.report-page .cumulative-print-badge { padding:5px 7px !important; font-size:6px !important; }.report-page .report-cumulative-grid { gap:5px !important; }.report-page .report-cumulative-grid article { min-height:45px !important; padding:6px 8px !important; border-radius:9px !important; }.report-page .report-cumulative-grid article span { font-size:6px !important; }.report-page .report-cumulative-grid article strong { margin-top:2px !important; font-size:14px !important; }.report-page .report-cumulative-grid article em { margin-top:2px !important; font-size:5.8px !important; }.report-page .report-cumulative-progress { gap:7px !important; }.report-page .report-cumulative-progress>div { height:5px !important; }.report-page .report-cumulative-progress span { font-size:6.2px !important; }.report-page .report-cumulative-details { display:grid; grid-template-rows:1fr; opacity:1; transition:.24s ease; }.report-page .report-cumulative-hub.is-details-collapsed .report-cumulative-details { display:none; }.report-page .cumulative-toggle i { transition:transform .2s ease; }.report-page .report-cumulative-hub:not(.is-details-collapsed) .cumulative-toggle i { transform:rotate(180deg); }.report-page .report-cumulative-preview { border-radius:10px !important; }.report-page .cumulative-preview-head { padding:7px 9px !important; }.report-page .cumulative-preview-table-wrap { max-height:220px !important; }
+
+/* 12) Report structure cards are now reference chips below primary work */
+.report-page .report-secondary-reference { gap:6px !important; margin:8px 0 0 !important; }.report-page .report-mode-card { min-height:76px !important; padding:8px 9px !important; border-radius:12px !important; box-shadow:none !important; }.report-page .report-mode-card h3 { margin:3px 0 5px !important; font-size:9px !important; }.report-page .mode-badge { padding:3px 6px !important; font-size:5.8px !important; }.report-page .mode-score-row { gap:3px !important; }.report-page .mode-score-row span { padding:3px 5px !important; border-radius:6px !important; font-size:5.5px !important; }.report-page .report-mode-card p { margin-top:5px !important; font-size:6.3px !important; line-height:1.3 !important; }
+
+/* 13) Gold guidance tooltip */
+.report-gold-tooltip { position:fixed; z-index:999999; max-width:280px; pointer-events:none; opacity:0; transform:translateY(4px) scale(.98); padding:8px 10px; border:1px solid #dca20e; border-radius:9px; background:linear-gradient(145deg,#ffd85e,#eaae18); color:#332500; box-shadow:0 12px 34px rgba(112,77,0,.24); font:800 10px/1.35 "Nunito Sans",Inter,sans-serif; transition:opacity .13s ease,transform .13s ease; }
+.report-gold-tooltip.show { opacity:1; transform:translateY(0) scale(1); }.report-gold-tooltip::after { content:""; position:absolute; left:var(--tip-arrow-left,22px); top:100%; border:6px solid transparent; border-top-color:#eaae18; }
+
+/* 14) Command palette */
+.report-command-palette { position:fixed; inset:0; z-index:99990; display:none; place-items:start center; padding-top:min(16vh,150px); background:rgba(6,22,36,.42); backdrop-filter:blur(6px); }.report-command-palette.open { display:grid; }.report-command-panel { width:min(650px,calc(100vw - 28px)); overflow:hidden; border:1px solid rgba(255,255,255,.7); border-radius:18px; background:#fff; box-shadow:0 28px 90px rgba(6,29,48,.28); }.report-command-search { display:grid; grid-template-columns:24px 1fr 34px; align-items:center; gap:8px; padding:11px 12px; border-bottom:1px solid #e0e9f0; }.report-command-search > i { color:#1f779a; text-align:center; }.report-command-search input { width:100%; height:38px; border:0; outline:0; background:transparent; color:#173852; font-size:14px; font-weight:850; }.report-command-search button { width:32px; height:32px; border:0; border-radius:9px; background:#f0f4f7; color:#647b8e; cursor:pointer; }.report-command-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 13px; background:#f7fafc; }.report-command-head strong { color:#35536b; font-size:9px; text-transform:uppercase; letter-spacing:.07em; }.report-command-head span { color:#8798a7; font-size:8px; }.report-command-list { max-height:min(52vh,430px); overflow:auto; padding:7px; }.report-command-item { width:100%; min-height:50px; display:grid; grid-template-columns:36px 1fr auto; align-items:center; gap:9px; padding:7px 9px; border:1px solid transparent; border-radius:11px; background:#fff; text-align:left; cursor:pointer; }.report-command-item:hover,.report-command-item.active { border-color:#cfe0ec; background:#f4f9fc; }.report-command-item > i { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:#eaf4fb; color:#1973b8; }.report-command-item strong { display:block; color:#25465f; font-size:10px; }.report-command-item span { display:block; margin-top:2px; color:#8495a4; font-size:8px; }.report-command-item kbd { padding:2px 6px; border:1px solid #d4e0e8; border-bottom-width:2px; border-radius:6px; color:#728697; background:#fff; font:800 7px/1.2 inherit; }.report-command-empty { padding:28px; text-align:center; color:#8295a5; font-size:10px; font-weight:800; }.report-command-footer { display:flex; justify-content:flex-end; gap:14px; padding:8px 12px; border-top:1px solid #e4ebf1; background:#f8fafc; color:#8293a1; font-size:7px; font-weight:800; }.report-command-footer kbd { padding:1px 4px; border:1px solid #d8e2e9; border-radius:4px; background:#fff; }
+
+/* 15) Busy feedback and focus visibility */
+.report-page button:focus-visible,.report-page input:focus-visible,.report-page select:focus-visible,.report-page textarea:focus-visible { outline:2px solid #d8a614 !important; outline-offset:2px !important; }.report-page .report-mini-btn:disabled,.report-page .report-btn:disabled { filter:grayscale(.15); }.report-page.report-is-busy .report-live-card { box-shadow:0 0 0 3px rgba(229,168,20,.12),0 10px 28px rgba(12,43,70,.18) !important; }
+
+/* Comfortable density is optional; compact remains the default. */
+.report-page.report-density-comfortable .report-stat-card { min-height:76px !important; padding:11px 13px !important; }.report-page.report-density-comfortable .report-intel-card { min-height:112px !important; padding:13px !important; }.report-page.report-density-comfortable .generation-method-card { min-height:120px !important; padding:13px !important; }.report-page.report-density-comfortable .form-input { height:46px !important; }.report-page.report-density-comfortable .report-source-list article { min-height:88px !important; padding:11px !important; }
+
+@media (max-width:1380px) {
+  .report-app-dock { top:84px; }.report-app-item { padding:5px 6px; }.report-app-item small { display:none; }.report-app-tool { min-width:70px; }
+  .report-page .report-control-grid.compact-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }.report-page .report-source-list.compact,.report-page .report-source-list { grid-template-columns:repeat(5,minmax(150px,1fr)) !important; overflow-x:auto; padding-bottom:2px; }
+  .report-page .report-action-dock { overflow-x:auto; }.report-page .report-dock-group { min-width:250px !important; }
+}
+@media (max-width:980px) {
+  .report-page .report-hero { grid-template-columns:1fr !important; }.report-page .report-live-card { min-height:64px !important; }.report-app-dock { position:relative; top:auto; overflow-x:auto; }.report-app-dock-main { min-width:620px; }.report-app-dock-tools { min-width:150px; }
+  .report-page .report-stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }.report-page .report-intelligence-grid { grid-template-columns:1fr !important; }.report-page .report-smart-shortcuts { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }.report-page .phase5-generation-methods { grid-template-columns:1fr !important; }.report-page .report-source-list.compact,.report-page .report-source-list { grid-template-columns:repeat(2,minmax(0,1fr)) !important; overflow:visible; }.report-page .report-preview-shell { grid-template-columns:1fr !important; }.report-page .report-student-list-card { max-height:330px; }.report-page .report-cumulative-grid { grid-template-columns:repeat(5,minmax(110px,1fr)) !important; overflow-x:auto; }
+}
+@media (max-width:620px) {
+  .report-page { padding:8px !important; }.report-page .report-stats-grid { grid-template-columns:1fr 1fr !important; }.report-page .report-control-grid.compact-grid { grid-template-columns:1fr !important; }.report-page .report-source-list.compact,.report-page .report-source-list { grid-template-columns:1fr !important; }.report-page .report-table-summary-strip { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }.report-page .report-table-tools { width:100%; }.report-page .report-table-search { width:100%; min-width:0 !important; }.report-setup-meter { width:100%; }.report-page .report-cumulative-head { align-items:flex-start !important; }.report-page .report-cumulative-actions { justify-content:flex-start !important; }.report-command-footer { display:none; }
+}
+@media print {
+  .report-app-dock,.report-command-palette,.report-gold-tooltip,.report-cumulative-hub,.report-action-dock,.report-secondary-reference { display:none !important; }
+}
+
+
+/* =================================================================================================
+   REPORT SHEETS V4.1 — CUMULATIVE READABILITY + TITLE-CASE TABLE HEADERS
+   PURPOSE: keep Third Term cumulative sheets compact, readable and aligned on A4 without losing the
+   current EMIS visual identity. Overall high/low/class metrics live in the summary, not extra table columns.
+================================================================================================= */
+.emis-report-result-table th { text-transform:none !important; letter-spacing:0 !important; white-space:normal !important; overflow-wrap:normal !important; word-break:normal !important; }
+.emis-report-result-table th small { text-transform:none !important; letter-spacing:0 !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview { grid-template-columns:repeat(4,minmax(0,1fr)) !important; gap:1.45mm !important; margin:2mm 0 0 !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview article { min-height:13.2mm !important; padding:1.45mm 1.6mm !important; border:1px solid #c7d3e1 !important; border-radius:7px !important; background:#fff !important; text-align:left !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview article.primary { background:#eef6ff !important; border-color:#9dc4f3 !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview article.decision { background:#eefaf7 !important; border-color:#9ed7c9 !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview span { color:#475569 !important; font-size:6.15pt !important; line-height:1 !important; font-weight:800 !important; text-transform:none !important; letter-spacing:.01em !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview strong { margin-top:2px !important; color:#05070b !important; font-size:10.3pt !important; line-height:1 !important; font-weight:850 !important; white-space:nowrap !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview small { margin-top:2px !important; color:#475569 !important; font-size:5.9pt !important; line-height:1.05 !important; font-weight:700 !important; }
+.emis-report-card.report-is-cumulative .emis-cumulative-overview .decision strong { color:#087565 !important; }
+.emis-report-card.report-is-cumulative .emis-report-result-table .annual-head, .emis-report-card.report-is-cumulative .emis-report-result-table .annual-cell { width:13mm !important; min-width:13mm !important; }
+.emis-report-card.report-is-cumulative .emis-report-result-table .subject-col { width:34mm !important; max-width:34mm !important; }
+.emis-report-card.report-is-cumulative .emis-report-result-table .comment-col, .emis-report-card.report-is-cumulative .emis-report-result-table thead th:last-child { width:17mm !important; max-width:17mm !important; }
+.emis-report-card.report-is-cumulative .emis-report-result-table th { font-size:6.8pt !important; line-height:1.02 !important; padding-left:.22mm !important; padding-right:.22mm !important; }
+.emis-report-card.report-is-cumulative .emis-report-result-table th small { font-size:5.85pt !important; }
+.emis-report-card.report-is-cumulative .emis-grade-legend.waec { gap:1px 5px !important; font-size:6.15pt !important; }
+.emis-report-card.report-is-cumulative .emis-grade-legend.waec strong { margin-right:2px !important; }
+@media(max-width:700px){.emis-report-card.report-is-cumulative .emis-cumulative-overview{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}}
+@media print{.emis-report-card.report-is-cumulative .emis-cumulative-overview{grid-template-columns:repeat(4,minmax(0,1fr)) !important;break-inside:avoid-page !important;page-break-inside:avoid !important;}}
+
+
+/* =================================================================================================
+   MANUAL WORKSTATION V5 — WARM MINERAL TABLE + PREMIUM ACTIONS
+   Readability pass requested 2026-10-14.  Deliberately avoids native-blue/gold button styling.
+================================================================================================= */
+.report-hybrid-workspace .manual-score-table{font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important}
+.report-hybrid-workspace .manual-score-table thead th{height:48px!important;padding:9px 7px!important;background:linear-gradient(180deg,#f2eee7 0%,#e9e4db 100%)!important;border-right:1px solid #d5cec2!important;border-bottom:1px solid #c7bfb2!important;color:#4b4339!important;box-shadow:0 2px 0 rgba(72,62,50,.07)!important;font-size:11.6px!important;line-height:1.12!important;font-weight:760!important;letter-spacing:.025em!important;text-transform:none!important}
+.report-hybrid-workspace .manual-score-table thead .manual-include-col,.report-hybrid-workspace .manual-score-table thead .manual-subject-col{background:linear-gradient(180deg,#eee8df 0%,#e5ded3 100%)!important;color:#40382f!important}
+.report-hybrid-workspace .manual-score-table td{height:54px!important;padding:6px!important;border-right-color:#e5e0d8!important;border-bottom-color:#ece8e2!important;color:#262a2d!important;font-size:12.5px!important;font-weight:500!important}
+.report-hybrid-workspace .manual-score-table tbody tr:hover td{background:#fbfaf7!important}
+.report-hybrid-workspace .manual-score-table tbody tr.included td{background:#fdfcf9!important}
+.report-hybrid-workspace .manual-score-table tbody tr.included:hover td{background:#faf8f3!important}
+.report-hybrid-workspace .manual-score-table .manual-subject-name{padding-left:12px!important;color:#25292c!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:13.4px!important;line-height:1.22!important;font-weight:620!important;letter-spacing:.005em!important}
+.report-hybrid-workspace .manual-subject-name .manual-auto-source{margin-top:4px!important;color:#55706b!important;font-size:9.8px!important;font-weight:650!important;letter-spacing:.015em!important}
+.report-hybrid-workspace .manual-score-input{width:78px!important;height:40px!important;padding:0 8px!important;border:1px solid #d5d8d8!important;border-radius:9px!important;background:#fff!important;color:#202426!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:13.8px!important;font-weight:620!important;letter-spacing:.01em!important}
+.report-hybrid-workspace .manual-score-input.auto-prefilled{background:#f3faf7!important;border-color:#b7d9cf!important;color:#20332f!important}
+.report-hybrid-workspace .manual-score-input:focus{border-color:#8b7b67!important;box-shadow:0 0 0 3px rgba(139,123,103,.13)!important}
+.report-hybrid-workspace .manual-live-total,.report-hybrid-workspace .manual-live-grade{color:#31423e!important;font-size:13.5px!important;font-weight:720!important}
+
+/* Premium action family: stone + charcoal + deep mineral, no native blue and no gold hover. */
+.report-hybrid-workspace .phase5-inline-footer .manual-footer-right .report-btn{min-height:44px!important;height:auto!important;padding:0 16px!important;border-radius:11px!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:11.7px!important;font-weight:720!important;letter-spacing:.005em!important;box-shadow:0 5px 14px rgba(34,38,40,.08)!important;transition:transform .16s ease,box-shadow .16s ease,background .16s ease,border-color .16s ease,color .16s ease!important}
+.report-hybrid-workspace .phase5-inline-footer .manual-footer-right #saveManualDraftBtn{background:linear-gradient(180deg,#f7f4ef,#ece7df)!important;border:1px solid #cfc7bc!important;color:#37332e!important}
+.report-hybrid-workspace .phase5-inline-footer .manual-footer-right #saveGenerateManualBtn{background:linear-gradient(145deg,#3c4142,#272c2d)!important;border:1px solid #272c2d!important;color:#fff!important}
+.report-hybrid-workspace .phase5-inline-footer .manual-footer-right #saveGenerateHybridBtn{background:linear-gradient(145deg,#344541,#263632)!important;border:1px solid #263632!important;color:#fff!important}
+.report-hybrid-workspace .phase5-inline-footer .manual-footer-right #saveManualDraftBtn:hover{background:#e3ddd4!important;border-color:#b8afa3!important;color:#25221f!important;transform:translateY(-1px)!important;box-shadow:0 8px 18px rgba(48,43,38,.12)!important}
+.report-hybrid-workspace .phase5-inline-footer .manual-footer-right #saveGenerateManualBtn:hover,.report-hybrid-workspace .phase5-inline-footer .manual-footer-right #saveGenerateHybridBtn:hover{background:linear-gradient(145deg,#514941,#403a34)!important;border-color:#403a34!important;color:#fff!important;transform:translateY(-1px)!important;box-shadow:0 9px 20px rgba(48,43,38,.16)!important}
+.report-hybrid-workspace .phase5-inline-footer .manual-footer-right .report-btn i{font-size:12px!important}
+
+@media(max-width:780px){
+  .report-hybrid-workspace .manual-score-table-wrap{max-height:54dvh!important;border:1px solid #e3ddd5!important;border-radius:12px!important;scrollbar-width:thin!important}
+  .report-hybrid-workspace .manual-score-table{min-width:780px!important}
+  .report-hybrid-workspace .manual-score-table thead th{height:45px!important;padding:8px 6px!important;font-size:10.6px!important}
+  .report-hybrid-workspace .manual-score-table .manual-subject-col,.report-hybrid-workspace .manual-score-table .manual-subject-name{width:175px!important;min-width:175px!important;max-width:175px!important}
+  .report-hybrid-workspace .manual-score-table .manual-subject-name{font-size:12.6px!important;font-weight:620!important}
+  .report-hybrid-workspace .manual-score-input{width:70px!important;min-width:70px!important;height:39px!important;font-size:13px!important;font-weight:620!important}
+  .report-hybrid-workspace .phase5-inline-footer{position:sticky!important;bottom:calc(62px + env(safe-area-inset-bottom))!important;padding:9px!important;border-radius:14px!important}
+  .report-hybrid-workspace .phase5-inline-footer .manual-footer-left{width:100%!important;justify-content:space-between!important}
+  .report-hybrid-workspace .phase5-inline-footer .manual-footer-right{width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+  .report-hybrid-workspace .phase5-inline-footer .manual-footer-right #saveManualDraftBtn{grid-column:1/-1!important}
+  .report-hybrid-workspace .phase5-inline-footer .manual-footer-right .report-btn{width:100%!important;min-height:43px!important;padding:0 9px!important;font-size:10.5px!important;white-space:normal!important;line-height:1.15!important}
+}
+@media(max-width:480px){
+  .report-hybrid-workspace .manual-score-table{min-width:740px!important}
+  .report-hybrid-workspace .manual-score-table .manual-subject-col,.report-hybrid-workspace .manual-score-table .manual-subject-name{width:158px!important;min-width:158px!important;max-width:158px!important}
+  .report-hybrid-workspace .manual-score-table .manual-subject-name{font-size:12px!important}
+  .report-hybrid-workspace .manual-score-input{width:66px!important;min-width:66px!important;font-size:12.6px!important}
+}
+
+
+/* =================================================================================================
+   A4 REPORT PRESENCE V5.1 — SLIGHTLY LARGER PRINT FOOTPRINT
+   Keeps the sheet at exact A4 size while using a little more of the printable page for clearer output.
+================================================================================================= */
+.emis-report-card{padding:5.5mm 5.9mm 5.0mm!important}
+.emis-report-school h1{font-size:19pt!important}.emis-student-primary strong{font-size:13.8pt!important}.emis-report-summary strong{font-size:12pt!important}
+.emis-report-result-table{font-size:8.6pt!important}.emis-report-result-table th{font-size:7.15pt!important}.emis-report-result-table th small{font-size:6.35pt!important}.emis-report-result-table td{font-size:8.35pt!important}.emis-report-result-table td:not(.subject-col):not(.comment-col){font-size:8.5pt!important}.emis-report-result-table .subject-col{font-size:8.15pt!important}.emis-report-result-table .comment-col{font-size:7pt!important}
+.emis-report-insights strong{font-size:8.95pt!important}.emis-development-card h3{font-size:8.75pt!important}.emis-attendance-grid p{font-size:7.35pt!important}.emis-trait-list span{font-size:7.7pt!important}.emis-remark-main p{font-size:7.8pt!important}
+@media print{.emis-report-card,body.report-print-selected-only .generated-report-sheet,body.report-print-pdf-only .generated-report-sheet{width:210mm!important;min-width:210mm!important;max-width:210mm!important;min-height:297mm!important;padding:5.5mm 5.9mm 5.0mm!important}}
+
+
+/* =================================================================================================
+   A4 PRINT PAGINATION V5.2 — NO PHANTOM BLANK PAGE
+   Screen preview remains full A4. During printing the content is allowed to use only the height it
+   actually needs; explicit page breaks still keep each student on a fresh sheet, while long reports
+   can naturally continue onto page two.
+================================================================================================= */
+@media print{
+  html,body{height:auto!important;min-height:0!important}
+  body.report-print-selected-only #reportSheetCanvas,body.report-print-pdf-only #pdfPreviewCanvas,body:not(.report-print-pdf-only) #reportSheetCanvas{height:auto!important;min-height:0!important}
+  .all-reports-print{display:block!important;width:210mm!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important}
+  .all-reports-print>.emis-report-card,.all-reports-print>.generated-report-sheet,.emis-report-card,body.report-print-selected-only .generated-report-sheet,body.report-print-pdf-only .generated-report-sheet{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important}
+  .all-reports-print>.emis-report-card:not(:last-child),.all-reports-print>.generated-report-sheet:not(:last-child){page-break-after:always!important;break-after:page!important}
+  .all-reports-print>.emis-report-card:last-child,.all-reports-print>.generated-report-sheet:last-child{page-break-after:auto!important;break-after:auto!important}
+}
+
+
+/* =================================================================================================
+   A4 BATCH PRINT HOST V5.3 — ISOLATED PAGINATION FOR CURRENT / SELECTED / PRINT ALL
+   The temporary host is appended directly to BODY so hidden dashboard content cannot create extra
+   pages. Each student starts on a fresh page; the final student has no forced trailing page.
+================================================================================================= */
+@media print{
+  body.report-print-batch> *:not(#reportBatchPrintHost){display:none!important}
+  body.report-print-batch #reportBatchPrintHost,body.report-print-batch #reportBatchPrintHost *{visibility:visible!important}
+  body.report-print-batch #reportBatchPrintHost{display:block!important;position:static!important;inset:auto!important;width:210mm!important;min-width:210mm!important;max-width:210mm!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important}
+  body.report-print-batch #reportBatchPrintHost .all-reports-print{display:block!important;position:static!important;width:210mm!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important}
+  body.report-print-batch #reportBatchPrintHost .emis-report-card{display:block!important;position:relative!important;width:210mm!important;min-width:210mm!important;max-width:210mm!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:5.5mm 5.9mm 5.0mm!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border:0!important}
+  body.report-print-batch #reportBatchPrintHost .emis-report-card:not(:last-child){page-break-after:always!important;break-after:page!important}
+  body.report-print-batch #reportBatchPrintHost .emis-report-card:last-child{page-break-after:auto!important;break-after:auto!important}
+}
+
+/* =================================================================================================
+   REPORT SHEET V5.4 — TEACHER ENTRY + CALMER ACADEMIC TABLE + NATURAL A4 FLOW
+   Shared by Manual, Automated and Test Lab because every preview uses the same ReportSheetPDF renderer.
+================================================================================================= */
+
+/* Manual right-column teacher card: teacher name is primary; incident note stays available but secondary. */
+.report-hybrid-workspace .manual-teacher-card{padding:12px!important;background:linear-gradient(145deg,#ffffff,#f7faf9)!important;border-color:#d5e4df!important}
+.report-hybrid-workspace .manual-teacher-card-head>span{display:block;color:#3f746a;font-size:8.6px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.report-hybrid-workspace .manual-teacher-card-head h4{margin:3px 0 4px;color:#202a2d;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif;font-size:14px;font-weight:700;line-height:1.15}
+.report-hybrid-workspace .manual-teacher-card-head p{margin:0 0 10px;color:#66716f;font-size:10px!important;font-weight:550!important;line-height:1.4}
+.report-hybrid-workspace .manual-teacher-name-label{display:block;margin:0}
+.report-hybrid-workspace .manual-teacher-name-label>span{display:block;margin-bottom:5px;color:#293635;font-size:10px;font-weight:700;letter-spacing:.015em}
+.report-hybrid-workspace .manual-teacher-name-wrap{position:relative}
+.report-hybrid-workspace .manual-teacher-name-wrap>i{position:absolute;left:12px;top:50%;z-index:2;transform:translateY(-50%);color:#39766b;font-size:12px;pointer-events:none}
+.report-hybrid-workspace #manualFormTeacher{width:100%;height:44px!important;min-height:44px!important;padding:0 12px 0 36px!important;border:1px solid #bdcfca!important;border-radius:11px!important;background:#fff!important;color:#1f292c!important;-webkit-text-fill-color:#1f292c!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:13.5px!important;font-weight:600!important;letter-spacing:.005em!important;box-shadow:0 3px 9px rgba(35,69,61,.04)!important}
+.report-hybrid-workspace #manualFormTeacher:focus{border-color:#5e8f83!important;box-shadow:0 0 0 3px rgba(74,126,113,.12)!important;outline:none!important}
+.report-hybrid-workspace .manual-teacher-name-label>small{display:block;margin-top:5px;color:#77817f;font-size:9px;font-weight:550;line-height:1.35}
+.report-hybrid-workspace .manual-incident-note{margin-top:11px;border-top:1px solid #e1e8e5;padding-top:8px}
+.report-hybrid-workspace .manual-incident-note summary{list-style:none;display:flex;align-items:center;gap:6px;min-height:30px;color:#596663;font-size:9.5px;font-weight:650;cursor:pointer;user-select:none}
+.report-hybrid-workspace .manual-incident-note summary::-webkit-details-marker{display:none}.report-hybrid-workspace .manual-incident-note summary>i:first-child{color:#708b84}.report-hybrid-workspace .manual-incident-note summary>i:last-child{margin-left:auto;font-size:8px;transition:transform .18s ease}.report-hybrid-workspace .manual-incident-note[open] summary>i:last-child{transform:rotate(180deg)}
+.report-hybrid-workspace .manual-incident-note>div{padding-top:5px}.report-hybrid-workspace .manual-incident-note .report-textarea{min-height:72px!important;margin:0!important;padding:9px!important;border:1px solid #d8e0dd!important;border-radius:10px!important;background:#fff!important;color:#2b3436!important;-webkit-text-fill-color:#2b3436!important;font-size:10.5px!important;font-weight:500!important;line-height:1.4!important}
+
+/* Academic table: normal-weight headers, restrained grouped markers and stronger subject typography. */
+.emis-report-result-table thead th{background:#f3f6f9!important;color:#26384a!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-weight:620!important;text-transform:none!important;letter-spacing:.005em!important;line-height:1.06!important;white-space:normal!important}
+.emis-report-result-table thead th small{font-family:inherit!important;font-weight:560!important;letter-spacing:0!important}
+.emis-report-result-table thead th.score-head{background:#f2f6fa!important;box-shadow:inset 0 2px 0 #6283a0!important}
+.emis-report-result-table thead th.result-head{background:#f7f6f3!important;box-shadow:inset 0 2px 0 #857b6b!important}
+.emis-report-result-table thead th.class-head{background:#f1f7f5!important;box-shadow:inset 0 2px 0 #4b8277!important}
+.emis-report-result-table thead th.subject-head{background:#edf3f7!important;color:#1f3b52!important;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif!important;font-weight:700!important}
+.emis-report-result-table thead th.comment-head{background:#f6f7f8!important;box-shadow:inset 0 2px 0 #8a949c!important}
+.emis-report-result-table thead th.out-head{width:7mm!important}.emis-report-result-table thead th.class-low-head,.emis-report-result-table thead th.class-high-head{width:10.2mm!important}.emis-report-result-table thead th.class-avg-head{width:9.4mm!important}
+.emis-report-result-table tbody td.subject-col{font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif!important;font-weight:700!important;letter-spacing:.002em!important;color:#162f43!important}
+.emis-report-result-table tbody td.comment-col{font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-weight:560!important}
+
+/* Ten to thirteen subjects should stay compact enough for one clean A4 page when the rest of the report fits. */
+.report-density-tight .emis-report-header{padding-bottom:2.2mm!important}.report-density-tight .emis-report-identity,.report-density-tight .emis-report-summary,.report-density-tight .emis-report-academics,.report-density-tight .emis-report-insights,.report-density-tight .emis-development-grid,.report-density-tight .emis-report-remarks{margin-top:1.65mm!important}
+.report-density-tight .emis-report-summary article{min-height:13mm!important;padding:1.8mm!important}.report-density-tight .emis-report-result-table{font-size:7.6pt!important}.report-density-tight .emis-report-result-table th{padding:.72mm .35mm!important;font-size:6.25pt!important}.report-density-tight .emis-report-result-table th small{font-size:5.55pt!important}.report-density-tight .emis-report-result-table td{padding:.68mm .35mm!important;font-size:7.25pt!important}.report-density-tight .emis-report-result-table td.subject-col{font-size:7.15pt!important}.report-density-tight .emis-report-result-table td.comment-col{font-size:6.2pt!important}.report-density-tight .emis-grade-legend{padding:.85mm 1.3mm!important;font-size:5.45pt!important}.report-density-tight .emis-development-card{padding:1.55mm!important}.report-density-tight .emis-remark-main p{padding:.55mm 0!important}
+
+/* More than thirteen subjects may continue naturally onto another page; no artificial extra blank page is created. */
+.report-density-flow .emis-report-identity,.report-density-flow .emis-report-summary,.report-density-flow .emis-report-academics,.report-density-flow .emis-report-insights,.report-density-flow .emis-development-grid,.report-density-flow .emis-report-remarks{margin-top:1.55mm!important}.report-density-flow .emis-report-summary article{min-height:12.5mm!important;padding:1.6mm!important}.report-density-flow .emis-report-result-table{font-size:7.2pt!important}.report-density-flow .emis-report-result-table th{padding:.64mm .32mm!important;font-size:6.05pt!important}.report-density-flow .emis-report-result-table th small{font-size:5.35pt!important}.report-density-flow .emis-report-result-table td{padding:.62mm .32mm!important;font-size:6.95pt!important}.report-density-flow .emis-report-result-table td.subject-col{font-size:6.9pt!important}.report-density-flow .emis-report-result-table td.comment-col{font-size:6pt!important}.report-density-flow .emis-development-card{padding:1.45mm!important}
+
+@media print{
+  .emis-report-result-table{page-break-inside:auto!important;break-inside:auto!important}.emis-report-result-table thead{display:table-header-group!important}.emis-report-result-table tr{page-break-inside:avoid!important;break-inside:avoid!important}.emis-report-result-table tfoot{display:table-footer-group!important}
+  body.report-print-batch #reportBatchPrintHost .emis-report-card{page-break-inside:auto!important;break-inside:auto!important}
+}
+.emis-report-result-table thead th.subject-head{font-size:7.15pt!important}.report-density-tight .emis-report-result-table thead th.subject-head{font-size:6.25pt!important}.report-density-flow .emis-report-result-table thead th.subject-head{font-size:6.05pt!important}
+
+/* =================================================================================================
+   REPORT SHEET V5.5 — PRINT-CONTRAST TYPOGRAPHY + DOCUMENT BADGE + FULL-WIDTH GRADE KEY
+   Shared renderer: Manual, Automated and Test Trial all inherit these parent-facing report refinements.
+================================================================================================= */
+
+/* Stronger academic table ink: readable on monochrome printers while retaining restrained group markers in colour. */
+.emis-report-result-table thead th{color:#05070a!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-weight:720!important;letter-spacing:.002em!important;text-shadow:none!important;-webkit-font-smoothing:antialiased!important}
+.emis-report-result-table thead th small{color:#11151a!important;font-weight:680!important}
+.emis-report-result-table thead th.subject-head{color:#000!important;font-family:"Trebuchet MS","Aptos","Segoe UI",Arial,sans-serif!important;font-weight:800!important}
+.emis-report-result-table tbody td.subject-col{color:#000!important;font-family:"Trebuchet MS","Aptos","Segoe UI",Arial,sans-serif!important;font-weight:800!important;letter-spacing:.001em!important;text-shadow:none!important}
+.emis-report-result-table thead th.score-head{background:#f4f6f8!important;box-shadow:inset 0 2px 0 #365a78!important}.emis-report-result-table thead th.result-head{background:#f7f6f3!important;box-shadow:inset 0 2px 0 #665d50!important}.emis-report-result-table thead th.class-head{background:#f2f6f5!important;box-shadow:inset 0 2px 0 #2f6b60!important}.emis-report-result-table thead th.comment-head{background:#f5f6f7!important;box-shadow:inset 0 2px 0 #626d76!important}
+.emis-report-result-table tbody td{color:#080b0f!important}.emis-report-result-table tbody td.comment-col{color:#11151a!important;font-weight:600!important}
+.emis-report-result-table tr.islamiyah-report-row .subject-col{color:#064f3f!important;font-weight:850!important}
+
+/* Keep compact modes printable, but do not let headers/subjects become faint or microscopically light. */
+.emis-report-result-table thead th.subject-head{font-size:7.45pt!important}.report-density-tight .emis-report-result-table thead th{font-size:6.5pt!important;font-weight:720!important}.report-density-tight .emis-report-result-table thead th.subject-head{font-size:6.6pt!important;font-weight:800!important}.report-density-tight .emis-report-result-table td.subject-col{font-size:7.4pt!important;font-weight:800!important}.report-density-flow .emis-report-result-table thead th{font-size:6.2pt!important;font-weight:720!important}.report-density-flow .emis-report-result-table thead th.subject-head{font-size:6.3pt!important;font-weight:800!important}.report-density-flow .emis-report-result-table td.subject-col{font-size:7.05pt!important;font-weight:800!important}
+
+/* Grade key now uses the full available width rather than bunching every grade at the left edge. */
+.emis-grade-legend{display:grid!important;grid-template-columns:max-content repeat(6,minmax(0,1fr))!important;align-items:center!important;column-gap:3.2mm!important;row-gap:1mm!important;width:100%!important;padding:1mm 1.5mm!important;color:#111!important;font-weight:700!important}
+.emis-grade-legend>strong{margin:0!important;color:#000!important;white-space:nowrap!important;font-weight:850!important}.emis-grade-legend>span{min-width:0!important;color:#111!important;text-align:center!important;white-space:nowrap!important;font-weight:680!important}
+.emis-grade-legend.waec{grid-template-columns:max-content repeat(9,minmax(0,1fr))!important;column-gap:1.4mm!important}.emis-grade-legend.waec>span{font-size:6.1pt!important}
+.report-density-tight .emis-grade-legend{column-gap:2.1mm!important;padding:.82mm 1.2mm!important;font-size:5.55pt!important}.report-density-flow .emis-grade-legend{column-gap:1.5mm!important;padding:.76mm 1mm!important;font-size:5.35pt!important}
+
+/* Report identity badge: deliberate line hierarchy so title, term/session and label never look mashed together. */
+.emis-report-document{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:42mm!important;min-height:18.5mm!important;padding:2.2mm 2.5mm!important;border:1.2px solid #7eafe8!important;border-radius:9px!important;background:linear-gradient(180deg,#f4f9ff 0%,#edf5ff 100%)!important;text-align:center!important}
+.emis-report-document>strong{display:flex!important;flex-direction:column!important;align-items:center!important;gap:.1mm!important;margin:0!important;color:#0d4d9c!important;font-family:"Trebuchet MS","Aptos Display","Segoe UI",Arial,sans-serif!important;font-size:9.1pt!important;font-weight:900!important;line-height:.98!important;letter-spacing:.015em!important}.emis-report-document>strong>span{display:block!important;margin:0!important;color:inherit!important;font:inherit!important;line-height:inherit!important}
+.emis-report-document-meta{display:flex!important;align-items:center!important;justify-content:center!important;gap:1.2mm!important;margin-top:1.25mm!important;color:#101827!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:6.65pt!important;font-weight:760!important;line-height:1.05!important;white-space:nowrap!important}.emis-report-document-meta span{display:inline!important;margin:0!important;color:inherit!important;font:inherit!important;line-height:inherit!important}.emis-report-document-meta i{color:#50759c!important;font-size:5.4pt!important;font-style:normal!important}
+.emis-report-document>small{display:block!important;margin-top:.65mm!important;color:#334155!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:5.8pt!important;font-weight:760!important;line-height:1!important;letter-spacing:.08em!important}
+.report-density-tight .emis-report-document{min-height:17mm!important;padding:1.8mm 2.2mm!important}.report-density-tight .emis-report-document>strong{font-size:8.5pt!important}.report-density-tight .emis-report-document-meta{font-size:6.2pt!important}.report-density-flow .emis-report-document{min-height:16.5mm!important;padding:1.6mm 2mm!important}.report-density-flow .emis-report-document>strong{font-size:8.2pt!important}.report-density-flow .emis-report-document-meta{font-size:6pt!important}
+
+/* Official software footer wording requested for every report mode. */
+.emis-report-footer strong{color:#111827!important;font-weight:760!important;letter-spacing:.005em!important}
+
+@media print{
+  .emis-report-result-table thead th,.emis-report-result-table tbody td.subject-col,.emis-grade-legend,.emis-grade-legend>strong,.emis-grade-legend>span{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+  .emis-report-result-table thead th{color:#000!important}.emis-report-result-table tbody td.subject-col{color:#000!important}
+}
+
+/* =================================================================================================
+   REPORT SHEET V5.6 — SUBJECT READABILITY + CENTERED ACADEMIC PERFORMANCE HEADING
+   Shared paper styling: Manual, Automated and Test Trial reports inherit these print refinements.
+================================================================================================= */
+
+/* Subject names: slightly larger, solid black and printer-safe without making the numerical cells heavier. */
+.emis-report-result-table tbody td.subject-col{color:#000!important;font-size:8.65pt!important;line-height:1.03!important;font-weight:820!important;letter-spacing:.001em!important}.report-density-tight .emis-report-result-table tbody td.subject-col{font-size:7.9pt!important;font-weight:820!important}.report-density-flow .emis-report-result-table tbody td.subject-col{font-size:7.5pt!important;font-weight:820!important}
+
+/* Academic Performance is the visual heading; Subjects Assessed becomes a smaller supporting line beneath it. */
+.emis-section-heading{position:relative!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;min-height:7.2mm!important;margin-bottom:1mm!important}.emis-section-heading>div{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:max-content!important;max-width:58%!important;text-align:center!important}.emis-section-heading div span{display:block!important;margin:0!important;color:#174ea6!important;font-family:"Trebuchet MS","Aptos Display","Segoe UI",Arial,sans-serif!important;font-size:8.25pt!important;line-height:1!important;font-weight:850!important;letter-spacing:.075em!important;text-transform:uppercase!important;white-space:nowrap!important}.emis-section-heading div strong{display:block!important;margin-top:.9mm!important;color:#111827!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:6.55pt!important;line-height:1!important;font-weight:700!important;letter-spacing:.025em!important;white-space:nowrap!important}.emis-section-heading>small{position:relative!important;z-index:1!important;max-width:34%!important;color:#243247!important;font-size:6.15pt!important;line-height:1.08!important;font-weight:700!important;text-align:right!important}
+.report-density-tight .emis-section-heading{min-height:6.8mm!important}.report-density-tight .emis-section-heading div span{font-size:7.7pt!important}.report-density-tight .emis-section-heading div strong{margin-top:.65mm!important;font-size:6.15pt!important}.report-density-tight .emis-section-heading>small{font-size:5.8pt!important}.report-density-flow .emis-section-heading{min-height:6.5mm!important}.report-density-flow .emis-section-heading div span{font-size:7.45pt!important}.report-density-flow .emis-section-heading div strong{margin-top:.55mm!important;font-size:5.95pt!important}.report-density-flow .emis-section-heading>small{font-size:5.6pt!important}
+
+@media print{.emis-report-result-table tbody td.subject-col{color:#000!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}
+
+/* =================================================================================================
+   REPORT SHEET V5.7 — CENTERED ACADEMIC TITLE + RESTORED SUBJECT COUNT POSITION
+   Academic Performance stays centered over the table; Subjects Assessed remains left-aligned and visible.
+================================================================================================= */
+.emis-section-heading{display:grid!important;grid-template-columns:1fr auto!important;grid-template-rows:auto auto!important;align-items:end!important;min-height:8.2mm!important;margin-bottom:1mm!important;position:relative!important}
+.emis-section-heading>div{display:contents!important;position:static!important;left:auto!important;top:auto!important;transform:none!important;width:auto!important;max-width:none!important;text-align:initial!important}
+.emis-section-heading div span{grid-column:1/-1!important;grid-row:1!important;justify-self:center!important;display:block!important;margin:0!important;color:#0b4fa8!important;font-family:"Trebuchet MS","Aptos Display","Segoe UI",Arial,sans-serif!important;font-size:9.15pt!important;line-height:1!important;font-weight:900!important;letter-spacing:.09em!important;text-transform:uppercase!important;white-space:nowrap!important}
+.emis-section-heading div strong{grid-column:1!important;grid-row:2!important;justify-self:start!important;display:block!important;margin:.9mm 0 0!important;color:#080b0f!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:8pt!important;line-height:1!important;font-weight:800!important;letter-spacing:.01em!important;white-space:nowrap!important}
+.emis-section-heading>small{grid-column:2!important;grid-row:2!important;justify-self:end!important;align-self:end!important;position:static!important;z-index:auto!important;max-width:none!important;margin:.9mm 0 0!important;color:#243247!important;font-size:6.15pt!important;line-height:1!important;font-weight:700!important;text-align:right!important;white-space:nowrap!important}
+.report-density-tight .emis-section-heading{min-height:7.7mm!important}.report-density-tight .emis-section-heading div span{font-size:8.65pt!important}.report-density-tight .emis-section-heading div strong{font-size:7.45pt!important;margin-top:.7mm!important}.report-density-tight .emis-section-heading>small{font-size:5.8pt!important;margin-top:.7mm!important}
+.report-density-flow .emis-section-heading{min-height:7.3mm!important}.report-density-flow .emis-section-heading div span{font-size:8.3pt!important}.report-density-flow .emis-section-heading div strong{font-size:7.1pt!important;margin-top:.6mm!important}.report-density-flow .emis-section-heading>small{font-size:5.6pt!important;margin-top:.6mm!important}
+
+/* =================================================================================================
+   REPORT SHEET V5.8 — FINAL ACADEMIC HEADING ALIGNMENT
+   Keep Subjects Assessed on the left, place ACADEMIC PERFORMANCE in the true middle, and keep the
+   assessment structure on the right — all on one clean line directly above the academic table.
+================================================================================================= */
+.emis-section-heading{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;grid-template-rows:auto!important;align-items:end!important;column-gap:2mm!important;min-height:5.4mm!important;margin-bottom:1mm!important;position:relative!important}
+.emis-section-heading>div{display:contents!important}
+.emis-section-heading div strong{grid-column:1!important;grid-row:1!important;justify-self:start!important;align-self:end!important;display:block!important;margin:0!important;color:#080b0f!important;font-family:"Segoe UI Variable","Aptos","Segoe UI",Arial,sans-serif!important;font-size:8pt!important;line-height:1!important;font-weight:800!important;letter-spacing:.01em!important;white-space:nowrap!important}
+.emis-section-heading div span{grid-column:2!important;grid-row:1!important;justify-self:center!important;align-self:end!important;display:block!important;margin:0!important;color:#0b4fa8!important;font-family:"Trebuchet MS","Aptos Display","Segoe UI",Arial,sans-serif!important;font-size:9.15pt!important;line-height:1!important;font-weight:900!important;letter-spacing:.09em!important;text-transform:uppercase!important;white-space:nowrap!important}
+.emis-section-heading>small{grid-column:3!important;grid-row:1!important;justify-self:end!important;align-self:end!important;position:static!important;max-width:none!important;margin:0!important;color:#243247!important;font-size:6.15pt!important;line-height:1!important;font-weight:700!important;text-align:right!important;white-space:nowrap!important}
+.report-density-tight .emis-section-heading{min-height:5.1mm!important}.report-density-tight .emis-section-heading div span{font-size:8.65pt!important}.report-density-tight .emis-section-heading div strong{font-size:7.45pt!important}.report-density-tight .emis-section-heading>small{font-size:5.8pt!important}
+.report-density-flow .emis-section-heading{min-height:4.9mm!important}.report-density-flow .emis-section-heading div span{font-size:8.3pt!important}.report-density-flow .emis-section-heading div strong{font-size:7.1pt!important}.report-density-flow .emis-section-heading>small{font-size:5.6pt!important}

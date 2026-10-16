@@ -2,6 +2,10 @@
 
 {% block title %}EMIS — Examination Results{% endblock %}
 
+{% block late_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_results_transform.css', v='20261013-rd1') }}">
+{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_results.css', v='20260913-1') }}">
 {% endblock %}
@@ -100,11 +104,13 @@
     <div class="filter-panel-header">
       <div class="filter-panel-title">
         <span class="section-icon"><i class="fa-solid fa-sliders"></i></span>
-        <div><h2>Find Results</h2><p>Select the examination records you want to view.</p></div>
+        <div><h2>Find Results</h2><p>CBT examination records for Primary 1–6, JSS and SS. Islamiyyah scores remain in the Academy score workspace.</p></div>
       </div>
 
       <div class="class-pills" id="classPills" aria-label="Quick class filters">
         <button class="class-pill active" data-class="all" type="button">All</button>
+        <button class="class-pill primary" data-class="PRIMARY1" type="button">P1</button><button class="class-pill primary" data-class="PRIMARY2" type="button">P2</button><button class="class-pill primary" data-class="PRIMARY3" type="button">P3</button>
+        <button class="class-pill primary" data-class="PRIMARY4" type="button">P4</button><button class="class-pill primary" data-class="PRIMARY5" type="button">P5</button><button class="class-pill primary" data-class="PRIMARY6" type="button">P6</button>
         <button class="class-pill jss" data-class="JSS1" type="button">JSS1</button>
         <button class="class-pill jss" data-class="JSS2" type="button">JSS2</button>
         <button class="class-pill jss" data-class="JSS3" type="button">JSS3</button>
@@ -136,8 +142,9 @@
         <div class="filter-control-wrap">
           <select id="classSelector" class="filter-control">
             <option value="all" selected>All Classes</option>
-            <option value="JSS1">JSS1</option><option value="JSS2">JSS2</option><option value="JSS3">JSS3</option>
-            <option value="SS1">SS1</option><option value="SS2">SS2</option><option value="SS3">SS3</option>
+            <optgroup label="Primary School"><option value="PRIMARY1">Primary 1</option><option value="PRIMARY2">Primary 2</option><option value="PRIMARY3">Primary 3</option><option value="PRIMARY4">Primary 4</option><option value="PRIMARY5">Primary 5</option><option value="PRIMARY6">Primary 6</option></optgroup>
+            <optgroup label="Junior Secondary"><option value="JSS1">JSS1</option><option value="JSS2">JSS2</option><option value="JSS3">JSS3</option></optgroup>
+            <optgroup label="Senior Secondary"><option value="SS1">SS1</option><option value="SS2">SS2</option><option value="SS3">SS3</option></optgroup>
           </select>
           <i class="fa-solid fa-chevron-down select-arrow"></i>
         </div>
@@ -157,7 +164,7 @@
  
 <!-- TERM -->
 <div class="filter-field term-filter-group" id="termFilterGroup">
-  <label for="termSelector"><i class="fa-solid fa-calendar-check"></i> Term <span class="term-requirement-badge" id="termRequirementBadge">JSS + SS</span></label>
+  <label for="termSelector"><i class="fa-solid fa-calendar-check"></i> Term <span class="term-requirement-badge" id="termRequirementBadge">Primary + JSS + SS</span></label>
   <div class="filter-control-wrap">
     <select id="termSelector" class="filter-control">
       <option value="all" selected>All Terms</option><option value="FIRST">1st Term</option><option value="SECOND">2nd Term</option><option value="THIRD">3rd Term</option>

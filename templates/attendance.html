@@ -4,6 +4,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/attendance.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_entry_theme_v1.css', v='20261014-entrytheme1') }}">
 {% endblock %}
 
 {% block content %}
@@ -150,12 +151,74 @@
     <!-- ______________________________ CLASS LEVEL ______________________________ -->
     <div class="control-field">
       <label for="levelSelect"><i class="fa-solid fa-school"></i> Class Level</label>
-      <select id="levelSelect">
-        <option value="">Select level</option>
-        {% set attendance_levels = classes if classes is defined and classes else ['JSS1','JSS2','JSS3','SS1','SS2','SS3'] %}
-        {% for level in attendance_levels %}
-        <option value="{{ level }}">{{ level }}</option>
-        {% endfor %}
+      <select id="levelSelect" class="emis-dynamic-class-select">
+<option value="">Select class</option>
+<optgroup label="Early Years">
+  {% if classes is not defined or "CRECHE" in classes %}<option value="CRECHE">{{ class_labels.get("CRECHE", "CRECHE") if class_labels is defined else "CRECHE" }}</option>{% endif %}
+  {% if classes is not defined or "STARTER" in classes %}<option value="STARTER">{{ class_labels.get("STARTER", "STARTER") if class_labels is defined else "STARTER" }}</option>{% endif %}
+  {% if classes is not defined or "PRE_CLASS" in classes %}<option value="PRE_CLASS">{{ class_labels.get("PRE_CLASS", "PRE_CLASS") if class_labels is defined else "PRE_CLASS" }}</option>{% endif %}
+  {% if classes is not defined or "NURSERY1" in classes %}<option value="NURSERY1">{{ class_labels.get("NURSERY1", "NURSERY1") if class_labels is defined else "NURSERY1" }}</option>{% endif %}
+  {% if classes is not defined or "NURSERY2" in classes %}<option value="NURSERY2">{{ class_labels.get("NURSERY2", "NURSERY2") if class_labels is defined else "NURSERY2" }}</option>{% endif %}
+</optgroup>
+<optgroup label="Primary School">
+  {% if classes is not defined or "PRIMARY1" in classes %}<option value="PRIMARY1">{{ class_labels.get("PRIMARY1", "PRIMARY1") if class_labels is defined else "PRIMARY1" }}</option>{% endif %}
+  {% if classes is not defined or "PRIMARY2" in classes %}<option value="PRIMARY2">{{ class_labels.get("PRIMARY2", "PRIMARY2") if class_labels is defined else "PRIMARY2" }}</option>{% endif %}
+  {% if classes is not defined or "PRIMARY3" in classes %}<option value="PRIMARY3">{{ class_labels.get("PRIMARY3", "PRIMARY3") if class_labels is defined else "PRIMARY3" }}</option>{% endif %}
+  {% if classes is not defined or "PRIMARY4" in classes %}<option value="PRIMARY4">{{ class_labels.get("PRIMARY4", "PRIMARY4") if class_labels is defined else "PRIMARY4" }}</option>{% endif %}
+  {% if classes is not defined or "PRIMARY5" in classes %}<option value="PRIMARY5">{{ class_labels.get("PRIMARY5", "PRIMARY5") if class_labels is defined else "PRIMARY5" }}</option>{% endif %}
+  {% if classes is not defined or "PRIMARY6" in classes %}<option value="PRIMARY6">{{ class_labels.get("PRIMARY6", "PRIMARY6") if class_labels is defined else "PRIMARY6" }}</option>{% endif %}
+</optgroup>
+<optgroup label="Junior Secondary">
+  {% if classes is not defined or "JSS1" in classes %}<option value="JSS1">{{ class_labels.get("JSS1", "JSS1") if class_labels is defined else "JSS1" }}</option>{% endif %}
+  {% if classes is not defined or "JSS2" in classes %}<option value="JSS2">{{ class_labels.get("JSS2", "JSS2") if class_labels is defined else "JSS2" }}</option>{% endif %}
+  {% if classes is not defined or "JSS3" in classes %}<option value="JSS3">{{ class_labels.get("JSS3", "JSS3") if class_labels is defined else "JSS3" }}</option>{% endif %}
+</optgroup>
+<optgroup label="Senior Secondary">
+  {% if classes is not defined or "SS1" in classes %}<option value="SS1">{{ class_labels.get("SS1", "SS1") if class_labels is defined else "SS1" }}</option>{% endif %}
+  {% if classes is not defined or "SS2" in classes %}<option value="SS2">{{ class_labels.get("SS2", "SS2") if class_labels is defined else "SS2" }}</option>{% endif %}
+  {% if classes is not defined or "SS3" in classes %}<option value="SS3">{{ class_labels.get("SS3", "SS3") if class_labels is defined else "SS3" }}</option>{% endif %}
+</optgroup>
+<optgroup label="Tahfeez School">
+  {% if classes is not defined or "TAHFEEZ1" in classes %}<option value="TAHFEEZ1">{{ class_labels.get("TAHFEEZ1", "TAHFEEZ1") if class_labels is defined else "TAHFEEZ1" }}</option>{% endif %}
+  {% if classes is not defined or "TAHFEEZ2" in classes %}<option value="TAHFEEZ2">{{ class_labels.get("TAHFEEZ2", "TAHFEEZ2") if class_labels is defined else "TAHFEEZ2" }}</option>{% endif %}
+  {% if classes is not defined or "TAHFEEZ3" in classes %}<option value="TAHFEEZ3">{{ class_labels.get("TAHFEEZ3", "TAHFEEZ3") if class_labels is defined else "TAHFEEZ3" }}</option>{% endif %}
+  {% if classes is not defined or "TAHFEEZ4" in classes %}<option value="TAHFEEZ4">{{ class_labels.get("TAHFEEZ4", "TAHFEEZ4") if class_labels is defined else "TAHFEEZ4" }}</option>{% endif %}
+  {% if classes is not defined or "TAHFEEZ5" in classes %}<option value="TAHFEEZ5">{{ class_labels.get("TAHFEEZ5", "TAHFEEZ5") if class_labels is defined else "TAHFEEZ5" }}</option>{% endif %}
+</optgroup>
+<optgroup label="Islamiyyah School">
+  {% if classes is not defined or "ISLAMIYAH_STARTER" in classes %}<option value="ISLAMIYAH_STARTER">{{ class_labels.get("ISLAMIYAH_STARTER", "ISLAMIYAH_STARTER") if class_labels is defined else "ISLAMIYAH_STARTER" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH_PREP1" in classes %}<option value="ISLAMIYAH_PREP1">{{ class_labels.get("ISLAMIYAH_PREP1", "ISLAMIYAH_PREP1") if class_labels is defined else "ISLAMIYAH_PREP1" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH1A" in classes %}<option value="ISLAMIYAH1A">{{ class_labels.get("ISLAMIYAH1A", "ISLAMIYAH1A") if class_labels is defined else "ISLAMIYAH1A" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH1B" in classes %}<option value="ISLAMIYAH1B">{{ class_labels.get("ISLAMIYAH1B", "ISLAMIYAH1B") if class_labels is defined else "ISLAMIYAH1B" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH1C" in classes %}<option value="ISLAMIYAH1C">{{ class_labels.get("ISLAMIYAH1C", "ISLAMIYAH1C") if class_labels is defined else "ISLAMIYAH1C" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH1D" in classes %}<option value="ISLAMIYAH1D">{{ class_labels.get("ISLAMIYAH1D", "ISLAMIYAH1D") if class_labels is defined else "ISLAMIYAH1D" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2A" in classes %}<option value="ISLAMIYAH2A">{{ class_labels.get("ISLAMIYAH2A", "ISLAMIYAH2A") if class_labels is defined else "ISLAMIYAH2A" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2B" in classes %}<option value="ISLAMIYAH2B">{{ class_labels.get("ISLAMIYAH2B", "ISLAMIYAH2B") if class_labels is defined else "ISLAMIYAH2B" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2C" in classes %}<option value="ISLAMIYAH2C">{{ class_labels.get("ISLAMIYAH2C", "ISLAMIYAH2C") if class_labels is defined else "ISLAMIYAH2C" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2D" in classes %}<option value="ISLAMIYAH2D">{{ class_labels.get("ISLAMIYAH2D", "ISLAMIYAH2D") if class_labels is defined else "ISLAMIYAH2D" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2E" in classes %}<option value="ISLAMIYAH2E">{{ class_labels.get("ISLAMIYAH2E", "ISLAMIYAH2E") if class_labels is defined else "ISLAMIYAH2E" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2F" in classes %}<option value="ISLAMIYAH2F">{{ class_labels.get("ISLAMIYAH2F", "ISLAMIYAH2F") if class_labels is defined else "ISLAMIYAH2F" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2G" in classes %}<option value="ISLAMIYAH2G">{{ class_labels.get("ISLAMIYAH2G", "ISLAMIYAH2G") if class_labels is defined else "ISLAMIYAH2G" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH2H" in classes %}<option value="ISLAMIYAH2H">{{ class_labels.get("ISLAMIYAH2H", "ISLAMIYAH2H") if class_labels is defined else "ISLAMIYAH2H" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH3A" in classes %}<option value="ISLAMIYAH3A">{{ class_labels.get("ISLAMIYAH3A", "ISLAMIYAH3A") if class_labels is defined else "ISLAMIYAH3A" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH3B" in classes %}<option value="ISLAMIYAH3B">{{ class_labels.get("ISLAMIYAH3B", "ISLAMIYAH3B") if class_labels is defined else "ISLAMIYAH3B" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH3C" in classes %}<option value="ISLAMIYAH3C">{{ class_labels.get("ISLAMIYAH3C", "ISLAMIYAH3C") if class_labels is defined else "ISLAMIYAH3C" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH3D" in classes %}<option value="ISLAMIYAH3D">{{ class_labels.get("ISLAMIYAH3D", "ISLAMIYAH3D") if class_labels is defined else "ISLAMIYAH3D" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH3E" in classes %}<option value="ISLAMIYAH3E">{{ class_labels.get("ISLAMIYAH3E", "ISLAMIYAH3E") if class_labels is defined else "ISLAMIYAH3E" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH3F" in classes %}<option value="ISLAMIYAH3F">{{ class_labels.get("ISLAMIYAH3F", "ISLAMIYAH3F") if class_labels is defined else "ISLAMIYAH3F" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH4A" in classes %}<option value="ISLAMIYAH4A">{{ class_labels.get("ISLAMIYAH4A", "ISLAMIYAH4A") if class_labels is defined else "ISLAMIYAH4A" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH4B" in classes %}<option value="ISLAMIYAH4B">{{ class_labels.get("ISLAMIYAH4B", "ISLAMIYAH4B") if class_labels is defined else "ISLAMIYAH4B" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH4C" in classes %}<option value="ISLAMIYAH4C">{{ class_labels.get("ISLAMIYAH4C", "ISLAMIYAH4C") if class_labels is defined else "ISLAMIYAH4C" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH4D" in classes %}<option value="ISLAMIYAH4D">{{ class_labels.get("ISLAMIYAH4D", "ISLAMIYAH4D") if class_labels is defined else "ISLAMIYAH4D" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH4E" in classes %}<option value="ISLAMIYAH4E">{{ class_labels.get("ISLAMIYAH4E", "ISLAMIYAH4E") if class_labels is defined else "ISLAMIYAH4E" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH4F" in classes %}<option value="ISLAMIYAH4F">{{ class_labels.get("ISLAMIYAH4F", "ISLAMIYAH4F") if class_labels is defined else "ISLAMIYAH4F" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH5A" in classes %}<option value="ISLAMIYAH5A">{{ class_labels.get("ISLAMIYAH5A", "ISLAMIYAH5A") if class_labels is defined else "ISLAMIYAH5A" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH5B" in classes %}<option value="ISLAMIYAH5B">{{ class_labels.get("ISLAMIYAH5B", "ISLAMIYAH5B") if class_labels is defined else "ISLAMIYAH5B" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH5C" in classes %}<option value="ISLAMIYAH5C">{{ class_labels.get("ISLAMIYAH5C", "ISLAMIYAH5C") if class_labels is defined else "ISLAMIYAH5C" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH6A" in classes %}<option value="ISLAMIYAH6A">{{ class_labels.get("ISLAMIYAH6A", "ISLAMIYAH6A") if class_labels is defined else "ISLAMIYAH6A" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH6B" in classes %}<option value="ISLAMIYAH6B">{{ class_labels.get("ISLAMIYAH6B", "ISLAMIYAH6B") if class_labels is defined else "ISLAMIYAH6B" }}</option>{% endif %}
+  {% if classes is not defined or "ISLAMIYAH7" in classes %}<option value="ISLAMIYAH7">{{ class_labels.get("ISLAMIYAH7", "ISLAMIYAH7") if class_labels is defined else "ISLAMIYAH7" }}</option>{% endif %}
+</optgroup>
       </select>
     </div>
 
@@ -198,7 +261,7 @@
 
     <article>
       <i class="fa-solid fa-file-csv"></i>
-      <div><span>Student Source</span><strong>EMIS Active Roster</strong></div>
+      <div><span>Student Source</span><strong id="attendanceRosterSource">EMIS Active Roster</strong></div>
     </article>
 
     <article>
@@ -266,7 +329,7 @@
       <div>
         <span class="register-kicker"><i class="fa-solid fa-table-list"></i> Live Class Register</span>
         <h2 id="registerTitle">Select class and load students</h2>
-        <p id="registerSubtitle">JSS uses A-C arms. SS uses Gold, Silver and Diamond arms.</p>
+        <p id="registerSubtitle">Regular classes load from the central student database; Tahfeez and Islamiyyah load from their Academy rosters while keeping attendance records independent by class.</p>
       </div>
 
 
@@ -542,7 +605,7 @@
         <option value="">Select level</option>
         {% set attendance_levels = classes if classes is defined and classes else ['JSS1','JSS2','JSS3','SS1','SS2','SS3'] %}
         {% for level in attendance_levels %}
-        <option value="{{ level }}">{{ level }}</option>
+        <option value="{{ level }}">{{ class_labels.get(level, level) if class_labels is defined else level }}</option>
         {% endfor %}
       </select>
     </div>

@@ -12,6 +12,7 @@ from modules.academic_settings import get_academic_settings
 from modules.class_config import CLASS_ARMS_BY_LEVEL, get_ss_track, normalize_class_arm, normalize_configured_class_level
 from modules.school_structure import ALL_CONFIGURED_CLASSES, SCHOOL_SECTIONS, SCHOOL_SECTION_ORDER, get_class_metadata, school_section_for_class
 from modules.subject_registry import get_class_subject_rows, get_subject
+from modules.staff_identity_manager import init_staff_identity_tables, role_from_staff_id
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,8 @@ def _connect():
 
 
 def init_teacher_assignment_tables():
-    """Create Phase 3 assignment/audit storage without altering existing teacher credentials."""
+    """Create assignment/audit storage and guarantee the EMT/IMS staff-role columns exist first."""
+    init_staff_identity_tables()
     with ASSIGNMENT_LOCK:
         conn = _connect()
         try:
@@ -85,14 +87,15 @@ def normalize_assignment_session(value=""):
 def _teacher_row(conn, teacher_id):
     token = clean(teacher_id).upper()
     if not token: return None
-    return conn.execute("SELECT id, teacher_id, full_name, status, created_at FROM teachers WHERE UPPER(teacher_id)=? LIMIT 1", (token,)).fetchone()
+    return conn.execute("SELECT id, teacher_id, full_name, status, staff_role, created_at FROM teachers WHERE UPPER(teacher_id)=? LIMIT 1", (token,)).fetchone()
 
 
 def get_teacher(teacher_id):
     init_teacher_assignment_tables(); conn = _connect()
     try:
         row = _teacher_row(conn, teacher_id)
-        return dict(row) if row else None
+        if not row: return None
+        data = dict(row); data["staff_role"] = role_from_staff_id(data.get("teacher_id"), data.get("staff_role")); return data
     finally: conn.close()
 
 
@@ -109,8 +112,7 @@ def update_teacher_profile(teacher_id, full_name=None, status=None):
             if not current: raise ValueError("Teacher account not found.")
             if name is not None: conn.execute("UPDATE teachers SET full_name=? WHERE teacher_id=?", (name, current["teacher_id"]))
             if normalized_status is not None: conn.execute("UPDATE teachers SET status=? WHERE teacher_id=?", (normalized_status, current["teacher_id"]))
-            conn.commit(); row = _teacher_row(conn, current["teacher_id"])
-            return dict(row)
+            conn.commit(); row = _teacher_row(conn, current["teacher_id"]); data = dict(row); data["staff_role"] = role_from_staff_id(data.get("teacher_id"), data.get("staff_role")); return data
         finally: conn.close()
 
 
@@ -195,7 +197,10 @@ def replace_teacher_assignments(teacher_id, assignments, academic_session="", ch
         try:
             conn.execute("BEGIN IMMEDIATE"); teacher = _teacher_row(conn, token)
             if require_teacher and not teacher: raise ValueError("Teacher account not found.")
-            canonical_teacher_id = teacher["teacher_id"] if teacher else token
+            canonical_teacher_id = teacher["teacher_id"] if teacher else token; staff_role = role_from_staff_id(canonical_teacher_id, teacher["staff_role"] if teacher else "")
+            academy_sections = {"TAHFEEZ", "ISLAMIYAH"}
+            if staff_role == "islamiyyah_teacher" and any(row.get("school_section") not in academy_sections for row in normalized): raise ValueError("IMS accounts can only be assigned to Tahfeez or Islamiyyah classes.")
+            if staff_role == "teacher" and any(row.get("school_section") in academy_sections for row in normalized): raise ValueError("EMT accounts cannot be assigned to Tahfeez or Islamiyyah classes. Generate an IMS account for Academy staff.")
             now = utc_now(); conn.execute("UPDATE teacher_assignments SET active=0, updated_at=? WHERE teacher_id=? AND academic_session=?", (now, canonical_teacher_id, session_value))
             for row in normalized:
                 conn.execute("""
@@ -233,14 +238,14 @@ def list_teachers_with_assignment_summary(academic_session=""):
     init_teacher_assignment_tables(); session_value = normalize_assignment_session(academic_session); conn = _connect()
     try:
         rows = conn.execute("""
-            SELECT t.id, t.teacher_id, t.full_name, t.status, t.created_at,
+            SELECT t.id, t.teacher_id, t.full_name, t.status, t.staff_role, t.created_at,
                    COUNT(a.id) AS assignment_count,
                    COUNT(DISTINCT CASE WHEN a.active=1 THEN a.class_level || '|' || a.class_arm END) AS class_count,
                    COUNT(DISTINCT CASE WHEN a.active=1 THEN a.subject_key END) AS subject_count
             FROM teachers t LEFT JOIN teacher_assignments a ON a.teacher_id=t.teacher_id AND a.academic_session=? AND a.active=1
-            GROUP BY t.id, t.teacher_id, t.full_name, t.status, t.created_at ORDER BY COALESCE(NULLIF(TRIM(t.full_name),''), t.teacher_id) COLLATE NOCASE
+            GROUP BY t.id, t.teacher_id, t.full_name, t.status, t.staff_role, t.created_at ORDER BY COALESCE(NULLIF(TRIM(t.full_name),''), t.teacher_id) COLLATE NOCASE
         """, (session_value,)).fetchall()
-        return [{**dict(row), "assignment_count": int(row["assignment_count"] or 0), "class_count": int(row["class_count"] or 0), "subject_count": int(row["subject_count"] or 0)} for row in rows]
+        return [{**dict(row), "staff_role": role_from_staff_id(row["teacher_id"], row["staff_role"]), "assignment_count": int(row["assignment_count"] or 0), "class_count": int(row["class_count"] or 0), "subject_count": int(row["subject_count"] or 0)} for row in rows]
     finally: conn.close()
 
 

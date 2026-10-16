@@ -22,7 +22,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, unquote
 
-from flask import Flask, redirect, request, url_for as flask_url_for
+from flask import Flask, jsonify, redirect, request, session, url_for as flask_url_for
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -42,6 +42,7 @@ from modules.promotion_manager import promotion_bp
 from modules.convert_routes import convert_bp
 from modules.result_sync import sync_bp, init_sync_db, trigger_background_sync, sender_enabled
 from modules.academic_settings import get_academic_settings
+from modules.staff_identity_manager import get_staff_account
 
 
 # ==========================================================
@@ -56,6 +57,7 @@ from modules.teacher_assignment_routes import teacher_assignment_bp
 from modules.islamiyah_routes import islamiyah_bp
 from modules.academic_history import academic_history_bp
 from modules.cumulative_results import cumulative_results_bp
+from modules.report_test_lab import report_test_lab_bp
 from modules.broadsheet_manager import broadsheet_bp
 
 
@@ -560,7 +562,24 @@ app.register_blueprint(teacher_assignment_bp)
 app.register_blueprint(islamiyah_bp)
 app.register_blueprint(academic_history_bp)
 app.register_blueprint(cumulative_results_bp)
+app.register_blueprint(report_test_lab_bp)
 app.register_blueprint(broadsheet_bp)
+
+
+# ==========================================================
+# GLOBAL STAFF ID SESSION ENFORCEMENT
+# ==========================================================
+
+@app.before_request
+def enforce_staff_identity_session():
+    """Immediately revoke deleted/disabled EMT and IMS sessions across every blueprint, including direct API calls."""
+    role = str(session.get("user_type") or "").strip().lower()
+    if role not in {"teacher", "islamiyyah_teacher"} or str(request.path or "").startswith("/static/"): return None
+    staff_id = str(session.get("teacher_id") or session.get("username") or "").strip(); account = get_staff_account(staff_id)
+    if account and account.get("status") == "active" and account.get("staff_role") == role: return None
+    session.clear()
+    if str(request.path or "").startswith("/api/"): return jsonify({"success": False, "error": "Your staff account is disabled, deleted or no longer valid. Please contact the Administrator."}), 401
+    return redirect(flask_url_for("admin_bp.admin_login"))
 
 
 # ==========================================================
@@ -688,6 +707,6 @@ if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
-        port=5005,
+        port=5008,
         debug=True,
     )

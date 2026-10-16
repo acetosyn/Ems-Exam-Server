@@ -15,7 +15,9 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
 from modules.academic_records import academic_term_label, normalize_academic_session, normalize_academic_term
-from modules.grading_system import grade_score
+from modules.grading_system import grade_score_for_class, grading_system_for_class, grading_system_ready
+from modules.class_config import STUDENT_DATABASE_CLASSES, TAHFEEZ_CLASSES
+from modules.school_structure import CLASS_LABELS
 from modules.student_lookup import find_student_by_admission, normalize_admission_number
 from modules.result_sync import queue_emis_event_safely
 
@@ -38,8 +40,24 @@ def safe_float(value):
     except (TypeError, ValueError): return None
 
 
+def _subject_maximum(row):
+    row = row if isinstance(row, dict) else {}
+    explicit = safe_float(row.get("total_max")); explicit = explicit if explicit is not None else safe_float(row.get("maximum")); explicit = explicit if explicit is not None else safe_float(row.get("max_score"))
+    return explicit if explicit and explicit > 0 else 100.0
+
+def _subjects_maximum(subjects):
+    values = [_subject_maximum(row) for row in (subjects or []) if isinstance(row, dict)]
+    return round(sum(values), 2) if values else None
+
+def _class_grade(score, class_level):
+    return grade_score_for_class(score, class_level)
+
+def _grading_payload(class_level):
+    system = grading_system_for_class(class_level); return {"system": system, "ready": grading_system_ready(system)}
+
+
 def _score_bundle(record):
-    record = record if isinstance(record, dict) else {}; report = record.get("report") if isinstance(record.get("report"), dict) else {}; subjects = report.get("subjects") if isinstance(report.get("subjects"), list) else []; subject_count = int(record.get("subject_count") or report.get("subject_count") or len(subjects)); total = safe_float(record.get("total_score")); total = total if total is not None else safe_float(report.get("total_score")); maximum = safe_float(record.get("maximum_score")); maximum = maximum if maximum is not None else (round(subject_count * 100, 2) if subject_count else None); percentage = round(total / maximum * 100, 2) if total is not None and maximum else safe_float(record.get("average")); return {"score": total, "maximum": maximum, "percentage": percentage, "subject_count": subject_count}
+    record = record if isinstance(record, dict) else {}; report = record.get("report") if isinstance(record.get("report"), dict) else {}; subjects = report.get("subjects") if isinstance(report.get("subjects"), list) else []; subject_count = int(record.get("subject_count") or report.get("subject_count") or len(subjects)); total = safe_float(record.get("total_score")); total = total if total is not None else safe_float(report.get("total_score")); maximum = safe_float(record.get("maximum_score")); maximum = maximum if maximum is not None else _subjects_maximum(subjects); maximum = maximum if maximum is not None else (round(subject_count * 100, 2) if subject_count else None); percentage = round(total / maximum * 100, 2) if total is not None and maximum else safe_float(record.get("score_percentage")); percentage = percentage if percentage is not None else safe_float(record.get("average")); return {"score": total, "maximum": maximum, "percentage": percentage, "subject_count": subject_count}
 
 def _score_ratio(score, maximum): return f"{score} / {maximum}" if score is not None and maximum else ""
 
@@ -100,13 +118,13 @@ def _snapshot_to_record(snapshot):
     if not admission or not academic_session or not term or not class_level: return None
     student_key = student_identity_key(admission, full_name); record_id = academic_record_key(student_key, academic_session, term, class_level, class_arm)
     attendance = report.get("attendance") if isinstance(report.get("attendance"), dict) else {}; subjects = report.get("subjects") if isinstance(report.get("subjects"), list) else []
-    average = safe_float(report.get("average")); total_score = safe_float(report.get("total_score")); maximum_score = round(len(subjects) * 100, 2) if subjects else None; score_percentage = round(total_score / maximum_score * 100, 2) if total_score is not None and maximum_score else average; attendance_percentage = safe_float(attendance.get("attendance_percentage"))
+    average = safe_float(report.get("average")); total_score = safe_float(report.get("total_score")); maximum_score = _subjects_maximum(subjects); score_percentage = round(total_score / maximum_score * 100, 2) if total_score is not None and maximum_score else average; attendance_percentage = safe_float(attendance.get("attendance_percentage")); grading = _grading_payload(class_level)
     return {
         "record_id": record_id, "student_key": student_key, "admission_number": admission, "full_name": full_name, "sex": clean(report.get("sex")),
         "session": academic_session, "term": term, "term_label": academic_term_label(term), "class_level": class_level, "class_arm": class_arm, "result_year": clean(report.get("result_year")),
         "snapshot_id": clean(snapshot.get("snapshot_id")), "result_name": clean(snapshot.get("result_name") or report.get("result_name")), "generated_at": clean(snapshot.get("generated_at")) or now_iso(), "generated_by": clean(snapshot.get("generated_by")) or "Staff",
         "source_mode": clean(report.get("source_mode") or snapshot.get("source_mode") or "auto"), "academic_complete": bool(report.get("academic_complete")), "subject_count": len(subjects), "subjects_complete": int(report.get("subjects_complete") or sum(1 for row in subjects if isinstance(row, dict) and row.get("complete"))),
-        "total_score": total_score, "maximum_score": maximum_score, "score_percentage": score_percentage, "average": average, "grade": clean(report.get("grade")) or "-", "position": int(report.get("position") or 0), "position_text": clean(report.get("position_text")) or "--", "out_of": int(report.get("out_of") or 0), "attendance_percentage": attendance_percentage,
+        "total_score": total_score, "maximum_score": maximum_score, "score_percentage": score_percentage, "average": average, "grade": clean(report.get("grade")) or _class_grade(average, class_level)[0], "grading_system": grading.get("system"), "grading_ready": grading.get("ready"), "position": int(report.get("position") or 0), "position_text": clean(report.get("position_text")) or "--", "out_of": int(report.get("out_of") or 0), "attendance_percentage": attendance_percentage,
         "teacher_remark": clean(report.get("teacher_remark")), "principal_remark": clean(report.get("principal_remark")), "form_teacher": clean(report.get("form_teacher")), "revision_count": 1, "archived_at": now_iso(), "report": report,
     }
 
@@ -137,11 +155,40 @@ def upsert_academic_record(record, queue_sync=True, preserve_revision=True):
 
 
 def archive_report_snapshots(snapshots, queue_sync=True):
-    results = []
-    for snapshot in snapshots or []:
-        record = _snapshot_to_record(snapshot)
-        if not record: continue
-        results.append(upsert_academic_record(record, queue_sync=queue_sync))
+    """Archive a generated batch with one history-file read/write.
+
+    Report generation can produce an entire class at once.  The previous implementation called
+    upsert_academic_record() for every pupil, which reread and rewrote the complete JSONL archive
+    once per report.  On Windows (especially with antivirus scanning) that made a 20-pupil class
+    feel like a one-minute operation.  This batch path preserves the same revision semantics while
+    touching the main archive only once.
+    """
+    prepared = [record for record in (_snapshot_to_record(snapshot) for snapshot in (snapshots or [])) if record]
+    if not prepared: return []
+    ensure_history_dir(); results = []; queued_records = []
+    with HISTORY_LOCK:
+        rows = _read_jsonl(RECORD_FILE); index = {clean(row.get("record_id")): i for i, row in enumerate(rows)}; revisions = []
+        for source in prepared:
+            record = dict(source); record["archived_at"] = now_iso(); rid = clean(record.get("record_id")); previous = rows[index[rid]] if rid in index else None
+            if previous:
+                same_snapshot = clean(previous.get("snapshot_id")) == clean(record.get("snapshot_id")) and clean(record.get("snapshot_id"))
+                if same_snapshot:
+                    results.append({"record": previous, "created": False, "updated": False, "stale": False}); continue
+                incoming_stamp, previous_stamp = clean(record.get("generated_at")), clean(previous.get("generated_at"))
+                if incoming_stamp and previous_stamp and incoming_stamp < previous_stamp:
+                    results.append({"record": previous, "created": False, "updated": False, "stale": True}); continue
+                record["revision_count"] = int(previous.get("revision_count") or 1) + 1
+                revisions.append({"revision_id": hashlib.sha256(f"{previous.get('record_id')}|{previous.get('snapshot_id')}|{previous.get('archived_at')}".encode("utf-8")).hexdigest()[:24], "record_id": previous.get("record_id"), "student_key": previous.get("student_key"), "admission_number": previous.get("admission_number"), "session": previous.get("session"), "term": previous.get("term"), "class_level": previous.get("class_level"), "class_arm": previous.get("class_arm"), "snapshot_id": previous.get("snapshot_id"), "archived_at": previous.get("archived_at"), "replaced_at": now_iso(), "replaced_by_snapshot_id": clean(record.get("snapshot_id")), "record": previous})
+                rows[index[rid]] = record; updated = True
+            else:
+                rows.append(record); index[rid] = len(rows) - 1; updated = False
+            results.append({"record": record, "created": previous is None, "updated": updated}); queued_records.append(record)
+        _write_jsonl(RECORD_FILE, rows)
+        if revisions:
+            with REVISION_FILE.open("a", encoding="utf-8") as file:
+                for revision in revisions: file.write(json.dumps(revision, ensure_ascii=False, separators=(",", ":")) + "\n")
+    if queue_sync:
+        for record in queued_records: queue_emis_event_safely("academic_history", "record_upsert", {"record": record}, entity_key=f"history|{clean(record.get('record_id'))}")
     return results
 
 
@@ -175,7 +222,7 @@ def _record_sort(row): return (_session_sort(row.get("session")), TERM_ORDER.get
 
 
 def _summary_record(record):
-    summary = {key: record.get(key) for key in ("record_id", "student_key", "admission_number", "full_name", "sex", "session", "term", "term_label", "class_level", "class_arm", "result_year", "snapshot_id", "result_name", "generated_at", "source_mode", "academic_complete", "subject_count", "subjects_complete", "total_score", "maximum_score", "score_percentage", "average", "grade", "position", "position_text", "out_of", "attendance_percentage", "revision_count")}; bundle = _score_bundle(record); summary["total_score"], summary["maximum_score"], summary["score_percentage"] = bundle.get("score"), bundle.get("maximum"), bundle.get("percentage"); summary["score_ratio"] = _score_ratio(bundle.get("score"), bundle.get("maximum")); return summary
+    summary = {key: record.get(key) for key in ("record_id", "student_key", "admission_number", "full_name", "sex", "session", "term", "term_label", "class_level", "class_arm", "result_year", "snapshot_id", "result_name", "generated_at", "source_mode", "academic_complete", "subject_count", "subjects_complete", "total_score", "maximum_score", "score_percentage", "average", "grade", "position", "position_text", "out_of", "attendance_percentage", "revision_count", "grading_system", "grading_ready")}; bundle = _score_bundle(record); summary["total_score"], summary["maximum_score"], summary["score_percentage"] = bundle.get("score"), bundle.get("maximum"), bundle.get("percentage"); summary["score_ratio"] = _score_ratio(bundle.get("score"), bundle.get("maximum")); return summary
 
 
 def _student_profile(admission, records):
@@ -221,7 +268,7 @@ def student_history(admission_number, student_key=""):
 
 def _transcript_subject_key(row): return clean_upper(row.get("subject_key") or row.get("subject"))
 
-def _transcript_subject_rows(period_rows):
+def _transcript_subject_rows(period_rows, class_level=""):
     subject_names, term_maps = {}, {}
     for record in period_rows:
         term = normalize_academic_term(record.get("term")); report = record.get("report") if isinstance(record.get("report"), dict) else {}; mapping = {}
@@ -233,8 +280,12 @@ def _transcript_subject_rows(period_rows):
         term_maps[term] = mapping
     rows = []
     for key, name in subject_names.items():
-        values = {term: safe_float((term_maps.get(term, {}).get(key) or {}).get("total")) for term in TERM_ORDER}; available = [value for value in values.values() if value is not None]; annual_score = round(sum(available), 2) if available else None; annual_max = len(available) * 100 if available else None; annual_average = round(annual_score / annual_max * 100, 2) if annual_score is not None and annual_max else None; grade, comment = grade_score(annual_average, "REPORT_SECONDARY")
-        rows.append({"subject_key": key, "subject": name, "first_term": values.get("FIRST"), "second_term": values.get("SECOND"), "third_term": values.get("THIRD"), "first_term_max": 100 if values.get("FIRST") is not None else None, "second_term_max": 100 if values.get("SECOND") is not None else None, "third_term_max": 100 if values.get("THIRD") is not None else None, "annual_score": annual_score, "annual_max": annual_max, "annual_average": annual_average, "grade": grade, "comment": comment, "terms_available": len(available), "complete": len(available) == 3})
+        scores, maxima = {}, {}
+        for term in TERM_ORDER:
+            row = term_maps.get(term, {}).get(key) or {}; score = safe_float(row.get("total")); scores[term] = score; maxima[term] = _subject_maximum(row) if score is not None else None
+        available_terms = [term for term in TERM_ORDER if scores.get(term) is not None and maxima.get(term)]
+        annual_score = round(sum(float(scores[term]) for term in available_terms), 2) if available_terms else None; annual_max = round(sum(float(maxima[term]) for term in available_terms), 2) if available_terms else None; annual_average = round(annual_score / annual_max * 100, 2) if annual_score is not None and annual_max else None; grade, comment = _class_grade(annual_average, class_level)
+        rows.append({"subject_key": key, "subject": name, "first_term": scores.get("FIRST"), "second_term": scores.get("SECOND"), "third_term": scores.get("THIRD"), "first_term_max": maxima.get("FIRST"), "second_term_max": maxima.get("SECOND"), "third_term_max": maxima.get("THIRD"), "annual_score": annual_score, "annual_max": annual_max, "annual_average": annual_average, "grade": grade, "comment": comment, "terms_available": len(available_terms), "complete": len(available_terms) == 3})
     rows.sort(key=lambda row: clean(row.get("subject")).lower()); return rows
 
 
@@ -249,15 +300,19 @@ def build_student_transcript(admission_number, student_key=""):
     if len(identities) > 1 and not requested_key: return {"ambiguous_identity": True, "identities": list(identities.values()), "profile": {"admission_number": admission}, "sessions": []}
     rows.sort(key=_record_sort); profile = _student_profile(admission, rows); sessions = []
     for session_value in sorted({clean(row.get("session")) for row in rows if clean(row.get("session"))}, key=_session_sort):
-        period_rows = [row for row in rows if clean(row.get("session")) == session_value]; period_rows.sort(key=lambda row: TERM_ORDER.get(normalize_academic_term(row.get("term")), 0)); term_map = {normalize_academic_term(row.get("term")): row for row in period_rows if normalize_academic_term(row.get("term")) in TERM_ORDER}; term_averages = {term: safe_float((term_map.get(term) or {}).get("average")) for term in TERM_ORDER}; available = [value for value in term_averages.values() if value is not None]; annual_average = round(sum(available) / len(available), 2) if available else None; annual_grade, annual_comment = grade_score(annual_average, "REPORT_SECONDARY"); subject_rows = _transcript_subject_rows(period_rows); attendance_values = [safe_float(row.get("attendance_percentage")) for row in period_rows]; attendance_values = [value for value in attendance_values if value is not None]; term_payload = {}; session_score = 0.0; session_max = 0.0; score_terms = 0
+        period_rows = [row for row in rows if clean(row.get("session")) == session_value]; period_rows.sort(key=lambda row: TERM_ORDER.get(normalize_academic_term(row.get("term")), 0)); class_level = clean(period_rows[-1].get("class_level")) if period_rows else ""; class_arm = clean(period_rows[-1].get("class_arm")) if period_rows else ""; grading = _grading_payload(class_level); term_map = {normalize_academic_term(row.get("term")): row for row in period_rows if normalize_academic_term(row.get("term")) in TERM_ORDER}; term_averages = {term: safe_float((term_map.get(term) or {}).get("average")) for term in TERM_ORDER}; available = [value for value in term_averages.values() if value is not None]; annual_average = round(sum(available) / len(available), 2) if available else None; annual_grade, annual_comment = _class_grade(annual_average, class_level); subject_rows = _transcript_subject_rows(period_rows, class_level); attendance_values = [safe_float(row.get("attendance_percentage")) for row in period_rows]; attendance_values = [value for value in attendance_values if value is not None]; term_payload = {}; session_score = 0.0; session_max = 0.0; score_terms = 0
         for term in TERM_ORDER:
             row = term_map.get(term); bundle = _score_bundle(row) if row else {"score": None, "maximum": None, "percentage": None}
             if bundle.get("score") is not None and bundle.get("maximum"): session_score += float(bundle["score"]); session_max += float(bundle["maximum"]); score_terms += 1
-            term_payload[term] = {"available": bool(row), "score": bundle.get("score"), "maximum": bundle.get("maximum"), "score_percentage": bundle.get("percentage"), "average": term_averages.get(term), "grade": clean((row or {}).get("grade")) or "-", "academic_complete": bool((row or {}).get("academic_complete"))}
+            term_grade = clean((row or {}).get("grade")) or (_class_grade(term_averages.get(term), class_level)[0] if row else "-")
+            term_payload[term] = {"available": bool(row), "score": bundle.get("score"), "maximum": bundle.get("maximum"), "score_percentage": bundle.get("percentage"), "average": term_averages.get(term), "grade": term_grade, "academic_complete": bool((row or {}).get("academic_complete"))}
         session_score = round(session_score, 2) if score_terms else None; session_max = round(session_max, 2) if score_terms else None
-        sessions.append({"session": session_value, "class_level": clean(period_rows[-1].get("class_level")) if period_rows else "", "class_arm": clean(period_rows[-1].get("class_arm")) if period_rows else "", "terms": term_payload, "terms_available": len(available), "complete": len(available) == 3, "annual_score": session_score, "annual_max": session_max, "annual_score_percentage": round(session_score / session_max * 100, 2) if session_score is not None and session_max else None, "annual_average": annual_average, "annual_grade": annual_grade, "annual_comment": annual_comment, "attendance_average": round(sum(attendance_values) / len(attendance_values), 2) if attendance_values else None, "subjects": subject_rows, "subject_count": len(subject_rows), "subjects_complete": sum(1 for row in subject_rows if row.get("complete"))})
-    annual_values = [safe_float(item.get("annual_average")) for item in sessions]; annual_values = [value for value in annual_values if value is not None]; overall_average = round(sum(annual_values) / len(annual_values), 2) if annual_values else None; overall_grade, overall_comment = grade_score(overall_average, "REPORT_SECONDARY"); overall_score = round(sum(float(item.get("annual_score")) for item in sessions if item.get("annual_score") is not None), 2) if any(item.get("annual_score") is not None for item in sessions) else None; overall_max = round(sum(float(item.get("annual_max")) for item in sessions if item.get("annual_score") is not None and item.get("annual_max")), 2) if overall_score is not None else None; record_ids = "|".join(clean(row.get("record_id")) for row in rows); reference = hashlib.sha256(f"{requested_key}|{record_ids}".encode("utf-8")).hexdigest()[:12].upper() if rows else ""; complete_sessions = sum(1 for item in sessions if item.get("complete")); subject_keys = {_transcript_subject_key(subject) for row in rows for subject in ((row.get("report") or {}).get("subjects") or []) if isinstance(subject, dict) and _transcript_subject_key(subject)}
-    return {"ambiguous_identity": False, "identities": list(identities.values()), "profile": profile, "student_key": requested_key or clean(profile.get("student_key")), "sessions": sessions, "summary": {"session_count": len(sessions), "term_records": len(rows), "complete_sessions": complete_sessions, "partial_sessions": max(0, len(sessions) - complete_sessions), "distinct_subjects": len(subject_keys), "overall_score": overall_score, "overall_max": overall_max, "overall_score_percentage": round(overall_score / overall_max * 100, 2) if overall_score is not None and overall_max else None, "overall_average": overall_average, "overall_grade": overall_grade, "overall_comment": overall_comment, "archive_status": "Complete" if sessions and complete_sessions == len(sessions) else "Partial", "first_session": sessions[0].get("session") if sessions else "", "latest_session": sessions[-1].get("session") if sessions else ""}, "transcript_reference": f"EMIS-TR-{reference}" if reference else "", "generated_at": now_iso()}
+        sessions.append({"session": session_value, "class_level": class_level, "class_arm": class_arm, "class_label": CLASS_LABELS.get(clean_upper(class_level), class_arm or class_level), "grading_system": grading.get("system"), "grading_ready": grading.get("ready"), "terms": term_payload, "terms_available": len(available), "complete": len(available) == 3, "annual_score": session_score, "annual_max": session_max, "annual_score_percentage": round(session_score / session_max * 100, 2) if session_score is not None and session_max else None, "annual_average": annual_average, "annual_grade": annual_grade, "annual_comment": annual_comment, "attendance_average": round(sum(attendance_values) / len(attendance_values), 2) if attendance_values else None, "subjects": subject_rows, "subject_count": len(subject_rows), "subjects_complete": sum(1 for row in subject_rows if row.get("complete"))})
+    annual_values = [safe_float(item.get("annual_average")) for item in sessions]; annual_values = [value for value in annual_values if value is not None]; overall_average = round(sum(annual_values) / len(annual_values), 2) if annual_values else None; grading_systems = {clean(item.get("grading_system")) for item in sessions if clean(item.get("grading_system"))}; all_grading_ready = bool(sessions) and all(bool(item.get("grading_ready")) for item in sessions); one_grading_system = len(grading_systems) == 1
+    if all_grading_ready and one_grading_system and sessions: overall_grade, overall_comment = _class_grade(overall_average, sessions[-1].get("class_level"))
+    else: overall_grade, overall_comment = "-", "Mixed or pending grading systems"
+    overall_score = round(sum(float(item.get("annual_score")) for item in sessions if item.get("annual_score") is not None), 2) if any(item.get("annual_score") is not None for item in sessions) else None; overall_max = round(sum(float(item.get("annual_max")) for item in sessions if item.get("annual_score") is not None and item.get("annual_max")), 2) if overall_score is not None else None; record_ids = "|".join(clean(row.get("record_id")) for row in rows); reference = hashlib.sha256(f"{requested_key}|{record_ids}".encode("utf-8")).hexdigest()[:12].upper() if rows else ""; complete_sessions = sum(1 for item in sessions if item.get("complete")); subject_keys = {_transcript_subject_key(subject) for row in rows for subject in ((row.get("report") or {}).get("subjects") or []) if isinstance(subject, dict) and _transcript_subject_key(subject)}
+    return {"ambiguous_identity": False, "identities": list(identities.values()), "profile": profile, "student_key": requested_key or clean(profile.get("student_key")), "sessions": sessions, "summary": {"session_count": len(sessions), "term_records": len(rows), "complete_sessions": complete_sessions, "partial_sessions": max(0, len(sessions) - complete_sessions), "distinct_subjects": len(subject_keys), "overall_score": overall_score, "overall_max": overall_max, "overall_score_percentage": round(overall_score / overall_max * 100, 2) if overall_score is not None and overall_max else None, "overall_average": overall_average, "overall_grade": overall_grade, "overall_comment": overall_comment, "grading_ready": all_grading_ready and one_grading_system, "grading_systems": sorted(grading_systems), "archive_status": "Complete" if sessions and complete_sessions == len(sessions) else "Partial", "first_session": sessions[0].get("session") if sessions else "", "latest_session": sessions[-1].get("session") if sessions else ""}, "transcript_reference": f"EMIS-TR-{reference}" if reference else "", "generated_at": now_iso()}
 
 
 def _transcript_sheet_style(sheet, header_row=1):
@@ -275,8 +330,8 @@ def build_transcript_workbook(transcript):
         terms = period.get("terms") or {}; overview.append([period.get("session"), period.get("class_arm") or period.get("class_level"), _score_ratio((terms.get("FIRST") or {}).get("score"), (terms.get("FIRST") or {}).get("maximum")), (terms.get("FIRST") or {}).get("average"), _score_ratio((terms.get("SECOND") or {}).get("score"), (terms.get("SECOND") or {}).get("maximum")), (terms.get("SECOND") or {}).get("average"), _score_ratio((terms.get("THIRD") or {}).get("score"), (terms.get("THIRD") or {}).get("maximum")), (terms.get("THIRD") or {}).get("average"), _score_ratio(period.get("annual_score"), period.get("annual_max")), period.get("annual_average")])
     for column, width in enumerate([16, 20, 18, 10, 18, 10, 18, 10, 20, 12], 1): overview.column_dimensions[get_column_letter(column)].width = width
     for index, period in enumerate(transcript.get("sessions") or [], 1):
-        title = f"{index}_{clean(period.get('session')).replace('/', '-')}_{clean(period.get('class_level'))}"[:31]; sheet = workbook.create_sheet(title); sheet.merge_cells("A1:I1"); sheet["A1"] = f"{period.get('session')} — {period.get('class_arm') or period.get('class_level')}"; sheet["A1"].font = Font(bold=True, size=14, color="173F76"); sheet["A1"].alignment = Alignment(horizontal="center"); terms = period.get("terms") or {}; sheet.append(["1st Term", _score_ratio((terms.get("FIRST") or {}).get("score"), (terms.get("FIRST") or {}).get("maximum")), "2nd Term", _score_ratio((terms.get("SECOND") or {}).get("score"), (terms.get("SECOND") or {}).get("maximum")), "3rd Term", _score_ratio((terms.get("THIRD") or {}).get("score"), (terms.get("THIRD") or {}).get("maximum")), "Annual", _score_ratio(period.get("annual_score"), period.get("annual_max")), ""]); sheet.append(["Annual Average %", period.get("annual_average"), "Annual Grade", period.get("annual_grade"), "Attendance %", period.get("attendance_average"), "Terms", period.get("terms_available"), ""]); sheet.append([]); sheet.append(["S/N", "Subject", "1st Term /100", "2nd Term /100", "3rd Term /100", "Annual Score", "Annual Max", "Annual %", "Grade"]); _transcript_sheet_style(sheet, 5)
-        for row_index, row in enumerate(period.get("subjects") or [], 1): sheet.append([row_index, row.get("subject"), row.get("first_term"), row.get("second_term"), row.get("third_term"), row.get("annual_score"), row.get("annual_max"), row.get("annual_average"), row.get("grade")])
+        title = f"{index}_{clean(period.get('session')).replace('/', '-')}_{clean(period.get('class_level'))}"[:31]; sheet = workbook.create_sheet(title); sheet.merge_cells("A1:I1"); sheet["A1"] = f"{period.get('session')} — {period.get('class_arm') or period.get('class_level')}"; sheet["A1"].font = Font(bold=True, size=14, color="173F76"); sheet["A1"].alignment = Alignment(horizontal="center"); terms = period.get("terms") or {}; sheet.append(["1st Term", _score_ratio((terms.get("FIRST") or {}).get("score"), (terms.get("FIRST") or {}).get("maximum")), "2nd Term", _score_ratio((terms.get("SECOND") or {}).get("score"), (terms.get("SECOND") or {}).get("maximum")), "3rd Term", _score_ratio((terms.get("THIRD") or {}).get("score"), (terms.get("THIRD") or {}).get("maximum")), "Annual", _score_ratio(period.get("annual_score"), period.get("annual_max")), ""]); sheet.append(["Annual Average %", period.get("annual_average"), "Annual Grade", period.get("annual_grade"), "Attendance %", period.get("attendance_average"), "Terms", period.get("terms_available"), ""]); sheet.append([]); sheet.append(["S/N", "Subject", "1st Term", "2nd Term", "3rd Term", "Annual Score", "Annual Max", "Annual %", "Grade"]); _transcript_sheet_style(sheet, 5)
+        for row_index, row in enumerate(period.get("subjects") or [], 1): sheet.append([row_index, row.get("subject"), _score_ratio(row.get("first_term"), row.get("first_term_max")), _score_ratio(row.get("second_term"), row.get("second_term_max")), _score_ratio(row.get("third_term"), row.get("third_term_max")), row.get("annual_score"), row.get("annual_max"), row.get("annual_average"), row.get("grade")])
         for column, width in enumerate([7, 28, 14, 14, 14, 14, 14, 12, 10], 1): sheet.column_dimensions[get_column_letter(column)].width = width
     return workbook
 
@@ -300,7 +355,7 @@ def apply_academic_history_sync_event(action, payload, event=None):
 @academic_history_bp.route("/api/academic-history/config")
 @admin_required
 def api_history_config():
-    ensure_history_bootstrap(); records = read_academic_records(); classes = sorted({clean_upper(row.get("class_level")) for row in records if clean(row.get("class_level"))}); return jsonify({"success": True, "dashboard": dashboard_summary(records), "classes": classes, "terms": ["FIRST", "SECOND", "THIRD"]})
+    ensure_history_bootstrap(); records = read_academic_records(); configured = [clean_upper(value) for value in list(STUDENT_DATABASE_CLASSES) + list(TAHFEEZ_CLASSES)]; archived = sorted({clean_upper(row.get("class_level")) for row in records if clean(row.get("class_level"))}); classes = list(dict.fromkeys(configured + archived)); return jsonify({"success": True, "dashboard": dashboard_summary(records), "classes": classes, "class_labels": {level: CLASS_LABELS.get(level, level) for level in classes}, "archived_classes": archived, "terms": ["FIRST", "SECOND", "THIRD"]})
 
 
 @academic_history_bp.route("/api/academic-history/search")
@@ -360,15 +415,15 @@ def api_history_export(admission_number):
     summary_sheet["A1"].font = Font(bold=True, size=16, color="173F76"); summary_sheet.merge_cells("A1:K1")
     for cell in summary_sheet[6]: cell.font = Font(bold=True, color="FFFFFF"); cell.fill = PatternFill("solid", fgColor="173F76"); cell.alignment = Alignment(horizontal="center")
     for width, column in zip([16, 16, 18, 12, 12, 12, 10, 12, 10, 14, 12], range(1, 12)): summary_sheet.column_dimensions[get_column_letter(column)].width = width
-    detail_sheet = workbook.create_sheet("Subject Records"); detail_sheet.append(["Session", "Term", "Class", "Subject", "CA", "Exam", "Total", "Grade", "Position", "Comment"])
+    detail_sheet = workbook.create_sheet("Subject Records"); detail_sheet.append(["Session", "Term", "Class", "Subject", "CA Score", "CA Max", "Exam Score", "Exam Max", "Total Score", "Total Max", "Grade", "Position", "Comment"])
     for item in read_academic_records():
         if normalize_admission_number(item.get("admission_number")) != normalize_admission_number(admission_number): continue
         if student_key and clean(item.get("student_key")) != student_key: continue
         report = item.get("report") if isinstance(item.get("report"), dict) else {}
         for subject in report.get("subjects") or []:
             if not isinstance(subject, dict): continue
-            detail_sheet.append([item.get("session"), item.get("term_label") or item.get("term"), item.get("class_arm") or item.get("class_level"), subject.get("subject"), subject.get("ca_total"), subject.get("exam"), subject.get("total"), subject.get("grade"), subject.get("position_text"), subject.get("comment")])
+            detail_sheet.append([item.get("session"), item.get("term_label") or item.get("term"), item.get("class_arm") or item.get("class_level"), subject.get("subject"), subject.get("ca_total"), subject.get("ca_max"), subject.get("exam"), subject.get("exam_max"), subject.get("total"), _subject_maximum(subject), subject.get("grade"), subject.get("position_text"), subject.get("comment")])
     for cell in detail_sheet[1]: cell.font = Font(bold=True, color="FFFFFF"); cell.fill = PatternFill("solid", fgColor="173F76"); cell.alignment = Alignment(horizontal="center")
-    for column in range(1, 11): detail_sheet.column_dimensions[get_column_letter(column)].width = 18 if column < 4 else 14
+    for column in range(1, 14): detail_sheet.column_dimensions[get_column_letter(column)].width = 18 if column < 4 else 14
     output = io.BytesIO(); workbook.save(output); output.seek(0); safe_name = "_".join(clean(profile.get("full_name") or admission_number).split()) or normalize_admission_number(admission_number)
     return send_file(output, as_attachment=True, download_name=f"{safe_name}_Academic_History.xlsx", mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")

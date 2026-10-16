@@ -13,7 +13,7 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.page import PageMargins
 
 from modules.excel_manager import read_results, get_excel_path, EXPECTED_HEADERS, repair_missing_headers
-from modules.class_config import SUPPORTED_CLASSES, normalize_class_level
+from modules.class_config import SUPPORTED_CLASSES, normalize_class_level, is_exam_term_required_class, get_subjects_for_class
 from modules.student_results import normalize_result_year, academic_session_from_year
 from modules.academic_settings import get_academic_settings as get_global_academic_settings, save_academic_settings, YEAR_MIN as ACADEMIC_YEAR_MIN, YEAR_MAX as ACADEMIC_YEAR_MAX
 from modules.result_sync import queue_emis_event_safely
@@ -48,6 +48,10 @@ def normalize_class(value):
 
 def is_jss_class(value):
     return str(normalize_class(value) or "").upper().startswith("JSS")
+
+
+def is_term_required_class(value):
+    return is_exam_term_required_class(value)
 
 
 def is_ss_class(value):
@@ -155,6 +159,28 @@ def can_view_results():
 
     return True
 
+
+
+def can_view_notifications():
+    """Allow live header notifications for every authenticated staff role without granting result-page access."""
+    role = str(session.get("user_type") or "").strip().lower()
+    if role not in {"admin", "teacher", "islamiyyah_teacher"}: return False
+    now = time.time(); last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
+    if last_activity is not None:
+        try:
+            if now - float(last_activity) > STAFF_SESSION_TIMEOUT_SECONDS: session.clear(); return False
+        except (TypeError, ValueError): pass
+    session.permanent = True; session[STAFF_SESSION_ACTIVITY_KEY] = now; session.modified = True
+    return True
+
+
+def notification_visible_for_role(item, role=""):
+    role = str(role or session.get("user_type") or "").strip().lower(); event_type = str((item or {}).get("type") or "").lower()
+    academy_event = event_type.startswith(("islamiyah", "academy", "tahfeez"))
+    if role == "admin": return True
+    if role == "teacher": return not academy_event
+    if role == "islamiyyah_teacher": return academy_event
+    return False
 
 def get_requested_term(class_cat=""):
     class_cat = normalize_class(class_cat)
@@ -276,7 +302,7 @@ def get_term_result_path(class_cat, subject, year, term=""):
     if term:
         return root / term / subject / "results.xlsx"
 
-    if is_jss_class(class_cat):
+    if is_term_required_class(class_cat):
         return None
 
     return root / subject / "results.xlsx"
@@ -308,7 +334,7 @@ def find_existing_result_path(class_cat, subject, year, term=""):
     if not term and legacy and legacy.exists():
         return legacy
 
-    if is_jss_class(class_cat) and term and legacy and legacy.exists():
+    if is_term_required_class(class_cat) and term and legacy and legacy.exists():
         return legacy
 
     return term_path or legacy
@@ -417,7 +443,7 @@ def get_library_subjects(year, class_cat, term=""):
         / class_cat
     )
 
-    if is_jss_class(class_cat):
+    if is_term_required_class(class_cat):
         if not term:
             return []
 
@@ -490,8 +516,8 @@ def get_subject_folders(year, class_cat, term=""):
             if not path.exists():
                 continue
 
-            # JSS keeps legacy flat-result compatibility.
-            if is_jss_class(class_cat):
+            # Primary/JSS keep legacy flat-result compatibility.
+            if is_term_required_class(class_cat):
                 subjects.add(folder.name)
                 continue
 
@@ -648,7 +674,7 @@ def candidate_result_paths(class_cat, subject, year, term=""):
         if legacy and legacy.exists():
             candidates.append((legacy, ""))
 
-    elif is_jss_class(class_cat):
+    elif is_term_required_class(class_cat):
         for possible_term in VALID_TERMS:
             path = get_term_result_path(
                 class_cat,
@@ -907,7 +933,7 @@ def notify_exam_end():
 
 @api_bp.route("/api/notifications/fetch")
 def fetch_admin_notifications():
-    if not can_view_results():
+    if not can_view_notifications():
         return jsonify({
             "error": "Unauthorized",
             "notifications": [],
@@ -925,33 +951,12 @@ def fetch_admin_notifications():
     except (TypeError, ValueError):
         since = 0
 
+    role = str(session.get("user_type") or "").strip().lower()
     with ADMIN_NOTIFICATION_LOCK:
-        if since:
-            notifications = [
-                dict(item)
-                for item in ADMIN_NOTIFICATIONS
-                if int(item.get("sequence", 0) or 0) > since
-            ]
-        else:
-            notifications = [
-                dict(item)
-                for item in ADMIN_NOTIFICATIONS
-            ]
-
-    notifications.sort(
-        key=lambda item: int(
-            item.get("sequence", 0)
-            or 0
-        )
-    )
-
-    latest = max(
-        (
-            int(item.get("sequence", 0) or 0)
-            for item in notifications
-        ),
-        default=since,
-    )
+        raw_notifications = [dict(item) for item in ADMIN_NOTIFICATIONS if not since or int(item.get("sequence", 0) or 0) > since]
+        latest = max((int(item.get("sequence", 0) or 0) for item in ADMIN_NOTIFICATIONS), default=since)
+    notifications = [item for item in raw_notifications if notification_visible_for_role(item, role)]
+    notifications.sort(key=lambda item: int(item.get("sequence", 0) or 0))
 
     return jsonify({
         "notifications": notifications,
@@ -962,7 +967,7 @@ def fetch_admin_notifications():
 
 @api_bp.route("/api/notifications/stream")
 def stream_admin_notifications():
-    if not can_view_results():
+    if not can_view_notifications():
         return jsonify({
             "error": "Unauthorized"
         }), 403
@@ -978,6 +983,8 @@ def stream_admin_notifications():
 
     except (TypeError, ValueError):
         starting_sequence = 0
+
+    role = str(session.get("user_type") or "").strip().lower()
 
     @stream_with_context
     def event_stream():
@@ -1004,15 +1011,9 @@ def stream_admin_notifications():
             )
 
             for item in events:
-                last_sequence = max(
-                    last_sequence,
-                    int(item.get("sequence", 0) or 0),
-                )
-
-                yield (
-                    f"event: notification\n"
-                    f"data: {json.dumps(item, ensure_ascii=False)}\n\n"
-                )
+                last_sequence = max(last_sequence, int(item.get("sequence", 0) or 0))
+                if not notification_visible_for_role(item, role): continue
+                yield f"event: notification\ndata: {json.dumps(item, ensure_ascii=False)}\n\n"
 
             yield ": keepalive\n\n"
             time.sleep(1)
@@ -1123,7 +1124,7 @@ def get_terms_for_year_and_class():
         "terms": terms,
         "class": class_cat,
         "supports_term": supports_result_terms(class_cat),
-        "requires_term": is_jss_class(class_cat),
+        "requires_term": is_term_required_class(class_cat),
     })
 
 
@@ -1155,7 +1156,7 @@ def get_subjects_for_class_and_year():
         class_cat
     )
 
-    if is_jss_class(class_cat) and not term:
+    if is_term_required_class(class_cat) and not term:
         return jsonify({
             "subjects": [],
             "year": year,
@@ -1167,18 +1168,11 @@ def get_subjects_for_class_and_year():
 
     subjects = {}
 
+    # Merge the live Subject Registry with files/results already present. This means a new Admin-created class subject becomes visible everywhere immediately, even before its first JSON/result is uploaded.
     source_subjects = [
-        *get_subject_folders(
-            year,
-            class_cat,
-            term,
-        ),
-
-        *get_library_subjects(
-            year,
-            class_cat,
-            term,
-        ),
+        *get_subjects_for_class(class_cat),
+        *get_subject_folders(year, class_cat, term),
+        *get_library_subjects(year, class_cat, term),
     ]
 
     for subject in source_subjects:
@@ -1198,7 +1192,7 @@ def get_subjects_for_class_and_year():
         "term": term,
 
         "supports_term": supports_result_terms(class_cat),
-        "requires_term": is_jss_class(class_cat),
+        "requires_term": is_term_required_class(class_cat),
     })
 
 
@@ -1237,9 +1231,9 @@ def load_excel_results():
         class_cat
     )
 
-    if is_jss_class(class_cat) and not term:
+    if is_term_required_class(class_cat) and not term:
         return jsonify({
-            "error": "Term is required for JSS results",
+            "error": "Term is required for Primary/JSS results",
             "results": [],
         }), 400
 
@@ -1276,7 +1270,7 @@ def load_excel_results():
             "term": term,
             "term_label": term_label(term) if term else "",
             "supports_term": supports_result_terms(class_cat),
-            "requires_term": is_jss_class(class_cat),
+            "requires_term": is_term_required_class(class_cat),
             "count": len(records),
         }), 200
 
@@ -1330,10 +1324,10 @@ def excel_exists():
         class_cat
     )
 
-    if is_jss_class(class_cat) and not term:
+    if is_term_required_class(class_cat) and not term:
         return jsonify({
             "exists": False,
-            "error": "Term is required for JSS results",
+            "error": "Term is required for Primary/JSS results",
         })
 
     term_path = get_term_result_path(
@@ -1370,7 +1364,7 @@ def excel_exists():
                 if exists:
                     path = legacy
 
-            elif not term or is_jss_class(class_cat):
+            elif not term or is_term_required_class(class_cat):
                 path = legacy
                 exists = True
 
@@ -1437,9 +1431,9 @@ def api_get_results():
         class_cat
     )
 
-    if is_jss_class(class_cat) and not term:
+    if is_term_required_class(class_cat) and not term:
         return jsonify({
-            "error": "Term is required for JSS results",
+            "error": "Term is required for Primary/JSS results",
             "results": [],
         }), 400
 
@@ -1778,7 +1772,7 @@ def delete_excel_results():
 
         if (
             class_cat
-            and is_jss_class(class_cat)
+            and is_term_required_class(class_cat)
             and not term
         ):
             term = get_requested_term(
@@ -1902,12 +1896,12 @@ def delete_excel_results():
                     or folder_term
                 )
 
-                # Old flat JSS can inherit selected term.
+                # Old flat Primary/JSS can inherit selected term.
                 # Blank SS remains General / Legacy.
                 if (
                     requested_term
                     and not row_term
-                    and is_jss_class(class_cat)
+                    and is_term_required_class(class_cat)
                 ):
                     row_term = requested_term
 

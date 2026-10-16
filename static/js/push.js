@@ -4,7 +4,7 @@
    Supports:
      • Broad class targets
      • Exact class-arm targets
-     • JSS1 / JSS2 / JSS3 — strict FIRST / SECOND / THIRD
+     • Primary 1–6 / JSS1–3 — strict FIRST / SECOND / THIRD
      • SS1 / SS2 / SS3 — hybrid GENERAL + FIRST / SECOND / THIRD
      • SS selected-term pushes with General/root source fallback
      • Historical JSON source year -> independent Current / Active target year
@@ -28,15 +28,17 @@
        CONFIGURATION
     ========================================================== */
 
-    supportedClasses: ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
-    termAwareClasses: ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
-    termRequiredClasses: ["JSS1", "JSS2", "JSS3"],
+    supportedClasses: ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
+    termAwareClasses: ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
+    termRequiredClasses: ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3"],
     optionalTermClasses: ["SS1", "SS2", "SS3"],
     validTerms: ["FIRST", "SECOND", "THIRD"],
     targetYearMin: 2025,
     targetYearMax: 2040,
 
     classArms: {
+      PRIMARY1: ["PRIMARY1A", "PRIMARY1B"], PRIMARY2: ["PRIMARY2A", "PRIMARY2B"], PRIMARY3: ["PRIMARY3A", "PRIMARY3B"],
+      PRIMARY4: ["PRIMARY4A", "PRIMARY4B"], PRIMARY5: ["PRIMARY5A", "PRIMARY5B"], PRIMARY6: ["PRIMARY6A", "PRIMARY6B"],
       JSS1: ["JSS1A", "JSS1B", "JSS1C"],
       JSS2: ["JSS2A", "JSS2B", "JSS2C"],
       JSS3: ["JSS3A", "JSS3B", "JSS3C"],
@@ -80,6 +82,12 @@
     const level = this.normalizeClassLevel(raw) || this.normalizeClassLevel(fallbackLevel);
 
     if (!level) return "";
+
+    /* Primary */
+    if (level.startsWith("PRIMARY")) {
+      for (const arm of ["A", "B"]) { if (compact === `${level}${arm}`) return `${level}${arm}`; }
+      return level;
+    }
 
     /* JSS */
     if (level.startsWith("JSS")) {

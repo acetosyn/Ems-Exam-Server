@@ -1,0 +1,159 @@
+/* =================================================================================================
+   EMIS ACADEMIC WORKSPACE V2 — compact, card-light, responsive academic modules
+   Scope: Attendance • CA/Test • Exam Results • Report Sheets • Broadsheets • Academic History
+   Design: one visual hierarchy, compact metric strips, dynamic dropdown-first controls, Excel-like mobile tables
+   ================================================================================================= */
+
+:root{--aw-ink:#10263a;--aw-muted:#6c7d8d;--aw-line:#dce6ed;--aw-line-strong:#cbd9e3;--aw-bg:#f6f9fb;--aw-panel:#fff;--aw-soft:#f0f6f7;--aw-teal:#087d73;--aw-teal-deep:#06665f;--aw-navy:#103552;--aw-shadow:0 8px 24px rgba(17,45,66,.06);--aw-radius:18px;--aw-radius-sm:12px}
+
+/* -------------------------------------------------------------------------------------------------
+   SHARED DENSITY
+   ------------------------------------------------------------------------------------------------- */
+.attendance-studio,.ca-page,.admin-results-page,.report-page,.broad-shell,.history-shell{font-size:14px;color:var(--aw-ink)}
+.attendance-studio h1,.ca-page h1,.admin-results-page h1,.report-page h1,.broad-shell h1,.history-shell h1{letter-spacing:-.035em}
+.attendance-studio section,.ca-page section,.admin-results-page section,.report-page section,.broad-shell section,.history-shell section{scroll-margin-top:88px}
+
+/* -------------------------------------------------------------------------------------------------
+   HERO / PAGE HEADER — stop the page from spending a screen on introductions
+   ------------------------------------------------------------------------------------------------- */
+.attendance-ribbon,.ca-hero,.results-header,.report-hero,.broad-hero,.history-hero{min-height:0!important;padding:16px 20px!important;border-radius:var(--aw-radius)!important;border:1px solid var(--aw-line)!important;box-shadow:var(--aw-shadow)!important;background:linear-gradient(110deg,#fff 0%,#f4f9f9 100%)!important;color:var(--aw-ink)!important}
+.attendance-title-row,.ca-title-row,.results-header-main,.report-title-row{gap:13px!important}
+.attendance-title-row .title-icon,.ca-title-icon,.results-header-icon,.report-title-icon{width:48px!important;height:48px!important;min-width:48px!important;border-radius:14px!important}
+.attendance-title-row h1,.ca-title-row h1,.results-header-copy h1,.report-title-row h1,.broad-hero h1,.history-hero h1{font-size:clamp(1.45rem,2.2vw,2rem)!important;line-height:1.08!important;margin:2px 0 5px!important}
+.attendance-title-row p,.ca-title-row p,.results-header-copy p,.report-title-row p,.broad-hero p,.history-hero p{font-size:.9rem!important;line-height:1.45!important;margin:0!important;max-width:850px!important;color:var(--aw-muted)!important}
+.attendance-crumb,.ca-mini-row,.broad-hero-pills,.report-hero-features{display:none!important}
+.today-card,.ca-live-card,.report-live-card,.broad-hero-card,.history-hero-card{box-shadow:none!important;border:1px solid var(--aw-line)!important;background:#fff!important;border-radius:14px!important}
+
+/* -------------------------------------------------------------------------------------------------
+   METRICS — one narrow strip, not a dashboard made of cards
+   ------------------------------------------------------------------------------------------------- */
+.attendance-stats-grid,.ca-stats-grid,.results-overview,.report-stats-grid,.broad-stats,.history-stats{display:grid!important;grid-auto-flow:column!important;grid-auto-columns:minmax(118px,1fr)!important;grid-template-columns:none!important;gap:0!important;padding:4px 8px!important;overflow-x:auto!important;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;border:1px solid var(--aw-line)!important;border-radius:15px!important;background:var(--aw-panel)!important;box-shadow:none!important;scrollbar-width:thin}
+.attendance-stat-card,.ca-stat-card,.results-overview .overview-card,.report-stat-card,.broad-stats>article,.history-stats>article{min-width:118px!important;min-height:58px!important;margin:0!important;padding:9px 12px!important;border:0!important;border-right:1px solid var(--aw-line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;scroll-snap-align:start;display:flex!important;align-items:center!important;gap:9px!important}
+.attendance-stat-card:last-child,.ca-stat-card:last-child,.results-overview .overview-card:last-child,.report-stat-card:last-child,.broad-stats>article:last-child,.history-stats>article:last-child{border-right:0!important}
+.attendance-stat-card>span,.ca-stat-icon,.overview-icon,.report-stat-icon,.history-stat-icon,.broad-stats>article>i{width:34px!important;height:34px!important;min-width:34px!important;border-radius:10px!important;display:grid!important;place-items:center!important;font-size:.9rem!important;box-shadow:none!important}
+.attendance-stat-card small,.ca-stat-card span,.overview-content span,.report-stat-card span,.broad-stats span,.history-stats small{font-size:.66rem!important;line-height:1.15!important;text-transform:uppercase!important;letter-spacing:.055em!important;color:#718195!important;font-weight:800!important}
+.attendance-stat-card strong,.ca-stat-card strong,.overview-content strong,.report-stat-card strong,.broad-stats strong,.history-stats strong{font-size:1.05rem!important;line-height:1.1!important;color:var(--aw-ink)!important}
+.ca-stat-card small,.report-stat-card small,.history-stats em{display:none!important}
+
+/* -------------------------------------------------------------------------------------------------
+   CONTROL PANELS — dropdown-first, small, light and immediately usable
+   ------------------------------------------------------------------------------------------------- */
+.attendance-control-dock,.ca-control-panel,.results-filter-panel,.report-control-panel,.broad-controls,.history-toolbar-card{background:#fff!important;color:var(--aw-ink)!important;border:1px solid var(--aw-line)!important;border-radius:var(--aw-radius)!important;box-shadow:none!important;padding:14px!important}
+.attendance-control-dock{display:grid!important;grid-template-columns:repeat(5,minmax(120px,1fr)) auto!important;gap:10px!important;align-items:end!important}
+.attendance-control-dock .control-field,.ca-control-grid .form-group,.report-control-grid .form-group{min-width:0!important}
+.attendance-control-dock label,.ca-control-panel label,.report-control-panel label,.broad-controls label>span,.history-toolbar-card label{color:#526579!important;font-size:.69rem!important;font-weight:850!important;text-transform:uppercase!important;letter-spacing:.055em!important}
+.attendance-control-dock select,.attendance-control-dock input,.ca-control-panel select,.ca-control-panel input,.results-filter-panel select,.results-filter-panel input,.report-control-panel select,.report-control-panel input,.broad-controls select,.history-toolbar-card select,.history-toolbar-card input{min-height:44px!important;height:44px!important;border:1px solid var(--aw-line-strong)!important;border-radius:11px!important;background:#fbfdfe!important;color:var(--aw-ink)!important;font-size:.9rem!important;box-shadow:none!important}
+.attendance-control-dock select:focus,.attendance-control-dock input:focus,.ca-control-panel select:focus,.report-control-panel select:focus,.results-filter-panel select:focus{border-color:#82bdb8!important;box-shadow:0 0 0 3px rgba(8,125,115,.08)!important;outline:0!important}
+.attendance-control-dock .control-buttons{display:flex!important;gap:7px!important;align-items:center!important}
+.attendance-btn,.ca-btn,.ar-btn,.report-btn,.report-mini-btn,.broad-btn,.history-btn{min-height:42px!important;border-radius:11px!important;box-shadow:none!important}
+
+/* CA filter panel no longer needs its own title to consume space */
+.ca-control-head{padding:0 0 10px!important;margin:0 0 10px!important;border-bottom:1px solid var(--aw-line)!important}
+.ca-control-head h2{font-size:1rem!important;margin:1px 0 0!important}
+.ca-control-grid{gap:10px!important}
+.ca-action-dock{display:flex!important;overflow-x:auto!important;gap:7px!important;padding:8px!important;border:1px solid var(--aw-line)!important;border-radius:14px!important;background:#fff!important;box-shadow:none!important;scrollbar-width:thin}
+.ca-dock-btn{flex:0 0 auto!important;min-height:39px!important;padding:8px 12px!important;border-radius:10px!important;box-shadow:none!important}
+.ca-mode-grid{display:flex!important;gap:8px!important;overflow-x:auto!important;padding-bottom:2px!important;scrollbar-width:thin}
+.ca-mode-card{flex:1 0 260px!important;min-height:0!important;padding:12px 14px!important;border-radius:14px!important;box-shadow:none!important}
+.ca-mode-card h3{font-size:.9rem!important;margin:0!important}.ca-mode-card p{font-size:.75rem!important;margin:6px 0 0!important}.mode-score-row{gap:5px!important}.mode-score-row span{font-size:.7rem!important;padding:5px 7px!important}
+
+/* Results: remove redundant class pill row; dropdown is authoritative */
+.admin-results-page .class-pills{display:none!important}
+.results-filter-grid{gap:10px!important}.filter-panel-header{padding-bottom:9px!important;margin-bottom:9px!important}.filter-panel-title h2{font-size:1rem!important}.filter-panel-title p{font-size:.78rem!important}
+.results-header-actions{gap:7px!important}.results-table-panel{border-radius:var(--aw-radius)!important;box-shadow:none!important;border:1px solid var(--aw-line)!important}
+
+/* Report Sheets: compress intelligence + modes into horizontal rails */
+.report-app-dock{border:1px solid var(--aw-line)!important;box-shadow:none!important;border-radius:14px!important;padding:5px!important}
+.report-intelligence-grid{display:flex!important;gap:8px!important;overflow-x:auto!important;scrollbar-width:thin}
+.report-intel-card{flex:1 0 250px!important;min-height:0!important;padding:12px!important;border-radius:14px!important;box-shadow:none!important}
+.report-stats-grid{margin-bottom:10px!important}
+.report-control-panel{padding:13px!important}.report-control-head{padding:0 0 9px!important;margin-bottom:10px!important}.report-control-head h2{font-size:1rem!important}
+.generation-method-grid,.report-mode-grid{display:flex!important;gap:8px!important;overflow-x:auto!important;scrollbar-width:thin}
+.generation-method-card,.report-mode-card{flex:1 0 230px!important;min-height:0!important;padding:12px!important;border-radius:14px!important;box-shadow:none!important}
+.report-data-card,.report-preview-card,.report-cumulative-hub,.report-hybrid-workspace{box-shadow:none!important;border:1px solid var(--aw-line)!important;border-radius:var(--aw-radius)!important}
+.report-cumulative-hub{padding:13px!important}.report-cumulative-hub h2{font-size:1rem!important}.report-cumulative-actions{gap:6px!important}
+
+/* Broadsheets / history */
+.broad-hero-card{padding:10px 12px!important}.broad-controls{display:grid!important;grid-template-columns:repeat(5,minmax(120px,1fr)) auto auto auto!important;gap:8px!important;align-items:end!important}.broad-health-card{padding:10px 13px!important;border:1px solid var(--aw-line)!important;border-radius:14px!important;box-shadow:none!important}.broad-tabs{padding:5px!important;border-radius:13px!important}
+.history-hero{display:flex!important;align-items:center!important}.history-hero-main{flex:1!important}.history-hero-actions{margin-top:9px!important}.history-stats{margin:10px 0!important}.history-toolbar-card{display:grid!important;grid-template-columns:minmax(220px,2fr) repeat(4,minmax(120px,1fr)) auto auto!important;gap:8px!important}.history-workspace{gap:10px!important}.history-results-pane,.history-profile-pane{box-shadow:none!important;border:1px solid var(--aw-line)!important;border-radius:var(--aw-radius)!important}
+
+/* -------------------------------------------------------------------------------------------------
+   EXCEL-LIKE TABLES — mobile should remain a table, not turn every row into a giant card
+   ------------------------------------------------------------------------------------------------- */
+.attendance-table-wrap,.ca-table-wrap,.results-table-scroll,.report-table-wrap,.broad-table-wrap,.record-table-wrap,.history-table-wrap,.saved-record-table-wrap,.manual-score-table-wrap,.cumulative-preview-table-wrap{overflow:auto!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:thin!important}
+.attendance-table,.ca-table,.results-table,.report-students-table,.saved-record-table,.manual-score-table,.cumulative-preview-table,.broad-table,.record-table{border-collapse:separate!important;border-spacing:0!important;background:#fff!important}
+.attendance-table th,.attendance-table td,.ca-table th,.ca-table td,.results-table th,.results-table td,.report-students-table th,.report-students-table td,.saved-record-table th,.saved-record-table td,.manual-score-table th,.manual-score-table td,.cumulative-preview-table th,.cumulative-preview-table td,.broad-table th,.broad-table td,.record-table th,.record-table td{border-bottom:1px solid #e8eef2!important;vertical-align:middle!important}
+
+/* -------------------------------------------------------------------------------------------------
+   MODALS — viewport anchored on desktop and elegant bottom-sheet/full-height on mobile
+   ------------------------------------------------------------------------------------------------- */
+.ca-modal,.report-modal,.attendance-confirm-modal,.attendance-student-modal,.attendance-history-modal,.attendance-delete-modal,.essay-score-modal,.modal-backdrop,.result-summary-modal{position:fixed!important;inset:0!important;z-index:13000!important;margin:0!important;max-width:none!important}
+.ca-modal[aria-hidden="false"],.report-modal[aria-hidden="false"],.attendance-confirm-modal[aria-hidden="false"],.attendance-student-modal[aria-hidden="false"],.attendance-history-modal[aria-hidden="false"],.attendance-delete-modal[aria-hidden="false"]{display:grid!important;place-items:center!important;padding:20px!important}
+.ca-modal-panel,.report-modal-panel{max-height:min(88dvh,860px)!important;overflow:auto!important;border-radius:18px!important;box-shadow:0 28px 80px rgba(6,27,43,.22)!important}
+.attendance-student-modal,.attendance-history-modal,.attendance-confirm-modal,.attendance-delete-modal{max-height:88dvh!important;overflow:auto!important}
+
+/* -------------------------------------------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------------------------------------------- */
+@media (max-width: 900px){
+  .attendance-studio,.ca-page,.admin-results-page,.report-page,.broad-shell,.history-shell{font-size:13px!important}
+  .attendance-ribbon,.ca-hero,.results-header,.report-hero,.broad-hero,.history-hero{padding:12px!important;border-radius:15px!important;gap:10px!important}
+  .attendance-title-row .title-icon,.ca-title-icon,.results-header-icon,.report-title-icon{width:42px!important;height:42px!important;min-width:42px!important}
+  .attendance-title-row h1,.ca-title-row h1,.results-header-copy h1,.report-title-row h1,.broad-hero h1,.history-hero h1{font-size:1.25rem!important}
+  .attendance-title-row p,.ca-title-row p,.results-header-copy p,.report-title-row p,.broad-hero p,.history-hero p{font-size:.76rem!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .attendance-ribbon-right,.results-header-actions,.report-hero-actions,.history-hero-card,.broad-hero-card,.ca-live-card{display:none!important}
+
+  .attendance-stats-grid,.ca-stats-grid,.results-overview,.report-stats-grid,.broad-stats,.history-stats{grid-auto-columns:112px!important;border-radius:13px!important;padding:3px 6px!important;margin-block:8px!important}
+  .attendance-stat-card,.ca-stat-card,.results-overview .overview-card,.report-stat-card,.broad-stats>article,.history-stats>article{min-width:112px!important;min-height:52px!important;padding:7px 9px!important;gap:7px!important}
+  .attendance-stat-card>span,.ca-stat-icon,.overview-icon,.report-stat-icon,.history-stat-icon,.broad-stats>article>i{width:30px!important;height:30px!important;min-width:30px!important;font-size:.78rem!important}
+
+  .attendance-control-dock{grid-template-columns:1fr 1fr!important;padding:11px!important;gap:8px!important;border-radius:15px!important}
+  .attendance-control-dock .control-buttons{grid-column:1/-1!important}.attendance-control-dock .control-buttons .primary{flex:1!important}.attendance-control-dock .control-buttons .ghost{width:44px!important;min-width:44px!important}
+  .attendance-control-dock select,.attendance-control-dock input,.ca-control-panel select,.ca-control-panel input,.report-control-panel select,.report-control-panel input,.results-filter-panel select,.results-filter-panel input{font-size:16px!important;min-height:43px!important;height:43px!important}
+  .attendance-mini-dashboard{display:none!important}
+  .attendance-toolbelt{padding:9px!important;gap:7px!important}
+
+  .ca-control-grid{grid-template-columns:1fr 1fr!important;gap:8px!important}.ca-control-grid .ca-subject-field,.ca-control-grid .form-group.action{grid-column:1/-1!important}.ca-control-head>div p{display:none!important}.ca-action-dock{margin-block:8px!important}.ca-mode-grid{margin-block:8px!important}.ca-mode-card{flex-basis:235px!important}
+
+  .results-filter-grid{grid-template-columns:1fr 1fr!important}.results-filter-grid .search-filter,.results-filter-grid .session-filter{grid-column:1/-1!important}.filter-panel-header{display:block!important}.results-header{align-items:flex-start!important}.results-table-header{padding:10px!important}.results-table-tools{overflow-x:auto!important;flex-wrap:nowrap!important}
+
+  .report-intelligence-grid{display:none!important}.report-app-dock{overflow-x:auto!important;justify-content:flex-start!important}.report-app-item{flex:0 0 auto!important;min-width:88px!important}.report-control-grid{display:block!important}.report-action-group{margin-bottom:8px!important}.report-group-fields.two{grid-template-columns:1fr 1fr!important}.generation-method-card,.report-mode-card{flex-basis:210px!important}.report-stats-grid{grid-auto-columns:112px!important}.report-cumulative-actions{overflow-x:auto!important;flex-wrap:nowrap!important}.report-cumulative-actions>*{flex:0 0 auto!important}
+
+  .broad-controls{grid-template-columns:1fr 1fr!important;padding:10px!important}.broad-controls>button{min-width:0!important}.broad-controls #loadBroadsheets{grid-column:1/-1!important}.broad-health-card{margin-block:8px!important}.analytics-grid{grid-template-columns:1fr!important}
+
+  .history-toolbar-card{grid-template-columns:1fr 1fr!important;padding:10px!important}.history-search-box{grid-column:1/-1!important}.history-workspace{display:block!important}.history-results-pane{max-height:330px!important;margin-bottom:10px!important}.history-profile-pane{min-height:0!important}
+
+  /* Force previously cardified mobile tables back into compact spreadsheets. */
+  .attendance-table,.ca-table,.results-table,.report-students-table{min-width:850px!important;width:max-content!important;table-layout:auto!important}
+  .attendance-table thead,.ca-table thead,.results-table thead,.report-students-table thead{display:table-header-group!important}
+  .attendance-table tbody,.ca-table tbody,.results-table tbody,.report-students-table tbody{display:table-row-group!important}
+  .attendance-table tr,.ca-table tr,.results-table tr,.report-students-table tr{display:table-row!important;background:#fff!important;border:0!important;border-radius:0!important;box-shadow:none!important;margin:0!important;padding:0!important}
+  .attendance-table th,.attendance-table td,.ca-table th,.ca-table td,.results-table th,.results-table td,.report-students-table th,.report-students-table td{display:table-cell!important;width:auto!important;min-width:92px!important;padding:8px 9px!important;font-size:.75rem!important;white-space:nowrap!important;border-radius:0!important;background:#fff!important;position:static!important}
+  .attendance-table th,.ca-table th,.results-table th,.report-students-table th{position:sticky!important;top:0!important;z-index:5!important;background:#eaf2f6!important;color:#17344b!important;font-size:.66rem!important;text-transform:uppercase!important;letter-spacing:.035em!important}
+  .attendance-table th:first-child,.attendance-table td:first-child,.ca-table th:first-child,.ca-table td:first-child,.results-table th:first-child,.results-table td:first-child,.report-students-table th:first-child,.report-students-table td:first-child{position:sticky!important;left:0!important;z-index:6!important;background:#fff!important;box-shadow:1px 0 0 #e3ebf0!important}
+  .attendance-table thead th:first-child,.ca-table thead th:first-child,.results-table thead th:first-child,.report-students-table thead th:first-child{background:#eaf2f6!important;z-index:7!important}
+  .attendance-table td::before,.ca-table td::before,.results-table td::before,.report-students-table td::before{display:none!important;content:none!important}
+  .attendance-table .student-name,.ca-table .student-name,.results-table .student-name,.report-students-table strong{font-size:.78rem!important}
+  .attendance-table button,.ca-table button,.results-table button,.report-students-table button{min-width:30px!important;min-height:30px!important;padding:5px 7px!important}
+
+  /* Mobile modals: bottom sheet, never hidden below the page. */
+  .ca-modal[aria-hidden="false"],.report-modal[aria-hidden="false"],.attendance-confirm-modal[aria-hidden="false"],.attendance-student-modal[aria-hidden="false"],.attendance-history-modal[aria-hidden="false"],.attendance-delete-modal[aria-hidden="false"]{align-items:end!important;padding:0!important}
+  .ca-modal-panel,.report-modal-panel,.attendance-student-modal>*,.attendance-history-modal>*,.attendance-confirm-modal>*,.attendance-delete-modal>*{width:100%!important;max-width:none!important;max-height:88dvh!important;border-radius:22px 22px 0 0!important;margin:0!important}
+  .ca-modal-head,.report-modal-head{position:sticky!important;top:0!important;z-index:3!important;background:#fff!important;padding:12px 14px!important;border-bottom:1px solid var(--aw-line)!important}
+  .ca-modal-body,.report-modal-body{padding:12px!important}
+}
+
+@media (max-width: 560px){
+  .attendance-ribbon,.ca-hero,.results-header,.report-hero,.broad-hero,.history-hero{margin-inline:0!important}
+  .attendance-title-row p,.ca-title-row p,.results-header-copy p,.report-title-row p{display:none!important}
+  .attendance-control-dock,.ca-control-grid,.results-filter-grid,.report-group-fields.two,.broad-controls,.history-toolbar-card{grid-template-columns:1fr 1fr!important}
+  .attendance-control-dock .control-field:nth-child(5){grid-column:1/-1!important}
+  .results-filter-grid .filter-field{min-width:0!important}
+  .results-filter-grid .search-filter,.results-filter-grid .session-filter{grid-column:1/-1!important}
+  .report-app-dock small,.report-app-dock kbd{display:none!important}
+}
+
+/* Dedicated Academy scoring guidance surfaced when Islamiyyah is chosen in generic CA/Test. */
+.academy-ca-workspace-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:10px 12px;border:1px solid #cfe6e2;border-radius:12px;background:#f3fbf9;color:#173a3c}
+.academy-ca-workspace-notice[hidden]{display:none!important}.academy-ca-workspace-notice>div{display:flex;align-items:center;gap:9px}.academy-ca-workspace-notice>div>i{width:32px;height:32px;border-radius:9px;background:#e2f3ef;color:#087d73;display:grid;place-items:center}.academy-ca-workspace-notice span{display:grid;gap:1px}.academy-ca-workspace-notice strong{font-size:.8rem}.academy-ca-workspace-notice small{font-size:.7rem;color:#657b82}.academy-ca-workspace-notice a{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:9px;background:#0d5365;color:#fff;text-decoration:none;font-size:.75rem;font-weight:800}
+@media(max-width:700px){.academy-ca-workspace-notice{align-items:flex-start;flex-direction:column}.academy-ca-workspace-notice a{width:100%;justify-content:center}}

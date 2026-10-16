@@ -1449,3 +1449,5 @@
     font-size: .74rem;
   }
 }
+/* ========================================================== 2026-10-16 — Primary CBT library navigation ========================================================== */
+.class-navigation{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap}.class-navigation .class-pill{flex:1 1 64px}.class-navigation .class-pill.primary:not(.active){color:#245d91;background:#edf7ff}.class-navigation .class-pill.primary:not(.active):hover{color:#174d7c;background:#dff1ff}.class-nav-divider{flex:0 0 1px}@media(max-width:760px){.class-navigation{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.class-navigation::-webkit-scrollbar{display:none}.class-navigation .class-pill{flex:0 0 58px}}

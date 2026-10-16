@@ -9,7 +9,7 @@ from functools import wraps
 
 from flask import Blueprint, jsonify, request, session
 
-from modules.academic_records import clean, clean_upper, safe_bool, normalize_academic_session, normalize_academic_term, academic_term_label, get_current_academic_context, normalize_academic_class, validate_class_selection, get_students_for_class, get_student, student_display_name
+from modules.academic_records import clean, clean_upper, safe_bool, normalize_academic_session, normalize_academic_term, academic_term_label, get_current_academic_context, normalize_operational_class, validate_operational_class_selection, get_operational_students_for_class, operational_roster_source, get_student, student_display_name
 from modules.student_lookup import normalize_admission_number
 from modules.result_sync import queue_emis_event_safely
 
@@ -134,9 +134,8 @@ def resolve_optional_context(session_value="", term_value=""):
 
 
 def resolve_class_selection(class_level="", class_arm="", require_arm=True):
-    level, arm = normalize_academic_class(class_level or class_arm, class_arm or class_level)
-    validation = validate_class_selection(level, class_arm or arm, require_arm=require_arm)
-
+    level, arm = normalize_operational_class(class_level or class_arm, class_arm or class_level)
+    validation = validate_operational_class_selection(level, class_arm or arm, require_arm=require_arm)
     if not validation.get("valid"): return "", "", validation.get("message") or "Invalid class selection."
     return validation["class_level"], validation["class_arm"], ""
 
@@ -151,8 +150,8 @@ def request_class_values(source=None):
 def record_matches(row, academic_session="", term="", class_level="", class_arm="", date_value=""):
     if academic_session and normalize_academic_session(row.get("Session")) != academic_session: return False
     if term and normalize_academic_term(row.get("Term")) != term: return False
-    if class_level and normalize_academic_class(row.get("Class_category") or row.get("Class"), row.get("Class"))[0] != class_level: return False
-    if class_arm and normalize_academic_class(row.get("Class_category") or row.get("Class"), row.get("Class"))[1] != class_arm: return False
+    if class_level and normalize_operational_class(row.get("Class_category") or row.get("Class"), row.get("Class"))[0] != class_level: return False
+    if class_arm and normalize_operational_class(row.get("Class_category") or row.get("Class"), row.get("Class"))[1] != class_arm: return False
     if date_value and normalize_date(row.get("Date")) != date_value: return False
     return True
 
@@ -173,7 +172,7 @@ def row_status(row):
 
 def history_record(row):
     meta = date_metadata(row.get("Date"))
-    level, arm = normalize_academic_class(row.get("Class_category") or row.get("Class"), row.get("Class"))
+    level, arm = normalize_operational_class(row.get("Class_category") or row.get("Class"), row.get("Class"))
     status = row_status(row)
 
     return {
@@ -209,7 +208,7 @@ def build_holiday_row(date_value, academic_session, term, class_level, class_arm
 
 def get_term_rows(academic_session, term, class_level, class_arm):
     academic_session, term = normalize_academic_session(academic_session), normalize_academic_term(term)
-    level, arm = normalize_academic_class(class_level, class_arm)
+    level, arm = normalize_operational_class(class_level, class_arm)
 
     if not academic_session or not term or not level or not arm: return []
     return filtered_attendance_rows(arm, academic_session, term, level)
@@ -303,7 +302,7 @@ def summarize_student_history_rows(rows, admission_number="", full_name=""):
 def get_student_attendance_summary(admission_number, academic_session, term, class_level="", class_arm=""):
     student = get_student(admission_number, active_only=False)
 
-    level, arm = normalize_academic_class(
+    level, arm = normalize_operational_class(
         class_level or (student or {}).get("class_level") or (student or {}).get("class_category"),
         class_arm or (student or {}).get("class_arm") or (student or {}).get("class"),
     )
@@ -323,11 +322,11 @@ def get_student_attendance_summary(admission_number, academic_session, term, cla
 
 
 def get_class_attendance_summary(academic_session, term, class_level, class_arm):
-    level, arm = normalize_academic_class(class_level, class_arm)
+    level, arm = normalize_operational_class(class_level, class_arm)
     rows = get_term_rows(academic_session, term, level, arm)
     open_dates, holiday_dates = get_open_and_holiday_dates(rows)
 
-    roster = get_students_for_class(level, arm, active_only=True)
+    roster = get_operational_students_for_class(level, arm, active_only=True)
     known = {normalize_admission_number(student.get("admission_number")): student for student in roster}
 
     for row in rows:
@@ -344,7 +343,7 @@ def get_class_attendance_summary(academic_session, term, class_level, class_arm)
 
     return {
         "session": normalize_academic_session(academic_session), "term": normalize_academic_term(term), "term_label": academic_term_label(term),
-        "class_level": level, "class_arm": arm, "days_open": len(open_dates), "days_school_open": len(open_dates),
+        "class_level": level, "class_arm": arm, "roster_source": operational_roster_source(level), "days_open": len(open_dates), "days_school_open": len(open_dates),
         "holiday_days": len(holiday_dates), "open_dates": open_dates, "holiday_dates": holiday_dates,
         "students_count": len(students), "class_attendance_percentage": class_percentage, "students": students,
     }
@@ -360,7 +359,7 @@ def get_attendance_summary_map(academic_session, term, class_level, class_arm):
 # ============================================================
 
 def history_scope_rows(class_level, class_arm, academic_session="", term="", start_date="", end_date=""):
-    level, arm = normalize_academic_class(class_level, class_arm)
+    level, arm = normalize_operational_class(class_level, class_arm)
     start_date, end_date = normalize_date(start_date), normalize_date(end_date)
     rows = []
 
@@ -525,7 +524,7 @@ def build_history_payload(class_level, class_arm, academic_session="", term="", 
 
 
 def get_register_for_date(academic_session, term, class_level, class_arm, date_value):
-    level, arm = normalize_academic_class(class_level, class_arm)
+    level, arm = normalize_operational_class(class_level, class_arm)
     date_value = normalize_date(date_value)
 
     rows = filtered_attendance_rows(arm, normalize_academic_session(academic_session), normalize_academic_term(term), level, date_value)
@@ -535,7 +534,7 @@ def get_register_for_date(academic_session, term, class_level, class_arm, date_v
         return {
             "saved": True, "holiday": True, "date": date_value, "reason": clean(holiday.get("Reason")),
             "note": clean(holiday.get("Note")), "saved_at": clean(holiday.get("Saved_at")),
-            "students": [], "existing_count": 1,
+            "students": [], "existing_count": 1, "roster_source": operational_roster_source(level),
         }
 
     saved_map = {
@@ -543,7 +542,7 @@ def get_register_for_date(academic_session, term, class_level, class_arm, date_v
         for row in rows if row_status(row) != "HOLIDAY" and normalize_admission_number(row.get("Admission_number"))
     }
 
-    roster, students = get_students_for_class(level, arm, active_only=True), []
+    roster, students = get_operational_students_for_class(level, arm, active_only=True), []
 
     for student in roster:
         admission = normalize_admission_number(student.get("admission_number"))
@@ -558,7 +557,7 @@ def get_register_for_date(academic_session, term, class_level, class_arm, date_v
 
     return {
         "saved": bool(rows), "holiday": False, "date": date_value,
-        "students": students, "count": len(students), "existing_count": len(rows),
+        "students": students, "count": len(students), "existing_count": len(rows), "roster_source": operational_roster_source(level),
     }
 
 
@@ -627,11 +626,11 @@ def api_attendance_students():
     if error: return jsonify({"success": False, "message": error, "students": []}), 400
 
     academic_session, term = resolve_academic_context(request.args.get("session"), request.args.get("term"))
-    students = get_students_for_class(level, arm, active_only=True)
+    students = get_operational_students_for_class(level, arm, active_only=True)
 
     return jsonify({
         "success": True, "session": academic_session, "term": term, "term_label": academic_term_label(term),
-        "class_level": level, "class_arm": arm, "students": students, "count": len(students),
+        "class_level": level, "class_arm": arm, "students": students, "count": len(students), "roster_source": operational_roster_source(level),
     })
 
 
@@ -679,7 +678,7 @@ def api_attendance_save():
     if not date_value: return jsonify({"success": False, "message": "A valid attendance date is required."}), 400
     if not isinstance(records, list): return jsonify({"success": False, "message": "Attendance records must be a list."}), 400
 
-    roster = get_students_for_class(level, arm, active_only=True)
+    roster = get_operational_students_for_class(level, arm, active_only=True)
 
     if not roster: return jsonify({"success": False, "message": f"No active students found in {arm}."}), 404
 
@@ -735,7 +734,7 @@ def api_attendance_save():
 
     return jsonify({
         "success": True, "message": "Attendance saved successfully.", "session": academic_session, "term": term,
-        "class_level": level, "class_arm": arm, "date": date_value, "saved_count": len(new_rows),
+        "class_level": level, "class_arm": arm, "roster_source": operational_roster_source(level), "date": date_value, "saved_count": len(new_rows),
         "overwrite": bool(matching), "counts": counts, "saved_at": saved_at, "backup": backup, "sync": sync_info,
     })
 
@@ -984,4 +983,5 @@ def api_attendance_config():
     return jsonify({
         "success": True, "academic": context, "statuses": sorted(VALID_STATUSES),
         "attendance_credit_statuses": sorted(ATTENDANCE_CREDIT_STATUSES), "record_types": ["DAILY", "HOLIDAY"],
+        "roster_model": {"regular": "students2026.csv", "tahfeez": "tahfeez2026.csv", "tahfeez_parallel": True},
     })

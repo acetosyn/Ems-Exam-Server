@@ -32,6 +32,8 @@ GRADING_SYSTEMS = {
         ],
     },
     "PRIMARY": {"label": "Primary Grading", "status": "pending_school_scale", "bands": []},
+    "EARLY_YEARS": {"label": "Early Years / Nursery Grading", "status": "pending_school_scale", "bands": []},
+    "TAHFEEZ": {"label": "Tahfeez Grading", "status": "pending_school_scale", "bands": []},
 }
 
 
@@ -49,3 +51,34 @@ def grade_score(score, system="REPORT_SECONDARY"):
 
 
 def grading_system_ready(name): return bool(get_grading_system(name).get("bands"))
+
+
+# ============================================================
+# PHASE 4 — CLASS-AWARE GRADING
+# ============================================================
+
+def grading_system_for_class(class_level):
+    """Return the configured grading system for an academic class.
+
+    Lower-school/Tahfeez scales deliberately remain pending until approved by
+    the school. Islamiyah continues using the current report scale because its
+    existing official Report Sheet integration already uses that A–F scale.
+    """
+    try:
+        from modules.school_structure import normalize_school_class, school_section_for_class
+        level = normalize_school_class(class_level) or str(class_level or "").upper().strip()
+        section = school_section_for_class(level)
+    except Exception:
+        level = str(class_level or "").upper().strip(); section = ""
+    if level.startswith("SS"): return "WAEC"
+    if level.startswith("JSS") or section == "ISLAMIYAH": return "REPORT_SECONDARY"
+    if section == "PRIMARY": return "PRIMARY"
+    if section == "EARLY_YEARS": return "EARLY_YEARS"
+    if section == "TAHFEEZ": return "TAHFEEZ"
+    return "REPORT_SECONDARY"
+
+
+def grade_score_for_class(score, class_level):
+    system = grading_system_for_class(class_level)
+    if not grading_system_ready(system): return "-", "Grading scale pending"
+    return grade_score(score, system)

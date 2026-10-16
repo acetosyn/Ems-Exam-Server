@@ -2,7 +2,7 @@
    EMIS CBT — UPLOADS / PAST QUESTION LIBRARY
 
    Supports:
-     • JSS1 / JSS2 / JSS3 — Strict FIRST / SECOND / THIRD
+     • Primary 1–6 / JSS1–3 — Strict FIRST / SECOND / THIRD
      • SS1 / SS2 / SS3 — Hybrid GENERAL + FIRST / SECOND / THIRD
      • SS selected-term view with General/root fallback
      • Year / class / term / subject filtering
@@ -58,9 +58,9 @@ function flashMessage(text, type = "success") {
     convertedItems: [],
     selectedFiles: new Set(),
 
-    supportedClasses: ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
-    termAwareClasses: ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
-    termRequiredClasses: ["JSS1", "JSS2", "JSS3"],
+    supportedClasses: ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
+    termAwareClasses: ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"],
+    termRequiredClasses: ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3"],
     optionalTermClasses: ["SS1", "SS2", "SS3"],
     validTerms: ["FIRST", "SECOND", "THIRD"],
 
@@ -134,7 +134,7 @@ function flashMessage(text, type = "success") {
 
       if (subject) return subject;
 
-      const filename = String(item?.filename || "").replace(/\.json$/i, "").replace(/_(jss1|jss2|jss3|ss1|ss2|ss3)$/i, "").replaceAll("_", " ").replaceAll("-", " ").replace(/\s+/g, " ").trim();
+      const filename = String(item?.filename || "").replace(/\.json$/i, "").replace(/_(primary[1-6]|basic[1-6]|jss1|jss2|jss3|ss1|ss2|ss3)$/i, "").replaceAll("_", " ").replaceAll("-", " ").replace(/\s+/g, " ").trim();
 
       return filename || "Unknown";
     },

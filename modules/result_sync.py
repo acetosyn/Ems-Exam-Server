@@ -6,7 +6,7 @@
 #   3. Network failure never makes a local academic operation fail.
 #   4. Results retain the proven Excel-authoritative result receiver.
 #   5. Attendance, CA/Test, Essay/Theory, Report Sheet, Academic Settings and
-#      Subject Registry, Teacher Assignment and Islamiyah School events use the same signed durable queue, retry engine,
+#      Subject Registry, Teacher Assignment, Islamiyah School and Tahfeez placement events use the same signed durable queue, retry engine,
 #      receipts and stale-event protection.
 
 import hashlib
@@ -39,6 +39,11 @@ DEFAULT_INTERVAL_SECONDS = 30
 DEFAULT_TIMEOUT_SECONDS = 5
 DEFAULT_MAX_BACKOFF_SECONDS = 15 * 60
 DEFAULT_RECEIVER_CLOCK_SKEW_SECONDS = 5 * 60
+
+SUPPORTED_EVENT_MODULES = {
+    "attendance", "ca_tests", "essay", "report_sheets", "academic_settings",
+    "subject_registry", "teacher_assignments", "islamiyah", "academic_history", "tahfeez",
+}
 
 _worker_lock = threading.Lock()
 _flush_lock = threading.Lock()
@@ -289,7 +294,7 @@ def queue_emis_event(module, action, payload, entity_key="", event_id=""):
     module = _clean(module).lower()
     action = _clean(action).lower()
     entity_key = _clean(entity_key)
-    if module not in {"attendance", "ca_tests", "essay", "report_sheets", "academic_settings", "subject_registry", "teacher_assignments", "islamiyah", "academic_history"}:
+    if module not in SUPPORTED_EVENT_MODULES:
         raise ValueError(f"Unsupported EMIS sync module: {module}")
     if not action:
         raise ValueError("Sync action is required.")
@@ -1006,6 +1011,9 @@ def _dispatch_sync_event(event):
     if module == "academic_history":
         from modules.academic_history import apply_academic_history_sync_event
         return apply_academic_history_sync_event(action, payload, event)
+    if module == "tahfeez":
+        from modules.tahfeez_database import apply_tahfeez_sync_event
+        return apply_tahfeez_sync_event(action, payload, event)
 
     raise ValueError(f"Unsupported synchronized module: {module}")
 

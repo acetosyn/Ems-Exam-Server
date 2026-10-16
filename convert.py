@@ -23,12 +23,13 @@ from groq import Groq
 # ============================================================
 
 from modules.class_config import (
-    SUPPORTED_CLASSES,
+    SUPPORTED_CLASSES, TERM_REQUIRED_EXAM_CLASSES,
     normalize_class_level,
     normalize_subject_display,
     normalize_subject_key,
     CLASS_SUBJECTS,
 )
+from modules.subject_registry import list_subjects
 
 
 # ============================================================
@@ -241,21 +242,10 @@ EMIS_EXAM_JSON_SCHEMA = {
 # DETECTION CONFIGURATION
 # ============================================================
 
-SUPPORTED_CLASS_LEVELS = {
-    "JSS1",
-    "JSS2",
-    "JSS3",
-    "SS1",
-    "SS2",
-    "SS3",
-}
+SUPPORTED_CLASS_LEVELS = set(SUPPORTED_CLASSES)
 
-# JSS examinations are currently term-aware.
-TERM_AWARE_CLASSES = {
-    "JSS1",
-    "JSS2",
-    "JSS3",
-}
+# Primary 1–6 and JSS1–3 require FIRST / SECOND / THIRD term.
+TERM_AWARE_CLASSES = set(TERM_REQUIRED_EXAM_CLASSES)
 
 VALID_TERMS = {
     "FIRST",
@@ -336,66 +326,19 @@ def compact_detection_text(
     )
 
 
-def normalize_detected_class(
-    value: str = "",
-) -> str:
-    """
-    Normalize any explicit/fallback class value to one of:
-
-        JSS1
-        JSS2
-        JSS3
-        SS1
-        SS2
-        SS3
-
-    Also accepts class-arm values such as:
-        JSS1A
-        JSS2B
-        SS1_GOLD
-        SS2_SILVER
-        SS3B
-    """
-
+def normalize_detected_class(value: str = "") -> str:
+    """Normalize broad/exact Primary, JSS and SS values to the central CBT class key."""
     raw = str(value or "").strip()
-
-    if not raw:
-        return ""
-
-    # First use the project's central class normalizer.
+    if not raw: return ""
     try:
         normalized = normalize_class_level(raw)
-
-        if normalized in SUPPORTED_CLASS_LEVELS:
-            return normalized
+        if normalized in SUPPORTED_CLASS_LEVELS: return normalized
     except Exception:
         pass
-
     compact = compact_detection_text(raw)
-
-    # JSS must be checked before SS.
-    for class_name in (
-        "JSS1",
-        "JSS2",
-        "JSS3",
-    ):
-        if compact == class_name:
-            return class_name
-
-        if compact.startswith(class_name):
-            return class_name
-
-    for class_name in (
-        "SS1",
-        "SS2",
-        "SS3",
-    ):
-        if compact == class_name:
-            return class_name
-
-        if compact.startswith(class_name):
-            return class_name
-
+    aliases = [(f"PRIMARY{i}", (f"PRIMARY{i}", f"PRI{i}", f"BASIC{i}")) for i in range(1, 7)] + [(f"JSS{i}", (f"JSS{i}",)) for i in range(1, 4)] + [(f"SS{i}", (f"SS{i}", f"SSS{i}")) for i in range(1, 4)]
+    for class_name, tokens in aliases:
+        if any(compact == token or compact.startswith(token) for token in tokens): return class_name
     return ""
 
 
@@ -403,205 +346,25 @@ def normalize_detected_class(
 # CLASS DETECTION
 # ============================================================
 
-def detect_class_category(
-    filename: str = "",
-    text: str = "",
-    fallback: str = "",
-) -> str:
-    """
-    Detect the broad EMIS class level.
+def detect_class_category(filename: str = "", text: str = "", fallback: str = "") -> str:
+    """Detect Primary 1–6, JSS1–3 or SS1–3 from filename, document heading, or fallback."""
+    filename_normalized = normalize_detection_text(filename); filename_compact = compact_detection_text(filename); document_text = normalize_detection_text(text[:16000])
 
-    Detection priority:
+    # Compact names cover mathematics_primary1.docx, maths_basic_4.docx, english_jss2.docx, physics_ss1.docx.
+    compact_aliases = [(f"PRIMARY{i}", (f"PRIMARY{i}", f"PRI{i}", f"BASIC{i}")) for i in range(1, 7)] + [(f"JSS{i}", (f"JSS{i}",)) for i in range(1, 4)] + [(f"SS{i}", (f"SS{i}", f"SSS{i}")) for i in range(1, 4)]
+    for class_name, tokens in compact_aliases:
+        if any(token in filename_compact for token in tokens): return class_name
 
-        1. Filename
-        2. Document text / heading
-        3. Explicit fallback
+    # Text/filename patterns accept Primary, Pri, Basic, JSS/J.S.S and SS/S.S.S labels.
+    patterns = []
+    for i in range(1, 7): patterns.append((rf"(?<![A-Z0-9])(?:PRIMARY|PRI|BASIC)\s*{i}(?![0-9])|\bYEAR\s*{i}\b", f"PRIMARY{i}"))
+    for i, year in [(1,7),(2,8),(3,9)]: patterns.append((rf"(?<![A-Z0-9])(?:JSS\s*{i}|J\s*\.?\s*S\s*\.?\s*S\s*\.?\s*{i})(?![A-Z0-9])|\bYEAR\s*{year}\b", f"JSS{i}"))
+    for i, year in [(1,10),(2,11),(3,12)]: patterns.append((rf"(?<![A-Z0-9])(?:SSS?\s*{i}|S\s*\.?\s*S\s*\.?\s*S?\s*\.?\s*{i})(?![A-Z0-9])|\bYEAR\s*{year}\b", f"SS{i}"))
+    for source in (filename_normalized, document_text):
+        for pattern, class_name in patterns:
+            if re.search(pattern, source, re.I): return class_name
 
-    Supported examples:
-
-        maths_jss1.docx
-        mathematics-jss1.docx
-        mathematics JSS 1.docx
-        english_JSS_2.docx
-
-        JSS1
-        JSS 1
-        J.S.S. 1
-
-        SS1
-        SS 1
-        S.S. 1
-        SSS1
-        S.S.S. 1
-
-        Year 7  -> JSS1
-        Year 8  -> JSS2
-        Year 9  -> JSS3
-
-        Year 10 -> SS1
-        Year 11 -> SS2
-        Year 12 -> SS3
-    """
-
-    # --------------------------------------------------------
-    # 1. STRONG FILENAME DETECTION
-    # --------------------------------------------------------
-
-    filename_normalized = normalize_detection_text(
-        filename
-    )
-
-    filename_compact = compact_detection_text(
-        filename
-    )
-
-    # Compact filename detection is deliberately first.
-    #
-    # maths_jss1.docx
-    # -> MATHSJSS1DOCX
-    #
-    # Therefore JSS1 is immediately obvious.
-    for class_name in (
-        "JSS1",
-        "JSS2",
-        "JSS3",
-    ):
-        if class_name in filename_compact:
-            return class_name
-
-    # SS only after JSS because JSS1 contains SS1.
-    for class_name in (
-        "SS1",
-        "SS2",
-        "SS3",
-    ):
-        if class_name in filename_compact:
-            return class_name
-
-    # --------------------------------------------------------
-    # 2. NORMALIZED FILENAME PATTERNS
-    # --------------------------------------------------------
-
-    filename_patterns = [
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:JSS\s*1|J\s*\.?\s*S\s*\.?\s*S\s*\.?\s*1)"
-            r"(?![A-Z0-9])",
-            "JSS1",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:JSS\s*2|J\s*\.?\s*S\s*\.?\s*S\s*\.?\s*2)"
-            r"(?![A-Z0-9])",
-            "JSS2",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:JSS\s*3|J\s*\.?\s*S\s*\.?\s*S\s*\.?\s*3)"
-            r"(?![A-Z0-9])",
-            "JSS3",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:SSS?\s*1|S\s*\.?\s*S\s*\.?\s*S?\s*\.?\s*1)"
-            r"(?![A-Z0-9])",
-            "SS1",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:SSS?\s*2|S\s*\.?\s*S\s*\.?\s*S?\s*\.?\s*2)"
-            r"(?![A-Z0-9])",
-            "SS2",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:SSS?\s*3|S\s*\.?\s*S\s*\.?\s*S?\s*\.?\s*3)"
-            r"(?![A-Z0-9])",
-            "SS3",
-        ),
-    ]
-
-    for pattern, class_name in filename_patterns:
-        if re.search(
-            pattern,
-            filename_normalized,
-            re.I,
-        ):
-            return class_name
-
-    # --------------------------------------------------------
-    # 3. DOCUMENT TEXT
-    # --------------------------------------------------------
-
-    document_text = normalize_detection_text(
-        text[:16000]
-    )
-
-    document_patterns = [
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:JSS\s*1|J\s*\.?\s*S\s*\.?\s*S\s*\.?\s*1)"
-            r"(?![A-Z0-9])"
-            r"|\bYEAR\s*7\b",
-            "JSS1",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:JSS\s*2|J\s*\.?\s*S\s*\.?\s*S\s*\.?\s*2)"
-            r"(?![A-Z0-9])"
-            r"|\bYEAR\s*8\b",
-            "JSS2",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:JSS\s*3|J\s*\.?\s*S\s*\.?\s*S\s*\.?\s*3)"
-            r"(?![A-Z0-9])"
-            r"|\bYEAR\s*9\b",
-            "JSS3",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:SSS?\s*1|S\s*\.?\s*S\s*\.?\s*S?\s*\.?\s*1)"
-            r"(?![A-Z0-9])"
-            r"|\bYEAR\s*10\b",
-            "SS1",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:SSS?\s*2|S\s*\.?\s*S\s*\.?\s*S?\s*\.?\s*2)"
-            r"(?![A-Z0-9])"
-            r"|\bYEAR\s*11\b",
-            "SS2",
-        ),
-        (
-            r"(?<![A-Z0-9])"
-            r"(?:SSS?\s*3|S\s*\.?\s*S\s*\.?\s*S?\s*\.?\s*3)"
-            r"(?![A-Z0-9])"
-            r"|\bYEAR\s*12\b",
-            "SS3",
-        ),
-    ]
-
-    for pattern, class_name in document_patterns:
-        if re.search(
-            pattern,
-            document_text,
-            re.I,
-        ):
-            return class_name
-
-    # --------------------------------------------------------
-    # 4. EXPLICIT FALLBACK
-    # --------------------------------------------------------
-
-    fallback_class = normalize_detected_class(
-        fallback
-    )
-
-    if fallback_class:
-        return fallback_class
-
-    return ""
+    return normalize_detected_class(fallback)
 
 
 # ============================================================
@@ -908,10 +671,7 @@ def class_requires_term(
     """
     Return True when the detected class requires a term.
 
-    Currently:
-        JSS1
-        JSS2
-        JSS3
+    Primary 1–6 and JSS1–3 use strict term folders.
     """
 
     class_category = normalize_detected_class(
@@ -986,34 +746,19 @@ def detect_exam_metadata(
 # ============================================================
 
 def all_known_subjects() -> List[str]:
-    """
-    Return unique normalized subjects from CLASS_SUBJECTS.
-    """
-
+    """Return the live active subject catalogue, falling back to legacy class lists only when needed."""
     subjects = []
-
-    for _, items in CLASS_SUBJECTS.items():
-        subjects.extend(items)
-
-    seen = set()
-    output = []
-
+    try:
+        subjects = [row.get("name") for row in list_subjects(active=True) if str(row.get("name") or "").strip()]
+    except Exception:
+        subjects = []
+    if not subjects:
+        for items in CLASS_SUBJECTS.values(): subjects.extend(items)
+    seen, output = set(), []
     for subject in subjects:
-        key = normalize_subject_key(
-            subject
-        )
-
-        if key in seen:
-            continue
-
-        seen.add(key)
-
-        output.append(
-            normalize_subject_display(
-                subject
-            )
-        )
-
+        key = normalize_subject_key(subject)
+        if not key or key in seen: continue
+        seen.add(key); output.append(normalize_subject_display(subject))
     return output
 
 

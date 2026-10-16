@@ -7,6 +7,9 @@ import re
 from flask import Blueprint, jsonify, request
 from werkzeug.utils import secure_filename
 
+from modules.class_config import SUPPORTED_CLASSES as CONFIGURED_EXAM_CLASSES, TERM_REQUIRED_EXAM_CLASSES, TERM_OPTIONAL_EXAM_CLASSES, normalize_class_level
+from modules.notifications import push_notification
+
 
 uploads_bp = Blueprint("uploads_bp", __name__)
 
@@ -16,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # ============================================================
 # DIRECTORY STRUCTURE
 #
-# JSS — STRICT TERM SYSTEM:
+# PRIMARY + JSS — STRICT TERM SYSTEM:
 # static/subjects/<YEAR>/subjects-json/JSS1/FIRST/file.json
 # static/subjects/<YEAR>/subjects-json/JSS1/SECOND/file.json
 # static/subjects/<YEAR>/subjects-json/JSS1/THIRD/file.json
@@ -34,13 +37,13 @@ SUBJECTS_ROOT = os.path.join(BASE_DIR, "static", "subjects")
 
 ALLOWED_EXTENSIONS = {"json", "docx"}
 
-SUPPORTED_CLASSES = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]
+SUPPORTED_CLASSES = list(CONFIGURED_EXAM_CLASSES)
 
-# JSS = compulsory term system.
-TERM_AWARE_CLASSES = {"JSS1", "JSS2", "JSS3"}
+# Primary + JSS = compulsory term system.
+TERM_AWARE_CLASSES = set(TERM_REQUIRED_EXAM_CLASSES)
 
 # SS = optional / hybrid term system.
-OPTIONAL_TERM_CLASSES = {"SS1", "SS2", "SS3"}
+OPTIONAL_TERM_CLASSES = set(TERM_OPTIONAL_EXAM_CLASSES)
 
 VALID_TERMS = {"FIRST", "SECOND", "THIRD"}
 TERM_ORDER = {"FIRST": 1, "SECOND": 2, "THIRD": 3, None: 4}
@@ -61,11 +64,11 @@ def safe_filename(filename):
 
 
 def normalize_class(value):
-    return str(value or "").upper().strip().replace(" ", "")
+    return normalize_class_level(value)
 
 
 def is_term_aware_class(class_cat):
-    """JSS classes: FIRST / SECOND / THIRD is compulsory."""
+    """Primary and JSS classes: FIRST / SECOND / THIRD is compulsory."""
     return normalize_class(class_cat) in TERM_AWARE_CLASSES
 
 
@@ -102,14 +105,13 @@ def get_file_size_kb(path):
 def detect_class_from_filename(filename):
     low = str(filename or "").lower()
 
-    # JSS must be checked before SS because "jss1" also contains "ss1".
+    # Primary/Basic filenames are accepted alongside JSS/SS. JSS is checked before SS because "jss1" also contains "ss1".
     patterns = [
-        ("JSS1", r"(?<![a-z0-9])jss[\s_-]*1(?![0-9])"),
-        ("JSS2", r"(?<![a-z0-9])jss[\s_-]*2(?![0-9])"),
-        ("JSS3", r"(?<![a-z0-9])jss[\s_-]*3(?![0-9])"),
-        ("SS1", r"(?<![a-z0-9])ss[\s_-]*1(?![0-9])"),
-        ("SS2", r"(?<![a-z0-9])ss[\s_-]*2(?![0-9])"),
-        ("SS3", r"(?<![a-z0-9])ss[\s_-]*3(?![0-9])"),
+        ("PRIMARY1", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*1(?![0-9])"), ("PRIMARY2", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*2(?![0-9])"),
+        ("PRIMARY3", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*3(?![0-9])"), ("PRIMARY4", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*4(?![0-9])"),
+        ("PRIMARY5", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*5(?![0-9])"), ("PRIMARY6", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*6(?![0-9])"),
+        ("JSS1", r"(?<![a-z0-9])jss[\s_-]*1(?![0-9])"), ("JSS2", r"(?<![a-z0-9])jss[\s_-]*2(?![0-9])"), ("JSS3", r"(?<![a-z0-9])jss[\s_-]*3(?![0-9])"),
+        ("SS1", r"(?<![a-z0-9])ss[\s_-]*1(?![0-9])"), ("SS2", r"(?<![a-z0-9])ss[\s_-]*2(?![0-9])"), ("SS3", r"(?<![a-z0-9])ss[\s_-]*3(?![0-9])"),
     ]
 
     for class_cat, pattern in patterns:
@@ -124,6 +126,7 @@ def detect_class_from_json(data):
     raw = normalize_class(data.get("class_category") or data.get("class_level") or data.get("class") or "")
 
     # Supports broad class and class-arm metadata:
+    # PRIMARY1A -> PRIMARY1
     # JSS1A -> JSS1
     # JSS2B -> JSS2
     # SS1_GOLD -> SS1
@@ -244,7 +247,7 @@ def get_json_path(year, class_cat, filename, term=None):
 
     class_folder = get_class_path(year, class_cat)
 
-    # JSS = term compulsory.
+    # Primary/JSS = term compulsory.
     if is_term_aware_class(class_cat):
         if not normalized_term: return None
         return os.path.join(class_folder, normalized_term, filename)
@@ -463,7 +466,7 @@ def upload_handler():
             data["class_category"], data["class_level"] = class_cat, class_cat
 
             # ----------------------------------------------------
-            # JSS — STRICT TERM
+            # Primary/JSS — STRICT TERM
             # ----------------------------------------------------
 
             if is_term_aware_class(class_cat):
@@ -472,7 +475,7 @@ def upload_handler():
                 if not term:
                     failed.append({
                         "filename": fname, "class_category": class_cat,
-                        "reason": "JSS JSON requires FIRST, SECOND or THIRD term",
+                        "reason": "Primary/JSS JSON requires FIRST, SECOND or THIRD term",
                     })
                     continue
 
@@ -480,7 +483,7 @@ def upload_handler():
                 save_folder = get_term_path(year, class_cat, term)
 
                 if not save_folder:
-                    failed.append({"filename": fname, "class_category": class_cat, "reason": "Invalid JSS term"})
+                    failed.append({"filename": fname, "class_category": class_cat, "reason": "Invalid Primary/JSS term"})
                     continue
 
             # ----------------------------------------------------
@@ -547,6 +550,11 @@ def upload_handler():
             "status": "saved",
         })
 
+    if results:
+        try:
+            classes = sorted({str(item.get("class_category") or "") for item in results if item.get("class_category")}); push_notification("exam_library_upload", f"{len(results)} exam file{'s' if len(results) != 1 else ''} added to the CBT library.", payload={"count": len(results), "classes": classes, "year": year, "files": [item.get("filename") for item in results[:20]]})
+        except Exception as error: print("[UPLOAD NOTIFICATION]", error)
+
     return jsonify({
         "success": bool(results),
         "uploads": results, "failed": failed,
@@ -558,6 +566,7 @@ def upload_handler():
 # LIST JSON FILES FOR YEAR
 #
 # JSS — STRICT:
+#   PRIMARY1/FIRST/*.json
 #   JSS1/FIRST/*.json
 #   JSS1/SECOND/*.json
 #   JSS1/THIRD/*.json
@@ -599,7 +608,7 @@ def list_year_files(year):
         if not os.path.isdir(class_folder): continue
 
         # ========================================================
-        # JSS1 / JSS2 / JSS3 — STRICT TERM FOLDERS
+        # PRIMARY1–6 / JSS1–3 — STRICT TERM FOLDERS
         # ========================================================
 
         if is_term_aware_class(class_cat):
@@ -702,9 +711,9 @@ def preview_json(year, filename):
 
     if raw_term and not term: return jsonify({"error": "Invalid term. Use FIRST, SECOND or THIRD"}), 400
 
-    # JSS must always specify its term.
+    # Primary/JSS must always specify its term.
     if is_term_aware_class(class_cat) and not term:
-        return jsonify({"error": "Term is required for JSS JSON preview"}), 400
+        return jsonify({"error": "Term is required for Primary/JSS JSON preview"}), 400
 
     # SS may have term or remain general/root.
     json_path = get_json_path(year, class_cat, filename, term)
@@ -779,9 +788,9 @@ def delete_json(year, filename):
 
     if raw_term and not term: return jsonify({"error": "Invalid term. Use FIRST, SECOND or THIRD"}), 400
 
-    # JSS deletion always requires a specific term.
+    # Primary/JSS deletion always requires a specific term.
     if is_term_aware_class(class_cat) and not term:
-        return jsonify({"error": "Term is required for JSS deletion"}), 400
+        return jsonify({"error": "Term is required for Primary/JSS deletion"}), 400
 
     # SS deletion:
     # term supplied    -> delete from SS1/FIRST etc.

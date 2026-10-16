@@ -6,18 +6,23 @@ import json
 import uuid
 from pathlib import Path
 from datetime import datetime
-from threading import RLock
+from threading import RLock, Thread
 from functools import wraps
 
 from flask import Blueprint, jsonify, request, session, Response, send_file
 
-from modules.academic_records import clean, clean_upper, normalize_academic_session, normalize_academic_term, academic_term_label, get_current_academic_context, normalize_academic_class, validate_class_selection, get_students_for_class, get_student, get_subjects_for_selection, get_subjects_for_student, normalize_academic_subject, academic_subject_key
+from modules.academic_records import clean, clean_upper, normalize_academic_session, normalize_academic_term, academic_term_label, get_current_academic_context, normalize_academic_class, validate_class_selection, get_students_for_class, get_student, get_subjects_for_selection, get_subjects_for_student, normalize_academic_subject, academic_subject_key, normalize_report_class, validate_report_class_selection, get_report_students_for_class, get_report_subjects_for_selection, get_report_subjects_for_student, report_roster_source
 from modules.student_lookup import normalize_admission_number
 from modules.result_sync import queue_emis_event_safely
 from modules.attendance_manager import get_student_attendance_summary, get_attendance_summary_map
 from modules.ca_test_manager import get_ca_scores_map, get_ca_available_contexts
 from modules.api_routes import read_results_term_aware, normalize_result_record, enrich_records_with_essay, get_subject_folders
-from modules.islamiyah_manager import get_report_islamiyah_row
+from modules.islamiyah_manager import get_report_islamiyah_row, get_report_sync_roster
+from modules.assessment_rules import get_assessment_rule, assessment_entry_enabled
+from modules.grading_system import grade_score_for_class, grading_system_for_class, grading_system_ready
+from modules.class_config import STUDENT_DATABASE_CLASSES, TAHFEEZ_CLASSES, ISLAMIYAH_CLASSES, CLASS_ARMS_BY_LEVEL
+from modules.school_structure import class_label, school_section_for_class
+from modules.subject_registry import add_registered_subject, build_subject_sync_payload
 from openpyxl import Workbook
 
 
@@ -58,6 +63,27 @@ def report_staff_required(view):
 def now_string(): return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
+def normalize_next_term_date(value):
+    text = clean(value)
+    if not text: return ""
+    try: return datetime.strptime(text[:10], "%Y-%m-%d").strftime("%Y-%m-%d")
+    except (TypeError, ValueError): return ""
+
+
+def next_term_required_response(value):
+    raw, normalized = clean(value), normalize_next_term_date(value)
+    if normalized: return normalized, None
+    message = "Set Next Term Begins before loading students or generating report sheets." if not raw else "Enter a valid Next Term Begins date before loading students or generating report sheets."
+    return "", (jsonify({"success": False, "status": "next_term_required", "message": message}), 400)
+
+
+def apply_requested_next_term(payload, next_term):
+    if not isinstance(payload, dict) or not next_term: return payload
+    payload["next_term"] = next_term
+    for report in payload.get("reports", []) if isinstance(payload.get("reports"), list) else []: report["next_term"] = next_term
+    return payload
+
+
 def safe_float(value, default=0.0):
     try:
         if value in (None, ""): return default
@@ -83,9 +109,8 @@ def resolve_context(session_value="", term_value=""):
 
 
 def resolve_class(class_level="", class_arm="", require_arm=True):
-    level, arm = normalize_academic_class(class_level or class_arm, class_arm or class_level)
-    result = validate_class_selection(level, class_arm or arm, require_arm=require_arm)
-
+    level, arm = normalize_report_class(class_level or class_arm, class_arm or class_level)
+    result = validate_report_class_selection(level, class_arm or arm, require_arm=require_arm)
     if not result.get("valid"): return "", "", result.get("message") or "Invalid class selection."
     return result["class_level"], result["class_arm"], ""
 
@@ -137,12 +162,12 @@ def resolve_result_year(academic_session="", explicit_year="", class_level="", c
 # GRADING / COMMENTS
 # ============================================================
 
-def grade_for_score(score):
+def grade_for_score(score, class_level=""):
+    if class_level:
+        return grade_score_for_class(score, class_level)
     score = safe_float(score)
-
     for grade, minimum, maximum, comment in GRADE_SCALE:
         if minimum <= score <= maximum: return grade, comment
-
     return "F", "Fail"
 
 
@@ -210,7 +235,8 @@ def exam_percentage(row):
 def scale_exam_score(row, class_level):
     percentage = exam_percentage(row)
     if percentage is None: return None
-    maximum = 40 if clean_upper(class_level).startswith("JSS") else 70
+    maximum = optional_float((get_assessment_rule(class_level) or {}).get("exam_max"))
+    if maximum is None: return None
     return round((percentage / 100) * maximum, 2)
 
 
@@ -241,7 +267,11 @@ def exam_row_matches(row, academic_session, class_level, class_arm):
 def load_exam_results_map(academic_session, term, class_level, class_arm, result_year):
     academic_session = normalize_academic_session(academic_session)
     term = normalize_academic_term(term)
-    level, arm = normalize_academic_class(class_level, class_arm)
+    level, arm = normalize_report_class(class_level, class_arm)
+    # Current CBT/Essay result storage is still a secondary-school engine.
+    # Lower School/Tahfeez become report-ready through configured assessment
+    # rules and Manual/Hybrid entry without pretending that a CBT source exists.
+    if not (level.startswith("JSS") or level.startswith("SS")): return {}, {}
 
     exam_map, subject_names = {}, {}
     subject_folders = get_subject_folders(result_year, level, term)
@@ -294,22 +324,33 @@ def pretty_optional(value):
     return pretty_number(number) if number is not None else None
 
 
+def _assessment_component_values(ca, class_level):
+    ca = ca if isinstance(ca, dict) else {}; rule = get_assessment_rule(class_level) or {}; components = ca.get("components") if isinstance(ca.get("components"), dict) else {}; values, definitions = {}, []
+    for field in rule.get("fields") or []:
+        if not isinstance(field, dict): continue
+        raw_key = clean_upper(field.get("key")); key = raw_key.lower(); label = clean(field.get("label") or raw_key); maximum = optional_float(field.get("max"))
+        value = components.get(key) if key in components else components.get(raw_key)
+        if value in (None, ""): value = ca.get(key) if key in ca else ca.get(raw_key)
+        value = pretty_optional(value)
+        values[key] = value; definitions.append({"key": key, "raw_key": raw_key, "label": label, "max": maximum, "value": value})
+    return values, definitions
+
+
 def build_subject_row(class_level, subject_key, ca=None, exam_row=None, subject_name=""):
-    """Build a subject row without converting missing/incomplete CA or CBT data into false zero scores."""
-    ca, exam_row = ca if isinstance(ca, dict) else {}, exam_row if isinstance(exam_row, dict) else {}
-    subject = normalize_academic_subject(ca.get("subject") or exam_row.get("Subject") or subject_name or subject_key)
-    has_ca, has_exam = bool(ca), bool(exam_row); ca_complete = bool(ca.get("complete")) if has_ca else False
-    ca_total = safe_float(ca.get("ca_total")) if has_ca else None; exam_score = scale_exam_score(exam_row, class_level) if has_exam else None; exam_complete = exam_score is not None
-    complete = bool(ca_complete and exam_complete); total = round(ca_total + exam_score, 2) if complete else None
-    grade, comment = grade_for_score(total) if total is not None else ("-", "Pending")
-    row = {"subject": subject, "subject_key": subject_key, "mode": "JSS" if class_level.startswith("JSS") else "SS", "has_ca": has_ca, "has_exam": has_exam, "exam_complete": exam_complete, "ca_complete": ca_complete, "complete": complete, "ca_total": pretty_optional(ca_total), "exam": pretty_optional(exam_score), "total": pretty_optional(total), "grade": grade, "comment": comment, "position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}
-    if class_level.startswith("JSS"): row.update({"ca1": ca.get("ca1") if has_ca else None, "ca2": ca.get("ca2") if has_ca else None, "test1": ca.get("test1") if has_ca else None, "test2": ca.get("test2") if has_ca else None})
-    else: row.update({"ass1": ca.get("ass1") if has_ca else None, "ass2": ca.get("ass2") if has_ca else None, "test": ca.get("test") if has_ca else None})
+    """Build a scheme-aware subject row without treating unconfigured lower school as SS."""
+    ca, exam_row = ca if isinstance(ca, dict) else {}, exam_row if isinstance(exam_row, dict) else {}; rule = get_assessment_rule(class_level) or {}; mode = clean_upper(rule.get("key")) or "UNKNOWN"
+    subject = normalize_academic_subject(ca.get("subject") or exam_row.get("Subject") or subject_name or subject_key); values, definitions = _assessment_component_values(ca, class_level)
+    has_ca, has_exam = bool(ca), bool(exam_row); ca_complete = bool(ca.get("complete")) if has_ca else False; ca_total = optional_float(ca.get("ca_total")) if has_ca else None; exam_score = scale_exam_score(exam_row, class_level) if has_exam else None; exam_complete = exam_score is not None
+    complete = bool(ca_complete and exam_complete); total = round((ca_total or 0) + exam_score, 2) if complete else None; grade, comment = grade_for_score(total, class_level) if total is not None else ("-", "Pending")
+    row = {"subject": subject, "subject_key": subject_key, "mode": mode, "assessment_mode": mode, "assessment_status": clean(rule.get("status")), "has_ca": has_ca, "has_exam": has_exam, "exam_complete": exam_complete, "ca_complete": ca_complete, "complete": complete, "components": values, "component_fields": definitions, "ca_total": pretty_optional(ca_total), "ca_max": pretty_optional(rule.get("ca_max")), "exam": pretty_optional(exam_score), "exam_max": pretty_optional(rule.get("exam_max")), "total": pretty_optional(total), "total_max": pretty_optional(rule.get("total_max") or 100), "grade": grade, "comment": comment, "position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}
+    # Legacy keys remain for the established JSS/SS Report Sheet renderer.
+    if mode == "JSS": row.update({"ca1": values.get("ca1"), "ca2": values.get("ca2"), "test1": values.get("test1"), "test2": values.get("test2")})
+    elif mode == "SS": row.update({"ass1": values.get("ass1"), "ass2": values.get("ass2"), "test": values.get("test")})
     return row
 
 
 def expected_subject_map(student, class_level, class_arm):
-    subjects = get_subjects_for_student(student) or get_subjects_for_selection(class_level, class_arm)
+    subjects = get_report_subjects_for_student(student, class_level, class_arm) or get_report_subjects_for_selection(class_level, class_arm)
     output = {}
     for subject in subjects:
         key = academic_subject_key(subject)
@@ -359,57 +400,52 @@ def build_student_source_status(student, ca_records, exam_records, attendance):
 
 def build_term_report_payload(academic_session, term, class_level, class_arm, result_year="", admission_number="", include_cumulative=True):
     academic_session, term = normalize_academic_session(academic_session), normalize_academic_term(term)
-    level, arm = normalize_academic_class(class_level, class_arm); result_year = resolve_result_year(academic_session, result_year, level, arm)
-    students = get_students_for_class(level, arm, active_only=True)
+    level, arm = normalize_report_class(class_level, class_arm); result_year = resolve_result_year(academic_session, result_year, level, arm); rule = get_assessment_rule(level) or {}; generation_enabled = assessment_entry_enabled(level)
+    students = get_report_students_for_class(level, arm, active_only=True)
     if admission_number:
         wanted = normalize_admission_number(admission_number); students = [student for student in students if normalize_admission_number(student.get("admission_number")) == wanted]
 
-    ca_map = get_ca_scores_map(academic_session, term, level, arm); attendance_map = get_attendance_summary_map(academic_session, term, level, arm); exam_map, exam_subject_names = load_exam_results_map(academic_session, term, level, arm, result_year)
-    ca_contexts = [] if ca_map else get_ca_available_contexts(level, arm)
-    reports, blocked, source_students, readiness_warnings, subject_scores, subject_catalog = [], [], [], [], {}, set()
+    attendance_map = get_attendance_summary_map(academic_session, term, level, arm); ca_map = get_ca_scores_map(academic_session, term, level, arm) if generation_enabled else {}; exam_map, exam_subject_names = load_exam_results_map(academic_session, term, level, arm, result_year) if generation_enabled else ({}, {})
+    ca_contexts = [] if ca_map or not generation_enabled else get_ca_available_contexts(level, arm); reports, blocked, source_students, readiness_warnings, subject_scores, subject_catalog = [], [], [], [], {}, set()
+
+    # Starter/Nursery/Primary/Tahfeez rosters are active now, but report score
+    # generation remains safely locked until the school's assessment scheme is
+    # configured. This lets the UI load real students without inventing marks.
+    if not generation_enabled:
+        for student in students:
+            admission = normalize_admission_number(student.get("admission_number")); attendance = attendance_map.get(admission, {}); source_students.append({**student, "status": "assessment_pending", "status_label": rule.get("message") or "Assessment scheme pending", "has_ca": False, "has_complete_ca": False, "has_exam": False, "has_complete_exam": False, "has_attendance": bool(attendance), "ca_subjects": [], "ca_complete_subjects": [], "exam_subjects": [], "exam_complete_subjects": [], "matched_subjects": [], "matched_complete_subjects": [], "missing_ca_subjects": [], "missing_exam_subjects": [], "assessment_pending": True})
+        summary = {"students_in_class": len(students), "generated": 0, "blocked": len(students), "complete_reports": 0, "partial_reports": 0, "reports_with_ca": 0, "reports_with_exam": 0, "reports_with_attendance": sum(1 for student in students if attendance_map.get(normalize_admission_number(student.get("admission_number")))), "subjects": len(get_report_subjects_for_selection(level, arm)), "class_average": None, "highest_average": None, "lowest_average": None, "missing_ca": len(students), "missing_exam": len(students), "missing_attendance": sum(1 for student in students if not attendance_map.get(normalize_admission_number(student.get("admission_number"))))}
+        return {"success": True, "generation_enabled": False, "status": "assessment_scheme_pending", "assessment": rule, "assessment_message": rule.get("message"), "roster_source": report_roster_source(level), "session": academic_session, "term": term, "term_label": academic_term_label(term), "result_year": result_year, "class_level": level, "class_arm": arm, "students": source_students, "reports": [], "blocked_students": source_students, "readiness_warnings": [], "summary": summary, "source_status": {"students": bool(students), "ca_test": False, "exam_results": False, "attendance": bool(attendance_map), "assessment_ready": False, "assessment_pending": True, "roster_source": report_roster_source(level)}, "ca_available_contexts": []}
 
     for student in students:
         admission = normalize_admission_number(student.get("admission_number")); student_ca = ca_map.get(admission, {}); student_exam = exam_map.get(admission, {}); attendance = attendance_map.get(admission, {})
         source = build_student_source_status(student, student_ca, student_exam, attendance); source_students.append(source)
         expected = expected_subject_map(student, level, arm); subject_keys, excluded_subjects = resolve_report_subject_keys(expected, student_ca, student_exam); subject_rows = []
-
         for subject_key in subject_keys:
-            row = build_subject_row(level, subject_key, student_ca.get(subject_key), student_exam.get(subject_key), expected.get(subject_key) or exam_subject_names.get(subject_key) or subject_key)
-            subject_rows.append(row); subject_catalog.add(subject_key)
+            row = build_subject_row(level, subject_key, student_ca.get(subject_key), student_exam.get(subject_key), expected.get(subject_key) or exam_subject_names.get(subject_key) or subject_key); subject_rows.append(row); subject_catalog.add(subject_key)
             if row.get("total") is not None: subject_scores.setdefault(subject_key, []).append(safe_float(row.get("total")))
-
-        complete_rows = [row for row in subject_rows if row.get("complete") and row.get("total") is not None]
-        all_subjects_complete = bool(subject_rows) and len(complete_rows) == len(subject_rows)
-        provisional_total = round(sum(safe_float(row.get("total")) for row in complete_rows), 2) if complete_rows else None
-        provisional_average = round(provisional_total / len(complete_rows), 2) if complete_rows else None
-        total_score = provisional_total if all_subjects_complete else None; average = provisional_average if all_subjects_complete else None
-        final_grade = grade_for_score(average)[0] if average is not None else "-"
+        complete_rows = [row for row in subject_rows if row.get("complete") and row.get("total") is not None]; all_subjects_complete = bool(subject_rows) and len(complete_rows) == len(subject_rows); provisional_total = round(sum(safe_float(row.get("total")) for row in complete_rows), 2) if complete_rows else None; provisional_maximum = round(sum(safe_float(row.get("total_max"), 100) for row in complete_rows), 2) if complete_rows else None; provisional_average = round(provisional_total / provisional_maximum * 100, 2) if provisional_total is not None and provisional_maximum else None; total_score = provisional_total if all_subjects_complete else None; maximum_score = provisional_maximum if all_subjects_complete else None; average = provisional_average if all_subjects_complete else None; final_grade = grade_for_score(average, level)[0] if average is not None else "-"
         if not source.get("has_ca") or not source.get("has_exam") or not all_subjects_complete:
-            missing = []
+            missing = [];
             if not source.get("has_ca"): missing.append("CA/Test")
             if not source.get("has_exam"): missing.append("Exam")
             if not source.get("has_attendance"): missing.append("Attendance")
             if source.get("has_ca") and not source.get("has_complete_ca"): missing.append("Complete CA")
             readiness_warnings.append({"admission_number": student.get("admission_number"), "full_name": student.get("full_name"), "missing": missing, "status": source.get("status"), "status_label": source.get("status_label")})
+        reports.append({"admission_number": student.get("admission_number"), "full_name": student.get("full_name"), "last_name": student.get("last_name"), "first_name": student.get("first_name"), "other_names": student.get("other_names"), "sex": student.get("sex"), "class_level": level, "class_arm": arm, "session": academic_session, "term": term, "term_label": academic_term_label(term), "result_year": result_year, "assessment": rule, "assessment_mode": clean_upper(rule.get("key")), "roster_source": report_roster_source(level), "subjects": subject_rows, "subject_count": len(subject_rows), "subjects_complete": len(complete_rows), "academic_complete": all_subjects_complete, "academic_partial": bool(student_ca or student_exam) and not all_subjects_complete, "has_ca": bool(student_ca), "has_exam": bool(student_exam), "has_attendance": bool(attendance), "total_score": pretty_optional(total_score), "maximum_score": pretty_optional(maximum_score), "average": pretty_optional(average), "provisional_total": pretty_optional(provisional_total), "provisional_maximum": pretty_optional(provisional_maximum), "provisional_average": pretty_optional(provisional_average), "grade": final_grade, "position": 0, "position_text": "--", "out_of": 0, "attendance": attendance, "teacher_remark": teacher_remark(average) if average is not None else "", "principal_remark": principal_remark(average) if average is not None else "", "missing_ca_subjects": source["missing_ca_subjects"], "missing_exam_subjects": source["missing_exam_subjects"], "excluded_subjects": excluded_subjects, "source_status": source.get("status"), "source_status_label": source.get("status_label")})
 
-        reports.append({"admission_number": student.get("admission_number"), "full_name": student.get("full_name"), "last_name": student.get("last_name"), "first_name": student.get("first_name"), "other_names": student.get("other_names"), "sex": student.get("sex"), "class_level": level, "class_arm": arm, "session": academic_session, "term": term, "term_label": academic_term_label(term), "result_year": result_year, "subjects": subject_rows, "subject_count": len(subject_rows), "subjects_complete": len(complete_rows), "academic_complete": all_subjects_complete, "academic_partial": bool(student_ca or student_exam) and not all_subjects_complete, "has_ca": bool(student_ca), "has_exam": bool(student_exam), "has_attendance": bool(attendance), "total_score": pretty_optional(total_score), "average": pretty_optional(average), "provisional_total": pretty_optional(provisional_total), "provisional_average": pretty_optional(provisional_average), "grade": final_grade, "position": 0, "position_text": "--", "out_of": 0, "attendance": attendance, "teacher_remark": teacher_remark(average) if average is not None else "", "principal_remark": principal_remark(average) if average is not None else "", "missing_ca_subjects": source["missing_ca_subjects"], "missing_exam_subjects": source["missing_exam_subjects"], "excluded_subjects": excluded_subjects, "source_status": source.get("status"), "source_status_label": source.get("status_label")})
-
-    # Subject statistics use only complete CA + Exam totals; missing data stays blank instead of becoming zero.
     for report in reports:
         for row in report.get("subjects", []):
             if row.get("total") is None: continue
             scores = subject_scores.get(row.get("subject_key"), [])
             if not scores: continue
             position = compute_position(row.get("total"), scores); row.update({"position": position, "position_text": ordinal(position), "out_of": len(scores), "lowest": pretty_number(min(scores)), "highest": pretty_number(max(scores)), "class_average": pretty_number(sum(scores) / len(scores))})
-
-    # Overall class positions are assigned only when a full final average exists.
     averages = [safe_float(report.get("average")) for report in reports if report.get("average") is not None]
     for report in reports:
         if report.get("average") is None: continue
         position = compute_position(report.get("average"), averages); report["position"] = position; report["position_text"] = ordinal(position); report["out_of"] = len(averages)
-
     summary = {"students_in_class": len(students), "generated": len(reports), "blocked": len(blocked), "complete_reports": sum(1 for report in reports if report.get("academic_complete")), "partial_reports": sum(1 for report in reports if not report.get("academic_complete")), "reports_with_ca": sum(1 for report in reports if report.get("has_ca")), "reports_with_exam": sum(1 for report in reports if report.get("has_exam")), "reports_with_attendance": sum(1 for report in reports if report.get("has_attendance")), "subjects": len(subject_catalog), "class_average": pretty_number(sum(averages) / len(averages)) if averages else None, "highest_average": pretty_number(max(averages)) if averages else None, "lowest_average": pretty_number(min(averages)) if averages else None, "missing_ca": sum(1 for item in source_students if not item.get("has_ca")), "missing_exam": sum(1 for item in source_students if not item.get("has_exam")), "missing_attendance": sum(1 for item in source_students if not item.get("has_attendance"))}
-    payload = {"success": bool(reports), "session": academic_session, "term": term, "term_label": academic_term_label(term), "result_year": result_year, "class_level": level, "class_arm": arm, "students": source_students, "reports": reports, "blocked_students": blocked, "readiness_warnings": readiness_warnings, "summary": summary, "source_status": {"students": bool(students), "ca_test": bool(ca_map), "exam_results": bool(exam_map), "attendance": bool(attendance_map), "ca_context_mismatch": bool(not ca_map and ca_contexts)}, "ca_available_contexts": ca_contexts}
+    payload = {"success": bool(reports), "generation_enabled": True, "assessment": rule, "assessment_message": rule.get("message"), "roster_source": report_roster_source(level), "session": academic_session, "term": term, "term_label": academic_term_label(term), "result_year": result_year, "class_level": level, "class_arm": arm, "students": source_students, "reports": reports, "blocked_students": blocked, "readiness_warnings": readiness_warnings, "summary": summary, "source_status": {"students": bool(students), "ca_test": bool(ca_map), "exam_results": bool(exam_map), "attendance": bool(attendance_map), "assessment_ready": True, "assessment_pending": False, "roster_source": report_roster_source(level), "ca_context_mismatch": bool(not ca_map and ca_contexts)}, "ca_available_contexts": ca_contexts}
     if term == "THIRD" and include_cumulative and reports: attach_cumulative_results(payload, academic_session, level, arm, result_year)
     return payload
 
@@ -434,26 +470,38 @@ def combine_attendance_summaries(*items):
     return output
 
 
-def attach_cumulative_results(third_payload, academic_session, class_level, class_arm, result_year):
-    first = build_term_report_payload(academic_session, "FIRST", class_level, class_arm, result_year, include_cumulative=False); second = build_term_report_payload(academic_session, "SECOND", class_level, class_arm, result_year, include_cumulative=False)
+def attach_cumulative_results(third_payload, academic_session, class_level, class_arm, result_year, mode="auto"):
+    """Attach First/Second/Third term annual data to a Third Term payload.
+
+    mode controls where First/Second Term values come from. Automatic uses the verified EMIS sources,
+    Manual uses saved teacher-entered records, and Hybrid uses automatic data with approved manual gaps.
+    Islamiyyah is always injected afterwards from the dedicated Academy source and is never manually editable here.
+    """
+    mode = clean(mode or "auto").lower()
+    if mode == "manual": first = build_manual_report_payload(academic_session, "FIRST", class_level, class_arm); second = build_manual_report_payload(academic_session, "SECOND", class_level, class_arm)
+    elif mode == "hybrid": first = build_hybrid_report_payload(academic_session, "FIRST", class_level, class_arm, result_year); second = build_hybrid_report_payload(academic_session, "SECOND", class_level, class_arm, result_year)
+    else: first = build_term_report_payload(academic_session, "FIRST", class_level, class_arm, result_year, include_cumulative=False); second = build_term_report_payload(academic_session, "SECOND", class_level, class_arm, result_year, include_cumulative=False)
     first_map, second_map = report_map(first), report_map(second)
     for report in third_payload.get("reports", []):
         admission = normalize_admission_number(report.get("admission_number")); first_report, second_report = first_map.get(admission), second_map.get(admission); first_subjects, second_subjects = subject_total_map(first_report), subject_total_map(second_report)
         for row in report.get("subjects", []):
             key = row.get("subject_key"); first_total, second_total = first_subjects.get(key), second_subjects.get(key); third_total = optional_float(row.get("total")); available = [value for value in [first_total, second_total, third_total] if value is not None]
-            cumulative_average = round(sum(available) / len(available), 2) if available else None; cumulative_grade, cumulative_comment = grade_for_score(cumulative_average) if cumulative_average is not None else ("-", "Pending")
+            cumulative_average = round(sum(available) / len(available), 2) if available else None; cumulative_grade, cumulative_comment = grade_for_score(cumulative_average, class_level) if cumulative_average is not None else ("-", "Pending")
             row.update({"first_term_total": pretty_optional(first_total), "second_term_total": pretty_optional(second_total), "third_term_total": pretty_optional(third_total), "cumulative_total": pretty_optional(sum(available) if available else None), "cumulative_average": pretty_optional(cumulative_average), "cumulative_grade": cumulative_grade, "cumulative_comment": cumulative_comment, "terms_available": len(available)})
         term_averages = [optional_float((first_report or {}).get("average")), optional_float((second_report or {}).get("average")), optional_float(report.get("average"))]; valid_averages = [value for value in term_averages if value is not None]
-        cumulative_average = round(sum(valid_averages) / len(valid_averages), 2) if valid_averages else None; cumulative_grade = grade_for_score(cumulative_average)[0] if cumulative_average is not None else "-"
+        cumulative_average = round(sum(valid_averages) / len(valid_averages), 2) if valid_averages else None; cumulative_grade = grade_for_score(cumulative_average, class_level)[0] if cumulative_average is not None else "-"
         term_reports = [first_report, second_report, report]; term_scores = [optional_float((item or {}).get("total_score")) for item in term_reports]; term_maximums = [int((item or {}).get("subject_count") or len((item or {}).get("subjects") or [])) * 100 if item else None for item in term_reports]; valid_score_pairs = [(score, maximum) for score, maximum in zip(term_scores, term_maximums) if score is not None and maximum]
         cumulative_score = round(sum(score for score, _ in valid_score_pairs), 2) if valid_score_pairs else None; cumulative_max = round(sum(maximum for _, maximum in valid_score_pairs), 2) if valid_score_pairs else None; cumulative_score_percentage = round(cumulative_score / cumulative_max * 100, 2) if cumulative_score is not None and cumulative_max else None
         report["first_term_average"], report["second_term_average"], report["third_term_average"] = pretty_optional(term_averages[0]), pretty_optional(term_averages[1]), pretty_optional(term_averages[2]); report["first_term_score"], report["second_term_score"], report["third_term_score"] = pretty_optional(term_scores[0]), pretty_optional(term_scores[1]), pretty_optional(term_scores[2]); report["first_term_max"], report["second_term_max"], report["third_term_max"] = term_maximums[0], term_maximums[1], term_maximums[2]; report["cumulative_score"], report["cumulative_max"], report["cumulative_score_percentage"] = pretty_optional(cumulative_score), pretty_optional(cumulative_max), pretty_optional(cumulative_score_percentage); report["cumulative_average"], report["cumulative_grade"] = pretty_optional(cumulative_average), cumulative_grade; report["cumulative_terms_available"], report["cumulative_complete"] = len(valid_averages), len(valid_averages) == 3
-        report["cumulative_attendance"] = combine_attendance_summaries((first_report or {}).get("attendance"), (second_report or {}).get("attendance"), report.get("attendance"))
+        report["cumulative_attendance"] = combine_attendance_summaries((first_report or {}).get("attendance"), (second_report or {}).get("attendance"), report.get("attendance")); report["cumulative_source_mode"] = mode
     cumulative_averages = [safe_float(report.get("cumulative_average")) for report in third_payload.get("reports", []) if report.get("cumulative_complete") and report.get("cumulative_average") is not None]
+    class_average = round(sum(cumulative_averages) / len(cumulative_averages), 2) if cumulative_averages else None; class_highest = max(cumulative_averages) if cumulative_averages else None; class_lowest = min(cumulative_averages) if cumulative_averages else None
     for report in third_payload.get("reports", []):
+        report["cumulative_class_average"], report["cumulative_highest_average"], report["cumulative_lowest_average"] = pretty_optional(class_average), pretty_optional(class_highest), pretty_optional(class_lowest); report["cumulative_no_in_class"] = len(cumulative_averages); report["cumulative_combined_stream"] = len(cumulative_averages)
         if not report.get("cumulative_complete") or report.get("cumulative_average") is None: report["cumulative_position"], report["cumulative_position_text"], report["cumulative_out_of"] = 0, "--", 0; continue
         position = compute_position(report.get("cumulative_average"), cumulative_averages); report["cumulative_position"], report["cumulative_position_text"], report["cumulative_out_of"] = position, ordinal(position), len(cumulative_averages)
-    third_payload["cumulative"], third_payload["cumulative_terms"] = True, ["FIRST", "SECOND", "THIRD"]
+    third_payload["cumulative"], third_payload["cumulative_terms"], third_payload["cumulative_source_mode"] = True, ["FIRST", "SECOND", "THIRD"], mode
+    third_payload["cumulative_summary"] = {"class_average": pretty_optional(class_average), "highest_average": pretty_optional(class_highest), "lowest_average": pretty_optional(class_lowest), "complete_students": len(cumulative_averages), "mode": mode}
 
 
 # ============================================================
@@ -465,7 +513,7 @@ def ensure_report_dir():
     return REPORT_DIR
 
 
-def save_report_snapshots(reports):
+def save_report_snapshots(reports, generated_by=""):
     ensure_report_dir()
     saved = []
 
@@ -474,7 +522,7 @@ def save_report_snapshots(reports):
             for report in reports:
                 snapshot = {
                     "snapshot_id": uuid.uuid4().hex, "generated_at": now_string(),
-                    "generated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff"),
+                    "generated_by": clean(generated_by) or clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff"),
                     "session": report.get("session"), "term": report.get("term"), "class_level": report.get("class_level"),
                     "class_arm": report.get("class_arm"), "admission_number": report.get("admission_number"),
                     "full_name": report.get("full_name"), "report": report,
@@ -509,16 +557,8 @@ def read_saved_report_snapshots():
 @report_sheet_bp.route("/api/report-sheets/config")
 @report_staff_required
 def api_report_config():
-    academic_session, term = resolve_context(request.args.get("session"), request.args.get("term"))
-    class_level, class_arm = request_class_values()
-    level, arm = normalize_academic_class(class_level, class_arm)
-
-    return jsonify({
-        "success": True, "session": academic_session, "term": term, "term_label": academic_term_label(term),
-        "class_level": level, "class_arm": arm,
-        "subjects": get_subjects_for_selection(level, arm) if level else [],
-        "result_year": resolve_result_year(academic_session, request.args.get("year"), level, arm),
-    })
+    academic_session, term = resolve_context(request.args.get("session"), request.args.get("term")); class_level, class_arm = request_class_values(); level, arm = normalize_report_class(class_level, class_arm); classes = list(STUDENT_DATABASE_CLASSES) + list(TAHFEEZ_CLASSES) + list(ISLAMIYAH_CLASSES); arms = {item: list(CLASS_ARMS_BY_LEVEL.get(item, [])) or [item] for item in classes}; rule = get_assessment_rule(level) if level else {}
+    return jsonify({"success": True, "session": academic_session, "term": term, "term_label": academic_term_label(term), "class_level": level, "class_arm": arm, "classes": classes, "class_labels": {item: class_label(item) for item in classes}, "class_sections": {item: school_section_for_class(item) for item in classes}, "class_arms": arms, "subjects": get_report_subjects_for_selection(level, arm) if level else [], "assessment": rule, "grading": {"system": grading_system_for_class(level), "ready": grading_system_ready(grading_system_for_class(level))} if level else {}, "generation_enabled": assessment_entry_enabled(level) if level else False, "roster_source": report_roster_source(level) if level else "", "result_year": resolve_result_year(academic_session, request.args.get("year"), level, arm)})
 
 
 @report_sheet_bp.route("/api/report-sheets/students")
@@ -528,9 +568,60 @@ def api_report_students():
     level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
 
     if error: return jsonify({"success": False, "message": error, "students": []}), 400
+    academic_session, term = resolve_context(request.args.get("session"), request.args.get("term")); next_term, next_term_error = next_term_required_response(request.args.get("next_term"))
+    if not academic_session or not term: return jsonify({"success": False, "message": "Academic session and term are required.", "students": []}), 400
+    if next_term_error: return next_term_error
+    save_report_defaults(academic_session, term, level, arm, {"next_term": next_term})
 
-    students = get_students_for_class(level, arm, active_only=True)
-    return jsonify({"success": True, "class_level": level, "class_arm": arm, "students": students, "count": len(students)})
+    students = get_report_students_for_class(level, arm, active_only=True); rule = get_assessment_rule(level) or {}; subject_scope = get_report_subject_scope(level, arm)
+    # Fast Manual Workstation bootstrap: return the saved class subject scope with the roster.
+    # The browser can therefore show students + subject selection immediately without waiting
+    # for the heavier CA/Exam source-status scan or a second subject-scope request.
+    return jsonify({"success": True, "class_level": level, "class_arm": arm, "students": students, "count": len(students), "subjects": [item.get("name") for item in subject_scope.get("available_subjects", []) if item.get("name")], "manual_subject_scope": subject_scope, "manual_score_fields": manual_score_fields(level), "assessment": rule, "grading": {"system": grading_system_for_class(level), "ready": grading_system_ready(grading_system_for_class(level))}, "generation_enabled": assessment_entry_enabled(level), "roster_source": report_roster_source(level)})
+
+
+def build_manual_prefill_bootstrap(payload, class_level, class_arm):
+    """Build the complete lightweight Manual Workstation cache during class loading.
+
+    The expensive academic scan has already happened inside Source Status.  We therefore
+    return automatic scores, the class subject scope and saved manual drafts in the same
+    response.  Student switching can then be rendered entirely in the browser without a
+    second Flask request, CSV read, subject-registry pass or workbook scan.
+    """
+    score_fields = manual_score_fields(class_level); prefill = {}; scope = get_report_subject_scope(class_level, class_arm)
+    for report in payload.get("reports", []) if isinstance(payload, dict) else []:
+        admission = normalize_admission_number(report.get("admission_number")); rows = {}
+        if not admission: continue
+        for row in report.get("subjects", []) if isinstance(report.get("subjects"), list) else []:
+            subject_key = academic_subject_key(row.get("subject_key") or row.get("subject"))
+            if not subject_key or clean_upper(subject_key) in {"ISLAMIYYAH", "ISLAMIYAH"}: continue
+            item = {"subject": row.get("subject"), "subject_key": subject_key}; components = row.get("components") if isinstance(row.get("components"), dict) else {}
+            for field in score_fields:
+                value = row.get(field)
+                if value in (None, "") and field != "exam": value = components.get(field)
+                if value not in (None, ""): item[field] = value
+            if any(value not in (None, "") for key, value in item.items() if key not in {"subject", "subject_key"}): rows[subject_key] = item
+        prefill[admission] = rows
+
+    academic_session = normalize_academic_session(payload.get("session")) if isinstance(payload, dict) else ""
+    term = normalize_academic_term(payload.get("term")) if isinstance(payload, dict) else ""
+    store = _read_json_store(MANUAL_FILE); records = {}
+    for student in payload.get("students", []) if isinstance(payload, dict) else []:
+        admission = normalize_admission_number(student.get("admission_number"))
+        if not admission: continue
+        record = store.get(manual_context_key(academic_session, term, class_level, class_arm, admission), {})
+        records[admission] = record if isinstance(record, dict) else {}
+
+    return {
+        "ready": True,
+        "score_fields": score_fields,
+        "subject_scope": scope,
+        "available_subjects": list(scope.get("available_subjects") or []),
+        "selected_subjects": list(scope.get("selected_subjects") or []),
+        "automatic_scores_by_admission": prefill,
+        "manual_records_by_admission": records,
+        "class_readiness": manual_class_readiness(academic_session, term, class_level, class_arm),
+    }
 
 
 @report_sheet_bp.route("/api/report-sheets/source-status")
@@ -546,7 +637,22 @@ def api_report_source_status():
 
     payload = build_term_report_payload(academic_session, term, level, arm, year, include_cumulative=False)
 
-    return jsonify({"success": True, "result_year": payload.get("result_year") or year, "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "students": payload.get("students", []), "source_status": payload.get("source_status", {}), "summary": payload.get("summary", {}), "blocked_students": payload.get("blocked_students", []), "readiness_warnings": payload.get("readiness_warnings", []), "ca_available_contexts": payload.get("ca_available_contexts", [])})
+    manual_bootstrap = build_manual_prefill_bootstrap(payload, level, arm) if payload.get("generation_enabled", True) else {"ready": True, "score_fields": {}, "subject_scope": get_report_subject_scope(level, arm), "available_subjects": [], "selected_subjects": [], "automatic_scores_by_admission": {}, "manual_records_by_admission": {}}
+    return jsonify({"success": True, "result_year": payload.get("result_year") or year, "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "students": payload.get("students", []), "source_status": payload.get("source_status", {}), "summary": payload.get("summary", {}), "blocked_students": payload.get("blocked_students", []), "readiness_warnings": payload.get("readiness_warnings", []), "ca_available_contexts": payload.get("ca_available_contexts", []), "assessment": payload.get("assessment", {}), "grading": {"system": grading_system_for_class(level), "ready": grading_system_ready(grading_system_for_class(level))}, "generation_enabled": payload.get("generation_enabled", True), "roster_source": payload.get("roster_source", report_roster_source(level)), "manual_bootstrap": manual_bootstrap})
+
+
+@report_sheet_bp.route("/api/report-sheets/islamiyah-status")
+@report_staff_required
+def api_report_islamiyah_status():
+    class_level, class_arm = request_class_values(); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
+    if error: return jsonify({"success": False, "message": error, "students": []}), 400
+    academic_session, term = resolve_context(request.args.get("session"), request.args.get("term")); roster = get_report_students_for_class(level, arm, active_only=True); students = []
+    for student in roster:
+        admission = normalize_admission_number(student.get("admission_number")); row = get_report_islamiyah_row(admission, academic_session, term)
+        if row is None: status = {"islamiyah_status": "pending", "complete": False, "islamiyah_class_label": "Awaiting Islamiyyah score", "islamiyah_subject_count": 1, "islamiyah_subjects_complete": 0, "ca": None, "exam": None, "total": None, "source": "ISLAMIYYAH_SCHOOL"}
+        else: status = row
+        students.append({"admission_number": student.get("admission_number"), "full_name": student.get("full_name"), "class_arm": arm, "status": status.get("islamiyah_status") or "pending", "complete": bool(status.get("complete")), "islamiyah_class_label": status.get("islamiyah_class_label"), "subject_count": status.get("islamiyah_subject_count", 1), "subjects_complete": status.get("islamiyah_subjects_complete", 0), "ca_average": status.get("ca_total") if status.get("ca_total") is not None else status.get("ca"), "exam_average": status.get("exam"), "total": status.get("total"), "pending_subjects": [item.get("subject") for item in (status.get("islamiyah_components") or []) if not item.get("complete")], "score_source": status.get("score_source") or ("regular_school" if status.get("source") == "ISLAMIYYAH_SCHOOL_REGULAR_DATABASE" else "academy"), "source_label": "Regular School DB" if status.get("source") == "ISLAMIYYAH_SCHOOL_REGULAR_DATABASE" else "Academy DB"})
+    return jsonify({"success": True, "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "students": students, "count": len(students), "complete_students": sum(1 for row in students if row.get("complete")), "pending_students": sum(1 for row in students if not row.get("complete")), "authoritative_source": "ISLAMIYYAH_SCHOOL", "editable_in_report_sheets": False})
 
 
 # ============================================================
@@ -566,11 +672,18 @@ def api_report_preview():
 
     if not academic_session or not term:
         return jsonify({"success": False, "message": "Academic session and term are required."}), 400
+    next_term, next_term_error = next_term_required_response(data.get("next_term"))
+    if next_term_error: return next_term_error
+    save_report_defaults(academic_session, term, level, arm, {**({"form_teacher": data.get("form_teacher")} if "form_teacher" in data else {}), "next_term": next_term})
+    rule = get_assessment_rule(level) or {}
+    if not assessment_entry_enabled(level):
+        return jsonify({"success": False, "status": "assessment_scheme_pending", "message": rule.get("message") or f"The assessment scheme for {class_label(level)} is not configured yet.", "assessment": rule, "class_level": level, "class_arm": arm, "roster_source": report_roster_source(level)}), 409
 
     payload = build_term_report_payload(
         academic_session, term, level, arm, data.get("year"), data.get("admission_number") or data.get("admission"),
         include_cumulative=True, admission_numbers=data.get("admission_numbers") or data.get("admissions")
     )
+    payload = apply_requested_next_term(payload, next_term)
 
     return jsonify(payload)
 
@@ -588,11 +701,18 @@ def api_report_generate():
 
     if not academic_session or not term:
         return jsonify({"success": False, "message": "Academic session and term are required."}), 400
+    next_term, next_term_error = next_term_required_response(data.get("next_term"))
+    if next_term_error: return next_term_error
+    save_report_defaults(academic_session, term, level, arm, {**({"form_teacher": data.get("form_teacher")} if "form_teacher" in data else {}), "next_term": next_term})
+    rule = get_assessment_rule(level) or {}
+    if not assessment_entry_enabled(level):
+        return jsonify({"success": False, "status": "assessment_scheme_pending", "message": rule.get("message") or f"The assessment scheme for {class_label(level)} is not configured yet.", "assessment": rule, "class_level": level, "class_arm": arm, "roster_source": report_roster_source(level)}), 409
 
     payload = build_term_report_payload(
         academic_session, term, level, arm, data.get("year"), data.get("admission_number") or data.get("admission"),
         include_cumulative=True, admission_numbers=data.get("admission_numbers") or data.get("admissions")
     )
+    payload = apply_requested_next_term(payload, next_term)
 
     if not payload.get("reports"):
         payload["message"] = "No active student report sheets could be generated for this class selection."
@@ -601,7 +721,7 @@ def api_report_generate():
     if data.get("save_snapshot", True):
         snapshots = save_report_snapshots(payload["reports"]); snapshot_map = {normalize_admission_number(item.get("admission_number")): item.get("snapshot_id") for item in snapshots}
         for report in payload["reports"]: report["snapshot_id"] = snapshot_map.get(normalize_admission_number(report.get("admission_number")), "")
-        payload["saved_snapshots"] = [{"snapshot_id": item["snapshot_id"], "admission_number": item["admission_number"], "full_name": item.get("full_name", ""), "generated_at": item.get("generated_at", "")} for item in snapshots]
+        payload["saved_snapshots"] = [{"snapshot_id": item["snapshot_id"], "admission_number": item["admission_number"], "full_name": item.get("full_name", ""), "generated_at": item.get("generated_at", ""), "transcript_archived": bool(item.get("transcript_archived"))} for item in snapshots]
 
     complete = sum(1 for report in payload.get("reports", []) if report.get("academic_complete")); partial = len(payload.get("reports", [])) - complete
     payload["message"] = f"{len(payload['reports'])} report sheet(s) generated successfully — {complete} complete, {partial} awaiting one or more academic sources."
@@ -618,14 +738,14 @@ def api_saved_reports():
     academic_session = normalize_academic_session(request.args.get("session"))
     term = normalize_academic_term(request.args.get("term"))
     class_level, class_arm = request_class_values()
-    level, arm = normalize_academic_class(class_level, class_arm)
+    level, arm = normalize_report_class(class_level, class_arm)
 
     rows = read_saved_report_snapshots()
 
     if academic_session: rows = [row for row in rows if normalize_academic_session(row.get("session")) == academic_session]
     if term: rows = [row for row in rows if normalize_academic_term(row.get("term")) == term]
-    if level: rows = [row for row in rows if normalize_academic_class(row.get("class_level"), row.get("class_arm"))[0] == level]
-    if class_arm and arm: rows = [row for row in rows if normalize_academic_class(row.get("class_level"), row.get("class_arm"))[1] == arm]
+    if level: rows = [row for row in rows if normalize_report_class(row.get("class_level"), row.get("class_arm"))[0] == level]
+    if class_arm and arm: rows = [row for row in rows if normalize_report_class(row.get("class_level"), row.get("class_arm"))[1] == arm]
 
     return jsonify({"success": True, "reports": rows, "count": len(rows)})
 
@@ -640,14 +760,14 @@ def api_delete_saved_report():
     if isinstance(admissions, str): admissions = [item.strip() for item in admissions.replace(";", ",").split(",") if item.strip()]
     snapshot_ids = {clean(value) for value in snapshot_ids if clean(value)}; admissions = {normalize_admission_number(value) for value in admissions if normalize_admission_number(value)}
     delete_all = str(data.get("delete_all") or "").strip().lower() in {"1", "true", "yes", "on"}
-    academic_session, term = normalize_academic_session(data.get("session")), normalize_academic_term(data.get("term")); class_level, class_arm = request_class_values(data); level, arm = normalize_academic_class(class_level, class_arm)
+    academic_session, term = normalize_academic_session(data.get("session")), normalize_academic_term(data.get("term")); class_level, class_arm = request_class_values(data); level, arm = normalize_report_class(class_level, class_arm)
 
     if not snapshot_ids and not admissions and not delete_all: return jsonify({"success": False, "message": "Provide a snapshot ID, selected report IDs, selected admission numbers, or delete_all=true."}), 400
     if (admissions or delete_all) and not (academic_session and term and level and arm): return jsonify({"success": False, "message": "Session, term, class level and class arm are required for selected/context report deletion."}), 400
 
     rows = read_saved_report_snapshots()[::-1]
     def same_context(row):
-        row_level, row_arm = normalize_academic_class(row.get("class_level"), row.get("class_arm"))
+        row_level, row_arm = normalize_report_class(row.get("class_level"), row.get("class_arm"))
         return normalize_academic_session(row.get("session")) == academic_session and normalize_academic_term(row.get("term")) == term and row_level == level and row_arm == arm
     def should_delete(row):
         if snapshot_ids and clean(row.get("snapshot_id")) in snapshot_ids: return True
@@ -715,6 +835,7 @@ def normalize_report_details(data, existing=None):
     return {
         "form_teacher": clean(data.get("form_teacher", existing.get("form_teacher", ""))), "teacher_remark": clean(data.get("teacher_remark", existing.get("teacher_remark", ""))),
         "principal_remark": clean(data.get("principal_remark", existing.get("principal_remark", ""))), "next_term": clean(data.get("next_term", existing.get("next_term", ""))),
+        "promotion_status": clean(data.get("promotion_status", existing.get("promotion_status", "PENDING"))).upper() or "PENDING", "promotion_note": clean(data.get("promotion_note", existing.get("promotion_note", ""))),
         "affective": normalize_trait_map(affective_source, affective_keys), "psychomotor": normalize_trait_map(psychomotor_source, psychomotor_keys),
         "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or existing.get("updated_by") or "Staff"),
     }
@@ -739,10 +860,16 @@ def get_report_defaults(academic_session, term, class_level, class_arm):
 
 def save_report_defaults(academic_session, term, class_level, class_arm, data):
     store = _read_json_store(DEFAULTS_FILE); key = report_context_key(academic_session, term, class_level, class_arm)
-    current = store.get(key, {}) if isinstance(store.get(key), dict) else {}
-    item = {"form_teacher": clean(data.get("form_teacher", current.get("form_teacher", ""))), "next_term": clean(data.get("next_term", current.get("next_term", ""))), "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or current.get("updated_by") or "Staff")}
-    store[key] = item; _write_json_store(DEFAULTS_FILE, store)
-    queue_emis_event_safely("report_sheets", "defaults_upsert", {"key": key, "item": item}, entity_key=f"defaults|{key}")
+    current = store.get(key, {}) if isinstance(store.get(key), dict) else {}; incoming_next_term = normalize_next_term_date(data.get("next_term", current.get("next_term", "")))
+    item = {"form_teacher": clean(data.get("form_teacher", current.get("form_teacher", ""))), "next_term": incoming_next_term, "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or current.get("updated_by") or "Staff")}
+    store[key] = item; _write_json_store(DEFAULTS_FILE, store); queue_emis_event_safely("report_sheets", "defaults_upsert", {"key": key, "item": item}, entity_key=f"defaults|{key}")
+    if incoming_next_term:
+        details_store = _read_json_store(DETAILS_FILE); changed = []
+        for detail_key, detail in details_store.items():
+            if detail_key.startswith(key) and detail_key != key and isinstance(detail, dict) and clean(detail.get("next_term")) != incoming_next_term: detail["next_term"] = incoming_next_term; detail["updated_at"] = item["updated_at"]; detail["updated_by"] = item["updated_by"]; changed.append((detail_key, detail))
+        if changed:
+            _write_json_store(DETAILS_FILE, details_store)
+            for detail_key, detail in changed: queue_emis_event_safely("report_sheets", "details_upsert", {"key": detail_key, "item": detail}, entity_key=f"details|{detail_key}")
     return item
 
 
@@ -753,8 +880,9 @@ def apply_saved_report_details(payload):
     class_average = optional_float((payload.get("summary") or {}).get("class_average"))
     for report in reports:
         admission = report.get("admission_number"); details = details_store.get(report_context_key(session_value, term, level, arm, admission), {}); average = optional_float(report.get("average")); attendance = report.get("attendance") if isinstance(report.get("attendance"), dict) else {}
-        report["form_teacher"] = clean(details.get("form_teacher") or defaults.get("form_teacher")); report["next_term"] = clean(details.get("next_term") or defaults.get("next_term"))
+        report["form_teacher"] = clean(details.get("form_teacher") or defaults.get("form_teacher")); report["next_term"] = clean(defaults.get("next_term") or details.get("next_term"))
         report["teacher_remark"] = clean(details.get("teacher_remark") or report.get("teacher_remark") or (teacher_remark(average) if average is not None else "")); report["principal_remark"] = clean(details.get("principal_remark") or report.get("principal_remark") or (principal_remark(average) if average is not None else ""))
+        report["promotion_status"] = clean(details.get("promotion_status") or report.get("promotion_status") or "PENDING").upper(); report["promotion_note"] = clean(details.get("promotion_note") or report.get("promotion_note"))
         report["affective"] = details.get("affective") if isinstance(details.get("affective"), dict) else {}; report["psychomotor"] = details.get("psychomotor") if isinstance(details.get("psychomotor"), dict) else {}
         subjects = report.get("subjects", []) if isinstance(report.get("subjects"), list) else []; scored = [row for row in subjects if row.get("total") is not None]; strongest = max(scored, key=lambda row: safe_float(row.get("total")), default=None); focus = min(scored, key=lambda row: safe_float(row.get("total")), default=None)
         report["performance_insights"] = {"strongest_subject": strongest.get("subject") if strongest else "", "strongest_score": pretty_optional(strongest.get("total")) if strongest else None, "focus_subject": focus.get("subject") if focus else "", "focus_score": pretty_optional(focus.get("total")) if focus else None, "class_average": pretty_optional(class_average), "average_difference": pretty_optional(average - class_average) if average is not None and class_average is not None else None, "subjects_assessed": len([row for row in subjects if row.get("has_ca") or row.get("has_exam")]), "subjects_complete": len(scored), "attendance_percentage": pretty_number(attendance.get("attendance_percentage", 0)) if attendance else None, "passes": sum(1 for row in scored if safe_float(row.get("total")) >= 40), "fails": sum(1 for row in scored if safe_float(row.get("total")) < 40)}
@@ -820,7 +948,9 @@ def api_report_defaults():
     academic_session, term = resolve_context(source.get("session"), source.get("term"))
     if not academic_session or not term: return jsonify({"success": False, "message": "Session and term are required."}), 400
     if request.method == "GET": return jsonify({"success": True, "defaults": get_report_defaults(academic_session, term, level, arm)})
-    defaults = save_report_defaults(academic_session, term, level, arm, source)
+    next_term, next_term_error = next_term_required_response(source.get("next_term"))
+    if next_term_error: return next_term_error
+    defaults = save_report_defaults(academic_session, term, level, arm, {**source, "next_term": next_term})
     return jsonify({"success": True, "message": "Report defaults saved successfully.", "defaults": defaults})
 
 
@@ -903,6 +1033,63 @@ def api_report_mark_used():
 # ============================================================
 
 MANUAL_FILE = REPORT_DIR / "manual_report_records.json"
+REPORT_SUBJECT_SCOPE_FILE = REPORT_DIR / "report_subject_scopes.json"
+
+
+def report_subject_scope_key(class_level, class_arm):
+    level, arm = normalize_report_class(class_level, class_arm)
+    return f"{level}|{arm}"
+
+
+def get_report_subject_scope(class_level, class_arm):
+    """Return the Report Sheets-only subject scope for a class/arm.
+
+    This intentionally does not deactivate subjects in the global curriculum. Teachers can
+    produce a focused report (for example four subjects) without deleting historical CA/Exam
+    data or changing other academic modules. New subjects are added to the class registry, while
+    inclusion/exclusion is kept here as a report-sheet preference.
+    """
+    level, arm = normalize_report_class(class_level, class_arm)
+    available = []
+    for subject in get_report_subjects_for_selection(level, arm):
+        key = academic_subject_key(subject)
+        if not key or clean_upper(key) in {"ISLAMIYYAH", "ISLAMIYAH"}: continue
+        if not any(item["key"] == key for item in available): available.append({"key": key, "name": normalize_academic_subject(subject)})
+    store = _read_json_store(REPORT_SUBJECT_SCOPE_FILE); saved = store.get(report_subject_scope_key(level, arm), {}) if isinstance(store, dict) else {}
+    saved_keys = saved.get("subject_keys") if isinstance(saved, dict) and isinstance(saved.get("subject_keys"), list) else None
+    available_keys = [item["key"] for item in available]
+    selected = [key for key in (saved_keys if saved_keys is not None else available_keys) if key in available_keys]
+    include_islamiyah = bool(saved.get("include_islamiyah", True)) if isinstance(saved, dict) else True
+    return {"class_level": level, "class_arm": arm, "available_subjects": available, "selected_keys": selected, "selected_subjects": [item["name"] for item in available if item["key"] in selected], "include_islamiyah": include_islamiyah, "customized": saved_keys is not None, "updated_at": clean(saved.get("updated_at")) if isinstance(saved, dict) else "", "updated_by": clean(saved.get("updated_by")) if isinstance(saved, dict) else ""}
+
+
+def save_report_subject_scope(class_level, class_arm, subject_keys, include_islamiyah=True):
+    scope = get_report_subject_scope(class_level, class_arm); available = {item["key"]: item["name"] for item in scope["available_subjects"]}
+    requested = []
+    for value in subject_keys if isinstance(subject_keys, list) else []:
+        key = academic_subject_key(value)
+        if key in available and key not in requested: requested.append(key)
+    if not requested and not include_islamiyah: raise ValueError("Select at least one report subject, or keep the synced Islamiyyah result enabled.")
+    item = {"class_level": scope["class_level"], "class_arm": scope["class_arm"], "subject_keys": requested, "include_islamiyah": bool(include_islamiyah), "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff")}
+    store = _read_json_store(REPORT_SUBJECT_SCOPE_FILE); store[report_subject_scope_key(scope["class_level"], scope["class_arm"])] = item; _write_json_store(REPORT_SUBJECT_SCOPE_FILE, store)
+    queue_emis_event_safely("report_sheets", "subject_scope_upsert", {"key": report_subject_scope_key(scope["class_level"], scope["class_arm"]), "item": item}, entity_key=f"report-subject-scope|{report_subject_scope_key(scope['class_level'], scope['class_arm'])}")
+    return get_report_subject_scope(scope["class_level"], scope["class_arm"])
+
+
+def apply_report_subject_scope(payload, class_level="", class_arm=""):
+    """Filter generated report rows to the class Report Sheets scope and recalculate totals/statistics."""
+    if not isinstance(payload, dict): return payload
+    level = payload.get("class_level") or class_level; arm = payload.get("class_arm") or class_arm; scope = get_report_subject_scope(level, arm); allowed = set(scope.get("selected_keys") or []); include_islamiyah = bool(scope.get("include_islamiyah", True)); reports = payload.get("reports") if isinstance(payload.get("reports"), list) else []
+    for report in reports:
+        rows = []
+        for row in report.get("subjects", []) if isinstance(report.get("subjects"), list) else []:
+            key = academic_subject_key(row.get("subject_key") or row.get("subject")); is_islamiyah = clean_upper(key) in {"ISLAMIYYAH", "ISLAMIYAH"}
+            if (is_islamiyah and include_islamiyah) or (not is_islamiyah and key in allowed): rows.append(row)
+        report["subjects"] = rows; report["subject_count"] = len(rows); report["missing_ca_subjects"] = [key for key in (report.get("missing_ca_subjects") or []) if (clean_upper(key) in {"ISLAMIYYAH", "ISLAMIYAH"} and include_islamiyah) or academic_subject_key(key) in allowed]; report["missing_exam_subjects"] = [key for key in (report.get("missing_exam_subjects") or []) if (clean_upper(key) in {"ISLAMIYYAH", "ISLAMIYAH"} and include_islamiyah) or academic_subject_key(key) in allowed]; report["has_ca"] = any(bool(row.get("has_ca") or row.get("ca_complete")) for row in rows); report["has_exam"] = any(bool(row.get("has_exam") or row.get("exam_complete")) for row in rows); report["report_subject_scope"] = scope
+    stats = finalize_report_statistics(reports); catalog = {academic_subject_key(row.get("subject_key") or row.get("subject")) for report in reports for row in report.get("subjects", []) if academic_subject_key(row.get("subject_key") or row.get("subject"))}; summary = dict(payload.get("summary") or {}); summary.update(stats); summary.update({"subjects": len(catalog), "generated": len(reports), "complete_reports": sum(1 for report in reports if report.get("academic_complete")), "partial_reports": sum(1 for report in reports if not report.get("academic_complete")), "report_subject_scope_count": len(scope.get("selected_keys") or []) + (1 if include_islamiyah else 0)}); payload["summary"] = summary; payload["subject_scope"] = scope
+    for report in reports:
+        average = optional_float(report.get("average")); report["teacher_remark"] = teacher_remark(average) if average is not None else ""; report["principal_remark"] = principal_remark(average) if average is not None else ""
+    return payload
 
 
 def safe_result_token(value):
@@ -918,27 +1105,43 @@ def result_file_stem(report):
     return f"{safe_result_token(first_name) or 'Student'}_{safe_result_token(level)}{safe_result_token(admission)}"
 
 
-def save_report_snapshots(reports):
-    """Save report snapshots with a stable human-readable result name for PDF/file workflows."""
+def save_report_snapshots(reports, generated_by=""):
+    """Save snapshots immediately, batch-archive History, then queue cloud sync off the request path.
+
+    The local report and Academic History remain durable before this function returns.  Only the
+    retry/sync queue work is deferred, preventing class generation from waiting on dozens of small
+    SQLite queue transactions.
+    """
     ensure_report_dir(); saved = []
     with REPORT_LOCK:
         with SNAPSHOT_FILE.open("a", encoding="utf-8") as file:
             for report in reports:
                 snapshot = {
                     "snapshot_id": uuid.uuid4().hex, "generated_at": now_string(),
-                    "generated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff"),
+                    "generated_by": clean(generated_by) or clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff"),
                     "session": report.get("session"), "term": report.get("term"), "class_level": report.get("class_level"), "class_arm": report.get("class_arm"),
                     "admission_number": report.get("admission_number"), "full_name": report.get("full_name"), "result_name": result_file_stem(report),
                     "source_mode": clean(report.get("source_mode") or "auto"), "report": report,
                 }
                 file.write(json.dumps(snapshot, ensure_ascii=False) + "\n"); saved.append(snapshot)
-    for snapshot in saved:
-        queue_emis_event_safely("report_sheets", "snapshot_upsert", {"snapshot": snapshot}, entity_key=f"snapshot|{clean(snapshot.get('snapshot_id'))}")
+    archive_results = []
     try:
         from modules.academic_history import archive_report_snapshots
-        archive_report_snapshots(saved, queue_sync=True)
+        archive_results = archive_report_snapshots(saved, queue_sync=False)
+        archived_ids = {clean((item.get("record") or {}).get("snapshot_id")) for item in archive_results if isinstance(item, dict) and item.get("record")}
+        for snapshot in saved: snapshot["transcript_archived"] = clean(snapshot.get("snapshot_id")) in archived_ids
     except Exception as error:
         print("[EMIS ACADEMIC HISTORY] Snapshot archive warning:", error)
+        for snapshot in saved: snapshot["transcript_archived"] = False
+
+    # Queue remote/retry sync after the HTTP response-critical disk work is complete.  This does not
+    # postpone the local snapshot/history save; it only moves sync bookkeeping out of the UI wait.
+    sync_snapshots = [dict(item) for item in saved]; sync_records = [dict(item.get("record") or {}) for item in archive_results if isinstance(item, dict) and item.get("record") and (item.get("created") or item.get("updated"))]
+    def _queue_saved_report_sync():
+        for snapshot in sync_snapshots: queue_emis_event_safely("report_sheets", "snapshot_upsert", {"snapshot": snapshot}, entity_key=f"snapshot|{clean(snapshot.get('snapshot_id'))}")
+        for record in sync_records: queue_emis_event_safely("academic_history", "record_upsert", {"record": record}, entity_key=f"history|{clean(record.get('record_id'))}")
+    try: Thread(target=_queue_saved_report_sync, name="emis-report-archive-sync", daemon=True).start()
+    except Exception as error: print("[EMIS SYNC] Could not start report archive sync worker:", error)
     return saved
 
 
@@ -948,7 +1151,16 @@ def save_report_snapshots(reports):
 
 
 def manual_score_fields(class_level):
-    return {"ca1": 10, "ca2": 10, "test1": 20, "test2": 20, "exam": 40} if clean_upper(class_level).startswith("JSS") else {"ass1": 5, "ass2": 5, "test": 20, "exam": 70}
+    rule = get_assessment_rule(class_level) or {}
+    if not assessment_entry_enabled(class_level): return {}
+    fields = {}
+    for item in rule.get("fields") or []:
+        if not isinstance(item, dict): continue
+        key = clean_upper(item.get("key")).lower(); maximum = optional_float(item.get("max"))
+        if key and maximum is not None: fields[key] = maximum
+    exam_max = optional_float(rule.get("exam_max"))
+    if exam_max is not None: fields["exam"] = exam_max
+    return fields
 
 
 def manual_score_value(value, maximum, label):
@@ -977,7 +1189,7 @@ def normalize_manual_attendance(values):
 
 def normalize_manual_subject(entry, class_level, allowed_map):
     entry = entry if isinstance(entry, dict) else {}; raw_subject = entry.get("subject") or entry.get("subject_key"); key = academic_subject_key(raw_subject)
-    if not key or key not in allowed_map: return None
+    if not key or key not in allowed_map or clean_upper(key) in {"ISLAMIYYAH", "ISLAMIYAH"}: return None
     fields = manual_score_fields(class_level); values = {field: manual_score_value(entry.get(field), maximum, field.upper()) for field, maximum in fields.items()}
     included = str(entry.get("included") or "").strip().lower() in {"1", "true", "yes", "on"} or any(value is not None for value in values.values())
     if not included: return None
@@ -993,11 +1205,17 @@ def get_manual_record(academic_session, term, class_level, class_arm, admission_
 
 def save_manual_record(academic_session, term, class_level, class_arm, admission_number, data):
     store = _read_json_store(MANUAL_FILE); key = manual_context_key(academic_session, term, class_level, class_arm, admission_number); current = store.get(key, {}) if isinstance(store.get(key), dict) else {}
-    allowed = expected_subject_map(get_student(admission_number, active_only=False) or {}, class_level, class_arm); entries = data.get("subjects") if isinstance(data.get("subjects"), list) else []
-    subjects = {}
-    for entry in entries:
-        normalized = normalize_manual_subject(entry, class_level, allowed)
-        if normalized: subjects[normalized["subject_key"]] = normalized
+    allowed = {key: value for key, value in expected_subject_map(get_student(admission_number, active_only=False) or {}, class_level, class_arm).items() if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}}; entries = data.get("subjects") if isinstance(data.get("subjects"), list) else []
+    visible_keys = {academic_subject_key(value) for value in (data.get("visible_subject_keys") or []) if academic_subject_key(value)}
+    subjects = dict(current.get("subjects", {})) if isinstance(current.get("subjects"), dict) else {}
+    if "subjects" in data:
+        if visible_keys:
+            for visible_key in visible_keys: subjects.pop(visible_key, None)
+        else:
+            subjects = {}
+        for entry in entries:
+            normalized = normalize_manual_subject(entry, class_level, allowed)
+            if normalized: subjects[normalized["subject_key"]] = normalized
     attendance_supplied = isinstance(data.get("attendance"), dict); attendance = normalize_manual_attendance(data.get("attendance")) if attendance_supplied else current.get("attendance", {})
     item = {
         "session": normalize_academic_session(academic_session), "term": normalize_academic_term(term), "class_level": class_level, "class_arm": class_arm, "admission_number": clean(admission_number),
@@ -1005,6 +1223,7 @@ def save_manual_record(academic_session, term, class_level, class_arm, admission
         "attendance_override_enabled": bool(data.get("attendance_override_enabled", current.get("attendance_override_enabled", False))),
         "prefer_manual_scores": bool(data.get("prefer_manual_scores", current.get("prefer_manual_scores", False))),
         "status": "FINAL" if clean_upper(data.get("status")) == "FINAL" else "DRAFT", "teacher_note": clean(data.get("teacher_note", current.get("teacher_note", ""))),
+        "excluded_from_class_report": bool(data.get("excluded_from_class_report", current.get("excluded_from_class_report", False))), "exclusion_reason": clean(data.get("exclusion_reason", current.get("exclusion_reason", ""))),
         "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or current.get("updated_by") or "Staff"),
     }
     store[key] = item; _write_json_store(MANUAL_FILE, store)
@@ -1014,7 +1233,35 @@ def save_manual_record(academic_session, term, class_level, class_arm, admission
 
 def manual_record_summary(record):
     record = record if isinstance(record, dict) else {}; subjects = record.get("subjects") if isinstance(record.get("subjects"), dict) else {}
-    return {"has_manual": bool(subjects or record.get("attendance")), "subject_count": len(subjects), "status": clean(record.get("status") or "DRAFT"), "attendance_override_enabled": bool(record.get("attendance_override_enabled")), "updated_at": clean(record.get("updated_at")), "updated_by": clean(record.get("updated_by"))}
+    return {"has_manual": bool(subjects or record.get("attendance")), "subject_count": len(subjects), "status": clean(record.get("status") or "DRAFT"), "attendance_override_enabled": bool(record.get("attendance_override_enabled")), "excluded_from_class_report": bool(record.get("excluded_from_class_report")), "exclusion_reason": clean(record.get("exclusion_reason")), "updated_at": clean(record.get("updated_at")), "updated_by": clean(record.get("updated_by"))}
+
+
+def manual_class_readiness(academic_session, term, class_level, class_arm):
+    """Return the authoritative Manual Workstation class-completion state.
+
+    Generation is class-based: every non-excluded pupil must have a FINAL saved record
+    with every configured score component for every selected report subject that belongs
+    to that pupil.  Excluded pupils remain visible in the roster but do not enter class
+    statistics or report generation.
+    """
+    academic_session, term = normalize_academic_session(academic_session), normalize_academic_term(term); level, arm = normalize_report_class(class_level, class_arm)
+    students = get_report_students_for_class(level, arm, active_only=True); store = _read_json_store(MANUAL_FILE); scope = get_report_subject_scope(level, arm); selected_keys = list(scope.get("selected_keys") or []); fields = manual_score_fields(level); rows = []
+    # Manual Workstation now has one authoritative class curriculum.  Do not resolve the
+    # subject registry again for every pupil; every included pupil must complete the same
+    # selected class subjects.  This is both the intended workflow and substantially faster.
+    for student in students:
+        admission = normalize_admission_number(student.get("admission_number")); record = store.get(manual_context_key(academic_session, term, level, arm, admission), {}) if admission else {}; excluded = bool(record.get("excluded_from_class_report")); required_keys = selected_keys; saved_subjects = record.get("subjects") if isinstance(record.get("subjects"), dict) else {}; missing_subjects, missing_fields = [], []
+        if not excluded:
+            for subject_key in required_keys:
+                entry = saved_subjects.get(subject_key) if isinstance(saved_subjects.get(subject_key), dict) else None
+                if not entry:
+                    missing_subjects.append(subject_key); continue
+                for field in fields:
+                    if entry.get(field) in (None, ""): missing_fields.append(f"{subject_key}:{field}")
+        complete = bool(not excluded and required_keys and not missing_subjects and not missing_fields and clean_upper(record.get("status")) == "FINAL")
+        rows.append({"admission_number": clean(student.get("admission_number")), "full_name": clean(student.get("full_name")), "excluded": excluded, "exclusion_reason": clean(record.get("exclusion_reason")), "complete": complete, "status": clean(record.get("status") or "NOT_STARTED"), "required_subjects": len(required_keys), "completed_subjects": max(0, len(required_keys) - len(missing_subjects) - len({item.split(':',1)[0] for item in missing_fields})), "missing_subjects": missing_subjects, "missing_fields": missing_fields})
+    eligible = [row for row in rows if not row["excluded"]]; ready = [row for row in eligible if row["complete"]]; excluded = [row for row in rows if row["excluded"]]; pending = [row for row in eligible if not row["complete"]]; percent = round((len(ready) / len(eligible)) * 100, 1) if eligible else 0
+    return {"students": rows, "total_students": len(rows), "eligible_students": len(eligible), "ready_students": len(ready), "remaining_students": len(pending), "excluded_students": len(excluded), "progress_percent": percent, "class_ready": bool(eligible) and not pending, "ready_admissions": [row["admission_number"] for row in ready], "eligible_admissions": [row["admission_number"] for row in eligible], "excluded_admissions": [row["admission_number"] for row in excluded], "pending": pending, "subject_scope": scope, "score_fields": fields}
 
 
 # ============================================================
@@ -1023,13 +1270,12 @@ def manual_record_summary(record):
 
 
 def build_manual_subject_row(class_level, entry):
-    entry = entry if isinstance(entry, dict) else {}; fields = manual_score_fields(class_level); scores = {field: optional_float(entry.get(field)) for field in fields}; is_jss = clean_upper(class_level).startswith("JSS")
-    ca_fields = ["ca1", "ca2", "test1", "test2"] if is_jss else ["ass1", "ass2", "test"]; ca_values = [scores.get(field) for field in ca_fields]; exam = scores.get("exam")
-    has_ca = any(value is not None for value in ca_values); ca_complete = all(value is not None for value in ca_values); has_exam = exam is not None; ca_total = round(sum(value or 0 for value in ca_values), 2) if has_ca else None
-    complete = ca_complete and has_exam; total = round((ca_total or 0) + exam, 2) if complete else None; grade, comment = grade_for_score(total) if total is not None else ("-", "Pending")
-    row = {"subject": normalize_academic_subject(entry.get("subject") or entry.get("subject_key")), "subject_key": academic_subject_key(entry.get("subject_key") or entry.get("subject")), "mode": "JSS" if is_jss else "SS", "has_ca": has_ca, "has_exam": has_exam, "ca_complete": ca_complete, "complete": complete, "ca_total": pretty_optional(ca_total), "exam": pretty_optional(exam), "total": pretty_optional(total), "grade": grade, "comment": comment, "position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}
-    if is_jss: row.update({"ca1": pretty_optional(scores.get("ca1")), "ca2": pretty_optional(scores.get("ca2")), "test1": pretty_optional(scores.get("test1")), "test2": pretty_optional(scores.get("test2"))})
-    else: row.update({"ass1": pretty_optional(scores.get("ass1")), "ass2": pretty_optional(scores.get("ass2")), "test": pretty_optional(scores.get("test"))})
+    entry = entry if isinstance(entry, dict) else {}; rule = get_assessment_rule(class_level) or {}; fields = manual_score_fields(class_level); scores = {field: optional_float(entry.get(field)) for field in fields}; component_keys = [clean_upper(item.get("key")).lower() for item in rule.get("fields") or [] if isinstance(item, dict) and clean_upper(item.get("key"))]; ca_values = [scores.get(field) for field in component_keys]; exam = scores.get("exam")
+    has_ca = any(value is not None for value in ca_values); ca_complete = bool(component_keys) and all(value is not None for value in ca_values); has_exam = exam is not None; ca_total = round(sum(value or 0 for value in ca_values), 2) if has_ca else None; complete = ca_complete and has_exam; total = round((ca_total or 0) + exam, 2) if complete else None; grade, comment = grade_for_score(total, class_level) if total is not None else ("-", "Pending"); mode = clean_upper(rule.get("key"))
+    definitions = [{"key": clean_upper(item.get("key")).lower(), "raw_key": clean_upper(item.get("key")), "label": clean(item.get("label") or item.get("key")), "max": optional_float(item.get("max")), "value": pretty_optional(scores.get(clean_upper(item.get("key")).lower()))} for item in rule.get("fields") or [] if isinstance(item, dict) and clean_upper(item.get("key"))]
+    row = {"subject": normalize_academic_subject(entry.get("subject") or entry.get("subject_key")), "subject_key": academic_subject_key(entry.get("subject_key") or entry.get("subject")), "mode": mode, "assessment_mode": mode, "assessment_status": clean(rule.get("status")), "components": {key: pretty_optional(scores.get(key)) for key in component_keys}, "component_fields": definitions, "has_ca": has_ca, "has_exam": has_exam, "ca_complete": ca_complete, "exam_complete": has_exam, "complete": complete, "ca_total": pretty_optional(ca_total), "ca_max": pretty_optional(rule.get("ca_max")), "exam": pretty_optional(exam), "exam_max": pretty_optional(rule.get("exam_max")), "total": pretty_optional(total), "total_max": pretty_optional(rule.get("total_max") or 100), "grade": grade, "comment": comment, "position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}
+    if mode == "JSS": row.update({"ca1": pretty_optional(scores.get("ca1")), "ca2": pretty_optional(scores.get("ca2")), "test1": pretty_optional(scores.get("test1")), "test2": pretty_optional(scores.get("test2"))})
+    elif mode == "SS": row.update({"ass1": pretty_optional(scores.get("ass1")), "ass2": pretty_optional(scores.get("ass2")), "test": pretty_optional(scores.get("test"))})
     return row
 
 
@@ -1041,10 +1287,10 @@ def finalize_report_statistics(reports):
     for report in reports:
         for row in report.get("subjects", []):
             if row.get("total") is None: row.update({"position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}); continue
-            scores = subject_scores.get(row.get("subject_key"), []); position = compute_position(row.get("total"), scores) if scores else 0
-            row.update({"position": position, "position_text": ordinal(position) if position else "--", "out_of": len(scores), "lowest": pretty_number(min(scores)) if scores else None, "highest": pretty_number(max(scores)) if scores else None, "class_average": pretty_number(sum(scores) / len(scores)) if scores else None})
-        complete_rows = [row for row in report.get("subjects", []) if row.get("complete") and row.get("total") is not None]; all_complete = bool(report.get("subjects")) and len(complete_rows) == len(report.get("subjects", [])); provisional_total = round(sum(safe_float(row.get("total")) for row in complete_rows), 2) if complete_rows else None; provisional_average = round(provisional_total / len(complete_rows), 2) if complete_rows else None
-        report["subjects_complete"] = len(complete_rows); report["academic_complete"] = all_complete; report["academic_partial"] = bool(report.get("subjects")) and not all_complete; report["provisional_total"] = pretty_optional(provisional_total); report["provisional_average"] = pretty_optional(provisional_average); report["total_score"] = pretty_optional(provisional_total) if all_complete else None; report["average"] = pretty_optional(provisional_average) if all_complete else None; report["grade"] = grade_for_score(provisional_average)[0] if all_complete and provisional_average is not None else "-"
+            subject_grade, subject_comment = grade_for_score(safe_float(row.get("total")), report.get("class_level")); scores = subject_scores.get(row.get("subject_key"), []); position = compute_position(row.get("total"), scores) if scores else 0
+            row.update({"grade": subject_grade, "comment": subject_comment, "position": position, "position_text": ordinal(position) if position else "--", "out_of": len(scores), "lowest": pretty_number(min(scores)) if scores else None, "highest": pretty_number(max(scores)) if scores else None, "class_average": pretty_number(sum(scores) / len(scores)) if scores else None})
+        complete_rows = [row for row in report.get("subjects", []) if row.get("complete") and row.get("total") is not None]; all_complete = bool(report.get("subjects")) and len(complete_rows) == len(report.get("subjects", [])); provisional_total = round(sum(safe_float(row.get("total")) for row in complete_rows), 2) if complete_rows else None; provisional_maximum = round(sum(safe_float(row.get("total_max"), 100) for row in complete_rows), 2) if complete_rows else None; provisional_average = round(provisional_total / provisional_maximum * 100, 2) if provisional_total is not None and provisional_maximum else None
+        report["subjects_complete"] = len(complete_rows); report["academic_complete"] = all_complete; report["academic_partial"] = bool(report.get("subjects")) and not all_complete; report["provisional_total"] = pretty_optional(provisional_total); report["provisional_maximum"] = pretty_optional(provisional_maximum); report["provisional_average"] = pretty_optional(provisional_average); report["total_score"] = pretty_optional(provisional_total) if all_complete else None; report["maximum_score"] = pretty_optional(provisional_maximum) if all_complete else None; report["average"] = pretty_optional(provisional_average) if all_complete else None; report["grade"] = grade_for_score(provisional_average, report.get("class_level"))[0] if all_complete and provisional_average is not None else "-"
     averages = [safe_float(report.get("average")) for report in reports if report.get("average") is not None]
     for report in reports:
         if report.get("average") is None: report.update({"position": 0, "position_text": "--", "out_of": 0}); continue
@@ -1052,18 +1298,75 @@ def finalize_report_statistics(reports):
     return {"class_average": pretty_number(sum(averages) / len(averages)) if averages else None, "highest_average": pretty_number(max(averages)) if averages else None, "lowest_average": pretty_number(min(averages)) if averages else None}
 
 
+def audit_manual_report_integrity(payload, expected_admissions):
+    """Fail-safe verification for an official Manual/Hybrid class batch before snapshots or printing are allowed.
+
+    Recomputes every report total/average, every overall rank, every subject rank/out-of/low/high/class-average and the class summary directly from the final
+    printable rows. Any mismatch blocks generation instead of allowing an internally inconsistent report batch to reach parents.
+    """
+    reports = payload.get("reports") if isinstance(payload, dict) and isinstance(payload.get("reports"), list) else []; expected = [normalize_admission_number(value) for value in (expected_admissions or []) if normalize_admission_number(value)]; expected = list(dict.fromkeys(expected)); expected_set = set(expected); errors, warnings = [], []
+    report_admissions = [normalize_admission_number(report.get("admission_number")) for report in reports]; duplicates = sorted({value for value in report_admissions if value and report_admissions.count(value) > 1}); missing = sorted(expected_set - set(report_admissions)); extras = sorted(set(report_admissions) - expected_set) if expected_set else []
+    if duplicates: errors.append(f"Duplicate report rows found for: {', '.join(duplicates)}.")
+    if missing: errors.append(f"Missing report rows for: {', '.join(missing)}.")
+    if extras: errors.append(f"Unexpected report rows found for: {', '.join(extras)}.")
+    if expected and len(reports) != len(expected): errors.append(f"Expected {len(expected)} class reports but generated {len(reports)}.")
+
+    calculated = {}; subject_groups = {}
+    for report in reports:
+        admission = normalize_admission_number(report.get("admission_number")); rows = report.get("subjects") if isinstance(report.get("subjects"), list) else []; incomplete = [clean(row.get("subject") or row.get("subject_key")) for row in rows if row.get("total") is None or not row.get("complete")]
+        if incomplete: errors.append(f"{admission or 'Unknown student'} has incomplete printable subject row(s): {', '.join(incomplete)}.")
+        scored = [row for row in rows if row.get("total") is not None and row.get("complete")]; total = round(sum(safe_float(row.get("total")) for row in scored), 2) if scored else None; maximum = round(sum(safe_float(row.get("total_max"), 100) for row in scored), 2) if scored else None; average = round(total / maximum * 100, 2) if total is not None and maximum else None; calculated[admission] = {"total": total, "maximum": maximum, "average": average}
+        if average is None: errors.append(f"{admission or 'Unknown student'} has no rankable final average.")
+        if total is not None and (optional_float(report.get("total_score")) is None or abs(optional_float(report.get("total_score")) - total) > 0.011): errors.append(f"{admission} total mismatch: report={report.get('total_score')} recalculated={pretty_number(total)}.")
+        if maximum is not None and (optional_float(report.get("maximum_score")) is None or abs(optional_float(report.get("maximum_score")) - maximum) > 0.011): errors.append(f"{admission} maximum-score mismatch: report={report.get('maximum_score')} recalculated={pretty_number(maximum)}.")
+        if average is not None and (optional_float(report.get("average")) is None or abs(optional_float(report.get("average")) - average) > 0.011): errors.append(f"{admission} average mismatch: report={report.get('average')} recalculated={pretty_number(average)}.")
+        expected_grade = grade_for_score(average, report.get("class_level"))[0] if average is not None else "-"
+        if average is not None and clean_upper(report.get("grade")) != clean_upper(expected_grade): errors.append(f"{admission} grade mismatch: report={report.get('grade')} recalculated={expected_grade}.")
+        for row in scored:
+            key = academic_subject_key(row.get("subject_key") or row.get("subject")); subject_groups.setdefault(key, []).append((admission, row, safe_float(row.get("total")), report.get("class_level")))
+
+    ranked = [(admission, item["average"]) for admission, item in calculated.items() if item.get("average") is not None]; rank_scores = [average for _, average in ranked]; expected_count = len(expected) if expected else len(reports)
+    if len(rank_scores) != expected_count: errors.append(f"Ranking cohort mismatch: {len(rank_scores)} rankable report(s) for a {expected_count}-student class cohort.")
+    for report in reports:
+        admission = normalize_admission_number(report.get("admission_number")); average = calculated.get(admission, {}).get("average")
+        if average is None: continue
+        expected_position = compute_position(average, rank_scores); actual_position = int(safe_float(report.get("position"), 0)); actual_out_of = int(safe_float(report.get("out_of"), 0))
+        if actual_position != expected_position: errors.append(f"{admission} overall position mismatch: report={actual_position or '--'} recalculated={ordinal(expected_position)}.")
+        if actual_out_of != expected_count: errors.append(f"{admission} class-size mismatch: report OUT OF={actual_out_of} expected={expected_count}.")
+
+    for subject_key, members in subject_groups.items():
+        scores = [score for _, _, score, _ in members]; low, high, average = min(scores), max(scores), sum(scores) / len(scores)
+        for admission, row, score, class_level in members:
+            expected_position = compute_position(score, scores); actual_position = int(safe_float(row.get("position"), 0)); actual_out_of = int(safe_float(row.get("out_of"), 0)); expected_subject_grade = grade_for_score(score, class_level)[0]
+            if clean_upper(row.get("grade")) != clean_upper(expected_subject_grade): errors.append(f"{admission} {subject_key} grade mismatch: report={row.get('grade')} recalculated={expected_subject_grade}.")
+            if actual_position != expected_position: errors.append(f"{admission} {subject_key} position mismatch: report={actual_position or '--'} recalculated={ordinal(expected_position)}.")
+            if actual_out_of != len(scores): errors.append(f"{admission} {subject_key} OUT OF mismatch: report={actual_out_of} recalculated={len(scores)}.")
+            if optional_float(row.get("lowest")) is None or abs(optional_float(row.get("lowest")) - low) > 0.011: errors.append(f"{admission} {subject_key} lowest-score statistic mismatch.")
+            if optional_float(row.get("highest")) is None or abs(optional_float(row.get("highest")) - high) > 0.011: errors.append(f"{admission} {subject_key} highest-score statistic mismatch.")
+            if optional_float(row.get("class_average")) is None or abs(optional_float(row.get("class_average")) - round(average, 2)) > 0.011: errors.append(f"{admission} {subject_key} class-average statistic mismatch.")
+
+    summary = payload.get("summary") if isinstance(payload, dict) and isinstance(payload.get("summary"), dict) else {}; class_average = round(sum(rank_scores) / len(rank_scores), 2) if rank_scores else None; class_high = max(rank_scores) if rank_scores else None; class_low = min(rank_scores) if rank_scores else None
+    for label, actual, expected_value in [("class average", optional_float(summary.get("class_average")), class_average), ("highest average", optional_float(summary.get("highest_average")), class_high), ("lowest average", optional_float(summary.get("lowest_average")), class_low)]:
+        if expected_value is not None and (actual is None or abs(actual - expected_value) > 0.011): errors.append(f"Summary {label} mismatch: report={actual} recalculated={pretty_number(expected_value)}.")
+    subject_counts = sorted({len(report.get("subjects") or []) for report in reports})
+    if len(subject_counts) > 1: warnings.append(f"Printable subject counts vary across pupils ({', '.join(map(str, subject_counts))}) because complete optional/synced subjects may exist for only part of the class. Overall ranks were still verified across all {expected_count} pupils.")
+    verified = not errors
+    for report in reports: report["integrity_verified"] = verified; report["integrity_cohort_size"] = expected_count; report["integrity_checked_at"] = now_string()
+    return {"verified": verified, "cohort_size": expected_count, "reports_checked": len(reports), "ranked_students": len(rank_scores), "subjects_checked": len(subject_groups), "errors": errors, "warnings": warnings, "class_average_recalculated": pretty_optional(class_average), "highest_average_recalculated": pretty_optional(class_high), "lowest_average_recalculated": pretty_optional(class_low)}
+
+
 def build_manual_report_payload(academic_session, term, class_level, class_arm, admission_numbers=None):
-    academic_session, term = normalize_academic_session(academic_session), normalize_academic_term(term); level, arm = normalize_academic_class(class_level, class_arm); students = get_students_for_class(level, arm, active_only=True); requested = set(normalize_admission_selection(admission_numbers)); store = _read_json_store(MANUAL_FILE); saved_attendance = get_attendance_summary_map(academic_session, term, level, arm); reports, source_students, catalog = [], [], set()
+    academic_session, term = normalize_academic_session(academic_session), normalize_academic_term(term); level, arm = normalize_report_class(class_level, class_arm); students = get_report_students_for_class(level, arm, active_only=True); requested = set(normalize_admission_selection(admission_numbers)); store = _read_json_store(MANUAL_FILE); saved_attendance = get_attendance_summary_map(academic_session, term, level, arm); reports, source_students, catalog = [], [], set(); scope = get_report_subject_scope(level, arm); selected_subject_keys = list(scope.get("selected_keys") or [])
     for student in students:
-        admission = normalize_admission_number(student.get("admission_number")); record = store.get(manual_context_key(academic_session, term, level, arm, admission), {}) if admission else {}; record_subjects = record.get("subjects") if isinstance(record.get("subjects"), dict) else {}; allowed = expected_subject_map(student, level, arm); rows = []
-        for subject_key in allowed:
+        admission = normalize_admission_number(student.get("admission_number")); record = store.get(manual_context_key(academic_session, term, level, arm, admission), {}) if admission else {}; record_subjects = record.get("subjects") if isinstance(record.get("subjects"), dict) else {}; rows = []
+        for subject_key in selected_subject_keys:
             entry = record_subjects.get(subject_key)
             if not isinstance(entry, dict): continue
             row = build_manual_subject_row(level, entry); rows.append(row); catalog.add(subject_key)
-        manual_attendance = record.get("attendance") if isinstance(record.get("attendance"), dict) else {}; attendance = manual_attendance or saved_attendance.get(admission, {}); has_manual = bool(rows or manual_attendance); source_students.append({**student, "has_manual": has_manual, "manual_status": clean(record.get("status") or ""), "manual_subject_count": len(rows), "has_attendance": bool(attendance)})
-        if not has_manual: continue
+        manual_attendance = record.get("attendance") if isinstance(record.get("attendance"), dict) else {}; attendance = manual_attendance or saved_attendance.get(admission, {}); has_manual = bool(rows or manual_attendance); excluded = bool(record.get("excluded_from_class_report")); source_students.append({**student, "has_manual": has_manual, "manual_status": clean(record.get("status") or ""), "manual_subject_count": len(rows), "has_attendance": bool(attendance), "excluded_from_class_report": excluded, "exclusion_reason": clean(record.get("exclusion_reason"))})
+        if excluded or not has_manual: continue
         reports.append({"admission_number": student.get("admission_number"), "full_name": student.get("full_name"), "last_name": student.get("last_name"), "first_name": student.get("first_name"), "other_names": student.get("other_names"), "sex": student.get("sex"), "class_level": level, "class_arm": arm, "session": academic_session, "term": term, "term_label": academic_term_label(term), "subjects": rows, "subject_count": len(rows), "has_ca": any(row.get("has_ca") for row in rows), "has_exam": any(row.get("has_exam") for row in rows), "has_attendance": bool(attendance), "attendance": attendance, "source_mode": "manual", "manual_status": clean(record.get("status") or "DRAFT"), "manual_updated_at": clean(record.get("updated_at")), "result_name": "", "teacher_remark": "", "principal_remark": "", "missing_ca_subjects": [row.get("subject_key") for row in rows if not row.get("has_ca")], "missing_exam_subjects": [row.get("subject_key") for row in rows if not row.get("has_exam")]})
-    payload = {"success": bool(reports), "session": academic_session, "term": term, "term_label": academic_term_label(term), "class_level": level, "class_arm": arm, "students": source_students, "reports": reports, "blocked_students": [], "readiness_warnings": [], "source_status": {"students": bool(students), "manual": bool(reports), "attendance": bool(saved_attendance)}, "summary": {"students_in_class": len(students), "generated": len(reports), "manual_ready": len(reports), "subjects": len(catalog)}}; payload = apply_islamiyah_report_rows(payload); reports = payload.get("reports", []); stats = finalize_report_statistics(reports); payload["summary"] = {**(payload.get("summary") or {}), **stats, "generated": len(reports)}
+    payload = {"success": bool(reports), "session": academic_session, "term": term, "term_label": academic_term_label(term), "class_level": level, "class_arm": arm, "students": source_students, "reports": reports, "blocked_students": [], "readiness_warnings": [], "source_status": {"students": bool(students), "manual": bool(reports), "attendance": bool(saved_attendance)}, "summary": {"students_in_class": len(students), "generated": len(reports), "manual_ready": len(reports), "subjects": len(catalog)}}; payload = apply_islamiyah_report_rows(payload); payload = apply_report_subject_scope(payload, level, arm); reports = payload.get("reports", []); stats = finalize_report_statistics(reports); payload["summary"] = {**(payload.get("summary") or {}), **stats, "generated": len(reports)}
     payload = apply_saved_report_details(payload)
     for report in payload.get("reports", []): report["result_name"] = result_file_stem(report)
     if requested:
@@ -1072,7 +1375,7 @@ def build_manual_report_payload(academic_session, term, class_level, class_arm, 
 
 
 def merge_hybrid_subject_row(class_level, auto_row=None, manual_row=None, prefer_manual=False):
-    auto_row, manual_row = auto_row if isinstance(auto_row, dict) else {}, manual_row if isinstance(manual_row, dict) else {}; is_jss = clean_upper(class_level).startswith("JSS"); fields = ["ca1", "ca2", "test1", "test2", "exam"] if is_jss else ["ass1", "ass2", "test", "exam"]
+    auto_row, manual_row = auto_row if isinstance(auto_row, dict) else {}, manual_row if isinstance(manual_row, dict) else {}; fields = list(manual_score_fields(class_level))
     values = {}
     for field in fields:
         first, second = (manual_row.get(field), auto_row.get(field)) if prefer_manual else (auto_row.get(field), manual_row.get(field)); values[field] = first if first not in (None, "") else second
@@ -1089,7 +1392,8 @@ def build_hybrid_report_payload(academic_session, term, class_level, class_arm, 
         report["subjects"] = merged; report["subject_count"] = len(merged); report["source_mode"] = "hybrid"; report["manual_subjects_used"] = used; report["manual_status"] = clean(record.get("status") or "")
         manual_attendance = record.get("attendance") if isinstance(record.get("attendance"), dict) else {}
         if manual_attendance and (record.get("attendance_override_enabled") or not report.get("attendance")): report["attendance"] = manual_attendance; report["has_attendance"] = True; report["manual_attendance_used"] = True
-    auto["reports"] = reports; auto = apply_islamiyah_report_rows(auto); reports = auto.get("reports", []); stats = finalize_report_statistics(reports); auto["summary"] = {**(auto.get("summary") or {}), **stats, "generated": len(reports), "hybrid_manual_subjects_used": sum(int(report.get("manual_subjects_used") or 0) for report in reports)}; auto = apply_saved_report_details(auto)
+    excluded = {normalize_admission_number(value.get("admission_number")) for value in store.values() if isinstance(value, dict) and normalize_academic_session(value.get("session")) == normalize_academic_session(academic_session) and normalize_academic_term(value.get("term")) == normalize_academic_term(term) and value.get("class_level") == auto.get("class_level") and value.get("class_arm") == auto.get("class_arm") and value.get("excluded_from_class_report")}
+    reports = [report for report in reports if normalize_admission_number(report.get("admission_number")) not in excluded]; auto["reports"] = reports; auto["students"] = [student for student in (auto.get("students") or []) if normalize_admission_number(student.get("admission_number")) not in excluded]; auto = apply_islamiyah_report_rows(auto); auto = apply_report_subject_scope(auto, class_level, class_arm); reports = auto.get("reports", []); stats = finalize_report_statistics(reports); auto["summary"] = {**(auto.get("summary") or {}), **stats, "generated": len(reports), "excluded_students": len(excluded), "hybrid_manual_subjects_used": sum(int(report.get("manual_subjects_used") or 0) for report in reports)}; auto = apply_saved_report_details(auto)
     for report in auto.get("reports", []): report["result_name"] = result_file_stem(report)
     requested = set(normalize_admission_selection(admission_numbers))
     if requested:
@@ -1160,49 +1464,44 @@ def apply_saved_manual_score_overrides(payload):
 
 
 def apply_islamiyah_report_rows(payload):
-    """Inject the independent Islamiyah School result into regular report sheets.
+    """Make Islamiyyah School the authoritative source without allowing unfinished Academy rows to corrupt official regular-school statistics.
 
-    The Islamiyyah row is authoritative from the Phase 4 Islamiyah module once a
-    session roster has been imported. It replaces any legacy manually-entered
-    Islamiyyah row and uses CA /30 + Exam /70 without zero-filling missing scores.
+    Only a COMPLETE Islamiyyah /100 result is inserted into the printable report. Linked pupils whose Islamiyyah score is pending/partial stay visible in the
+    Islamiyyah Sync workspace, but no blank subject row is added to the official report and their regular-school average/position remains fully rankable.
     """
     if not isinstance(payload, dict): return payload
-    session_value, term = normalize_academic_session(payload.get("session")), normalize_academic_term(payload.get("term")); reports = payload.get("reports") if isinstance(payload.get("reports"), list) else []
-    integrated = pending = complete_count = 0
+    session_value, term = normalize_academic_session(payload.get("session")), normalize_academic_term(payload.get("term")); reports = payload.get("reports") if isinstance(payload.get("reports"), list) else []; integrated = pending = complete_count = 0
     for report in reports:
-        admission = normalize_admission_number(report.get("admission_number")); islamiyah_row = get_report_islamiyah_row(admission, session_value, term)
-        if islamiyah_row is None: continue
-        rows = list(report.get("subjects") or []); existing_index = next((index for index, row in enumerate(rows) if clean_upper(row.get("subject_key") or row.get("subject")) in {"ISLAMIYYAH", "ISLAMIYAH"}), None)
-        rows = [row for row in rows if clean_upper(row.get("subject_key") or row.get("subject")) not in {"ISLAMIYYAH", "ISLAMIYAH"}]
+        admission = normalize_admission_number(report.get("admission_number")); rows = list(report.get("subjects") or []); existing_index = next((index for index, row in enumerate(rows) if clean_upper(row.get("subject_key") or row.get("subject")) in {"ISLAMIYYAH", "ISLAMIYAH"}), None)
+        # Never trust a legacy/manual Islamiyyah row. Remove it first, then attach only a complete authoritative Academy/regular-Islamiyyah result.
+        rows = [row for row in rows if clean_upper(row.get("subject_key") or row.get("subject")) not in {"ISLAMIYYAH", "ISLAMIYAH"}]; report["subjects"] = rows; report["subject_count"] = len(rows); islamiyah_row = get_report_islamiyah_row(admission, session_value, term)
+        has_verified_score = bool(islamiyah_row and islamiyah_row.get("complete") and optional_float(islamiyah_row.get("total")) is not None)
+        if not has_verified_score:
+            if islamiyah_row is not None:
+                pending += 1; report["has_islamiyah"] = False; report["islamiyah_complete"] = False; report["islamiyah_status"] = islamiyah_row.get("islamiyah_status") or "pending"; report["islamiyah_class"] = islamiyah_row.get("islamiyah_class"); report["islamiyah_class_label"] = islamiyah_row.get("islamiyah_class_label"); report["islamiyah_source"] = "ISLAMIYYAH_SCHOOL"
+            report["missing_ca_subjects"] = [key for key in (report.get("missing_ca_subjects") or []) if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}]; report["missing_exam_subjects"] = [key for key in (report.get("missing_exam_subjects") or []) if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}]; continue
         if existing_index is None:
             irs_index = next((index for index, row in enumerate(rows) if clean_upper(row.get("subject_key")) == "IRS"), None); insert_at = (irs_index + 1) if irs_index is not None else min(4, len(rows))
         else: insert_at = min(existing_index, len(rows))
-        rows.insert(insert_at, islamiyah_row); report["subjects"] = rows; report["subject_count"] = len(rows); report["has_islamiyah"] = True; report["islamiyah_class"] = islamiyah_row.get("islamiyah_class"); report["islamiyah_class_label"] = islamiyah_row.get("islamiyah_class_label"); report["islamiyah_complete"] = bool(islamiyah_row.get("complete")); report["islamiyah_status"] = islamiyah_row.get("islamiyah_status")
-        missing_ca = [key for key in (report.get("missing_ca_subjects") or []) if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}]; missing_exam = [key for key in (report.get("missing_exam_subjects") or []) if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}]
-        if not islamiyah_row.get("ca_complete"): missing_ca.append("ISLAMIYYAH")
-        if not islamiyah_row.get("exam_complete"): missing_exam.append("ISLAMIYYAH")
-        report["missing_ca_subjects"], report["missing_exam_subjects"] = missing_ca, missing_exam; integrated += 1
-        if islamiyah_row.get("complete"): complete_count += 1
-        else: pending += 1
-    if not integrated: return payload
+        rows.insert(insert_at, islamiyah_row); report["subjects"] = rows; report["subject_count"] = len(rows); report["has_islamiyah"] = True; report["islamiyah_source"] = "ISLAMIYYAH_SCHOOL"; report["islamiyah_class"] = islamiyah_row.get("islamiyah_class"); report["islamiyah_class_label"] = islamiyah_row.get("islamiyah_class_label"); report["islamiyah_complete"] = True; report["islamiyah_status"] = islamiyah_row.get("islamiyah_status") or "complete"; report["missing_ca_subjects"] = [key for key in (report.get("missing_ca_subjects") or []) if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}]; report["missing_exam_subjects"] = [key for key in (report.get("missing_exam_subjects") or []) if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}]; integrated += 1; complete_count += 1
+    if not integrated and not pending: return payload
     stats = finalize_report_statistics(reports)
     for report in reports:
         average = optional_float(report.get("average")); report["teacher_remark"] = teacher_remark(average) if average is not None else ""; report["principal_remark"] = principal_remark(average) if average is not None else ""; report["result_name"] = result_file_stem(report)
     student_map = {normalize_admission_number(student.get("admission_number")): student for student in payload.get("students", []) if normalize_admission_number(student.get("admission_number"))}
     for report in reports:
         student = student_map.get(normalize_admission_number(report.get("admission_number")))
-        if student: student.update({"has_islamiyah": True, "islamiyah_complete": report.get("islamiyah_complete"), "islamiyah_class": report.get("islamiyah_class"), "islamiyah_class_label": report.get("islamiyah_class_label"), "islamiyah_status": report.get("islamiyah_status")})
-    summary = dict(payload.get("summary") or {}); summary.update(stats); summary.update({"generated": len(reports), "complete_reports": sum(1 for report in reports if report.get("academic_complete")), "partial_reports": sum(1 for report in reports if not report.get("academic_complete")), "islamiyah_integrated": integrated, "islamiyah_complete": complete_count, "islamiyah_pending": pending}); payload["summary"] = summary
-    source_status = dict(payload.get("source_status") or {}); source_status["islamiyah"] = True; source_status["islamiyah_complete"] = pending == 0; payload["source_status"] = source_status
+        if student: student.update({"has_islamiyah": bool(report.get("has_islamiyah")), "islamiyah_complete": bool(report.get("islamiyah_complete")), "islamiyah_class": report.get("islamiyah_class"), "islamiyah_class_label": report.get("islamiyah_class_label"), "islamiyah_status": report.get("islamiyah_status"), "islamiyah_source": report.get("islamiyah_source")})
+    summary = dict(payload.get("summary") or {}); summary.update(stats); summary.update({"generated": len(reports), "complete_reports": sum(1 for report in reports if report.get("academic_complete")), "partial_reports": sum(1 for report in reports if not report.get("academic_complete")), "islamiyah_integrated": integrated, "islamiyah_complete": complete_count, "islamiyah_pending": pending, "islamiyah_authoritative_source": "ISLAMIYYAH_SCHOOL"}); payload["summary"] = summary
+    source_status = dict(payload.get("source_status") or {}); source_status["islamiyah"] = bool(integrated or pending); source_status["islamiyah_complete"] = pending == 0; source_status["islamiyah_authoritative"] = True; payload["source_status"] = source_status
     return payload
-
 
 def build_term_report_payload(academic_session, term, class_level, class_arm, result_year="", admission_number="", include_cumulative=True, admission_numbers=None):
     # Build the full class first so Manual Studio values still receive correct class
     # statistics/positions, then filter to the requested student(s).
     payload = _AUTO_BUILD_TERM_REPORT_PAYLOAD(academic_session, term, class_level, class_arm, result_year, "", include_cumulative, None)
-    payload = apply_saved_manual_score_overrides(payload); payload = apply_manual_attendance_overrides(payload); payload = apply_islamiyah_report_rows(payload)
-    if normalize_academic_term(term) == "THIRD" and include_cumulative and payload.get("reports"): attach_cumulative_results(payload, normalize_academic_session(academic_session), payload.get("class_level") or class_level, payload.get("class_arm") or class_arm, resolve_result_year(academic_session, result_year, payload.get("class_level") or class_level, payload.get("class_arm") or class_arm))
+    payload = apply_saved_manual_score_overrides(payload); payload = apply_manual_attendance_overrides(payload); payload = apply_islamiyah_report_rows(payload); payload = apply_report_subject_scope(payload, class_level, class_arm)
+    if normalize_academic_term(term) == "THIRD" and include_cumulative and payload.get("reports"): attach_cumulative_results(payload, normalize_academic_session(academic_session), payload.get("class_level") or class_level, payload.get("class_arm") or class_arm, resolve_result_year(academic_session, result_year, payload.get("class_level") or class_level, payload.get("class_arm") or class_arm), mode="auto")
     requested = normalize_admission_selection(admission_numbers); single = normalize_admission_number(admission_number)
     if single and single not in requested: requested.insert(0, single)
     if requested:
@@ -1211,29 +1510,173 @@ def build_term_report_payload(academic_session, term, class_level, class_arm, re
 
 
 # ============================================================
+# THIRD TERM CUMULATIVE — LIVE REPORT-SHEET SYNC
+# ============================================================
+
+LIVE_CUMULATIVE_TERMS = ("FIRST", "SECOND", "THIRD")
+
+def _live_cumulative_term_payload(academic_session, term, class_level, class_arm, mode="manual", result_year=""):
+    mode = clean(mode or "manual").lower()
+    if mode == "manual": return build_manual_report_payload(academic_session, term, class_level, class_arm)
+    if mode == "hybrid": return build_hybrid_report_payload(academic_session, term, class_level, class_arm, result_year)
+    return build_term_report_payload(academic_session, term, class_level, class_arm, result_year, include_cumulative=False)
+
+
+def build_live_cumulative_payload(academic_session, class_level, class_arm, mode="manual", result_year="", next_term="", form_teacher=""):
+    """Compile the Third-Term cumulative workspace directly from live Report Sheet sources.
+
+    Unlike the legacy cumulative hub, this does not wait for Academic History snapshots. Manual
+    mode reads the same saved teacher-entered records used by Manual Workstation, Auto mode reads
+    the normal EMIS report sources, and Hybrid uses the same merge rules as Hybrid generation.
+    The roster is always returned, so pupils remain visible even while one or more terms are pending.
+    """
+    academic_session = normalize_academic_session(academic_session); level, arm = normalize_report_class(class_level, class_arm); mode = clean(mode or "manual").lower(); mode = mode if mode in {"manual", "auto", "hybrid"} else "manual"; result_year = resolve_result_year(academic_session, result_year, level, arm); roster = get_report_students_for_class(level, arm, active_only=True)
+    term_payloads = {term: _live_cumulative_term_payload(academic_session, term, level, arm, mode, result_year) for term in LIVE_CUMULATIVE_TERMS}; term_maps = {term: report_map(payload) for term, payload in term_payloads.items()}; third_payload = term_payloads.get("THIRD") or {}
+    if third_payload.get("reports"): attach_cumulative_results(third_payload, academic_session, level, arm, result_year, mode=mode)
+    if next_term: apply_requested_next_term(third_payload, next_term)
+    if form_teacher:
+        third_payload["form_teacher"] = clean(form_teacher)
+        for report in third_payload.get("reports", []): report["form_teacher"] = clean(form_teacher)
+    students = []
+    for student in roster:
+        admission = normalize_admission_number(student.get("admission_number")); terms, averages, score_pairs, missing = {}, [], [], []
+        for term in LIVE_CUMULATIVE_TERMS:
+            report = term_maps.get(term, {}).get(admission); average = optional_float((report or {}).get("average")); score = optional_float((report or {}).get("total_score")); maximum = optional_float((report or {}).get("maximum_score")); available = average is not None
+            if available: averages.append(average)
+            else: missing.append(term)
+            if score is not None and maximum: score_pairs.append((score, maximum))
+            terms[term] = {"available": available, "average": pretty_optional(average), "score": pretty_optional(score), "maximum": pretty_optional(maximum), "grade": clean((report or {}).get("grade") or "-"), "position": int(safe_float((report or {}).get("position"), 0)), "position_text": clean((report or {}).get("position_text") or "--"), "out_of": int(safe_float((report or {}).get("out_of"), 0)), "academic_complete": bool((report or {}).get("academic_complete")), "source_mode": clean((report or {}).get("source_mode") or mode), "manual_status": clean((report or {}).get("manual_status"))}
+        annual_average = round(sum(averages) / len(averages), 2) if averages else None; annual_score = round(sum(item[0] for item in score_pairs), 2) if score_pairs else None; annual_max = round(sum(item[1] for item in score_pairs), 2) if score_pairs else None; annual_score_percentage = round(annual_score / annual_max * 100, 2) if annual_score is not None and annual_max else None; grade, comment = grade_for_score(annual_average, level) if annual_average is not None else ("-", "Pending"); third_report = term_maps.get("THIRD", {}).get(admission) or {}
+        students.append({"profile": {"admission_number": clean(student.get("admission_number")), "full_name": clean(student.get("full_name")), "sex": clean(student.get("sex")), "class_level": level, "class_arm": arm, "class_display": arm or level}, "terms": terms, "annual_score": pretty_optional(annual_score), "annual_max": pretty_optional(annual_max), "annual_score_percentage": pretty_optional(annual_score_percentage), "annual_average": pretty_optional(annual_average), "annual_grade": grade, "annual_comment": comment, "terms_available": len(averages), "complete": len(averages) == 3, "cumulative_ready": len(averages) == 3, "missing_terms": missing, "generation_blockers": [f"{term.title()} Term result missing" for term in missing], "required_terms": list(LIVE_CUMULATIVE_TERMS), "annual_position": 0, "annual_position_text": "--", "annual_out_of": 0, "promotion_status": clean(third_report.get("promotion_status") or "PENDING"), "promotion_note": clean(third_report.get("promotion_note")), "third_report_ready": bool(third_report.get("academic_complete"))})
+    complete_students = [item for item in students if item.get("complete") and optional_float(item.get("annual_average")) is not None]; complete_scores = [optional_float(item.get("annual_average")) for item in complete_students]; provisional_scores = [optional_float(item.get("annual_average")) for item in students if optional_float(item.get("annual_average")) is not None]
+    for item in students:
+        average = optional_float(item.get("annual_average")); item["provisional_position"] = compute_position(average, provisional_scores) if average is not None and provisional_scores else 0; item["provisional_position_text"] = ordinal(item["provisional_position"]) if item["provisional_position"] else "--"
+        if not item.get("complete") or average is None: continue
+        position = compute_position(average, complete_scores); item["annual_position"], item["annual_position_text"], item["annual_out_of"] = position, ordinal(position), len(complete_students)
+    term_counts = {term: sum(1 for item in students if optional_float((item.get("terms") or {}).get(term, {}).get("average")) is not None) for term in LIVE_CUMULATIVE_TERMS}; roster_count = len(students); slots_complete = sum(term_counts.values()); data_coverage = round(slots_complete / (roster_count * 3) * 100, 2) if roster_count else 0; complete_count = len(complete_students); official_ready = bool(roster_count) and complete_count == roster_count and all(term_counts.get(term) == roster_count for term in LIVE_CUMULATIVE_TERMS); class_average = round(sum(complete_scores) / len(complete_scores), 2) if complete_scores else None; provisional_class_average = round(sum(provisional_scores) / len(provisional_scores), 2) if provisional_scores else None; reports = list(third_payload.get("reports") or []); print_reports = [report for report in reports if report.get("academic_complete") and report.get("cumulative_complete")]
+    incomplete_terms = [f"{term.title()} Term {term_counts.get(term, 0)}/{roster_count}" for term in LIVE_CUMULATIVE_TERMS if term_counts.get(term, 0) < roster_count]; guard_message = "All active students have complete First, Second and Third Term records. Official cumulative averages, class positions, PDF preview and printing are unlocked." if official_ready else f"Official cumulative PDF is locked: {' • '.join(incomplete_terms) if incomplete_terms else '3-term coverage is incomplete'}. Each pupil must have complete First Term, Second Term and Third Term Report Sheet records before a Third Term cumulative sheet is official. Current 3/3 readiness: {complete_count}/{roster_count}."
+    generation_gate = {"required_terms": list(LIVE_CUMULATIVE_TERMS), "first_ready": bool(roster_count) and term_counts.get("FIRST") == roster_count, "second_ready": bool(roster_count) and term_counts.get("SECOND") == roster_count, "third_ready": bool(roster_count) and term_counts.get("THIRD") == roster_count, "official_ready": official_ready, "message": guard_message}
+    return {"success": True, "session": academic_session, "term": "THIRD", "class_level": level, "class_arm": arm, "source_mode": mode, "count": roster_count, "students": students, "term_counts": term_counts, "complete_students": complete_count, "partial_students": max(0, roster_count - complete_count), "coverage_percentage": round(complete_count / roster_count * 100, 2) if roster_count else 0, "data_coverage_percentage": data_coverage, "class_average": pretty_optional(class_average), "provisional_class_average": pretty_optional(provisional_class_average), "official_ready": official_ready, "print_ready_count": len(print_reports), "third_term_reports": reports, "official_reports": print_reports if official_ready else [], "next_term": next_term, "form_teacher": clean(form_teacher), "synced_at": now_string(), "generation_gate": generation_gate, "integrity_guard": {"ready": official_ready, "message": guard_message, "roster_count": roster_count, "term_counts": term_counts, "complete_students": complete_count, "data_slots_complete": slots_complete, "data_slots_total": roster_count * 3}, "source_summary": {term: (term_payloads.get(term, {}).get("summary") or {}) for term in LIVE_CUMULATIVE_TERMS}}
+
+
+@report_sheet_bp.route("/api/report-sheets/cumulative/roster")
+@report_staff_required
+def api_report_cumulative_roster():
+    class_level, class_arm = request_class_values(request.args); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
+    if error: return jsonify({"success": False, "message": error, "students": []}), 400
+    academic_session = normalize_academic_session(request.args.get("session")); next_term, next_term_error = next_term_required_response(request.args.get("next_term"))
+    if not academic_session: return jsonify({"success": False, "message": "Select an academic session before loading Third Term cumulative students.", "students": []}), 400
+    if next_term_error: return next_term_error
+    students = get_report_students_for_class(level, arm, active_only=True)
+    return jsonify({"success": True, "session": academic_session, "term": "THIRD", "class_level": level, "class_arm": arm, "next_term": next_term, "students": students, "count": len(students)})
+
+
+@report_sheet_bp.route("/api/report-sheets/cumulative/live", methods=["POST"])
+@report_staff_required
+def api_report_cumulative_live():
+    data = request.get_json(silent=True) or {}; class_level, class_arm = request_class_values(data); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
+    if error: return jsonify({"success": False, "message": error}), 400
+    academic_session = normalize_academic_session(data.get("session")); next_term, next_term_error = next_term_required_response(data.get("next_term")); mode = clean(data.get("mode") or "manual").lower()
+    if not academic_session: return jsonify({"success": False, "message": "Select an academic session before loading Third Term cumulative results."}), 400
+    if next_term_error: return next_term_error
+    if mode not in {"manual", "auto", "hybrid"}: return jsonify({"success": False, "message": "Cumulative source mode must be manual, auto or hybrid."}), 400
+    defaults = save_report_defaults(academic_session, "THIRD", level, arm, {"form_teacher": data.get("form_teacher"), "next_term": next_term}); payload = build_live_cumulative_payload(academic_session, level, arm, mode=mode, result_year=data.get("year"), next_term=next_term, form_teacher=defaults.get("form_teacher")); payload["defaults"] = defaults
+    return jsonify(payload)
+
+
+# ============================================================
 # API — MANUAL REPORT STUDIO
 # ============================================================
+
+@report_sheet_bp.route("/api/report-sheets/manual/cache")
+@report_staff_required
+def api_report_manual_cache():
+    """Tiny class cache used before the slower academic source scan finishes.
+
+    This endpoint never opens CA/Exam workbooks and never rereads the student roster.  It only
+    returns saved Manual Workstation drafts plus the class subject scope, so opening/switching
+    pupils stays responsive even while Source Status is still resolving academic files.
+    """
+    class_level, class_arm = request_class_values(); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
+    if error: return jsonify({"success": False, "message": error}), 400
+    academic_session, term = resolve_context(request.args.get("session"), request.args.get("term")); store = _read_json_store(MANUAL_FILE); records = {}
+    for value in store.values():
+        if not isinstance(value, dict): continue
+        if normalize_academic_session(value.get("session")) != academic_session or normalize_academic_term(value.get("term")) != term or value.get("class_level") != level or value.get("class_arm") != arm: continue
+        admission = normalize_admission_number(value.get("admission_number"))
+        if admission: records[admission] = value
+    scope = get_report_subject_scope(level, arm); readiness = manual_class_readiness(academic_session, term, level, arm)
+    return jsonify({"success": True, "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "records": records, "subject_scope": scope, "available_subjects": scope.get("available_subjects", []), "score_fields": manual_score_fields(level), "class_readiness": readiness})
+
 
 @report_sheet_bp.route("/api/report-sheets/manual", methods=["GET", "POST", "DELETE"])
 @report_staff_required
 def api_report_manual():
     source = request.get_json(silent=True) or {} if request.method != "GET" else request.args; class_level, class_arm = request_class_values(source); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
     if error: return jsonify({"success": False, "message": error}), 400
-    academic_session, term = resolve_context(source.get("session"), source.get("term")); admission = normalize_admission_number(source.get("admission_number") or source.get("admission"))
+    academic_session, term = resolve_context(source.get("session"), source.get("term")); admission = normalize_admission_number(source.get("admission_number") or source.get("admission")); fast_prefill = clean(source.get("fast_prefill") or source.get("fast")).lower() in {"1", "true", "yes", "on"}
     if not academic_session or not term: return jsonify({"success": False, "message": "Session and term are required."}), 400
-    roster = get_students_for_class(level, arm, active_only=True); roster_map = {normalize_admission_number(student.get("admission_number")): student for student in roster}; store = _read_json_store(MANUAL_FILE)
+    roster = get_report_students_for_class(level, arm, active_only=True); roster_map = {normalize_admission_number(student.get("admission_number")): student for student in roster}; store = _read_json_store(MANUAL_FILE)
     if request.method == "GET":
         record = store.get(manual_context_key(academic_session, term, level, arm, admission), {}) if admission else {}; summaries = {key: manual_record_summary(value) for key, value in store.items() if isinstance(value, dict) and normalize_academic_session(value.get("session")) == academic_session and normalize_academic_term(value.get("term")) == term and value.get("class_level") == level and value.get("class_arm") == arm}
         by_admission = {clean(value.get("admission_number")): manual_record_summary(value) for value in store.values() if isinstance(value, dict) and normalize_academic_session(value.get("session")) == academic_session and normalize_academic_term(value.get("term")) == term and value.get("class_level") == level and value.get("class_arm") == arm}
-        return jsonify({"success": True, "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "students": roster, "subjects": get_subjects_for_selection(level, arm), "score_fields": manual_score_fields(level), "record": record, "record_summaries": by_admission, "count": len(summaries)})
+        subject_scope = get_report_subject_scope(level, arm); manual_subjects = list(subject_scope.get("selected_subjects") or [])
+        automatic_scores = {}
+        # Fast path: Source Status already loaded every CA/Exam workbook for this class and
+        # returned a compact browser bootstrap. Do not reopen all subject workbooks again.
+        if admission and admission in roster_map and assessment_entry_enabled(level) and not fast_prefill:
+            ca_records = get_ca_scores_map(academic_session, term, level, arm).get(admission, {})
+            result_year = resolve_result_year(academic_session, source.get("year"), level, arm)
+            exam_records, _ = load_exam_results_map(academic_session, term, level, arm, result_year)
+            exam_records = exam_records.get(admission, {})
+            allowed = expected_subject_map(roster_map.get(admission) or {}, level, arm)
+            for subject_key, subject_name in allowed.items():
+                ca = ca_records.get(subject_key) if isinstance(ca_records, dict) else None; exam = exam_records.get(subject_key) if isinstance(exam_records, dict) else None
+                values, _ = _assessment_component_values(ca or {}, level); item = {"subject": subject_name, "subject_key": subject_key, **values}
+                exam_score = scale_exam_score(exam, level) if isinstance(exam, dict) and exam else None
+                if exam_score is not None: item["exam"] = pretty_optional(exam_score)
+                if any(value not in (None, "") for key, value in item.items() if key not in {"subject", "subject_key"}): automatic_scores[subject_key] = item
+        return jsonify({"success": True, "session": academic_session, "term": term, "class_level": level, "class_arm": arm, "students": [] if fast_prefill else roster, "subjects": manual_subjects, "available_subjects": subject_scope.get("available_subjects", []), "subject_scope": subject_scope, "score_fields": manual_score_fields(level), "automatic_scores": automatic_scores, "automatic_scores_deferred": bool(fast_prefill), "assessment": get_assessment_rule(level), "grading": {"system": grading_system_for_class(level), "ready": grading_system_ready(grading_system_for_class(level))}, "entry_enabled": assessment_entry_enabled(level), "roster_source": report_roster_source(level), "record": record, "record_summaries": by_admission, "class_readiness": manual_class_readiness(academic_session, term, level, arm), "count": len(summaries)})
+    if request.method == "POST" and not assessment_entry_enabled(level):
+        rule = get_assessment_rule(level) or {}; return jsonify({"success": False, "status": "assessment_scheme_pending", "message": rule.get("message") or f"The assessment scheme for {class_label(level)} is not configured yet.", "assessment": rule}), 409
     if not admission or admission not in roster_map: return jsonify({"success": False, "message": "Select a valid active student from this class."}), 400
     key = manual_context_key(academic_session, term, level, arm, admission)
     if request.method == "DELETE":
         if key not in store: return jsonify({"success": False, "message": "No manual record exists for this student."}), 404
-        del store[key]; _write_json_store(MANUAL_FILE, store); queue_emis_event_safely("report_sheets", "manual_delete", {"key": key}, entity_key=f"manual|{key}"); return jsonify({"success": True, "message": "Manual student record deleted successfully.", "admission_number": admission})
+        del store[key]; _write_json_store(MANUAL_FILE, store); queue_emis_event_safely("report_sheets", "manual_delete", {"key": key}, entity_key=f"manual|{key}"); return jsonify({"success": True, "message": "Manual student record deleted successfully.", "admission_number": admission, "class_readiness": manual_class_readiness(academic_session, term, level, arm)})
     try: record = save_manual_record(academic_session, term, level, arm, admission, source)
     except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
-    return jsonify({"success": True, "message": f"Manual report draft saved for {roster_map[admission].get('full_name') or admission}.", "record": record, "summary": manual_record_summary(record)})
+    return jsonify({"success": True, "message": f"Manual report record saved for {roster_map[admission].get('full_name') or admission}.", "record": record, "summary": manual_record_summary(record), "class_readiness": manual_class_readiness(academic_session, term, level, arm)})
+
+
+@report_sheet_bp.route("/api/report-sheets/manual/subjects", methods=["GET", "POST"])
+@report_staff_required
+def api_report_manual_subjects():
+    source = request.get_json(silent=True) or {} if request.method == "POST" else request.args; class_level, class_arm = request_class_values(source); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
+    if error: return jsonify({"success": False, "message": error}), 400
+    if request.method == "GET": return jsonify({"success": True, "subject_scope": get_report_subject_scope(level, arm)})
+    academic_session, term = resolve_context(source.get("session"), source.get("term")); action = clean(source.get("action") or "save").lower()
+    if action == "add":
+        name = clean(source.get("name"))
+        if not name: return jsonify({"success": False, "message": "Enter the subject name first."}), 400
+        try:
+            row = add_registered_subject(level, name, source="report_sheets")
+            try:
+                sync_payload = build_subject_sync_payload((row or {}).get("subject_key") or academic_subject_key(name)); queue_emis_event_safely("subject_registry", "upsert_subject", sync_payload, entity_key=clean((sync_payload.get("subject") or {}).get("id") or academic_subject_key(name)))
+            except Exception as sync_error: print("[REPORT SUBJECTS] Subject sync queue warning:", sync_error)
+            current = get_report_subject_scope(level, arm)
+            if current.get("customized"):
+                keys = list(current.get("selected_keys") or []); new_key = academic_subject_key(name)
+                if new_key and new_key not in keys: keys.append(new_key)
+                current = save_report_subject_scope(level, arm, keys, current.get("include_islamiyah", True))
+            else: current = get_report_subject_scope(level, arm)
+            return jsonify({"success": True, "message": f"{normalize_academic_subject(name)} added to {class_label(level)} and included in Report Sheets.", "subject": row, "subject_scope": current, "class_readiness": manual_class_readiness(academic_session, term, level, arm)})
+        except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
+    if action == "reset":
+        scope_key = report_subject_scope_key(level, arm); store = _read_json_store(REPORT_SUBJECT_SCOPE_FILE); store.pop(scope_key, None); _write_json_store(REPORT_SUBJECT_SCOPE_FILE, store); queue_emis_event_safely("report_sheets", "subject_scope_delete", {"key": scope_key}, entity_key=f"report-subject-scope|{scope_key}"); scope = get_report_subject_scope(level, arm); return jsonify({"success": True, "message": "Report subject selection reset to the full configured class curriculum.", "subject_scope": scope, "class_readiness": manual_class_readiness(academic_session, term, level, arm)})
+    try: scope = save_report_subject_scope(level, arm, source.get("subject_keys") or [], bool(source.get("include_islamiyah", True)))
+    except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
+    return jsonify({"success": True, "message": f"Report subject selection saved — {len(scope.get('selected_keys') or [])} regular subject(s){' + Islamiyyah' if scope.get('include_islamiyah') else ''}.", "subject_scope": scope, "class_readiness": manual_class_readiness(academic_session, term, level, arm)})
 
 
 @report_sheet_bp.route("/api/report-sheets/manual/generate", methods=["POST"])
@@ -1241,16 +1684,45 @@ def api_report_manual():
 def api_report_manual_generate():
     data = request.get_json(silent=True) or {}; class_level, class_arm = request_class_values(data); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
     if error: return jsonify({"success": False, "message": error}), 400
-    academic_session, term = resolve_context(data.get("session"), data.get("term")); mode = clean(data.get("mode") or "manual").lower(); admissions = data.get("admission_numbers") or data.get("admissions") or ([data.get("admission_number")] if data.get("admission_number") else [])
+    academic_session, term = resolve_context(data.get("session"), data.get("term")); mode = clean(data.get("mode") or "manual").lower(); next_term, next_term_error = next_term_required_response(data.get("next_term"))
+    if not academic_session or not term: return jsonify({"success": False, "message": "Academic session and term are required."}), 400
+    if next_term_error: return next_term_error
+    save_report_defaults(academic_session, term, level, arm, {**({"form_teacher": data.get("form_teacher")} if "form_teacher" in data else {}), "next_term": next_term})
+    if not assessment_entry_enabled(level):
+        rule = get_assessment_rule(level) or {}; return jsonify({"success": False, "status": "assessment_scheme_pending", "message": rule.get("message") or f"The assessment scheme for {class_label(level)} is not configured yet.", "assessment": rule}), 409
     if mode not in {"manual", "hybrid"}: return jsonify({"success": False, "message": "Manual generation mode must be manual or hybrid."}), 400
-    payload = build_manual_report_payload(academic_session, term, level, arm, admissions) if mode == "manual" else build_hybrid_report_payload(academic_session, term, level, arm, data.get("year"), admissions)
-    if not payload.get("reports"): return jsonify({**payload, "message": "No manual report data is available for the requested student selection."}), 400
+
+    readiness = manual_class_readiness(academic_session, term, level, arm)
+    if not readiness.get("class_ready"):
+        remaining = int(readiness.get("remaining_students") or 0); excluded = int(readiness.get("excluded_students") or 0)
+        return jsonify({"success": False, "status": "manual_class_incomplete", "message": f"Class report generation is locked. Complete and save every included student's selected-subject scores first. {remaining} student(s) remain; {excluded} excluded.", "class_readiness": readiness}), 409
+
+    # Manual generation is deliberately class-only.  This guarantees position, out-of, class
+    # average, highest/lowest and subject statistics are calculated from the same completed cohort.
+    eligible = readiness.get("eligible_admissions") or []
+    if normalize_academic_term(term) == "THIRD":
+        payload = build_manual_report_payload(academic_session, term, level, arm) if mode == "manual" else build_hybrid_report_payload(academic_session, term, level, arm, data.get("year")); payload = apply_report_subject_scope(payload, level, arm)
+        if payload.get("reports"): attach_cumulative_results(payload, academic_session, level, arm, resolve_result_year(academic_session, data.get("year"), level, arm), mode=mode)
+    else:
+        payload = build_manual_report_payload(academic_session, term, level, arm) if mode == "manual" else build_hybrid_report_payload(academic_session, term, level, arm, data.get("year")); payload = apply_report_subject_scope(payload, level, arm)
+    payload = apply_requested_next_term(payload, next_term)
+    wanted = {normalize_admission_number(value) for value in eligible}; payload["reports"] = [report for report in (payload.get("reports") or []) if normalize_admission_number(report.get("admission_number")) in wanted]; payload["students"] = [student for student in (payload.get("students") or []) if normalize_admission_number(student.get("admission_number")) in wanted]; payload["summary"] = dict(payload.get("summary") or {}); payload["summary"].update({"generated": len(payload["reports"]), "manual_class_ready": True, "excluded_students": readiness.get("excluded_students", 0), "eligible_students": readiness.get("eligible_students", len(eligible))}); payload["success"] = bool(payload["reports"]); payload["class_readiness"] = readiness
+    if not payload.get("reports"): return jsonify({**payload, "message": "No completed manual class reports are available for generation."}), 400
+    integrity = audit_manual_report_integrity(payload, eligible); payload["integrity_audit"] = integrity
+    if not integrity.get("verified"): return jsonify({**payload, "success": False, "status": "report_integrity_failed", "message": "Report generation was stopped by the EMIS integrity guard because one or more class totals/positions/statistics did not reconcile. Nothing was archived or approved for printing.", "integrity_audit": integrity}), 409
+
+    # Fast Manual/Test-Lab style preview: return the completed class immediately.  Durable report
+    # snapshots + Academic History are written in a daemon worker instead of holding the UI open.
+    # The explicit Save Transcript action in Report View remains available immediately.
     if data.get("save_snapshot", True):
-        snapshots = save_report_snapshots(payload["reports"]); snap_map = {normalize_admission_number(item.get("admission_number")): item for item in snapshots}
-        for report in payload["reports"]:
-            snap = snap_map.get(normalize_admission_number(report.get("admission_number")), {}); report["snapshot_id"] = snap.get("snapshot_id", ""); report["result_name"] = snap.get("result_name") or result_file_stem(report)
-        payload["saved_snapshots"] = [{"snapshot_id": item.get("snapshot_id"), "admission_number": item.get("admission_number"), "full_name": item.get("full_name"), "result_name": item.get("result_name"), "generated_at": item.get("generated_at")} for item in snapshots]
-    payload["message"] = f"{len(payload['reports'])} {mode} report sheet(s) generated successfully."
+        report_copies = [dict(report) for report in payload["reports"]]; archive_actor = clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff")
+        def _archive_manual_batch():
+            try: save_report_snapshots(report_copies, generated_by=archive_actor)
+            except Exception as archive_error: print("[MANUAL REPORT ARCHIVE] Background archive warning:", archive_error)
+        try: Thread(target=_archive_manual_batch, name="emis-manual-report-archive", daemon=True).start(); payload["snapshot_save_pending"] = True
+        except Exception as thread_error: print("[MANUAL REPORT ARCHIVE] Could not start background archive:", thread_error); payload["snapshot_save_pending"] = False
+    payload["saved_snapshots"] = []
+    payload["message"] = f"{len(payload['reports'])} {mode} class report sheet(s) generated successfully."
     return jsonify(payload)
 
 
@@ -1263,7 +1735,7 @@ def api_report_manual_generate():
 def api_report_bulk_details():
     data = request.get_json(silent=True) or {}; class_level, class_arm = request_class_values(data); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
     if error: return jsonify({"success": False, "message": error}), 400
-    academic_session, term = resolve_context(data.get("session"), data.get("term")); roster = get_students_for_class(level, arm, active_only=True); admissions = normalize_admission_selection(data.get("admission_numbers") or data.get("admissions")); scope = clean(data.get("scope") or "selected").lower()
+    academic_session, term = resolve_context(data.get("session"), data.get("term")); roster = get_report_students_for_class(level, arm, active_only=True); admissions = normalize_admission_selection(data.get("admission_numbers") or data.get("admissions")); scope = clean(data.get("scope") or "selected").lower()
     if scope == "all" or not admissions: admissions = [normalize_admission_number(student.get("admission_number")) for student in roster if normalize_admission_number(student.get("admission_number"))]
     wanted = set(admissions); selected = [student for student in roster if normalize_admission_number(student.get("admission_number")) in wanted]
     if not selected: return jsonify({"success": False, "message": "No students matched the bulk-apply selection."}), 400
@@ -1273,7 +1745,7 @@ def api_report_bulk_details():
     average_payload = build_hybrid_report_payload(academic_session, term, level, arm) if data.get("auto_teacher_remark") or data.get("auto_principal_remark") else None; average_map = {normalize_admission_number(report.get("admission_number")): optional_float(report.get("average")) for report in (average_payload or {}).get("reports", [])}
     for student in selected:
         admission = normalize_admission_number(student.get("admission_number")); key = report_context_key(academic_session, term, level, arm, admission); current = details_store.get(key, {}) if isinstance(details_store.get(key), dict) else {}; detail_data = {}
-        for field in ["form_teacher", "teacher_remark", "principal_remark", "next_term"]:
+        for field in ["form_teacher", "teacher_remark", "principal_remark", "next_term", "promotion_status", "promotion_note"]:
             if field in data: detail_data[field] = data.get(field)
         if data.get("auto_teacher_remark"): detail_data["teacher_remark"] = teacher_remark(average_map.get(admission)) if average_map.get(admission) is not None else clean(data.get("teacher_remark"))
         if data.get("auto_principal_remark"): detail_data["principal_remark"] = principal_remark(average_map.get(admission)) if average_map.get(admission) is not None else clean(data.get("principal_remark"))
@@ -1282,7 +1754,7 @@ def api_report_bulk_details():
         if detail_data: details_store[key] = normalize_report_details(detail_data, current)
         if normalized_attendance is not None:
             mkey = manual_context_key(academic_session, term, level, arm, admission); record = manual_store.get(mkey, {}) if isinstance(manual_store.get(mkey), dict) else {}; record.update({"session": academic_session, "term": term, "class_level": level, "class_arm": arm, "admission_number": clean(student.get("admission_number")), "attendance": normalized_attendance, "attendance_override_enabled": bool(data.get("attendance_override_enabled", True)), "status": clean(record.get("status") or "DRAFT"), "subjects": record.get("subjects", {}), "prefer_manual_scores": bool(record.get("prefer_manual_scores", False)), "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff")}); manual_store[mkey] = record
-    details_changed = any(key in data for key in ["form_teacher", "teacher_remark", "principal_remark", "next_term", "affective", "psychomotor", "auto_teacher_remark", "auto_principal_remark"])
+    details_changed = any(key in data for key in ["form_teacher", "teacher_remark", "principal_remark", "next_term", "promotion_status", "promotion_note", "affective", "psychomotor", "auto_teacher_remark", "auto_principal_remark"])
     if details_changed: _write_json_store(DETAILS_FILE, details_store)
     if normalized_attendance is not None: _write_json_store(MANUAL_FILE, manual_store)
     for student in selected:
@@ -1322,18 +1794,18 @@ def apply_report_sync_event(action, payload, event=None):
     action = clean(action).lower()
     if not isinstance(payload, dict): raise ValueError("Report Sheet sync payload must be an object.")
 
-    if action in {"details_upsert", "defaults_upsert", "manual_upsert"}:
+    if action in {"details_upsert", "defaults_upsert", "manual_upsert", "subject_scope_upsert"}:
         key, item = clean(payload.get("key")), payload.get("item")
         if not key or not isinstance(item, dict): raise ValueError(f"{action} requires a key and item.")
-        target = DETAILS_FILE if action == "details_upsert" else DEFAULTS_FILE if action == "defaults_upsert" else MANUAL_FILE
+        target = DETAILS_FILE if action == "details_upsert" else DEFAULTS_FILE if action == "defaults_upsert" else REPORT_SUBJECT_SCOPE_FILE if action == "subject_scope_upsert" else MANUAL_FILE
         store = _read_json_store(target); store[key] = item; _write_json_store(target, store)
         return {"store": target.name, "key": key, "operation": "upsert"}
 
-    if action == "manual_delete":
+    if action in {"manual_delete", "subject_scope_delete"}:
         key = clean(payload.get("key"))
-        if not key: raise ValueError("manual_delete requires a key.")
-        store = _read_json_store(MANUAL_FILE); existed = key in store; store.pop(key, None); _write_json_store(MANUAL_FILE, store)
-        return {"store": MANUAL_FILE.name, "key": key, "deleted": existed}
+        if not key: raise ValueError(f"{action} requires a key.")
+        target = REPORT_SUBJECT_SCOPE_FILE if action == "subject_scope_delete" else MANUAL_FILE; store = _read_json_store(target); existed = key in store; store.pop(key, None); _write_json_store(target, store)
+        return {"store": target.name, "key": key, "deleted": existed}
 
     if action == "snapshot_upsert":
         snapshot = payload.get("snapshot")

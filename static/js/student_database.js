@@ -7,16 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
     const $ = (id) => document.getElementById(id);
 
-    const VALID_CLASSES = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"];
-
-    const CLASS_ARMS = {
-        JSS1: ["JSS1A", "JSS1B", "JSS1C"],
-        JSS2: ["JSS2A", "JSS2B", "JSS2C"],
-        JSS3: ["JSS3A", "JSS3B", "JSS3C"],
-        SS1: ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1_B/C"],
-        SS2: ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2_B/C"],
-        SS3: ["SS3_GOLD", "SS3_SILVER", "SS3_B/C"]
-    };
+    const VALID_CLASSES = ["CRECHE","STARTER","PRE_CLASS","NURSERY1","NURSERY2","PRIMARY1","PRIMARY2","PRIMARY3","PRIMARY4","PRIMARY5","PRIMARY6","JSS1","JSS2","JSS3","SS1","SS2","SS3"];
+    const PROMOTION_ENABLED_CLASSES = new Set(VALID_CLASSES);
+    const CLASS_LABELS = { CRECHE:"Creche", STARTER:"Starter", PRE_CLASS:"Prep / Pre-Class", NURSERY1:"Nursery 1", NURSERY2:"Nursery 2", PRIMARY1:"Basic 1 / Primary 1", PRIMARY2:"Basic 2 / Primary 2", PRIMARY3:"Basic 3 / Primary 3", PRIMARY4:"Basic 4 / Primary 4", PRIMARY5:"Basic 5 / Primary 5", PRIMARY6:"Basic 6 / Primary 6", JSS1:"Basic 7 / JSS1", JSS2:"Basic 8 / JSS2", JSS3:"Basic 9 / JSS3", SS1:"Basic 10 / SS1", SS2:"Basic 11 / SS2", SS3:"Basic 12 / SS3" };
+    const CLASS_ARMS = { CRECHE:["CRECHE"], STARTER:["STARTER"], PRE_CLASS:["PRE_CLASS_GOLD","PRE_CLASS_SILVER"], NURSERY1:["NURSERY1_GOLD","NURSERY1_SILVER"], NURSERY2:["NURSERY2_GOLD","NURSERY2_SILVER"], PRIMARY1:["PRIMARY1A","PRIMARY1B"], PRIMARY2:["PRIMARY2A","PRIMARY2B"], PRIMARY3:["PRIMARY3A","PRIMARY3B"], PRIMARY4:["PRIMARY4A","PRIMARY4B"], PRIMARY5:["PRIMARY5A","PRIMARY5B"], PRIMARY6:["PRIMARY6A","PRIMARY6B"], JSS1:["JSS1A","JSS1B","JSS1C"], JSS2:["JSS2A","JSS2B","JSS2C"], JSS3:["JSS3A","JSS3B","JSS3C"], SS1:["SS1_GOLD","SS1_SILVER","SS1_DIAMOND","SS1_B/C"], SS2:["SS2_GOLD","SS2_SILVER","SS2_DIAMOND","SS2_B/C"], SS3:["SS3_GOLD","SS3_SILVER","SS3_B/C"] };
+    const NEXT_CLASS = { CRECHE:"STARTER", STARTER:"PRE_CLASS", PRE_CLASS:"NURSERY1", NURSERY1:"NURSERY2", NURSERY2:"PRIMARY1", PRIMARY1:"PRIMARY2", PRIMARY2:"PRIMARY3", PRIMARY3:"PRIMARY4", PRIMARY4:"PRIMARY5", PRIMARY5:"PRIMARY6", PRIMARY6:"JSS1", JSS1:"JSS2", JSS2:"JSS3", JSS3:"SS1", SS1:"SS2", SS2:"SS3", SS3:"GRADUATED" };
+    const PREVIOUS_CLASS = Object.fromEntries(Object.entries(NEXT_CLASS).filter(([, destination]) => destination !== "GRADUATED").map(([source, destination]) => [destination, source]));
 
 
     // =========================================================
@@ -24,14 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
     const els = {
 
-        // SUMMARY
-        summaryGrid: $("summaryGrid"),
-        summaryJSS1: $("summaryJSS1"),
-        summaryJSS2: $("summaryJSS2"),
-        summaryJSS3: $("summaryJSS3"),
-        summarySS1: $("summarySS1"),
-        summarySS2: $("summarySS2"),
-        summarySS3: $("summarySS3"),
+        // SUMMARY / DYNAMIC CLASS SNAPSHOT
+        summaryGrid: $("summaryGrid"), classSummarySpotlight: $("classSummarySpotlight"), summarySpotlightIcon: $("summarySpotlightIcon"), summaryClassName: $("summaryClassName"), summaryClassCount: $("summaryClassCount"), summaryClassMeta: $("summaryClassMeta"), summaryClassPosition: $("summaryClassPosition"), summaryPrevClass: $("summaryPrevClass"), summaryNextClass: $("summaryNextClass"),
+        hybridCurrentBasic: $("hybridCurrentBasic"), hybridCurrentTraditional: $("hybridCurrentTraditional"), hybridClassNote: $("hybridClassNote"), databaseActiveClass: $("databaseActiveClass"), databaseActiveCount: $("databaseActiveCount"),
 
         // FILTERS
         classPills: $("classPills"),
@@ -75,8 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
         resetColumnsBtn: $("resetColumnsBtn"),
         toggleCompactBtn: $("toggleCompactBtn"),
 
-        // LOGS
-        logsList: $("logsList"),
+        // LOGS / AUDIT HISTORY
+        logsList: $("logsList"), activitySearch: $("activitySearch"), activityActionFilter: $("activityActionFilter"), activityClassFilter: $("activityClassFilter"), activityRefreshBtn: $("activityRefreshBtn"), activityExportBtn: $("activityExportBtn"), activityResultCount: $("activityResultCount"), activityLastAction: $("activityLastAction"), activityStatTotal: $("activityStatTotal"), activityStatPromote: $("activityStatPromote"), activityStatDemote: $("activityStatDemote"), activityStatRepeat: $("activityStatRepeat"), activityStatDelete: $("activityStatDelete"), activityStatGraduate: $("activityStatGraduate"),
+
+        // CLASS OPERATIONS DECK
+        transitionPrevious: $("transitionPrevious"), transitionCurrent: $("transitionCurrent"), transitionNext: $("transitionNext"), transitionNote: $("transitionNote"), classHealthTotal: $("classHealthTotal"), classHealthArms: $("classHealthArms"), classHealthSex: $("classHealthSex"), classHealthReview: $("classHealthReview"), classHealthNote: $("classHealthNote"), destinationReadinessClass: $("destinationReadinessClass"), destinationReadinessCount: $("destinationReadinessCount"), destinationReadinessNote: $("destinationReadinessNote"),
 
         // STUDENT DETAILS
         studentDetailsOverlay: $("studentDetailsOverlay"),
@@ -139,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // STATE
     // =========================================================
     const state = {
-        currentClass: "JSS1",
+        currentClass: "CRECHE",
         students: [],
         selected: new Set(),
 
@@ -159,8 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         pendingAction: null,
 
-        summary: {},
-        admissionSummary: {}
+        summary: {}, admissionSummary: {},
+        snapshotIndex: 0, snapshotTimer: null, snapshotPaused: false, activitySearchTimer: null
     };
 
 
@@ -169,16 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
     init();
 
-    function init() {
-        bindEvents();
-
-        updateClassUI("JSS1");
-        updateClassArmFilter();
-        updateActionButtons();
-        applyColumnVisibility();
-
-        refreshAll();
-    }
+    function init() { bindEvents(); updateClassUI("CRECHE"); updateClassArmFilter(); updateActionButtons(); applyColumnVisibility(); renderClassSnapshot("CRECHE", false); refreshAll(); startSnapshotCycle(); }
 
 
     // =========================================================
@@ -192,9 +177,19 @@ document.addEventListener("DOMContentLoaded", () => {
         els.backupNowBtn?.addEventListener("click", backupDatabase);
         els.exportClassBtn?.addEventListener("click", () => exportCurrentClass("xlsx"));
         els.exportClassCsvBtn?.addEventListener("click", () => exportCurrentClass("csv"));
+        els.activityRefreshBtn?.addEventListener("click", loadLogs); els.activityActionFilter?.addEventListener("change", loadLogs); els.activityClassFilter?.addEventListener("change", loadLogs); els.activityExportBtn?.addEventListener("click", exportActivityLogs); els.activitySearch?.addEventListener("input", () => { clearTimeout(state.activitySearchTimer); state.activitySearchTimer = setTimeout(loadLogs, 260); });
 
         // CLASS SELECTOR
         els.classSelector?.addEventListener("change", () => changeClass(els.classSelector.value));
+
+        // DYNAMIC CLASS SNAPSHOT
+        els.summaryPrevClass?.addEventListener("click", event => { event.stopPropagation(); stepClassSnapshot(-1); });
+        els.summaryNextClass?.addEventListener("click", event => { event.stopPropagation(); stepClassSnapshot(1); });
+        els.classSummarySpotlight?.addEventListener("click", () => { const className = els.classSummarySpotlight?.dataset.class || state.currentClass; changeClass(className); document.querySelector(".promotion-filter-panel")?.scrollIntoView({ behavior:"smooth", block:"start" }); });
+        els.classSummarySpotlight?.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); els.classSummarySpotlight.click(); } });
+        els.classSummarySpotlight?.addEventListener("mouseenter", pauseSnapshotCycle); els.classSummarySpotlight?.addEventListener("mouseleave", resumeSnapshotCycle);
+        els.classSummarySpotlight?.addEventListener("focusin", pauseSnapshotCycle); els.classSummarySpotlight?.addEventListener("focusout", resumeSnapshotCycle);
+        document.addEventListener("visibilitychange", () => document.hidden ? pauseSnapshotCycle() : resumeSnapshotCycle());
 
         // CLASS PILLS
         document.querySelectorAll(".class-pill[data-class]").forEach((button) => {
@@ -394,11 +389,8 @@ document.addEventListener("DOMContentLoaded", () => {
             state.summary = data.summary || {};
             state.admissionSummary = data.admission_numbers || {};
 
-            VALID_CLASSES.forEach((className) => {
-                const element = $(`summary${className}`);
-                if (element) element.textContent = state.summary[className]?.total ?? 0;
-            });
-
+            VALID_CLASSES.forEach((className) => { const element = $(`summary${className}`); if (element) element.textContent = state.summary[className]?.total ?? 0; });
+            renderClassSnapshot(VALID_CLASSES[state.snapshotIndex] || state.currentClass, false); updateClassOperationsDeck();
             updateAdmissionPreview();
 
             dispatch("emis:summary-loaded", {
@@ -443,11 +435,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function changeClass(className) {
         if (!VALID_CLASSES.includes(className)) return;
 
-        state.currentClass = className;
-        state.page = 1;
+        state.currentClass = className; state.page = 1; state.students = [];
 
         clearSelection(false);
         updateClassUI(className);
+        state.snapshotIndex = Math.max(0, VALID_CLASSES.indexOf(className)); renderClassSnapshot(className, false); restartSnapshotCycle();
         updateClassArmFilter();
 
         dispatch("emis:class-changed", {
@@ -460,35 +452,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateClassUI(className) {
         state.currentClass = className;
-
         if (els.classSelector) els.classSelector.value = className;
-
-        document.querySelectorAll(".class-pill[data-class]").forEach((button) => {
-            button.classList.toggle("active", button.dataset.class === className);
-        });
-
-        document.querySelectorAll(".class-summary-card[data-class]").forEach((card) => {
-            card.classList.toggle("active", card.dataset.class === className);
-        });
-
-        if (els.studentTableTitle) els.studentTableTitle.textContent = `${className} Students`;
-        if (els.tableSubtitle) els.tableSubtitle.textContent = `Live student records for ${className}.`;
+        document.querySelectorAll(".class-pill[data-class]").forEach(button => button.classList.toggle("active", button.dataset.class === className));
+        document.querySelectorAll(".class-summary-card[data-class]").forEach(card => card.classList.toggle("active", card.dataset.class === className));
+        if (els.studentTableTitle) els.studentTableTitle.textContent = `${displayClass(className)} Students`;
+        if (els.tableSubtitle) els.tableSubtitle.textContent = `Live student records for ${displayClass(className)}.`;
+        if (els.databaseActiveClass) els.databaseActiveClass.textContent = displayClass(className);
+        if (els.databaseActiveCount) { const classCount = Number(state.summary?.[className]?.total ?? state.students.length ?? 0); els.databaseActiveCount.textContent = `${classCount} student${classCount === 1 ? "" : "s"}`; }
+        updateHybridClassBar(className); updateClassOperationsDeck();
     }
 
+    // =========================================================
+    // DYNAMIC CLASS SNAPSHOT / HYBRID BAR
+    // =========================================================
+    function classVisual(className) {
+        if (className.startsWith("SS")) return { kind:"ss", icon:"fa-user-graduate" };
+        if (className.startsWith("JSS")) return { kind:"jss", icon:"fa-users" };
+        if (className.startsWith("PRIMARY")) return { kind:"primary", icon:"fa-school" };
+        return { kind:"early", icon:"fa-children" };
+    }
+
+    function renderClassSnapshot(className = VALID_CLASSES[state.snapshotIndex] || "CRECHE", animate = true) {
+        if (!VALID_CLASSES.includes(className)) className = "CRECHE";
+        state.snapshotIndex = VALID_CLASSES.indexOf(className);
+        const visual = classVisual(className), count = Number(state.summary?.[className]?.total || 0), total = VALID_CLASSES.reduce((sum, item) => sum + Number(state.summary?.[item]?.total || 0), 0);
+        if (els.classSummarySpotlight) { els.classSummarySpotlight.dataset.class = className; if (animate) { els.classSummarySpotlight.classList.remove("snapshot-refresh"); void els.classSummarySpotlight.offsetWidth; els.classSummarySpotlight.classList.add("snapshot-refresh"); } }
+        if (els.summarySpotlightIcon) { els.summarySpotlightIcon.className = `class-snapshot-icon ${visual.kind}`; els.summarySpotlightIcon.innerHTML = `<i class="fa-solid ${visual.icon}"></i>`; }
+        if (els.summaryClassName) els.summaryClassName.textContent = displayClass(className);
+        if (els.summaryClassCount) els.summaryClassCount.textContent = count;
+        if (els.summaryClassPosition) els.summaryClassPosition.textContent = `${state.snapshotIndex + 1} of ${VALID_CLASSES.length}`;
+        if (els.summaryClassMeta) els.summaryClassMeta.textContent = `${count} student${count === 1 ? "" : "s"} in this class • ${total} active regular-school students`;
+    }
+
+    function stepClassSnapshot(direction = 1) { state.snapshotIndex = (state.snapshotIndex + direction + VALID_CLASSES.length) % VALID_CLASSES.length; renderClassSnapshot(VALID_CLASSES[state.snapshotIndex]); restartSnapshotCycle(); }
+    function startSnapshotCycle() { clearInterval(state.snapshotTimer); state.snapshotTimer = window.setInterval(() => { if (!state.snapshotPaused && !document.hidden) stepClassSnapshot(1); }, 5200); }
+    function restartSnapshotCycle() { clearInterval(state.snapshotTimer); startSnapshotCycle(); }
+    function pauseSnapshotCycle() { state.snapshotPaused = true; }
+    function resumeSnapshotCycle() { state.snapshotPaused = false; }
+
+    function updateHybridClassBar(className) {
+        const mapping = hybridMapping(className);
+        if (els.hybridCurrentBasic) els.hybridCurrentBasic.textContent = mapping.left;
+        if (els.hybridCurrentTraditional) els.hybridCurrentTraditional.textContent = mapping.right;
+        if (els.hybridClassNote) els.hybridClassNote.textContent = mapping.note;
+    }
+
+    function hybridMapping(className) {
+        let match = className.match(/^PRIMARY([1-6])$/); if (match) return { left:`Basic ${match[1]}`, right:`Primary ${match[1]}`, note:"Basic and traditional Primary names refer to the same class." };
+        match = className.match(/^JSS([1-3])$/); if (match) return { left:`Basic ${Number(match[1]) + 6}`, right:`JSS${match[1]}`, note:"Basic and Junior Secondary names refer to the same class." };
+        match = className.match(/^SS([1-3])$/); if (match) return { left:`Basic ${Number(match[1]) + 9}`, right:`SS${match[1]}`, note:"Basic and Senior Secondary names refer to the same class." };
+        if (className === "PRE_CLASS") return { left:"Prep", right:"Pre-Class", note:"Prep and Pre-Class are the same foundation class in EMIS." };
+        if (className === "CRECHE") return { left:"Creche", right:"Early Years", note:"Creche sits outside the Basic 1–12 hybrid numbering." };
+        if (className === "STARTER") return { left:"Starter", right:"Early Years", note:"Starter sits outside the Basic 1–12 hybrid numbering." };
+        if (className === "NURSERY1" || className === "NURSERY2") return { left:displayClass(className), right:"Early Years", note:"Nursery classes sit outside the Basic 1–12 hybrid numbering." };
+        return { left:displayClass(className), right:"Standard Class", note:"This class uses its standard EMIS name." };
+    }
 
     function updateClassArmFilter() {
         if (!els.classArmSelector) return;
 
         const arms = CLASS_ARMS[state.currentClass] || [];
 
-        els.classArmSelector.innerHTML = `
-            <option value="all">All Arms</option>
-            ${arms.map((arm) => `<option value="${escapeHtml(arm)}">${escapeHtml(displayClass(arm))}</option>`).join("")}
-        `;
-
-        els.classArmSelector.value = "all";
+        const singleCanonical = arms.length === 1 && arms[0] === state.currentClass;
+        els.classArmSelector.innerHTML = singleCanonical ? `<option value="all">Whole Class</option>` : `<option value="all">All Arms</option>${arms.map((arm) => `<option value="${escapeHtml(arm)}">${escapeHtml(displayClass(arm))}</option>`).join("")}`;
+        els.classArmSelector.value = "all"; els.classArmSelector.disabled = singleCanonical;
     }
 
+
+    // =========================================================
+    // CLASS OPERATIONS DECK
+    // =========================================================
+    function updateClassOperationsDeck() {
+        const current = state.currentClass, previous = PREVIOUS_CLASS[current] || "", next = NEXT_CLASS[current] || "", currentSummary = state.summary?.[current] || {}, destinationSummary = next && next !== "GRADUATED" ? state.summary?.[next] || {} : {};
+        if (els.transitionPrevious) els.transitionPrevious.textContent = previous ? displayClass(previous) : "Start of School"; if (els.transitionCurrent) els.transitionCurrent.textContent = displayClass(current); if (els.transitionNext) els.transitionNext.textContent = next === "GRADUATED" ? "Graduate Archive" : next ? displayClass(next) : "—";
+        if (els.transitionNote) els.transitionNote.textContent = next === "GRADUATED" ? "SS3 uses the protected Graduate action. Every other regular-school class now promotes to the next configured level." : previous ? `Promote to ${displayClass(next)} or demote selected students to ${displayClass(previous)}. Compatible arms are preserved automatically.` : `Promote to ${displayClass(next)}. Creche is the first regular-school level, so demotion is unavailable.`;
+        const students = Array.isArray(state.students) ? state.students : [], male = students.filter(student => normalize(student.Sex) === "male").length, female = students.filter(student => normalize(student.Sex) === "female").length, review = students.filter(student => !["male","female"].includes(normalize(student.Sex)) || !student.Class || !student.Admission_number).length, activeArms = Object.values(currentSummary.arms || {}).filter(count => Number(count || 0) > 0).length;
+        if (els.classHealthTotal) els.classHealthTotal.textContent = Number(currentSummary.total ?? students.length ?? 0); if (els.classHealthArms) els.classHealthArms.textContent = activeArms; if (els.classHealthSex) els.classHealthSex.textContent = `${male} / ${female}`; if (els.classHealthReview) els.classHealthReview.textContent = review; if (els.classHealthNote) els.classHealthNote.textContent = review ? `${review} record${review === 1 ? "" : "s"} need a sex/class/admission data review before major class movement.` : "Roster fields required for promotion are complete for the loaded students.";
+        if (els.destinationReadinessClass) els.destinationReadinessClass.textContent = next === "GRADUATED" ? "Graduate Archive" : next ? displayClass(next) : "—"; if (els.destinationReadinessCount) els.destinationReadinessCount.textContent = next === "GRADUATED" ? "Archive destination" : `${Number(destinationSummary.total || 0)} student${Number(destinationSummary.total || 0) === 1 ? "" : "s"}`; if (els.destinationReadinessNote) els.destinationReadinessNote.textContent = next === "GRADUATED" ? "Graduation creates an archive record and releases the admission number only after the transaction succeeds." : `Destination currently contains ${Number(destinationSummary.total || 0)} student${Number(destinationSummary.total || 0) === 1 ? "" : "s"}. EMIS creates a backup before movement and preserves/balances valid arms.`;
+    }
 
     // =========================================================
     // LOAD STUDENTS
@@ -496,7 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadStudents() {
         const className = state.currentClass;
 
-        if (els.tableSubtitle) els.tableSubtitle.textContent = `Loading ${className} student records...`;
+        if (els.tableSubtitle) els.tableSubtitle.textContent = `Loading ${displayClass(className)} student records...`;
         if (els.studentsBody) els.studentsBody.innerHTML = loadingRow("Loading student database", "Please wait...");
 
         try {
@@ -505,15 +546,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (className !== state.currentClass) return data;
 
             state.students = Array.isArray(data.students) ? data.students : [];
+            if (els.databaseActiveCount) els.databaseActiveCount.textContent = `${state.students.length} student${state.students.length === 1 ? "" : "s"}`;
             state.selected.clear();
             state.page = 1;
 
             renderStudents();
             updateActionButtons();
 
-            if (els.tableSubtitle) {
-                els.tableSubtitle.textContent = `${state.students.length} active student record${state.students.length === 1 ? "" : "s"} in ${className}.`;
-            }
+            if (els.tableSubtitle) { els.tableSubtitle.textContent = `${state.students.length} active student record${state.students.length === 1 ? "" : "s"} in ${displayClass(className)}.`; }
+            updateClassOperationsDeck();
 
             dispatch("emis:students-loaded", {
                 className,
@@ -526,6 +567,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
             state.students = [];
+            if (els.databaseActiveCount) els.databaseActiveCount.textContent = "0 students";
             state.selected.clear();
 
             if (els.studentsBody) els.studentsBody.innerHTML = errorRow("Could not load students", error.message);
@@ -533,7 +575,7 @@ document.addEventListener("DOMContentLoaded", () => {
             updateActionButtons();
             updatePaginationInfo(0, 0, 0);
 
-            if (els.tableSubtitle) els.tableSubtitle.textContent = `Unable to load ${className} records.`;
+            if (els.tableSubtitle) els.tableSubtitle.textContent = `Unable to load ${displayClass(className)} records.`;
 
             dispatchSelectionChanged();
 
@@ -646,7 +688,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="student-class-cell">${escapeHtml(displayClass(student.Class || "—"))}</span>
                 </td>
 
-                <td data-column-name="category">${escapeHtml(student.Class_category || "—")}</td>
+                <td data-column-name="category">${escapeHtml(student.Hybrid_class_label || displayClass(student.Class_category || "—"))}</td>
                 <td data-column-name="phone">${escapeHtml(student.Phone || "—")}</td>
 
                 <td class="actions-col">
@@ -771,14 +813,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function updateActionButtons() {
-        const disabled = state.selected.size === 0;
-
+        const disabled = state.selected.size === 0, promotionEnabled = PROMOTION_ENABLED_CLASSES.has(state.currentClass);
         if (els.selectedCountBadge) els.selectedCountBadge.textContent = `${state.selected.size} selected`;
-        if (els.promoteSelectedBtn) els.promoteSelectedBtn.disabled = disabled;
+        if (els.promoteSelectedBtn) { els.promoteSelectedBtn.disabled = disabled || !promotionEnabled; els.promoteSelectedBtn.title = state.currentClass === "SS3" ? "Graduate selected SS3 students" : "Promote selected students to the next configured class"; }
         if (els.repeatSelectedBtn) els.repeatSelectedBtn.disabled = disabled;
         if (els.clearSelectionBtn) els.clearSelectionBtn.disabled = disabled;
         if (els.deleteSelectedBtn) els.deleteSelectedBtn.disabled = disabled;
-
         updatePromotionButton();
     }
 
@@ -786,13 +826,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function updatePromotionButton() {
         if (!els.promoteButtonText || !els.promoteButtonIcon) return;
 
-        if (state.currentClass === "SS3") {
-            els.promoteButtonText.textContent = "Graduate";
-            els.promoteButtonIcon.className = "fa-solid fa-graduation-cap";
-        } else {
-            els.promoteButtonText.textContent = "Promote";
-            els.promoteButtonIcon.className = "fa-solid fa-arrow-up";
-        }
+        if (!PROMOTION_ENABLED_CLASSES.has(state.currentClass)) { els.promoteButtonText.textContent = "Unavailable"; els.promoteButtonIcon.className = "fa-solid fa-lock"; }
+        else if (state.currentClass === "SS3") { els.promoteButtonText.textContent = "Graduate"; els.promoteButtonIcon.className = "fa-solid fa-graduation-cap"; }
+        else { els.promoteButtonText.textContent = "Promote"; els.promoteButtonIcon.className = "fa-solid fa-arrow-up"; }
     }
 
 
@@ -813,7 +849,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = els.studentSearch?.value?.trim() || "";
 
         const chips = [
-            `<span class="filter-chip">${escapeHtml(state.currentClass)}</span>`,
+            `<span class="filter-chip">${escapeHtml(displayClass(state.currentClass))}</span>`,
             `<span class="filter-chip">${escapeHtml(arm === "all" ? "All Arms" : displayClass(arm))}</span>`
         ];
 
@@ -975,7 +1011,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (els.detailsSex) els.detailsSex.textContent = student.Sex || "—";
         if (els.detailsPhone) els.detailsPhone.textContent = student.Phone || "—";
         if (els.detailsClass) els.detailsClass.textContent = displayClass(student.Class || "—");
-        if (els.detailsCategory) els.detailsCategory.textContent = student.Class_category || "—";
+        if (els.detailsCategory) els.detailsCategory.textContent = student.Hybrid_class_label || displayClass(student.Class_category || "—");
 
         showModal(els.studentDetailsModal, els.studentDetailsOverlay);
     }
@@ -1016,7 +1052,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (els.formPhone) els.formPhone.value = student.Phone || "";
             if (els.formSex) els.formSex.value = normalizeSexValue(student.Sex);
 
-            const classCategory = student.Class_category || state.currentClass || "JSS1";
+            const classCategory = student.Class_category || state.currentClass || "CRECHE";
 
             if (els.formClassCategory) els.formClassCategory.value = classCategory;
 
@@ -1034,7 +1070,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (els.editingAdmission) els.editingAdmission.value = "";
             if (els.formAdmission) els.formAdmission.value = "";
 
-            const defaultClass = VALID_CLASSES.includes(state.currentClass) ? state.currentClass : "JSS1";
+            const defaultClass = VALID_CLASSES.includes(state.currentClass) ? state.currentClass : "CRECHE";
 
             if (els.formClassCategory) els.formClassCategory.value = defaultClass;
 
@@ -1268,26 +1304,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
     async function loadLogs() {
         if (!els.logsList) return;
-
         try {
-            const data = await api("/api/promotion/logs?limit=30");
-            renderLogs(data.logs || []);
-
-            return data;
-
-        } catch (error) {
-            els.logsList.innerHTML = `
-                <div class="activity-empty">
-                    <span class="empty-activity-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                    <strong>Could not load activity</strong>
-                    <span>${escapeHtml(error.message)}</span>
-                </div>
-            `;
-
-            throw error;
-        }
+            const params = new URLSearchParams({ limit:"120" }), action = els.activityActionFilter?.value || "ALL", className = els.activityClassFilter?.value || "ALL", query = els.activitySearch?.value?.trim() || ""; if (action !== "ALL") params.set("action", action); if (className !== "ALL") params.set("class", className); if (query) params.set("q", query);
+            const data = await api(`/api/promotion/logs?${params.toString()}`); renderLogs(data.logs || []); renderActivityStats(data.stats || {}, data.logs || []); return data;
+        } catch (error) { els.logsList.innerHTML = `<div class="activity-empty"><span class="empty-activity-icon"><i class="fa-solid fa-triangle-exclamation"></i></span><strong>Could not load activity</strong><span>${escapeHtml(error.message)}</span></div>`; throw error; }
     }
 
+    function renderActivityStats(stats, logs) {
+        if (els.activityStatTotal) els.activityStatTotal.textContent = Number(stats.total || 0); if (els.activityStatPromote) els.activityStatPromote.textContent = Number(stats.promotions || 0); if (els.activityStatDemote) els.activityStatDemote.textContent = Number(stats.demotions || 0); if (els.activityStatRepeat) els.activityStatRepeat.textContent = Number(stats.repetitions || 0); if (els.activityStatDelete) els.activityStatDelete.textContent = Number(stats.deletions || 0); if (els.activityStatGraduate) els.activityStatGraduate.textContent = Number(stats.graduations || 0);
+        if (els.activityResultCount) els.activityResultCount.textContent = `${logs.length} activity record${logs.length === 1 ? "" : "s"} shown`; const latest = logs[0]; if (els.activityLastAction) els.activityLastAction.textContent = latest ? `Latest: ${formatAction(latest.Action)} • ${latest.Timestamp || ""}` : "No matching transaction";
+    }
+
+    function exportActivityLogs() {
+        const params = new URLSearchParams(), action = els.activityActionFilter?.value || "ALL", className = els.activityClassFilter?.value || "ALL", query = els.activitySearch?.value?.trim() || ""; if (action !== "ALL") params.set("action", action); if (className !== "ALL") params.set("class", className); if (query) params.set("q", query); window.location.href = `/api/promotion/logs/export?${params.toString()}`;
+    }
 
     function renderLogs(logs) {
         if (!els.logsList) return;
@@ -1320,6 +1350,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </span>
 
                         ${log.Note ? `<p>${escapeHtml(log.Note)}</p>` : ""}
+                        ${log.Admissions ? `<small class="promotion-log-admissions"><i class="fa-solid fa-id-badge"></i> ${escapeHtml(String(log.Admissions).split(";").slice(0,6).join(", "))}${String(log.Admissions).split(";").length > 6 ? ` +${String(log.Admissions).split(";").length - 6} more` : ""}</small>` : ""}
                     </div>
 
                     <div class="promotion-log-meta">
@@ -1337,6 +1368,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (value.includes("graduate")) return "fa-solid fa-graduation-cap";
         if (value.includes("promote")) return "fa-solid fa-arrow-up";
+        if (value.includes("demote")) return "fa-solid fa-arrow-down";
         if (value.includes("repeat")) return "fa-solid fa-rotate-left";
         if (value.includes("delete")) return "fa-solid fa-user-minus";
         if (value.includes("add")) return "fa-solid fa-user-plus";
@@ -1649,38 +1681,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function detectSpokenClassCategory(text) {
         const value = normalize(text).replace(/\s+/g, "");
-
-        for (const className of VALID_CLASSES) {
-            if (value.includes(className.toLowerCase())) return className;
-        }
-
+        const basic = value.match(/basic(1[0-2]|[1-9])/);
+        if (basic) return {1:"PRIMARY1",2:"PRIMARY2",3:"PRIMARY3",4:"PRIMARY4",5:"PRIMARY5",6:"PRIMARY6",7:"JSS1",8:"JSS2",9:"JSS3",10:"SS1",11:"SS2",12:"SS3"}[Number(basic[1])] || "";
+        const spokenAliases = { creche:"CRECHE", crèche:"CRECHE", prep:"PRE_CLASS", preclass:"PRE_CLASS", pre:"PRE_CLASS", nursery1:"NURSERY1", nursery2:"NURSERY2", primary1:"PRIMARY1", primary2:"PRIMARY2", primary3:"PRIMARY3", primary4:"PRIMARY4", primary5:"PRIMARY5", primary6:"PRIMARY6", starter:"STARTER" };
+        for (const [alias, className] of Object.entries(spokenAliases)) if (value.includes(alias)) return className;
+        for (const className of VALID_CLASSES) if (value.includes(className.toLowerCase().replaceAll("_",""))) return className;
         return "";
     }
 
 
     function detectSpokenClassArm(text, classCategory) {
         if (!classCategory) return "";
-
         const value = normalize(text).replace(/\s+/g, "").replace(/and/g, "/");
-
         for (const arm of CLASS_ARMS[classCategory] || []) {
             const normalizedArm = normalize(arm).replace(/[_\s]/g, "");
             if (value.includes(normalizedArm)) return arm;
         }
-
+        if (classCategory.startsWith("PRIMARY")) {
+            if (/\barm\s*a\b/i.test(text) || /\b(?:primary|basic)\s*\d+\s*a\b/i.test(text)) return `${classCategory}A`;
+            if (/\barm\s*b\b/i.test(text) || /\b(?:primary|basic)\s*\d+\s*b\b/i.test(text)) return `${classCategory}B`;
+        }
         if (classCategory.startsWith("JSS")) {
             if (/\barm\s*a\b/i.test(text) || new RegExp(`${classCategory}\\s*a`, "i").test(text)) return `${classCategory}A`;
             if (/\barm\s*b\b/i.test(text) || new RegExp(`${classCategory}\\s*b`, "i").test(text)) return `${classCategory}B`;
             if (/\barm\s*c\b/i.test(text) || new RegExp(`${classCategory}\\s*c`, "i").test(text)) return `${classCategory}C`;
         }
-
-        if (/gold/i.test(text)) return `${classCategory}_GOLD`;
-        if (/silver/i.test(text)) return `${classCategory}_SILVER`;
-
+        if (/gold/i.test(text) && CLASS_ARMS[classCategory]?.includes(`${classCategory}_GOLD`)) return `${classCategory}_GOLD`;
+        if (/silver/i.test(text) && CLASS_ARMS[classCategory]?.includes(`${classCategory}_SILVER`)) return `${classCategory}_SILVER`;
         if (/diamond/i.test(text) && CLASS_ARMS[classCategory]?.includes(`${classCategory}_DIAMOND`)) return `${classCategory}_DIAMOND`;
-
         if (/\bb\s*(\/|and|&)\s*c\b/i.test(text) && CLASS_ARMS[classCategory]?.includes(`${classCategory}_B/C`)) return `${classCategory}_B/C`;
-
         return "";
     }
 
@@ -1707,8 +1736,35 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
     // MODALS
     // =========================================================
+    const modalPortalState = new WeakMap();
+
+    function mountModalToViewport(node) {
+        if (!node || node.parentElement === document.body) return;
+        const marker = document.createComment(`emis-modal-${node.id || "node"}`);
+        node.parentNode.insertBefore(marker, node);
+        modalPortalState.set(node, marker);
+        document.body.appendChild(node);
+    }
+
+
+    function restoreModalFromViewport(node) {
+        if (!node) return;
+        const marker = modalPortalState.get(node);
+        if (!marker?.parentNode) return;
+        marker.parentNode.insertBefore(node, marker);
+        marker.remove();
+        modalPortalState.delete(node);
+    }
+
+
     function showModal(modal, overlay) {
         if (!modal) return;
+
+        // Mount dialogs directly under <body>. The shared mobile page shell uses
+        // transforms during navigation; keeping a fixed modal inside that shell can
+        // make it render far below the viewport or leave only the blurred backdrop.
+        if (overlay) mountModalToViewport(overlay);
+        mountModalToViewport(modal);
 
         if (overlay) {
             overlay.classList.add("open");
@@ -1717,7 +1773,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
-
         document.body.classList.add("pm-modal-open");
     }
 
@@ -1738,10 +1793,19 @@ document.addEventListener("DOMContentLoaded", () => {
             ".student-form-modal.open",
             ".pm-dialog-modal.open",
             ".action-preview-modal.open",
-            ".graduates-modal.open"
+            ".graduates-modal.open",
+            ".student-import-modal.open",
+            ".placement-planner-modal.open"
         ].join(", "));
 
         if (!anotherModalOpen && els.confirmModal?.classList.contains("hidden")) document.body.classList.remove("pm-modal-open");
+
+        // Restore nodes after the close animation so the page router can safely
+        // replace this workspace without leaving duplicate modal IDs in <body>.
+        window.setTimeout(() => {
+            if (!modal?.classList.contains("open")) restoreModalFromViewport(modal);
+            if (overlay && !overlay.classList.contains("open")) restoreModalFromViewport(overlay);
+        }, 240);
     }
 
 
@@ -1754,7 +1818,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function displayClass(value) {
-        return String(value || "").replaceAll("_", " ");
+        const raw = String(value || "").trim();
+        if (CLASS_LABELS[raw]) return CLASS_LABELS[raw];
+        if (/^PRIMARY[1-6][AB]$/.test(raw)) { const n=raw.match(/PRIMARY([1-6])([AB])/); return `Basic ${n[1]}${n[2]} / Primary ${n[1]}${n[2]}`; }
+        if (/^PRE_CLASS_(GOLD|SILVER)$/.test(raw)) return `Prep ${raw.endsWith("GOLD") ? "Gold" : "Silver"}`;
+        if (/^NURSERY[12]_(GOLD|SILVER)$/.test(raw)) { const n=raw.match(/NURSERY([12])_(GOLD|SILVER)/); return `Nursery ${n[1]} ${n[2][0]}${n[2].slice(1).toLowerCase()}`; }
+        if (/^JSS[123][ABC]$/.test(raw)) return raw;
+        return raw.replaceAll("_", " ");
     }
 
 
@@ -1900,9 +1970,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // PUBLIC API FOR promotion.js
     // =========================================================
     window.EMISStudentDB = {
-        VALID_CLASSES,
-        CLASS_ARMS,
-        state,
+        VALID_CLASSES, CLASS_LABELS, CLASS_ARMS, PROMOTION_ENABLED_CLASSES, state,
 
         api,
         refreshAll,

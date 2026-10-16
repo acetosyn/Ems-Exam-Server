@@ -1,224 +1,128 @@
 {% extends "base.html" %}
-{% block title %}Islamiyah School — EMIS{% endblock %}
-
-{% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/islamiyah.css') }}">
-{% endblock %}
-
+{% block title %}Tahfeez & Islamiyyah Academy — EMIS{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='css/islamiyah.css') }}?v=20261016-academy-db2"><link rel="stylesheet" href="{{ url_for('static', filename='css/academy_report_sync.css', v='20261013-dualdb') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/regular_school_score_entry.css', v='20261014') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/islamiyah_unified_selector.css', v='20261014-unified') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/academic_sync_mobile_v3.css', v='20261013-cum5') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/academic_entry_theme_v1.css', v='20261014-entrytheme1') }}">{% endblock %}
 {% block content %}
-<div class="islamiyah-shell" id="islamiyahApp" data-role="{{ user_type|default(session.get('user_type','')) }}">
-  <div class="islamiyah-toast-host" id="islamiyahToastHost" aria-live="polite"></div>
+<div class="academy-page" id="islamiyahApp" data-role="{{ user_type|default(session.get('user_type',''))|lower }}">
+  <div id="islamiyahToastHost" class="academy-toast-host" aria-live="polite"></div>
 
-  <section class="islamiyah-hero">
-    <div class="islamiyah-hero-copy">
-      <span class="islamiyah-eyebrow"><i class="fa-solid fa-mosque"></i> EMIS ISLAMIYAH SCHOOL</span>
-      <h1>Islamiyah Academic Center</h1>
-      <p class="hero-lead">A clean, robust workspace for independent Islamiyah placement, score entry, progress tracking, academic history, and automatic report sheet integration.</p>
-
-      <div class="islamiyah-hero-tags">
-        <span><i class="fa-solid fa-pen-to-square"></i> CA /30</span>
-        <span><i class="fa-solid fa-file-circle-check"></i> Exam /70</span>
-        <span><i class="fa-solid fa-calculator"></i> Total /100</span>
-        <span><i class="fa-solid fa-link"></i> Linked by Admission Number</span>
-      </div>
-
-      <div class="hero-action-row">
-        <button type="button" class="module-btn primary" data-islamiyah-tab="scores"><i class="fa-solid fa-table-list"></i> Open Score Entry</button>
-        {% if session.get('user_type') == 'admin' %}
-        <button type="button" class="module-btn ghost" data-islamiyah-tab="roster"><i class="fa-solid fa-users-gear"></i> Manage Placement</button>
-        {% endif %}
-        <button type="button" class="module-btn ghost" data-islamiyah-tab="results"><i class="fa-solid fa-clock-rotate-left"></i> View History</button>
-      </div>
-    </div>
-
-    <aside class="islamiyah-context-card">
-      <div class="context-top">
-        <div>
-          <span class="context-label">Academic Session</span>
-          <strong id="islamiyahSession">—</strong>
-        </div>
-        <div>
-          <span class="context-label">Active Term</span>
-          <strong id="islamiyahTerm">—</strong>
-        </div>
-      </div>
-
-      <div class="context-mid">
-        <article>
-          <span>Access</span>
-          <strong id="islamiyahRole">—</strong>
-        </article>
-        <article>
-          <span>Integration</span>
-          <strong class="success">Active</strong>
-        </article>
-      </div>
-
-      <div class="context-foot">
-        <div class="assessment-pill"><i class="fa-solid fa-star-and-crescent"></i><span>Islamiyah Assessment Model</span></div>
-        <div class="assessment-split">
-          <b>30%</b><span>CA</span>
-          <i></i>
-          <b>70%</b><span>Exam</span>
-        </div>
-        <button type="button" id="refreshIslamiyah"><i class="fa-solid fa-rotate"></i> Refresh Module</button>
-      </div>
-    </aside>
+  <!-- ACADEMY HEADER -->
+  <section class="academy-header">
+    <div class="academy-title-block"><span class="academy-title-icon"><i class="fa-solid fa-kaaba"></i></span><div><div class="academy-eyebrow"><span>EMIS Islamic Studies School</span><b><i></i> Live Academy</b></div><h1>Tahfeez &amp; Islamiyyah Academy</h1><p>Independent Academy records, linked safely to regular-school admissions where a verified match exists.</p></div></div>
+    <div class="academy-header-actions">{% if (user_type|default(session.get('user_type','')))|lower == 'admin' %}<a href="/api/islamiyah/database/export" class="academy-btn ghost"><i class="fa-solid fa-file-csv"></i><span>Combined DB</span></a>{% endif %}<button type="button" class="academy-btn ghost" id="refreshIslamiyah"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button></div>
   </section>
 
-  <section class="islamiyah-stat-grid" aria-label="Islamiyah statistics">
-    <article class="metric-card metric-blue"><span class="stat-icon"><i class="fa-solid fa-users"></i></span><div><small>Imported Students</small><strong id="statIslamiyahRoster">0</strong><em>Current school database</em></div></article>
-    <article class="metric-card metric-green"><span class="stat-icon"><i class="fa-solid fa-user-check"></i></span><div><small>Placed Students</small><strong id="statIslamiyahAssigned">0</strong><em>Islamiyah class assigned</em></div></article>
-    <article class="metric-card metric-amber"><span class="stat-icon"><i class="fa-solid fa-user-clock"></i></span><div><small>Awaiting Placement</small><strong id="statIslamiyahUnassigned">0</strong><em>Needs Islamiyah class</em></div></article>
-    <article class="metric-card metric-purple"><span class="stat-icon"><i class="fa-solid fa-clipboard-check"></i></span><div><small>Score Records</small><strong id="statIslamiyahScores">0</strong><em id="statIslamiyahScoreMeta">Current term</em></div></article>
-    <article class="metric-card metric-teal"><span class="stat-icon"><i class="fa-solid fa-circle-check"></i></span><div><small>Complete Records</small><strong id="statIslamiyahComplete">0</strong><em>CA + Exam entered</em></div></article>
+  <!-- SLIM CONTEXT + DYNAMIC SNAPSHOT -->
+  <section class="academy-context-strip"><div><span>Session</span><strong id="islamiyahSession">—</strong></div><div><span>Term</span><strong id="islamiyahTerm">—</strong></div><div><span>Access</span><strong id="islamiyahRole">—</strong></div><div><span>Islamiyyah Scheme</span><strong>CA 30 + Exam 70</strong></div><div><span>Regular ID Links</span><strong id="academyLinkedCount">0</strong></div></section>
+
+  <section class="academy-snapshot">
+    <div class="snapshot-icon" id="academySnapshotIcon"><i class="fa-solid fa-book-quran"></i></div>
+    <div class="snapshot-copy"><small>ACTIVE DATABASE</small><strong id="academySnapshotTitle">Tahfeez School</strong><span id="academySnapshotMeta">Choose one school source. Register, Scores and Report Sync will follow this selection.</span></div>
+    <label><span>School Database</span><select id="academySchoolSelect"><option value="tahfeez">Tahfeez School</option><option value="islamiyah">Islamiyyah School</option><option value="regular">Basic / Regular School</option></select></label>
+    <label><span id="academyClassLabel">Class</span><select id="academyClassSelect"><option value="">All Classes</option></select></label>
+    <div class="snapshot-count"><strong id="academySnapshotCount">0</strong><span>students</span></div>
+    <button type="button" class="snapshot-open" id="openSnapshotRegister"><span>Open Register</span><i class="fa-solid fa-arrow-right"></i></button>
   </section>
 
-  <section class="islamiyah-feature-grid" aria-label="Key Islamiyah module features">
-    <article><i class="fa-solid fa-school"></i><span>Independent Islamiyah classes</span></article>
-    <article><i class="fa-solid fa-wand-magic-sparkles"></i><span>Automatic report integration</span></article>
-    <article><i class="fa-solid fa-cloud-arrow-down"></i><span>Sync current EMIS roster</span></article>
-    <article><i class="fa-solid fa-user-plus"></i><span>Bulk placement tools</span></article>
-    <article><i class="fa-solid fa-floppy-disk"></i><span>Autosave score entry</span></article>
-    <article><i class="fa-solid fa-chart-line"></i><span>Class results dashboard</span></article>
-    <article><i class="fa-solid fa-timeline"></i><span>Student result history</span></article>
-    <article><i class="fa-solid fa-file-excel"></i><span>Excel export support</span></article>
-  </section>
-
-  <nav class="islamiyah-tabs" aria-label="Islamiyah workspace sections">
-    <button type="button" class="active" data-islamiyah-tab="overview"><i class="fa-solid fa-chart-pie"></i><span>Overview</span></button>
-    <button type="button" data-islamiyah-tab="scores"><i class="fa-solid fa-table-list"></i><span>Score Entry</span></button>
-    {% if session.get('user_type') == 'admin' %}<button type="button" data-islamiyah-tab="roster"><i class="fa-solid fa-users-gear"></i><span>Student Placement</span></button>{% endif %}
-    <button type="button" data-islamiyah-tab="results"><i class="fa-solid fa-chart-column"></i><span>Results & History</span></button>
+  <!-- COMPACT WORKSPACE NAV -->
+  <nav class="academy-tabs" aria-label="Academy workspace">
+    <button type="button" class="active" data-islamiyah-tab="overview"><i class="fa-solid fa-gauge-high"></i><span>Overview</span></button>
+    <button type="button" data-islamiyah-tab="scores"><i class="fa-solid fa-pen-to-square"></i><span>Scores</span></button>
+    <button type="button" data-islamiyah-tab="register"><i class="fa-solid fa-database"></i><span>Database</span><b id="navRegisterCount">0</b></button>
+    <button type="button" data-islamiyah-tab="report-sync"><i class="fa-solid fa-arrows-rotate"></i><span>Report Sync</span><b id="navReportSyncPending">0</b></button>
+    <button type="button" data-islamiyah-tab="promotions"><i class="fa-solid fa-arrow-up-right-dots"></i><span>Promotions</span></button>
+    <button type="button" data-islamiyah-tab="results"><i class="fa-solid fa-chart-line"></i><span>Results</span></button>
   </nav>
 
-  <section class="islamiyah-panel active" data-islamiyah-panel="overview">
-    <div class="panel-heading-row">
-      <div>
-        <span class="section-kicker">School Structure</span>
-        <h2>Islamiyah Classes & Subjects</h2>
-        <p>Islamiyah classification is independent from the student's regular JSS, SS, Primary or Nursery class.</p>
-      </div>
-      <div class="integration-badge"><i class="fa-solid fa-link"></i><span>Report Sheet Integration</span><strong>ACTIVE</strong></div>
+  <!-- OVERVIEW -->
+  <section class="academy-panel active" data-islamiyah-panel="overview">
+    <div class="academy-section-title"><div><small>UNIFIED SCHOOL DATABASE</small><h2>One selector. Three school sources.</h2><p>Choose Tahfeez, Islamiyyah or Basic / Regular School above. Register, Scores and Report Sync automatically change to the selected database.</p></div></div>
+    <div class="academy-overview-lines">
+      <button type="button" data-school-choice="tahfeez"><span class="line-icon tahfeez"><i class="fa-solid fa-book-quran"></i></span><span><small>Tahfeez School</small><strong>Tahfeez 1 → Tahfeez 5</strong><em>Independent Tahfeez ID • optional verified std... link</em></span><b id="overviewTahfeezCount">0</b><i class="fa-solid fa-chevron-right"></i></button>
+      <button type="button" data-school-choice="islamiyah"><span class="line-icon islamiyah"><i class="fa-solid fa-mosque"></i></span><span><small>Islamiyyah School</small><strong>Starter → Prep-1 → Islamiyyah 1–7</strong><em>Academy scores become the authoritative Islamiyyah report-sheet source</em></span><b id="overviewIslamiyahCount">0</b><i class="fa-solid fa-chevron-right"></i></button>
+      <button type="button" data-school-choice="regular"><span class="line-icon regular-school"><i class="fa-solid fa-school"></i></span><span><small>Basic / Regular School</small><strong>Creche → Primary → JSS → SS</strong><em>All students2026.csv pupils can receive Islamiyyah CA /30 + Exam /70 directly from this page</em></span><b id="overviewRegularSchoolCount">0</b><i class="fa-solid fa-chevron-right"></i></button>
     </div>
+    <div class="report-bridge"><i class="fa-solid fa-link"></i><div><strong>Report Sheet Bridge</strong><span>Report Sheets now accepts two authoritative Islamiyyah sources from this page: linked Academy records and direct Regular School DB scores. Teachers never need to re-enter Islamiyyah inside Report Sheets.</span></div><span class="bridge-state"><i></i> Active</span></div>
+    <div class="academy-feature-strip" aria-label="Academy database features"><span><i class="fa-solid fa-file-excel"></i> Excel Register</span><span><i class="fa-solid fa-user-plus"></i> Add Students</span><span><i class="fa-solid fa-link"></i> Link Basic School</span><span><i class="fa-solid fa-pen"></i> Edit Academy Profile</span><span><i class="fa-solid fa-arrow-up"></i> Promote</span><span><i class="fa-solid fa-eraser"></i> Clear Scores</span><span><i class="fa-solid fa-shield-halved"></i> Basic DB Read-only</span></div>
+    <details class="academy-activity-panel"><summary><span><i class="fa-solid fa-clock-rotate-left"></i><strong>Academy Database Activity</strong><small>Recent add, edit, register, promote, remove and score-clear actions</small></span><button type="button" id="refreshAcademyActivity" class="academy-mini-action"><i class="fa-solid fa-rotate"></i> Refresh</button></summary><div id="academyActivityList" class="academy-activity-list"><div class="table-empty">Open activity to load recent actions.</div></div></details>
+  </section>
 
-    <div class="overview-top-grid">
-      <article class="overview-card emphasis-card">
-        <div class="mini-kicker">Assessment Guide</div>
-        <h3>Simple, consistent scoring model</h3>
-        <div class="assessment-board">
-          <div><span>CA</span><strong>30</strong></div>
-          <div><span>Exam</span><strong>70</strong></div>
-          <div><span>Total</span><strong>100</strong></div>
-        </div>
-        <p>Islamiyah does not use the normal JSS/SS split. It uses a direct <strong>CA /30</strong> and <strong>Exam /70</strong> structure.</p>
-      </article>
+  <!-- TAHFEEZ DATABASE -->
+  <section class="academy-panel" data-islamiyah-panel="tahfeez">
+    <div class="academy-section-title split"><div><small>TAHFEEZ DATABASE</small><h2>Tahfeez Student Register</h2><p>Excel-style Academy register. Add, link, edit, promote or remove Tahfeez records without changing the Basic School master database.</p></div><div class="academy-title-actions"><button type="button" class="academy-btn primary" data-add-academy-student="tahfeez"><i class="fa-solid fa-user-plus"></i><span>Add Student</span></button><button type="button" class="academy-btn ghost" data-register-basic="tahfeez"><i class="fa-solid fa-link"></i><span>Register from Basic</span></button><a href="/api/islamiyah/tahfeez/export" class="academy-btn ghost"><i class="fa-solid fa-file-excel"></i><span>Export</span></a></div></div>
+    <div class="academy-master-protection"><i class="fa-solid fa-shield-halved"></i><div><strong>Basic School database is protected.</strong><span>Linking a <code>std...</code> pupil creates an Academy record only. Name/class changes here never edit Students &amp; Classes.</span></div></div>
+    <div class="academy-toolbar"><label><span>Tahfeez Class</span><select id="tahfeezRosterClass"><option value="">All Tahfeez Classes</option></select></label><label class="toolbar-search"><span>Search</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="tahfeezRosterSearch" placeholder="Student, std ID or Tahfeez ID"></div></label><div class="toolbar-summary"><span id="tahfeezVisibleCount">0</span><small>visible</small></div></div>
+    <div class="academy-bulk-bar"><div class="bulk-count"><span>Selected</span><strong id="tahfeezSelectedCount">0</strong></div><button type="button" class="academy-mini-action" id="selectVisibleTahfeez"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" class="academy-mini-action" id="clearTahfeezSelection"><i class="fa-solid fa-xmark"></i> Clear</button><select id="tahfeezMoveTarget" aria-label="Move selected Tahfeez students"><option value="">Move to class…</option></select><button type="button" class="academy-mini-action accent" id="moveTahfeezSelected" disabled><i class="fa-solid fa-right-left"></i> Move</button><button type="button" class="academy-mini-action" id="editTahfeezSelected" disabled><i class="fa-solid fa-pen"></i> Edit</button><button type="button" class="academy-mini-action success" id="promoteTahfeezSelectedQuick" disabled><i class="fa-solid fa-arrow-up"></i> Promote</button><button type="button" class="academy-mini-action danger" id="removeTahfeezSelected" disabled><i class="fa-solid fa-trash"></i> Remove</button></div>
+    <div class="academy-table-wrap"><table class="academy-table tahfeez-table excel-register"><thead><tr><th class="check-col"><input type="checkbox" id="selectAllTahfeezRoster" aria-label="Select all visible Tahfeez students"></th><th>#</th><th class="sticky-id">Regular Admission</th><th>Tahfeez ID</th><th>Student</th><th>Sex</th><th>Phone</th><th>Regular Class</th><th>Tahfeez Class</th><th>Source</th><th>Actions</th></tr></thead><tbody id="tahfeezRosterBody"><tr><td colspan="11" class="table-empty">Loading Tahfeez register…</td></tr></tbody></table></div>
+  </section>
 
-      <article class="overview-card quick-actions-card">
-        <div class="mini-kicker">Quick Actions</div>
-        <h3>Get things done faster</h3>
-        <div class="quick-actions-grid">
-          {% if session.get('user_type') == 'admin' %}<button type="button" class="quick-action-btn" data-islamiyah-tab="roster"><i class="fa-solid fa-users-gear"></i><span>Place Students</span></button>{% endif %}
-          <button type="button" class="quick-action-btn" data-islamiyah-tab="scores"><i class="fa-solid fa-keyboard"></i><span>Enter Scores</span></button>
-          <button type="button" class="quick-action-btn" data-islamiyah-tab="results"><i class="fa-solid fa-chart-column"></i><span>View Results</span></button>
-          <button type="button" class="quick-action-btn" data-islamiyah-tab="results"><i class="fa-solid fa-clock-rotate-left"></i><span>Open History</span></button>
-        </div>
-      </article>
-    </div>
+  <!-- ISLAMIYYAH DATABASE -->
+  <section class="academy-panel" data-islamiyah-panel="islamiyah">
+    <div class="academy-section-title split"><div><small>ISLAMIYYAH DATABASE</small><h2>Islamiyyah Student Register</h2><p>Manage the Academy roster with linked <code>std...</code> identities or independent Islamiyyah IDs. Score-entry permissions remain subject-assignment based.</p></div><div class="academy-title-actions"><button type="button" class="academy-btn primary" data-add-academy-student="islamiyah"><i class="fa-solid fa-user-plus"></i><span>Add Student</span></button><button type="button" class="academy-btn ghost" data-register-basic="islamiyah"><i class="fa-solid fa-link"></i><span>Register from Basic</span></button>{% if session.get('user_type') == 'admin' %}<button type="button" class="academy-btn ghost" id="importIslamiyahRoster"><i class="fa-solid fa-arrows-rotate"></i><span>Refresh Links</span></button>{% endif %}</div></div>
+    <div class="roster-coverage" id="islamiyahRosterCoverage"><i class="fa-solid fa-link"></i><div><strong>Checking identity links…</strong><span>Academy IDs remain independent. Basic School records remain read-only.</span></div></div>
+    <div class="academy-toolbar islamiyah-toolbar"><label><span>Islamiyyah Class</span><select id="rosterIslamiyahFilter"><option value="">All Islamiyyah Classes</option><option value="__UNASSIGNED__">Unassigned</option></select></label><label><span>Regular Class</span><select id="rosterRegularClass"><option value="">All Regular Classes</option></select></label><label class="toolbar-search"><span>Search</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="rosterSearch" placeholder="Student, std ID or Academy ID"></div></label><div class="toolbar-summary"><span id="islamiyahVisibleCount">0</span><small>visible</small></div></div>
+    <div class="academy-bulk-bar"><div class="bulk-count"><span>Selected</span><strong id="rosterSelectedCount">0</strong></div><button type="button" class="academy-mini-action" id="selectVisibleIslamiyah"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" class="academy-mini-action" id="clearIslamiyahSelection"><i class="fa-solid fa-xmark"></i> Clear</button><select id="bulkIslamiyahClass"><option value="">Move to class…</option></select><button type="button" id="assignSelectedIslamiyah" class="academy-mini-action accent" disabled><i class="fa-solid fa-right-left"></i> Move</button><button type="button" id="editIslamiyahSelected" class="academy-mini-action" disabled><i class="fa-solid fa-pen"></i> Edit</button><button type="button" id="promoteIslamiyahSelectedQuick" class="academy-mini-action success" disabled><i class="fa-solid fa-arrow-up"></i> Promote</button><button type="button" id="unassignSelectedIslamiyah" class="academy-mini-action" disabled><i class="fa-solid fa-ban"></i> Unassign</button><button type="button" id="removeIslamiyahSelected" class="academy-mini-action danger" disabled><i class="fa-solid fa-trash"></i> Remove</button></div>
+    <div class="academy-table-wrap"><table class="academy-table islamiyah-roster-table excel-register"><thead><tr><th class="check-col"><input type="checkbox" id="selectAllIslamiyahRoster" aria-label="Select all visible"></th><th>#</th><th class="sticky-id">Regular Admission</th><th>Academy ID</th><th>Student</th><th>Sex</th><th>Phone</th><th>Regular Class</th><th>Islamiyyah Class</th><th>Link</th><th>Source</th><th>Actions</th></tr></thead><tbody id="islamiyahRosterBody"><tr><td colspan="12" class="table-empty">Loading Islamiyyah register…</td></tr></tbody></table></div>
+  </section>
 
-    <div id="islamiyahClassCards" class="islamiyah-class-grid"><div class="module-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading Islamiyah structure…</div></div>
+  <!-- REGULAR SCHOOL DATABASE -->
+  <section class="academy-panel" data-islamiyah-panel="regular-school">
+    <div class="academy-section-title split"><div><small>NORMAL STUDENT DATABASE • READ ONLY</small><h2>Regular School Islamiyyah Register</h2><p>Loads directly from <code>students2026.csv</code>. Academy staff can use pupils as a registration source, but cannot edit, delete, promote or change their Basic School class from this page.</p></div><span class="sync-live-state"><i></i><span>Protected Master</span></span></div><div class="academy-master-protection strong"><i class="fa-solid fa-lock"></i><div><strong>Immutable Basic School source</strong><span>Use <b>Register from Basic</b> inside Tahfeez or Islamiyyah to create a linked Academy record. The original student remains unchanged.</span></div></div>
+    <div class="academy-toolbar regular-school-toolbar"><label><span>Class Level</span><select id="regularRosterLevel"><option value="">All Class Levels</option></select></label><label><span>Class Arm</span><select id="regularRosterArm"><option value="">All Arms</option></select></label><label class="toolbar-search"><span>Search</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="regularRosterSearch" placeholder="Student, std admission or class"></div></label><div class="toolbar-summary"><span id="regularRosterVisibleCount">0</span><small>visible</small></div></div>
+    <div class="academy-table-wrap"><table class="academy-table regular-school-table"><thead><tr><th>#</th><th class="sticky-id">Admission</th><th>Student</th><th>Sex</th><th>Phone</th><th>Class Level</th><th>Class Arm</th><th>Islamiyyah Source</th></tr></thead><tbody id="regularSchoolRosterBody"><tr><td colspan="8" class="table-empty">Open this tab to load the normal student database.</td></tr></tbody></table></div>
+  </section>
 
-    <div class="islamiyah-workflow-strip">
-      <article><b>1</b><div><strong>Import / Sync</strong><span>Bring the current EMIS student database into Islamiyah School.</span></div></article>
-      <i class="fa-solid fa-arrow-right"></i>
-      <article><b>2</b><div><strong>Place Students</strong><span>Assign each admission number to the appropriate Islamiyah level.</span></div></article>
-      <i class="fa-solid fa-arrow-right"></i>
-      <article><b>3</b><div><strong>Enter Scores</strong><span>Islamiyah teachers enter CA /30 and Exam /70 with autosave.</span></div></article>
-      <i class="fa-solid fa-arrow-right"></i>
-      <article><b>4</b><div><strong>Automatic Report</strong><span>The regular report receives the student's aggregated Islamiyyah /100 score.</span></div></article>
+  <!-- PROMOTIONS -->
+  <section class="academy-panel" data-islamiyah-panel="promotions">
+    <div class="academy-section-title"><div><small>ACADEMY PROGRESSION</small><h2>Promotion Workspace</h2><p>Promotion changes only Tahfeez/Islamiyyah placement. Regular Primary/JSS/SS classes remain untouched.</p></div></div>
+    <div id="regularPromotionNotice" class="unified-rule-notice" hidden><i class="fa-solid fa-graduation-cap"></i><div><strong>Basic / Regular School promotion is managed from Students & Classes.</strong><span>This Islamic Studies page never changes a pupil's normal Primary/JSS/SS placement. Use the regular Students promotion workflow for that database.</span></div></div><div class="promotion-grid">
+      <article class="promotion-box" data-promotion-source="tahfeez"><header><i class="fa-solid fa-book-quran"></i><div><small>TAHFEEZ</small><h3>Tahfeez Promotion</h3></div></header><div class="promotion-form"><label><span>Source</span><select id="tahfeezPromotionSource"><option value="">Choose class…</option></select></label><label id="tahfeezTransitionTargetWrap" class="hidden"><span>After Tahfeez 5</span><select id="tahfeezTransitionTarget"><option value="">Choose Islamiyyah destination…</option></select></label></div><div class="promotion-select-line"><span><b id="tahfeezPromotionSelected">0</b> selected</span><button type="button" id="selectAllTahfeezPromotion">Select visible</button></div><div id="tahfeezPromotionStudents" class="promotion-list"><div class="table-empty">Choose a source class.</div></div><button type="button" id="promoteTahfeezBtn" class="academy-btn primary full" disabled><i class="fa-solid fa-arrow-up"></i><span>Promote Selected</span></button></article>
+      <article class="promotion-box" data-promotion-source="islamiyah"><header><i class="fa-solid fa-mosque"></i><div><small>ISLAMIYYAH</small><h3>Islamiyyah Promotion</h3></div></header><div class="promotion-form"><label><span>Source</span><select id="islamiyahPromotionSource"><option value="">Choose class…</option></select></label><label><span>Destination</span><select id="islamiyahPromotionTarget"><option value="">Automatic next class</option></select></label></div><div class="promotion-select-line"><span><b id="islamiyahPromotionSelected">0</b> selected</span><button type="button" id="selectAllIslamiyahPromotion">Select visible</button></div><div id="islamiyahPromotionStudents" class="promotion-list"><div class="table-empty">Choose a source class.</div></div><button type="button" id="promoteIslamiyahBtn" class="academy-btn primary full" disabled><i class="fa-solid fa-arrow-up"></i><span>Promote Selected</span></button></article>
     </div>
   </section>
 
-  <section class="islamiyah-panel" data-islamiyah-panel="scores">
-    <div class="panel-heading-row">
-      <div><span class="section-kicker">Manual Assessment</span><h2>Islamiyah Score Entry</h2><p>Scores save automatically as you type. Blank values remain incomplete and are never converted to zero.</p></div>
-      <div class="autosave-state" id="islamiyahAutosaveState"><span></span><strong>Autosave Ready</strong></div>
-    </div>
-
-    <div class="workspace-card">
-      <div class="islamiyah-filter-bar">
-        <label><span>Islamiyah Class</span><select id="scoreIslamiyahClass"><option value="">Select class…</option></select></label>
-        <label><span>Subject</span><select id="scoreIslamiyahSubject"><option value="">Select subject…</option></select></label>
-        <label class="search-field"><span>Find Student</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="scoreStudentSearch" placeholder="Name or admission no."></div></label>
-        <button type="button" class="module-btn ghost" id="exportIslamiyahScores" disabled><i class="fa-solid fa-file-excel"></i> Export Excel</button>
-      </div>
-
-      <div class="score-context-summary" id="scoreContextSummary">
-        <span><i class="fa-solid fa-circle-info"></i> Select an Islamiyah class and subject to load students.</span>
-      </div>
-
-      <div class="islamiyah-table-wrap score-table-wrap">
-        <table class="islamiyah-table islamiyah-score-table">
-          <thead><tr><th>#</th><th>Admission No.</th><th class="student-col">Student</th><th>Regular Class</th><th>Islamiyah Class</th><th>CA <small>/30</small></th><th>Exam <small>/70</small></th><th>Total <small>/100</small></th><th>Status</th><th>Saved</th></tr></thead>
-          <tbody id="islamiyahScoreBody"><tr><td colspan="10" class="empty-table">Select a class and subject to begin score entry.</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+  <!-- SCORE ENTRY — Academy + full regular-school database -->
+  <section class="academy-panel" data-islamiyah-panel="scores">
+    <div class="academy-section-title split"><div><small>ISLAMIYYAH ASSESSMENT</small><h2>Islamiyyah Score Entry</h2><p>The School Database selector above controls this workspace. Islamiyyah loads detailed Academy subjects; Basic / Regular School loads the normal Students &amp; Classes database.</p></div><div class="autosave-state" id="islamiyahAutosaveState"><i></i><span>Autosave Ready</span></div></div>
+    <div class="unified-source-banner" id="scoreSourceBanner"><i class="fa-solid fa-mosque"></i><div><small>SELECTED DATABASE</small><strong>Islamiyyah School</strong><span>Detailed Islamiyyah subjects • CA /30 + Exam /70</span></div><em>Controlled by the School Database selector above</em></div><div id="tahfeezScoreNotice" class="unified-rule-notice" hidden><i class="fa-solid fa-shield-halved"></i><div><strong>Tahfeez score entry is protected.</strong><span>The official Tahfeez assessment structure has not yet been approved in EMS, so the system will not invent a CA/Exam rule. Select Islamiyyah School or Basic / Regular School to enter Islamiyyah scores.</span></div></div>
+    <div id="academyScoreControls" class="academy-toolbar score-toolbar"><label><span>Islamiyyah Class</span><select id="scoreIslamiyahClass"><option value="">Select class…</option></select></label><label><span>Subject</span><select id="scoreIslamiyahSubject"><option value="">Select subject…</option></select></label><label class="toolbar-search"><span>Find Student</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="scoreStudentSearch" placeholder="Name, std ID or Academy ID"></div></label><button type="button" id="saveAllIslamiyahScores" class="academy-btn primary" disabled><i class="fa-solid fa-floppy-disk"></i><span>Save All</span></button><button type="button" id="exportIslamiyahScores" class="academy-btn ghost" disabled><i class="fa-solid fa-file-excel"></i><span>Export</span></button><button type="button" id="clearSelectedIslamiyahScores" class="academy-btn danger-outline" disabled><i class="fa-solid fa-eraser"></i><span>Clear Selected</span></button><button type="button" id="clearClassIslamiyahScores" class="academy-btn danger-outline" disabled><i class="fa-solid fa-trash-can-arrow-up"></i><span>Clear Class Scores</span></button></div>
+    <div id="regularScoreControls" class="academy-toolbar score-toolbar regular-score-controls" hidden><label><span>Term</span><select id="regularScoreTerm"><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select></label><label><span>Class Level</span><select id="regularScoreLevel"><option value="">Select class…</option></select></label><label><span>Class Arm</span><select id="regularScoreArm"><option value="">Select arm…</option></select></label><label class="toolbar-search"><span>Find Student</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="regularScoreSearch" placeholder="Name or std admission"></div></label><button type="button" id="saveAllRegularScores" class="academy-btn primary" disabled><i class="fa-solid fa-floppy-disk"></i><span>Save All</span></button><button type="button" id="exportRegularScores" class="academy-btn ghost" disabled><i class="fa-solid fa-file-excel"></i><span>Export</span></button><button type="button" id="clearSelectedRegularScores" class="academy-btn danger-outline" disabled><i class="fa-solid fa-eraser"></i><span>Clear Selected</span></button><button type="button" id="clearClassRegularScores" class="academy-btn danger-outline" disabled><i class="fa-solid fa-trash-can-arrow-up"></i><span>Clear Class Scores</span></button></div>
+    <div class="score-context-summary" id="scoreContextSummary"><i class="fa-solid fa-circle-info"></i><span>Select a School Database above. This score workspace will change automatically.</span></div>
+    <div id="academyScoreTableWrap" class="academy-table-wrap score-scroll"><table class="academy-table score-table excel-register"><thead><tr><th class="check-col"><input type="checkbox" id="selectAllIslamiyahScores" aria-label="Select visible score rows"></th><th>#</th><th class="sticky-id">Regular Admission</th><th>Academy ID</th><th>Student</th><th>Regular Class</th><th>Islamiyyah Class</th><th>CA <small>/30</small></th><th>Exam <small>/70</small></th><th>Total <small>/100</small></th><th>Status</th><th>Saved</th><th>Action</th></tr></thead><tbody id="islamiyahScoreBody"><tr><td colspan="13" class="table-empty">Select a class and subject to begin.</td></tr></tbody></table></div>
+    <div id="regularScoreTableWrap" class="academy-table-wrap score-scroll" hidden><table class="academy-table score-table regular-score-table excel-register"><thead><tr><th class="check-col"><input type="checkbox" id="selectAllRegularScores" aria-label="Select visible regular score rows"></th><th>#</th><th class="sticky-id">Admission</th><th>Student</th><th>Class</th><th>CA <small>/30</small></th><th>Exam <small>/70</small></th><th>Total <small>/100</small></th><th>Status</th><th>Doesn't Take Islamiyyah</th><th>Saved</th><th>Action</th></tr></thead><tbody id="regularScoreBody"><tr><td colspan="12" class="table-empty">Choose a regular-school class to begin.</td></tr></tbody></table></div>
   </section>
 
-  {% if session.get('user_type') == 'admin' %}
-  <section class="islamiyah-panel" data-islamiyah-panel="roster">
-    <div class="panel-heading-row">
-      <div><span class="section-kicker">Student Database</span><h2>Islamiyah Student Placement</h2><p>Import the current school roster, then independently place each student into Islamiyah Starter, Prep-1 or Islamiyah 1–7.</p></div>
-      <button type="button" class="module-btn primary" id="importIslamiyahRoster"><i class="fa-solid fa-database"></i> Import / Sync Current School Database</button>
+  <!-- REPORT SHEET SYNC -->
+  <section class="academy-panel academy-report-sync" data-islamiyah-panel="report-sync">
+    <div class="academy-section-title split"><div><small>REPORT SHEET BRIDGE</small><h2>Islamiyyah Report Sync</h2><p>The School Database selector above controls this bridge. Islamiyyah uses the Academy roster; Basic / Regular School uses every normal student directly from <code>students2026.csv</code>.</p></div><div class="sync-live-state"><i></i><span>Live Sync</span></div></div>
+    <div class="unified-source-banner compact" id="syncSourceBanner"><i class="fa-solid fa-mosque"></i><div><small>SELECTED DATABASE</small><strong>Islamiyyah School</strong><span>Live Report Sheet bridge</span></div><em>Uses the same School Database selector above</em></div><div id="tahfeezSyncNotice" class="unified-rule-notice" hidden><i class="fa-solid fa-circle-info"></i><div><strong>Tahfeez is not a Report Sheet score source yet.</strong><span>Tahfeez identity and promotion remain active, but score synchronization will stay protected until its assessment structure is approved.</span></div></div>
+    <div class="academy-sync-controls" id="syncControls">
+      <label><span>Term</span><select id="syncIslamiyahTerm"><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select></label>
+      <label data-sync-academy-control><span>Islamiyyah Class</span><select id="syncIslamiyahClass"><option value="">All accessible classes</option></select></label>
+      <label data-sync-regular-control hidden><span>Regular Class Level</span><select id="syncRegularClassLevel"><option value="">Select class level…</option></select></label>
+      <label data-sync-regular-control hidden><span>Class Arm</span><select id="syncRegularClassArm"><option value="">Select arm…</option></select></label>
+      <label class="sync-search"><span>Find Student</span><div><i class="fa-solid fa-magnifying-glass"></i><input id="syncIslamiyahSearch" type="search" placeholder="std..., Academy ID or student name"></div></label>
+      <button type="button" id="loadIslamiyahSync" class="academy-btn primary"><i class="fa-solid fa-users-viewfinder"></i><span>Load</span></button>
     </div>
-
-    <div class="workspace-card">
-      <div class="roster-control-grid">
-        <label class="search-field"><span>Search Roster</span><div><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="rosterSearch" placeholder="Student name, admission no. or class"></div></label>
-        <label><span>Regular Class</span><select id="rosterRegularClass"><option value="">All regular classes</option></select></label>
-        <label><span>Islamiyah Placement</span><select id="rosterIslamiyahFilter"><option value="">All placements</option><option value="__UNASSIGNED__">Unassigned only</option></select></label>
-        <div class="bulk-placement-control"><span>Assign Selected To</span><div><select id="bulkIslamiyahClass"><option value="">Choose Islamiyah class…</option></select><button type="button" class="module-btn compact" id="assignSelectedIslamiyah" disabled><i class="fa-solid fa-user-plus"></i> Assign</button><button type="button" class="module-btn compact ghost" id="unassignSelectedIslamiyah" disabled>Unassign</button></div></div>
-      </div>
-
-      <div class="selection-status" id="rosterSelectionStatus"><strong>0</strong> student(s) selected</div>
-      <div class="islamiyah-table-wrap roster-table-wrap">
-        <table class="islamiyah-table">
-          <thead><tr><th class="check-col"><input type="checkbox" id="selectAllIslamiyahRoster" aria-label="Select all visible students"></th><th>#</th><th>Admission No.</th><th class="student-col">Student</th><th>Sex</th><th>Regular Class</th><th>Islamiyah Class</th><th>Placement Status</th><th>Updated</th></tr></thead>
-          <tbody id="islamiyahRosterBody"><tr><td colspan="9" class="empty-table">Import the current school database to begin Islamiyah placement.</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+    <div class="academy-sync-summary" id="syncSummary"><span><b id="syncTotalCount">0</b> loaded</span><span class="complete"><b id="syncCompleteCount">0</b> report-ready</span><span class="partial"><b id="syncPartialCount">0</b> partial</span><span class="pending"><b id="syncPendingCount">0</b> not started</span><span><b id="syncLinkedCount">0</b> std... admissions</span></div>
+    <div id="syncReportNotice" class="academy-sync-notice"><i class="fa-solid fa-circle-info"></i><span>Select Islamiyyah School or Basic / Regular School above, then load a class.</span></div>
+    <div class="academy-table-wrap sync-table-wrap" id="syncTableWrap"><table class="academy-table sync-table"><thead><tr><th>#</th><th class="sticky-id">Regular Admission</th><th>Academy ID</th><th>Student</th><th>Regular Class</th><th>Islamiyyah Source</th><th>Subjects</th><th>CA</th><th>Exam</th><th>Total</th><th>Report Sheet</th><th>Action</th></tr></thead><tbody id="islamiyahSyncBody"><tr><td colspan="12" class="table-empty">Choose a database source and class to view Report Sheet readiness.</td></tr></tbody></table></div>
   </section>
-  {% endif %}
 
-  <section class="islamiyah-panel" data-islamiyah-panel="results">
-    <div class="panel-heading-row">
-      <div><span class="section-kicker">Academic Records</span><h2>Islamiyah Results & Student History</h2><p>Review term completion, class averages, student progress and previously saved Islamiyah academic records.</p></div>
-    </div>
+  <div id="islamiyahSyncEditor" class="academy-sync-editor" aria-hidden="true"><div class="academy-sync-editor-panel"><header><div><small>ISLAMIYYAH SCORE SHEET</small><h3 id="syncEditorStudent">Student Scores</h3><p id="syncEditorMeta">CA /30 + Exam /70 • saved directly to the selected Islamiyyah report source.</p></div><button type="button" id="closeIslamiyahSyncEditor" aria-label="Close score editor"><i class="fa-solid fa-xmark"></i></button></header><div class="sync-editor-status" id="syncEditorStatus"><i></i><span>Ready</span></div><div class="sync-editor-table-wrap"><table class="sync-editor-table"><thead><tr><th>Subject</th><th>CA /30</th><th>Exam /70</th><th>Total /100</th><th>Status</th></tr></thead><tbody id="syncEditorBody"><tr><td colspan="5">Select a student.</td></tr></tbody></table></div><footer><span><i class="fa-solid fa-lock"></i> Scores entered here are authoritative and read-only inside regular Report Sheets.</span><button type="button" id="syncEditorDone" class="academy-btn primary">Done</button></footer></div></div>
 
-    <div class="results-layout">
-      <div class="results-class-pane workspace-card">
-        <div class="islamiyah-filter-bar results-filters">
-          <label><span>Islamiyah Class</span><select id="resultIslamiyahClass"><option value="">Select class…</option></select></label>
-          <button type="button" class="module-btn" id="loadIslamiyahResults"><i class="fa-solid fa-chart-column"></i> Load Class Results</button>
-        </div>
-        <div class="result-summary-mini" id="islamiyahResultSummary"><span>Class results have not been loaded.</span></div>
-        <div class="islamiyah-table-wrap result-table-wrap">
-          <table class="islamiyah-table"><thead><tr><th>#</th><th>Admission No.</th><th class="student-col">Student</th><th>Regular Class</th><th>Subjects Complete</th><th>Average</th><th>Status</th><th>History</th></tr></thead><tbody id="islamiyahResultsBody"><tr><td colspan="8" class="empty-table">Select an Islamiyah class to review results.</td></tr></tbody></table>
-        </div>
-      </div>
-
-      <aside class="student-history-pane workspace-card">
-        <div class="history-heading"><div><span class="section-kicker">Student Record</span><h3>Islamiyah History</h3></div><i class="fa-solid fa-clock-rotate-left"></i></div>
-        <div class="history-search"><input id="historyAdmission" type="text" placeholder="Enter admission number"><button type="button" id="loadIslamiyahHistory"><i class="fa-solid fa-magnifying-glass"></i></button></div>
-        <div id="islamiyahHistoryBody" class="history-body"><div class="history-empty"><i class="fa-regular fa-folder-open"></i><span>Choose a student or enter an admission number.</span></div></div>
-      </aside>
-    </div>
+  <!-- RESULTS -->
+  <section class="academy-panel" data-islamiyah-panel="results">
+    <div class="academy-section-title"><div><small>ACADEMIC RECORDS</small><h2>Islamiyyah Results &amp; History</h2><p>Review score completion and history using either the regular <code>std...</code> number or the Academy ID.</p></div></div>
+    <div class="academy-toolbar results-toolbar"><label><span>Islamiyyah Class</span><select id="resultIslamiyahClass"><option value="">Select class…</option></select></label><button type="button" id="loadIslamiyahResults" class="academy-btn primary"><i class="fa-solid fa-chart-column"></i><span>Load Results</span></button><label class="toolbar-search history-search"><span>Student History</span><div><i class="fa-solid fa-magnifying-glass"></i><input id="historyAdmission" type="text" placeholder="std... or Academy ID"><button type="button" id="loadIslamiyahHistory" aria-label="Load history"><i class="fa-solid fa-arrow-right"></i></button></div></label></div>
+    <div class="result-summary-mini" id="islamiyahResultSummary">Class results have not been loaded.</div>
+    <div class="academy-table-wrap"><table class="academy-table results-table"><thead><tr><th>#</th><th class="sticky-id">Regular Admission</th><th>Academy ID</th><th>Student</th><th>Regular Class</th><th>Subjects</th><th>Average</th><th>Status</th><th>History</th></tr></thead><tbody id="islamiyahResultsBody"><tr><td colspan="9" class="table-empty">Choose an Islamiyyah class.</td></tr></tbody></table></div>
+    <div id="islamiyahHistoryBody" class="history-drawer"><div class="history-empty"><i class="fa-regular fa-folder-open"></i><span>Student history will appear here.</span></div></div>
   </section>
+  <!-- ACADEMY STUDENT ADD / EDIT MODAL -->
+  <div id="academyStudentModal" class="academy-modal" aria-hidden="true"><div class="academy-modal-panel"><header><div><small id="academyStudentModalEyebrow">ACADEMY DATABASE</small><h3 id="academyStudentModalTitle">Add Student</h3><p id="academyStudentModalHint">This edits the Academy profile only. Linked Basic School data remains protected.</p></div><button type="button" data-close-academy-modal="student" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></header><div class="academy-modal-body"><div class="academy-form-grid"><label><span>School</span><select id="academyStudentSchool"><option value="islamiyah">Islamiyyah</option><option value="tahfeez">Tahfeez</option></select></label><label><span>Academy ID</span><input id="academyStudentAdmission" type="text" placeholder="Auto generated" autocomplete="off"></label><label><span>Last Name</span><input id="academyStudentLastName" type="text" autocomplete="off"></label><label><span>First Name</span><input id="academyStudentFirstName" type="text" autocomplete="off"></label><label><span>Other Names</span><input id="academyStudentOtherNames" type="text" autocomplete="off"></label><label><span>Sex</span><select id="academyStudentSex"><option value="">Not set</option><option>Male</option><option>Female</option></select></label><label><span>Phone</span><input id="academyStudentPhone" type="text" autocomplete="off"></label><label><span>Academy Class</span><select id="academyStudentClass"></select></label><label class="form-span-2"><span>Linked Basic School Admission</span><input id="academyStudentRegularAdmission" type="text" readonly placeholder="Independent Academy record"><small>Read-only. Use Register from Basic to create a verified link.</small></label></div></div><footer><button type="button" class="academy-btn ghost" data-close-academy-modal="student">Cancel</button><button type="button" class="academy-btn primary" id="saveAcademyStudent"><i class="fa-solid fa-floppy-disk"></i><span>Save Academy Student</span></button></footer></div></div>
+
+  <!-- REGISTER FROM BASIC SCHOOL MODAL -->
+  <div id="academyBasicRegisterModal" class="academy-modal academy-modal-wide" aria-hidden="true"><div class="academy-modal-panel"><header><div><small>READ-ONLY BASIC SCHOOL BRIDGE</small><h3>Register Students into Academy</h3><p>Select pupils from Students &amp; Classes. EMIS creates linked Academy records and never edits the original Basic School database.</p></div><button type="button" data-close-academy-modal="basic" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></header><div class="academy-modal-body"><div class="basic-register-controls"><label><span>Destination School</span><select id="basicRegisterSchool"><option value="islamiyah">Islamiyyah</option><option value="tahfeez">Tahfeez</option></select></label><label><span>Destination Class</span><select id="basicRegisterTarget"></select></label><label><span>Basic Class</span><select id="basicRegisterLevel"><option value="">All Classes</option></select></label><label><span>Arm</span><select id="basicRegisterArm"><option value="">All Arms</option></select></label><label class="toolbar-search"><span>Find Student</span><div><i class="fa-solid fa-magnifying-glass"></i><input id="basicRegisterSearch" type="search" placeholder="Name or std admission"></div></label></div><div class="basic-register-summary"><span><b id="basicRegisterSelectedCount">0</b> selected</span><span id="basicRegisterVisibleCount">0 students</span><button type="button" id="basicRegisterSelectVisible" class="academy-mini-action"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" id="basicRegisterClear" class="academy-mini-action"><i class="fa-solid fa-xmark"></i> Clear</button></div><div class="academy-table-wrap basic-register-table"><table class="academy-table excel-register"><thead><tr><th class="check-col"><input id="basicRegisterSelectAll" type="checkbox" aria-label="Select visible basic students"></th><th>#</th><th>Admission</th><th>Student</th><th>Sex</th><th>Class</th><th>Link State</th></tr></thead><tbody id="basicRegisterBody"><tr><td colspan="7" class="table-empty">Choose a destination and load Basic School students.</td></tr></tbody></table></div></div><footer><span class="modal-safety-note"><i class="fa-solid fa-lock"></i> students2026.csv remains read-only.</span><button type="button" class="academy-btn ghost" data-close-academy-modal="basic">Cancel</button><button type="button" class="academy-btn primary" id="registerBasicSelected" disabled><i class="fa-solid fa-link"></i><span>Register Selected</span></button></footer></div></div>
 </div>
 {% endblock %}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/islamiyah.js') }}"></script>
-{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/islamiyah.js') }}?v=20261016-academy-db2</script><script src="{{ url_for('static', filename='js/academy_report_sync.js', v='20261014-focusfix1') }}"></script><script src="{{ url_for('static', filename='js/regular_school_score_entry.js', v='20261016-clear2') }}"></script><script src="{{ url_for('static', filename='js/islamiyah_unified_selector.js', v='20261014-unified') }}"></script>{% endblock %}

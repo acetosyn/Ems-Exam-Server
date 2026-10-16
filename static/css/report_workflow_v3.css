@@ -1,0 +1,13 @@
+/* =================================================================================================
+   EMIS REPORT SHEETS — WORKFLOW V3
+   Permanent Manual Workstation + Third-Term Cumulative launcher.
+   ================================================================================================= */
+.report-phase45-workflow{display:grid!important;grid-template-columns:minmax(280px,360px) minmax(0,1fr) auto!important;align-items:center!important;gap:10px!important}
+.report-workflow-quick-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;min-width:max-content}
+.report-workflow-quick{border:1px solid #c9d8e6;background:#fff;color:#17324d;border-radius:12px;padding:10px 14px;min-height:42px;font-weight:900;display:inline-flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 5px 16px rgba(15,42,66,.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease,color .18s ease}
+.report-workflow-quick.manual{border-color:#f0c36b;background:linear-gradient(135deg,#fffdf6,#fff7dc);color:#8b5a00}.report-workflow-quick.manual:hover{background:#e7a81f;color:#10253a;border-color:#e7a81f;box-shadow:0 10px 24px rgba(231,168,31,.24);transform:translateY(-2px)}
+.report-workflow-quick.cumulative{border-color:#9bd8cd;background:linear-gradient(135deg,#f3fffc,#e8f8f4);color:#087565}.report-workflow-quick.cumulative:hover,.report-workflow-quick.cumulative.term-third{background:#0f8b7c;color:#fff;border-color:#0f8b7c;box-shadow:0 10px 24px rgba(15,139,124,.22);transform:translateY(-2px)}
+.report-workflow-quick small{font-size:10px;font-weight:800;opacity:.72}.report-third-term-mode{display:none;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:#e8f8f4;color:#087565;font-size:11px;font-weight:900}.report-third-term-mode.visible{display:inline-flex}
+#reportCumulativeHub.term-third{border-color:#9bd8cd;box-shadow:0 14px 36px rgba(15,139,124,.08)}#reportCumulativeHub.term-third .report-cumulative-head{background:linear-gradient(135deg,#f5fffc,#eef8ff)}
+@media(max-width:900px){.report-phase45-workflow{grid-template-columns:1fr!important}.report-workflow-quick-actions{justify-content:stretch;display:grid;grid-template-columns:1fr 1fr}.report-workflow-quick{justify-content:center;min-width:0;padding:10px 8px}.report-phase45-workflow-actions{overflow-x:auto;scrollbar-width:none}.report-phase45-workflow-actions::-webkit-scrollbar{display:none}}
+@media(max-width:520px){.report-workflow-quick span{font-size:11px}.report-workflow-quick small{display:none}.report-workflow-quick{min-height:40px;border-radius:11px}.report-third-term-mode{grid-column:1/-1;justify-content:center}}

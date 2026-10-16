@@ -32,15 +32,17 @@
     };
 
     const FALLBACK_ARMS = {
+        CRECHE: ["CRECHE"], STARTER: ["STARTER"], PRE_CLASS: ["PRE_CLASS_GOLD", "PRE_CLASS_SILVER"], NURSERY1: ["NURSERY1_GOLD", "NURSERY1_SILVER"], NURSERY2: ["NURSERY2_GOLD", "NURSERY2_SILVER"],
+        PRIMARY1: ["PRIMARY1A", "PRIMARY1B"], PRIMARY2: ["PRIMARY2A", "PRIMARY2B"], PRIMARY3: ["PRIMARY3A", "PRIMARY3B"], PRIMARY4: ["PRIMARY4A", "PRIMARY4B"], PRIMARY5: ["PRIMARY5A", "PRIMARY5B"], PRIMARY6: ["PRIMARY6A", "PRIMARY6B"],
         JSS1: ["JSS1A", "JSS1B", "JSS1C"], JSS2: ["JSS2A", "JSS2B", "JSS2C"], JSS3: ["JSS3A", "JSS3B", "JSS3C"],
-        SS1: ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1_B/C"], SS2: ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2_B/C"],
-        SS3: ["SS3_GOLD", "SS3_SILVER", "SS3_B/C"]
+        SS1: ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1_B/C"], SS2: ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2_B/C"], SS3: ["SS3_GOLD", "SS3_SILVER", "SS3_B/C"],
+        TAHFEEZ1: ["TAHFEEZ1"], TAHFEEZ2: ["TAHFEEZ2"], TAHFEEZ3: ["TAHFEEZ3"], TAHFEEZ4: ["TAHFEEZ4"], TAHFEEZ5: ["TAHFEEZ5"]
     };
 
     const state = {
         students: [], loaded: false, loadedSession: "", loadedTerm: "", loadedLevel: "", loadedArm: "", loadedDate: "",
         saved: false, holiday: false, savedAt: "", existingCount: 0, filter: "ALL", search: "", selected: new Set(),
-        dirty: false, activeStudent: null, completionNotified: false,
+        dirty: false, activeStudent: null, completionNotified: false, rosterSource: "",
         history: { records: [], daily: [], students: [], dates: [], summary: {} }, historyLoaded: false
     };
 
@@ -344,6 +346,7 @@ function closeAllModals() {
     function resetLoadedState(message = "Select class and load students") {
         state.students = [];
         state.loaded = false;
+        state.rosterSource = "";
         state.loadedSession = "";
         state.loadedTerm = "";
         state.loadedLevel = "";
@@ -383,6 +386,7 @@ function closeAllModals() {
         setText("reportReadyChip", "Waiting");
         setText("loadedClassChip", "None");
         setText("registerTitle", "Select class and load students");
+        setText("attendanceRosterSource", "EMIS Active Roster");
 
         syncChips();
     }
@@ -651,11 +655,12 @@ function closeAllModals() {
                 })}`).catch(() => ({ students: [] }));
 
                 students = (roster.students || []).map(student => ({
-                    ...student, status: "UNMARKED", attendance_status: "UNMARKED",
-                    reason: "", note: "", saved_at: ""
+                    ...student, status: "UNMARKED", attendance_status: "UNMARKED", reason: "", note: "", saved_at: ""
                 }));
+                records.roster_source = roster.roster_source || records.roster_source;
             }
 
+            state.rosterSource = records.roster_source || (upper(c.class_level).startsWith("TAHFEEZ") ? "tahfeez2026.csv" : upper(c.class_level).startsWith("ISLAMIYAH") ? "tahfeez2026.csv / Islamiyyah roster" : "students2026.csv");
             state.students = students.map(student => ({
                 ...student,
                 status: upper(student.attendance_status || student.status || "UNMARKED"),
@@ -691,8 +696,9 @@ function closeAllModals() {
                 "registerSubtitle",
                 state.holiday
                     ? `This date is currently saved as a school holiday${records.reason ? `: ${records.reason}` : "."}`
-                    : `${state.students.length} active student${state.students.length === 1 ? "" : "s"} loaded from the EMIS roster.`
+                    : `${state.students.length} active student${state.students.length === 1 ? "" : "s"} loaded from ${state.rosterSource || "the EMIS roster"}.`
             );
+            setText("attendanceRosterSource", state.rosterSource || "EMIS Active Roster");
 
             setText("chipTimestamp", state.savedAt ? humanDateTime(state.savedAt) : "Not saved");
             setText("existingRecordCount", state.existingCount);

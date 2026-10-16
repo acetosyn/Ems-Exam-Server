@@ -22,9 +22,11 @@
     };
 
     const FALLBACK_ARMS = {
+        CRECHE: ["CRECHE"], STARTER: ["STARTER"], PRE_CLASS: ["PRE_CLASS_GOLD", "PRE_CLASS_SILVER"], NURSERY1: ["NURSERY1_GOLD", "NURSERY1_SILVER"], NURSERY2: ["NURSERY2_GOLD", "NURSERY2_SILVER"],
+        PRIMARY1: ["PRIMARY1A", "PRIMARY1B"], PRIMARY2: ["PRIMARY2A", "PRIMARY2B"], PRIMARY3: ["PRIMARY3A", "PRIMARY3B"], PRIMARY4: ["PRIMARY4A", "PRIMARY4B"], PRIMARY5: ["PRIMARY5A", "PRIMARY5B"], PRIMARY6: ["PRIMARY6A", "PRIMARY6B"],
         JSS1: ["JSS1A", "JSS1B", "JSS1C"], JSS2: ["JSS2A", "JSS2B", "JSS2C"], JSS3: ["JSS3A", "JSS3B", "JSS3C"],
-        SS1: ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1_B/C"], SS2: ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2_B/C"],
-        SS3: ["SS3_GOLD", "SS3_SILVER", "SS3_B/C"]
+        SS1: ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1_B/C"], SS2: ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2_B/C"], SS3: ["SS3_GOLD", "SS3_SILVER", "SS3_B/C"],
+        TAHFEEZ1: ["TAHFEEZ1"], TAHFEEZ2: ["TAHFEEZ2"], TAHFEEZ3: ["TAHFEEZ3"], TAHFEEZ4: ["TAHFEEZ4"], TAHFEEZ5: ["TAHFEEZ5"]
     };
 
     const FIELD_CONFIG = {
@@ -47,7 +49,7 @@
 
     const state = {
         students: [], loaded: false, loadedSession: "", loadedTerm: "", loadedLevel: "", loadedArm: "", loadedSubject: "",
-        mode: "", fields: [], dirty: false, search: "", highlightComplete: false, editingAdmission: "",
+        mode: "", fields: [], assessment: {}, entryEnabled: false, rosterSource: "", dirty: false, search: "", highlightComplete: false, editingAdmission: "",
         savedHistory: [], selectedSavedSubject: "", savedPreviewStudents: []
     };
 
@@ -356,34 +358,66 @@ function toast(message, type = "info", timeout = 4200, title = "") {
     // ASSESSMENT MODE / STRUCTURE
     // ============================================================
 
-    function modeForLevel(level) { return upper(level).startsWith("JSS") ? "JSS" : upper(level).startsWith("SS") ? "SS" : ""; }
+    function modeForLevel(level) {
+        const value = upper(level);
+        if (value.startsWith("JSS")) return "JSS";
+        if (value.startsWith("SS")) return "SS";
+        if (["CRECHE", "STARTER", "PRE_CLASS", "NURSERY1", "NURSERY2"].includes(value)) return "EARLY_YEARS";
+        if (value.startsWith("PRIMARY")) return "PRIMARY";
+        if (value.startsWith("TAHFEEZ")) return "TAHFEEZ";
+        if (value.startsWith("ISLAMIYAH")) return "ISLAMIYAH";
+        return "";
+    }
 
-    function fieldsForMode(mode = state.mode) { return FIELD_CONFIG[mode] || []; }
+    function normalizeFieldDefinitions(value, mode = state.mode) {
+        const rows = Array.isArray(value) ? value.map(field => ({ key: clean(field.key).toLowerCase(), label: clean(field.label || field.key), max: Number(field.max) })).filter(field => field.key && Number.isFinite(field.max)) : [];
+        return rows.length ? rows : (FIELD_CONFIG[mode] || []);
+    }
 
-    function maxTotal(mode = state.mode) { return MAX_TOTAL[mode] || 0; }
+    function fieldsForMode(mode = state.mode) {
+        if (mode === state.mode && Array.isArray(state.fields)) return state.fields;
+        return FIELD_CONFIG[mode] || [];
+    }
+
+    function maxTotal(mode = state.mode) {
+        const configured = Number(state.assessment?.ca_max);
+        if (mode === state.mode && Number.isFinite(configured) && configured > 0) return configured;
+        return MAX_TOTAL[mode] || fieldsForMode(mode).reduce((sum, field) => sum + Number(field.max || 0), 0);
+    }
+
+    function applyEntryAvailability() {
+        const blocked = state.loaded && !state.entryEnabled;
+        [els.fillZeros, els.bulk, els.downloadTemplate, els.openImport, els.previewMerge, els.openSave, els.save].forEach(button => { if (button) button.disabled = blocked || (button === els.save && !state.students.length); });
+        root.classList.toggle("assessment-pending", blocked);
+    }
 
     function updateStructure(mode = "") {
         mode = mode || modeForLevel(els.level?.value);
-
         $("jssModeCard")?.classList.toggle("active", mode === "JSS");
         $("ssModeCard")?.classList.toggle("active", mode === "SS");
+        $("pendingModeCard")?.classList.toggle("active", !!mode && !state.entryEnabled && !["JSS", "SS"].includes(mode));
 
+        const assessment = state.assessment || {};
         if (mode === "JSS") {
-            setText("caStructureLabel", "JSS — CA /60");
-            setText("caStructureHint", "CA1 /10 + CA2 /10 + TEST1 /20 + TEST2 /20 • Exam /40");
+            setText("caStructureLabel", "JSS — CA /60"); setText("caStructureHint", "CA1 /10 + CA2 /10 + TEST1 /20 + TEST2 /20 • Exam /40");
         } else if (mode === "SS") {
-            setText("caStructureLabel", "SS — CA /30");
-            setText("caStructureHint", "1ST ASS /5 + 2ND ASS /5 + TEST /20 • Exam /70");
+            setText("caStructureLabel", "SS — CA /30"); setText("caStructureHint", "1ST ASS /5 + 2ND ASS /5 + TEST /20 • Exam /70");
+        } else if (mode === "ISLAMIYAH") {
+            setText("caStructureLabel", "Islamiyyah — Dedicated Academy Scores");
+            setText("caStructureHint", assessment.message || "Use the Tahfeez & Islamiyyah Academy score workspace for CA /30 + Exam /70.");
+        } else if (mode) {
+            setText("caStructureLabel", `${assessment.label || armLabel(mode)} — Scheme Pending`);
+            setText("caStructureHint", assessment.message || "Student roster and subjects are available; score entry waits for the approved school assessment structure.");
         } else {
-            setText("caStructureLabel", "Select Class");
-            setText("caStructureHint", "JSS: /60 CA + /40 Exam • SS: /30 CA + /70 Exam");
+            setText("caStructureLabel", "Select Class"); setText("caStructureHint", "JSS/SS scoring active • Islamiyyah uses the Academy workspace • Lower school/Tahfeez rules remain protected");
         }
 
         if (els.legend) {
-            els.legend.innerHTML = mode
+            els.legend.innerHTML = state.entryEnabled && fieldsForMode(mode).length
                 ? fieldsForMode(mode).map(field => `<span>${esc(field.label)} /${field.max}</span>`).join("")
-                : `<span>Waiting for class</span>`;
+                : mode ? `<span><i class="fa-solid fa-shield-halved"></i> ${esc(assessment.message || "Assessment scheme pending")}</span>` : `<span>Waiting for class</span>`;
         }
+        applyEntryAvailability();
     }
 
 
@@ -414,7 +448,11 @@ function toast(message, type = "info", timeout = 4200, title = "") {
             })}`);
 
             state.mode = data.mode || modeForLevel(c.class_level);
-            state.fields = fieldsForMode(state.mode);
+            state.assessment = data.assessment || {};
+            state.entryEnabled = data.entry_enabled !== false && !!(data.field_definitions?.length || FIELD_CONFIG[state.mode]?.length);
+            state.fields = normalizeFieldDefinitions(data.field_definitions, state.mode);
+            if (!state.entryEnabled) state.fields = [];
+            state.rosterSource = data.roster_source || "";
 
             const subjects = Array.isArray(data.subjects) ? data.subjects : [];
 
@@ -496,6 +534,10 @@ function toast(message, type = "info", timeout = 4200, title = "") {
         state.loadedLevel = "";
         state.loadedArm = "";
         state.loadedSubject = "";
+        state.assessment = {};
+        state.entryEnabled = false;
+        state.rosterSource = "";
+        state.fields = [];
         state.dirty = false;
         state.search = "";
         state.highlightComplete = false;
@@ -528,6 +570,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
             els.save.disabled = true;
             els.save.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save CA/Test Scores`;
         }
+        applyEntryAvailability();
     }
 
 
@@ -537,23 +580,12 @@ function toast(message, type = "info", timeout = 4200, title = "") {
 
     function renderTableHeader() {
         if (!els.thead) return;
-
         const fields = fieldsForMode();
-
-        els.thead.innerHTML = `
-            <tr>
-                <th>#</th>
-                <th>Admission No</th>
-                <th>Student Name</th>
-                <th>Class</th>
-
-                ${fields.map(field => `<th>${esc(field.label)}<small>/${field.max}</small></th>`).join("")}
-
-                <th>Total<small>/${maxTotal()}</small></th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        `;
+        if (!state.entryEnabled) {
+            els.thead.innerHTML = `<tr><th>#</th><th>Admission No</th><th>Student Name</th><th>Class</th><th>Assessment Status</th></tr>`;
+            return;
+        }
+        els.thead.innerHTML = `<tr><th>#</th><th>Admission No</th><th>Student Name</th><th>Class</th>${fields.map(field => `<th>${esc(field.label)}<small>/${field.max}</small></th>`).join("")}<th>Total<small>/${maxTotal()}</small></th><th>Status</th><th>Action</th></tr>`;
     }
 
 
@@ -567,9 +599,15 @@ function toast(message, type = "info", timeout = 4200, title = "") {
         if (!els.tbody) return;
 
         if (!state.students.length) {
-            els.tbody.innerHTML = `<tr><td colspan="${fieldsForMode().length + 7}" class="ca-empty"><i class="fa-solid fa-users-slash"></i><strong>No students found</strong><span>No active students were returned for this class arm.</span></td></tr>`;
+            els.tbody.innerHTML = `<tr><td colspan="${state.entryEnabled ? fieldsForMode().length + 7 : 5}" class="ca-empty"><i class="fa-solid fa-users-slash"></i><strong>No students found</strong><span>No active students were returned for this class.</span></td></tr>`;
             updateStats();
             return;
+        }
+
+        if (!state.entryEnabled) {
+            const message = state.assessment?.message || "Assessment scheme pending school approval.";
+            els.tbody.innerHTML = state.students.map((student, index) => `<tr class="ca-student-row assessment-pending-row" data-admission="${esc(student.admission_number)}"><td>${index + 1}</td><td>${esc(student.admission_number || "—")}</td><td><strong>${esc(student.full_name || "Student")}</strong></td><td>${esc(armLabel(student.class_arm || student.class || state.loadedArm))}</td><td><span class="ca-row-status pending"><i class="fa-solid fa-shield-halved"></i> Scheme Pending</span><small class="ca-pending-note">${esc(message)}</small></td></tr>`).join("");
+            updateStats(); applySearch(); return;
         }
 
         els.tbody.innerHTML = state.students.map((student, index) => {
@@ -653,6 +691,10 @@ function toast(message, type = "info", timeout = 4200, title = "") {
     // ============================================================
 
     function updateStats() {
+        if (state.loaded && !state.entryEnabled) {
+            setText("loadedStudentsCount", state.students.length); setText("savedRecordsCount", "0"); setText("classAverageScore", "--"); setText("reportReadyStatus", "Scheme Pending");
+            updateSaveMessage(state.assessment?.message || "The approved assessment scheme has not been configured for this class yet.", "warning"); applyEntryAvailability(); return;
+        }
         const totals = state.students.filter(studentHasAnyScore).map(studentTotal);
         const complete = state.students.filter(studentComplete).length;
         const saved = state.students.filter(student => student.has_saved_scores).length;
@@ -746,7 +788,11 @@ function toast(message, type = "info", timeout = 4200, title = "") {
             })}`);
 
             state.mode = data.mode || modeForLevel(c.class_level);
-            state.fields = fieldsForMode(state.mode);
+            state.assessment = data.assessment || {};
+            state.entryEnabled = data.entry_enabled !== false && !!(data.field_definitions?.length || FIELD_CONFIG[state.mode]?.length);
+            state.fields = normalizeFieldDefinitions(data.field_definitions, state.mode);
+            if (!state.entryEnabled) state.fields = [];
+            state.rosterSource = data.roster_source || "";
             state.loaded = true;
             state.loadedSession = data.session || c.session;
             state.loadedTerm = data.term || canonicalTerm(c.term);
@@ -770,12 +816,12 @@ function toast(message, type = "info", timeout = 4200, title = "") {
             renderStudents();
 
             if (els.tableSubtext) {
-                els.tableSubtext.textContent = `${state.loadedSubject} • ${armLabel(state.loadedArm)} • ${termLabel(state.loadedTerm)} • ${state.loadedSession}`;
+                els.tableSubtext.textContent = `${state.loadedSubject} • ${armLabel(state.loadedArm)} • ${termLabel(state.loadedTerm)} • ${state.loadedSession}${state.rosterSource ? ` • ${state.rosterSource}` : ""}`;
             }
 
             if (els.save) {
-                els.save.disabled = !state.students.length;
-                els.save.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save CA/Test Scores`;
+                els.save.disabled = !state.students.length || !state.entryEnabled;
+                els.save.innerHTML = state.entryEnabled ? `<i class="fa-solid fa-floppy-disk"></i> Save CA/Test Scores` : `<i class="fa-solid fa-lock"></i> Assessment Scheme Pending`;
             }
 
             updateStructure(state.mode);
@@ -834,6 +880,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
 
     function openStudentEditor(student) {
         if (!student) return;
+        if (!state.entryEnabled) return toast(state.assessment?.message || "Assessment entry is not active for this class yet.", "warning");
 
         state.editingAdmission = student.admission_number;
 
@@ -908,6 +955,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
     // ============================================================
 
     function fillEmptyWithZero() {
+        if (!state.entryEnabled) return toast(state.assessment?.message || "Assessment scheme pending.", "warning");
         const students = visibleStudents();
 
         if (!students.length) return toast("No visible students to update.", "warning");
@@ -932,6 +980,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
     }
 
     function clearVisibleScores() {
+        if (!state.entryEnabled) return toast(state.assessment?.message || "Assessment scheme pending.", "warning");
         const students = visibleStudents();
 
         if (!students.length) return toast("No visible students to clear.", "warning");
@@ -958,6 +1007,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
     // ============================================================
 
     function openSaveConfirmation() {
+        if (!state.entryEnabled) return toast(state.assessment?.message || "Assessment scheme pending for this class.", "warning");
         if (!state.loaded || !loadedContextMatches()) return toast("Load the current class and subject before saving.", "warning");
         if (!state.students.length) return toast("There are no student records to save.", "warning");
 
@@ -1008,6 +1058,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
 
     async function saveScores(forceOverwrite = false) {
         if (!state.loaded || !loadedContextMatches()) return toast("Reload the selected class and subject before saving.", "warning");
+        if (!state.entryEnabled) return toast(state.assessment?.message || "Assessment entry is not active for this class yet.", "warning", 5200, "Assessment Scheme Pending");
 
         const invalid = state.students.flatMap(student => invalidFields(student)), enteredStudents = state.students.filter(studentHasAnyScore);
         if (invalid.length) return toast("One or more scores exceed the maximum allowed mark.", "error");
@@ -1263,6 +1314,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
 
     function downloadTemplate() {
         if (!state.loaded || !state.students.length) return toast("Load the class and subject before downloading a template.", "warning");
+        if (!state.entryEnabled) return toast(state.assessment?.message || "Assessment scheme pending.", "warning");
 
         const headers = ["Admission_number", "Student_Name", "Class", ...fieldsForMode().map(field => field.label)];
 
@@ -1387,6 +1439,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
 
     async function processImport() {
         if (!state.loaded || !loadedContextMatches()) return toast("Load the class and subject before importing scores.", "warning");
+        if (!state.entryEnabled) return toast(state.assessment?.message || "Assessment scheme pending.", "warning");
 
         const file = els.importFile?.files?.[0];
 
@@ -1472,6 +1525,7 @@ function toast(message, type = "info", timeout = 4200, title = "") {
 
     async function previewReportMerge() {
         if (!state.loaded || !loadedContextMatches()) return toast("Load the current class and subject first.", "warning");
+        if (!state.entryEnabled) return toast("Lower-school/Tahfeez report merging will be activated after the approved assessment scheme is configured in the reporting phase.", "warning", 5200, "Report Merge Pending");
 
         setButtonLoading(els.previewMerge, true, "Checking...");
 

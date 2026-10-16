@@ -1,13 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Academic History — EMIS{% endblock %}
-
+{% block title %}Academic History & Broadsheets — EMIS{% endblock %}
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_history.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/broadsheets.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_document.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_history_hub.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_archive_v2.css', v='20261014-archive2') }}">
 {% endblock %}
-
 {% block content %}
-<div class="history-shell" id="academicHistoryApp">
+<div class="history-hub" id="academicHistoryHub" data-initial-view="{{ request.args.get('view', 'history') }}">
+  <section class="history-hub-header">
+    <div><span class="hub-eyebrow"><i class="fa-solid fa-box-archive"></i> ACADEMIC ARCHIVE</span><h1>Academic Archive</h1><p>Search records, open transcripts and compile class broadsheets — one workspace at a time.</p></div>
+    <nav class="history-hub-tabs" aria-label="Academic archive views">
+      <button type="button" class="active" data-history-hub-tab="history"><i class="fa-solid fa-user-clock"></i><span>Student Records</span></button>
+      <button type="button" data-history-hub-tab="broadsheets"><i class="fa-solid fa-table-cells-large"></i><span>Class Broadsheets</span></button>
+    </nav>
+  </section>
+  <section class="history-hub-panel active" data-history-hub-panel="history"><div class="history-shell" id="academicHistoryApp">
   <div class="history-toast-host" id="historyToastHost" aria-live="polite"></div>
 
   <section class="history-hero">
@@ -24,11 +33,11 @@
   </section>
 
   <section class="history-toolbar-card">
-    <div class="history-search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="historySearchInput" type="search" autocomplete="off" placeholder="Student name or admission number"><kbd>Enter</kbd></div><select id="historySessionFilter"><option value="">All sessions</option></select><select id="historyClassFilter"><option value="">All classes</option></select><select id="historyTermFilter"><option value="">All terms</option><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select><select id="historyScoreMode" title="Score display"><option value="both">Score + %</option><option value="score">Score only</option><option value="percent">% only</option></select><button type="button" class="history-btn primary" id="runHistorySearch"><i class="fa-solid fa-search"></i> Search</button><button type="button" class="history-btn ghost icon-only" id="clearHistorySearch" title="Clear filters"><i class="fa-solid fa-eraser"></i></button>
+    <div class="history-search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="historySearchInput" type="search" autocomplete="off" placeholder="Student name or admission number"><kbd>Enter</kbd></div><select id="historySessionFilter"><option value="">All sessions</option></select><select id="historyClassFilter"><option value="">All classes</option></select><select id="historyTermFilter"><option value="">All terms</option><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select><select id="historyScoreMode" title="Score display"><option value="both">Score + %</option><option value="score">Score only</option><option value="percent">% only</option></select><button type="button" class="history-btn primary" id="runHistorySearch"><i class="fa-solid fa-search"></i> Search</button><button type="button" class="history-btn ghost" id="selectVisibleHistoryBtn"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" class="history-btn ghost archive-download" id="downloadSelectedHistoryArchiveBtn" disabled><i class="fa-solid fa-file-zipper"></i> Download Selected Archive</button><button type="button" class="history-btn ghost icon-only" id="clearHistorySearch" title="Clear filters"><i class="fa-solid fa-eraser"></i></button>
   </section>
 
   <section class="history-workspace">
-    <aside class="history-results-pane"><header class="pane-heading"><div><span class="section-kicker">Search Results</span><h2>Academic Records</h2></div><span id="historyResultCount" class="record-count">0</span></header><div id="historySearchResults" class="history-search-results"><div class="history-empty compact"><i class="fa-solid fa-magnifying-glass"></i><strong>Search the archive</strong><span>Use a name, admission number or filter.</span></div></div></aside>
+    <aside class="history-results-pane"><header class="pane-heading"><div><span class="section-kicker">Search Results</span><h2>Academic Records</h2></div><div class="history-result-counters"><span id="historyResultCount" class="record-count">0</span><span id="historySelectedCount" class="record-count selected">0 selected</span></div></header><div id="historySearchResults" class="history-search-results"><div class="history-empty compact"><i class="fa-solid fa-magnifying-glass"></i><strong>Search the archive</strong><span>Use a name, admission number or filter.</span></div></div></aside>
 
     <main class="history-profile-pane">
       <div id="historyProfileEmpty" class="history-empty large"><i class="fa-solid fa-user-graduate"></i><strong>Select a student</strong><span>History and transcript tools will appear here.</span></div>
@@ -52,7 +61,7 @@
         </div>
 
         <section id="historyTranscriptView" class="transcript-workspace" hidden>
-          <div class="transcript-action-bar"><div><span class="section-kicker">Official Record</span><h3>Academic Transcript</h3></div><div><button type="button" class="history-btn ghost" id="copyTranscriptReference"><i class="fa-regular fa-copy"></i> Copy Ref</button><button type="button" class="history-btn ghost" id="exportStudentTranscript"><i class="fa-solid fa-file-excel"></i> Export Excel</button><button type="button" class="history-btn primary" id="printStudentTranscript"><i class="fa-solid fa-print"></i> Print / Save PDF</button></div></div>
+          <div class="transcript-action-bar"><div><span class="section-kicker">Official Record</span><h3>Academic Transcript</h3></div><div><button type="button" class="history-btn ghost" id="copyTranscriptReference"><i class="fa-regular fa-copy"></i> Copy Ref</button><button type="button" class="history-btn ghost" id="saveStudentTranscript"><i class="fa-solid fa-box-archive"></i> Save Transcript</button><button type="button" class="history-btn ghost" id="exportStudentTranscript"><i class="fa-solid fa-file-excel"></i> Export Excel</button><button type="button" class="history-btn primary" id="printStudentTranscript"><i class="fa-solid fa-print"></i> Print / Save PDF</button></div></div>
           <div id="transcriptLoading" class="history-empty compact"><i class="fa-solid fa-circle-notch fa-spin"></i><strong>Compiling transcript…</strong></div>
           <div id="transcriptDocumentCanvas" class="emis-document-preview-shell" hidden></div>
         </section>
@@ -63,14 +72,79 @@
   <section id="historyRecordPanel" class="history-record-panel" hidden>
     <header class="record-panel-heading"><div><span class="section-kicker">Term Record</span><h2 id="recordPanelTitle">Academic Record</h2></div><div class="record-panel-actions"><button type="button" class="history-btn primary" id="printHistoryRecord"><i class="fa-solid fa-print"></i> Official Sheet</button><button type="button" class="history-btn ghost icon-only" id="closeRecordPanel"><i class="fa-solid fa-xmark"></i></button></div></header>
     <div class="record-kpi-grid"><article><small>Actual Score</small><strong id="recordScore">—</strong></article><article><small>Average</small><strong id="recordAverage">—</strong></article><article><small>Grade</small><strong id="recordGrade">—</strong></article><article><small>Position</small><strong id="recordPosition">—</strong></article><article><small>Attendance</small><strong id="recordAttendance">—</strong></article><article><small>Subjects</small><strong id="recordSubjects">—</strong></article></div>
-    <div class="record-table-wrap"><table class="record-table"><thead><tr><th>#</th><th>Subject</th><th>CA</th><th>Exam</th><th>Total /100</th><th>Grade</th><th>Position</th><th>Comment</th></tr></thead><tbody id="recordSubjectBody"><tr><td colspan="8" class="record-empty">No subject record loaded.</td></tr></tbody></table></div>
+    <div class="record-table-wrap"><table class="record-table"><thead><tr><th>#</th><th>Subject</th><th>CA</th><th>Exam</th><th>Total / Max</th><th>Grade</th><th>Position</th><th>Comment</th></tr></thead><tbody id="recordSubjectBody"><tr><td colspan="8" class="record-empty">No subject record loaded.</td></tr></tbody></table></div>
     <div class="record-remarks"><article><small>Form Teacher</small><strong id="recordTeacher">—</strong></article><article><small>Teacher's Remark</small><span id="recordTeacherRemark">—</span></article><article><small>Principal's Remark</small><span id="recordPrincipalRemark">—</span></article></div>
     <div id="historyRecordDocumentCanvas" class="emis-document-preview-shell record-document-preview" hidden></div>
   </section>
+</div></section>
+  <section class="history-hub-panel" data-history-hub-panel="broadsheets"><div class="broad-shell" id="broadsheetApp">
+  <div class="broad-toast-host" id="broadToastHost" aria-live="polite"></div>
+
+  <section class="broad-hero">
+    <div class="broad-hero-copy"><span class="broad-kicker"><i class="fa-solid fa-table-cells-large"></i> EMIS CLASS ANALYTICS</span><h1>Summary & Cumulative Broadsheets</h1><p>Term, annual and subject performance in one class workspace.</p><div class="broad-hero-pills"><span><i class="fa-solid fa-table"></i> Term Matrix</span><span><i class="fa-solid fa-layer-group"></i> Annual Matrix</span><span><i class="fa-solid fa-chart-simple"></i> Analytics</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet Excel</span></div></div>
+    <aside class="broad-hero-card"><div><small>Session</small><strong id="broadHeroSession">—</strong></div><div><small>Class</small><strong id="broadHeroClass">—</strong></div><div><small>View</small><strong id="broadHeroView">Term Broadsheet</strong></div><span class="hero-live"><i></i> History-powered</span></aside>
+  </section>
+
+  <section class="broad-stats">
+    <article><i class="fa-solid fa-users"></i><div><span>Students</span><strong id="broadStatStudents">0</strong></div></article>
+    <article><i class="fa-solid fa-circle-check"></i><div><span>Complete</span><strong id="broadStatComplete">0</strong></div></article>
+    <article><i class="fa-solid fa-chart-line"></i><div><span>Class Average</span><strong id="broadStatAverage">—</strong></div></article>
+    <article><i class="fa-solid fa-trophy"></i><div><span>Highest Average</span><strong id="broadStatHighest">—</strong></div></article>
+    <article><i class="fa-solid fa-bars-progress"></i><div><span>Coverage</span><strong id="broadStatCoverage">0%</strong></div></article>
+  </section>
+
+  <section class="broad-controls">
+    <label><span>Academic Session</span><select id="broadSession"><option value="">Select session…</option></select></label>
+    <label><span>Term</span><select id="broadTerm"><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select></label>
+    <label><span>Class</span><select id="broadClass"><option value="">Select class…</option></select></label>
+    <label><span>Class Arm</span><select id="broadArm"><option value="">All class arms</option></select></label>
+    <label><span>Score View</span><select id="broadScoreMode"><option value="both">Score + %</option><option value="score">Scores</option><option value="percent">Percent</option></select></label>
+    <button type="button" id="loadBroadsheets" class="broad-btn primary"><i class="fa-solid fa-bolt"></i> Load</button>
+    <button type="button" id="exportBroadsheets" class="broad-btn" disabled><i class="fa-solid fa-file-excel"></i> Export</button>
+    <button type="button" id="printBroadsheets" class="broad-btn" disabled><i class="fa-solid fa-print"></i> Preview / Print</button>
+    <button type="button" id="downloadClassArchive" class="broad-btn archive" disabled><i class="fa-solid fa-file-zipper"></i> Download Class Archive</button>
+  </section>
+
+  <section class="broad-health-card"><div><span>Academic Coverage</span><strong id="broadCoverageLabel">No class loaded</strong></div><div class="broad-progress"><i id="broadCoverageBar"></i></div><em id="broadCoverageMeta">Select a session and class.</em></section>
+
+  <section class="broad-selection-bar" id="broadSelectionBar"><span><strong id="broadSelectedCount">0</strong> student(s) selected for transcript/history actions</span><div><button type="button" id="broadSelectVisible"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" id="broadClearSelection"><i class="fa-solid fa-xmark"></i> Clear</button><button type="button" id="broadPreviewTranscript"><i class="fa-solid fa-eye"></i> Preview Transcript</button><button type="button" id="broadDownloadSelectedArchive"><i class="fa-solid fa-file-zipper"></i> Download Selected</button></div></section>
+
+  <nav class="broad-tabs" aria-label="Broadsheet views">
+    <button type="button" class="active" data-broad-tab="term"><i class="fa-solid fa-table"></i><span>Term Broadsheet</span></button>
+    <button type="button" data-broad-tab="annual"><i class="fa-solid fa-layer-group"></i><span>Cumulative Broadsheet</span></button>
+    <button type="button" data-broad-tab="analytics"><i class="fa-solid fa-chart-column"></i><span>Performance Analytics</span></button>
+  </nav>
+
+  <section class="broad-view active" data-broad-panel="term">
+    <div class="broad-view-head"><div><span class="broad-kicker">Selected Term</span><h2 id="termBroadsheetTitle">Term Broadsheet</h2></div><div class="broad-tools"><label class="broad-search"><i class="fa-solid fa-magnifying-glass"></i><input id="broadTermSearch" type="search" placeholder="Find student"></label><select id="broadTermFilter"><option value="all">All Students</option><option value="complete">Complete</option><option value="partial">Partial</option></select></div></div>
+    <div class="broad-table-wrap"><table class="broad-table matrix"><thead id="termBroadsheetHead"></thead><tbody id="termBroadsheetBody"><tr><td class="broad-empty"><i class="fa-solid fa-table"></i><strong>No broadsheet loaded</strong><span>Select a session, term and class above.</span></td></tr></tbody></table></div>
+  </section>
+
+  <section class="broad-view" data-broad-panel="annual">
+    <div class="broad-view-head"><div><span class="broad-kicker">Annual Result</span><h2>Cumulative Broadsheet</h2></div><div class="broad-tools"><label class="broad-search"><i class="fa-solid fa-magnifying-glass"></i><input id="broadAnnualSearch" type="search" placeholder="Find student"></label><select id="broadAnnualFilter"><option value="all">All Students</option><option value="complete">3-Term Complete</option><option value="partial">Incomplete Year</option></select></div></div>
+    <div class="term-coverage-strip"><article><span>First Term</span><strong id="termCoverageFirst">0</strong></article><article><span>Second Term</span><strong id="termCoverageSecond">0</strong></article><article><span>Third Term</span><strong id="termCoverageThird">0</strong></article><article class="annual"><span>3-Term Complete</span><strong id="termCoverageAnnual">0</strong></article></div>
+    <div class="broad-table-wrap"><table class="broad-table matrix"><thead id="annualBroadsheetHead"></thead><tbody id="annualBroadsheetBody"><tr><td class="broad-empty"><i class="fa-solid fa-layer-group"></i><strong>No cumulative broadsheet loaded</strong><span>Load a class to compile First–Third Term.</span></td></tr></tbody></table></div>
+  </section>
+
+  <section class="broad-view" data-broad-panel="analytics">
+    <div class="analytics-grid">
+      <article class="analytics-card distribution-card"><div class="analytics-head"><div><span class="broad-kicker">Distribution</span><h3>Grade Spread</h3></div><select id="analyticsScope"><option value="term">Selected Term</option><option value="annual">Annual</option></select></div><div id="gradeDistributionChart" class="grade-chart"></div></article>
+      <article class="analytics-card"><div class="analytics-head"><div><span class="broad-kicker">Leaders</span><h3>Top 5</h3></div><i class="fa-solid fa-trophy"></i></div><div id="topStudentsList" class="rank-list"><div class="analytics-empty">Load a class to view rankings.</div></div></article>
+      <article class="analytics-card"><div class="analytics-head"><div><span class="broad-kicker">Attention</span><h3>Lowest 5</h3></div><i class="fa-solid fa-arrow-trend-up"></i></div><div id="bottomStudentsList" class="rank-list"><div class="analytics-empty">Load a class to view rankings.</div></div></article>
+      <article class="analytics-card subject-highlight"><div class="analytics-head"><div><span class="broad-kicker">Subjects</span><h3>Strength & Focus</h3></div><i class="fa-solid fa-book-open"></i></div><div class="subject-highlight-grid"><div><span>Strongest</span><strong id="bestSubjectName">—</strong><em id="bestSubjectScore">—</em></div><div><span>Focus</span><strong id="focusSubjectName">—</strong><em id="focusSubjectScore">—</em></div></div></article>
+    </div>
+    <section class="subject-analytics-card"><div class="broad-view-head"><div><span class="broad-kicker">Subject Analytics</span><h2>Average, Range & Pass Rate</h2></div><label class="broad-search"><i class="fa-solid fa-magnifying-glass"></i><input id="subjectAnalyticsSearch" type="search" placeholder="Find subject"></label></div><div class="subject-analytics-grid" id="subjectAnalyticsGrid"><div class="analytics-empty">Load a class to view subject analytics.</div></div></section>
+  </section>
+
+  <div id="broadsheetDocumentCanvas" class="emis-document-preview-shell broad-print-canvas" hidden></div>
+
+  <footer class="broad-footer"><span><i class="fa-solid fa-database"></i> Permanent Academic History</span><span><i class="fa-solid fa-calculator"></i> Actual score / maximum</span><span><i class="fa-solid fa-shield-halved"></i> Missing scores stay blank</span><span><i class="fa-solid fa-table-columns"></i> Sticky headers</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet export</span></footer>
+</div></section>
 </div>
 {% endblock %}
-
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/academic_document.js') }}"></script>
-<script src="{{ url_for('static', filename='js/academic_history.js') }}"></script>
+<script src="{{ url_for('static', filename='js/academic_history.js', v='20261014-archive2') }}"></script>
+<script src="{{ url_for('static', filename='js/broadsheets.js', v='20261014-archive2') }}"></script>
+<script src="{{ url_for('static', filename='js/academic_history_hub.js', v='20261014-archive2') }}"></script>
 {% endblock %}

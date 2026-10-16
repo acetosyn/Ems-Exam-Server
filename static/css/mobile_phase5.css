@@ -1,0 +1,60 @@
+/* ============================================================================
+   EMIS MOBILE UI — Stage 1 / Phase 5 Final Polish
+   Hybrid SAGE-style navigation, tiny-screen safeguards, landscape/keyboard
+   behavior and final responsive consistency across the shared EMIS shell.
+   ============================================================================ */
+
+@view-transition { navigation:auto; }
+::view-transition-old(root){animation:emis-vt-out .13s ease both} ::view-transition-new(root){animation:emis-vt-in .18s ease both}
+@keyframes emis-vt-out{to{opacity:.72;transform:translateY(-2px)}} @keyframes emis-vt-in{from{opacity:.72;transform:translateY(3px)}}
+
+html{max-width:100%;overflow-x:hidden;scrollbar-gutter:stable} body{max-width:100%;overflow-x:hidden} .main-content{min-width:0;contain:layout style} .main-content>*{min-width:0;max-width:100%}
+body.emis-route-busy{cursor:progress} body.emis-route-busy .main-content{pointer-events:none;opacity:.76;transform:translateY(2px);transition:opacity .12s ease,transform .12s ease} body.emis-route-busy .emis-mobile-dock{pointer-events:none}
+body.emis-route-busy::after{content:"";position:fixed;z-index:9997;inset:var(--emis-mobile-header-height,58px) 0 auto 0;height:2px;background:linear-gradient(90deg,transparent,currentColor,transparent);opacity:.55;animation:emis-route-scan .85s linear infinite;pointer-events:none}
+@keyframes emis-route-scan{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+/* Universal content safeguards. These deliberately avoid redesigning page-specific desktop layouts. */
+.main-content img,.main-content svg,.main-content canvas,.main-content video{max-width:100%}.main-content fieldset{min-width:0}.main-content input,.main-content select,.main-content textarea,.main-content button{max-width:100%}.main-content table{border-collapse:separate;border-spacing:0}
+.main-content :is(.table-wrap,.table-wrapper,.table-responsive,.results-table-wrap,.history-table-wrap,.report-table-wrap,.broadsheet-table-wrap,.data-table-wrap){max-width:100%;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
+
+@media (max-width:900px){
+  :root{--emis-final-gutter:clamp(10px,3vw,18px)}
+  .main-content{width:100%;padding-left:var(--emis-final-gutter)!important;padding-right:var(--emis-final-gutter)!important;padding-bottom:calc(82px + env(safe-area-inset-bottom))!important}
+  .top-header{padding-left:max(10px,env(safe-area-inset-left))!important;padding-right:max(10px,env(safe-area-inset-right))!important}
+  .main-content :is(.page-header,.dash-header,.section-header,.workspace-header,.panel-header,.card-header){min-width:0}
+  .main-content :is(.page-header,.dash-header,.section-header,.workspace-header) :is(h1,h2,h3,p){overflow-wrap:anywhere}
+  .main-content :is(.toolbar,.action-bar,.header-actions,.filter-actions,.form-actions,.modal-actions,.panel-actions){max-width:100%}
+  .main-content :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){font-size:16px} /* prevents mobile browser auto-zoom */
+  .main-content :is(button,.btn,.btn-primary,.btn-secondary,.btn-soft,.btn-danger,.btn-success,a.button){touch-action:manipulation}
+  .main-content :is(dialog,.modal,.modal-content,.modal-card,.sheet-panel){max-height:calc(100dvh - 18px)}
+  .sidebar{height:100dvh!important;max-height:100dvh!important}.sidebar-nav{overscroll-behavior:contain}
+  .emis-mobile-dock{padding-bottom:max(7px,env(safe-area-inset-bottom));transform:translateZ(0)}
+}
+
+@media (max-width:600px){
+  .main-content{--emis-final-gutter:10px}
+  .main-content :is(.stats-grid,.stat-grid,.kpi-grid,.summary-grid,.metrics-grid){gap:8px!important}
+  .main-content :is(.stat-card,.kpi-card,.summary-card,.metric-card){min-width:0}
+  .main-content :is(.toolbar,.action-bar,.filter-actions,.form-actions){gap:7px}
+  .main-content :is(.toolbar,.action-bar,.filter-actions) > *{min-width:0}
+  .global-flash-wrapper{left:10px!important;right:10px!important;width:auto!important}
+}
+
+@media (max-width:390px){
+  :root{--emis-mobile-header-height:54px}
+  .base-brand-text span{display:none!important}.base-brand-text strong{font-size:.76rem!important;letter-spacing:.02em}
+  .base-brand-logo{width:30px!important;height:30px!important}.header-mobile-menu{width:34px!important;height:34px!important}
+  .main-content{--emis-final-gutter:8px;padding-bottom:calc(76px + env(safe-area-inset-bottom))!important}
+  .emis-mobile-dock a,.emis-mobile-dock button{min-width:0!important;padding-inline:2px!important}.emis-mobile-dock span{font-size:.62rem!important}.emis-mobile-dock i{font-size:.92rem!important}
+  .main-content :is(.stats-grid,.stat-grid,.kpi-grid,.summary-grid,.metrics-grid){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* Short landscape phones: prioritize the working canvas over navigation chrome. */
+@media (max-width:900px) and (max-height:520px) and (orientation:landscape){
+  .emis-mobile-dock{display:none!important}.main-content{padding-bottom:14px!important}.top-header{min-height:48px!important;height:48px!important}.sidebar{padding-bottom:8px!important}
+}
+
+/* When a mobile keyboard dramatically reduces the viewport, avoid trapping forms behind the dock. */
+@media (max-width:900px) and (max-height:430px){.emis-mobile-dock{opacity:0;pointer-events:none;transform:translateY(110%)}.main-content{padding-bottom:12px!important}}
+
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}::view-transition-old(root),::view-transition-new(root){animation:none!important}body.emis-route-busy .main-content{transition:none!important}body.emis-route-busy::after{animation:none!important;display:none}.sidebar,.sidebar-overlay,.emis-mobile-dock{transition-duration:.01ms!important}}

@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <script>try{document.documentElement.dataset.emisTheme=localStorage.getItem("emisTheme")||"snow"}catch(_){document.documentElement.dataset.emisTheme="snow"}</script>
+
   <title>Admin Login — EMIS CBT Server</title>
 
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}" />
@@ -24,6 +26,8 @@
 
   <!-- Page CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_login.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile_phase4.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme_system_v1.css') }}">
 </head>
 
 <body>
@@ -135,7 +139,7 @@
         >
 
           <div class="form-group">
-            <label for="admin-username">Username / ID</label>
+            <label for="admin-username">Username / Staff ID</label>
 
             <div class="input-box">
               <i class="fa-solid fa-user input-icon"></i>
@@ -146,7 +150,7 @@
                 name="username"
                 required
                 autocomplete="username"
-                placeholder="Enter Admin or Teacher ID"
+                placeholder="Enter Admin, EMT or IMS ID"
               >
             </div>
           </div>

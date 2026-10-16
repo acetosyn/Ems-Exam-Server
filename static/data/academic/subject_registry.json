@@ -1,7 +1,7 @@
 {
-  "version": 2,
+  "version": 4,
   "created_at": "2026-09-22T12:10:17Z",
-  "updated_at": "2026-09-22T12:10:17Z",
+  "updated_at": "2026-10-16T10:24:56Z",
   "subjects": {
     "LETTER WORKS": {
       "id": "SUBJ_F964760A8D0E",
@@ -120,7 +120,9 @@
       "active": true,
       "source": "school_document",
       "aliases": [
-        "I. R. S"
+        "I. R. S",
+        "IRS",
+        "IRK / IRS"
       ],
       "name_overridden": false,
       "created_at": "2026-09-22T12:10:17Z",
@@ -2210,7 +2212,7 @@
         "display_name": "Mathematics",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 1
       },
       {
@@ -2219,7 +2221,7 @@
         "display_name": "English Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 2
       },
       {
@@ -2228,7 +2230,7 @@
         "display_name": "IRK",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 3
       },
       {
@@ -2237,7 +2239,7 @@
         "display_name": "Islamiyyah",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 4
       },
       {
@@ -2246,16 +2248,16 @@
         "display_name": "Poise",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 5
       },
       {
         "subject_id": "SUBJ_40C9B8C6575D",
         "subject_key": "CIT AND HER STD",
-        "display_name": "Cit & Her. Std",
+        "display_name": "Heritage & Citizenship Studies",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 6
       },
       {
@@ -2264,7 +2266,7 @@
         "display_name": "National Value",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 7
       },
       {
@@ -2273,7 +2275,7 @@
         "display_name": "Yoruba Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 8
       },
       {
@@ -2282,7 +2284,7 @@
         "display_name": "Hausa Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 9
       },
       {
@@ -2291,7 +2293,7 @@
         "display_name": "Arabic Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 10
       },
       {
@@ -2300,7 +2302,7 @@
         "display_name": "CCA",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 11
       },
       {
@@ -2309,7 +2311,7 @@
         "display_name": "Business Studies",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 12
       },
       {
@@ -2318,7 +2320,7 @@
         "display_name": "History",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 13
       },
       {
@@ -2327,7 +2329,7 @@
         "display_name": "BST",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 14
       },
       {
@@ -2336,7 +2338,7 @@
         "display_name": "P.H.E",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 15
       },
       {
@@ -2345,7 +2347,7 @@
         "display_name": "PVS",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 16
       },
       {
@@ -2354,7 +2356,7 @@
         "display_name": "Hort & Crop Production",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 17
       },
       {
@@ -2363,7 +2365,7 @@
         "display_name": "Digital Tech.",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 18
       },
       {
@@ -2372,7 +2374,7 @@
         "display_name": "Inter Science",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 19
       },
       {
@@ -2381,17 +2383,8 @@
         "display_name": "Garment Making",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 20
-      },
-      {
-        "subject_id": "SUBJ_9BB1B84B6DBE",
-        "subject_key": "SOC AND CIT STD",
-        "display_name": "Soc. & Cit. Std",
-        "active": true,
-        "tracks": [],
-        "source": "existing_emis_config",
-        "order": 21
       }
     ],
     "JSS2": [
@@ -2401,7 +2394,7 @@
         "display_name": "Mathematics",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 1
       },
       {
@@ -2410,7 +2403,7 @@
         "display_name": "English Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 2
       },
       {
@@ -2419,7 +2412,7 @@
         "display_name": "IRK",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 3
       },
       {
@@ -2428,7 +2421,7 @@
         "display_name": "Islamiyyah",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 4
       },
       {
@@ -2437,16 +2430,16 @@
         "display_name": "Poise",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 5
       },
       {
         "subject_id": "SUBJ_40C9B8C6575D",
         "subject_key": "CIT AND HER STD",
-        "display_name": "Cit & Her. Std",
+        "display_name": "Heritage & Citizenship Studies",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 6
       },
       {
@@ -2455,7 +2448,7 @@
         "display_name": "National Value",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 7
       },
       {
@@ -2464,7 +2457,7 @@
         "display_name": "Yoruba Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 8
       },
       {
@@ -2473,7 +2466,7 @@
         "display_name": "Hausa Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 9
       },
       {
@@ -2482,7 +2475,7 @@
         "display_name": "Arabic Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 10
       },
       {
@@ -2491,7 +2484,7 @@
         "display_name": "CCA",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 11
       },
       {
@@ -2500,7 +2493,7 @@
         "display_name": "Business Studies",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 12
       },
       {
@@ -2509,7 +2502,7 @@
         "display_name": "History",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 13
       },
       {
@@ -2518,7 +2511,7 @@
         "display_name": "BST",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 14
       },
       {
@@ -2527,7 +2520,7 @@
         "display_name": "P.H.E",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 15
       },
       {
@@ -2536,7 +2529,7 @@
         "display_name": "PVS",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 16
       },
       {
@@ -2545,7 +2538,7 @@
         "display_name": "Hort & Crop Production",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 17
       },
       {
@@ -2554,7 +2547,7 @@
         "display_name": "Digital Tech.",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 18
       },
       {
@@ -2563,7 +2556,7 @@
         "display_name": "Inter Science",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 19
       },
       {
@@ -2572,17 +2565,8 @@
         "display_name": "Garment Making",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 20
-      },
-      {
-        "subject_id": "SUBJ_9BB1B84B6DBE",
-        "subject_key": "SOC AND CIT STD",
-        "display_name": "Soc. & Cit. Std",
-        "active": true,
-        "tracks": [],
-        "source": "existing_emis_config",
-        "order": 21
       }
     ],
     "JSS3": [
@@ -2592,7 +2576,7 @@
         "display_name": "Mathematics",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 1
       },
       {
@@ -2601,7 +2585,7 @@
         "display_name": "English Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 2
       },
       {
@@ -2610,7 +2594,7 @@
         "display_name": "IRK",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 3
       },
       {
@@ -2619,7 +2603,7 @@
         "display_name": "Islamiyyah",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 4
       },
       {
@@ -2628,16 +2612,16 @@
         "display_name": "Poise",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 5
       },
       {
         "subject_id": "SUBJ_40C9B8C6575D",
         "subject_key": "CIT AND HER STD",
-        "display_name": "Cit & Her. Std",
+        "display_name": "Heritage & Citizenship Studies",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 6
       },
       {
@@ -2646,7 +2630,7 @@
         "display_name": "National Value",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 7
       },
       {
@@ -2655,7 +2639,7 @@
         "display_name": "Yoruba Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 8
       },
       {
@@ -2664,7 +2648,7 @@
         "display_name": "Hausa Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 9
       },
       {
@@ -2673,7 +2657,7 @@
         "display_name": "Arabic Language",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 10
       },
       {
@@ -2682,7 +2666,7 @@
         "display_name": "CCA",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 11
       },
       {
@@ -2691,7 +2675,7 @@
         "display_name": "Business Studies",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 12
       },
       {
@@ -2700,7 +2684,7 @@
         "display_name": "History",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 13
       },
       {
@@ -2709,7 +2693,7 @@
         "display_name": "BST",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 14
       },
       {
@@ -2718,7 +2702,7 @@
         "display_name": "P.H.E",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 15
       },
       {
@@ -2727,7 +2711,7 @@
         "display_name": "PVS",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 16
       },
       {
@@ -2736,7 +2720,7 @@
         "display_name": "Hort & Crop Production",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 17
       },
       {
@@ -2745,7 +2729,7 @@
         "display_name": "Digital Tech.",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 18
       },
       {
@@ -2754,7 +2738,7 @@
         "display_name": "Inter Science",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 19
       },
       {
@@ -2763,17 +2747,8 @@
         "display_name": "Garment Making",
         "active": true,
         "tracks": [],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 20
-      },
-      {
-        "subject_id": "SUBJ_9BB1B84B6DBE",
-        "subject_key": "SOC AND CIT STD",
-        "display_name": "Soc. & Cit. Std",
-        "active": true,
-        "tracks": [],
-        "source": "existing_emis_config",
-        "order": 21
       }
     ],
     "SS1": [
@@ -2787,7 +2762,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 1
       },
       {
@@ -2800,7 +2775,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 2
       },
       {
@@ -2809,11 +2784,9 @@
         "display_name": "Chemistry",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 3
       },
       {
@@ -2822,11 +2795,9 @@
         "display_name": "Physics",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 4
       },
       {
@@ -2835,11 +2806,9 @@
         "display_name": "Biology",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 5
       },
       {
@@ -2848,24 +2817,22 @@
         "display_name": "Technical Drawing",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 6
       },
       {
         "subject_id": "SUBJ_9497431DBC38",
         "subject_key": "IRS",
-        "display_name": "IRK",
+        "display_name": "IRS",
         "active": true,
         "tracks": [
           "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 7
       },
       {
@@ -2874,11 +2841,9 @@
         "display_name": "Computer Science",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 8
       },
       {
@@ -2887,11 +2852,9 @@
         "display_name": "Further Mathematics",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 9
       },
       {
@@ -2900,11 +2863,9 @@
         "display_name": "Agricultural Science",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 10
       },
       {
@@ -2917,7 +2878,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 11
       },
       {
@@ -2926,11 +2887,9 @@
         "display_name": "Geography",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 12
       },
       {
@@ -2943,7 +2902,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 13
       },
       {
@@ -2952,11 +2911,9 @@
         "display_name": "Digital Tech.",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 14
       },
       {
@@ -2965,11 +2922,9 @@
         "display_name": "Cit & Her. Std",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 15
       },
       {
@@ -2978,11 +2933,9 @@
         "display_name": "Garment Making",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 16
       },
       {
@@ -2995,7 +2948,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 17
       },
       {
@@ -3008,7 +2961,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 18
       },
       {
@@ -3017,11 +2970,10 @@
         "display_name": "Literature",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 19
       },
       {
@@ -3030,11 +2982,10 @@
         "display_name": "Government",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 20
       },
       {
@@ -3043,11 +2994,10 @@
         "display_name": "Hausa Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 21
       },
       {
@@ -3056,11 +3006,10 @@
         "display_name": "Yoruba Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 22
       },
       {
@@ -3069,11 +3018,10 @@
         "display_name": "Arabic Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 23
       },
       {
@@ -3082,11 +3030,10 @@
         "display_name": "Marketing",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 24
       },
       {
@@ -3095,11 +3042,10 @@
         "display_name": "Financial Account",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 25
       },
       {
@@ -3108,11 +3054,10 @@
         "display_name": "Commerce",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 26
       }
     ],
@@ -3127,7 +3072,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 1
       },
       {
@@ -3140,7 +3085,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 2
       },
       {
@@ -3149,11 +3094,9 @@
         "display_name": "Chemistry",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 3
       },
       {
@@ -3162,11 +3105,9 @@
         "display_name": "Physics",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 4
       },
       {
@@ -3175,11 +3116,9 @@
         "display_name": "Biology",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 5
       },
       {
@@ -3188,24 +3127,22 @@
         "display_name": "Technical Drawing",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 6
       },
       {
         "subject_id": "SUBJ_9497431DBC38",
         "subject_key": "IRS",
-        "display_name": "IRK",
+        "display_name": "IRS",
         "active": true,
         "tracks": [
           "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 7
       },
       {
@@ -3214,11 +3151,9 @@
         "display_name": "Computer Science",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 8
       },
       {
@@ -3227,11 +3162,9 @@
         "display_name": "Further Mathematics",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 9
       },
       {
@@ -3240,11 +3173,9 @@
         "display_name": "Agricultural Science",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 10
       },
       {
@@ -3257,7 +3188,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 11
       },
       {
@@ -3266,11 +3197,9 @@
         "display_name": "Geography",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 12
       },
       {
@@ -3283,7 +3212,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 13
       },
       {
@@ -3296,7 +3225,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 14
       },
       {
@@ -3309,7 +3238,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 15
       },
       {
@@ -3318,11 +3247,10 @@
         "display_name": "Literature",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 16
       },
       {
@@ -3331,11 +3259,10 @@
         "display_name": "Government",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 17
       },
       {
@@ -3344,11 +3271,10 @@
         "display_name": "Hausa Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 18
       },
       {
@@ -3357,11 +3283,10 @@
         "display_name": "Yoruba Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 19
       },
       {
@@ -3370,11 +3295,10 @@
         "display_name": "Arabic Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 20
       },
       {
@@ -3383,11 +3307,10 @@
         "display_name": "Marketing",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 21
       },
       {
@@ -3396,11 +3319,10 @@
         "display_name": "Financial Account",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 22
       },
       {
@@ -3409,11 +3331,10 @@
         "display_name": "Commerce",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 23
       }
     ],
@@ -3428,7 +3349,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 1
       },
       {
@@ -3441,7 +3362,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 2
       },
       {
@@ -3450,11 +3371,9 @@
         "display_name": "Chemistry",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 3
       },
       {
@@ -3463,11 +3382,9 @@
         "display_name": "Physics",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 4
       },
       {
@@ -3476,11 +3393,9 @@
         "display_name": "Biology",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 5
       },
       {
@@ -3489,11 +3404,9 @@
         "display_name": "Further Mathematics",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 6
       },
       {
@@ -3502,11 +3415,9 @@
         "display_name": "Agricultural Science",
         "active": true,
         "tracks": [
-          "SCIENCE",
-          "ART",
-          "COMMERCIAL"
+          "SCIENCE"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 7
       },
       {
@@ -3519,7 +3430,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 8
       },
       {
@@ -3532,7 +3443,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 9
       },
       {
@@ -3545,7 +3456,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 10
       },
       {
@@ -3558,7 +3469,7 @@
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 11
       },
       {
@@ -3567,11 +3478,10 @@
         "display_name": "Literature",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 12
       },
       {
@@ -3580,11 +3490,10 @@
         "display_name": "Government",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 13
       },
       {
@@ -3593,11 +3502,10 @@
         "display_name": "Hausa Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 14
       },
       {
@@ -3606,11 +3514,10 @@
         "display_name": "Yoruba Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 15
       },
       {
@@ -3619,11 +3526,10 @@
         "display_name": "Arabic Language",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 16
       },
       {
@@ -3632,11 +3538,10 @@
         "display_name": "Marketing",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 17
       },
       {
@@ -3645,11 +3550,10 @@
         "display_name": "Commerce",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 18
       },
       {
@@ -3658,11 +3562,10 @@
         "display_name": "Financial Account",
         "active": true,
         "tracks": [
-          "SCIENCE",
           "ART",
           "COMMERCIAL"
         ],
-        "source": "existing_emis_config",
+        "source": "official_stream_structure_2026",
         "order": 19
       }
     ],
@@ -4151,13 +4054,58 @@
         "source": "school_document",
         "order": 6
       }
-    ]
+    ],
+    "CRECHE": [],
+    "ISLAMIYAH1A": [],
+    "ISLAMIYAH1B": [],
+    "ISLAMIYAH1C": [],
+    "ISLAMIYAH1D": [],
+    "ISLAMIYAH2A": [],
+    "ISLAMIYAH2B": [],
+    "ISLAMIYAH2C": [],
+    "ISLAMIYAH2D": [],
+    "ISLAMIYAH2E": [],
+    "ISLAMIYAH2F": [],
+    "ISLAMIYAH2G": [],
+    "ISLAMIYAH2H": [],
+    "ISLAMIYAH3A": [],
+    "ISLAMIYAH3B": [],
+    "ISLAMIYAH3C": [],
+    "ISLAMIYAH3D": [],
+    "ISLAMIYAH3E": [],
+    "ISLAMIYAH3F": [],
+    "ISLAMIYAH4A": [],
+    "ISLAMIYAH4B": [],
+    "ISLAMIYAH4C": [],
+    "ISLAMIYAH4D": [],
+    "ISLAMIYAH4E": [],
+    "ISLAMIYAH4F": [],
+    "ISLAMIYAH5A": [],
+    "ISLAMIYAH5B": [],
+    "ISLAMIYAH5C": [],
+    "ISLAMIYAH6A": [],
+    "ISLAMIYAH6B": []
   },
   "history": [
     {
       "at": "2026-09-22T12:10:17Z",
       "action": "migrate_v1_to_v2",
       "detail": "Phase 1 class-based subject registry migrated to stable global subjects + class assignments."
+    },
+    {
+      "at": "2026-10-14T08:26:56Z",
+      "action": "sync_class_subjects_2026_document",
+      "detail": "JSS1-SS3 active assignments aligned to supplied Class Subjects.docx; legacy extras retained inactive. SS tracks share the approved class-level list."
+    },
+    {
+      "at": "2026-10-16T09:52:50Z",
+      "action": "sync_official_secondary_2026",
+      "detail": "JSS1-SS3 class subjects reconciled to the supplied Class Subjects document while preserving Admin-created custom assignments."
+    },
+    {
+      "at": "2026-10-16T10:24:56Z",
+      "action": "sync_official_stream_structure_2026",
+      "detail": "JSS common subjects and SS science/art-commercial arm subjects reconciled to EMIS Class_Subjects.pdf and the complete class-subject workbook; Admin-created custom assignments preserved."
     }
   ],
   "source_notes": {

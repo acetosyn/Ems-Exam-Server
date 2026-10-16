@@ -305,4 +305,4 @@ def commit_student_import(rows, mode="add"):
 
 
 def canonical_csv_template():
-    stream = io.StringIO(); writer = csv.DictWriter(stream, fieldnames=CANONICAL); writer.writeheader(); writer.writerow({"Last_name":"Example", "First_name":"Student", "Other_names":"", "Phone":"", "Sex":"Female", "Class":"JSS1A", "Class_category":"JSS1"}); return stream.getvalue()
+    stream = io.StringIO(); writer = csv.DictWriter(stream, fieldnames=CANONICAL); writer.writeheader(); writer.writerow({"Last_name":"Example", "First_name":"Primary", "Other_names":"", "Phone":"", "Sex":"Female", "Class":"PRIMARY1", "Class_category":"PRIMARY1"}); writer.writerow({"Last_name":"Example", "First_name":"Secondary", "Other_names":"", "Phone":"", "Sex":"Male", "Class":"JSS1A", "Class_category":"JSS1"}); return stream.getvalue()

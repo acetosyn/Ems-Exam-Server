@@ -238,7 +238,7 @@ def build_manifest_candidates(year, class_level, class_arm, term=None):
     normalized_term = normalize_term(term)
     candidates = []
 
-    # JSS: current term first, then legacy flat manifest fallback.
+    # Primary/JSS: current term first, then legacy flat manifest fallback.
     if is_term_aware_class(class_level):
         if normalized_term: candidates.extend(portal_base / target / normalized_term / "pushed_subjects.json" for target in targets)
         candidates.extend(portal_base / target / "pushed_subjects.json" for target in targets)
@@ -262,7 +262,7 @@ def clean_subject_display_name(subject, class_level=""):
     value = str(subject or "").strip()
     if not value: return ""
 
-    for suffix in ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]:
+    for suffix in ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "BASIC1", "BASIC2", "BASIC3", "BASIC4", "BASIC5", "BASIC6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]:
         value = value.replace(f"_{suffix}", "").replace(f"-{suffix}", "").replace(f" {suffix}", "")
         value = value.replace(f"_{suffix.lower()}", "").replace(f"-{suffix.lower()}", "").replace(f" {suffix.lower()}", "")
 
@@ -489,7 +489,7 @@ def exam_dashboard():
     active_term = resolve_student_active_term(class_level, class_arm, request.args.get("term"))
 
     if is_term_aware_class(class_level) and not active_term:
-        print("[EXAM DASHBOARD ERROR] Missing active JSS term:", {"year": year, "class_level": class_level, "class_arm": class_arm})
+        print("[EXAM DASHBOARD ERROR] Missing active Primary/JSS term:", {"year": year, "class_level": class_level, "class_arm": class_arm})
         return redirect(url_for("student_portal_bp.student_portal", year=year))
 
     subject_display = clean_subject_display_name(subject_raw, class_level)
@@ -595,7 +595,7 @@ def start_exam():
         term = term or resolve_student_active_term(class_level, class_arm)
 
         if is_term_aware_class(class_level) and not term:
-            print("[START EXAM ERROR] Missing JSS term:", {"subject": subject, "year": year, "class_level": class_level, "class_arm": class_arm})
+            print("[START EXAM ERROR] Missing Primary/JSS term:", {"subject": subject, "year": year, "class_level": class_level, "class_arm": class_arm})
             return redirect(url_for("student_portal_bp.exam_dashboard", subject=subject, year=year))
 
     # GENERAL SS remains represented by an empty term.
@@ -642,7 +642,7 @@ def exam():
     active_term = resolve_student_active_term(class_level, class_arm, request.args.get("term") or session.get("selected_term"))
 
     if is_term_aware_class(class_level) and not active_term:
-        print("[EXAM PAGE ERROR] Missing active JSS term:", {
+        print("[EXAM PAGE ERROR] Missing active Primary/JSS term:", {
             "subject": subject, "year": year, "class_level": class_level, "class_arm": class_arm,
             "session_term": session.get("selected_term"), "query_term": request.args.get("term"),
         })

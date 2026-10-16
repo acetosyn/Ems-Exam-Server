@@ -5,7 +5,7 @@ from datetime import datetime
 
 from openpyxl import Workbook, load_workbook
 
-from modules.class_config import SUPPORTED_CLASSES, normalize_class_level, normalize_class_arm
+from modules.class_config import SUPPORTED_CLASSES, normalize_class_level, normalize_class_arm, is_exam_term_required_class
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -175,7 +175,7 @@ def find_existing_excel_path(class_category, subject, year, term=""):
 
         legacy_path = get_excel_path(class_level, subject, year)
 
-        if is_jss_class(class_level) and legacy_path.exists():
+        if is_exam_term_required_class(class_level) and legacy_path.exists():
             return legacy_path
 
         if is_ss_class(class_level) and legacy_path.exists() and excel_file_has_term(legacy_path, normalized_term):
@@ -419,8 +419,8 @@ def append_result_to_excel(result):
     if class_level == "UNKNOWN":
         raise ValueError(f"Invalid result class: {raw_class}")
 
-    if is_jss_class(class_level) and not term:
-        raise ValueError(f"Term is required when saving JSS result: class={class_level}, subject={subject}, year={year}")
+    if is_exam_term_required_class(class_level) and not term:
+        raise ValueError(f"Term is required when saving Primary/JSS result: class={class_level}, subject={subject}, year={year}")
 
     if raw_term and not term:
         raise ValueError(f"Invalid result term: {raw_term}")
@@ -565,8 +565,8 @@ def read_results(class_category, subject, year, term=""):
                     if row_term != normalized_term:
                         continue
 
-                elif is_jss_class(class_level):
-                    # Preserve old flat JSS compatibility.
+                elif is_exam_term_required_class(class_level):
+                    # Preserve old flat Primary/JSS compatibility.
                     if row_term and row_term != normalized_term:
                         continue
 
@@ -597,7 +597,7 @@ def iter_class_result_files(class_category):
         if not class_root.exists():
             continue
 
-        # FIRST / SECOND / THIRD — JSS + SS.
+        # FIRST / SECOND / THIRD — Primary + JSS + SS.
         for term_folder in class_root.iterdir():
             if not term_folder.is_dir():
                 continue
@@ -618,7 +618,7 @@ def iter_class_result_files(class_category):
                         "path": excel_file,
                     }
 
-        # Root General / legacy — JSS + SS.
+        # Root General / legacy — Primary + JSS + SS.
         for subject_folder in class_root.iterdir():
             if not subject_folder.is_dir() or normalize_result_term(subject_folder.name):
                 continue

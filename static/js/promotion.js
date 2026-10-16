@@ -44,8 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
     // PROMOTION PATH
     // =========================================================
-    const NEXT_CLASS = { JSS1:"JSS2", JSS2:"JSS3", JSS3:"SS1", SS1:"SS2", SS2:"SS3", SS3:"GRADUATED" };
-    const PREVIOUS_CLASS = { JSS2:"JSS1", JSS3:"JSS2", SS1:"JSS3", SS2:"SS1", SS3:"SS2" };
+    const NEXT_CLASS = { CRECHE:"STARTER", STARTER:"PRE_CLASS", PRE_CLASS:"NURSERY1", NURSERY1:"NURSERY2", NURSERY2:"PRIMARY1", PRIMARY1:"PRIMARY2", PRIMARY2:"PRIMARY3", PRIMARY3:"PRIMARY4", PRIMARY4:"PRIMARY5", PRIMARY5:"PRIMARY6", PRIMARY6:"JSS1", JSS1:"JSS2", JSS2:"JSS3", JSS3:"SS1", SS1:"SS2", SS2:"SS3", SS3:"GRADUATED" };
+    const PREVIOUS_CLASS = Object.fromEntries(Object.entries(NEXT_CLASS).filter(([, destination]) => destination !== "GRADUATED").map(([source, destination]) => [destination, source]));
+    const PROGRESSION_ORDER = ["CRECHE","STARTER","PRE_CLASS","NURSERY1","NURSERY2","PRIMARY1","PRIMARY2","PRIMARY3","PRIMARY4","PRIMARY5","PRIMARY6","JSS1","JSS2","JSS3","SS1","SS2","SS3"];
 
 
     // =========================================================
@@ -205,21 +206,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function beginPromotion(students, mode = "selected") {
+        if (!NEXT_CLASS[state.currentClass]) return showToast("This class does not have a configured promotion destination.", "warning");
         if (state.currentClass === "SS3") return openActionPreview({ type:"graduate", action:"Graduate", source:"SS3", destination:"Graduate Archive", students:[...students], destinationClasses:{}, mode });
-        const destination = NEXT_CLASS[state.currentClass];
-        if (!destination) return showToast("No promotion destination is configured for this class.", "error");
-        openDestinationArmModal([...students], destination, [...students], { type:"promote", action:"Promote", mode });
+        const destination = NEXT_CLASS[state.currentClass]; openDestinationArmModal([...students], destination, [...students], { type:"promote", action:"Promote", mode });
     }
 
     function startDemotionAction() {
         const students = selectedStudents(), destination = PREVIOUS_CLASS[state.currentClass];
         if (!students.length) return showToast("Select the student(s) you want to demote first.", "warning");
-        if (!destination) return showToast(`${state.currentClass} is the lowest class and cannot be demoted.`, "warning");
+        if (!destination) return showToast(`${displayClass(state.currentClass)} is the first regular-school class and cannot be demoted further.`, "warning");
         openDestinationArmModal([...students], destination, [...students], { type:"demote", action:"Demote", mode:"selected" });
     }
 
     function updateWholeClassButton() {
         if (!els.promoteAllClassBtn) return;
+        const promotionEnabled = Boolean(NEXT_CLASS[state.currentClass]);
+        if (!promotionEnabled) { els.promoteAllClassBtn.disabled = true; els.promoteAllClassBtn.innerHTML = `<i class="fa-solid fa-lock"></i><span>No Promotion Path</span>`; els.promoteAllClassBtn.title = "This class does not have a configured promotion destination."; if (els.demoteSelectedBtn) { els.demoteSelectedBtn.disabled = !PREVIOUS_CLASS[state.currentClass] || !selectedStudents().length; els.demoteSelectedBtn.title = PREVIOUS_CLASS[state.currentClass] ? "Demote selected students to the previous class" : "This is the first class in the school progression path."; } return; }
+        els.promoteAllClassBtn.disabled = false;
         const isSS3 = state.currentClass === "SS3", armFilter = $("classArmSelector")?.value || "all", armScoped = armFilter !== "all";
         if (armScoped) {
             els.promoteAllClassBtn.innerHTML = isSS3 ? `<i class="fa-solid fa-graduation-cap"></i><span>Graduate ${escapeHtml(displayClass(armFilter))} Arm</span>` : `<i class="fa-solid fa-people-arrow-up"></i><span>Promote ${escapeHtml(displayClass(armFilter))} Arm</span>`;
@@ -228,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
             els.promoteAllClassBtn.innerHTML = isSS3 ? `<i class="fa-solid fa-graduation-cap"></i><span>Graduate Entire SS3</span>` : `<i class="fa-solid fa-people-arrow-up"></i><span>Promote Entire Class</span>`;
             els.promoteAllClassBtn.title = `Process every active student in ${state.currentClass}.`;
         }
-        if (els.demoteSelectedBtn) els.demoteSelectedBtn.disabled = state.currentClass === "JSS1" || !selectedStudents().length;
+        if (els.demoteSelectedBtn) { els.demoteSelectedBtn.disabled = !PREVIOUS_CLASS[state.currentClass] || !selectedStudents().length; els.demoteSelectedBtn.title = PREVIOUS_CLASS[state.currentClass] ? `Demote selected students to ${displayClass(PREVIOUS_CLASS[state.currentClass])}` : "This is the first class in the school progression path."; }
     }
 
     // =========================================================
@@ -237,7 +240,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function armStreamMeta(arm) {
         const value = String(arm || "").toUpperCase();
         if (!value) return { key:"", label:"Unassigned", className:"general" };
-        if (!value.startsWith("SS")) return { key:"JUNIOR", label:"Junior", className:"junior" };
+        if (["CRECHE","STARTER"].includes(value) || value.startsWith("PRE_CLASS") || value.startsWith("NURSERY")) return { key:"EARLY", label:"Early Years", className:"early" };
+        if (value.startsWith("PRIMARY")) return { key:"PRIMARY", label:"Primary", className:"primary" };
+        if (value.startsWith("JSS")) return { key:"JUNIOR", label:"Junior", className:"junior" };
         if (value.endsWith("_B/C")) return { key:"ART_COMMERCIAL", label:"Arts / Commercial", className:"arts-commercial" };
         if (["_GOLD","_SILVER","_DIAMOND"].some(tag => value.includes(tag))) return { key:"SCIENCE", label:"Science", className:"science" };
         return { key:"GENERAL", label:"General", className:"general" };
@@ -249,8 +254,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return blank + arms.map(arm => { const meta = armStreamMeta(arm), occupied = Number(counts?.[arm] || 0); return `<option value="${escapeHtml(arm)}" ${arm === selected ? "selected" : ""}>${escapeHtml(displayClass(arm))} — ${escapeHtml(meta.label)}${occupied ? ` • ${occupied} current` : ""}</option>`; }).join("");
     }
 
-    function smartPlacementForStudent(student, destination) {
-        return automaticDestinationArm(student, destination) || "";
+    function smartPlacementForStudent(student, destination) { return automaticDestinationArm(student, destination) || ""; }
+
+    function buildSmartPlacementMap(students, destination) {
+        const placements = {}, planned = {}, arms = CLASS_ARMS[destination] || [], occupied = state.summary?.[destination]?.arms || {};
+        (students || []).forEach((student) => {
+            const admission = normalizeAdmission(student.Admission_number); let arm = smartPlacementForStudent(student, destination);
+            if (!arm && !(String(student.Class_category || "").toUpperCase() === "JSS3" && destination === "SS1") && arms.length) arm = [...arms].sort((a,b) => (Number(occupied[a] || 0) + Number(planned[a] || 0)) - (Number(occupied[b] || 0) + Number(planned[b] || 0)) || arms.indexOf(a) - arms.indexOf(b))[0];
+            placements[admission] = arm || ""; if (arm) planned[arm] = Number(planned[arm] || 0) + 1;
+        });
+        return placements;
     }
 
     function openDestinationArmModal(allStudents, destination, affectedStudents, operation = { type:"promote", action:"Promote", mode:"selected" }) {
@@ -259,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!unique.length) return showToast("No students are available for placement.", "warning");
 
         const context = { allStudents:unique, affectedStudents:unique, source:state.currentClass, destination, type:operation.type || "promote", action:operation.action || "Promote", mode:operation.mode || "selected", placements:{} };
-        unique.forEach(student => { context.placements[normalizeAdmission(student.Admission_number)] = smartPlacementForStudent(student, destination); });
+        context.placements = buildSmartPlacementMap(unique, destination);
         promotionState.destinationContext = context;
 
         if (els.destinationArmTitle) els.destinationArmTitle.textContent = `${context.source} → ${destination}`;
@@ -325,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function resetDestinationSmartDefaults() {
         const context = promotionState.destinationContext; if (!context) return;
-        context.allStudents.forEach(student => { context.placements[normalizeAdmission(student.Admission_number)] = smartPlacementForStudent(student, context.destination); });
+        context.placements = buildSmartPlacementMap(context.allStudents, context.destination);
         if (els.destinationArmSelector) els.destinationArmSelector.value = "";
         renderPlacementGroups(context); refreshPlacementSummary(context); showToast("Smart placement defaults restored.", "info");
     }
@@ -338,8 +351,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!destinationArm) { unassigned.push(student); return; }
             counts[destinationArm] = (counts[destinationArm] || 0) + 1;
             const sourceMeta = armStreamMeta(student.Class), destinationMeta = armStreamMeta(destinationArm);
-            if (sourceMeta.key && destinationMeta.key && sourceMeta.key !== "JUNIOR" && destinationMeta.key !== "JUNIOR" && sourceMeta.key !== destinationMeta.key) cross[`${sourceMeta.label} → ${destinationMeta.label}`] = (cross[`${sourceMeta.label} → ${destinationMeta.label}`] || 0) + 1;
-            const row = els.destinationPlacementGroups?.querySelector(`[data-placement-row="${cssEscape(admission)}"]`), note = row?.querySelector(`[data-placement-note="${cssEscape(admission)}"]`), isCross = sourceMeta.key && destinationMeta.key && sourceMeta.key !== "JUNIOR" && destinationMeta.key !== "JUNIOR" && sourceMeta.key !== destinationMeta.key;
+            const seniorTracks = new Set(["SCIENCE","ART_COMMERCIAL","GENERAL"]), isCross = seniorTracks.has(sourceMeta.key) && seniorTracks.has(destinationMeta.key) && sourceMeta.key !== destinationMeta.key;
+            if (isCross) cross[`${sourceMeta.label} → ${destinationMeta.label}`] = (cross[`${sourceMeta.label} → ${destinationMeta.label}`] || 0) + 1;
+            const row = els.destinationPlacementGroups?.querySelector(`[data-placement-row="${cssEscape(admission)}"]`), note = row?.querySelector(`[data-placement-note="${cssEscape(admission)}"]`);
             row?.classList.toggle("cross-stream", !!isCross); if (note) note.textContent = isCross ? `Track change: ${sourceMeta.label} → ${destinationMeta.label}` : "";
         });
         els.destinationPlacementGroups?.querySelectorAll(".placement-group").forEach(group => { const sourceArm = group.dataset.sourceArm || "", students = context.allStudents.filter(student => (student.Class || student.Class_category || "") === sourceArm), common = commonPlacement(students, context), select = group.querySelector(".placement-group-select"); if (select) select.value = common; });
@@ -399,12 +413,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateStudentArmTrackPreview() {
         if (!els.studentArmTrackLabel) return;
         const value = els.formClass?.value || "", level = els.formClassCategory?.value || "";
-        let meta = armStreamMeta(value), text = "Select an SS arm to see its stream label.";
+        let meta = armStreamMeta(value), text = "Select a class arm or use Automatic Assignment.";
         if (value === "AUTO_SCIENCE") meta = { className:"science", label:"Science" }, text = "Automatic placement will balance this student among available Science arms.";
         else if (value === "AUTO_ART_COMMERCIAL") meta = { className:"arts-commercial", label:"Arts / Commercial" }, text = "Automatic placement will use the combined Arts / Commercial arm.";
         else if (value) text = `${displayClass(value)} is labelled ${meta.label}.`;
         else if (level.startsWith("SS")) text = "Automatic Assignment may choose any SS arm. Pick a stream-specific automatic option or exact arm when the student's stream is known.";
         else if (level.startsWith("JSS")) meta = { className:"junior", label:"Junior" }, text = "JSS placement uses A, B or C; there is no senior-school stream label yet.";
+        else if (level.startsWith("PRIMARY")) meta = { className:"primary", label:"Primary" }, text = "Primary placement uses A/B arms and Automatic Assignment balances the class.";
+        else if (["PRE_CLASS","NURSERY1","NURSERY2"].includes(level)) meta = { className:"early", label:"Early Years" }, text = "Prep and Nursery placement uses Gold/Silver groups and Automatic Assignment balances the groups.";
+        else if (["CRECHE","STARTER"].includes(level)) meta = { className:"early", label:"Early Years" }, text = `${displayClass(level)} has one canonical class group.`;
         els.studentArmTrackLabel.className = `arm-track-preview ${meta.className || "muted"}`; els.studentArmTrackLabel.innerHTML = `<i class="fa-solid fa-tag"></i><span>${escapeHtml(text)}</span>`;
     }
 
@@ -475,35 +492,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderRoadmap(summary = {}) {
-        if (!els.roadmap) return; const steps = [{source:"SS3",destination:"Graduated"},{source:"SS2",destination:"SS3"},{source:"SS1",destination:"SS2"},{source:"JSS3",destination:"SS1"},{source:"JSS2",destination:"JSS3"},{source:"JSS1",destination:"JSS2"}];
+        if (!els.roadmap) return; const steps = [...PROGRESSION_ORDER].reverse().map(source => ({source, destination:NEXT_CLASS[source] === "GRADUATED" ? "Graduated" : NEXT_CLASS[source]}));
         const first = steps.find(step => Number(summary?.[step.source]?.total || 0) > 0)?.source || "";
-        els.roadmap.innerHTML = steps.map(step => { const count = Number(summary?.[step.source]?.total || 0), active = step.source === first; return `<div class="roadmap-step ${active ? "recommended" : ""}"><span>${escapeHtml(step.source)}</span><i class="fa-solid fa-arrow-right"></i><strong>${escapeHtml(step.destination)}</strong><small>${count} student${count === 1 ? "" : "s"}</small></div>`; }).join("");
-        if (els.roadmapHint) els.roadmapHint.textContent = first ? `Recommended starting point: ${first === "SS3" ? "Graduate SS3 first" : `process ${first} before moving the class below into it`}. This is guidance, not a block.` : "No active class is waiting for promotion.";
+        els.roadmap.innerHTML = steps.map(step => { const count = Number(summary?.[step.source]?.total || 0), active = step.source === first; return `<div class="roadmap-step ${active ? "recommended" : ""}"><span>${escapeHtml(displayClass(step.source))}</span><i class="fa-solid fa-arrow-right"></i><strong>${escapeHtml(step.destination === "Graduated" ? "Graduate Archive" : displayClass(step.destination))}</strong><small>${count} student${count === 1 ? "" : "s"}</small></div>`; }).join("");
+        if (els.roadmapHint) els.roadmapHint.textContent = first ? `Recommended yearly order starts from the highest occupied class: ${displayClass(first)}. Process upper classes before the class below so students are never moved twice in one promotion cycle.` : "No active class is waiting for promotion.";
     }
 
 
     function automaticDestinationArm(student, destination) {
-        const source = student.Class_category || "";
-        const sourceArm = student.Class || "";
-
-        if (source.startsWith("JSS") && destination.startsWith("JSS")) {
-            const suffix = sourceArm.replace(source, "");
-            const candidate = `${destination}${suffix}`;
-
-            return CLASS_ARMS[destination]?.includes(candidate)
-                ? candidate
-                : "";
-        }
-
-        if (source.startsWith("SS") && destination.startsWith("SS")) {
-            const suffix = sourceArm.replace(source, "");
-            const candidate = `${destination}${suffix}`;
-
-            return CLASS_ARMS[destination]?.includes(candidate)
-                ? candidate
-                : "";
-        }
-
+        const source = String(student.Class_category || "").toUpperCase(), sourceArm = String(student.Class || "").toUpperCase(), destinationArms = CLASS_ARMS[destination] || [];
+        if (destinationArms.length === 1) return destinationArms[0];
+        if (["PRE_CLASS","NURSERY1","NURSERY2"].includes(source) && ["PRE_CLASS","NURSERY1","NURSERY2"].includes(destination)) { const suffix = sourceArm.includes("GOLD") ? "GOLD" : sourceArm.includes("SILVER") ? "SILVER" : "", candidate = suffix ? `${destination}_${suffix}` : ""; if (destinationArms.includes(candidate)) return candidate; }
+        if (source === "NURSERY2" && destination === "PRIMARY1") { const candidate = sourceArm.includes("GOLD") ? "PRIMARY1A" : sourceArm.includes("SILVER") ? "PRIMARY1B" : ""; if (destinationArms.includes(candidate)) return candidate; }
+        if (source === "PRIMARY1" && destination === "NURSERY2") { const candidate = sourceArm.endsWith("A") ? "NURSERY2_GOLD" : sourceArm.endsWith("B") ? "NURSERY2_SILVER" : ""; if (destinationArms.includes(candidate)) return candidate; }
+        if (source.startsWith("PRIMARY") && destination.startsWith("PRIMARY")) { const suffix = /[AB]$/.test(sourceArm) ? sourceArm.slice(-1) : "", candidate = suffix ? `${destination}${suffix}` : ""; if (destinationArms.includes(candidate)) return candidate; }
+        if (source === "PRIMARY6" && destination === "JSS1") { const suffix = /[AB]$/.test(sourceArm) ? sourceArm.slice(-1) : "", candidate = suffix ? `JSS1${suffix}` : ""; if (destinationArms.includes(candidate)) return candidate; }
+        if (source === "JSS1" && destination === "PRIMARY6") { const suffix = /[AB]$/.test(sourceArm) ? sourceArm.slice(-1) : "", candidate = suffix ? `PRIMARY6${suffix}` : ""; if (destinationArms.includes(candidate)) return candidate; }
+        if (source.startsWith("JSS") && destination.startsWith("JSS")) { const suffix = sourceArm.replace(source, ""), candidate = `${destination}${suffix}`; if (destinationArms.includes(candidate)) return candidate; }
+        if (source.startsWith("SS") && destination.startsWith("SS")) { const suffix = sourceArm.replace(source, ""), candidate = `${destination}${suffix}`; if (destinationArms.includes(candidate)) return candidate; }
         return "";
     }
 

@@ -1,0 +1,95 @@
+{
+  "regular_students": 720,
+  "existing_preserved": 695,
+  "basic5a_added": 25,
+  "tahfeez_students": 56,
+  "islamiyyah_students": 767,
+  "combined_register": 823,
+  "session": "2026/2027",
+  "source_class_counts": {
+    "CRECHE": 3,
+    "NURSERY1_GOLD": 11,
+    "NURSERY1_SILVER": 11,
+    "NURSERY2_GOLD": 13,
+    "NURSERY2_SILVER": 13,
+    "PRE_CLASS_GOLD": 10,
+    "PRE_CLASS_SILVER": 11,
+    "TAHFEEZ1": 17,
+    "TAHFEEZ2": 11,
+    "TAHFEEZ3": 13,
+    "TAHFEEZ4": 7,
+    "TAHFEEZ5": 8,
+    "PRIMARY1A": 14,
+    "PRIMARY1B": 14,
+    "PRIMARY2A": 16,
+    "PRIMARY2B": 12,
+    "PRIMARY3A": 16,
+    "PRIMARY3B": 16,
+    "PRIMARY4A": 26,
+    "PRIMARY4B": 24,
+    "PRIMARY5A": 25,
+    "PRIMARY5B": 22,
+    "ISLAMIYAH1A": 21,
+    "ISLAMIYAH1B": 20,
+    "ISLAMIYAH1C": 20,
+    "ISLAMIYAH1D": 15,
+    "ISLAMIYAH2A": 27,
+    "ISLAMIYAH2B": 27,
+    "ISLAMIYAH2C": 28,
+    "ISLAMIYAH2D": 28,
+    "ISLAMIYAH2E": 28,
+    "ISLAMIYAH2F": 27,
+    "ISLAMIYAH2G": 29,
+    "ISLAMIYAH2H": 28,
+    "ISLAMIYAH3A": 27,
+    "ISLAMIYAH3B": 26,
+    "ISLAMIYAH3C": 27,
+    "ISLAMIYAH3D": 27,
+    "ISLAMIYAH3E": 26,
+    "ISLAMIYAH3F": 26,
+    "ISLAMIYAH4A": 26,
+    "ISLAMIYAH4B": 27,
+    "ISLAMIYAH4C": 27,
+    "ISLAMIYAH4D": 27,
+    "ISLAMIYAH4E": 27,
+    "ISLAMIYAH4F": 27,
+    "ISLAMIYAH5A": 24,
+    "ISLAMIYAH5B": 22,
+    "ISLAMIYAH5C": 22,
+    "ISLAMIYAH6A": 24,
+    "ISLAMIYAH6B": 24,
+    "ISLAMIYAH7": 33
+  },
+  "duplicate_source_records": [
+    {
+      "admission": "isl161",
+      "class": "ISLAMIYAH2D",
+      "name": "HAUWA MUSA GARBA"
+    },
+    {
+      "admission": "isl182",
+      "class": "ISLAMIYAH2D",
+      "name": "HAUWA MUSA GARBA"
+    },
+    {
+      "admission": "isl234",
+      "class": "ISLAMIYAH2F",
+      "name": "KHADIJAH SALISU"
+    },
+    {
+      "admission": "isl241",
+      "class": "ISLAMIYAH2F",
+      "name": "KHADIJAH SALISU"
+    },
+    {
+      "admission": "isl263",
+      "class": "ISLAMIYAH2G",
+      "name": "YASIR ARAFAT MUHAMMAD"
+    },
+    {
+      "admission": "isl268",
+      "class": "ISLAMIYAH2G",
+      "name": "YASIR ARAFAT MUHAMMAD"
+    }
+  ]
+}

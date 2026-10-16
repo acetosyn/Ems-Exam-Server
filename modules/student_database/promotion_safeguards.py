@@ -1,14 +1,14 @@
 # MODULE: Promotion Safeguards — deterministic warnings, scope protection, arm-aware guidance and promotion roadmap
 
-from modules.class_config import SUPPORTED_CLASSES, get_ss_stream, get_class_arm_stream_label
+from modules.class_config import get_ss_stream, get_class_arm_stream_label
 from modules.student_database.student_database import (
     get_database_summary, read_master_students, normalize_admission,
     normalize_student_level, normalize_student_arm,
 )
 
-PROMOTION_PATH = {"JSS1":"JSS2", "JSS2":"JSS3", "JSS3":"SS1", "SS1":"SS2", "SS2":"SS3", "SS3":"GRADUATED"}
-DEMOTION_PATH = {"JSS2":"JSS1", "JSS3":"JSS2", "SS1":"JSS3", "SS2":"SS1", "SS3":"SS2"}
-PROMOTION_SEQUENCE = ["SS3", "SS2", "SS1", "JSS3", "JSS2", "JSS1"]
+PROMOTION_PATH = {"CRECHE":"STARTER", "STARTER":"PRE_CLASS", "PRE_CLASS":"NURSERY1", "NURSERY1":"NURSERY2", "NURSERY2":"PRIMARY1", "PRIMARY1":"PRIMARY2", "PRIMARY2":"PRIMARY3", "PRIMARY3":"PRIMARY4", "PRIMARY4":"PRIMARY5", "PRIMARY5":"PRIMARY6", "PRIMARY6":"JSS1", "JSS1":"JSS2", "JSS2":"JSS3", "JSS3":"SS1", "SS1":"SS2", "SS2":"SS3", "SS3":"GRADUATED"}
+DEMOTION_PATH = {destination: source for source, destination in PROMOTION_PATH.items() if destination != "GRADUATED"}
+PROMOTION_SEQUENCE = ["SS3", "SS2", "SS1", "JSS3", "JSS2", "JSS1", "PRIMARY6", "PRIMARY5", "PRIMARY4", "PRIMARY3", "PRIMARY2", "PRIMARY1", "NURSERY2", "NURSERY1", "PRE_CLASS", "STARTER", "CRECHE"]
 
 
 def clean(value): return str(value or "").strip()

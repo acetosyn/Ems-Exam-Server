@@ -1,5 +1,6 @@
 # MODULE: Subject Registry — persistent dynamic subject catalogue + class/track assignment engine
 
+from copy import deepcopy
 import hashlib
 import json
 import re
@@ -8,14 +9,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from threading import RLock
 
-from modules.school_structure import ALL_CONFIGURED_CLASSES, SCHOOL_SECTIONS, SCHOOL_SECTION_ORDER, class_label, get_class_metadata, get_source_subjects, normalize_school_class, school_section_for_class
+from modules.school_structure import islamiyah_base_level, ALL_CONFIGURED_CLASSES, SCHOOL_SECTIONS, SCHOOL_SECTION_ORDER, class_label, get_class_metadata, get_secondary_track_subjects, get_source_subjects, normalize_school_class, school_section_for_class
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 REGISTRY_FILE = BASE_DIR / "static" / "data" / "academic" / "subject_registry.json"
 BACKUP_DIR = BASE_DIR / "static" / "data" / "academic" / "backups" / "subject_registry"
 REGISTRY_LOCK = RLock()
-REGISTRY_VERSION = 2
+REGISTRY_VERSION = 4
 SS_TRACKS = ["SCIENCE", "ART", "COMMERCIAL"]
 
 
@@ -28,7 +29,7 @@ def _base_subject_key(value):
     raw = clean(value).upper().replace("&", " AND ")
     raw = re.sub(r"[._()/\\-]+", " ", raw); raw = " ".join(raw.split())
     aliases = {
-        "MATHS": "MATHEMATICS", "IRK": "IRS", "I R S": "IRS", "I R K": "IRS", "ISLAMIYAH": "ISLAMIYYAH", "ISLAMIYYA": "ISLAMIYYAH",
+        "MATHS": "MATHEMATICS", "IRK": "IRS", "IRK IRS": "IRS", "I R S": "IRS", "I R K": "IRS", "ISLAMIYAH": "ISLAMIYYAH", "ISLAMIYYA": "ISLAMIYYAH",
         "P H E": "PHE", "PHYSICAL AND HEALTH EDUCATION": "PHE", "CULTURE AND CREATIVE ARTS CCA": "CCA", "BASIC SCIENCE AND TECHNOLOGY": "BST",
         "SOCIAL AND CITIZENSHIP STUDIES": "SOC AND CIT STD", "SOC AND CIT STD": "SOC AND CIT STD", "CIT AND HER STD": "CIT AND HER STD",
         "HERITAGE AND CITIZENSHIP STUDIES": "CIT AND HER STD", "FINANCIAL ACCOUNTING": "FINANCIAL ACCOUNT", "ACCOUNTS": "FINANCIAL ACCOUNT",
@@ -149,9 +150,57 @@ def _migrate_v1(data):
     return migrated
 
 
+def _sync_official_secondary_baseline(data):
+    """Reconcile the supplied Class Subjects document into the persistent registry once.
+    Official document rows replace only older seeded/document rows; Admin-created custom assignments remain intact.
+    """
+    seeded_sources = {"school_document", "existing_emis_config", "migrated_phase1", "official_secondary_2026"}
+    for level in ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]:
+        official_names = list(get_source_subjects(level) or []); official_keys = {subject_key(name) for name in official_names}; rows = list(data.setdefault("assignments", {}).setdefault(level, []))
+        data["assignments"][level] = [row for row in rows if row.get("subject_key") in official_keys or str(row.get("source") or "").strip().lower() not in seeded_sources]
+        for order, display_name in enumerate(official_names, 1):
+            subject = _ensure_subject(data, display_name, "official_secondary_2026"); row = next((item for item in data["assignments"][level] if item.get("subject_key") == subject.get("key")), None)
+            tracks = _legacy_subject_tracks(level, display_name) if level.startswith("SS") else []
+            if row:
+                row.update({"subject_id": subject.get("id"), "display_name": display_name, "active": True, "tracks": _normalize_tracks(tracks, level), "source": row.get("source") if str(row.get("source") or "").strip().lower() == "admin" else "official_secondary_2026", "order": order})
+            else:
+                _append_assignment(data, level, subject, display_name=display_name, source="official_secondary_2026", tracks=tracks, active=True, order=order)
+    _record_history(data, "sync_official_secondary_2026", "JSS1-SS3 class subjects reconciled to the supplied Class Subjects document while preserving Admin-created custom assignments.")
+    return data
+
+
+
+def _sync_detailed_secondary_stream_structure(data):
+    """Apply the detailed EMIS Class_Subjects PDF/XLSX structure.
+    Seeded secondary assignments are rebuilt from the official class/stream matrix; Admin-created custom assignments remain intact.
+    """
+    seeded_sources = {"school_document", "existing_emis_config", "migrated_phase1", "official_secondary_2026", "official_stream_structure_2026"}
+    for level in ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]:
+        official_names = list(get_source_subjects(level) or []); official_keys = {subject_key(name) for name in official_names}; rows = list(data.setdefault("assignments", {}).setdefault(level, []))
+        # Preserve deliberate Admin-added assignments; replace only seeded/document rows.
+        data["assignments"][level] = [row for row in rows if str(row.get("source") or "").strip().lower() == "admin" or (row.get("subject_key") in official_keys and str(row.get("source") or "").strip().lower() not in seeded_sources)]
+        science_keys = {subject_key(name) for name in get_secondary_track_subjects(level, "SCIENCE")} if level.startswith("SS") else set()
+        art_commercial_keys = {subject_key(name) for name in get_secondary_track_subjects(level, "ART_COMMERCIAL")} if level.startswith("SS") else set()
+        for order, display_name in enumerate(official_names, 1):
+            subject = _ensure_subject(data, display_name, "official_stream_structure_2026"); key = subject.get("key"); row = next((item for item in data["assignments"][level] if item.get("subject_key") == key), None)
+            tracks = []
+            if level.startswith("SS"):
+                if key in science_keys: tracks.append("SCIENCE")
+                if key in art_commercial_keys: tracks.extend(["ART", "COMMERCIAL"])
+            canonical_display = "IRS" if key == "IRS" and level.startswith("SS") else display_name
+            if row:
+                row.update({"subject_id": subject.get("id"), "display_name": canonical_display, "active": True, "tracks": _normalize_tracks(tracks, level), "source": row.get("source") if str(row.get("source") or "").strip().lower() == "admin" else "official_stream_structure_2026", "order": order})
+            else:
+                _append_assignment(data, level, subject, display_name=canonical_display, source="official_stream_structure_2026", tracks=tracks, active=True, order=order)
+    _record_history(data, "sync_official_stream_structure_2026", "JSS common subjects and SS science/art-commercial arm subjects reconciled to EMIS Class_Subjects.pdf and the complete class-subject workbook; Admin-created custom assignments preserved.")
+    return data
+
 def _normalize_registry(data):
     if not isinstance(data, dict): return _seed_registry()
-    if int(data.get("version") or 0) < REGISTRY_VERSION: return _migrate_v1(data)
+    source_version = int(data.get("version") or 0)
+    if source_version < 2: data = _migrate_v1(data)
+    if source_version < 3: data = _sync_official_secondary_baseline(data); data["version"] = 3
+    if source_version < 4: data = _sync_detailed_secondary_stream_structure(data); data["version"] = 4
     data.setdefault("subjects", {}); data.setdefault("assignments", {}); data.setdefault("history", []); data.setdefault("created_at", utc_now()); data.setdefault("updated_at", utc_now())
     for subject in data["subjects"].values():
         if isinstance(subject, dict): subject.setdefault("name_overridden", False)
@@ -234,7 +283,7 @@ def get_class_subject_rows(class_level, track="", active_only=True):
     level = normalize_school_class(class_level)
     if not level: return []
     data = read_subject_registry(); subjects = data.get("subjects", {}); wanted_track = str(track or "").upper().strip(); output = []
-    for assignment in sorted(data.get("assignments", {}).get(level, []), key=lambda row: (int(row.get("order") or 9999), str(row.get("display_name") or ""))):
+    for assignment in sorted((data.get("assignments", {}).get(level) or data.get("assignments", {}).get(islamiyah_base_level(level), [])), key=lambda row: (int(row.get("order") or 9999), str(row.get("display_name") or ""))):
         subject = subjects.get(assignment.get("subject_key"), {})
         if not subject: continue
         if active_only and (not subject.get("active", True) or not assignment.get("active", True)): continue
@@ -252,7 +301,7 @@ def get_registered_subjects(class_level, active_only=True): return get_class_sub
 def get_subject_tracks(class_level, subject):
     level = normalize_school_class(class_level); key = resolve_subject_key(subject, seed_if_missing=False)
     if not level.startswith("SS") or not key: return set()
-    data = read_subject_registry(); row = next((item for item in data.get("assignments", {}).get(level, []) if item.get("subject_key") == key and item.get("active", True)), None)
+    data = read_subject_registry(); row = next((item for item in (data.get("assignments", {}).get(level) or data.get("assignments", {}).get(islamiyah_base_level(level), [])) if item.get("subject_key") == key and item.get("active", True)), None)
     if not row: return set()
     subject_row = data.get("subjects", {}).get(key, {})
     if not subject_row.get("active", True): return set()
@@ -267,7 +316,7 @@ def list_subjects(section="", class_level="", active=None):
         for level in ALL_CONFIGURED_CLASSES:
             if level_filter and level != level_filter: continue
             if section and school_section_for_class(level) != section: continue
-            row = next((item for item in data.get("assignments", {}).get(level, []) if item.get("subject_key") == key and item.get("active", True)), None)
+            row = next((item for item in (data.get("assignments", {}).get(level) or data.get("assignments", {}).get(islamiyah_base_level(level), [])) if item.get("subject_key") == key and item.get("active", True)), None)
             if not row: continue
             meta = get_class_metadata(level); assignments.append({"class_level": level, "class_label": meta.get("label", class_label(level)), "section": meta.get("section", ""), "section_label": meta.get("section_label", ""), "database_status": meta.get("database_status", "pending"), "tracks": _normalize_tracks(row.get("tracks"), level), "display_name": row.get("display_name") or subject.get("name")})
         if (section or level_filter) and not assignments: continue
@@ -353,6 +402,21 @@ def set_subject_assignments(subject_id_or_key, assignments, data=None, save=True
 def set_subject_status(subject_id_or_key, active=True): return update_subject(subject_id_or_key, active=bool(active))
 
 
+def archive_subject(subject_id_or_key):
+    """Remove a subject from every active class without destroying its historical identity."""
+    with REGISTRY_LOCK:
+        data = read_subject_registry(); key = _find_subject_key(data, subject_id_or_key)
+        if not key: raise ValueError("Subject not found.")
+        subject = data["subjects"][key]; subject["active"] = False; subject["updated_at"] = utc_now()
+        removed_from = []
+        for level, rows in data.get("assignments", {}).items():
+            for row in rows:
+                if row.get("subject_key") == key and row.get("active", True): row["active"] = False; removed_from.append(level)
+        _record_history(data, "archive_subject", f"Archived {subject.get('name')} ({key}) and removed it from {len(set(removed_from))} active class assignment(s).")
+        write_subject_registry(data)
+        return {**subject, "archived": True, "removed_from": sorted(set(removed_from))}
+
+
 def add_registered_subject(class_level, name, source="admin"):
     level = normalize_school_class(class_level)
     if not level: raise ValueError("A valid configured class is required.")
@@ -368,7 +432,9 @@ def add_registered_subject(class_level, name, source="admin"):
 
 
 def set_registered_subject_active(class_level, subject, active=True):
-    level = normalize_school_class(class_level); key = resolve_subject_key(subject, seed_if_missing=True); data = read_subject_registry(); row = next((item for item in data.get("assignments", {}).get(level, []) if item.get("subject_key") == key), None)
+    level = normalize_school_class(class_level); key = resolve_subject_key(subject, seed_if_missing=True); data = read_subject_registry()
+    if islamiyah_base_level(level) != level and not data["assignments"].get(level): data["assignments"][level] = deepcopy(data["assignments"].get(islamiyah_base_level(level), []))
+    row = next((item for item in data.get("assignments", {}).get(level, []) if item.get("subject_key") == key), None)
     if not row: return False
     row["active"] = bool(active); _record_history(data, "set_assignment_status", f"Set {key} in {level} active={bool(active)}."); write_subject_registry(data); return True
 
@@ -379,7 +445,7 @@ def build_subject_sync_payload(subject_id_or_key):
     if not key: raise ValueError("Subject not found.")
     subject = dict(data["subjects"][key]); assignments = []
     for level in ALL_CONFIGURED_CLASSES:
-        row = next((item for item in data.get("assignments", {}).get(level, []) if item.get("subject_key") == key and item.get("active", True)), None)
+        row = next((item for item in (data.get("assignments", {}).get(level) or data.get("assignments", {}).get(islamiyah_base_level(level), [])) if item.get("subject_key") == key and item.get("active", True)), None)
         if not row: continue
         assignments.append({"class_level": level, "tracks": _normalize_tracks(row.get("tracks"), level), "display_name": clean(row.get("display_name")) or subject.get("name"), "source": clean(row.get("source")) or subject.get("source") or "admin"})
     return {"registry_version": REGISTRY_VERSION, "subject": subject, "assignments": assignments}
@@ -429,7 +495,7 @@ def apply_subject_registry_sync_event(action, payload, event=None):
 def get_registry_stats():
     data = read_subject_registry(); subjects = list(data.get("subjects", {}).values()); active_subjects = sum(1 for row in subjects if row.get("active", True)); active_assignments = 0; configured_classes = 0
     for level in ALL_CONFIGURED_CLASSES:
-        count = sum(1 for row in data.get("assignments", {}).get(level, []) if row.get("active", True) and data.get("subjects", {}).get(row.get("subject_key"), {}).get("active", True))
+        count = sum(1 for row in (data.get("assignments", {}).get(level) or data.get("assignments", {}).get(islamiyah_base_level(level), [])) if row.get("active", True) and data.get("subjects", {}).get(row.get("subject_key"), {}).get("active", True))
         active_assignments += count
         if count: configured_classes += 1
     return {"total_subjects": len(subjects), "active_subjects": active_subjects, "inactive_subjects": len(subjects) - active_subjects, "active_assignments": active_assignments, "configured_classes": configured_classes, "school_sections": len(SCHOOL_SECTIONS), "registry_version": int(data.get("version") or REGISTRY_VERSION), "updated_at": data.get("updated_at")}

@@ -92,7 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function normalizeUpper(value) { return String(value ?? "").trim().toUpperCase(); }
   function formatClassLabel(value) { return String(value || "").replaceAll("_", " ").replace(/\s+/g, " ").trim().toUpperCase(); }
   function formatSubject(value) { return String(value || "").replaceAll("_", " ").replace(/\s+/g, " ").trim().toUpperCase(); }
+  function isPrimaryClass(value) { return normalizeUpper(value).startsWith("PRIMARY"); }
   function isJssClass(value) { return normalizeUpper(value).startsWith("JSS"); }
+  function isTermRequiredClass(value) { return isPrimaryClass(value) || isJssClass(value); }
   function isSsClass(value) { return normalizeUpper(value).startsWith("SS"); }
 
   function parseNumber(value, fallback = 0) {
@@ -587,8 +589,8 @@ document.addEventListener("DOMContentLoaded", () => {
     els.termSelector.disabled = false;
 
     if (els.termRequirementBadge) {
-      if (cls === "all") { els.termRequirementBadge.textContent = "JSS + SS"; els.termRequirementBadge.title = "Both JSS and SS examination results support term filtering."; }
-      else if (isJssClass(cls)) { els.termRequirementBadge.textContent = "Required"; els.termRequirementBadge.title = "JSS results require FIRST, SECOND or THIRD term."; }
+      if (cls === "all") { els.termRequirementBadge.textContent = "Primary + JSS + SS"; els.termRequirementBadge.title = "Primary, JSS and SS examination results support term filtering."; }
+      else if (isTermRequiredClass(cls)) { els.termRequirementBadge.textContent = "Required"; els.termRequirementBadge.title = "Primary and JSS results require FIRST, SECOND or THIRD term."; }
       else if (isSsClass(cls)) { els.termRequirementBadge.textContent = "SS • Hybrid"; els.termRequirementBadge.title = "SS supports FIRST, SECOND and THIRD term while older root results remain General / Legacy."; }
       else { els.termRequirementBadge.textContent = "Term"; els.termRequirementBadge.title = "Filter examination results by academic term."; }
     }
@@ -629,7 +631,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const year = selectedYear();
     const cls = selectedClass();
 
-    if (year === "all" || cls === "all" || (!isJssClass(cls) && !isSsClass(cls))) { populateTermOptions(DEFAULT_TERMS); return; }
+    if (year === "all" || cls === "all" || (!isTermRequiredClass(cls) && !isSsClass(cls))) { populateTermOptions(DEFAULT_TERMS); return; }
 
     try {
       const data = await fetchJson(`/api/results/terms?year=${encodeURIComponent(year)}&class=${encodeURIComponent(cls)}`);
@@ -1686,7 +1688,7 @@ function validateEssayContext() {
   if (!year || year === "all") return { ok: false, message: "Select an examination year or select a result row before entering essay scores." };
   if (!classLevel || classLevel === "all") return { ok: false, message: "Select a class or select a result row before entering essay scores." };
   if (!subject || subject === "all") return { ok: false, message: "Select a result row or choose one subject before entering essay scores." };
-  if (isJssClass(classLevel) && !term) return { ok: false, message: `Select one term for ${classLevel} before entering essay scores.` };
+  if (isTermRequiredClass(classLevel) && !term) return { ok: false, message: `Select one term for ${classLevel} before entering essay scores.` };
 
   return { ok: true, year, classLevel, term: normalizeTerm(term), subject, arm };
 }

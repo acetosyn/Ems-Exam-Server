@@ -97,7 +97,7 @@
     const container = $("taTeacherList"); if (!container) return;
     const query = clean($("taTeacherSearch")?.value).toLowerCase(); const filter = $("taTeacherStatusFilter")?.value || "all";
     const filtered = state.teachers.filter(teacher => {
-      const haystack = `${teacher.teacher_id || ""} ${teacher.full_name || ""}`.toLowerCase(); if (query && !haystack.includes(query)) return false;
+      const haystack = `${teacher.teacher_id || ""} ${teacher.full_name || ""} ${teacher.staff_role || ""}`.toLowerCase(); if (query && !haystack.includes(query)) return false;
       const status = clean(teacher.status || "active").toLowerCase(); const assigned = Number(teacher.assignment_count || 0) > 0;
       if (filter === "active" && status !== "active") return false; if (filter === "inactive" && status !== "inactive") return false;
       if (filter === "assigned" && !assigned) return false; if (filter === "unassigned" && assigned) return false; return true;
@@ -106,10 +106,10 @@
     if (!filtered.length) { container.innerHTML = '<div class="teacher-empty-state"><i class="fa-solid fa-user-slash"></i><p>No teachers match this filter.</p></div>'; return; }
 
     container.innerHTML = filtered.map(teacher => {
-      const active = teacher.teacher_id === state.selectedTeacherId; const status = clean(teacher.status || "active").toLowerCase(); const name = clean(teacher.full_name) || "Name not added";
+      const active = teacher.teacher_id === state.selectedTeacherId; const status = clean(teacher.status || "active").toLowerCase(); const name = clean(teacher.full_name) || "Name not added"; const staffRole = clean(teacher.staff_role || (String(teacher.teacher_id || "").toUpperCase().startsWith("IMS") ? "islamiyyah_teacher" : "teacher")).toLowerCase(); const roleLabel = staffRole === "islamiyyah_teacher" ? "Islamiyyah" : "Teacher";
       return `<button type="button" class="teacher-directory-item ${active ? "selected" : ""}" data-teacher-id="${escapeHTML(teacher.teacher_id)}">
-        <span class="teacher-avatar small">${escapeHTML(teacherInitial(teacher))}</span>
-        <span class="teacher-directory-copy"><strong>${escapeHTML(name)}</strong><small>${escapeHTML(teacher.teacher_id)} · ${Number(teacher.assignment_count || 0)} assignment${Number(teacher.assignment_count || 0) === 1 ? "" : "s"}</small></span>
+        <span class="teacher-avatar small ${staffRole === "islamiyyah_teacher" ? "islamiyyah" : "teacher"}">${escapeHTML(teacherInitial(teacher))}</span>
+        <span class="teacher-directory-copy"><strong>${escapeHTML(name)}</strong><small>${escapeHTML(teacher.teacher_id)} · ${Number(teacher.assignment_count || 0)} assignment${Number(teacher.assignment_count || 0) === 1 ? "" : "s"}</small><em class="teacher-role-chip ${staffRole === "islamiyyah_teacher" ? "islamiyyah" : "teacher"}">${escapeHTML(roleLabel)}</em></span>
         <span class="teacher-mini-status ${status}">${escapeHTML(status)}</span>
       </button>`;
     }).join("");
@@ -118,8 +118,9 @@
   }
 
   function populateSectionSelect() {
-    const select = $("taSectionSelect"); if (!select) return;
-    select.innerHTML = '<option value="">Select section</option>' + (state.config?.sections || []).map(section => `<option value="${escapeHTML(section.key)}">${escapeHTML(section.label)}</option>`).join("");
+    const select = $("taSectionSelect"); if (!select) return; const selected = state.teachers.find(item => item.teacher_id === state.selectedTeacherId); const staffRole = clean(selected?.staff_role || "teacher").toLowerCase();
+    const sections = (state.config?.sections || []).filter(section => staffRole === "islamiyyah_teacher" ? ["TAHFEEZ","ISLAMIYAH"].includes(section.key) : !["TAHFEEZ","ISLAMIYAH"].includes(section.key));
+    select.innerHTML = '<option value="">Select section</option>' + sections.map(section => `<option value="${escapeHTML(section.key)}">${escapeHTML(section.label)}</option>`).join(""); select.value = ""; populateClassSelect();
   }
 
   function populateClassSelect() {
@@ -177,8 +178,8 @@
   }
 
   function renderSelectedTeacher(teacher) {
-    $("taEmptyEditor")?.classList.add("hidden"); $("taEditor")?.classList.remove("hidden"); const name = clean(teacher.full_name) || teacher.teacher_id; const status = clean(teacher.status || "active").toLowerCase();
-    if ($("taTeacherAvatar")) $("taTeacherAvatar").textContent = teacherInitial(teacher); if ($("taTeacherTitle")) $("taTeacherTitle").textContent = name; if ($("taTeacherIdText")) $("taTeacherIdText").textContent = teacher.teacher_id;
+    $("taEmptyEditor")?.classList.add("hidden"); $("taEditor")?.classList.remove("hidden"); const name = clean(teacher.full_name) || teacher.teacher_id; const status = clean(teacher.status || "active").toLowerCase(); const staffRole = clean(teacher.staff_role || (String(teacher.teacher_id || "").toUpperCase().startsWith("IMS") ? "islamiyyah_teacher" : "teacher")).toLowerCase();
+    if ($("taTeacherAvatar")) { $("taTeacherAvatar").textContent = teacherInitial(teacher); $("taTeacherAvatar").classList.toggle("islamiyyah", staffRole === "islamiyyah_teacher"); } if ($("taTeacherTitle")) $("taTeacherTitle").textContent = name; if ($("taTeacherIdText")) $("taTeacherIdText").textContent = `${teacher.teacher_id} · ${staffRole === "islamiyyah_teacher" ? "Islamiyyah Teacher" : "Normal Teacher"}`;
     if ($("taFullName")) $("taFullName").value = clean(teacher.full_name); if ($("taTeacherStatus")) $("taTeacherStatus").value = status;
     const pill = $("taTeacherStatusPill"); if (pill) { pill.className = `teacher-status-pill ${status}`; pill.textContent = status.charAt(0).toUpperCase() + status.slice(1); }
   }
@@ -189,7 +190,7 @@
     state.loading = true; state.selectedTeacherId = teacherId; renderTeacherList();
     try {
       const sessionValue = canonicalSession($("taAcademicSession")?.value || state.session); const data = await api(`/api/teacher-assignments/teachers/${encodeURIComponent(teacherId)}?academic_session=${encodeURIComponent(sessionValue)}`);
-      state.session = data.academic_session; if ($("taAcademicSession")) $("taAcademicSession").value = data.academic_session; state.draftAssignments = data.assignments || []; state.savedSignature = draftSignature(state.draftAssignments); renderSelectedTeacher(data.teacher); renderAssignmentList(); setDirty();
+      state.session = data.academic_session; if ($("taAcademicSession")) $("taAcademicSession").value = data.academic_session; state.draftAssignments = data.assignments || []; state.savedSignature = draftSignature(state.draftAssignments); renderSelectedTeacher(data.teacher); populateSectionSelect(); renderAssignmentList(); setDirty();
     } catch (error) { notify(error.message, "error"); }
     finally { state.loading = false; setDirty(); }
   }

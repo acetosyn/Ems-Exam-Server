@@ -8,8 +8,10 @@ from pathlib import Path
 
 from flask import Blueprint, request, session, redirect, url_for, jsonify, render_template, flash
 
-from engine import generate_teacher_ids, get_all_teachers, validate_teacher_login, delete_teacher_from_db
-from modules.class_config import SUPPORTED_CLASSES, CLASS_ARMS_BY_LEVEL
+from modules.staff_identity_manager import delete_staff_account, generate_staff_ids, get_staff_account, list_staff_accounts, list_staff_identity_audit, set_staff_status, staff_identity_stats, validate_staff_login
+from modules.school_structure import class_label, hybrid_class_label, basic_class_reference
+from modules.class_config import SUPPORTED_CLASSES, STUDENT_DATABASE_CLASSES, TAHFEEZ_CLASSES, ISLAMIYAH_CLASSES, CLASS_ARMS_BY_LEVEL
+from modules.system_readiness import build_system_readiness
 
 import user_exam
 
@@ -22,6 +24,9 @@ LOGS_DIR.mkdir(exist_ok=True)
 
 CLASSES = list(SUPPORTED_CLASSES)
 CLASS_ARMS = CLASS_ARMS_BY_LEVEL
+OPERATIONAL_CLASSES = list(STUDENT_DATABASE_CLASSES) + list(TAHFEEZ_CLASSES) + list(ISLAMIYAH_CLASSES)
+OPERATIONAL_CLASS_ARMS = {**CLASS_ARMS_BY_LEVEL, **{level: [level] for level in (list(TAHFEEZ_CLASSES) + list(ISLAMIYAH_CLASSES))}}
+OPERATIONAL_CLASS_LABELS = {level: class_label(level) for level in OPERATIONAL_CLASSES}
 
 
 # ==========================================================
@@ -41,8 +46,9 @@ def start_staff_session(user_type, username, teacher_id=None):
     session["user_type"] = role
     session["username"] = str(username or "").strip()
 
+    session["staff_role"] = role
     if role == "admin": session["admin_username"] = username
-    if role == "teacher" and teacher_id: session["teacher_id"] = teacher_id
+    if role in {"teacher", "islamiyyah_teacher"} and teacher_id: session["teacher_id"] = teacher_id
 
     session[STAFF_SESSION_ACTIVITY_KEY] = time.time()
     session.modified = True
@@ -51,8 +57,14 @@ def start_staff_session(user_type, username, teacher_id=None):
 def refresh_staff_session():
     role = str(session.get("user_type") or "").strip().lower()
 
-    if role not in {"admin", "teacher"}:
+    if role not in {"admin", "teacher", "islamiyyah_teacher"}:
         return False
+
+    # Staff-account status is revalidated on every protected request so disabling/deleting an EMT/IMS ID revokes the active session immediately.
+    if role in {"teacher", "islamiyyah_teacher"}:
+        staff_id = str(session.get("teacher_id") or session.get("username") or "").strip(); account = get_staff_account(staff_id)
+        if not account or account.get("status") != "active" or account.get("staff_role") != role:
+            session.clear(); return False
 
     now = time.time()
     last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
@@ -88,8 +100,9 @@ def admin_only(view_func):
         role = str(session.get("user_type") or "").strip().lower()
 
         if role != "admin":
-            flash("Access Restricted — Admin privileges required.", "error")
-            return redirect(url_for("admin_bp.admin_login"))
+            if str(request.path or "").startswith("/api/"): return jsonify({"success": False, "error": "Administrator privileges are required."}), 403
+            flash("Access Restricted — Administrator privileges are required.", "error")
+            return redirect(url_for("admin_bp.admin_dashboard") if role in {"teacher", "islamiyyah_teacher"} else url_for("admin_bp.admin_login"))
 
         if not refresh_staff_session():
             flash("Your Admin session expired after 2 hours of inactivity. Please log in again.", "warning")
@@ -100,22 +113,44 @@ def admin_only(view_func):
     return wrapper
 
 
-def teacher_allowed(view_func):
-    """Allow both Admin and Teacher users while maintaining the 2-hour inactive session timeout."""
+def staff_allowed(view_func):
+    """Allow every authenticated EMIS staff role: Admin, normal Teacher and Islamiyyah Teacher."""
 
     @wraps(view_func)
     def wrapper(*args, **kwargs):
         role = str(session.get("user_type") or "").strip().lower()
-
-        if role not in {"admin", "teacher"}:
-            return redirect(url_for("admin_bp.admin_login"))
-
+        if role not in {"admin", "teacher", "islamiyyah_teacher"}: return redirect(url_for("admin_bp.admin_login"))
         if not refresh_staff_session():
-            flash("Your session expired after 2 hours of inactivity. Please log in again.", "warning")
-            return redirect(url_for("admin_bp.admin_login"))
-
+            flash("Your session expired after 2 hours of inactivity. Please log in again.", "warning"); return redirect(url_for("admin_bp.admin_login"))
         return view_func(*args, **kwargs)
+    return wrapper
 
+
+def teacher_allowed(view_func):
+    """Allow Admin + normal Teacher. Islamiyyah Teacher accounts are intentionally excluded."""
+
+    @wraps(view_func)
+    def wrapper(*args, **kwargs):
+        role = str(session.get("user_type") or "").strip().lower()
+        if role not in {"admin", "teacher"}:
+            flash("Access Restricted — this module is not available to your staff role.", "error"); return redirect(url_for("admin_bp.admin_dashboard") if role == "islamiyyah_teacher" else url_for("admin_bp.admin_login"))
+        if not refresh_staff_session():
+            flash("Your session expired after 2 hours of inactivity. Please log in again.", "warning"); return redirect(url_for("admin_bp.admin_login"))
+        return view_func(*args, **kwargs)
+    return wrapper
+
+
+def islamiyyah_allowed(view_func):
+    """Allow only Admin + Islamiyyah Teacher accounts."""
+
+    @wraps(view_func)
+    def wrapper(*args, **kwargs):
+        role = str(session.get("user_type") or "").strip().lower()
+        if role not in {"admin", "islamiyyah_teacher"}:
+            flash("Access Restricted — Tahfeez & Islamiyyah is reserved for Admin and Islamiyyah staff.", "error"); return redirect(url_for("admin_bp.admin_dashboard") if role == "teacher" else url_for("admin_bp.admin_login"))
+        if not refresh_staff_session():
+            flash("Your session expired after 2 hours of inactivity. Please log in again.", "warning"); return redirect(url_for("admin_bp.admin_login"))
+        return view_func(*args, **kwargs)
     return wrapper
 
 
@@ -136,9 +171,11 @@ def admin_login():
             start_staff_session("admin", username)
             return redirect(url_for("admin_bp.admin_dashboard"))
 
-        if validate_teacher_login(username, password):
-            start_staff_session("teacher", username, teacher_id=username)
-            return redirect(url_for("admin_bp.admin_teachers"))
+        staff_account = validate_staff_login(username, password)
+        if staff_account:
+            role = staff_account.get("staff_role") or "teacher"; staff_id = staff_account.get("staff_id") or username
+            start_staff_session(role, staff_id, teacher_id=staff_id)
+            return redirect(url_for("admin_bp.admin_dashboard"))
 
         return render_template("admin_login.html", error="Invalid Username or Password")
 
@@ -152,38 +189,45 @@ def admin_login():
 @admin_bp.route("/generate_teacher_ids", methods=["GET", "POST"])
 @admin_only
 def generate_teacher_ids_api():
+    """Legacy EMT endpoint kept for old UI clients; all new work uses /api/staff-ids."""
     try:
         if request.method == "POST":
-            num = int(request.form.get("count", 1))
-
-            if num < 1 or num > 100:
-                return jsonify({"error": "Invalid count"}), 400
-
-            generated = generate_teacher_ids(count=num)
-            all_teachers = get_all_teachers()
-
-            return jsonify({
-                "message": f"{len(generated)} Teacher IDs generated successfully.",
-                "generated": generated,
-                "teachers": all_teachers
-            })
-
-        return jsonify({"teachers": get_all_teachers()})
-
+            generated = generate_staff_ids("teacher", request.form.get("count", 1), created_by=session.get("username") or "EMIS Admin")
+            return jsonify({"message": f"{len(generated)} Teacher IDs generated successfully.", "generated": generated, "teachers": list_staff_accounts("teacher", include_password=True)})
+        return jsonify({"teachers": list_staff_accounts("teacher", include_password=True)})
+    except ValueError as error: return jsonify({"error": str(error)}), 400
     except Exception as error:
-        print("Error generating IDs:", error)
-        return jsonify({"error": str(error)}), 500
+        print("Error generating Teacher IDs:", error); return jsonify({"error": str(error)}), 500
+
+
+@admin_bp.route("/api/staff-ids", methods=["GET", "POST"])
+@admin_only
+def staff_ids_api():
+    try:
+        if request.method == "POST":
+            payload = request.get_json(silent=True) or request.form; role = payload.get("staff_role") or payload.get("role") or "teacher"; generated = generate_staff_ids(role, payload.get("count", 1), created_by=session.get("username") or "EMIS Admin")
+            return jsonify({"success": True, "message": f"{len(generated)} staff credential(s) generated.", "generated": generated, "accounts": list_staff_accounts(include_password=True), "stats": staff_identity_stats()})
+        return jsonify({"success": True, "accounts": list_staff_accounts(request.args.get("role", ""), include_password=True), "stats": staff_identity_stats(), "audit": list_staff_identity_audit(60)})
+    except ValueError as error: return jsonify({"success": False, "error": str(error)}), 400
+    except Exception as error:
+        print("[STAFF IDS] Request failed:", error); return jsonify({"success": False, "error": "Unable to load staff credentials."}), 500
+
+
+@admin_bp.route("/api/staff-ids/<int:row_id>", methods=["PATCH", "DELETE"])
+@admin_only
+def staff_id_record_api(row_id):
+    try:
+        if request.method == "DELETE": return jsonify({"success": delete_staff_account(row_id, changed_by=session.get("username") or "EMIS Admin"), "stats": staff_identity_stats()})
+        payload = request.get_json(silent=True) or {}; account = set_staff_status(row_id, payload.get("status"), changed_by=session.get("username") or "EMIS Admin"); return jsonify({"success": True, "account": account, "stats": staff_identity_stats()})
+    except ValueError as error: return jsonify({"success": False, "error": str(error)}), 400
+    except Exception as error: return jsonify({"success": False, "error": str(error)}), 500
 
 
 @admin_bp.route("/delete_teacher_id/<int:teacher_id>", methods=["DELETE"])
 @admin_only
 def delete_teacher_id(teacher_id):
-    try:
-        success = delete_teacher_from_db(teacher_id)
-        return jsonify({"success": success})
-
-    except Exception as error:
-        return jsonify({"success": False, "error": str(error)}), 500
+    try: return jsonify({"success": delete_staff_account(teacher_id, changed_by=session.get("username") or "EMIS Admin")})
+    except Exception as error: return jsonify({"success": False, "error": str(error)}), 500
 
 
 # ==========================================================
@@ -192,15 +236,22 @@ def delete_teacher_id(teacher_id):
 
 @admin_bp.route("/admin")
 @admin_bp.route("/admin/dashboard")
-@admin_only
+@staff_allowed
 def admin_dashboard():
-    return render_template("dashboard.html", user_type="admin")
+    return render_template("dashboard.html", user_type=session.get("user_type"))
 
 
 @admin_bp.route("/admin/teachers")
 @teacher_allowed
 def admin_teachers():
-    return render_template("teachers.html", user_type=session.get("user_type"))
+    user_type = session.get("user_type")
+    legacy_tool = request.args.get("open", "").strip().lower()
+    if user_type == "admin" and legacy_tool in {"uploads", "convert"}: return render_template("teachers.html", user_type="admin")
+    if user_type == "admin":
+        initial_view = request.args.get("view", "teachers").strip().lower()
+        if initial_view not in {"teachers", "subjects", "ids"}: initial_view = "teachers"
+        return render_template("academic_admin.html", user_type="admin", initial_view=initial_view)
+    return render_template("teachers.html", user_type=user_type)
 
 
 @admin_bp.route("/admin/convert")
@@ -222,28 +273,26 @@ def admin_students():
 @admin_bp.route("/admin/attendance")
 @teacher_allowed
 def admin_attendance():
-    return render_template("attendance.html", user_type=session.get("user_type"), classes=CLASSES, class_arms=CLASS_ARMS)
+    return render_template("attendance.html", user_type=session.get("user_type"), classes=OPERATIONAL_CLASSES, class_arms=OPERATIONAL_CLASS_ARMS, class_labels=OPERATIONAL_CLASS_LABELS)
 
 
 @admin_bp.route("/admin/ca-tests")
 @teacher_allowed
 def admin_ca_tests():
-    return render_template("ca_test.html", user_type=session.get("user_type"), classes=CLASSES, class_arms=CLASS_ARMS)
+    return render_template("ca_test.html", user_type=session.get("user_type"), classes=OPERATIONAL_CLASSES, class_arms=OPERATIONAL_CLASS_ARMS, class_labels=OPERATIONAL_CLASS_LABELS)
 
 
 @admin_bp.route("/admin/islamiyah")
-@teacher_allowed
+@islamiyyah_allowed
 def admin_islamiyah():
     return render_template("islamiyah.html", user_type=session.get("user_type"))
 
 
-# Report Sheet generation is intentionally ADMIN ONLY.
-# Teachers can enter Attendance and CA/Test data, but cannot open
-# the Report Sheet generator from a direct URL.
+ # Report Sheets are available to Admin and normal Teacher accounts. Islamiyyah staff are excluded by role policy.
 @admin_bp.route("/admin/report-sheets")
-@admin_only
+@teacher_allowed
 def admin_report_sheets():
-    return render_template("report_sheets.html", user_type="admin", classes=CLASSES, class_arms=CLASS_ARMS)
+    return render_template("report_sheets.html", user_type=session.get("user_type"), classes=OPERATIONAL_CLASSES, class_arms=OPERATIONAL_CLASS_ARMS, class_labels=OPERATIONAL_CLASS_LABELS)
 
 
 @admin_bp.route("/admin/academic-history")
@@ -255,13 +304,16 @@ def admin_academic_history():
 @admin_bp.route("/admin/cumulative-results")
 @admin_only
 def admin_cumulative_results():
-    return render_template("cumulative_results.html", user_type="admin")
+    # The standalone cumulative page has been retired. Annual / three-term compilation now lives inside Report Sheets.
+    return redirect(url_for("admin_bp.admin_report_sheets", view="cumulative", _anchor="reportCumulativeHub"))
 
 
 @admin_bp.route("/admin/broadsheets")
 @admin_only
 def admin_broadsheets():
-    return render_template("broadsheets.html", user_type="admin")
+    # Retired standalone page: class matrices now live inside Academic History.
+    args = request.args.to_dict(flat=True); args["view"] = "broadsheets"
+    return redirect(url_for("admin_bp.admin_academic_history", **args))
 
 
 # ==========================================================
@@ -293,31 +345,37 @@ def admin_third_party():
 @admin_bp.route("/admin/ids")
 @admin_only
 def admin_ids():
-    return render_template("ids.html", user_type="admin")
+    return redirect(url_for("admin_bp.admin_teachers", view="ids"))
 
 
 @admin_bp.route("/admin/promotion")
-@admin_only
+@staff_allowed
 def admin_promotion():
-    return render_template("promotion.html", user_type="admin", classes=CLASSES, class_arms=CLASS_ARMS)
+    return render_template("promotion.html", user_type=session.get("user_type"), classes=list(STUDENT_DATABASE_CLASSES), class_arms=CLASS_ARMS, class_labels={level: hybrid_class_label(level) for level in STUDENT_DATABASE_CLASSES}, basic_class_map=basic_class_reference())
 
 
 @admin_bp.route("/admin/subjects")
 @admin_only
 def admin_subjects():
-    return render_template("subjects.html", user_type="admin")
+    return redirect(url_for("admin_bp.admin_teachers", view="subjects"))
 
 
 @admin_bp.route("/admin/settings")
-@admin_only
+@teacher_allowed
 def admin_settings():
-    return render_template("settings.html", user_type="admin")
+    return render_template("settings.html", user_type=session.get("user_type"))
+
+
+@admin_bp.route("/api/system-readiness")
+@staff_allowed
+def api_system_readiness():
+    return jsonify(build_system_readiness())
 
 
 @admin_bp.route("/admin/support")
-@admin_only
+@teacher_allowed
 def admin_support():
-    return render_template("support.html", user_type="admin")
+    return render_template("support.html", user_type=session.get("user_type"))
 
 
 @admin_bp.route("/admin/dash_results")

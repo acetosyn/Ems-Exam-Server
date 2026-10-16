@@ -1,0 +1,10 @@
+/* =====================================================================
+   EMIS REPORT SHEETS — REMOVE REDUNDANT SOURCES SIDEBAR
+   Source completeness remains available in the compact readiness rail.
+   ===================================================================== */
+#reportPage.report-page.report-attendance-style .report-data-board,
+#reportPage.report-page.report-attendance-style .report-data-board-v2{grid-template-columns:minmax(0,1fr)!important;gap:0!important;margin-bottom:9px!important}
+#reportPage.report-page.report-attendance-style .report-students-panel{grid-column:1/-1!important;width:100%!important;max-width:none!important;min-width:0!important}
+#reportPage.report-page.report-attendance-style .report-source-panel{display:none!important}
+#reportPage.report-page.report-attendance-style .report-data-head{gap:8px}
+@media(max-width:760px){#reportPage.report-page.report-attendance-style .report-data-board,#reportPage.report-page.report-attendance-style .report-data-board-v2{grid-template-columns:minmax(0,1fr)!important;margin-bottom:7px!important}#reportPage.report-page.report-attendance-style .report-students-panel{border-radius:12px!important}#reportPage.report-page.report-attendance-style .report-table-summary-strip{grid-template-columns:repeat(5,minmax(100px,1fr))!important;overflow-x:auto!important;scrollbar-width:none!important}#reportPage.report-page.report-attendance-style .report-table-summary-strip::-webkit-scrollbar{display:none}#reportPage.report-page.report-attendance-style .report-table-filter-strip{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;scrollbar-width:none!important}#reportPage.report-page.report-attendance-style .report-table-filter-strip::-webkit-scrollbar{display:none}}

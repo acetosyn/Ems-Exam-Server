@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}EMIS — Promotion Manager{% endblock %}
+{% block title %}EMIS — Students & Classes{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=14-graduate-clear">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=20-visual-refresh">
 {% endblock %}
 
 {% block content %}
@@ -20,11 +20,11 @@
 
       <div class="promotion-header-copy">
         <div class="promotion-header-title-row">
-          <h1>Promotion Manager</h1>
+          <h1>Students & Classes</h1>
           <span class="promotion-live-badge"><span class="live-dot"></span> Live Database</span>
         </div>
 
-        <p>Manage student records, class progression, repetition and graduation.</p>
+        <p>Manage every active regular-school student class and school progression from one database workspace. Tahfeez and Islamiyyah are managed in their dedicated Academy page.</p>
       </div>
     </div>
 
@@ -54,48 +54,34 @@
 
 
   <!-- =========================================================
-       CLASS OVERVIEW
+       CLASS SNAPSHOT — ONE DYNAMIC CARD, NOT 17 STATIC CARDS
   ========================================================== -->
-  <section class="promotion-overview" id="summaryGrid" aria-label="Student class overview">
-
-    <article class="overview-card class-summary-card active" data-class="JSS1" tabindex="0" role="button">
-      <span class="overview-icon jss"><i class="fa-solid fa-users"></i></span>
-      <div class="overview-content"><span>JSS1 Students</span><strong id="summaryJSS1">0</strong></div>
+  <section class="class-snapshot-shell" id="summaryGrid" aria-label="Student class overview">
+    <article id="classSummarySpotlight" class="class-snapshot-card" data-class="CRECHE" tabindex="0" role="button" aria-label="Open the class shown in this snapshot">
+      <div class="class-snapshot-main"><span id="summarySpotlightIcon" class="class-snapshot-icon early"><i class="fa-solid fa-users"></i></span><div class="class-snapshot-copy"><span class="snapshot-eyebrow">Class Snapshot</span><div class="snapshot-title-row"><strong id="summaryClassName">Creche</strong><span id="summaryClassPosition">1 of 17</span></div><p id="summaryClassMeta">Live student count • select this snapshot to open the class</p></div></div>
+      <div class="class-snapshot-count"><span>Students</span><strong id="summaryClassCount">0</strong></div>
+      <div class="class-snapshot-controls"><button id="summaryPrevClass" type="button" aria-label="Previous class" title="Previous class"><i class="fa-solid fa-chevron-left"></i></button><span class="snapshot-auto"><i class="fa-solid fa-circle-play"></i> Auto</span><button id="summaryNextClass" type="button" aria-label="Next class" title="Next class"><i class="fa-solid fa-chevron-right"></i></button></div>
     </article>
-
-    <article class="overview-card class-summary-card" data-class="JSS2" tabindex="0" role="button">
-      <span class="overview-icon jss"><i class="fa-solid fa-users"></i></span>
-      <div class="overview-content"><span>JSS2 Students</span><strong id="summaryJSS2">0</strong></div>
-    </article>
-
-    <article class="overview-card class-summary-card" data-class="JSS3" tabindex="0" role="button">
-      <span class="overview-icon jss"><i class="fa-solid fa-users"></i></span>
-      <div class="overview-content"><span>JSS3 Students</span><strong id="summaryJSS3">0</strong></div>
-    </article>
-
-    <article class="overview-card class-summary-card" data-class="SS1" tabindex="0" role="button">
-      <span class="overview-icon ss"><i class="fa-solid fa-user-graduate"></i></span>
-      <div class="overview-content"><span>SS1 Students</span><strong id="summarySS1">0</strong></div>
-    </article>
-
-    <article class="overview-card class-summary-card" data-class="SS2" tabindex="0" role="button">
-      <span class="overview-icon ss"><i class="fa-solid fa-user-graduate"></i></span>
-      <div class="overview-content"><span>SS2 Students</span><strong id="summarySS2">0</strong></div>
-    </article>
-
-    <article class="overview-card class-summary-card" data-class="SS3" tabindex="0" role="button">
-      <span class="overview-icon ss"><i class="fa-solid fa-graduation-cap"></i></span>
-      <div class="overview-content"><span>SS3 Students</span><strong id="summarySS3">0</strong></div>
-    </article>
-
   </section>
 
-  <section class="promotion-roadmap-panel" aria-label="Recommended promotion order">
-    <div class="promotion-roadmap-head">
-      <div><span class="section-icon"><i class="fa-solid fa-route"></i></span><div><h2>Smart Promotion Order</h2><p id="promotionRoadmapHint">Loading promotion guidance...</p></div></div>
-      <span class="roadmap-guide-badge"><i class="fa-solid fa-shield-halved"></i> Guidance only — never blocks a valid move</span>
-    </div>
+  <section class="hybrid-class-bar" id="hybridClassBar" aria-label="Hybrid class system">
+    <div class="hybrid-bar-label"><span class="hybrid-bar-icon"><i class="fa-solid fa-layer-group"></i></span><div><strong>Hybrid Class System</strong><small>Selected class naming</small></div></div>
+    <div class="hybrid-current-map"><strong id="hybridCurrentBasic">Creche</strong><i class="fa-solid fa-arrow-right-arrow-left"></i><span id="hybridCurrentTraditional">Early Years</span></div>
+    <span id="hybridClassNote" class="hybrid-bar-note">The mapping updates automatically with the selected class.</span>
+  </section>
+
+  <details class="promotion-roadmap-panel" aria-label="Recommended promotion order">
+    <summary class="promotion-roadmap-head"><div><span class="section-icon"><i class="fa-solid fa-route"></i></span><div><h2>Full School Promotion Path</h2><p id="promotionRoadmapHint">Creche to SS3 progression guidance with live class counts and safe upper-class-first sequencing.</p></div></div><span class="roadmap-expand">View full path <i class="fa-solid fa-chevron-down"></i></span></summary>
     <div id="promotionRoadmap" class="promotion-roadmap"></div>
+  </details>
+
+  <!-- =========================================================
+       CLASS OPERATIONS CONTROL DECK
+  ========================================================== -->
+  <section class="class-operations-deck" aria-label="Selected class operations overview">
+    <article class="class-operation-card transition-card"><div class="operation-card-head"><span><i class="fa-solid fa-arrow-right-arrow-left"></i></span><div><strong>Class Transition</strong><small>Previous • current • next</small></div></div><div class="transition-flow"><div><span>Previous</span><strong id="transitionPrevious">—</strong></div><i class="fa-solid fa-chevron-right"></i><div class="current"><span>Current</span><strong id="transitionCurrent">Creche</strong></div><i class="fa-solid fa-chevron-right"></i><div><span>Next</span><strong id="transitionNext">Starter</strong></div></div><p id="transitionNote">Universal promotion is enabled for every regular-school class.</p></article>
+    <article class="class-operation-card health-card"><div class="operation-card-head"><span><i class="fa-solid fa-heart-pulse"></i></span><div><strong>Class Health</strong><small>Live roster quality</small></div></div><div class="operation-metrics"><div><span>Students</span><strong id="classHealthTotal">0</strong></div><div><span>Arms</span><strong id="classHealthArms">0</strong></div><div><span>Male / Female</span><strong id="classHealthSex">0 / 0</strong></div><div><span>Needs Review</span><strong id="classHealthReview">0</strong></div></div><p id="classHealthNote">Class roster health updates with the selected class.</p></article>
+    <article class="class-operation-card destination-card"><div class="operation-card-head"><span><i class="fa-solid fa-location-arrow"></i></span><div><strong>Destination Readiness</strong><small>Before you promote</small></div></div><div class="destination-readiness"><div><span>Destination</span><strong id="destinationReadinessClass">Starter</strong></div><div><span>Current Occupancy</span><strong id="destinationReadinessCount">0 students</strong></div></div><p id="destinationReadinessNote">EMIS preserves compatible arms and balances unmatched transitions automatically.</p></article>
   </section>
 
 
@@ -115,14 +101,7 @@
         </div>
       </div>
 
-      <div class="class-pills" id="classPills" aria-label="Quick class selection">
-        <button class="class-pill jss active" data-class="JSS1" type="button">JSS1</button>
-        <button class="class-pill jss" data-class="JSS2" type="button">JSS2</button>
-        <button class="class-pill jss" data-class="JSS3" type="button">JSS3</button>
-        <button class="class-pill ss" data-class="SS1" type="button">SS1</button>
-        <button class="class-pill ss" data-class="SS2" type="button">SS2</button>
-        <button class="class-pill ss" data-class="SS3" type="button">SS3</button>
-      </div>
+      <div class="database-selection-status" aria-live="polite"><span>Active Class</span><div class="database-status-line"><strong id="databaseActiveClass">Creche</strong><em id="databaseActiveCount">0 students</em></div></div>
 
     </div>
 
@@ -130,18 +109,11 @@
     <!-- FILTER CONTROLS -->
     <div class="promotion-filter-grid">
 
-      <div class="filter-field">
+      <div class="filter-field primary-class-field">
         <label for="classSelector"><i class="fa-solid fa-graduation-cap"></i> Class</label>
 
         <div class="filter-control-wrap">
-          <select id="classSelector" class="filter-control">
-            <option value="JSS1" selected>JSS1</option>
-            <option value="JSS2">JSS2</option>
-            <option value="JSS3">JSS3</option>
-            <option value="SS1">SS1</option>
-            <option value="SS2">SS2</option>
-            <option value="SS3">SS3</option>
-          </select>
+          <select id="classSelector" class="filter-control">{% for level in classes %}<option value="{{ level }}" {% if loop.first %}selected{% endif %}>{{ class_labels.get(level, level) }}</option>{% endfor %}</select>
 
           <i class="fa-solid fa-chevron-down select-arrow"></i>
         </div>
@@ -197,7 +169,7 @@
     <!-- ACTIVE FILTERS -->
     <div class="active-filter-bar">
       <div id="activeFilterChips" class="active-filter-chips">
-        <span class="filter-chip">JSS1</span>
+        <span class="filter-chip">Starter</span>
         <span class="filter-chip">All Arms</span>
       </div>
 
@@ -219,11 +191,11 @@
 
         <div>
           <div class="table-heading-line">
-            <h2 id="studentTableTitle">JSS1 Students</h2>
+            <h2 id="studentTableTitle">Starter Students</h2>
             <span class="table-live-badge"><span></span> Live Data</span>
           </div>
 
-          <p id="tableSubtitle">Loading JSS1 student records...</p>
+          <p id="tableSubtitle">Loading Starter student records...</p>
         </div>
       </div>
 
@@ -264,7 +236,7 @@
             <label><input type="checkbox" data-column="admission" checked> Admission</label>
             <label><input type="checkbox" data-column="sex" checked> Sex</label>
             <label><input type="checkbox" data-column="class" checked> Class</label>
-            <label><input type="checkbox" data-column="category" checked> Category</label>
+            <label><input type="checkbox" data-column="category" checked> Class System</label>
             <label><input type="checkbox" data-column="phone" checked> Phone</label>
 
           </div>
@@ -386,7 +358,7 @@
             </th>
 
             <th class="sortable" data-sort="category" data-column-name="category">
-              <button type="button"><span>Category</span><i class="fa-solid fa-sort"></i></button>
+              <button type="button"><span>Class System</span><i class="fa-solid fa-sort"></i></button>
             </th>
 
             <th data-column-name="phone">Phone</th>
@@ -453,17 +425,18 @@
 
 
     <div class="promotion-activity-content">
-
-      <div id="logsList" class="promotion-log-list">
-
-        <div class="activity-empty">
-          <span class="empty-activity-icon"><i class="fa-solid fa-spinner fa-spin"></i></span>
-          <strong>Loading activity</strong>
-          <span>Recent student database actions will appear here.</span>
-        </div>
-
+      <div class="activity-stat-grid">
+        <article><span>All Actions</span><strong id="activityStatTotal">0</strong></article><article class="promote"><span>Promotions</span><strong id="activityStatPromote">0</strong></article><article class="demote"><span>Demotions</span><strong id="activityStatDemote">0</strong></article><article class="repeat"><span>Repetitions</span><strong id="activityStatRepeat">0</strong></article><article class="delete"><span>Deletions</span><strong id="activityStatDelete">0</strong></article><article class="graduate"><span>Graduations</span><strong id="activityStatGraduate">0</strong></article>
       </div>
-
+      <div class="activity-toolbar">
+        <label class="activity-search"><i class="fa-solid fa-magnifying-glass"></i><input id="activitySearch" type="search" placeholder="Search action, admission, admin or note..."></label>
+        <select id="activityActionFilter"><option value="ALL">All Actions</option><option value="PROMOTE">Promotions</option><option value="DEMOTE">Demotions</option><option value="REPEAT">Repetitions</option><option value="ADD">Additions</option><option value="EDIT">Edits</option><option value="DELETE">Deletions</option><option value="GRADUATE">Graduations</option><option value="BACKUP">Backups</option></select>
+        <select id="activityClassFilter"><option value="ALL">All Classes</option>{% for level in classes %}<option value="{{ level }}">{{ class_labels.get(level, level) }}</option>{% endfor %}</select>
+        <button id="activityRefreshBtn" class="pm-btn pm-btn-secondary" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button>
+        <button id="activityExportBtn" class="pm-btn pm-btn-secondary" type="button"><i class="fa-solid fa-file-csv"></i><span>Export Log</span></button>
+      </div>
+      <div class="activity-result-line"><span id="activityResultCount">0 activity records</span><span id="activityLastAction">No recent transaction</span></div>
+      <div id="logsList" class="promotion-log-list"><div class="activity-empty"><span class="empty-activity-icon"><i class="fa-solid fa-spinner fa-spin"></i></span><strong>Loading activity</strong><span>Recent student database actions will appear here.</span></div></div>
     </div>
 
   </details>
@@ -723,15 +696,7 @@
           </label>
 
           <div class="form-select-wrap">
-            <select id="formClassCategory" required>
-              <option value="">Select class</option>
-              <option value="JSS1">JSS1</option>
-              <option value="JSS2">JSS2</option>
-              <option value="JSS3">JSS3</option>
-              <option value="SS1">SS1</option>
-              <option value="SS2">SS2</option>
-              <option value="SS3">SS3</option>
-            </select>
+            <select id="formClassCategory" required><option value="">Select class</option>{% for level in classes %}<option value="{{ level }}">{{ class_labels.get(level, level) }}</option>{% endfor %}</select>
 
             <i class="fa-solid fa-chevron-down"></i>
           </div>
@@ -752,9 +717,9 @@
           </div>
 
           <small class="form-field-help">
-            Leave as <strong>Automatic Assignment</strong> and EMIS will choose an available class arm.
+            Prep/Nursery use Gold or Silver groups; Primary uses A/B arms. JSS/SS retain their existing arms/streams. Leave as <strong>Automatic Assignment</strong> to balance across valid arms.
           </small>
-          <div id="studentArmTrackLabel" class="arm-track-preview muted"><i class="fa-solid fa-tag"></i><span>Select an SS arm to see its stream label.</span></div>
+          <div id="studentArmTrackLabel" class="arm-track-preview muted"><i class="fa-solid fa-tag"></i><span>Real lower-school arms are preserved: Gold/Silver for Prep & Nursery, A/B for Primary; JSS/SS retain their current arms and streams.</span></div>
         </div>
 
       </div>
@@ -1021,7 +986,7 @@
       <div class="import-selected-file" id="studentImportSelectedFile">No file selected.</div>
 
       <div class="import-default-grid">
-        <label><span>Default Class Level</span><select id="studentImportDefaultClass"><option value="">Use class from file</option><option>JSS1</option><option>JSS2</option><option>JSS3</option><option>SS1</option><option>SS2</option><option>SS3</option></select></label>
+        <label><span>Default Class Level</span><select id="studentImportDefaultClass"><option value="">Use class from file</option>{% for level in classes %}<option value="{{ level }}">{{ class_labels.get(level, level) }}</option>{% endfor %}</select></label>
         <label><span>Default Class Arm</span><select id="studentImportDefaultArm"><option value="">Use arm from file</option><option value="AUTO">Automatic / Balanced</option></select></label>
         <label><span>Import Mode</span><select id="studentImportMode"><option value="add">Add new students</option><option value="upsert">Update matching admission numbers + add new</option></select></label>
         <label class="import-ai-switch"><input id="studentImportAiAssist" type="checkbox" checked><span><strong>AI Assist</strong><small>Use OpenAI first, Groq fallback, only when column mapping or notes need help.</small></span></label>
@@ -1106,7 +1071,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/student_database.js') }}?v=1"></script>
-<script src="{{ url_for('static', filename='js/promotion.js') }}?v=14-graduate-clear"></script>
+<script src="{{ url_for('static', filename='js/student_database.js') }}?v=19-universal-progression"></script>
+<script src="{{ url_for('static', filename='js/promotion.js') }}?v=19-universal-progression"></script>
 <script src="{{ url_for('static', filename='js/promotion_import.js') }}?v=13-flex-placement"></script>
 {% endblock %}

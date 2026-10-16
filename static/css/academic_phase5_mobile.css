@@ -1,0 +1,217 @@
+/* =================================================================================================
+   EMIS ACADEMIC WORKSPACE — PHASE 5
+   Transformative mobile / tablet layer for CA/Test + Report Sheets.
+   ================================================================================================= */
+
+@media (max-width:820px){
+  #caPage.ca-page,#reportPage.report-page{font-size:13px;padding-bottom:88px}
+
+  /* ------------------------------- shared mobile header rhythm ------------------------------- */
+  #caPage .ca-hero,#reportPage .report-hero{padding:11px 12px;border-radius:12px;display:grid;grid-template-columns:1fr;gap:8px}
+  #caPage .ca-title-icon,#reportPage .report-title-icon{width:38px;height:38px;min-width:38px;border-radius:10px}
+  #caPage .ca-title-row,#reportPage .report-title-row{gap:9px}
+  #caPage .ca-title-row h1,#reportPage .report-title-row h1{font-size:1.08rem;margin:0 0 2px}
+  #caPage .ca-title-row p,#reportPage .report-title-row p{font-size:.68rem;line-height:1.32;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  #caPage .ca-kicker,#reportPage .report-kicker{font-size:.56rem}
+  #caPage .ca-live-card,#reportPage .report-live-card{margin:0;min-width:0;max-width:none;width:100%;padding:7px 9px;min-height:0;display:flex}
+  #caPage .ca-live-icon,#reportPage .report-live-icon{width:28px;height:28px;min-width:28px;border-radius:8px}
+  #caPage .ca-live-card small,#reportPage .report-live-card small{display:none}
+
+  /* ------------------------------- CA mobile ------------------------------- */
+  #caPage .ca-stats-grid{grid-template-columns:repeat(4,minmax(92px,1fr));overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;border-radius:10px}
+  #caPage .ca-stats-grid::-webkit-scrollbar{display:none}
+  #caPage .ca-stat-card{min-width:92px;min-height:52px;padding:7px 8px;scroll-snap-align:start}
+  #caPage .ca-stat-icon{display:none}
+  #caPage .ca-stat-card span{font-size:.51rem}
+  #caPage .ca-stat-card strong{font-size:.86rem}
+
+  #caPage .ca-control-panel{padding:9px;border-radius:11px}
+  #caPage .ca-control-head{padding-bottom:7px;margin-bottom:7px}
+  #caPage .ca-control-head h2{font-size:.83rem}
+  #caPage .ca-control-grid{grid-template-columns:1fr 1fr;gap:7px}
+  #caPage .ca-control-grid .form-group,#caPage .ca-control-grid .ca-subject-field,#caPage .ca-control-grid .form-group.action{grid-column:auto}
+  #caPage .ca-control-grid .ca-subject-field{grid-column:1 / -1}
+  #caPage .ca-control-grid .form-group.action{grid-column:1 / -1}
+  #caPage .form-label{font-size:.56rem}
+  #caPage .ca-input-wrap,#caPage .form-input{height:38px;min-height:38px}
+  #caPage .form-input{font-size:.72rem;padding-left:30px}
+  #caPage .ca-control-grid .ca-btn{height:37px;min-height:37px}
+  #caPage .ca-phase45-tools{margin-bottom:7px}
+  #caPage .ca-phase45-tools .phase45-context{font-size:.62rem;min-width:0}
+  #caPage .ca-phase45-tools .phase45-context span{display:none}
+  #caPage .ca-phase45-tools .phase45-context strong{max-width:210px}
+  #caPage .ca-action-dock.phase45-open{position:fixed;left:10px;right:10px;top:auto;bottom:82px;width:auto;grid-template-columns:1fr 1fr;z-index:10020;box-shadow:0 20px 60px rgba(7,28,46,.3)}
+  #caPage .ca-phase45-structure{min-height:36px;padding:6px 8px}
+  #caPage .ca-phase45-structure small{display:none}
+  #caPage .ca-phase45-structure strong{font-size:.68rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  #caPage .ca-toolbar{display:grid;grid-template-columns:1fr;gap:5px;padding:6px;border-radius:10px 10px 0 0}
+  #caPage .ca-search-box,#caPage .ca-search-box input{height:35px;min-height:35px}
+  #caPage .ca-toolbar-actions{overflow-x:auto;scrollbar-width:none}
+  #caPage .ca-toolbar-actions::-webkit-scrollbar{display:none}
+  #caPage .ca-chip{height:30px;flex:0 0 auto}
+  #caPage .ca-table-head{padding:8px 9px}
+  #caPage .ca-table-head h2{font-size:.78rem}
+  #caPage .ca-table-head p{font-size:.59rem}
+  #caPage .ca-score-legend{max-width:150px;overflow-x:auto;white-space:nowrap}
+  #caPage .ca-table-wrap{max-height:55dvh;-webkit-overflow-scrolling:touch}
+  #caPage .ca-table{min-width:780px;font-size:.66rem}
+  #caPage .ca-table th{padding:7px 6px;font-size:.54rem}
+  #caPage .ca-table td{padding:6px}
+  #caPage .ca-table th:first-child,#caPage .ca-table td:first-child{position:sticky;left:0;z-index:7;background:inherit}
+  #caPage .ca-table th:nth-child(2),#caPage .ca-table td:nth-child(2){position:sticky;left:34px;z-index:6;background:#fff;min-width:145px;box-shadow:5px 0 8px rgba(20,42,62,.05)}
+  #caPage .ca-table th:nth-child(2){background:#17334d}
+  #caPage .ca-score-input{height:30px!important;min-height:30px!important;font-size:.66rem!important}
+  #caPage .ca-footer-actions{position:sticky;bottom:0;z-index:10;padding:6px 7px;gap:5px;flex-direction:column;align-items:stretch}
+  #caPage .ca-footer-buttons{display:grid;grid-template-columns:1fr 1.15fr;gap:5px}
+  #caPage .ca-save-message{font-size:.59rem}
+
+  /* CA modals: real viewport sheets, not buried page dialogs. */
+  #caPage .ca-modal{position:fixed!important;inset:0!important;z-index:10050!important;padding:0!important;align-items:flex-end!important;background:rgba(8,26,43,.48)!important;backdrop-filter:blur(4px)}
+  #caPage .ca-modal-panel,#caPage .ca-modal-panel.small,#caPage .ca-modal-panel.wide{width:100%!important;max-width:none!important;max-height:90dvh!important;margin:0!important;border-radius:18px 18px 0 0!important;overflow:auto!important;box-shadow:0 -18px 50px rgba(7,27,43,.22)!important}
+  #caPage .ca-modal-head{position:sticky;top:0;z-index:2;background:#fff;padding:11px 12px!important}
+  #caPage .ca-modal-body{padding:10px 12px!important}
+  #caPage .ca-modal-actions{position:sticky;bottom:0;z-index:2;background:#fff;padding:9px 12px!important;border-top:1px solid #e7edf2}
+
+  /* ------------------------------- Report Sheets mobile ------------------------------- */
+  #reportPage .report-stats-grid{grid-template-columns:repeat(4,minmax(92px,1fr));overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;border-radius:10px}
+  #reportPage .report-stats-grid::-webkit-scrollbar{display:none}
+  #reportPage .report-stat-card{min-width:92px;min-height:52px;padding:7px 8px;scroll-snap-align:start}
+  #reportPage .report-stat-icon{display:none}
+  #reportPage .report-stat-card span{font-size:.51rem}
+  #reportPage .report-stat-card strong{font-size:.86rem}
+
+  #reportPage .report-phase45-health{padding:6px 8px;min-height:36px;gap:6px}
+  #reportPage .report-phase45-health .health-title{min-width:auto;font-size:.61rem}
+  #reportPage .report-phase45-health .health-title span{display:none}
+  #reportPage .report-phase45-health .health-meter{min-width:60px}
+  #reportPage .report-phase45-health .health-value{font-size:.6rem}
+
+  #reportPage .report-control-panel{padding:8px;border-radius:11px}
+  #reportPage .report-control-head{padding-bottom:6px;margin-bottom:7px}
+  #reportPage .report-control-head h2{font-size:.83rem}
+  #reportPage .report-head-actions{overflow-x:auto;scrollbar-width:none}
+  #reportPage .report-head-actions::-webkit-scrollbar{display:none}
+  #reportPage .report-control-grid{grid-template-columns:1fr;gap:7px}
+  #reportPage .report-action-group.setup,#reportPage .report-action-group.class{display:block}
+  #reportPage .report-action-group.setup .report-group-fields.two,#reportPage .report-action-group.class .report-group-fields.two{grid-template-columns:1fr 1fr;gap:6px}
+  #reportPage .report-action-group.actions{grid-column:auto;display:block}
+  #reportPage .report-compact-actions{grid-template-columns:repeat(4,minmax(0,1fr));min-width:0;gap:4px}
+  #reportPage .report-compact-actions .report-btn{height:34px;min-height:34px;padding:5px 4px;font-size:0}
+  #reportPage .report-compact-actions .report-btn i{font-size:.72rem;margin:0}
+  #reportPage .report-compact-actions .report-btn::after{font-size:.58rem;margin-left:4px}
+  #reportPage #loadReportStudentsBtn::after{content:"Load"}#reportPage #previewReportsBtn::after{content:"Preview"}#reportPage #generateSelectedReportBtn::after{content:"Selected"}#reportPage #generateReportsBtn::after{content:"Class"}
+  #reportPage .form-label{font-size:.56rem}
+  #reportPage .report-input-wrap,#reportPage .form-input{height:38px;min-height:38px}
+  #reportPage .form-input{font-size:.71rem;padding-left:30px}
+  #reportPage .report-action-group.details.phase45-open{padding:7px!important}
+  #reportPage .report-action-group.details .report-group-fields.two{grid-template-columns:1fr}
+
+  #reportPage .report-phase45-workflow{grid-template-columns:1fr;gap:6px}
+  #reportPage .report-phase45-workflow-selector{height:36px;font-size:.69rem}
+  #reportPage .report-phase45-workflow-actions{min-height:32px;padding-bottom:1px}
+  #reportPage .report-phase45-workflow-note{display:none}
+
+  #reportPage .report-data-head{padding:8px 9px;display:block}
+  #reportPage .report-data-head h2{font-size:.78rem}
+  #reportPage .report-table-tools{margin-top:6px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;align-items:center}
+  #reportPage .report-table-tools::-webkit-scrollbar{display:none}
+  #reportPage .report-table-search{min-width:210px;flex:0 0 210px;height:32px;min-height:32px}
+  #reportPage .report-table-search input{height:32px;font-size:.65rem}
+  #reportPage .report-table-tools .report-mini-btn{flex:0 0 auto;height:30px;min-height:30px;padding:4px 7px;font-size:.59rem}
+  #reportPage .report-table-summary-strip{grid-template-columns:repeat(5,minmax(84px,1fr));overflow-x:auto;scrollbar-width:none}
+  #reportPage .report-table-summary-strip::-webkit-scrollbar{display:none}
+  #reportPage .report-table-summary-strip article{min-width:84px;min-height:42px;padding:5px 7px}
+  #reportPage .report-table-summary-strip span{font-size:.48rem}
+  #reportPage .report-table-summary-strip strong{font-size:.78rem}
+  #reportPage .report-table-filter-strip{padding:5px 7px}
+  #reportPage .report-table-filter{height:28px;font-size:.56rem}
+  #reportPage .report-table-wrap{max-height:54dvh;-webkit-overflow-scrolling:touch}
+  #reportPage .report-students-table{min-width:760px;font-size:.64rem}
+  #reportPage .report-students-table th{padding:7px 6px;font-size:.52rem}
+  #reportPage .report-students-table td{padding:6px}
+  #reportPage .report-students-table th:first-child,#reportPage .report-students-table td:first-child{position:sticky;left:0;z-index:7;background:inherit}
+  #reportPage .report-students-table th:nth-child(4),#reportPage .report-students-table td:nth-child(4){position:sticky;left:34px;z-index:6;min-width:145px;background:#fff;box-shadow:5px 0 8px rgba(20,42,62,.05)}
+  #reportPage .report-students-table th:nth-child(4){background:#17334d}
+  #reportPage .report-table-footer{padding:5px 7px;font-size:.57rem}
+
+  #reportPage .report-source-panel{grid-template-columns:1fr;padding:6px 7px}
+  #reportPage .report-source-panel .report-data-head{display:none}
+  #reportPage .report-source-list{display:flex;overflow-x:auto;scrollbar-width:none;gap:4px}
+  #reportPage .report-source-list::-webkit-scrollbar{display:none}
+  #reportPage .report-source-list article{min-width:128px;min-height:34px;flex:0 0 128px;padding:4px 6px}
+  #reportPage .report-source-list article span{max-width:94px}
+
+  #reportPage .report-toolbar{display:grid;grid-template-columns:1fr;gap:5px;padding:6px}
+  #reportPage .report-search-box,#reportPage .report-search-box input{height:33px;min-height:33px}
+  #reportPage .report-toolbar-actions{overflow-x:auto}
+  #reportPage .report-chip{height:29px;font-size:.55rem}
+
+  #reportPage .report-preview-shell{display:block}
+  #reportPage .report-student-list-card{margin-bottom:7px;max-height:220px;overflow:auto}
+  #reportPage .report-preview-head{padding:8px 9px;display:block}
+  #reportPage .report-preview-actions{margin-top:6px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  #reportPage .report-preview-actions::-webkit-scrollbar{display:none}
+  #reportPage .report-preview-actions .report-mini-btn{flex:0 0 auto}
+  #reportPage .report-sheet-canvas{padding:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  #reportPage .report-action-dock{position:sticky;bottom:72px;z-index:40;padding:5px 6px;border-radius:10px;box-shadow:0 10px 28px rgba(12,37,58,.12)}
+  #reportPage .report-dock-btn{height:29px;min-height:29px;font-size:.55rem}
+
+  #reportPage .report-cumulative-head{display:block}
+  #reportPage .report-cumulative-actions{margin-top:6px;display:flex;overflow-x:auto;scrollbar-width:none}
+  #reportPage .report-cumulative-actions::-webkit-scrollbar{display:none}
+  #reportPage .report-cumulative-actions .report-mini-btn{flex:0 0 auto}
+  #reportPage .report-cumulative-grid{grid-template-columns:repeat(5,minmax(82px,1fr));overflow-x:auto;scrollbar-width:none}
+  #reportPage .report-cumulative-grid::-webkit-scrollbar{display:none}
+  #reportPage .report-cumulative-grid article{min-width:82px;min-height:45px}
+
+  #reportPage .report-hybrid-workspace{border-radius:11px}
+  #reportPage .hybrid-head-status{overflow-x:auto}
+  #reportPage .manual-student-picker{display:grid;grid-template-columns:34px 1fr 34px;gap:4px}
+  #reportPage .manual-score-table-wrap{max-height:56dvh;-webkit-overflow-scrolling:touch}
+  #reportPage .manual-score-table{min-width:780px;font-size:.62rem}
+  #reportPage .manual-score-table th{position:sticky;top:0;z-index:4}
+  #reportPage .manual-footer-right{display:flex;overflow-x:auto;gap:4px;scrollbar-width:none}
+  #reportPage .manual-footer-right::-webkit-scrollbar{display:none}
+  #reportPage .manual-footer-right .report-btn{flex:0 0 auto}
+
+  /* All report dialogs become viewport-level bottom sheets. */
+  #reportPage .report-modal{position:fixed!important;inset:0!important;z-index:10050!important;padding:0!important;align-items:flex-end!important;background:rgba(8,26,43,.48)!important;backdrop-filter:blur(4px)}
+  #reportPage .report-modal-panel,#reportPage .report-modal-panel.wide,#reportPage .report-modal-panel.fullscreen{width:100%!important;max-width:none!important;max-height:92dvh!important;margin:0!important;border-radius:18px 18px 0 0!important;overflow:auto!important;box-shadow:0 -18px 50px rgba(7,27,43,.22)!important}
+  #reportPage .report-modal-head{position:sticky;top:0;z-index:5;background:#fff;padding:10px 11px!important}
+  #reportPage .report-modal-body{padding:9px 10px!important}
+  #reportPage .report-modal-footer{position:sticky;bottom:0;z-index:5;background:#fff;padding:8px 10px!important;border-top:1px solid #e7edf2}
+  #reportPage .report-command-panel{width:calc(100vw - 18px);max-height:82dvh;margin:0 auto}
+}
+
+@media (max-width:480px){
+  #caPage .ca-control-grid{grid-template-columns:1fr 1fr}
+  #caPage .ca-control-grid .ca-subject-field,#caPage .ca-control-grid .form-group.action{grid-column:1 / -1}
+  #reportPage .report-action-group.setup .report-group-fields.two,#reportPage .report-action-group.class .report-group-fields.two{grid-template-columns:1fr 1fr}
+  #reportPage .report-compact-actions{grid-template-columns:repeat(4,1fr)}
+  #reportPage .report-head-actions .report-mini-btn span{display:none}
+}
+
+@media (max-width:390px){
+  #caPage .ca-title-row p,#reportPage .report-title-row p{display:none}
+  #caPage .ca-live-card,#reportPage .report-live-card{display:none}
+  #caPage .ca-stats-grid,#reportPage .report-stats-grid{margin:7px 0}
+  #reportPage .report-action-group.setup .report-group-fields.two,#reportPage .report-action-group.class .report-group-fields.two{grid-template-columns:1fr}
+}
+
+@media (orientation:landscape) and (max-height:520px){
+  #caPage .ca-hero,#reportPage .report-hero{display:none}
+  #caPage .ca-table-wrap,#reportPage .report-table-wrap{max-height:62dvh}
+  #reportPage .report-action-dock{bottom:6px}
+}
+
+@media (prefers-reduced-motion:reduce){#caPage *,#reportPage *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Viewport-portaled dialogs keep the Phase 5 mobile treatment after leaving their page root. */
+@media (max-width:820px){
+  .ca-modal.phase45-viewport-modal,.report-modal.phase45-viewport-modal{position:fixed!important;inset:0!important;z-index:10050!important;padding:0!important;display:flex;align-items:flex-end!important;justify-content:center;background:rgba(8,26,43,.48)!important;backdrop-filter:blur(4px)}
+  .ca-modal.phase45-viewport-modal>.ca-modal-panel,.report-modal.phase45-viewport-modal>.report-modal-panel{width:100%!important;max-width:none!important;max-height:92dvh!important;margin:0!important;border-radius:18px 18px 0 0!important;overflow:auto!important;box-shadow:0 -18px 50px rgba(7,27,43,.22)!important}
+  .ca-modal.phase45-viewport-modal .ca-modal-head,.report-modal.phase45-viewport-modal .report-modal-head{position:sticky;top:0;z-index:5;background:#fff}
+  .ca-modal.phase45-viewport-modal .ca-modal-actions,.report-modal.phase45-viewport-modal .report-modal-footer{position:sticky;bottom:0;z-index:5;background:#fff}
+}

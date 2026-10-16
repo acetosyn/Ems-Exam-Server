@@ -6,7 +6,7 @@
     "use strict";
 
     const $ = id => document.getElementById(id);
-    const state = { settings: {}, yearMin: 2025, yearMax: 2040, loading: false };
+    const state = { settings: {}, yearMin: 2025, yearMax: 2040, loading: false, readiness: null };
 
     const clean = value => String(value ?? "").trim();
     const normalizeTerm = value => window.EMISAcademic?.normalizeTerm?.(value) || (() => {
@@ -97,6 +97,59 @@
         }
     }
 
+    function setReadinessCard(id, valueId, metaId, value, meta, stateName = "ready") {
+        const card = $(id); if (!card) return;
+        card.classList.remove("ready", "warning", "error", "checking"); card.classList.add(stateName);
+        setText(valueId, value); setText(metaId, meta);
+    }
+
+    function renderSystemReadiness(payload = {}) {
+        state.readiness = payload;
+        const student = payload.student_database || {}, tahfeez = payload.tahfeez_database || {}, islamiyah = payload.islamiyah || {};
+        const assessments = payload.assessments || {}, history = payload.history || {}, sync = payload.sync || {}, subjects = payload.subjects || {}, teachers = payload.teachers || {};
+        const studentOk = !!student.healthy, tahfeezOk = !!tahfeez.healthy, islamiyahOk = !islamiyah.sync_required;
+        const historyOk = history.history_directory_writable !== false && history.report_directory_writable !== false;
+        const failed = Number(sync.failed || 0), pending = Number(sync.pending || 0);
+
+        setReadinessCard("readinessStudents", "readinessStudentValue", "readinessStudentMeta", `${Number(student.master_total || 0)} students`, `${Number(student.configured_classes || 0)} regular classes • ${studentOk ? "database verified" : "check database"}`, studentOk ? "ready" : "error");
+        setReadinessCard("readinessTahfeez", "readinessTahfeezValue", "readinessTahfeezMeta", `${Number(tahfeez.total || tahfeez.summary?.total || 0)} placements`, `${Number(tahfeez.configured_classes || 0)} Tahfeez levels • ${tahfeezOk ? "links verified" : "check links"}`, tahfeezOk ? "ready" : "error");
+        setReadinessCard("readinessIslamiyah", "readinessIslamiyahValue", "readinessIslamiyahMeta", `${Number(islamiyah.synced_students || 0)} / ${Number(islamiyah.master_students || 0)}`, islamiyahOk ? "Roster synchronized" : `${Number(islamiyah.missing_students || 0)} missing • ${Number(islamiyah.stale_regular_class_records || 0)} changed`, islamiyahOk ? "ready" : "warning");
+        setReadinessCard("readinessAssessment", "readinessAssessmentValue", "readinessAssessmentMeta", `${Number(assessments.ready_count || 0)} ready • ${Number(assessments.pending_count || 0)} pending`, Number(assessments.pending_count || 0) ? "Lower-school/Tahfeez scoring remains safely protected" : "All assessment schemes configured", Number(assessments.pending_count || 0) ? "warning" : "ready");
+        setReadinessCard("readinessHistory", "readinessHistoryValue", "readinessHistoryMeta", `${Number(history.history_records || 0)} records`, `${Number(history.history_revisions || 0)} revisions • ${historyOk ? "storage writable" : "storage issue"}`, historyOk ? "ready" : "error");
+        setReadinessCard("readinessSync", "readinessSyncValue", "readinessSyncMeta", `${Number((sync.supported_event_modules || []).length)} modules`, failed ? `${failed} failed • ${pending} pending` : `${pending} pending • Tahfeez ${sync.tahfeez_sync_supported ? "covered" : "not covered"}`, failed ? "warning" : "ready");
+
+        setText("readinessSubjects", `${Number(subjects.active_subjects || 0)} active • ${Number(subjects.configured_classes || 0)} classes`);
+        setText("readinessTeachers", `${Number(teachers.teachers_assigned || 0)} assigned • ${Number(teachers.assignment_count || 0)} links`);
+        setText("readinessClasses", `${Number(student.configured_classes || 0)} regular + ${Number(tahfeez.configured_classes || 0)} Tahfeez`);
+        setText("readinessProtection", Number(assessments.pending_count || 0) ? "Protected" : "Configured");
+
+        const overall = $("readinessOverall");
+        if (overall) {
+            const status = clean(payload.status || "attention"); const icon = status === "ready" ? "fa-circle-check" : status === "ready_with_pending" ? "fa-shield-halved" : "fa-triangle-exclamation";
+            overall.className = `readiness-overall ${status}`; overall.innerHTML = `<i class="fa-solid ${icon}"></i> ${clean(payload.status_label) || "Readiness checked"}`;
+        }
+
+        const message = $("readinessMessage"), blockers = Array.isArray(payload.blockers) ? payload.blockers : [], warnings = Array.isArray(payload.warnings) ? payload.warnings : [];
+        if (message) {
+            const issueList = [...blockers, ...warnings];
+            message.className = `readiness-message ${blockers.length ? "error" : warnings.length ? "warning" : "success"}`;
+            const title = blockers.length ? "Action is required before full production use." : warnings.length ? "Core system is healthy; protected configuration remains." : "Phase 10 system checks passed.";
+            const detail = issueList.length ? issueList.slice(0, 4).join(" • ") : "Student databases, permanent records and configured synchronization checks are healthy.";
+            message.innerHTML = `<i class="fa-solid ${blockers.length ? "fa-triangle-exclamation" : warnings.length ? "fa-shield-halved" : "fa-circle-check"}"></i><div><strong>${title}</strong><span>${detail}</span></div>`;
+        }
+    }
+
+    async function loadSystemReadiness(showNotice = false) {
+        try {
+            const data = await api("/api/system-readiness"); renderSystemReadiness(data);
+            if (showNotice) showMessage("System readiness check completed.", data.blockers?.length ? "error" : "success", 4800);
+        } catch (error) {
+            console.error("SYSTEM READINESS ERROR:", error);
+            const overall = $("readinessOverall"); if (overall) { overall.className = "readiness-overall attention"; overall.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Check Failed'; }
+            const message = $("readinessMessage"); if (message) { message.className = "readiness-message error"; message.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div><strong>Readiness check could not complete.</strong><span>${clean(error.message) || "Unknown error"}</span></div>`; }
+        }
+    }
+
     async function saveAcademicSettings(event) {
         event.preventDefault();
         if (state.loading) return;
@@ -157,15 +210,21 @@
         $("refreshAcademicSettings")?.addEventListener("click", async () => {
             const button = $("refreshAcademicSettings");
             if (button) { button.disabled = true; button.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...`; }
-            await Promise.all([loadAcademicSettings(true), loadSyncStatus()]);
+            await Promise.all([loadAcademicSettings(true), loadSyncStatus(), loadSystemReadiness()]);
             if (button) { button.disabled = false; button.innerHTML = `<i class="fa-solid fa-rotate"></i> Refresh`; }
+        });
+        $("refreshSystemReadiness")?.addEventListener("click", async () => {
+            const button = $("refreshSystemReadiness");
+            if (button) { button.disabled = true; button.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Checking...`; }
+            await loadSystemReadiness(true);
+            if (button) { button.disabled = false; button.innerHTML = `<i class="fa-solid fa-rotate"></i> Run Check`; }
         });
     }
 
     async function init() {
         bindEvents();
         populateYears();
-        await Promise.all([loadAcademicSettings(), loadSyncStatus()]);
+        await Promise.all([loadAcademicSettings(), loadSyncStatus(), loadSystemReadiness()]);
         syncDerivedSession();
     }
 

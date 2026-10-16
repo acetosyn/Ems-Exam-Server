@@ -9,12 +9,12 @@ from flask import Blueprint, request, jsonify, session, send_file
 from openpyxl import Workbook
 
 from modules.class_config import (
-    SUPPORTED_CLASSES, CLASS_ARMS_BY_LEVEL, normalize_class_level, get_ss_stream,
+    STUDENT_DATABASE_CLASSES, TAHFEEZ_CLASSES, CLASS_ARMS_BY_LEVEL, normalize_class_level, get_ss_stream,
     get_class_arm_stream_label,
 )
 
 from modules.student_database.student_database import (
-    STUDENT_HEADERS, get_students_by_class, add_student, edit_student,
+    STUDENT_HEADERS, read_master_students, get_students_by_class, add_student, edit_student,
     delete_students, move_students, create_database_backup, get_database_summary,
     normalize_admission, normalize_student_level, normalize_student_arm,
     validate_student_class,
@@ -31,29 +31,32 @@ from modules.student_database.graduation_manager import (
 )
 
 from modules.student_database.promotion_safeguards import (
-    DEMOTION_PATH, build_guard, recommended_promotion_sequence, recommended_first_action,
+    PROMOTION_PATH, DEMOTION_PATH, build_guard, recommended_promotion_sequence, recommended_first_action,
 )
 from modules.student_database.student_import_manager import (
     analyze_student_upload, commit_student_import, canonical_csv_template, SUPPORTED_EXTENSIONS,
 )
+from modules.tahfeez_database import (
+    get_tahfeez_summary, tahfeez_database_health_check, get_tahfeez_management_roster,
+    set_tahfeez_placements, remove_tahfeez_placements, sync_tahfeez_identities,
+)
+from modules.school_structure import class_label, hybrid_class_label, basic_class_number, school_section_for_class
 
 
 promotion_bp = Blueprint("promotion_bp", __name__)
+
+
+@promotion_bp.before_request
+def require_authenticated_staff():
+    """Students & Classes is shared by Admin, normal Teacher and Islamiyyah Teacher accounts only."""
+    role = clean(session.get("user_type")).lower()
+    if role not in {"admin", "teacher", "islamiyyah_teacher"}: return jsonify({"success": False, "error": "Staff login required."}), 403
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASE_DIR = BASE_DIR / "static" / "data" / "database"
 LOG_FILE = DATABASE_DIR / "promotion_logs.csv"
 
-CLASSES = list(SUPPORTED_CLASSES)
-
-PROMOTION_PATH = {
-    "JSS1": "JSS2",
-    "JSS2": "JSS3",
-    "JSS3": "SS1",
-    "SS1": "SS2",
-    "SS2": "SS3",
-    "SS3": "GRADUATED",
-}
+CLASSES = list(STUDENT_DATABASE_CLASSES)
 
 LOG_HEADERS = ["Timestamp", "Action", "From", "To", "Count", "Admissions", "Admin", "Note"]
 
@@ -139,6 +142,21 @@ def read_logs(limit=30):
     return rows[-max(1, int(limit)):][::-1]
 
 
+def query_logs(limit=100, action="", class_name="", query=""):
+    rows = read_logs(max(5000, int(limit or 100))); action = clean(action).upper(); class_name = clean(class_name).upper(); query = clean(query).lower()
+    if action and action != "ALL":
+        if action == "ADD": rows = [row for row in rows if any(token in clean(row.get("Action")).upper() for token in {"ADD", "IMPORT"})]
+        else: rows = [row for row in rows if action in clean(row.get("Action")).upper()]
+    if class_name and class_name != "ALL": rows = [row for row in rows if class_name in {clean(row.get("From")).upper(), clean(row.get("To")).upper()}]
+    if query: rows = [row for row in rows if query in " ".join([clean(row.get("Action")), clean(row.get("From")), clean(row.get("To")), clean(row.get("Admissions")), clean(row.get("Admin")), clean(row.get("Note")), clean(row.get("Timestamp"))]).lower()]
+    return rows[:max(1, min(int(limit or 100), 1000))]
+
+
+def log_statistics(rows=None):
+    rows = list(rows if rows is not None else read_logs(5000)); actions = [clean(row.get("Action")).upper() for row in rows]
+    return {"total":len(rows), "promotions":sum(1 for value in actions if value.startswith("PROMOTE")), "demotions":sum(1 for value in actions if value.startswith("DEMOTE")), "repetitions":sum(1 for value in actions if value.startswith("REPEAT")), "deletions":sum(1 for value in actions if value.startswith("DELETE_STUDENT")), "additions":sum(1 for value in actions if value.startswith("ADD") or value.startswith("IMPORT")), "edits":sum(1 for value in actions if value.startswith("EDIT")), "graduations":sum(1 for value in actions if value == "GRADUATE"), "backups":sum(1 for value in actions if value.startswith("BACKUP"))}
+
+
 # ============================================================
 # FRONTEND STUDENT FORMAT
 # ============================================================
@@ -154,6 +172,9 @@ def frontend_student(student):
     row["Class_arm"] = class_arm
     row["Stream"] = get_ss_stream(class_arm)
     row["Stream_label"] = get_class_arm_stream_label(class_arm)
+    row["Traditional_class"] = class_label(class_level)
+    row["Basic_class"] = f"Basic {basic_class_number(class_level)}" if basic_class_number(class_level) else ""
+    row["Hybrid_class_label"] = hybrid_class_label(class_level)
     row["Status"] = "ACTIVE"
 
     return row
@@ -255,86 +276,89 @@ def class_suffix(class_arm, class_level):
     return class_arm[len(class_level):]
 
 
-def resolve_destination_arm(student, destination_level, explicit_arm=""):
-    source_level = normalize_student_level(student.get("Class_category") or student.get("Class"))
-    source_arm = normalize_student_arm(student.get("Class"), source_level)
+def _destination_arm_counts(destination_level):
+    counts = {arm: 0 for arm in CLASS_ARMS_BY_LEVEL.get(destination_level, [])}
+    for student in get_students_by_class(destination_level):
+        arm = normalize_student_arm(student.get("Class"), destination_level)
+        if arm in counts: counts[arm] += 1
+    return counts
 
-    # --------------------------------------------------------
-    # EXPLICIT DESTINATION ARM
-    # --------------------------------------------------------
+
+def _least_loaded_destination_arm(destination_level, planned_counts=None):
+    arms = list(CLASS_ARMS_BY_LEVEL.get(destination_level, []))
+    if not arms: raise ValueError(f"No destination arms are configured for {destination_level}.")
+    base = _destination_arm_counts(destination_level); planned_counts = planned_counts or {}
+    return min(arms, key=lambda arm: (base.get(arm, 0) + planned_counts.get(arm, 0), arms.index(arm)))
+
+
+def _preserved_destination_arm(source_level, source_arm, destination_level):
+    source_level = clean(source_level).upper(); destination_level = clean(destination_level).upper(); source_arm = clean(source_arm).upper()
+    destination_arms = set(CLASS_ARMS_BY_LEVEL.get(destination_level, []))
+    if len(destination_arms) == 1: return next(iter(destination_arms))
+
+    # Early Years Gold/Silver groups remain together where both levels use the same group names.
+    if source_level in {"PRE_CLASS", "NURSERY1", "NURSERY2"} and destination_level in {"PRE_CLASS", "NURSERY1", "NURSERY2"}:
+        suffix = "GOLD" if "GOLD" in source_arm else "SILVER" if "SILVER" in source_arm else ""
+        candidate = f"{destination_level}_{suffix}" if suffix else ""
+        if candidate in destination_arms: return candidate
+
+    # Nursery 2 Gold/Silver flows naturally into Primary 1 A/B, and demotion reverses that mapping.
+    if source_level == "NURSERY2" and destination_level == "PRIMARY1":
+        candidate = "PRIMARY1A" if "GOLD" in source_arm else "PRIMARY1B" if "SILVER" in source_arm else ""
+        if candidate in destination_arms: return candidate
+    if source_level == "PRIMARY1" and destination_level == "NURSERY2":
+        candidate = "NURSERY2_GOLD" if source_arm.endswith("A") else "NURSERY2_SILVER" if source_arm.endswith("B") else ""
+        if candidate in destination_arms: return candidate
+
+    # Primary A/B arms are preserved from Primary 1 through Primary 6.
+    if source_level.startswith("PRIMARY") and destination_level.startswith("PRIMARY"):
+        suffix = source_arm[-1:] if source_arm[-1:] in {"A", "B"} else ""; candidate = f"{destination_level}{suffix}" if suffix else ""
+        if candidate in destination_arms: return candidate
+
+    # Primary 6 A/B moves into JSS1 A/B; JSS1 A/B demotion returns to Primary 6 A/B.
+    if source_level == "PRIMARY6" and destination_level == "JSS1":
+        suffix = source_arm[-1:] if source_arm[-1:] in {"A", "B"} else ""; candidate = f"JSS1{suffix}" if suffix else ""
+        if candidate in destination_arms: return candidate
+    if source_level == "JSS1" and destination_level == "PRIMARY6":
+        suffix = source_arm[-1:] if source_arm[-1:] in {"A", "B"} else ""; candidate = f"PRIMARY6{suffix}" if suffix else ""
+        if candidate in destination_arms: return candidate
+
+    # JSS A/B/C arms and compatible SS stream arms remain stable inside their own school section.
+    if source_level.startswith("JSS") and destination_level.startswith("JSS"):
+        suffix = class_suffix(source_arm, source_level); candidate = normalize_student_arm(f"{destination_level}{suffix}", destination_level)
+        if candidate: return candidate
+    if source_level.startswith("SS") and destination_level.startswith("SS"):
+        suffix = class_suffix(source_arm, source_level); candidate = normalize_student_arm(f"{destination_level}{suffix}", destination_level)
+        if candidate: return candidate
+    return ""
+
+
+def resolve_destination_arm(student, destination_level, explicit_arm="", planned_counts=None):
+    source_level = normalize_student_level(student.get("Class_category") or student.get("Class")); source_arm = normalize_student_arm(student.get("Class"), source_level)
+
     if explicit_arm:
         destination_arm = normalize_student_arm(explicit_arm, destination_level)
-
         if not destination_arm:
-            available = ", ".join(CLASS_ARMS_BY_LEVEL.get(destination_level, []))
-            raise ValueError(
-                f"Invalid destination arm for {destination_level}. Choose one of: {available}."
-            )
+            available = ", ".join(CLASS_ARMS_BY_LEVEL.get(destination_level, [])); raise ValueError(f"Invalid destination arm for {destination_level}. Choose one of: {available}.")
+        validate_student_class(destination_level, destination_arm); return destination_arm
 
-        validate_student_class(destination_level, destination_arm)
-        return destination_arm
-
-    # --------------------------------------------------------
-    # JSS ↔ JSS
-    # Preserve A / B / C for both promotion and demotion.
-    # --------------------------------------------------------
-    if source_level.startswith("JSS") and destination_level.startswith("JSS"):
-        suffix = class_suffix(source_arm, source_level)
-        destination_arm = normalize_student_arm(f"{destination_level}{suffix}", destination_level)
-        if destination_arm: return destination_arm
-
-    # --------------------------------------------------------
-    # JSS3 → SS1
-    # MUST CHOOSE SS STREAM / ARM
-    # --------------------------------------------------------
+    # JSS3 -> SS1 is the one transition where EMIS must not guess a senior-school stream.
     if source_level == "JSS3" and destination_level == "SS1":
-        available = ", ".join(CLASS_ARMS_BY_LEVEL.get("SS1", []))
-        raise ValueError(
-            "SS1 destination arm is required when promoting "
-            f"JSS3 students. Choose one of: {available}."
-        )
+        available = ", ".join(CLASS_ARMS_BY_LEVEL.get("SS1", [])); raise ValueError(f"SS1 destination arm is required when promoting JSS3 students. Choose one of: {available}.")
 
-    # --------------------------------------------------------
-    # SS1 → SS2 / SS2 → SS3
-    # PRESERVE COMPATIBLE ARM
-    # --------------------------------------------------------
-    if source_level.startswith("SS") and destination_level.startswith("SS"):
-        suffix = class_suffix(source_arm, source_level)
-        destination_arm = normalize_student_arm(
-            f"{destination_level}{suffix}", destination_level
-        )
+    preserved = _preserved_destination_arm(source_level, source_arm, destination_level)
+    if preserved: validate_student_class(destination_level, preserved); return preserved
 
-        if destination_arm:
-            return destination_arm
-
-        available = ", ".join(CLASS_ARMS_BY_LEVEL.get(destination_level, []))
-        raise ValueError(
-            f"{source_arm} cannot be mapped automatically to "
-            f"{destination_level}. Choose one of: {available}."
-        )
-
-    available = ", ".join(CLASS_ARMS_BY_LEVEL.get(destination_level, []))
-    raise ValueError(f"Destination class arm is required. Choose one of: {available}.")
+    # Cross-section moves without a one-to-one arm equivalent use a balanced destination instead of being locked.
+    destination_arm = _least_loaded_destination_arm(destination_level, planned_counts=planned_counts)
+    validate_student_class(destination_level, destination_arm); return destination_arm
 
 
 def build_destination_map(students, destination_level, destination_arm="", destination_classes=None):
-    destination_classes = destination_classes or {}
-
-    normalized_map = {
-        normalize_admission(admission): clean(class_arm)
-        for admission, class_arm in destination_classes.items()
-    }
-
-    result = {}
-
+    destination_classes = destination_classes or {}; normalized_map = {normalize_admission(admission): clean(class_arm) for admission, class_arm in destination_classes.items()}; result = {}; planned_counts = {}
     for student in students:
-        admission = normalize_admission(student.get("Admission_number"))
-        student_explicit_arm = normalized_map.get(admission) or clean(destination_arm)
-
-        result[admission] = resolve_destination_arm(
-            student, destination_level, student_explicit_arm
-        )
-
+        admission = normalize_admission(student.get("Admission_number")); student_explicit_arm = normalized_map.get(admission) or clean(destination_arm)
+        result[admission] = resolve_destination_arm(student, destination_level, student_explicit_arm, planned_counts=planned_counts); planned_counts[result[admission]] = planned_counts.get(result[admission], 0) + 1
     return result
 
 
@@ -416,8 +440,9 @@ def api_promotion_summary():
         admission_summary = get_admission_number_summary()
 
         for level in CLASSES:
-            summary[level]["next"] = PROMOTION_PATH.get(level, "")
+            summary.setdefault(level, {"total": 0, "arms": {}}); summary[level]["next"] = PROMOTION_PATH.get(level, ""); summary[level]["promotion_enabled"] = level in PROMOTION_PATH; summary[level]["label"] = hybrid_class_label(level); summary[level]["school_section"] = school_section_for_class(level)
 
+        tahfeez_summary = get_tahfeez_summary(); tahfeez_health = tahfeez_database_health_check()
         return jsonify({
             "success": True,
             "summary": summary,
@@ -425,6 +450,8 @@ def api_promotion_summary():
             "admission_numbers": admission_summary,
             "promotion_roadmap": recommended_promotion_sequence(summary),
             "recommended_first_action": recommended_first_action(summary),
+            "database_classes": [{"key": level, "label": hybrid_class_label(level), "section": school_section_for_class(level), "arms": list(CLASS_ARMS_BY_LEVEL.get(level, [])), "promotion_enabled": level in PROMOTION_PATH, "next": PROMOTION_PATH.get(level, "")} for level in CLASSES],
+            "tahfeez": {**tahfeez_summary, "healthy": bool(tahfeez_health.get("healthy")), "classes_configured": list(TAHFEEZ_CLASSES)},
         })
 
     except Exception as error:
@@ -468,6 +495,9 @@ def api_promotion_students():
             "count": len(students),
             "available_arms": CLASS_ARMS_BY_LEVEL.get(class_category, []),
             "next_class": PROMOTION_PATH.get(class_category, ""),
+            "promotion_enabled": class_category in PROMOTION_PATH,
+            "class_label": hybrid_class_label(class_category),
+            "school_section": school_section_for_class(class_category),
         })
 
     except Exception as error:
@@ -481,9 +511,19 @@ def api_promotion_students():
 @promotion_bp.route("/api/promotion/logs")
 def api_promotion_logs():
     try:
-        limit = request.args.get("limit", 30, type=int)
-        return jsonify({"success": True, "logs": read_logs(limit)})
+        limit = request.args.get("limit", 100, type=int); action = request.args.get("action", ""); class_name = request.args.get("class", ""); query = request.args.get("q", "")
+        logs = query_logs(limit=limit, action=action, class_name=class_name, query=query); all_rows = read_logs(5000)
+        return jsonify({"success": True, "logs": logs, "stats": log_statistics(all_rows), "filtered_count": len(logs), "actions": sorted({clean(row.get("Action")) for row in all_rows if clean(row.get("Action"))}), "classes": [level for level in CLASSES]})
+    except Exception as error:
+        return jsonify({"success": False, "message": str(error)}), 500
 
+
+@promotion_bp.route("/api/promotion/logs/export")
+def api_promotion_logs_export():
+    try:
+        action = request.args.get("action", ""); class_name = request.args.get("class", ""); query = request.args.get("q", ""); rows = query_logs(limit=1000, action=action, class_name=class_name, query=query)
+        buffer = io.StringIO(); writer = csv.DictWriter(buffer, fieldnames=LOG_HEADERS); writer.writeheader(); writer.writerows(rows); payload = io.BytesIO(buffer.getvalue().encode("utf-8-sig")); payload.seek(0)
+        return send_file(payload, as_attachment=True, download_name=f"Student_Database_Activity_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mimetype="text/csv; charset=utf-8")
     except Exception as error:
         return jsonify({"success": False, "message": str(error)}), 500
 
@@ -540,6 +580,8 @@ def api_save_student():
                 ),
             )
 
+            try: sync_tahfeez_identities(reason="student_edit_identity_sync")
+            except Exception: pass
             return jsonify({
                 "success": True,
                 "message": f"Student {original_admission} updated successfully.",
@@ -593,6 +635,8 @@ def api_save_student():
             ),
         )
 
+        try: sync_tahfeez_identities(reason="student_add_identity_sync")
+        except Exception: pass
         return jsonify({
             "success": True,
             "message": f"Student added successfully with admission number {admission}.",
@@ -639,6 +683,7 @@ def api_delete_students():
         ]
 
         result = delete_students(class_category, admissions)
+        tahfeez_cleanup = remove_tahfeez_placements(admissions, reason="student_deleted", ignore_missing=True)
 
         log_action(
             "DELETE_STUDENT",
@@ -658,6 +703,7 @@ def api_delete_students():
             "count": result["count"],
             "deleted": result["deleted"],
             "backup": result["backup"],
+            "tahfeez_removed": tahfeez_cleanup.get("count", 0),
         })
 
     except ValueError as error:
@@ -744,6 +790,8 @@ def api_promote_students():
             f"Promotion completed. Scope: {mode}. Placements: {placement_text}. Backup: {result['backup']}",
         )
 
+        try: sync_tahfeez_identities(reason="regular_class_promotion_sync")
+        except Exception: pass
         return jsonify({
             "success": True,
             "message": (
@@ -858,6 +906,7 @@ def api_graduate_students():
             graduation_date=data.get("graduation_date"),
             academic_session=data.get("academic_session", ""),
         )
+        tahfeez_cleanup = remove_tahfeez_placements(admissions, reason="student_graduated", ignore_missing=True)
 
         released_text = ", ".join(result["released_admission_numbers"])
 
@@ -880,6 +929,7 @@ def api_graduate_students():
             "released_admission_numbers": result["released_admission_numbers"],
             "archive_file": result["archive_file"],
             "database_backup": result["database_backup"],
+            "tahfeez_removed": tahfeez_cleanup.get("count", 0),
         })
 
     except ValueError as error:
@@ -1018,6 +1068,8 @@ def api_promotion_guard():
         action = clean(data.get("action") or "promote").lower()
         source_class = normalize_requested_class(data.get("class_category") or data.get("class") or data.get("from_class"))
         if not source_class: return jsonify({"success": False, "message": "Invalid source class."}), 400
+        if action in {"promote", "graduate"} and source_class not in PROMOTION_PATH: return jsonify({"success": False, "message": f"{source_class} does not have a configured promotion destination."}), 400
+        if action == "demote" and source_class not in DEMOTION_PATH: return jsonify({"success": False, "message": f"{source_class} does not have a lower class in the EMIS progression path."}), 400
         admissions = normalize_admissions(data.get("admissions") or [])
         mode = clean(data.get("mode") or "selected").lower()
         selected_count = None
@@ -1049,10 +1101,58 @@ def api_demote_students():
         admissions = [normalize_admission(student.get("Admission_number")) for student in students]
         destination_map = build_destination_map(students=students, destination_level=destination_class, destination_arm=data.get("destination_arm", ""), destination_classes=data.get("destination_classes") or {})
         result = move_students(source_class=source_class, destination_class=destination_class, admissions=admissions, destination_classes=destination_map, reason="demotion")
+        try: sync_tahfeez_identities(reason="regular_class_demotion_sync")
+        except Exception: pass
         log_action("DEMOTE", source_class, destination_class, result["admissions"], f"Selected-student demotion completed. Backup: {result['backup']}")
         return jsonify({"success": True, "message": f"{result['count']} student(s) demoted from {source_class} to {destination_class}.", "count":result["count"], "source_class":source_class, "destination_class":destination_class, "moved":result["moved"], "backup":result["backup"]})
     except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
     except Exception as error: return jsonify({"success": False, "message": f"Demotion failed: {error}"}), 500
+
+
+# ============================================================
+# TAHFEEZ PARALLEL PLACEMENT
+# ============================================================
+
+@promotion_bp.route("/api/promotion/tahfeez/roster")
+def api_tahfeez_roster():
+    try:
+        return jsonify({"success": True, "students": get_tahfeez_management_roster(), "summary": get_tahfeez_summary(), "health": tahfeez_database_health_check(), "classes": [{"key": level, "label": class_label(level)} for level in TAHFEEZ_CLASSES]})
+    except Exception as error:
+        return jsonify({"success": False, "message": f"Tahfeez roster could not be loaded: {error}"}), 500
+
+
+@promotion_bp.route("/api/promotion/tahfeez/assign", methods=["PUT"])
+def api_tahfeez_assign():
+    data = request.get_json(silent=True) or {}; admissions = normalize_admissions(data.get("admissions") or []); tahfeez_class = clean(data.get("tahfeez_class"))
+    try:
+        if tahfeez_class:
+            result = set_tahfeez_placements(admissions, tahfeez_class, reason="admin_bulk_tahfeez_assignment"); action = "TAHFEEZ_ASSIGN"; message = f"{len(result.get('updated') or [])} student(s) assigned to {class_label(result.get('tahfeez_class'))}."
+        else:
+            result = remove_tahfeez_placements(admissions, reason="admin_bulk_tahfeez_unassign", ignore_missing=True); action = "TAHFEEZ_UNASSIGN"; message = f"{result.get('count', 0)} Tahfeez placement(s) removed."
+        log_action(action, "REGULAR_DATABASE", result.get("tahfeez_class", "UNASSIGNED"), admissions, f"Parallel Tahfeez placement updated. Backup: {result.get('backup', '')}")
+        return jsonify({"success": True, "message": message, "result": result, "summary": get_tahfeez_summary()})
+    except ValueError as error:
+        return jsonify({"success": False, "message": str(error)}), 400
+    except Exception as error:
+        return jsonify({"success": False, "message": f"Tahfeez placement failed: {error}"}), 500
+
+
+@promotion_bp.route("/api/promotion/tahfeez/export")
+def api_tahfeez_export():
+    try:
+        rows = get_tahfeez_management_roster(); placed_only = clean(request.args.get("placed_only", "1")).lower() not in {"0", "false", "no"}
+        if placed_only: rows = [row for row in rows if row.get("tahfeez_class")]
+        export_format = clean(request.args.get("format", "xlsx")).lower(); headers = ["Admission_number", "Last_name", "First_name", "Other_names", "Phone", "Sex", "Regular_Class", "Regular_Class_category", "Tahfeez_Class"]
+        normalized = [{"Admission_number": row.get("admission_number", ""), "Last_name": row.get("last_name", ""), "First_name": row.get("first_name", ""), "Other_names": row.get("other_names", ""), "Phone": row.get("phone", ""), "Sex": row.get("sex", ""), "Regular_Class": row.get("regular_class", ""), "Regular_Class_category": row.get("regular_class_category", ""), "Tahfeez_Class": row.get("tahfeez_class", "")} for row in rows]
+        if export_format == "csv":
+            text_buffer = io.StringIO(); writer = csv.DictWriter(text_buffer, fieldnames=headers); writer.writeheader(); writer.writerows(normalized); payload = io.BytesIO(text_buffer.getvalue().encode("utf-8-sig")); payload.seek(0); return send_file(payload, as_attachment=True, download_name="Tahfeez_Placements.csv", mimetype="text/csv; charset=utf-8")
+        workbook = Workbook(); worksheet = workbook.active; worksheet.title = "Tahfeez Placements"; worksheet.append(headers)
+        for row in normalized: worksheet.append([row.get(header, "") for header in headers])
+        worksheet.freeze_panes = "A2"; worksheet.auto_filter.ref = f"A1:I{max(1, len(normalized) + 1)}"
+        for column, width in {"A":18,"B":20,"C":20,"D":22,"E":18,"F":11,"G":20,"H":20,"I":18}.items(): worksheet.column_dimensions[column].width = width
+        payload = io.BytesIO(); workbook.save(payload); workbook.close(); payload.seek(0); return send_file(payload, as_attachment=True, download_name="Tahfeez_Placements.xlsx", mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    except Exception as error:
+        return jsonify({"success": False, "message": f"Tahfeez export failed: {error}"}), 500
 
 
 # ============================================================
@@ -1077,6 +1177,8 @@ def api_commit_student_import():
     data = request.get_json(silent=True) or {}
     try:
         result = commit_student_import(data.get("rows") or [], mode=data.get("mode") or "add")
+        try: sync_tahfeez_identities(reason="student_import_identity_sync")
+        except Exception: pass
         admissions = [normalize_admission(row.get("Admission_number")) for row in result.get("added", []) + result.get("updated", []) if normalize_admission(row.get("Admission_number"))]
         log_action("IMPORT_STUDENTS", "UPLOAD", "ACTIVE_DATABASE", admissions, f"Smart student import: {result['added_count']} added, {result['updated_count']} updated. Backup: {result['backup']}")
         return jsonify({**result, "message": f"Student import completed: {result['added_count']} added and {result['updated_count']} updated."})

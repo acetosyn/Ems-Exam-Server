@@ -11,7 +11,7 @@
 //   /static/portal/<YEAR>/<ARM>/<FILE>.json
 //
 // Supports:
-//   • JSS1 / JSS2 / JSS3 term-aware exams
+//   • Primary 1–6 / JSS1–3 strict term-aware exams
 //   • SS1 / SS2 / SS3 non-term-aware exams
 //   • Exact class-arm routing
 //   • Broad JSS fallback
@@ -201,7 +201,7 @@ function normalizeClassLevel(value) {
   const raw = String(value || "").toUpperCase().trim().replace(/-/g, "_");
   const compact = raw.replace(/[\s_]/g, "");
 
-  for (const level of ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]) {
+  for (const level of ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]) {
     if (compact === level || compact.startsWith(level)) {
       return level;
     }
@@ -261,7 +261,7 @@ function getExamArmCandidates(classLevel = "") {
 // ======================================================
 // TERM MODEL
 //
-// JSS = FIRST / SECOND / THIRD REQUIRED
+// PRIMARY + JSS = FIRST / SECOND / THIRD REQUIRED
 // SS  = FIRST / SECOND / THIRD OPTIONAL
 //       + legacy GENERAL/root fallback
 // ======================================================
@@ -295,7 +295,7 @@ function termLabel(term) {
 
 
 function isTermRequiredExamClass(classLevel) {
-  return ["JSS1", "JSS2", "JSS3"].includes(normalizeClassLevel(classLevel));
+  return ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3"].includes(normalizeClassLevel(classLevel));
 }
 
 
@@ -715,7 +715,7 @@ function buildExamJSONCandidates(subject, classCategory = "") {
 
 
   // ====================================================
-  // JSS — STRICT TERM
+  // PRIMARY / JSS — STRICT TERM
   //
   // Priority:
   //   1. Exact arm / TERM

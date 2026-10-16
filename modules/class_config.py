@@ -1,27 +1,41 @@
 # modules/class_config.py
 
-from modules.school_structure import REGULAR_CLASS_LEVELS, ISLAMIYAH_CLASS_LEVELS, PENDING_DATABASE_CLASSES, SCHOOL_SECTIONS, ASSESSMENT_SCHEMES, ALL_CONFIGURED_CLASSES, class_label, get_class_metadata, get_source_subjects, normalize_school_class, school_section_for_class
+import re
+
+from modules.school_structure import MAIN_SCHOOL_CLASS_LEVELS, REGULAR_CLASS_LEVELS, TAHFEEZ_CLASS_LEVELS, ISLAMIYAH_CLASS_LEVELS, ACTIVE_DATABASE_CLASSES, PENDING_DATABASE_CLASSES, SCHOOL_SECTIONS, ASSESSMENT_SCHEMES, ALL_CONFIGURED_CLASSES, class_label, get_class_metadata, get_secondary_track_subjects, get_source_subjects, normalize_school_class, school_section_for_class
 
 
 # =========================================================
 # CORE CLASS CONFIGURATION
 # =========================================================
 
-SUPPORTED_CLASSES = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]
-
-# Expanded school structure is staged separately so current JSS/SS roster logic remains stable
-# until Nursery/Primary/Tahfeez databases are supplied and activated in a later phase.
+# students2026.csv stores the complete regular-school roster. The CBT exam stack now
+# supports Primary 1–6 as well as JSS1–3 and SS1–3. Keep the exam-class sets here as
+# the single source of truth so Uploads, Push, Student Portal and Results stay aligned.
+STUDENT_DATABASE_CLASSES = list(ACTIVE_DATABASE_CLASSES)
+PRIMARY_EXAM_CLASSES = ["PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6"]
+JSS_EXAM_CLASSES = ["JSS1", "JSS2", "JSS3"]
+SS_EXAM_CLASSES = ["SS1", "SS2", "SS3"]
+EXAM_SUPPORTED_CLASSES = [*PRIMARY_EXAM_CLASSES, *JSS_EXAM_CLASSES, *SS_EXAM_CLASSES]
+TERM_REQUIRED_EXAM_CLASSES = [*PRIMARY_EXAM_CLASSES, *JSS_EXAM_CLASSES]
+TERM_OPTIONAL_EXAM_CLASSES = list(SS_EXAM_CLASSES)
+SUPPORTED_CLASSES = list(EXAM_SUPPORTED_CLASSES)
 ALL_CONFIGURED_REGULAR_CLASSES = list(REGULAR_CLASS_LEVELS)
 PLANNED_DATABASE_CLASSES = list(PENDING_DATABASE_CLASSES)
+TAHFEEZ_CLASSES = list(TAHFEEZ_CLASS_LEVELS)
 ISLAMIYAH_CLASSES = list(ISLAMIYAH_CLASS_LEVELS)
 
+# Real lower-school registers use Gold/Silver groups for Prep/Nursery and A/B arms for Primary.
+# Empty future arms remain configured so missing source sheets can be added later without code changes.
 CLASS_ARMS_BY_LEVEL = {
-    "JSS1": ["JSS1A", "JSS1B", "JSS1C"],
-    "JSS2": ["JSS2A", "JSS2B", "JSS2C"],
-    "JSS3": ["JSS3A", "JSS3B", "JSS3C"],
-    "SS1": ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1_B/C"],
-    "SS2": ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2_B/C"],
-    "SS3": ["SS3_GOLD", "SS3_SILVER", "SS3_B/C"],  # Current SS3 has no Diamond arm.
+    "CRECHE": ["CRECHE"], "STARTER": ["STARTER"],
+    "PRE_CLASS": ["PRE_CLASS_GOLD", "PRE_CLASS_SILVER"],
+    "NURSERY1": ["NURSERY1_GOLD", "NURSERY1_SILVER"], "NURSERY2": ["NURSERY2_GOLD", "NURSERY2_SILVER"],
+    "PRIMARY1": ["PRIMARY1A", "PRIMARY1B"], "PRIMARY2": ["PRIMARY2A", "PRIMARY2B"], "PRIMARY3": ["PRIMARY3A", "PRIMARY3B"],
+    "PRIMARY4": ["PRIMARY4A", "PRIMARY4B"], "PRIMARY5": ["PRIMARY5A", "PRIMARY5B"], "PRIMARY6": ["PRIMARY6A", "PRIMARY6B"],
+    "JSS1": ["JSS1A", "JSS1B", "JSS1C"], "JSS2": ["JSS2A", "JSS2B", "JSS2C"], "JSS3": ["JSS3A", "JSS3B", "JSS3C"],
+    "SS1": ["SS1_GOLD", "SS1_SILVER", "SS1_DIAMOND", "SS1_B/C"], "SS2": ["SS2_GOLD", "SS2_SILVER", "SS2_DIAMOND", "SS2_B/C"],
+    "SS3": ["SS3_GOLD", "SS3_SILVER", "SS3_B/C"],
 }
 
 # Backward-compatible alias used by older modules.
@@ -33,9 +47,11 @@ CLASS_ARMS = CLASS_ARMS_BY_LEVEL
 # =========================================================
 
 STUDENT_CSV_FILE = "static/data/database/students2026.csv"
+TAHFEEZ_CSV_FILE = "static/data/database/tahfeez2026.csv"
+ISLAMIYAH_CSV_FILE = TAHFEEZ_CSV_FILE  # One combined Tahfeez and Islamiyyah student register.
 
 # Backward compatibility: every class now points to the same master CSV.
-STUDENT_CSV_FILES = {level: STUDENT_CSV_FILE for level in SUPPORTED_CLASSES}
+STUDENT_CSV_FILES = {level: STUDENT_CSV_FILE for level in STUDENT_DATABASE_CLASSES}
 
 
 # =========================================================
@@ -70,6 +86,7 @@ def normalize_subject_key(subject):
         "MARKETTING": "MARKETING",
 
         "IRK": "IRS",
+        "IRK / IRS": "IRS",
         "IRS": "IRS",
 
         "AGRICULTURE": "AGRICULTURAL SCIENCE",
@@ -211,83 +228,29 @@ def unique_ordered(subjects):
 # RAW SUBJECT LISTS
 # =========================================================
 
-JSS_SUBJECTS_RAW = [
-    "Mathematics", "English Language", "IRK", "Islamiyyah", "Poise",
-    "Heritage & Citizenship Studies", "National Value", "Yoruba Language",
-    "Hausa Language", "Arabic Language", "CCA", "Business Studies", "History",
-    "BST", "P.H.E", "PVS", "Hort & Crop Production", "Digital Tech.",
-    "Inter Science", "Garment Making", "Soc. & Cit. Std",
-]
-
-
-SS_SCIENCE_SUBJECTS_BY_LEVEL_RAW = {
-    "SS1": [
-        "Mathematics", "English Language", "Chemistry", "Physics", "Biology",
-        "Technical Drawing", "IRS", "Computer Science", "Further Mathematics",
-        "Agricultural Science", "Civic Education", "Geography", "Economics",
-        "Digital Tech.", "Cit & Her. Std", "Garment Making", "Poise", "Islamiyyah",
-    ],
-
-    "SS2": [
-        "Mathematics", "English Language", "Chemistry", "Physics", "Biology",
-        "Technical Drawing", "IRS", "Computer Science", "Further Mathematics",
-        "Agricultural Science", "Civic Education", "Geography", "Economics",
-        "Poise", "Islamiyyah",
-    ],
-
-    "SS3": [
-        "Mathematics", "English Language", "Chemistry", "Physics", "Biology",
-        "Further Mathematics", "Agricultural Science", "Civic Education",
-        "Economics", "Poise", "Islamiyyah",
-    ],
+JSS_SUBJECTS_BY_LEVEL_RAW = {
+    "JSS1": get_source_subjects("JSS1"),
+    "JSS2": get_source_subjects("JSS2"),
+    "JSS3": get_source_subjects("JSS3"),
 }
 
 
-SS_ART_SUBJECTS_BY_LEVEL_RAW = {
-    "SS1": [
-        "Mathematics", "English Language", "Literature", "Government", "IRS",
-        "Hausa Language", "Yoruba Language", "Arabic Language", "Civic Education",
-        "Marketing", "Poise", "Islamiyyah",
-    ],
 
-    "SS2": [
-        "Mathematics", "English Language", "Literature", "Government", "IRS",
-        "Hausa Language", "Yoruba Language", "Arabic Language", "Civic Education",
-        "Marketing", "Poise", "Islamiyyah",
-    ],
+SS_OFFICIAL_SUBJECTS_BY_LEVEL_RAW = {level: get_source_subjects(level) for level in ["SS1", "SS2", "SS3"]}
 
-    "SS3": [
-        "Mathematics", "English Language", "Literature", "Government",
-        "Hausa Language", "Yoruba Language", "Arabic Language", "Civic Education",
-        "Marketing", "Poise", "Islamiyyah",
-    ],
-}
+# Detailed EMIS class-subject structure: GOLD/SILVER/DIAMOND use Science; B/C uses the combined Art + Commercial pool.
+SS_SCIENCE_SUBJECTS_BY_LEVEL_RAW = {level: get_secondary_track_subjects(level, "SCIENCE") for level in ["SS1", "SS2", "SS3"]}
+SS_ART_SUBJECTS_BY_LEVEL_RAW = {level: get_secondary_track_subjects(level, "ART_COMMERCIAL") for level in ["SS1", "SS2", "SS3"]}
+SS_COMMERCIAL_SUBJECTS_BY_LEVEL_RAW = {level: get_secondary_track_subjects(level, "ART_COMMERCIAL") for level in ["SS1", "SS2", "SS3"]}
 
-
-SS_COMMERCIAL_SUBJECTS_BY_LEVEL_RAW = {
-    "SS1": [
-        "Mathematics", "English Language", "Economics", "Financial Account",
-        "Civic Education", "Marketing", "Commerce", "Poise", "Islamiyyah",
-    ],
-
-    "SS2": [
-        "Mathematics", "English Language", "Economics", "Financial Account",
-        "Civic Education", "Marketing", "Commerce", "Poise", "Islamiyyah",
-    ],
-
-    "SS3": [
-        "Mathematics", "English Language", "Civic Education", "Economics",
-        "Marketing", "Government", "Commerce", "Financial Account",
-        "Poise", "Islamiyyah",
-    ],
-}
 
 
 # =========================================================
 # CLEANED SUBJECT LISTS
 # =========================================================
 
-JSS_SUBJECTS = unique_ordered(JSS_SUBJECTS_RAW)
+JSS_SUBJECTS_BY_LEVEL = {level: unique_ordered(subjects) for level, subjects in JSS_SUBJECTS_BY_LEVEL_RAW.items()}
+JSS_SUBJECTS = unique_ordered(sum(JSS_SUBJECTS_BY_LEVEL_RAW.values(), []))  # compatibility union only; class lookup uses the per-level map
 
 SS_SCIENCE_SUBJECTS_BY_LEVEL = {
     level: unique_ordered(subjects) for level, subjects in SS_SCIENCE_SUBJECTS_BY_LEVEL_RAW.items()
@@ -307,10 +270,8 @@ SS_ART_COMMERCIAL_SUBJECTS_BY_LEVEL = {
 }
 
 CLASS_SUBJECTS = {
-    "JSS1": JSS_SUBJECTS,
-    "JSS2": JSS_SUBJECTS,
-    "JSS3": JSS_SUBJECTS,
-
+    **{level: unique_ordered(get_source_subjects(level)) for level in ["CRECHE", "STARTER", "PRE_CLASS", "NURSERY1", "NURSERY2", "PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6"]},
+    "JSS1": JSS_SUBJECTS_BY_LEVEL["JSS1"], "JSS2": JSS_SUBJECTS_BY_LEVEL["JSS2"], "JSS3": JSS_SUBJECTS_BY_LEVEL["JSS3"],
     # Broad SS views contain every subject available to that level.
     "SS1": unique_ordered(SS_SCIENCE_SUBJECTS_BY_LEVEL["SS1"] + SS_ART_COMMERCIAL_SUBJECTS_BY_LEVEL["SS1"]),
     "SS2": unique_ordered(SS_SCIENCE_SUBJECTS_BY_LEVEL["SS2"] + SS_ART_COMMERCIAL_SUBJECTS_BY_LEVEL["SS2"]),
@@ -323,33 +284,33 @@ CLASS_SUBJECTS = {
 # =========================================================
 
 def normalize_class_level(value):
-    """
-    Examples:
-        JSS1A       -> JSS1
-        JSS2C       -> JSS2
-        SS1_GOLD    -> SS1
-        SS1_B/C     -> SS1
-        SS2B&C      -> SS2
-        SS3BC       -> SS3
-    """
+    """Normalize broad regular-school class levels, including Basic 1-12 aliases and exact arms."""
+    raw = str(value or "").upper().strip()
+    if not raw: return ""
 
-    value = str(value or "").upper().strip()
-    if not value: return ""
+    # Strip a trailing lower-school arm/group before broad class normalization.
+    spaced = " ".join(raw.replace("_", " ").replace("-", " ").split())
+    basic_match = re.search(r"\bBASIC\s*(1[0-2]|[1-9])(?:\s*[ABC])?\b", spaced)
+    if basic_match:
+        number = int(basic_match.group(1))
+        return {1:"PRIMARY1",2:"PRIMARY2",3:"PRIMARY3",4:"PRIMARY4",5:"PRIMARY5",6:"PRIMARY6",7:"JSS1",8:"JSS2",9:"JSS3",10:"SS1",11:"SS2",12:"SS3"}.get(number, "")
 
-    compact = value.replace(" ", "").replace("_", "").replace("-", "").replace("/", "").replace("&", "")
+    canonical = normalize_school_class(raw)
+    if canonical in STUDENT_DATABASE_CLASSES: return canonical
 
-    for level in SUPPORTED_CLASSES:
-        if compact == level or compact.startswith(level): return level
+    compact = re.sub(r"[\s_\-/&]", "", raw)
+    for level in ["CRECHE", "STARTER", "PRE_CLASS", "NURSERY1", "NURSERY2", "PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6", "JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"]:
+        level_compact = re.sub(r"[\s_\-/&]", "", level)
+        if compact == level_compact or compact.startswith(level_compact): return level
 
+    # Friendly lower-school labels such as Prep Gold / Nursery 1 Silver.
+    if compact.startswith("PREP") or compact.startswith("PRECLASS"): return "PRE_CLASS"
+    if compact.startswith("NURSERY1"): return "NURSERY1"
+    if compact.startswith("NURSERY2"): return "NURSERY2"
     return ""
 
-
 def normalize_configured_class_level(value):
-    """Normalize any configured EMIS class, including pending Nursery/Primary/Tahfeez and Islamiyah levels.
-
-    This is intentionally separate from normalize_class_level(), which remains limited to the
-    six active JSS/SS student-database classes until the new rosters are supplied.
-    """
+    """Normalize any configured EMIS class, including Tahfeez and Islamiyah parallel levels."""
     return normalize_school_class(value)
 
 
@@ -362,49 +323,42 @@ def is_configured_class(value):
 
 
 def normalize_class_arm(value, fallback_level=""):
-    """
-    Canonical senior arms:
-        SS1_GOLD / SS1_SILVER / SS1_DIAMOND / SS1_B/C
-
-    Legacy aliases such as SS1B, SS1_B, SS1BC, SS1B/C,
-    SS1B&C etc. normalize to SS1_B/C.
-    """
-
+    """Normalize the exact arm/group while preserving existing JSS/SS behavior."""
     raw = str(value or "").upper().strip() or str(fallback_level or "").upper().strip()
     if not raw: return ""
-
-    cleaned = raw.replace("-", "_").replace(" ", "")
-    compact = cleaned.replace("_", "").replace("/", "").replace("&", "")
     level = normalize_class_level(raw) or normalize_class_level(fallback_level)
-
     if not level: return ""
+    compact = re.sub(r"[\s_\-/&]", "", raw)
 
-    # JSS arms.
+    if level in {"CRECHE", "STARTER"}: return level
+    if level == "PRE_CLASS":
+        if "GOLD" in compact: return "PRE_CLASS_GOLD"
+        if "SILVER" in compact: return "PRE_CLASS_SILVER"
+        return ""
+    if level in {"NURSERY1", "NURSERY2"}:
+        if "GOLD" in compact: return f"{level}_GOLD"
+        if "SILVER" in compact: return f"{level}_SILVER"
+        return ""
+    if level.startswith("PRIMARY"):
+        # Accept Primary 1A and Basic 1A forms.
+        suffix = ""
+        m = re.search(r"(?:PRIMARY\s*\d+|BASIC\s*[1-6])\s*([AB])\b", raw.replace("_", " "), re.I)
+        if m: suffix = m.group(1).upper()
+        elif compact.startswith(level) and compact[len(level):] in {"A", "B"}: suffix = compact[len(level):]
+        return f"{level}{suffix}" if suffix else ""
+
     if level.startswith("JSS"):
         for arm in ["A", "B", "C"]:
             if compact == f"{level}{arm}": return f"{level}{arm}"
-        return level
+        return level if compact == level else ""
 
-    # SS Science arms.
     if "GOLD" in compact: return f"{level}_GOLD"
     if "SILVER" in compact: return f"{level}_SILVER"
     if "DIAMOND" in compact: return f"{level}_DIAMOND"
-
-    # SS combined Arts / Commercial B/C arm.
-    suffix = compact[len(level):]
+    suffix = compact[len(level):] if compact.startswith(level) else ""
     if suffix in {"B", "BC"}: return f"{level}_B/C"
-
-    raw_no_space = raw.replace(" ", "").replace("-", "_")
-    bc_aliases = {
-        f"{level}B", f"{level}_B", f"{level}BC", f"{level}_BC",
-        f"{level}B/C", f"{level}_B/C", f"{level}B&C", f"{level}_B&C",
-    }
-
-    if raw_no_space in bc_aliases: return f"{level}_B/C"
     if compact == level: return level
-
-    return level
-
+    return ""
 
 def get_class_level_from_arm(class_arm):
     return normalize_class_level(class_arm)
@@ -453,10 +407,11 @@ def get_ss_track(class_arm, preferred_track=""):
 
 
 def get_class_arm_stream_label(class_arm):
-    """Human-readable stream label used by promotion/student-placement UIs."""
-    arm = normalize_class_arm(class_arm)
-    level = normalize_class_level(arm)
+    """Human-readable section/stream label used by student-placement UIs."""
+    arm = normalize_class_arm(class_arm); level = normalize_class_level(arm)
     if not level: return ""
+    if level in {"CRECHE", "STARTER", "PRE_CLASS", "NURSERY1", "NURSERY2"}: return "Early Years"
+    if level.startswith("PRIMARY"): return "Primary"
     if level.startswith("JSS"): return "Junior"
     stream = get_ss_stream(arm)
     if stream == "SCIENCE": return "Science"
@@ -466,15 +421,29 @@ def get_class_arm_stream_label(class_arm):
 
 def get_class_arm_metadata(class_arm):
     """Small normalized metadata object for UI labels and movement warnings."""
-    arm = normalize_class_arm(class_arm)
-    level = normalize_class_level(arm)
-    return {
-        "class_arm": arm,
-        "class_level": level,
-        "stream": get_ss_stream(arm) if level.startswith("SS") else "JUNIOR",
-        "stream_label": get_class_arm_stream_label(arm),
-    }
+    arm = normalize_class_arm(class_arm); level = normalize_class_level(arm); section = school_section_for_class(level)
+    return {"class_arm": arm, "class_level": level, "stream": get_ss_stream(arm) if level.startswith("SS") else section, "stream_label": get_class_arm_stream_label(arm), "section": section}
 
+
+
+
+# =========================================================
+# CBT TERM MODE — SHARED BY UPLOADS / PUSH / PORTAL / RESULTS
+# =========================================================
+
+def is_exam_term_required_class(value):
+    level = normalize_class_level(value)
+    return level in TERM_REQUIRED_EXAM_CLASSES
+
+
+def is_exam_term_optional_class(value):
+    level = normalize_class_level(value)
+    return level in TERM_OPTIONAL_EXAM_CLASSES
+
+
+def supports_exam_terms(value):
+    level = normalize_class_level(value)
+    return level in EXAM_SUPPORTED_CLASSES
 
 # =========================================================
 # SUBJECT LOOKUP
@@ -534,18 +503,15 @@ def get_configured_subjects_for_class(class_category, preferred_track="", active
 
 
 def get_subjects_for_class(class_category, class_arm=None, preferred_track=""):
-    """Return subjects for the six active database classes, honoring the Phase 2 dynamic registry.
-
-    Pending Nursery/Primary/Tahfeez and independent Islamiyah classes use
-    get_configured_subjects_for_class() until their student databases/modules are activated.
-    """
+    """Return active subjects for any regular class stored in students2026.csv."""
     level = normalize_class_level(class_category); arm = normalize_class_arm(class_arm or class_category, level)
     if not level: return []
     track = get_ss_track(arm, preferred_track) if level.startswith("SS") else ""
     registry_rows = _registry_subject_rows(level, track=track, active_only=True)
     if registry_rows or _registry_manages_class(level): return _unique_subject_names(registry_rows)
 
-    if level.startswith("JSS"): return unique_ordered(JSS_SUBJECTS)
+    if level in {"CRECHE", "STARTER", "PRE_CLASS", "NURSERY1", "NURSERY2", "PRIMARY1", "PRIMARY2", "PRIMARY3", "PRIMARY4", "PRIMARY5", "PRIMARY6"}: return unique_ordered(get_source_subjects(level) or CLASS_SUBJECTS.get(level, []))
+    if level.startswith("JSS"): return unique_ordered(JSS_SUBJECTS_BY_LEVEL.get(level, []))
     if track == "SCIENCE": return unique_ordered(SS_SCIENCE_SUBJECTS_BY_LEVEL.get(level, []))
     if track == "ART": return unique_ordered(SS_ART_SUBJECTS_BY_LEVEL.get(level, []))
     if track == "COMMERCIAL": return unique_ordered(SS_COMMERCIAL_SUBJECTS_BY_LEVEL.get(level, []))
@@ -627,10 +593,10 @@ def get_subject_target_compatibility(class_level, class_arm, subject):
         return result
 
     # -----------------------------------------------------
-    # JSS
+    # EARLY YEARS / PRIMARY / JSS
     # -----------------------------------------------------
 
-    if level.startswith("JSS"):
+    if not level.startswith("SS"):
         allowed_keys = {normalize_subject_key(item) for item in get_subjects_for_class(level, arm)}
         if subject_key not in allowed_keys:
             result["allowed"] = False; result["reason"] = f"{subject_display} is not configured as a subject for {level}."
@@ -730,8 +696,8 @@ def get_subject_target_compatibility(class_level, class_arm, subject):
 # =========================================================
 
 def is_valid_class(class_category):
-    """Validate JSS1/JSS2/JSS3/SS1/SS2/SS3."""
-    return normalize_class_level(class_category) in SUPPORTED_CLASSES
+    """Validate any active regular-school class stored in students2026.csv."""
+    return normalize_class_level(class_category) in STUDENT_DATABASE_CLASSES
 
 
 def is_valid_class_arm(class_arm):
@@ -747,8 +713,6 @@ def is_valid_class_arm(class_arm):
     level = normalize_class_level(arm)
 
     if not level: return False
-    if arm == level: return True
-
     return arm in CLASS_ARMS_BY_LEVEL.get(level, [])
 
 

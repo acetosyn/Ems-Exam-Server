@@ -137,6 +137,38 @@
     </aside>
   </section>
 
+  <section class="academic-panel readiness-panel" id="phase10ReadinessPanel">
+    <div class="academic-panel-head readiness-head">
+      <div>
+        <span class="academic-panel-kicker">Phase 10 final integration</span>
+        <h2><i class="fa-solid fa-stethoscope"></i> EMIS System Readiness</h2>
+        <p class="readiness-copy">One compact health check for the expanded student database, Tahfeez links, Islamiyah roster, assessment rules, permanent records and Local → Deployed sync.</p>
+      </div>
+      <div class="readiness-head-actions">
+        <span class="readiness-overall checking" id="readinessOverall"><i class="fa-solid fa-circle-notch fa-spin"></i> Checking</span>
+        <button type="button" class="academic-btn secondary compact-btn" id="refreshSystemReadiness"><i class="fa-solid fa-rotate"></i> Run Check</button>
+      </div>
+    </div>
+
+    <div class="readiness-grid">
+      <article class="readiness-item" id="readinessStudents"><span class="readiness-icon students"><i class="fa-solid fa-users"></i></span><div><small>Regular Students</small><strong id="readinessStudentValue">—</strong><span id="readinessStudentMeta">Checking students2026.csv</span></div><i class="fa-solid fa-circle status-dot"></i></article>
+      <article class="readiness-item" id="readinessTahfeez"><span class="readiness-icon tahfeez"><i class="fa-solid fa-book-quran"></i></span><div><small>Tahfeez Database</small><strong id="readinessTahfeezValue">—</strong><span id="readinessTahfeezMeta">Checking tahfeez2026.csv</span></div><i class="fa-solid fa-circle status-dot"></i></article>
+      <article class="readiness-item" id="readinessIslamiyah"><span class="readiness-icon islamiyah"><i class="fa-solid fa-mosque"></i></span><div><small>Islamiyah Roster</small><strong id="readinessIslamiyahValue">—</strong><span id="readinessIslamiyahMeta">Checking roster coverage</span></div><i class="fa-solid fa-circle status-dot"></i></article>
+      <article class="readiness-item" id="readinessAssessment"><span class="readiness-icon assessment"><i class="fa-solid fa-clipboard-check"></i></span><div><small>Assessment Rules</small><strong id="readinessAssessmentValue">—</strong><span id="readinessAssessmentMeta">Checking scoring schemes</span></div><i class="fa-solid fa-circle status-dot"></i></article>
+      <article class="readiness-item" id="readinessHistory"><span class="readiness-icon history"><i class="fa-solid fa-box-archive"></i></span><div><small>Academic Records</small><strong id="readinessHistoryValue">—</strong><span id="readinessHistoryMeta">Checking permanent storage</span></div><i class="fa-solid fa-circle status-dot"></i></article>
+      <article class="readiness-item" id="readinessSync"><span class="readiness-icon sync"><i class="fa-solid fa-cloud-arrow-up"></i></span><div><small>Sync Coverage</small><strong id="readinessSyncValue">—</strong><span id="readinessSyncMeta">Checking secure queue</span></div><i class="fa-solid fa-circle status-dot"></i></article>
+    </div>
+
+    <div class="readiness-detail-row">
+      <div class="readiness-detail"><span><i class="fa-solid fa-book-open"></i> Subject Registry</span><strong id="readinessSubjects">—</strong></div>
+      <div class="readiness-detail"><span><i class="fa-solid fa-chalkboard-user"></i> Teacher Assignments</span><strong id="readinessTeachers">—</strong></div>
+      <div class="readiness-detail"><span><i class="fa-solid fa-layer-group"></i> Operational Classes</span><strong id="readinessClasses">—</strong></div>
+      <div class="readiness-detail"><span><i class="fa-solid fa-shield-halved"></i> Lower-School Safety</span><strong id="readinessProtection">Protected</strong></div>
+    </div>
+
+    <div class="readiness-message" id="readinessMessage" role="status" aria-live="polite"><i class="fa-solid fa-circle-info"></i><div><strong>Checking final Phase 10 integration…</strong><span>Please wait while EMIS verifies the current test-branch architecture.</span></div></div>
+  </section>
+
   <section class="academic-panel academic-rules-panel">
     <div class="academic-panel-head compact">
       <div><span class="academic-panel-kicker">Safety rules</span><h2><i class="fa-solid fa-shield-halved"></i> How the Global Period Behaves</h2></div>

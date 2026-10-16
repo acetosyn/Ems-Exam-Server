@@ -1,3 +1,7 @@
+## Current database update 8 October 2026
+
+The supplied registers are now complete: students2026.csv contains 720 regular-school records, including all 25 Basic 5A students. tahfeez2026.csv is the combined Tahfeez and Islamiyyah register with 823 entries (56 Tahfeez and 767 Islamiyyah). The Islamiyyah page supports all 30 supplied classes and their arms, with placements seeded for 2026/2027. Session enrollment and score files continue to preserve academic history. Earlier notes below describing Basic 5A or Islamiyyah rosters as pending describe the earlier project state. See README_DATABASE_UPDATE.md for the current schema, installation and verification details.
+
 # EMIS Exam Server — Updated Backend & Frontend Architecture Reference
 
 > **Purpose:** Complete technical reference for the current EMIS Exam Server after the Phase 1–Phase 9 upgrade programme, including the Phase 9 academic-document refinements and cumulative-sheet accessibility correction.

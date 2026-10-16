@@ -6,7 +6,7 @@ from pathlib import Path
 from datetime import datetime
 
 from modules.excel_manager import append_result_to_excel, normalize_result_term, result_term_label
-from modules.class_config import normalize_class_level, normalize_class_arm, get_ss_stream
+from modules.class_config import normalize_class_level, normalize_class_arm, get_ss_stream, is_exam_term_required_class
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -445,10 +445,10 @@ def save_result(data):
     raw_term = clean(data.get("term"))
     term = normalize_result_term(raw_term)
 
-    # JSS = strict term.
+    # Primary/JSS = strict term.
     # SS = hybrid term: FIRST/SECOND/THIRD when selected, blank for General.
-    if is_jss_class(class_level) and not term:
-        raise ValueError(f"Term is required for JSS result: {class_level} / {subject}")
+    if is_exam_term_required_class(class_level) and not term:
+        raise ValueError(f"Term is required for Primary/JSS result: {class_level} / {subject}")
 
     if raw_term and not term:
         raise ValueError(f"Invalid result term: {raw_term}")

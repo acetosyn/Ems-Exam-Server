@@ -3301,3 +3301,62 @@ body.dark-mode #caStudentModal.ca-quickedit-modal .ca-quickedit-head {
   #caToastHost .ca-toast-content strong { font-size: 13.5px !important; }
   #caToastHost .ca-toast-content span { font-size: 11.5px !important; }
 }
+/* ============================================================
+   PHASE 10 / NEW PHASE 3 — MULTI-SCHOOL ASSESSMENT STATUS
+   ============================================================ */
+.ca-mode-grid { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+.ca-mode-card.pending-scheme { border-color: rgba(217,119,6,.28) !important; background: linear-gradient(145deg,rgba(255,251,235,.96),rgba(255,255,255,.98)) !important; }
+.ca-mode-card.pending-scheme .mode-badge { background: rgba(217,119,6,.10) !important; color: #92400e !important; border-color: rgba(217,119,6,.20) !important; }
+.ca-mode-card.pending-scheme.active { border-color: rgba(217,119,6,.70) !important; box-shadow: 0 12px 30px rgba(146,64,14,.10) !important; }
+.ca-pending-note { display: flex; align-items: flex-start; gap: 10px; margin: 10px 0 0; padding: 11px 13px; border: 1px solid rgba(217,119,6,.22); border-radius: 12px; background: rgba(255,251,235,.82); color: #78350f; font-size: 12px; font-weight: 800; line-height: 1.45; }
+.ca-pending-note i { margin-top: 2px; }
+@media (max-width: 1100px) { .ca-mode-grid { grid-template-columns: 1fr !important; } }
+
+/* =================================================================================================
+   STAGE 1 / PHASE 3 — MOBILE-FIRST CA / TEST STUDIO
+   Converts assessment workspaces into compact touch-first phone panels without changing desktop.
+   ================================================================================================= */
+@media (max-width:700px) {
+  .ca-page.ca-attendance-style { padding:9px 8px 82px !important; gap:9px !important; background:#f4f7fb !important; }
+  .ca-hero { display:grid !important; grid-template-columns:1fr !important; gap:10px !important; padding:14px !important; border-radius:17px !important; box-shadow:0 7px 22px rgba(15,43,70,.07) !important; }
+  .ca-hero-left { gap:10px !important; }.ca-title-icon { width:39px !important; height:39px !important; min-width:39px !important; border-radius:11px !important; font-size:15px !important; }.ca-kicker { font-size:7px !important; }.ca-title-row h1 { font-size:20px !important; line-height:1.05 !important; }.ca-title-row p { font-size:10px !important; line-height:1.45 !important; }
+  .ca-live-card { min-height:43px !important; padding:7px 9px !important; border-radius:11px !important; }.ca-live-icon { width:29px !important; height:29px !important; min-width:29px !important; border-radius:9px !important; font-size:11px !important; }
+
+  .ca-stats-grid { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:6px !important; }
+  .ca-stat-card { min-width:0 !important; min-height:48px !important; padding:7px 9px !important; border-radius:12px !important; box-shadow:none !important; }.ca-stat-icon { width:29px !important; height:29px !important; min-width:29px !important; border-radius:9px !important; font-size:11px !important; }.ca-stat-card span { font-size:6.8px !important; }.ca-stat-card strong { font-size:15px !important; }
+
+  .ca-mode-grid { display:flex !important; gap:7px !important; overflow-x:auto !important; scroll-snap-type:x proximity !important; scrollbar-width:none !important; padding:1px 1px 3px !important; }.ca-mode-grid::-webkit-scrollbar { display:none !important; }
+  .ca-mode-card { flex:0 0 min(82vw,300px) !important; min-height:105px !important; padding:11px !important; border-radius:14px !important; scroll-snap-align:start !important; }.ca-mode-card h3 { font-size:12px !important; }.ca-mode-card p { font-size:8.5px !important; line-height:1.4 !important; }.mode-badge { font-size:6.5px !important; }
+
+  .ca-control-panel { padding:10px !important; border-radius:15px !important; }.ca-control-head { align-items:flex-start !important; gap:8px !important; }.ca-control-head h2 { font-size:15px !important; }.ca-control-head p { font-size:8.5px !important; }
+  .ca-control-grid { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:7px !important; }.form-group.full-width,.ca-subject-field { grid-column:1/-1 !important; }.form-label { margin-bottom:4px !important; font-size:7px !important; }.form-input { min-height:39px !important; height:39px !important; padding:0 9px !important; border-radius:10px !important; font-size:9.5px !important; }
+  .ca-import-box { grid-column:1/-1 !important; padding:9px !important; border-radius:11px !important; }.ca-import-box p { font-size:8px !important; }
+  .ca-toolbar { display:grid !important; grid-template-columns:1fr !important; gap:7px !important; padding:9px !important; border-radius:13px !important; }.ca-search-box { min-height:39px !important; border-radius:10px !important; }.ca-search-box input { font-size:10px !important; }.ca-toolbar-actions { display:flex !important; gap:5px !important; overflow-x:auto !important; flex-wrap:nowrap !important; scrollbar-width:none !important; }.ca-toolbar-actions::-webkit-scrollbar { display:none !important; }.ca-mini-btn { flex:0 0 auto !important; min-height:34px !important; padding:0 9px !important; border-radius:9px !important; font-size:7.5px !important; }
+
+  .ca-table-card { overflow:visible !important; border-radius:15px !important; box-shadow:0 7px 22px rgba(15,43,70,.06) !important; }.ca-table-head { display:grid !important; grid-template-columns:1fr !important; gap:7px !important; padding:11px !important; }.ca-table-head h2 { font-size:15px !important; }.ca-table-head p { font-size:8.5px !important; }.ca-footer-actions { display:grid !important; grid-template-columns:1fr !important; gap:7px !important; padding:9px !important; }.ca-footer-buttons { display:grid !important; grid-template-columns:1fr 1fr !important; gap:6px !important; }.ca-footer-buttons .ca-btn { width:100% !important; min-width:0 !important; min-height:38px !important; font-size:8px !important; }
+
+  /* Main CA roster becomes student assessment cards. */
+  .ca-table-wrap { max-height:none !important; overflow:visible !important; padding:8px !important; background:#eef3f8 !important; }
+  .ca-table { display:block !important; width:100% !important; min-width:0 !important; border:0 !important; background:transparent !important; }.ca-table thead { display:none !important; }.ca-table tbody { display:grid !important; gap:8px !important; width:100% !important; }
+  .ca-table tbody tr:not(.ca-empty-row) { position:relative !important; display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:7px 8px !important; padding:11px !important; border:1px solid #dce6ef !important; border-radius:13px !important; background:#fff !important; box-shadow:0 4px 12px rgba(15,43,70,.045) !important; }
+  .ca-table td { display:block !important; min-width:0 !important; padding:0 !important; border:0 !important; background:transparent !important; font-size:9.5px !important; }.ca-table td::before { display:block; margin-bottom:3px; color:#8a99aa; font-size:6.5px; font-weight:950; letter-spacing:.045em; text-transform:uppercase; }
+  .ca-table td:nth-child(1) { position:absolute !important; top:10px !important; right:10px !important; width:auto !important; color:#8695a3 !important; font-size:7px !important; font-weight:900 !important; }.ca-table td:nth-child(1)::before { display:none !important; }
+  .ca-table td:nth-child(2)::before { content:"Admission"; }.ca-table td:nth-child(3) { grid-column:1/-1 !important; padding-right:35px !important; color:#173b5c !important; font-size:12px !important; font-weight:950 !important; }.ca-table td:nth-child(3)::before { content:"Student"; }.ca-table td:nth-child(4)::before { content:"Class"; }.ca-table td:nth-child(5)::before { content:"Assessment Scores"; }.ca-table td:nth-child(6)::before { content:"Total"; }.ca-table td:nth-child(7)::before { content:"Status"; }.ca-table td:nth-child(8)::before { content:"Action"; }
+  .ca-table td:nth-child(5),.ca-table td:nth-child(8) { grid-column:1/-1 !important; }.ca-table td:nth-child(5) { padding:8px !important; border:1px solid #e1e9f0 !important; border-radius:10px !important; background:#f8fbfd !important; }
+  .ca-table :is(input,select) { max-width:100% !important; min-height:36px !important; border-radius:9px !important; font-size:9px !important; }.ca-mini-row { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:5px !important; }
+  .ca-table td[colspan] { grid-column:1/-1 !important; position:static !important; width:100% !important; padding:22px 10px !important; text-align:center !important; }.ca-table td[colspan]::before { display:none !important; }
+
+  .bulk-action-grid { grid-template-columns:1fr 1fr !important; gap:6px !important; }.bulk-action-card { padding:9px !important; border-radius:11px !important; }.bulk-action-card span { font-size:7px !important; }.bulk-action-card strong { font-size:10px !important; }
+
+  /* Saved CA records also become cards. */
+  .saved-record-table-wrap { overflow:visible !important; padding:7px !important; background:#eef3f8 !important; }.saved-record-table { display:block !important; width:100% !important; min-width:0 !important; }.saved-record-table thead { display:none !important; }.saved-record-table tbody { display:grid !important; gap:7px !important; }.saved-record-table tbody tr { position:relative !important; display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:6px 8px !important; padding:10px !important; border:1px solid #dce6ef !important; border-radius:12px !important; background:#fff !important; }.saved-record-table td { display:block !important; padding:0 !important; border:0 !important; font-size:9px !important; }.saved-record-table td::before { display:block; margin-bottom:2px; color:#8a99aa; font-size:6.2px; font-weight:950; text-transform:uppercase; }.saved-record-table td:nth-child(1) { position:absolute !important; top:9px !important; right:9px !important; }.saved-record-table td:nth-child(1)::before { display:none !important; }.saved-record-table td:nth-child(2)::before { content:"Session"; }.saved-record-table td:nth-child(3)::before { content:"Term"; }.saved-record-table td:nth-child(4)::before { content:"Class"; }.saved-record-table td:nth-child(5)::before { content:"Subject"; }.saved-record-table td:nth-child(6)::before { content:"Students"; }.saved-record-table td:nth-child(7)::before { content:"Saved"; }.saved-record-table td[colspan] { grid-column:1/-1 !important; position:static !important; text-align:center !important; }.saved-record-table td[colspan]::before { display:none !important; }
+
+  .ca-modal { padding:5px !important; }.ca-modal-panel { width:calc(100vw - 10px) !important; max-width:calc(100vw - 10px) !important; max-height:calc(100dvh - 78px) !important; border-radius:15px !important; }.ca-modal-head { padding:11px !important; }.ca-modal-body { padding:10px !important; }.ca-modal-actions { display:grid !important; grid-template-columns:1fr 1fr !important; gap:6px !important; padding:9px !important; }.ca-modal-actions .ca-btn { width:100% !important; min-width:0 !important; }
+  .ca-quickedit-modal { padding:5px !important; }.ca-quickedit-panel { width:calc(100vw - 10px) !important; max-width:calc(100vw - 10px) !important; max-height:calc(100dvh - 78px) !important; border-radius:15px !important; }.ca-quickedit-grid,.modal-score-grid,.structure-modal-grid { grid-template-columns:1fr 1fr !important; gap:6px !important; }
+  #caToastHost.ca-toast-host:not(:empty) { position:fixed !important; left:7px !important; right:7px !important; bottom:72px !important; z-index:9700 !important; width:auto !important; padding:0 !important; }
+}
+
+@media (max-width:390px) {
+  .ca-control-grid,.bulk-action-grid,.ca-quickedit-grid,.modal-score-grid,.structure-modal-grid { grid-template-columns:1fr !important; }
+  .ca-table tbody tr:not(.ca-empty-row),.saved-record-table tbody tr { grid-template-columns:1fr !important; }.ca-table td:nth-child(n+2),.saved-record-table td:nth-child(n+2) { grid-column:1/-1 !important; }
+}

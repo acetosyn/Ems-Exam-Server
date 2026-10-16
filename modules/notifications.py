@@ -32,6 +32,15 @@ def push_notification(n_type, message, payload=None):
     if len(NOTIFICATION_QUEUE) > MAX_QUEUE_SIZE:
         del NOTIFICATION_QUEUE[:100]
 
+    # The main dashboard/SSE endpoint is registered by api_routes at the same public URL.
+    # Mirror Academy events into that queue so Report Sheets and Academy live listeners receive them instantly.
+    try:
+        from modules.api_routes import push_admin_notification
+        streamed = push_admin_notification(n_type, message, payload or {})
+        notif["sequence"] = streamed.get("sequence")
+    except Exception as error:
+        print("[NOTIFICATIONS] SSE bridge warning:", error)
+
     return notif
 
 

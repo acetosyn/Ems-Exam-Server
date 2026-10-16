@@ -1,0 +1,11 @@
+﻿Session,Term,Class,Class_category,Subject,Subject_key,Admission_number,Last_name,First_name,Other_names,Assessment_mode,Components_json,CA_Max,Exam_Max,CA1,CA2,TEST1,TEST2,ASS1,ASS2,TEST,CA_Total,CA_Complete,Saved_at,Saved_by
+2026/2027,FIRST,JSS1B,JSS1,Mathematics,MATHEMATICS,std024,Abbakura,Ali,Sadiq,JSS,"{""CA1"":8,""CA2"":8,""TEST1"":7,""TEST2"":9}",60,40,8,8,7,9,,,,32,YES,2026-09-13 23:26:42,admin
+2026/2027,FIRST,JSS1B,JSS1,Mathematics,MATHEMATICS,std027,Abbakura,Ali,Zaynab,JSS,"{""CA1"":9,""CA2"":9,""TEST1"":9,""TEST2"":14}",60,40,9,9,9,14,,,,41,YES,2026-09-13 23:26:42,admin
+2026/2027,FIRST,JSS1B,JSS1,Mathematics,MATHEMATICS,std040,Abbas,Muaz,,JSS,"{""CA1"":8,""CA2"":9,""TEST1"":7,""TEST2"":15}",60,40,8,9,7,15,,,,39,YES,2026-09-13 23:26:42,admin
+2026/2027,FIRST,JSS1B,JSS1,Mathematics,MATHEMATICS,std037,Abdulhakeem,Muhammad,Al-amin,JSS,"{""CA1"":7,""CA2"":7,""TEST1"":7,""TEST2"":14}",60,40,7,7,7,14,,,,35,YES,2026-09-13 23:26:42,admin
+2026/2027,FIRST,JSS1B,JSS1,Mathematics,MATHEMATICS,std035,Abubakar,Ibrahim,,JSS,"{""CA1"":9,""CA2"":9,""TEST1"":9,""TEST2"":16}",60,40,9,9,9,16,,,,43,YES,2026-09-13 23:26:42,admin
+2026/2027,FIRST,JSS1B,JSS1,Mathematics,MATHEMATICS,std023,Adeyemi,Muklisah,Adepeju,JSS,"{""CA1"":8,""CA2"":8,""TEST1"":8,""TEST2"":17}",60,40,8,8,8,17,,,,41,YES,2026-09-13 23:26:42,admin
+2026/2027,FIRST,JSS1B,JSS1,Mathematics,MATHEMATICS,std030,Audu,Fadilah,,JSS,"{""CA1"":8,""CA2"":7,""TEST1"":9,""TEST2"":19}",60,40,8,7,9,19,,,,43,YES,2026-09-13 23:26:42,admin
+2026/2027,FIRST,JSS1A,JSS1,English Language,ENGLISH LANGUAGE,std015,Abbas,Bello,Aisha,JSS,"{""CA1"":4,""CA2"":6,""TEST1"":9,""TEST2"":14}",60,40,4,6,9,14,,,,33,YES,2026-09-14 11:16:26,admin
+2026/2027,FIRST,JSS1A,JSS1,English Language,ENGLISH LANGUAGE,std013,Abdulaziz,Kura,,JSS,"{""CA1"":8,""CA2"":8,""TEST1"":9,""TEST2"":15}",60,40,8,8,9,15,,,,40,YES,2026-09-14 11:16:26,admin
+2026/2027,FIRST,JSS1A,JSS1,English Language,ENGLISH LANGUAGE,std001,Abdulhakeem,Maryam,,JSS,"{""CA1"":6,""CA2"":7,""TEST1"":8,""TEST2"":15}",60,40,6,7,8,15,,,,36,YES,2026-09-14 11:16:26,admin

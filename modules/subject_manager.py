@@ -3,8 +3,9 @@
 from flask import Blueprint, jsonify, request
 
 from modules.admin_routes import admin_only
-from modules.subject_registry import build_subject_sync_payload, create_subject, get_registry_stats, get_subject_manager_config, list_subjects, save_subject_configuration, set_subject_assignments, set_subject_status, update_subject
+from modules.subject_registry import archive_subject, build_subject_sync_payload, create_subject, get_class_subject_rows, get_registry_stats, get_subject_manager_config, list_subjects, save_subject_configuration, set_subject_assignments, set_subject_status, update_subject
 from modules.result_sync import queue_emis_event_safely
+from modules.notifications import push_notification
 
 
 subject_manager_bp = Blueprint("subject_manager_bp", __name__)
@@ -27,6 +28,13 @@ def _queue_subject_sync(subject_id):
     except Exception as error:
         print("[SUBJECT MANAGER] Subject sync queue warning:", error)
         return {"queued": False, "status": "QUEUE_ERROR", "error": str(error)}
+
+
+def _notify_subject_event(action, subject, message):
+    try:
+        push_notification("subject_registry_updated", message, payload={"action": action, "subject_id": (subject or {}).get("id", ""), "subject_key": (subject or {}).get("key", ""), "subject": (subject or {}).get("name", ""), "active": bool((subject or {}).get("active", False)), "assignment_count": len((subject or {}).get("assignments") or [])})
+    except Exception as error:
+        print("[SUBJECT MANAGER] Notification warning:", error)
 
 
 @subject_manager_bp.get("/api/subject-manager/config")
@@ -52,8 +60,8 @@ def subject_manager_create():
     try:
         subject = create_subject(payload.get("name"), assignments=payload.get("assignments") or [], source="admin")
         if "active" in payload and not bool(payload.get("active")): subject = update_subject(subject.get("id"), active=False)
-        sync_info = _queue_subject_sync(subject.get("id"))
-        return jsonify({"success": True, "message": "Subject created successfully.", "subject": _subject_with_assignments(subject.get("id")), "stats": get_registry_stats(), "sync": sync_info}), 201
+        sync_info = _queue_subject_sync(subject.get("id")); current = _subject_with_assignments(subject.get("id")); _notify_subject_event("create", current, f"Subject created: {current.get('name') or subject.get('name')}.")
+        return jsonify({"success": True, "message": "Subject created successfully and synchronized across EMIS.", "subject": current, "stats": get_registry_stats(), "sync": sync_info}), 201
     except ValueError as error:
         return jsonify({"success": False, "error": str(error)}), 400
     except Exception as error:
@@ -67,8 +75,8 @@ def subject_manager_update(subject_id):
     payload = _json_payload()
     try:
         subject = save_subject_configuration(subject_id, name=payload.get("name") if "name" in payload else None, active=payload.get("active") if "active" in payload else None, assignments=payload.get("assignments") if "assignments" in payload else None)
-        sync_info = _queue_subject_sync(subject.get("id"))
-        return jsonify({"success": True, "message": "Subject updated successfully.", "subject": _subject_with_assignments(subject.get("id")), "stats": get_registry_stats(), "sync": sync_info})
+        sync_info = _queue_subject_sync(subject.get("id")); current = _subject_with_assignments(subject.get("id")); _notify_subject_event("update", current, f"Subject updated: {current.get('name') or subject.get('name')}.")
+        return jsonify({"success": True, "message": "Subject updated successfully and synchronized across EMIS.", "subject": current, "stats": get_registry_stats(), "sync": sync_info})
     except ValueError as error:
         return jsonify({"success": False, "error": str(error)}), 400
     except Exception as error:
@@ -82,8 +90,8 @@ def subject_manager_assignments(subject_id):
     payload = _json_payload()
     try:
         set_subject_assignments(subject_id, payload.get("assignments") or [])
-        sync_info = _queue_subject_sync(subject_id)
-        return jsonify({"success": True, "message": "Class assignments updated successfully.", "subject": _subject_with_assignments(subject_id), "stats": get_registry_stats(), "sync": sync_info})
+        sync_info = _queue_subject_sync(subject_id); current = _subject_with_assignments(subject_id); _notify_subject_event("assignments", current, f"Class offerings updated for {current.get('name') if current else 'subject'}.")
+        return jsonify({"success": True, "message": "Class assignments updated successfully and synchronized across EMIS.", "subject": current, "stats": get_registry_stats(), "sync": sync_info})
     except ValueError as error:
         return jsonify({"success": False, "error": str(error)}), 400
     except Exception as error:
@@ -98,10 +106,31 @@ def subject_manager_status(subject_id):
     if "active" not in payload: return jsonify({"success": False, "error": "The active status is required."}), 400
     try:
         subject = set_subject_status(subject_id, active=bool(payload.get("active")))
-        sync_info = _queue_subject_sync(subject.get("id"))
-        return jsonify({"success": True, "message": "Subject status updated successfully.", "subject": _subject_with_assignments(subject.get("id")), "stats": get_registry_stats(), "sync": sync_info})
+        sync_info = _queue_subject_sync(subject.get("id")); current = _subject_with_assignments(subject.get("id")); _notify_subject_event("status", current, f"Subject {'activated' if current and current.get('active') else 'deactivated'}: {current.get('name') if current else subject.get('name')}.")
+        return jsonify({"success": True, "message": "Subject status updated successfully and synchronized across EMIS.", "subject": current, "stats": get_registry_stats(), "sync": sync_info})
     except ValueError as error:
         return jsonify({"success": False, "error": str(error)}), 400
     except Exception as error:
         print("[SUBJECT MANAGER] Status update failed:", error)
         return jsonify({"success": False, "error": "Unable to update the subject status."}), 500
+
+
+@subject_manager_bp.delete("/api/subject-manager/subjects/<subject_id>")
+@admin_only
+def subject_manager_delete(subject_id):
+    """Archive from the active catalogue; historical records keep the stable subject identity."""
+    try:
+        archived = archive_subject(subject_id); sync_info = _queue_subject_sync(archived.get("id") or subject_id); current = _subject_with_assignments(archived.get("id") or subject_id) or archived
+        _notify_subject_event("archive", current, f"Subject removed from active classes: {current.get('name') or 'Subject'}.")
+        return jsonify({"success": True, "message": "Subject removed from the active catalogue and synchronized across EMIS. Historical records were preserved.", "subject": current, "stats": get_registry_stats(), "sync": sync_info})
+    except ValueError as error:
+        return jsonify({"success": False, "error": str(error)}), 400
+    except Exception as error:
+        print("[SUBJECT MANAGER] Archive failed:", error); return jsonify({"success": False, "error": "Unable to remove the subject from the active catalogue."}), 500
+
+
+@subject_manager_bp.get("/api/subject-manager/class-subjects")
+@admin_only
+def subject_manager_class_subjects():
+    class_level = request.args.get("class_level") or request.args.get("class") or ""; rows = get_class_subject_rows(class_level, active_only=True) if class_level else []
+    return jsonify({"success": True, "class_level": class_level, "subjects": rows, "count": len(rows)})

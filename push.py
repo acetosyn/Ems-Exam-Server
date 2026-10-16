@@ -2,13 +2,13 @@
 # push.py — EMIS CBT PORTAL PUSH SYSTEM
 #
 # Supports:
-#   - Broad class push: JSS1, JSS2, JSS3, SS1, SS2, SS3
-#   - Exact class-arm push: JSS1A, JSS2B, SS3_GOLD, SS3B, etc.
+#   - Broad class push: Primary 1–6, JSS1–3, SS1–3
+#   - Exact class-arm push: PRIMARY1A, JSS1A, SS3_GOLD, SS3B, etc.
 #   - Historical JSON source year -> independent Current / Active target year
 #   - Current / Active target years restricted to 2025-2040
 #   - Multi-subject batch push: one, many or complete subject set
 #   - Per-target active years
-#   - JSS strict FIRST / SECOND / THIRD routing
+#   - Primary + JSS strict FIRST / SECOND / THIRD routing
 #   - SS hybrid routing: GENERAL root + optional FIRST / SECOND / THIRD
 #   - SS term source fallback: selected term file -> root/general file
 #   - Portal subject manifests
@@ -24,8 +24,10 @@ from pathlib import Path
 from datetime import datetime
 from flask import Blueprint, jsonify, request, session
 
+from modules.notifications import push_notification
+
 from modules.class_config import (
-    SUPPORTED_CLASSES, CLASS_ARMS,
+    SUPPORTED_CLASSES, CLASS_ARMS, TERM_REQUIRED_EXAM_CLASSES, TERM_OPTIONAL_EXAM_CLASSES,
     normalize_class_level, normalize_class_arm,
     get_subject_target_compatibility,
 )
@@ -36,13 +38,13 @@ push_bp = Blueprint("push_bp", __name__)
 BASE_DIR = Path(__file__).resolve().parent
 
 # Source:
-# JSS -> static/subjects/<YEAR>/subjects-json/JSS1/FIRST/file.json
+# Primary/JSS -> static/subjects/<YEAR>/subjects-json/PRIMARY1/FIRST/file.json
 # SS  -> static/subjects/<YEAR>/subjects-json/SS1/file.json
 # SS  -> static/subjects/<YEAR>/subjects-json/SS1/FIRST/file.json
 SUBJECTS_JSON_ROOT = BASE_DIR / "static" / "subjects"
 
 # Portal:
-# JSS -> static/portal/<YEAR>/JSS1A/FIRST/file.json
+# Primary/JSS -> static/portal/<YEAR>/PRIMARY1A/FIRST/file.json
 # SS  -> static/portal/<YEAR>/SS1_GOLD/file.json
 # SS  -> static/portal/<YEAR>/SS1_GOLD/FIRST/file.json
 PORTAL_ROOT = BASE_DIR / "static" / "portal"
@@ -57,11 +59,11 @@ CLASS_ACTIVE_TERMS_FILE = PORTAL_ROOT / "class_active_terms.json"
 # TERM CONFIGURATION
 # ============================================================
 
-# JSS = strict term requirement.
-TERM_AWARE_CLASSES = {"JSS1", "JSS2", "JSS3"}
+# Primary + JSS = strict term requirement.
+TERM_AWARE_CLASSES = set(TERM_REQUIRED_EXAM_CLASSES)
 
 # SS = optional / hybrid term support.
-OPTIONAL_TERM_CLASSES = {"SS1", "SS2", "SS3"}
+OPTIONAL_TERM_CLASSES = set(TERM_OPTIONAL_EXAM_CLASSES)
 
 VALID_TERMS = {"FIRST", "SECOND", "THIRD"}
 TERM_ORDER = {"FIRST": 1, "SECOND": 2, "THIRD": 3}
@@ -151,7 +153,7 @@ def get_student_target_meta(student):
 # ============================================================
 
 def is_term_aware_class(class_level):
-    """JSS only: term is compulsory."""
+    """Primary and JSS: term is compulsory."""
     return str(class_level or "").upper().strip() in TERM_AWARE_CLASSES
 
 
@@ -443,7 +445,7 @@ def recalculate_active_years():
             active_terms[target_arm] = saved_term
             continue
 
-        # JSS cannot use GENERAL mode.
+        # Primary/JSS cannot use GENERAL mode.
         # If the saved term disappeared, use the highest available term.
         if is_term_aware_class(class_level):
             if available_terms:
@@ -506,7 +508,7 @@ def get_portal_target_folder(year, class_level, target_arm, term=None):
     folder = PORTAL_ROOT / str(year) / target_arm
     normalized_term = normalize_term(term)
 
-    # JSS requires a term.
+    # Primary/JSS requires a term.
     if is_term_aware_class(class_level):
         if not normalized_term: return None
 
@@ -534,7 +536,7 @@ def get_subject_source_path(year, class_level, filename, term=None):
     class_folder = SUBJECTS_JSON_ROOT / str(year) / "subjects-json" / class_level
     normalized_term = normalize_term(term)
 
-    # JSS = strict term source.
+    # Primary/JSS = strict term source.
     if is_term_aware_class(class_level):
         if not normalized_term: return None
 
@@ -604,7 +606,7 @@ def load_pushed_list_with_fallback(year, class_cat, class_level="", term=None):
     if not subjects and target_arm != resolved_level:
         subjects = load_pushed_list(year, resolved_level, normalized_term)
 
-    # JSS ends here.
+    # Primary/JSS strict-term branch ends here.
     # SS GENERAL mode also ends here because normalized_term is None.
     if subjects or not is_optional_term_class(resolved_level) or not normalized_term:
         return subjects
@@ -626,7 +628,7 @@ def save_pushed_list(year, class_cat, subjects, class_level="", term=None):
 
     normalized_term = normalize_term(term)
 
-    # JSS always requires a term.
+    # Primary/JSS always require a term.
     if is_term_aware_class(resolved_level) and not normalized_term:
         raise ValueError(f"Term is required for {resolved_level}")
 
@@ -847,6 +849,8 @@ def push_subjects():
         set_active_year_for_target(target_arm, target_year, class_level)
         if term and supports_term_folders(class_level): set_active_term_for_target(target_arm, term, class_level)
         elif is_optional_term_class(class_level): set_general_term_for_target(target_arm, class_level)
+        try: push_notification("exam_portal_push", f"{len(pushed_summary)} subject{'s' if len(pushed_summary) != 1 else ''} published to {target_arm}.", payload={"class_level": class_level, "class_arm": target_arm, "year": target_year, "term": term or "GENERAL", "subjects": pushed_summary})
+        except Exception as error: print("[PUSH NOTIFICATION]", error)
 
     return jsonify({
         "success": success, "source_years": sorted(source_years_used, key=lambda value: int(value)), "target_year": target_year, "active_year": active_year,
@@ -939,7 +943,7 @@ def clear_portal():
         }), 400
 
     # --------------------------------------------------------
-    # JSS — SELECTED TERM REQUIRED
+    # PRIMARY/JSS — SELECTED TERM REQUIRED
     # --------------------------------------------------------
 
     if is_term_aware_class(class_level):
@@ -1091,7 +1095,7 @@ def student_get_pushed():
     requested_term = normalize_term(request.args.get("term"))
     active_term = None
 
-    # JSS = term compulsory.
+    # Primary/JSS = term compulsory.
     if is_term_aware_class(class_level):
         active_term = (
             requested_term

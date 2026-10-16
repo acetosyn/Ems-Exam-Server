@@ -1,0 +1,247 @@
+/* =================================================================================================
+   EMIS ACADEMIC WORKSPACE — PHASE 4
+   Compact desktop redesign for CA/Test + Report Sheets. Existing backend IDs are preserved.
+   ================================================================================================= */
+
+/* ===================================== SHARED COMPACT RHYTHM ===================================== */
+#caPage.ca-page,#reportPage.report-page{--p45-ink:#10233d;--p45-muted:#66758b;--p45-line:#d8e3ed;--p45-soft:#f6f9fb;--p45-teal:#087f75;--p45-navy:#0d2c46;--p45-blue:#1e76d0;--p45-green:#138a5b;--p45-red:#c84747;--p45-radius:14px;--p45-shadow:0 10px 28px rgba(18,43,68,.07);font-size:14px}
+#caPage *,#reportPage *{box-sizing:border-box}
+#caPage section,#reportPage section{scroll-margin-top:90px}
+
+/* ========================================= CA / TEST ========================================= */
+#caPage .ca-hero{min-height:0;padding:16px 18px;border:1px solid var(--p45-line);border-radius:var(--p45-radius);background:linear-gradient(125deg,#fbfdfd,#f1f8f8);box-shadow:none;display:flex;align-items:center;gap:18px}
+#caPage .ca-orb{display:none}
+#caPage .ca-title-row{gap:12px;align-items:center}
+#caPage .ca-title-icon{width:46px;height:46px;border-radius:13px;flex:0 0 46px}
+#caPage .ca-title-row h1{font-size:clamp(1.25rem,2vw,1.75rem);line-height:1.12;margin:1px 0 3px}
+#caPage .ca-kicker{font-size:.68rem;letter-spacing:.08em}
+#caPage .ca-title-row p{font-size:.82rem;line-height:1.45;margin:0;color:var(--p45-muted);max-width:760px}
+#caPage .ca-mini-row{display:none}
+#caPage .ca-live-card{min-width:270px;max-width:360px;margin-left:auto;padding:10px 12px;border-radius:12px;box-shadow:none;background:#fff;border:1px solid #d7e5e5}
+#caPage .ca-live-icon{width:34px;height:34px;border-radius:10px}
+#caPage .ca-live-card span{font-size:.61rem;letter-spacing:.08em}
+#caPage .ca-live-card strong{font-size:.9rem}
+#caPage .ca-live-card small{font-size:.68rem;line-height:1.35}
+
+/* One slim metrics rail instead of four large dashboard cards. */
+#caPage .ca-stats-grid{margin:10px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--p45-line);border-radius:12px;background:#fff;overflow:hidden;box-shadow:none}
+#caPage .ca-stat-card{min-height:64px;margin:0;padding:9px 12px;border:0!important;border-right:1px solid #e6edf3!important;border-radius:0!important;box-shadow:none!important;background:#fff!important;display:flex;align-items:center;gap:9px}
+#caPage .ca-stat-card:last-child{border-right:0!important}
+#caPage .ca-stat-icon{width:32px;height:32px;min-width:32px;border-radius:9px;font-size:.82rem}
+#caPage .ca-stat-card span{font-size:.61rem;letter-spacing:.06em;color:#6f7f92}
+#caPage .ca-stat-card strong{font-size:1rem;line-height:1.1;color:var(--p45-ink)}
+#caPage .ca-stat-card small{display:none}
+
+/* Context selector is now the page command bar. */
+#caPage .ca-control-panel{margin:0 0 10px;padding:12px;border:1px solid var(--p45-line);border-radius:14px;background:#fff;box-shadow:none}
+#caPage .ca-control-head{padding:0 0 9px;margin:0 0 9px;border-bottom:1px solid #edf2f6;align-items:center}
+#caPage .ca-control-head h2{font-size:.95rem;margin:1px 0 0}
+#caPage .ca-control-head .section-kicker{font-size:.62rem}
+#caPage .ca-mini-btn{min-height:34px;padding:7px 10px;border-radius:9px;font-size:.72rem}
+#caPage .ca-control-grid{display:grid;grid-template-columns:1fr 1fr 1.45fr 1fr 1.35fr auto;gap:8px;align-items:end}
+#caPage .ca-control-grid .form-group{margin:0;min-width:0}
+#caPage .form-label{font-size:.63rem;margin:0 0 4px;letter-spacing:.04em;color:#5f7086}
+#caPage .ca-input-wrap{min-height:40px;border-radius:9px}
+#caPage .ca-input-wrap>i{font-size:.72rem;left:11px}
+#caPage .form-input{height:40px;min-height:40px;padding:7px 30px 7px 34px;border-radius:9px;font-size:.78rem}
+#caPage .ca-control-grid .form-group.action{min-width:118px}
+#caPage .ca-control-grid .ca-btn{height:40px;min-height:40px;padding:8px 12px;border-radius:9px;font-size:.75rem;white-space:nowrap}
+
+/* Database actions become a popover instead of six cards. */
+#caPage .ca-action-dock{position:relative;z-index:45;margin:0;padding:0;border:0;background:transparent;box-shadow:none;display:none}
+#caPage .ca-action-dock.phase45-open{display:grid;position:absolute;right:0;top:calc(100% + 6px);width:min(360px,calc(100vw - 32px));grid-template-columns:1fr 1fr;gap:6px;padding:8px;background:#fff;border:1px solid var(--p45-line);border-radius:12px;box-shadow:0 18px 45px rgba(14,35,55,.16)}
+#caPage .ca-dock-btn{min-height:38px;padding:8px 9px;border-radius:9px;box-shadow:none!important;font-size:.7rem;justify-content:flex-start}
+#caPage .ca-dock-btn i{width:23px;height:23px;font-size:.68rem}
+#caPage .ca-phase45-tools{position:relative;margin:0 0 10px;display:flex;gap:7px;align-items:center;justify-content:flex-end}
+#caPage .ca-phase45-tools .phase45-tool-trigger{height:34px;padding:6px 10px;border:1px solid var(--p45-line);background:#fff;border-radius:9px;color:#344a62;font-weight:800;font-size:.7rem;cursor:pointer}
+#caPage .ca-phase45-tools .phase45-tool-trigger:hover{border-color:#9bc9c4;color:var(--p45-teal)}
+#caPage .ca-phase45-tools .phase45-context{margin-right:auto;display:flex;align-items:center;gap:7px;min-width:0;color:#66758b;font-size:.72rem}
+#caPage .ca-phase45-tools .phase45-context strong{color:var(--p45-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:500px}
+
+/* Assessment structures collapse into a single status strip; existing cards remain in DOM for JS. */
+#caPage .ca-mode-grid{display:none!important}
+#caPage .ca-phase45-structure{margin:0 0 10px;padding:8px 11px;border:1px solid #d9e5eb;border-radius:10px;background:#f9fbfc;display:flex;align-items:center;gap:9px;min-height:40px}
+#caPage .ca-phase45-structure i{width:27px;height:27px;border-radius:8px;display:grid;place-items:center;background:#e8f6f4;color:var(--p45-teal)}
+#caPage .ca-phase45-structure span{font-size:.65rem;color:#738196;text-transform:uppercase;font-weight:900;letter-spacing:.06em}
+#caPage .ca-phase45-structure strong{font-size:.76rem;color:var(--p45-ink)}
+#caPage .ca-phase45-structure small{margin-left:auto;color:#718096;font-size:.67rem}
+
+#caPage .ca-toolbar{margin:0;padding:8px;border:1px solid var(--p45-line);border-bottom:0;border-radius:12px 12px 0 0;background:#fff;box-shadow:none;display:flex;gap:8px;align-items:center}
+#caPage .ca-search-box{min-height:38px;border-radius:9px;flex:1}
+#caPage .ca-search-box input{height:38px;font-size:.76rem}
+#caPage .ca-toolbar-actions{display:flex;gap:5px;flex-wrap:nowrap}
+#caPage .ca-chip{height:34px;padding:6px 9px;border-radius:8px;font-size:.67rem;white-space:nowrap}
+
+/* Table is the main visual surface. */
+#caPage .ca-table-card{margin:0;border:1px solid var(--p45-line);border-radius:0 0 14px 14px;box-shadow:none;background:#fff;overflow:hidden}
+#caPage .ca-table-head{padding:10px 12px;background:#fbfcfd;border-bottom:1px solid #e9eff4;align-items:center}
+#caPage .ca-table-head h2{font-size:.93rem;margin:1px 0}
+#caPage .ca-table-head p{font-size:.7rem;margin:0;color:#708096}
+#caPage .ca-score-legend{font-size:.66rem}
+#caPage .ca-table-wrap{max-height:62vh;overflow:auto;overscroll-behavior:contain}
+#caPage .ca-table{font-size:.73rem;border-collapse:separate;border-spacing:0;min-width:900px}
+#caPage .ca-table th{position:sticky;top:0;z-index:5;background:#17334d;color:#fff;font-size:.62rem;letter-spacing:.035em;padding:8px 7px;white-space:nowrap}
+#caPage .ca-table td{padding:7px;border-bottom:1px solid #edf1f5;vertical-align:middle}
+#caPage .ca-table tbody tr:hover{background:#f5faf9}
+#caPage .ca-score-input{height:32px!important;min-height:32px!important;padding:4px 6px!important;border-radius:7px!important;font-size:.72rem!important}
+#caPage .ca-footer-actions{padding:9px 11px;min-height:48px;background:#fbfcfd;border-top:1px solid #e8eef3}
+#caPage .ca-footer-buttons .ca-btn{height:34px;min-height:34px;padding:6px 10px;border-radius:8px;font-size:.69rem}
+#caPage .ca-save-message{font-size:.69rem}
+
+/* ========================================= REPORT SHEETS ========================================= */
+#reportPage .report-hero{min-height:0;padding:16px 18px;border:1px solid var(--p45-line);border-radius:14px;background:linear-gradient(125deg,#fbfdfd,#f2f8f8);box-shadow:none;display:flex;align-items:center;gap:18px}
+#reportPage .report-title-row{gap:12px;align-items:center}
+#reportPage .report-title-icon{width:46px;height:46px;min-width:46px;border-radius:13px}
+#reportPage .report-title-row h1{font-size:clamp(1.25rem,2vw,1.75rem);line-height:1.12;margin:1px 0 3px}
+#reportPage .report-kicker{font-size:.68rem;letter-spacing:.08em}
+#reportPage .report-title-row p{font-size:.81rem;line-height:1.45;margin:0;color:var(--p45-muted);max-width:850px}
+#reportPage .report-mini-row{display:none}
+#reportPage .report-live-card{min-width:285px;max-width:370px;margin-left:auto;padding:10px 12px;border:1px solid #d7e5e5;border-radius:12px;background:#fff;box-shadow:none}
+#reportPage .report-live-icon{width:34px;height:34px;border-radius:10px}
+#reportPage .report-live-copy>span{font-size:.61rem;letter-spacing:.08em}
+#reportPage .report-live-copy strong{font-size:.88rem}
+#reportPage .report-live-copy small{font-size:.67rem;line-height:1.35}
+
+/* Remove redundant app launcher: page is now sequential and self-explanatory. */
+#reportPage .report-app-dock{display:none!important}
+
+/* Metrics become one narrow database-style rail. */
+#reportPage .report-stats-grid{margin:10px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--p45-line);border-radius:12px;background:#fff;overflow:hidden;box-shadow:none}
+#reportPage .report-stat-card{min-height:64px;margin:0;padding:9px 12px;border:0!important;border-right:1px solid #e6edf3!important;border-radius:0!important;box-shadow:none!important;background:#fff!important;display:flex;align-items:center;gap:9px}
+#reportPage .report-stat-card:last-child{border-right:0!important}
+#reportPage .report-stat-icon{width:32px;height:32px;min-width:32px;border-radius:9px;font-size:.82rem}
+#reportPage .report-stat-card span{font-size:.61rem;letter-spacing:.055em;color:#6f7f92}
+#reportPage .report-stat-card strong{font-size:1rem;line-height:1.1;color:var(--p45-ink)}
+#reportPage .report-stat-card small{display:none}
+
+/* Intelligence cards no longer consume the page. Their values are mirrored into one slim line by JS. */
+#reportPage .report-intelligence-grid{display:none!important}
+#reportPage .report-phase45-health{margin:0 0 10px;min-height:42px;padding:7px 10px;border:1px solid var(--p45-line);border-radius:10px;background:#fff;display:flex;align-items:center;gap:9px;overflow:hidden}
+#reportPage .report-phase45-health .health-title{display:flex;align-items:center;gap:7px;min-width:145px;color:var(--p45-ink);font-weight:900;font-size:.71rem}
+#reportPage .report-phase45-health .health-title i{width:26px;height:26px;display:grid;place-items:center;border-radius:8px;background:#e8f6f4;color:var(--p45-teal)}
+#reportPage .report-phase45-health .health-meter{height:6px;flex:1;min-width:80px;background:#eaf0f4;border-radius:99px;overflow:hidden}
+#reportPage .report-phase45-health .health-meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,#178b7c,#2ea98e);border-radius:99px;transition:width .25s ease}
+#reportPage .report-phase45-health .health-value{font-size:.7rem;color:#64758b;white-space:nowrap}
+#reportPage .report-phase45-health .health-value strong{color:var(--p45-ink)}
+
+/* Report setup is a command strip, not a dashboard. */
+#reportPage .report-control-panel{margin:0 0 10px;padding:11px;border:1px solid var(--p45-line);border-radius:14px;background:#fff;box-shadow:none}
+#reportPage .report-control-head{margin:0 0 8px;padding:0 0 8px;border-bottom:1px solid #edf2f6;align-items:center}
+#reportPage .report-control-head h2{font-size:.95rem;margin:1px 0 0}
+#reportPage .report-control-head .section-kicker{font-size:.62rem}
+#reportPage .report-head-actions{gap:5px}
+#reportPage .report-setup-meter{display:none!important}
+#reportPage .report-mini-btn{min-height:32px;padding:6px 9px;border-radius:8px;font-size:.68rem}
+#reportPage .report-control-grid{display:grid;grid-template-columns:1.05fr 1.05fr auto;gap:8px;align-items:end}
+#reportPage .report-action-group{margin:0;padding:0;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;min-width:0}
+#reportPage .report-action-group.setup,#reportPage .report-action-group.class{display:contents}
+#reportPage .report-action-group.details{grid-column:1 / -1;display:none;padding:9px!important;border:1px solid #e5edf3!important;border-radius:10px!important;background:#f8fafc!important}
+#reportPage .report-action-group.details.phase45-open{display:block}
+#reportPage .report-action-group.actions{grid-column:3;grid-row:1 / span 2;align-self:stretch;display:flex;align-items:flex-end}
+#reportPage .report-group-title{display:none}
+#reportPage .report-group-fields.two{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+#reportPage .report-action-group.setup .report-group-fields.two,#reportPage .report-action-group.class .report-group-fields.two{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+#reportPage .report-action-group .form-group{margin:0;min-width:0}
+#reportPage .form-label{font-size:.62rem;margin:0 0 4px;letter-spacing:.04em;color:#5e7086}
+#reportPage .report-input-wrap{min-height:40px;border-radius:9px}
+#reportPage .report-input-wrap>i{left:11px;font-size:.72rem}
+#reportPage .form-input{height:40px;min-height:40px;padding:7px 30px 7px 34px;border-radius:9px;font-size:.78rem}
+#reportPage .report-compact-actions{display:grid;grid-template-columns:1fr 1fr;gap:5px;min-width:220px}
+#reportPage .report-compact-actions .report-btn{height:36px;min-height:36px;padding:6px 9px;border-radius:8px;font-size:.68rem;white-space:nowrap}
+#reportPage .report-field-note{display:none}
+#reportPage .report-phase45-detail-toggle{height:32px;padding:6px 9px;border:1px solid var(--p45-line);background:#fff;border-radius:8px;font-size:.68rem;font-weight:800;color:#41556d;cursor:pointer}
+
+/* One workflow dropdown replaces three giant generation cards. */
+#reportPage .report-generation-methods{margin:0 0 10px;padding:8px;border:1px solid var(--p45-line);border-radius:12px;background:#fff;box-shadow:none;display:block}
+#reportPage .generation-method-card{display:none!important}
+#reportPage .report-phase45-workflow{display:grid;grid-template-columns:minmax(180px,260px) 1fr;gap:8px;align-items:center}
+#reportPage .report-phase45-workflow-selector{height:38px;border:1px solid #cedbe6;border-radius:9px;background:#f9fbfc;padding:6px 32px 6px 10px;color:var(--p45-ink);font-weight:850;font-size:.74rem;outline:none}
+#reportPage .report-phase45-workflow-actions{min-height:38px;display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none}
+#reportPage .report-phase45-workflow-actions::-webkit-scrollbar{display:none}
+#reportPage .report-phase45-workflow-actions .report-mini-btn{white-space:nowrap;flex:0 0 auto}
+#reportPage .report-phase45-workflow-note{display:flex;align-items:center;gap:6px;color:#6e7d91;font-size:.67rem;white-space:nowrap;margin-left:auto}
+
+/* Data board: students first, source readiness becomes horizontal. */
+#reportPage .report-data-board{margin:0 0 10px;display:grid;grid-template-columns:1fr;gap:8px}
+#reportPage .report-data-card{margin:0;border:1px solid var(--p45-line);border-radius:13px;background:#fff;box-shadow:none}
+#reportPage .report-students-panel{padding:0;overflow:hidden}
+#reportPage .report-data-head{padding:9px 11px;border-bottom:1px solid #e8eef3;background:#fbfcfd;align-items:center}
+#reportPage .report-data-head h2{font-size:.9rem;margin:1px 0}
+#reportPage .report-table-tools{gap:5px}
+#reportPage .report-table-search{min-height:34px;border-radius:8px;min-width:220px}
+#reportPage .report-table-search input{height:34px;font-size:.72rem}
+#reportPage .report-table-summary-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:0;border-bottom:1px solid #e8eef3;background:#fff}
+#reportPage .report-table-summary-strip article{min-height:46px;padding:6px 9px;border:0;border-right:1px solid #edf1f4;border-radius:0;background:#fff;box-shadow:none}
+#reportPage .report-table-summary-strip article:last-child{border-right:0}
+#reportPage .report-table-summary-strip span{font-size:.56rem;letter-spacing:.045em}
+#reportPage .report-table-summary-strip strong{font-size:.9rem}
+#reportPage .report-table-filter-strip{padding:6px 9px;gap:4px;overflow-x:auto;scrollbar-width:none;background:#f9fbfc;border-bottom:1px solid #e8eef3}
+#reportPage .report-table-filter-strip::-webkit-scrollbar{display:none}
+#reportPage .report-table-filter{height:30px;padding:5px 8px;border-radius:7px;font-size:.64rem;white-space:nowrap;flex:0 0 auto}
+#reportPage .report-table-wrap{max-height:55vh;overflow:auto;overscroll-behavior:contain}
+#reportPage .report-students-table{min-width:850px;font-size:.71rem;border-collapse:separate;border-spacing:0}
+#reportPage .report-students-table th{position:sticky;top:0;z-index:5;background:#17334d;color:#fff;padding:8px 7px;font-size:.59rem;white-space:nowrap}
+#reportPage .report-students-table td{padding:7px;border-bottom:1px solid #edf1f5}
+#reportPage .report-students-table tbody tr:hover{background:#f5faf9}
+#reportPage .report-table-footer{min-height:42px;padding:6px 10px;background:#fbfcfd;border-top:1px solid #e8eef3;font-size:.66rem}
+
+#reportPage .report-source-panel{padding:7px 9px;display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}
+#reportPage .report-source-panel .report-data-head{padding:0;border:0;background:transparent}
+#reportPage .report-source-panel .report-data-head h2{font-size:.72rem;white-space:nowrap}
+#reportPage .report-source-panel .section-kicker{display:none}
+#reportPage .report-source-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+#reportPage .report-source-list article{min-height:38px;padding:5px 7px;border:1px solid #e3eaf0;border-radius:8px;background:#fbfcfd;box-shadow:none;gap:6px}
+#reportPage .report-source-list article>i{width:24px;height:24px;border-radius:7px;font-size:.65rem}
+#reportPage .report-source-list article strong{font-size:.61rem}
+#reportPage .report-source-list article span{font-size:.55rem;line-height:1.2;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+
+/* Generated report filters stay compact. */
+#reportPage .report-toolbar{margin:0 0 8px;padding:7px;border:1px solid var(--p45-line);border-radius:10px;background:#fff;box-shadow:none;display:flex;gap:7px;align-items:center}
+#reportPage .report-search-box{min-height:36px;flex:1;border-radius:8px}
+#reportPage .report-search-box input{height:36px;font-size:.72rem}
+#reportPage .report-toolbar-actions{gap:4px;overflow-x:auto;scrollbar-width:none}
+#reportPage .report-toolbar-actions::-webkit-scrollbar{display:none}
+#reportPage .report-chip{height:31px;padding:5px 8px;border-radius:7px;font-size:.62rem;white-space:nowrap;flex:0 0 auto}
+
+/* Preview + action areas lose the dashboard-card visual weight. */
+#reportPage .report-preview-shell{margin:0 0 10px;gap:8px}
+#reportPage .report-student-list-card,#reportPage .report-preview-card{border:1px solid var(--p45-line);border-radius:13px;box-shadow:none;background:#fff}
+#reportPage .report-preview-head,#reportPage .report-list-head{padding:9px 11px;background:#fbfcfd}
+#reportPage .report-preview-head h2,#reportPage .report-list-head h2{font-size:.88rem}
+#reportPage .report-sheet-canvas{background:#eef3f6}
+#reportPage .report-action-dock{margin:0 0 10px;padding:7px;border:1px solid var(--p45-line);border-radius:10px;background:#fff;box-shadow:none;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+#reportPage .report-action-dock::-webkit-scrollbar{display:none}
+#reportPage .report-dock-group{display:flex;align-items:center;gap:4px;flex:0 0 auto;padding:0 6px 0 0;border-right:1px solid #e7edf2}
+#reportPage .report-dock-group:last-child{border-right:0}
+#reportPage .dock-group-label{display:none}
+#reportPage .report-dock-btn{height:32px;min-height:32px;padding:5px 8px;border-radius:7px;font-size:.62rem;white-space:nowrap}
+
+/* Annual compiler remains inside Report Sheets but defaults to a narrow accordion row. */
+#reportPage .report-cumulative-hub{margin:0 0 10px;padding:9px 11px;border:1px solid var(--p45-line);border-radius:12px;background:#fff;box-shadow:none}
+#reportPage .report-cumulative-head h2{font-size:.86rem;margin:1px 0}
+#reportPage .report-cumulative-head p{display:none}
+#reportPage .report-cumulative-actions{gap:4px}
+#reportPage .report-cumulative-grid{grid-template-columns:repeat(5,1fr);gap:0;margin-top:8px;border:1px solid #e8eef3;border-radius:9px;overflow:hidden}
+#reportPage .report-cumulative-grid article{min-height:52px;padding:6px 8px;border:0!important;border-right:1px solid #edf1f4!important;border-radius:0!important;background:#fbfcfd!important;box-shadow:none!important}
+#reportPage .report-cumulative-grid article:last-child{border-right:0!important}
+#reportPage .report-cumulative-grid span{font-size:.57rem}
+#reportPage .report-cumulative-grid strong{font-size:.9rem}
+#reportPage .report-cumulative-grid em{font-size:.53rem}
+#reportPage .report-cumulative-progress{margin-top:6px}
+
+/* Legacy assessment format cards are reference only; keep hidden in the new primary flow. */
+#reportPage #reportModePanel{display:none!important}
+
+/* Manual/hybrid workspace: keep functionality, reduce decoration. */
+#reportPage .report-hybrid-workspace{margin-top:10px;border:1px solid var(--p45-line);border-radius:13px;box-shadow:none;background:#fff}
+#reportPage .manual-workspace-intel{display:none!important}
+#reportPage .manual-card-head{padding:8px 10px}
+#reportPage .manual-score-table-wrap{max-height:58vh;overflow:auto}
+#reportPage .manual-score-table{min-width:950px}
+
+/* ======================================= DESKTOP BREAKPOINTS ======================================= */
+@media (max-width:1280px){
+  #caPage .ca-control-grid{grid-template-columns:1fr 1fr 1.5fr 1fr;}.ca-control-grid .ca-subject-field{grid-column:1 / span 2}#caPage .ca-control-grid .form-group.action{grid-column:3 / -1}
+  #reportPage .report-control-grid{grid-template-columns:1fr 1fr}#reportPage .report-action-group.actions{grid-column:1 / -1;grid-row:auto;display:block}#reportPage .report-compact-actions{grid-template-columns:repeat(4,1fr);min-width:0}
+  #reportPage .report-source-list{grid-template-columns:repeat(3,1fr)}
+}
