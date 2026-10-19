@@ -159,8 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (isSubmitting) {
-      overlay?.classList.remove("hidden");
-      overlay?.classList.add("is-visible");
       document.body.classList.add("login-busy");
 
       if (btnText) {
@@ -169,6 +167,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       btnLoader?.classList.remove("hidden");
+
+      // Let the premium rolling button loader be visible first. The blocking glass overlay
+      // appears only when authentication is genuinely taking longer than a normal redirect.
+      window.setTimeout(() => {
+        if (!loginBtn?.classList.contains("is-loading")) return;
+        overlay?.classList.remove("hidden");
+        requestAnimationFrame(() => overlay?.classList.add("is-visible"));
+      }, 650);
     }
   }
 

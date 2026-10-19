@@ -1203,9 +1203,10 @@ def get_manual_record(academic_session, term, class_level, class_arm, admission_
     return _read_json_store(MANUAL_FILE).get(manual_context_key(academic_session, term, class_level, class_arm, admission_number), {})
 
 
-def save_manual_record(academic_session, term, class_level, class_arm, admission_number, data):
+def save_manual_record(academic_session, term, class_level, class_arm, admission_number, data, student_record=None, queue_sync=True):
     store = _read_json_store(MANUAL_FILE); key = manual_context_key(academic_session, term, class_level, class_arm, admission_number); current = store.get(key, {}) if isinstance(store.get(key), dict) else {}
-    allowed = {key: value for key, value in expected_subject_map(get_student(admission_number, active_only=False) or {}, class_level, class_arm).items() if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}}; entries = data.get("subjects") if isinstance(data.get("subjects"), list) else []
+    source_student = student_record if isinstance(student_record, dict) else (get_student(admission_number, active_only=False) or {})
+    allowed = {key: value for key, value in expected_subject_map(source_student, class_level, class_arm).items() if clean_upper(key) not in {"ISLAMIYYAH", "ISLAMIYAH"}}; entries = data.get("subjects") if isinstance(data.get("subjects"), list) else []
     visible_keys = {academic_subject_key(value) for value in (data.get("visible_subject_keys") or []) if academic_subject_key(value)}
     subjects = dict(current.get("subjects", {})) if isinstance(current.get("subjects"), dict) else {}
     if "subjects" in data:
@@ -1222,18 +1223,36 @@ def save_manual_record(academic_session, term, class_level, class_arm, admission
         "subjects": subjects if "subjects" in data else current.get("subjects", {}), "attendance": attendance if isinstance(attendance, dict) else {},
         "attendance_override_enabled": bool(data.get("attendance_override_enabled", current.get("attendance_override_enabled", False))),
         "prefer_manual_scores": bool(data.get("prefer_manual_scores", current.get("prefer_manual_scores", False))),
+        "suppress_automatic_scores": bool(data.get("suppress_automatic_scores", current.get("suppress_automatic_scores", False))),
         "status": "FINAL" if clean_upper(data.get("status")) == "FINAL" else "DRAFT", "teacher_note": clean(data.get("teacher_note", current.get("teacher_note", ""))),
         "excluded_from_class_report": bool(data.get("excluded_from_class_report", current.get("excluded_from_class_report", False))), "exclusion_reason": clean(data.get("exclusion_reason", current.get("exclusion_reason", ""))),
         "updated_at": now_string(), "updated_by": clean(session.get("admin_username") or session.get("username") or session.get("user") or current.get("updated_by") or "Staff"),
     }
     store[key] = item; _write_json_store(MANUAL_FILE, store)
-    queue_emis_event_safely("report_sheets", "manual_upsert", {"key": key, "item": item}, entity_key=f"manual|{key}")
+    if queue_sync: queue_emis_event_safely("report_sheets", "manual_upsert", {"key": key, "item": item}, entity_key=f"manual|{key}")
     return item
+
+
+def queue_manual_record_sync_background(key, item):
+    """Queue cloud/retry bookkeeping outside the score-save request path.
+
+    Manual score persistence is local and authoritative.  A busy sync SQLite file must never
+    leave teachers watching a Save button spin for 15–60 seconds, so fast Manual saves return
+    immediately after the durable JSON write and queue the sync event on a daemon thread.
+    """
+    def _queue():
+        queue_emis_event_safely("report_sheets", "manual_upsert", {"key": key, "item": item}, entity_key=f"manual|{key}")
+    try: Thread(target=_queue, name="emis-manual-score-sync", daemon=True).start()
+    except Exception: _queue()
+
+
+def bool_request_flag(value):
+    return clean(value).lower() in {"1", "true", "yes", "on"}
 
 
 def manual_record_summary(record):
     record = record if isinstance(record, dict) else {}; subjects = record.get("subjects") if isinstance(record.get("subjects"), dict) else {}
-    return {"has_manual": bool(subjects or record.get("attendance")), "subject_count": len(subjects), "status": clean(record.get("status") or "DRAFT"), "attendance_override_enabled": bool(record.get("attendance_override_enabled")), "excluded_from_class_report": bool(record.get("excluded_from_class_report")), "exclusion_reason": clean(record.get("exclusion_reason")), "updated_at": clean(record.get("updated_at")), "updated_by": clean(record.get("updated_by"))}
+    return {"has_manual": bool(subjects or record.get("attendance")), "subject_count": len(subjects), "status": clean(record.get("status") or "DRAFT"), "attendance_override_enabled": bool(record.get("attendance_override_enabled")), "suppress_automatic_scores": bool(record.get("suppress_automatic_scores")), "excluded_from_class_report": bool(record.get("excluded_from_class_report")), "exclusion_reason": clean(record.get("exclusion_reason")), "updated_at": clean(record.get("updated_at")), "updated_by": clean(record.get("updated_by"))}
 
 
 def manual_class_readiness(academic_session, term, class_level, class_arm):
@@ -1287,8 +1306,8 @@ def finalize_report_statistics(reports):
     for report in reports:
         for row in report.get("subjects", []):
             if row.get("total") is None: row.update({"position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}); continue
-            subject_grade, subject_comment = grade_for_score(safe_float(row.get("total")), report.get("class_level")); scores = subject_scores.get(row.get("subject_key"), []); position = compute_position(row.get("total"), scores) if scores else 0
-            row.update({"grade": subject_grade, "comment": subject_comment, "position": position, "position_text": ordinal(position) if position else "--", "out_of": len(scores), "lowest": pretty_number(min(scores)) if scores else None, "highest": pretty_number(max(scores)) if scores else None, "class_average": pretty_number(sum(scores) / len(scores)) if scores else None})
+            scores = subject_scores.get(row.get("subject_key"), []); position = compute_position(row.get("total"), scores) if scores else 0
+            row.update({"position": position, "position_text": ordinal(position) if position else "--", "out_of": len(scores), "lowest": pretty_number(min(scores)) if scores else None, "highest": pretty_number(max(scores)) if scores else None, "class_average": pretty_number(sum(scores) / len(scores)) if scores else None})
         complete_rows = [row for row in report.get("subjects", []) if row.get("complete") and row.get("total") is not None]; all_complete = bool(report.get("subjects")) and len(complete_rows) == len(report.get("subjects", [])); provisional_total = round(sum(safe_float(row.get("total")) for row in complete_rows), 2) if complete_rows else None; provisional_maximum = round(sum(safe_float(row.get("total_max"), 100) for row in complete_rows), 2) if complete_rows else None; provisional_average = round(provisional_total / provisional_maximum * 100, 2) if provisional_total is not None and provisional_maximum else None
         report["subjects_complete"] = len(complete_rows); report["academic_complete"] = all_complete; report["academic_partial"] = bool(report.get("subjects")) and not all_complete; report["provisional_total"] = pretty_optional(provisional_total); report["provisional_maximum"] = pretty_optional(provisional_maximum); report["provisional_average"] = pretty_optional(provisional_average); report["total_score"] = pretty_optional(provisional_total) if all_complete else None; report["maximum_score"] = pretty_optional(provisional_maximum) if all_complete else None; report["average"] = pretty_optional(provisional_average) if all_complete else None; report["grade"] = grade_for_score(provisional_average, report.get("class_level"))[0] if all_complete and provisional_average is not None else "-"
     averages = [safe_float(report.get("average")) for report in reports if report.get("average") is not None]
@@ -1323,7 +1342,7 @@ def audit_manual_report_integrity(payload, expected_admissions):
         expected_grade = grade_for_score(average, report.get("class_level"))[0] if average is not None else "-"
         if average is not None and clean_upper(report.get("grade")) != clean_upper(expected_grade): errors.append(f"{admission} grade mismatch: report={report.get('grade')} recalculated={expected_grade}.")
         for row in scored:
-            key = academic_subject_key(row.get("subject_key") or row.get("subject")); subject_groups.setdefault(key, []).append((admission, row, safe_float(row.get("total")), report.get("class_level")))
+            key = academic_subject_key(row.get("subject_key") or row.get("subject")); subject_groups.setdefault(key, []).append((admission, row, safe_float(row.get("total"))))
 
     ranked = [(admission, item["average"]) for admission, item in calculated.items() if item.get("average") is not None]; rank_scores = [average for _, average in ranked]; expected_count = len(expected) if expected else len(reports)
     if len(rank_scores) != expected_count: errors.append(f"Ranking cohort mismatch: {len(rank_scores)} rankable report(s) for a {expected_count}-student class cohort.")
@@ -1335,10 +1354,9 @@ def audit_manual_report_integrity(payload, expected_admissions):
         if actual_out_of != expected_count: errors.append(f"{admission} class-size mismatch: report OUT OF={actual_out_of} expected={expected_count}.")
 
     for subject_key, members in subject_groups.items():
-        scores = [score for _, _, score, _ in members]; low, high, average = min(scores), max(scores), sum(scores) / len(scores)
-        for admission, row, score, class_level in members:
-            expected_position = compute_position(score, scores); actual_position = int(safe_float(row.get("position"), 0)); actual_out_of = int(safe_float(row.get("out_of"), 0)); expected_subject_grade = grade_for_score(score, class_level)[0]
-            if clean_upper(row.get("grade")) != clean_upper(expected_subject_grade): errors.append(f"{admission} {subject_key} grade mismatch: report={row.get('grade')} recalculated={expected_subject_grade}.")
+        scores = [score for _, _, score in members]; low, high, average = min(scores), max(scores), sum(scores) / len(scores)
+        for admission, row, score in members:
+            expected_position = compute_position(score, scores); actual_position = int(safe_float(row.get("position"), 0)); actual_out_of = int(safe_float(row.get("out_of"), 0))
             if actual_position != expected_position: errors.append(f"{admission} {subject_key} position mismatch: report={actual_position or '--'} recalculated={ordinal(expected_position)}.")
             if actual_out_of != len(scores): errors.append(f"{admission} {subject_key} OUT OF mismatch: report={actual_out_of} recalculated={len(scores)}.")
             if optional_float(row.get("lowest")) is None or abs(optional_float(row.get("lowest")) - low) > 0.011: errors.append(f"{admission} {subject_key} lowest-score statistic mismatch.")
@@ -1644,9 +1662,45 @@ def api_report_manual():
     if request.method == "DELETE":
         if key not in store: return jsonify({"success": False, "message": "No manual record exists for this student."}), 404
         del store[key]; _write_json_store(MANUAL_FILE, store); queue_emis_event_safely("report_sheets", "manual_delete", {"key": key}, entity_key=f"manual|{key}"); return jsonify({"success": True, "message": "Manual student record deleted successfully.", "admission_number": admission, "class_readiness": manual_class_readiness(academic_session, term, level, arm)})
-    try: record = save_manual_record(academic_session, term, level, arm, admission, source)
+    fast_save = bool_request_flag(source.get("fast_save"))
+    try: record = save_manual_record(academic_session, term, level, arm, admission, source, student_record=roster_map.get(admission), queue_sync=not fast_save)
     except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
+    if fast_save:
+        queue_manual_record_sync_background(key, record)
+        return jsonify({"success": True, "message": f"Manual report record saved for {roster_map[admission].get('full_name') or admission}.", "record": record, "summary": manual_record_summary(record), "readiness_deferred": True})
     return jsonify({"success": True, "message": f"Manual report record saved for {roster_map[admission].get('full_name') or admission}.", "record": record, "summary": manual_record_summary(record), "class_readiness": manual_class_readiness(academic_session, term, level, arm)})
+
+
+@report_sheet_bp.route("/api/report-sheets/manual/clear-scores", methods=["POST"])
+@report_staff_required
+def api_report_manual_clear_scores():
+    """Permanently reset Manual Workstation score boxes for one pupil or the loaded class.
+
+    The original CA/Test and Exam source records are deliberately preserved.  A persistent
+    suppression flag keeps those automatic values from refilling the Manual boxes after refresh,
+    so the teacher can genuinely start the Manual entry again from empty score fields.
+    """
+    source = request.get_json(silent=True) or {}; class_level, class_arm = request_class_values(source); level, arm, error = resolve_class(class_level, class_arm, require_arm=True)
+    if error: return jsonify({"success": False, "message": error}), 400
+    academic_session, term = resolve_context(source.get("session"), source.get("term")); scope = clean(source.get("scope") or "student").lower(); roster = get_report_students_for_class(level, arm, active_only=True); roster_map = {normalize_admission_number(student.get("admission_number")): student for student in roster}
+    if not academic_session or not term: return jsonify({"success": False, "message": "Session and term are required."}), 400
+    if scope == "class": admissions = list(roster_map.keys())
+    else:
+        admission = normalize_admission_number(source.get("admission_number") or source.get("admission")); admissions = [admission] if admission and admission in roster_map else []
+    if not admissions: return jsonify({"success": False, "message": "No valid student was selected for score clearing."}), 400
+    store = _read_json_store(MANUAL_FILE); actor = clean(session.get("admin_username") or session.get("username") or session.get("user") or "Staff"); cleared = []
+    for admission in admissions:
+        key = manual_context_key(academic_session, term, level, arm, admission); current = store.get(key, {}) if isinstance(store.get(key), dict) else {}; item = {
+            "session": normalize_academic_session(academic_session), "term": normalize_academic_term(term), "class_level": level, "class_arm": arm, "admission_number": clean((roster_map.get(admission) or {}).get("admission_number") or admission),
+            "subjects": {}, "attendance": current.get("attendance", {}) if isinstance(current.get("attendance"), dict) else {}, "attendance_override_enabled": bool(current.get("attendance_override_enabled", False)),
+            "prefer_manual_scores": bool(current.get("prefer_manual_scores", False)), "suppress_automatic_scores": True, "status": "DRAFT", "teacher_note": clean(current.get("teacher_note", "")),
+            "excluded_from_class_report": bool(current.get("excluded_from_class_report", False)), "exclusion_reason": clean(current.get("exclusion_reason", "")), "updated_at": now_string(), "updated_by": actor,
+        }; store[key] = item; cleared.append(admission)
+    _write_json_store(MANUAL_FILE, store)
+    for admission in cleared:
+        key = manual_context_key(academic_session, term, level, arm, admission); queue_emis_event_safely("report_sheets", "manual_upsert", {"key": key, "item": store.get(key, {})}, entity_key=f"manual|{key}")
+    readiness = manual_class_readiness(academic_session, term, level, arm); label = f"{len(cleared)} student{'s' if len(cleared) != 1 else ''}" if scope == "class" else clean((roster_map.get(cleared[0]) or {}).get("full_name") or cleared[0])
+    return jsonify({"success": True, "message": f"Manual score entries cleared for {label}. Score boxes will stay empty until new Manual scores are entered and saved.", "scope": scope, "cleared_count": len(cleared), "admission_numbers": cleared, "record": store.get(manual_context_key(academic_session, term, level, arm, cleared[0]), {}) if scope != "class" else {}, "class_readiness": readiness})
 
 
 @report_sheet_bp.route("/api/report-sheets/manual/subjects", methods=["GET", "POST"])

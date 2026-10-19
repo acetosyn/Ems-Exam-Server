@@ -959,15 +959,15 @@
         "test2": 17,
         "exam": 26
       },
-      "BUSINESS STUDIES": {
-        "subject": "Business Studies",
-        "subject_key": "BUSINESS STUDIES",
+      "SOC AND CIT STD": {
+        "subject": "Soc. & Cit. Std",
+        "subject_key": "SOC AND CIT STD",
         "included": true,
-        "ca1": 6,
-        "ca2": 8,
-        "test1": 16,
-        "test2": 18,
-        "exam": 27
+        "ca1": 7,
+        "ca2": 6,
+        "test1": 12,
+        "test2": 10,
+        "exam": 18
       },
       "MATHEMATICS": {
         "subject": "Mathematics",
@@ -989,25 +989,15 @@
         "test2": 16,
         "exam": 37
       },
-      "DIGITAL TECH": {
-        "subject": "Digital Tech.",
-        "subject_key": "DIGITAL TECH",
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
         "included": true,
-        "ca1": 8,
-        "ca2": 6,
-        "test1": 19,
-        "test2": 15,
+        "ca1": 6,
+        "ca2": 8,
+        "test1": 16,
+        "test2": 18,
         "exam": 27
-      },
-      "SOC AND CIT STD": {
-        "subject": "Soc. & Cit. Std",
-        "subject_key": "SOC AND CIT STD",
-        "included": true,
-        "ca1": 7,
-        "ca2": 6,
-        "test1": 12,
-        "test2": 10,
-        "exam": 18
       },
       "PHE": {
         "subject": "P.H.E",
@@ -1018,6 +1008,16 @@
         "test1": 15,
         "test2": 17,
         "exam": 16
+      },
+      "DIGITAL TECH": {
+        "subject": "Digital Tech.",
+        "subject_key": "DIGITAL TECH",
+        "included": true,
+        "ca1": 8,
+        "ca2": 6,
+        "test1": 19,
+        "test2": 15,
+        "exam": 27
       }
     },
     "attendance": {
@@ -1034,11 +1034,12 @@
     },
     "attendance_override_enabled": true,
     "prefer_manual_scores": false,
+    "suppress_automatic_scores": false,
     "status": "FINAL",
     "teacher_note": "",
     "excluded_from_class_report": false,
     "exclusion_reason": "",
-    "updated_at": "2026-10-15 11:02:15",
+    "updated_at": "2026-10-18 14:31:29",
     "updated_by": "admin"
   },
   "2026/2027|FIRST|JSS1|JSS1A|std005": {
@@ -2472,55 +2473,35 @@
     "class_arm": "JSS1A",
     "admission_number": "std022",
     "subjects": {
-      "BUSINESS STUDIES": {
-        "subject": "Business Studies",
-        "subject_key": "BUSINESS STUDIES",
-        "included": true,
-        "ca1": 10,
-        "ca2": 10,
-        "test1": 10,
-        "test2": 16,
-        "exam": 34
-      },
       "MATHEMATICS": {
         "subject": "Mathematics",
         "subject_key": "MATHEMATICS",
         "included": true,
         "ca1": 10,
-        "ca2": 10,
-        "test1": 10,
-        "test2": 18,
-        "exam": 39
+        "ca2": 9,
+        "test1": 19,
+        "test2": 20,
+        "exam": 35
       },
       "ENGLISH LANGUAGE": {
         "subject": "English Language",
         "subject_key": "ENGLISH LANGUAGE",
         "included": true,
-        "ca1": 10,
-        "ca2": 10,
-        "test1": 19,
-        "test2": 19,
-        "exam": 39
-      },
-      "DIGITAL TECH": {
-        "subject": "Digital Tech.",
-        "subject_key": "DIGITAL TECH",
-        "included": true,
-        "ca1": 9,
-        "ca2": 9,
-        "test1": 18,
-        "test2": 20,
-        "exam": 40
-      },
-      "SOC AND CIT STD": {
-        "subject": "Soc. & Cit. Std",
-        "subject_key": "SOC AND CIT STD",
-        "included": true,
-        "ca1": 10,
+        "ca1": 8,
         "ca2": 10,
         "test1": 17,
         "test2": 16,
         "exam": 38
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 8,
+        "ca2": 10,
+        "test1": 19,
+        "test2": 20,
+        "exam": 29
       },
       "PHE": {
         "subject": "P.H.E",
@@ -2528,9 +2509,19 @@
         "included": true,
         "ca1": 10,
         "ca2": 10,
-        "test1": 19,
-        "test2": 18.5,
-        "exam": 36
+        "test1": 18,
+        "test2": 20,
+        "exam": 35
+      },
+      "DIGITAL TECH": {
+        "subject": "Digital Tech.",
+        "subject_key": "DIGITAL TECH",
+        "included": true,
+        "ca1": 10,
+        "ca2": 10,
+        "test1": 18,
+        "test2": 20,
+        "exam": 39
       }
     },
     "attendance": {
@@ -2547,11 +2538,12 @@
     },
     "attendance_override_enabled": false,
     "prefer_manual_scores": false,
+    "suppress_automatic_scores": true,
     "status": "FINAL",
     "teacher_note": "Cultural Day Fee is Mandatory",
     "excluded_from_class_report": false,
     "exclusion_reason": "",
-    "updated_at": "2026-10-15 10:33:20",
+    "updated_at": "2026-10-18 21:00:58",
     "updated_by": "admin"
   }
 }

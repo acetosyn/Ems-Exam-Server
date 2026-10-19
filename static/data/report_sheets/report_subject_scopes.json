@@ -3,15 +3,14 @@
     "class_level": "JSS1",
     "class_arm": "JSS1A",
     "subject_keys": [
-      "BUSINESS STUDIES",
       "MATHEMATICS",
       "ENGLISH LANGUAGE",
-      "DIGITAL TECH",
-      "SOC AND CIT STD",
-      "PHE"
+      "BUSINESS STUDIES",
+      "PHE",
+      "DIGITAL TECH"
     ],
     "include_islamiyah": true,
-    "updated_at": "2026-10-16 08:49:13",
+    "updated_at": "2026-10-18 20:57:10",
     "updated_by": "admin"
   }
 }

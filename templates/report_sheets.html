@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/report_sheets.css', v='20261015-teacherheaders1') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report_sheets.css', v='20261018-voiceflow6') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_phase4_redesign.css', v='20261013-p45') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_phase5_mobile.css', v='20261013-p45') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_entry_theme_v1.css', v='20261014-entrytheme1') }}">
@@ -1242,7 +1242,7 @@
   <section id="manualVoiceBar" class="manual-voice-bar" aria-label="Smart Voice Score Entry">
     <div class="manual-voice-summary"><span id="manualVoiceStateDot" class="manual-voice-dot"></span><div><strong>Smart Voice Entry</strong><small id="manualVoiceStatus">Optional • microphone is off</small></div></div>
     <div class="manual-voice-actions"><button type="button" id="manualVoiceStartBtn" class="manual-voice-btn start"><i class="fa-solid fa-microphone"></i><span>Start Voice</span></button><button type="button" id="manualVoicePauseBtn" class="manual-voice-btn" disabled><i class="fa-solid fa-pause"></i><span>Pause</span></button><button type="button" id="manualVoiceStopBtn" class="manual-voice-btn stop" disabled><i class="fa-solid fa-stop"></i><span>Stop</span></button></div>
-    <div class="manual-voice-options"><label class="manual-voice-check"><input id="manualVoicePromptEach" type="checkbox"><span>Speak fields</span></label><label class="manual-voice-check"><input id="manualVoiceSafeMode" type="checkbox"><span>Safe confirm</span></label><select id="manualVoiceSelect" class="manual-voice-select" title="Choose text-to-speech voice"><option value="">Best available voice</option></select></div>
+    <div class="manual-voice-options"><label class="manual-voice-check"><input id="manualVoicePromptEach" type="checkbox"><span>Speak fields</span></label><label class="manual-voice-check"><input id="manualVoiceSafeMode" type="checkbox"><span>Safe confirm</span></label><select id="manualVoiceAccent" class="manual-voice-select compact" title="Speech recognition accent"><option value="auto" selected>African English • Auto</option><option value="en-NG">Nigeria English</option><option value="en-GH">Ghana English</option><option value="en-KE">Kenya English</option><option value="en-ZA">South Africa English</option><option value="en-GB">UK English</option></select><select id="manualVoiceSelect" class="manual-voice-select" title="Choose text-to-speech voice"><option value="">Google UK English Female / best available</option></select></div>
     <div class="manual-voice-live"><span id="manualVoiceField">Ready</span><strong id="manualVoiceTranscript">Say a score when a box is highlighted</strong></div>
   </section>
 
@@ -1256,7 +1256,7 @@
     <aside class="manual-side-column">
       <section class="manual-side-card phase5-attendance-card">
         <div class="manual-card-head"><div><span>Attendance</span><h4>Attendance Override</h4></div><label class="manual-switch"><input id="manualAttendanceOverride" type="checkbox"><span>Use manual attendance</span></label></div>
-        <div class="manual-attendance-grid"><label>Days Open<input id="manualDaysOpen" type="number" min="0"></label><label>Present<input id="manualPresent" type="number" min="0"></label><label>Absent<input id="manualAbsent" type="number" min="0"></label><label>Late<input id="manualLate" type="number" min="0"></label><label>Sick<input id="manualSick" type="number" min="0"></label><label>Excused<input id="manualExcused" type="number" min="0"></label></div>
+        <div class="manual-attendance-grid"><label>Days Open<input id="manualDaysOpen" type="number" min="0" max="366"></label><label>Present<input id="manualPresent" type="number" min="0" max="366"></label><label>Absent<input id="manualAbsent" type="number" min="0"></label><label>Late<input id="manualLate" type="number" min="0"></label><label>Sick<input id="manualSick" type="number" min="0"></label><label>Excused<input id="manualExcused" type="number" min="0"></label></div>
         <div class="manual-attendance-summary"><span>Attendance</span><strong id="manualAttendancePercent">0%</strong></div>
       </section>
 
@@ -1269,7 +1269,7 @@
   </div>
 
   <div class="manual-result-footer phase5-inline-footer">
-    <div class="manual-footer-left"><button type="button" id="clearManualStudentBtn" class="report-btn neutral"><i class="fa-solid fa-trash-arrow-up"></i> Clear Student</button><span id="manualUnsavedIndicator" class="manual-unsaved-indicator">Saved</span></div>
+    <div class="manual-footer-left"><button type="button" id="clearManualStudentBtn" class="report-btn manual-clear-score-btn"><i class="fa-solid fa-eraser"></i> Clear Scores</button><button type="button" id="clearManualClassScoresBtn" class="report-btn manual-clear-class-btn"><i class="fa-solid fa-users-slash"></i> Clear Class Scores</button><span id="manualUnsavedIndicator" class="manual-unsaved-indicator">Saved</span></div>
     <div class="manual-footer-right">
       <button type="button" class="report-btn neutral" data-view-generated-reports><i class="fa-solid fa-table-cells-large"></i> View Generated</button>
       <button type="button" id="saveManualDraftBtn" class="report-btn neutral"><i class="fa-solid fa-floppy-disk"></i> Save Draft</button>
@@ -1280,6 +1280,23 @@
     </div>
   </div>
 </section>
+
+
+<!-- ============================================================
+     MANUAL SCORE CLEAR CONFIRMATION — custom safety modal
+============================================================ -->
+<div id="manualScoreClearModal" class="report-modal manual-score-clear-modal" aria-hidden="true">
+  <div class="report-modal-panel manual-score-clear-panel" role="dialog" aria-modal="true" aria-labelledby="manualScoreClearTitle">
+    <div class="manual-score-clear-head"><span class="manual-score-clear-icon"><i class="fa-solid fa-triangle-exclamation"></i></span><div><span>Permanent Manual Score Reset</span><h3 id="manualScoreClearTitle">Clear Scores</h3><p id="manualScoreClearSubtitle">This action cannot be undone from the Manual Workstation.</p></div><button type="button" id="closeManualScoreClearModal" class="report-modal-close" aria-label="Close score clear warning"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="manual-score-clear-body">
+      <div id="manualScoreClearTarget" class="manual-score-clear-target"><span>Target</span><strong>Selected student</strong><small>—</small></div>
+      <div class="manual-score-clear-warning"><i class="fa-solid fa-rotate-left"></i><div><strong>You will have to enter these Manual Report Sheet scores again.</strong><p>Saved manual score entries are permanently cleared and the score boxes stay empty after refresh. The original CA/Test and Exam source files, attendance, student record, Form Teacher and remarks are not deleted.</p></div></div>
+      <div class="manual-score-clear-effects"><span><i class="fa-solid fa-circle-xmark"></i> Manual subject scores cleared</span><span><i class="fa-solid fa-lock"></i> Student/class becomes incomplete</span><span><i class="fa-solid fa-file-shield"></i> Original CA/Exam records preserved</span></div>
+      <label class="manual-score-clear-confirm"><input id="manualScoreClearAcknowledge" type="checkbox"><span>I understand that I must re-enter and save the cleared Manual scores before generating the class reports again.</span></label>
+    </div>
+    <div class="report-modal-footer manual-score-clear-footer"><button type="button" id="cancelManualScoreClearBtn" class="report-btn neutral"><i class="fa-solid fa-xmark"></i> Cancel</button><button type="button" id="confirmManualScoreClearBtn" class="report-btn danger" disabled><i class="fa-solid fa-trash-can"></i><span>Clear Scores Permanently</span></button></div>
+  </div>
+</div>
 
 
 <!-- ============================================================
@@ -1441,13 +1458,13 @@
      Handles arms, students, generation, notifications, remarks,
      printing, saved reports, exports and source readiness.
 ============================================================ -->
-<script src="{{ url_for('static', filename='js/report_sheet.js', v='20261015-cumdatefix1') }}"></script>
+<script src="{{ url_for('static', filename='js/report_sheet.js', v='20261018-voiceflow6') }}"></script>
 
 <!-- ============================================================
      SMART VOICE / AUTO-NAVIGATION EXTENSION
      Loads after report_sheet.js and does not replace the core studio.
 ============================================================ -->
-<script src="{{ url_for('static', filename='js/report_voice_entry.js', v='20260930-premium-v1') }}"></script>
+<script src="{{ url_for('static', filename='js/report_voice_entry.js', v='20261018-voiceflow6') }}"></script>
 
 <!-- Phase 4/5 compact academic workspace + mobile auto-flow -->
 <script src="{{ url_for('static', filename='js/academic_phase4_redesign.js', v='20261013-p45') }}"></script>

@@ -1,5 +1,5 @@
 /* ======================================================================
-   report_voice_entry.js — EMIS Smart Voice Score Entry Extension v2.1
+   report_voice_entry.js — EMIS Smart Voice Score Entry Extension v3.1
    Purpose:
      • Optional Speech-to-Text score entry for Manual Result Studio
      • Prevent TTS from being re-captured as student scores
@@ -25,14 +25,14 @@
   const ui = {
     bar: $("manualVoiceBar"), start: $("manualVoiceStartBtn"), pause: $("manualVoicePauseBtn"), stop: $("manualVoiceStopBtn"), status: $("manualVoiceStatus"), stateDot: $("manualVoiceStateDot"),
     field: $("manualVoiceField"), transcript: $("manualVoiceTranscript"), promptEach: $("manualVoicePromptEach"), safeMode: $("manualVoiceSafeMode"), voice: $("manualVoiceSelect"), tableBody: $("manualScoreTableBody"), scoreWrap: modal.querySelector(".manual-score-table-wrap"),
-    saveDraft: $("saveManualDraftBtn"), saveGenerate: $("saveGenerateManualBtn"), saveHybrid: $("saveGenerateHybridBtn"), nextStudent: $("manualNextStudentBtn"), prevStudent: $("manualPrevStudentBtn"), note: $("manualTeacherNote"),
+    saveDraft: $("saveManualDraftBtn"), saveStudent: $("saveManualStudentBtn"), saveNext: $("saveManualNextBtn"), saveGenerate: $("saveGenerateManualBtn"), saveHybrid: $("saveGenerateHybridBtn"), nextStudent: $("manualNextStudentBtn"), prevStudent: $("manualPrevStudentBtn"), clearScores: $("clearManualStudentBtn"), clearClassScores: $("clearManualClassScoresBtn"), clearModal: $("manualScoreClearModal"), studentSelect: $("manualStudentSelect"), daysOpen: $("manualDaysOpen"), present: $("manualPresent"), attendanceOverride: $("manualAttendanceOverride"), note: $("manualTeacherNote"),
     minimize: $("manualStudioMinimizeBtn"), maximize: $("manualStudioMaximizeBtn"), close: $("manualStudioCloseBtn")
   };
 
   const state = {
     active: false, paused: false, sleeping: false, recognizing: false, current: null, recognition: null, heardFinal: false, voices: [], chosenVoice: "", lastTranscript: "", pendingConfirmation: null,
     pendingSubjectAdvance: null, restartTimer: 0, actionTimer: 0, manualAdvanceTimer: 0, audioContext: null, dictationTarget: null, supported: !!Recognition, lang: "en-NG", ttsActive: false,
-    ignoreUntil: 0, suppressRecognitionRestart: false, minimized: false, maximized: false, armed: false
+    ignoreUntil: 0, suppressRecognitionRestart: false, minimized: false, maximized: false, armed: false, languageIndex: 0, interimCandidate: "", interimCandidateAt: 0, interimStopTimer: 0, sessionAnnounced: false, commandMode: false, lastCompletedStudent: "", studentResumeTimer: 0, suspendedForModal: false
   };
 
   const fillerWords = new Set(["the","score","mark","marks","is","its","it's","please","enter","put","record","student","got","gets","has","was","equals","equal","to","a"]);
@@ -43,7 +43,9 @@
 
   function clean(value) { return String(value ?? "").trim(); }
   function normalizeText(value) { return clean(value).toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9.\s]/g," ").replace(/\s+/g," ").trim(); }
-  function labelForInput(input) { const subject = clean(input?.dataset.manualSubject), field = clean(input?.dataset.manualScore).toUpperCase(), max = clean(input?.max || ""); return { subject, field, max, text:`${subject} • ${field} out of ${max}` }; }
+  function isAttendanceVoiceInput(input){ return !!input && (input === ui.daysOpen || input === ui.present); }
+  function voiceMaxForInput(input){ if(input===ui.daysOpen)return 366; if(input===ui.present){ const days=Number(ui.daysOpen?.value); return Number.isFinite(days)&&days>0?Math.min(366,days):366; } return Number(input?.max || 100); }
+  function labelForInput(input) { if(input===ui.daysOpen)return { subject:"Attendance",field:"DAYS OPEN",max:"366",text:"Attendance • Days Open" }; if(input===ui.present)return { subject:"Attendance",field:"PRESENT",max:String(voiceMaxForInput(input)),text:"Attendance • Present" }; const subject = clean(input?.dataset.manualSubject), field = clean(input?.dataset.manualScore).toUpperCase(), max = clean(input?.max || ""); return { subject, field, max, text:`${subject} • ${field} out of ${max}` }; }
   function setStatus(message, transcript = "") { if (ui.status) ui.status.textContent = message; if (ui.transcript && transcript !== undefined) ui.transcript.textContent = transcript || "—"; }
   function setBarState(mode = "idle") {
     ui.bar?.classList.remove("listening","paused","sleeping","unsupported"); if (mode) ui.bar?.classList.add(mode);
@@ -62,16 +64,25 @@
     if (/natural|neural|online/.test(name)) score += 35; if (/microsoft|google/.test(name)) score += 20; if (/zira|aria|sonia|libby|jenny|ryan|davis|george/.test(name)) score += 8; if (voice?.localService) score += 3; return score;
   }
 
+  function voiceKey(voice){ return `${clean(voice?.name)}|||${clean(voice?.lang)}`; }
+  function preferredDefaultVoice(){
+    if(!state.voices.length)return null;
+    const googleUk=state.voices.find(v=>/^google uk english female$/i.test(clean(v.name))) || state.voices.find(v=>/google uk english female/i.test(clean(v.name)));
+    if(googleUk)return googleUk;
+    const microsoftMark=state.voices.find(v=>/microsoft\s+mark/i.test(clean(v.name))) || state.voices.find(v=>/\bmark\b/i.test(clean(v.name)) && /microsoft/i.test(clean(v.name)));
+    if(microsoftMark)return microsoftMark;
+    return state.voices.find(v=>/^en[-_]gb/i.test(clean(v.lang)) && /female|sonia|libby|aria|susan|kate/i.test(clean(v.name))) || [...state.voices].sort((a,b)=>voiceScore(b)-voiceScore(a))[0] || null;
+  }
   function refreshVoices() {
     if (!synth || !ui.voice) return; const voices = synth.getVoices?.() || []; state.voices = voices.filter(v => /^en[-_]/i.test(v.lang || "") || /^en$/i.test(v.lang || ""));
-    const previous = ui.voice.value; ui.voice.innerHTML = `<option value="">Best available voice</option>` + state.voices.map((v,i) => `<option value="${i}">${clean(v.name)} • ${clean(v.lang)}</option>`).join("");
-    if (previous && [...ui.voice.options].some(o => o.value === previous)) ui.voice.value = previous;
+    const stored = localStorage.getItem("emis_voice_name") || "", previous = stored || ui.voice.value; ui.voice.innerHTML = `<option value="">Best available voice</option>` + state.voices.map(v => `<option value="${encodeURIComponent(voiceKey(v))}">${clean(v.name)} • ${clean(v.lang)}</option>`).join("");
+    const legacyIndex=Number(previous), legacyVoice=Number.isInteger(legacyIndex)&&String(legacyIndex)===String(previous)?state.voices[legacyIndex]:null, normalizedPrevious=legacyVoice?encodeURIComponent(voiceKey(legacyVoice)):previous;
+    if(normalizedPrevious && [...ui.voice.options].some(o=>o.value===normalizedPrevious)) ui.voice.value=normalizedPrevious;
+    else { const preferred=preferredDefaultVoice(); if(preferred) ui.voice.value=encodeURIComponent(voiceKey(preferred)); }
   }
 
   function selectedVoice() {
-    if (!state.voices.length) refreshVoices(); const explicit = Number(ui.voice?.value);
-    if (ui.voice?.value !== "" && Number.isInteger(explicit) && state.voices[explicit]) return state.voices[explicit];
-    return [...state.voices].sort((a,b) => voiceScore(b) - voiceScore(a))[0] || null;
+    if (!state.voices.length) refreshVoices(); const value=clean(ui.voice?.value); if(value){ let decoded=value; try{decoded=decodeURIComponent(value);}catch(_){} const exact=state.voices.find(v=>voiceKey(v)===decoded); if(exact)return exact; const legacy=Number(value); if(Number.isInteger(legacy)&&state.voices[legacy])return state.voices[legacy]; } return preferredDefaultVoice();
   }
 
   function stopRecognition({ preserveRestart = false } = {}) {
@@ -85,7 +96,7 @@
       try {
         state.ttsActive = true; stopRecognition(); if (interrupt) synth.cancel();
         const utterance = new SpeechSynthesisUtterance(text), voice = selectedVoice();
-        if (voice) utterance.voice = voice; utterance.lang = voice?.lang || "en-NG"; utterance.rate = rate; utterance.pitch = 1; utterance.volume = .90;
+        if (voice) utterance.voice = voice; utterance.lang = voice?.lang || "en-GB"; utterance.rate = rate; utterance.pitch = 1; utterance.volume = .90;
         const finish = () => { state.ttsActive = false; state.ignoreUntil = Date.now() + 750; resolve(); if ((state.active || state.sleeping) && !state.paused) scheduleRestart(780); };
         utterance.onend = finish; utterance.onerror = finish; synth.speak(utterance);
       } catch (_) { state.ttsActive = false; state.ignoreUntil = Date.now() + 500; resolve(); }
@@ -114,14 +125,30 @@
   function validScore(transcript, max) { const value = parseNumberWords(transcript); if (!Number.isFinite(value) || value < 0 || value > Number(max || 100)) return null; return Math.round(value * 100) / 100; }
   function wakeWord(text) { return /^(hello|hi|hey|hello emis|hi emis|hey emis)$/.test(normalizeText(text)); }
 
-  function actionCommand(text) {
-    const t = normalizeText(text);
-    if (/\b(save and hybrid generate|save hybrid generate|save then hybrid generate|hybrid generate|generate hybrid|hybrid)\b/.test(t)) return "hybrid_generate";
-    if (/\b(save and generate|save generate|save then generate)\b/.test(t)) return "save_generate";
-    if (/^(generate|generate report|generate result)$/.test(t)) return "generate_pending";
-    if (/\b(save draft)\b/.test(t) || t === "save") return "save_draft";
-    return "";
+  const voiceActions = [
+    { command:"clear_class_scores", label:"Clear Class Scores", aliases:["clear class scores","clear class score","reset class scores","reset class score","clear all class scores"] },
+    { command:"clear_scores", label:"Clear Scores", aliases:["clear scores","clear score","clear student scores","clear student score","reset scores","reset score","reset student scores"] },
+    { command:"hybrid_generate", label:"Generate Hybrid Class", aliases:["generate hybrid class","generate hybrid class report","generate hybrid class reports","generate hybrid reports","hybrid class reports","hybrid generate","generate hybrid"] },
+    { command:"save_generate", label:"Generate Class Reports", aliases:["generate class report","generate class reports","generate class result","generate class results","generate reports","generate report"] },
+    { command:"save_next", label:"Save and Next", aliases:["save and next","save next","save then next","next student and save","save and next student"] },
+    { command:"save_student", label:"Save Student", aliases:["save student","save students","save scores","save student scores"] },
+    { command:"save_draft", label:"Save Draft", aliases:["save draft","save drought","save draught","safe draft","safe drought","save raft"] }
+  ];
+  function actionCanonicalText(value){
+    let t=normalizeText(value).replace(/\bplease\b/g," ").replace(/\b(drought|draught|drafts)\b/g,"draft").replace(/\b(kleer|cleer|claire)\b/g,"clear").replace(/\b(safe|saved)\b/g,"save").replace(/\b(students)\b/g,"student").replace(/\b(results)\b/g,"report").replace(/\b(reports)\b/g,"report").replace(/\b(scores)\b/g,"score").replace(/\b(courses|course|coarse)\b/g,"score").replace(/\b(hybird|highbrid|hy bread|high bread)\b/g,"hybrid").replace(/\s+/g," ").trim();
+    let compact=t.replace(/\s+/g,"");
+    compact=compact.replace(/drought|draught/g,"draft").replace(/kleer|cleer|claire/g,"clear").replace(/safedraft|safedrought/g,"savedraft").replace(/courses?|coarse/g,"score").replace(/scores/g,"score").replace(/students/g,"student").replace(/results|reports/g,"report").replace(/hybird|highbrid|hybread|highbread/g,"hybrid");
+    return { text:t,compact };
   }
+  function editDistance(a,b){ a=String(a||"");b=String(b||"");const prev=Array.from({length:b.length+1},(_,i)=>i),cur=new Array(b.length+1);for(let i=1;i<=a.length;i++){cur[0]=i;for(let j=1;j<=b.length;j++)cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));for(let j=0;j<=b.length;j++)prev[j]=cur[j];}return prev[b.length]; }
+  function phraseSimilarity(a,b){ if(!a||!b)return 0;const max=Math.max(a.length,b.length);return max?1-(editDistance(a,b)/max):1; }
+  function hasActionIntent(raw){ const {text,compact}=actionCanonicalText(raw); return /^(save|clear|reset|generate|hybrid|next student)/.test(text) || /^(save|safe|clear|kleer|reset|generate|genrate|generator|hybrid|hybird|nextstudent)/.test(compact); }
+  function actionCommand(text) {
+    if(!hasActionIntent(text))return ""; const heard=actionCanonicalText(text); let best={ command:"",score:0 };
+    for(const action of voiceActions){ for(const alias of action.aliases){ const expected=actionCanonicalText(alias); if(heard.compact===expected.compact || heard.compact.includes(expected.compact) || expected.compact.includes(heard.compact) && heard.compact.length>=7)return action.command; const score=phraseSimilarity(heard.compact,expected.compact); if(score>best.score)best={ command:action.command,score }; } }
+    return best.score>=.72?best.command:"";
+  }
+  function actionLabel(command){ return voiceActions.find(item=>item.command===command)?.label || command; }
 
   function navigationCommand(text) {
     const t = normalizeText(text);
@@ -153,17 +180,15 @@
   function allScoreInputs() { return $$('[data-manual-score]', ui.tableBody || modal).filter(input => !input.disabled && input.offsetParent !== null); }
   function checkedRows() { return $$('[data-manual-row]', ui.tableBody || modal).filter(row => row.querySelector('[data-manual-include]')?.checked); }
   function scoreSequence() { const selected = checkedRows(), rows = selected.length ? selected : $$('[data-manual-row]', ui.tableBody || modal); return rows.flatMap(row => $$('[data-manual-score]', row)).filter(input => !input.disabled && input.offsetParent !== null); }
-  function firstPreferredInput() { const focused = document.activeElement?.matches?.('[data-manual-score]') ? document.activeElement : null, seq = scoreSequence(); if (focused && seq.includes(focused) && clean(focused.value) === "") return focused; return seq.find(input => clean(input.value) === "") || null; }
+  function attendanceVoiceInputs(){ return [ui.daysOpen,ui.present].filter(input=>input && !input.disabled && input.offsetParent!==null); }
+  function voiceSequence(){ return [...scoreSequence(),...attendanceVoiceInputs()]; }
+  function voiceInputEmpty(input){ if(!input)return false; if(isAttendanceVoiceInput(input)){ if(input.dataset.voiceAttendanceCaptured==="1")return false; const raw=clean(input.value),numeric=Number(raw); if(raw!=="" && Number.isFinite(numeric) && numeric>0)return false; if(ui.attendanceOverride?.checked && raw!=="")return false; return true; } return clean(input.value)===""; }
+  function firstPreferredInput() { const focused = document.activeElement, seq = voiceSequence(); if (focused && seq.includes(focused) && voiceInputEmpty(focused)) return focused; return seq.find(voiceInputEmpty) || null; }
   function resumePreferredInput() {
-    const seq = scoreSequence(); if (!seq.length) return null;
-    const focused = document.activeElement?.matches?.('[data-manual-score]') ? document.activeElement : null;
-    const anchor = focused && seq.includes(focused) ? focused : (state.current && seq.includes(state.current) ? state.current : null);
-    if (anchor) {
-      if (clean(anchor.value) === "") return anchor;
-      const i = seq.indexOf(anchor), later = seq.slice(i + 1).find(input => clean(input.value) === "");
-      if (later) return later;
-    }
-    return seq.find(input => clean(input.value) === "") || null;
+    const seq = voiceSequence(); if (!seq.length) return null;
+    const focused = document.activeElement, anchor = focused && seq.includes(focused) ? focused : (state.current && seq.includes(state.current) ? state.current : null);
+    if (anchor) { if (voiceInputEmpty(anchor)) return anchor; const i = seq.indexOf(anchor), later = seq.slice(i + 1).find(voiceInputEmpty); if (later) return later; }
+    return seq.find(voiceInputEmpty) || null;
   }
   function focusManualInput(input) {
     if (!input) return; state.current = input; state.pendingConfirmation = null; state.pendingSubjectAdvance = null; clearActiveDecorations();
@@ -171,10 +196,10 @@
   }
 
   function clearActiveDecorations() {
-    $$('[data-manual-score]', modal).forEach(input => input.classList.remove("voice-active")); $$(".manual-voice-cell", modal).forEach(cell => { cell.classList.remove("manual-voice-cell"); cell.removeAttribute("data-voice-hint"); }); $$(".manual-voice-row", modal).forEach(row => row.classList.remove("manual-voice-row"));
+    $$('[data-manual-score]', modal).forEach(input => input.classList.remove("voice-active")); [ui.daysOpen,ui.present].forEach(input=>input?.classList.remove("voice-active")); $$(".manual-voice-cell", modal).forEach(cell => { cell.classList.remove("manual-voice-cell"); cell.removeAttribute("data-voice-hint"); }); $$(".manual-voice-row", modal).forEach(row => row.classList.remove("manual-voice-row"));
   }
 
-  function scrollToInput(input) { const wrap = input?.closest(".manual-score-table-wrap"); if (!wrap) return; const row = input.closest("tr"), wr = wrap.getBoundingClientRect(), rr = row.getBoundingClientRect(); if (rr.top < wr.top + 44 || rr.bottom > wr.bottom - 8) row.scrollIntoView({ behavior:"smooth", block:"center", inline:"nearest" }); }
+  function scrollToInput(input) { if(!input)return; const wrap=input.closest(".manual-score-table-wrap"); if(!wrap){ input.scrollIntoView?.({ behavior:"smooth",block:"center",inline:"nearest" }); return; } const row=input.closest("tr"); if(!row)return; const wr=wrap.getBoundingClientRect(),rr=row.getBoundingClientRect(); if(rr.top<wr.top+44||rr.bottom>wr.bottom-8)row.scrollIntoView({ behavior:"smooth",block:"center",inline:"nearest" }); }
 
   async function activateInput(input, { speakField = false } = {}) {
     if (!input) { await finishSequence(); return; }
@@ -185,13 +210,14 @@
     if (speakField || ui.promptEach?.checked) await speak(`${label.subject}. ${label.field}.`, { rate:1.12 }); else listenCurrent();
   }
 
-  function nextInputAfter(input) { const seq = scoreSequence(), i = seq.indexOf(input); return i >= 0 ? seq[i + 1] || null : null; }
-  function previousInputBefore(input) { const seq = scoreSequence(), i = seq.indexOf(input); return i > 0 ? seq[i - 1] : null; }
+  function nextInputAfter(input) { const seq = voiceSequence(), i = seq.indexOf(input); return i >= 0 ? seq[i + 1] || null : null; }
+  function nextEmptyInputAfter(input,{wrap=true}={}) { const seq=voiceSequence(),i=seq.indexOf(input); if(!seq.length)return null; const later=(i>=0?seq.slice(i+1):seq).find(voiceInputEmpty); if(later)return later; return wrap&&i>0?seq.slice(0,i).find(voiceInputEmpty)||null:null; }
+  function previousInputBefore(input) { const seq = voiceSequence(), i = seq.indexOf(input); return i > 0 ? seq[i - 1] : null; }
   function rowTotal(row) { return $$('[data-manual-score]', row).reduce((sum,input) => sum + (Number.isFinite(Number(input.value)) ? Number(input.value) : 0),0); }
   function rowComplete(row) { return $$('[data-manual-score]', row).every(input => clean(input.value) !== "" && Number.isFinite(Number(input.value))); }
 
   async function advanceAfterEntry(input) {
-    if (!input) return; const next = nextInputAfter(input), row = input.closest('[data-manual-row]'), nextRow = next?.closest('[data-manual-row]');
+    if (!input) return; const next = nextEmptyInputAfter(input), row = input.closest('[data-manual-row]'), nextRow = next?.closest('[data-manual-row]');
 
     // Manual mode must stay fully manual: never start recognition, TTS or wake-word listening.
     if (!state.armed || !state.active || state.paused) {
@@ -211,22 +237,23 @@
 
   async function move(direction = 1) {
     if (direction > 0 && state.pendingSubjectAdvance) { const pending = state.pendingSubjectAdvance; state.pendingSubjectAdvance = null; pending.next ? await activateInput(pending.next) : await finishSequence(); return; }
-    const target = direction > 0 ? nextInputAfter(state.current) : previousInputBefore(state.current); if (target) await activateInput(target); else if (direction > 0) await finishSequence();
+    const target = direction > 0 ? nextEmptyInputAfter(state.current) : previousInputBefore(state.current); if (target) await activateInput(target); else if (direction > 0) await finishSequence();
   }
 
-  async function skipSubject() { const currentRow = state.current?.closest('[data-manual-row]'), rows = checkedRows().length ? checkedRows() : $$('[data-manual-row]', ui.tableBody || modal), rowIndex = rows.indexOf(currentRow), target = rows[rowIndex + 1]?.querySelector('[data-manual-score]'); target ? await activateInput(target) : await finishSequence(); }
+  async function skipSubject() { const currentRow=state.current?.closest('[data-manual-row]'),rows=checkedRows().length?checkedRows():$$('[data-manual-row]',ui.tableBody||modal),rowIndex=rows.indexOf(currentRow); let target=null; for(let i=rowIndex+1;i<rows.length&&!target;i++)target=$$('[data-manual-score]',rows[i]).find(input=>!input.disabled&&clean(input.value)==="")||null; target ? await activateInput(target) : await finishSequence(); }
 
   function commitValue(input, value, { source = "voice" } = {}) {
-    if (!input) return; if (source === "voice") input.dataset.voiceWriting = "1"; input.value = String(value); input.dispatchEvent(new Event("input",{ bubbles:true })); input.dispatchEvent(new Event("change",{ bubbles:true })); if (source === "voice") setTimeout(() => delete input.dataset.voiceWriting, 80);
+    if (!input) return; if (source === "voice") input.dataset.voiceWriting = "1"; input.value = String(value); if(isAttendanceVoiceInput(input))input.dataset.voiceAttendanceCaptured="1"; input.dispatchEvent(new Event("input",{ bubbles:true })); input.dispatchEvent(new Event("change",{ bubbles:true })); if(isAttendanceVoiceInput(input) && ui.attendanceOverride && !ui.attendanceOverride.checked && attendanceVoiceInputs().every(node=>node.dataset.voiceAttendanceCaptured==="1")){ ui.attendanceOverride.checked=true; ui.attendanceOverride.dispatchEvent(new Event("input",{ bubbles:true })); ui.attendanceOverride.dispatchEvent(new Event("change",{ bubbles:true })); } if (source === "voice") setTimeout(() => delete input.dataset.voiceWriting, 80);
     input.classList.add("voice-captured"); setTimeout(() => input.classList.remove("voice-captured"),500); tone(true);
   }
 
-  async function finishSequence() {
-    stopRecognition(); state.active = false; state.paused = false; state.sleeping = false; state.armed = false; state.pendingConfirmation = null; state.pendingSubjectAdvance = null;
-    clearActiveDecorations(); setBarState("idle"); if (ui.field) ui.field.textContent = "Student scores complete";
-    setStatus("Voice entry complete","Microphone is off. Manual typing remains available. Click Start Voice if you want voice assistance again.");
-    await speak("Score entry complete.",{ rate:1.1 });
+  function currentStudentKey(){ return clean(ui.studentSelect?.value || $("manualScoreStudentIdentity")?.textContent || "student"); }
+  async function enterCommandMode({ announceComplete = false } = {}) {
+    if (!state.armed) return; stopRecognition(); state.active = true; state.paused = false; state.sleeping = false; state.commandMode = true; state.pendingConfirmation = null; state.pendingSubjectAdvance = null; clearActiveDecorations(); setBarState("listening"); if (ui.field) ui.field.textContent = "Voice commands ready";
+    setStatus("Student entry complete • voice remains active","Say “Save and Next”, “Generate Class Reports”, “Generate Hybrid Class”, or “Clear Scores”.");
+    const key=currentStudentKey(); if(announceComplete && state.lastCompletedStudent!==key){ state.lastCompletedStudent=key; await speak("Score entry complete. Voice capture remains active.",{ rate:1.08 }); } else scheduleRestart(180);
   }
+  async function finishSequence() { if (!state.armed) return; await enterCommandMode({ announceComplete:true }); }
 
   function manualInputAutoAdvance(event) {
     const input = event.target.closest?.('[data-manual-score]'); if (!input || input.dataset.voiceWriting === "1") return; state.current = input; state.pendingConfirmation = null; state.pendingSubjectAdvance = null; clearTimeout(state.manualAdvanceTimer);
@@ -234,45 +261,62 @@
     state.manualAdvanceTimer = setTimeout(() => { if (document.activeElement !== input && state.active) return; advanceAfterEntry(input); },500);
   }
 
-  function scoreFocusHandler(event) { const input = event.target.closest?.('[data-manual-score]'); if (!input) return; state.current = input; state.pendingConfirmation = null; state.pendingSubjectAdvance = null; input.classList.add("manual-keyboard-focus"); input.select?.(); if (state.active && !state.paused) { stopRecognition(); scheduleRestart(180); } }
-  function scoreBlurHandler(event) { event.target.closest?.('[data-manual-score]')?.classList.remove("manual-keyboard-focus"); }
+  function scoreFocusHandler(event) { const input = event.target.closest?.('[data-manual-score]') || (event.target===ui.daysOpen||event.target===ui.present?event.target:null); if (!input) return; state.current = input; state.commandMode=false; state.pendingConfirmation = null; state.pendingSubjectAdvance = null; input.classList.add("manual-keyboard-focus"); input.select?.(); if (state.active && !state.paused) { stopRecognition(); scheduleRestart(180); } }
+  function scoreBlurHandler(event) { const input=event.target.closest?.('[data-manual-score]') || (event.target===ui.daysOpen||event.target===ui.present?event.target:null); input?.classList.remove("manual-keyboard-focus"); }
   function stopNumberWheel(event) { if (event.target.closest?.('[data-manual-score]') && document.activeElement === event.target) event.preventDefault(); }
-  function manualKeyboardHandler(event) { const input = event.target.closest?.('[data-manual-score]'); if (!input) return; if (event.key === "Enter") { event.preventDefault(); clearTimeout(state.manualAdvanceTimer); advanceAfterEntry(input); } if (event.key === "ArrowRight" && event.altKey) { event.preventDefault(); move(1); } if (event.key === "ArrowLeft" && event.altKey) { event.preventDefault(); move(-1); } }
+  function manualKeyboardHandler(event) { const input = event.target.closest?.('[data-manual-score]') || (event.target===ui.daysOpen||event.target===ui.present?event.target:null); if (!input) return; if (event.key === "Enter") { event.preventDefault(); clearTimeout(state.manualAdvanceTimer); advanceAfterEntry(input); } if (event.key === "ArrowRight" && event.altKey) { event.preventDefault(); move(1); } if (event.key === "ArrowLeft" && event.altKey) { event.preventDefault(); move(-1); } }
 
   /* ============================================================
      SPEECH RECOGNITION
   ============================================================ */
 
+  function recognitionLanguages(){ const chosen=clean(document.getElementById("manualVoiceAccent")?.value||"auto"), list=chosen!=="auto"?[chosen,"en-GB","en-US"]:["en-NG","en-GB","en-US"]; return [...new Set(list.filter(Boolean))]; }
+  function activeRecognitionLanguage(){ const langs=recognitionLanguages(); return langs[Math.min(state.languageIndex,Math.max(0,langs.length-1))] || "en-GB"; }
+  function resetRecognition({ keepLanguage = true } = {}) { clearTimeout(state.interimStopTimer); state.interimStopTimer=0; state.interimCandidate=""; try{state.recognition?.abort();}catch(_){} state.recognition=null; state.recognizing=false; if(!keepLanguage)state.languageIndex=0; }
   function createRecognition() {
-    if (!Recognition) return null; const recognition = new Recognition(); recognition.continuous = false; recognition.interimResults = true; recognition.maxAlternatives = 5; recognition.lang = state.lang;
-    recognition.onstart = () => { state.recognizing = true; state.heardFinal = false; };
-    recognition.onspeechstart = () => { if (!state.ttsActive) setStatus(state.sleeping ? "Wake-word listening…" : "Listening…", state.sleeping ? "Say hello or hi" : (state.lastTranscript || "Speak the score")); };
-    recognition.onresult = event => handleRecognitionResult(event);
+    if (!Recognition) return null; const recognition = new Recognition(); recognition.continuous = false; recognition.interimResults = true; recognition.maxAlternatives = 5; recognition.lang = activeRecognitionLanguage();
+    recognition.onstart = () => { state.recognizing = true; state.heardFinal = false; }; recognition.onaudiostart=()=>{ if(!state.ttsActive&&!state.sleeping)setStatus("Microphone active • speak normally",state.lastTranscript||"Say the score once in your normal voice"); };
+    recognition.onspeechstart = () => { if (!state.ttsActive) setStatus(state.sleeping ? "Wake-word listening…" : "Listening…", state.sleeping ? "Say hello or hi" : (state.lastTranscript || "Speak the score once")); };
+    recognition.onresult = event => handleRecognitionResult(event); recognition.onnomatch=()=>{ if(!state.ttsActive)setStatus("I heard you, but not a score","Say only the number again; EMIS is still listening."); };
     recognition.onerror = event => {
-      state.recognizing = false; const code = clean(event.error);
+      state.recognizing = false; clearTimeout(state.interimStopTimer); const code = clean(event.error);
       if (["not-allowed","service-not-allowed"].includes(code)) { state.active = false; state.sleeping = false; setBarState("unsupported"); setStatus("Microphone permission blocked","Allow microphone access in the browser, then try again."); return; }
-      if (code === "no-speech") { setStatus(state.sleeping ? "Sleeping • waiting for hello" : "No speech heard", state.sleeping ? "Say hello or hi to wake." : "You do not need to shout. Move closer to the microphone or increase Windows microphone input level if needed."); return; }
-      if (code !== "aborted") { tone(false); setStatus(`Speech error: ${code || "unknown"}`,"Click Start Voice to retry if listening stops."); }
+      if (["language-not-supported","language_not_supported"].includes(code)) { const langs=recognitionLanguages(); if(state.languageIndex<langs.length-1){ state.languageIndex++; resetRecognition({keepLanguage:true}); setStatus("Switching speech model",`Trying ${activeRecognitionLanguage()}…`); scheduleRestart(160); return; } }
+      if (["phrases-not-supported","phrases_not_supported"].includes(code)) { resetRecognition({keepLanguage:true}); setStatus("Compatibility speech mode enabled","Your browser does not support speech phrase hints. EMIS removed them and will continue listening normally."); scheduleRestart(160); return; }
+      if (code === "no-speech") { setStatus(state.sleeping ? "Sleeping • waiting for hello" : "Listening quietly…", state.sleeping ? "Say hello or hi to wake." : "No need to shout — say the score once and pause briefly."); scheduleRestart(180); return; }
+      if (code === "audio-capture") { tone(false); setStatus("Microphone is not available","Check that the correct microphone is connected and not being blocked by another app."); return; }
+      if (code !== "aborted") { tone(false); resetRecognition({keepLanguage:true}); setStatus(`Speech error: ${code || "unknown"}`,"EMIS will reopen a clean listening session automatically."); scheduleRestart(220); }
     };
-    recognition.onend = () => { state.recognizing = false; if (!state.armed || state.suppressRecognitionRestart || state.ttsActive || state.paused) return; if (state.active || state.sleeping) scheduleRestart(180); };
+    recognition.onend = () => { state.recognizing = false; clearTimeout(state.interimStopTimer); if (!state.armed || state.suppressRecognitionRestart || state.ttsActive || state.paused) return; if (state.active || state.sleeping) { state.recognition=null; scheduleRestart(120); } };
     return recognition;
   }
 
   function scheduleRestart(delay = 160) { clearTimeout(state.restartTimer); if (!state.armed) return; state.restartTimer = setTimeout(() => { if (state.armed && (state.active || state.sleeping) && !state.paused && !state.recognizing && !state.ttsActive && Date.now() >= state.ignoreUntil) listenCurrent(); else if (state.armed && (state.active || state.sleeping) && !state.paused && Date.now() < state.ignoreUntil) scheduleRestart(Math.max(120,state.ignoreUntil-Date.now()+30)); },delay); }
-  function listenCurrent() { if (!state.armed || (!state.active && !state.sleeping) || state.paused || !Recognition || state.ttsActive || Date.now() < state.ignoreUntil || state.recognizing) return; state.heardFinal = false; try { state.recognition ||= createRecognition(); state.recognition.lang = state.lang; state.recognition.start(); } catch (error) { if (!/already started/i.test(clean(error?.message))) scheduleRestart(220); } }
+  function listenCurrent() { if (!state.armed || (!state.active && !state.sleeping) || state.paused || !Recognition || state.ttsActive || Date.now() < state.ignoreUntil || state.recognizing) return; state.heardFinal = false; try { state.recognition ||= createRecognition(); if(!state.recognition)return; state.recognition.lang=activeRecognitionLanguage(); state.recognition.start(); } catch (error) { if (!/already started/i.test(clean(error?.message))) { state.recognition=null; scheduleRestart(220); } } }
 
   function bestFinalAlternatives(event) {
-    const candidates = []; for (let i=event.resultIndex;i<event.results.length;i++) { const result = event.results[i]; if (!result.isFinal) { const live = clean(result[0]?.transcript); if (live && !state.ttsActive) { state.lastTranscript = live; if (ui.transcript) ui.transcript.textContent = live; } continue; } for (let j=0;j<Math.min(result.length,5);j++) candidates.push({ transcript:clean(result[j].transcript), confidence:Number(result[j].confidence || 0) }); } return candidates;
+    const candidates = []; for (let i=event.resultIndex;i<event.results.length;i++) { const result = event.results[i]; if (!result.isFinal) { const live = clean(result[0]?.transcript); if (live && !state.ttsActive) { state.lastTranscript = live; if (ui.transcript) ui.transcript.textContent = live; const max=voiceMaxForInput(state.current), parsed=validScore(live,max), liveAction=actionCommand(live); if(parsed!==null || liveAction){ state.interimCandidate=live; clearTimeout(state.interimStopTimer); state.interimStopTimer=setTimeout(()=>{ if(state.recognizing&&state.active&&!state.paused&&clean(state.interimCandidate)===live){ try{state.recognition?.stop();}catch(_){} } },liveAction?360:520); } } continue; } clearTimeout(state.interimStopTimer); state.interimCandidate=""; for (let j=0;j<Math.min(result.length,5);j++) candidates.push({ transcript:clean(result[j].transcript), confidence:Number(result[j].confidence || 0) }); } return candidates;
   }
 
-  async function performAction(command) {
-    clearTimeout(state.actionTimer);
-    if (command === "save_draft") { const wasActive = state.active; stopRecognition(); ui.saveDraft?.click(); setStatus("Saving draft…","Draft save command received."); if (wasActive) setTimeout(() => { state.active = true; state.sleeping = false; setBarState("listening"); scheduleRestart(200); },900); return; }
-    if (command === "save_generate") { hardStopVoice(); ui.saveGenerate?.click(); return; }
-    if (command === "hybrid_generate") { hardStopVoice(); ui.saveHybrid?.click(); return; }
-    if (command === "generate_pending") { setStatus("Generate command heard","Waiting 3 seconds for “hybrid”. Say “hybrid” now for Hybrid Generate."); state.actionTimer = setTimeout(() => { hardStopVoice(); ui.saveGenerate?.click(); },3000); }
+  function currentStudentVoiceName(){ const selected=ui.studentSelect?.selectedOptions?.[0]?.textContent || ""; if(selected)return clean(selected.split("—")[0]); return clean(modal.querySelector("#manualScoreStudentIdentity strong")?.textContent) || "this student"; }
+  function incompleteCurrentScoreFields(){ return scoreSequence().filter(input=>clean(input.value)===""); }
+  function pendingClassStudents(){ return $$('.manual-class-student.pending, .manual-class-student.draft',modal).map(button=>clean(button.querySelector('strong')?.textContent)).filter(Boolean); }
+  async function explainUnavailableAction(label,button){
+    if(button && !button.disabled)return false; tone(false); const student=currentStudentVoiceName(), missing=incompleteCurrentScoreFields(), pending=pendingClassStudents(); let detail="Complete the required class work first.";
+    if((label==="Generate Class Reports"||label==="Generate Hybrid Class") && missing.length) detail=`Cannot ${label.toLowerCase()} yet. ${student} still has ${missing.length} incomplete score field${missing.length===1?"":"s"}. Finish and save ${student} first.`;
+    else if((label==="Generate Class Reports"||label==="Generate Hybrid Class") && pending.length===1) detail=`Cannot ${label.toLowerCase()} yet. ${pending[0]} is the remaining student with incomplete saved scores.`;
+    else if((label==="Generate Class Reports"||label==="Generate Hybrid Class") && pending.length>1) detail=`Cannot ${label.toLowerCase()} yet. ${pending.length} students still have incomplete saved scores. ${pending[0]} is one of them.`;
+    else if((label==="Save Student"||label==="Save and Next") && missing.length) detail=`${student} still has ${missing.length} incomplete score field${missing.length===1?"":"s"}. Save Draft is available if you want to stop here.`;
+    setStatus(`${label} is not available yet`,`${detail} Voice capture remains active.`); await speak(detail,{ rate:1.06 }); return true;
   }
-
+  async function performAction(command,heardText="") {
+    clearTimeout(state.actionTimer); const label=actionLabel(command); if(heardText)setStatus(`Voice command • ${label}`,`Heard “${heardText}” → ${label}`);
+    if (command === "save_draft") { const wasArmed=state.armed; stopRecognition(); ui.saveDraft?.click(); setStatus("Saving draft…",heardText?`Heard “${heardText}” and matched it to Save Draft.`:"Draft save command received."); if(wasArmed)setTimeout(()=>{ state.active=true; state.sleeping=false; setBarState("listening"); scheduleRestart(180); },650); return; }
+    if (command === "save_student") { if(await explainUnavailableAction("Save Student",ui.saveStudent))return; stopRecognition(); ui.saveStudent?.click(); setStatus("Saving student…","Voice capture will continue after the save."); setTimeout(()=>{ if(state.armed&&!state.paused){ state.active=true; setBarState("listening"); const input=resumePreferredInput(); input?activateInput(input):enterCommandMode(); } },650); return; }
+    if (command === "save_next") { if(await explainUnavailableAction("Save and Next",ui.saveNext))return; stopRecognition(); state.commandMode=true; state.current=null; ui.saveNext?.click(); setStatus("Saving and opening next student…","Voice capture will continue automatically."); setTimeout(()=>{ if(state.armed&&!state.paused&&state.commandMode)enterCommandMode({ announceComplete:false }); },1200); return; }
+    if (command === "clear_scores" || command === "clear_class_scores") { const button=command==="clear_class_scores"?ui.clearClassScores:ui.clearScores,label=command==="clear_class_scores"?"Clear Class Scores":"Clear Scores"; if(!button)return; await speak(`${label} confirmation opened.`,{ rate:1.08 }); stopRecognition(); state.active=false; state.suspendedForModal=true; setStatus("Voice waiting for confirmation","Complete or cancel the warning modal. Voice capture will resume automatically."); button.click(); return; }
+    if (command === "save_generate" || command === "hybrid_generate") { const button=command==="hybrid_generate"?ui.saveHybrid:ui.saveGenerate,label=command==="hybrid_generate"?"Generate Hybrid Class":"Generate Class Reports"; if(await explainUnavailableAction(label,button))return; await speak(command==="hybrid_generate"?"Generating hybrid class reports.":"Generating class reports.",{ rate:1.08 }); hardStopVoice(); button.click(); return; }
+  }
   async function applyCorrection(correction) {
     if (!correction) return false; const row = state.current?.closest('[data-manual-row]') || document.activeElement?.closest?.('[data-manual-row]'); if (!row) return false;
     const input = row.querySelector(`[data-manual-score="${correction.field}"]`); if (!input) return false; const max = Number(input.max || 100); if (correction.value < 0 || correction.value > max) { setStatus(`Correction must be 0–${max}`,`Heard ${correction.value}`); tone(false); scheduleRestart(150); return true; }
@@ -289,18 +333,19 @@
       setStatus("Voice sleeping","Wake word is active only for the exact words “hello”, “hi”, “hey”, or “hello EMIS”."); scheduleRestart(220); return;
     }
 
-    const action = actionCommand(heard); if (action) { await performAction(action); return; }
-    const nav = navigationCommand(heard); if (nav) { await handleNavigationCommand(nav); return; }
+    const actionHit = alternatives.map(alt=>({ ...alt,command:actionCommand(alt.transcript) })).find(item=>item.command); if (actionHit) { if(ui.transcript)ui.transcript.textContent=actionHit.transcript; state.lastTranscript=actionHit.transcript; await performAction(actionHit.command,actionHit.transcript); return; }
+    const navHit = alternatives.map(alt=>({ ...alt,command:navigationCommand(alt.transcript) })).find(item=>item.command); if (navHit) { if(ui.transcript)ui.transcript.textContent=navHit.transcript; state.lastTranscript=navHit.transcript; await handleNavigationCommand(navHit.command); return; }
     const correction = correctionFromTranscript(heard); if (correction && await applyCorrection(correction)) return;
 
     if (state.pendingSubjectAdvance) { setStatus("Subject total awaiting confirmation",`Say “confirm”, “next”, “wrong”, or tap a score box.`); scheduleRestart(160); return; }
 
-    const input = state.current, max = Number(input?.max || 100); let chosen = null;
+    const input = state.current; if(!input){ state.commandMode=true; setStatus("Voice commands ready","Say “Save and Next”, “Generate Class Reports”, “Generate Hybrid Class”, or “Clear Scores”."); scheduleRestart(180); return; } const max = voiceMaxForInput(input); let chosen = null;
     for (const alt of alternatives) { const value = validScore(alt.transcript,max); if (value !== null) { chosen = { ...alt,value }; break; } }
     if (!chosen) { tone(false); setStatus(`Score must be 0–${max}`,`Heard: “${heard}” • say the number again`); scheduleRestart(170); return; }
 
-    if (ui.safeMode?.checked && chosen.confidence > 0 && chosen.confidence < .32) { state.pendingConfirmation = chosen; setStatus(`Confirm ${chosen.value}?`,`Say “confirm”, “wrong”, or simply repeat the correct score.`); scheduleRestart(150); return; }
-    commitValue(input,chosen.value); setStatus("Score captured",`${labelForInput(input).field} = ${chosen.value}`); await advanceAfterEntry(input);
+    if(input===ui.daysOpen && Number(ui.present?.value||0)>chosen.value){ tone(false); setStatus("Days Open cannot be below Present",`Present is already ${clean(ui.present?.value)}. Say a value of ${clean(ui.present?.value)} or higher.`); scheduleRestart(170); return; }
+    if (ui.safeMode?.checked && chosen.confidence > 0 && chosen.confidence < .32) { state.pendingConfirmation = chosen; setStatus(`Confirm ${chosen.value}?`,`Say “confirm”, “wrong”, or simply repeat the correct value.`); scheduleRestart(150); return; }
+    commitValue(input,chosen.value); setStatus(isAttendanceVoiceInput(input)?"Attendance captured":"Score captured",`${labelForInput(input).field} = ${chosen.value}`); await advanceAfterEntry(input);
   }
 
   async function handleNavigationCommand(command) {
@@ -330,9 +375,9 @@
 
   async function startVoice() {
     if (!state.supported) { setStatus("Speech recognition is not supported in this browser","Use current Chrome or Edge, or continue typing manually."); return; }
-    const input = resumePreferredInput() || firstPreferredInput(); if (!input) { setStatus("No unfinished score boxes","All visible score boxes are already complete."); return; }
-    state.armed = true; state.active = true; state.paused = false; state.sleeping = false; setBarState("listening");
-    await speak("Voice entry enabled.",{ rate:1.12 }); await activateInput(input);
+    const input = resumePreferredInput() || firstPreferredInput(); state.armed = true; state.active = true; state.paused = false; state.sleeping = false; state.commandMode = false; state.languageIndex=0; state.lastCompletedStudent=""; resetRecognition({keepLanguage:true}); setBarState("listening");
+    if(!state.sessionAnnounced){ state.sessionAnnounced=true; setStatus("Voice capture initiated","Speak each score clearly and naturally. EMIS will move through empty fields automatically."); await speak("Voice capture initiated. Speak each score clearly in your normal voice. Keep the microphone nearby and your device volume audible for prompts. EMIS will move through the empty fields automatically.",{ rate:1.03 }); }
+    if(input) await activateInput(input); else await enterCommandMode({ announceComplete:false });
   }
 
   async function wakeVoice() {
@@ -356,7 +401,7 @@
   }
 
   function hardStopVoice() {
-    clearTimeout(state.actionTimer); state.armed = false; state.active = false; state.paused = false; state.sleeping = false; state.pendingConfirmation = null; state.pendingSubjectAdvance = null;
+    clearTimeout(state.actionTimer); clearTimeout(state.studentResumeTimer); [ui.daysOpen,ui.present].forEach(input=>{ if(input)delete input.dataset.voiceAttendanceCaptured; }); state.armed = false; state.active = false; state.paused = false; state.sleeping = false; state.commandMode = false; state.sessionAnnounced = false; state.lastCompletedStudent = ""; state.suspendedForModal=false; state.pendingConfirmation = null; state.pendingSubjectAdvance = null;
     stopRecognition(); clearActiveDecorations(); setBarState("idle"); if (ui.field) ui.field.textContent = "Manual mode";
     setStatus("Microphone is off","Manual typing only. Click Start Voice to activate voice entry.");
   }
@@ -396,20 +441,23 @@
      MUTATION / INIT
   ============================================================ */
 
-  function onGridMutation() { if (!ui.tableBody) return; if (state.armed && state.active) { const candidate = resumePreferredInput(); if (candidate) activateInput(candidate); else finishSequence(); } }
+  function onGridMutation() { if (!ui.tableBody || !state.armed || !state.active || state.paused || state.ttsActive) return; clearTimeout(state.studentResumeTimer); state.studentResumeTimer=setTimeout(()=>{ const candidate=resumePreferredInput(); if(candidate){ state.commandMode=false; activateInput(candidate); } else if(!state.commandMode) enterCommandMode({ announceComplete:false }); },110); }
+  function resumeVoiceForLoadedStudent(){ [ui.daysOpen,ui.present].forEach(input=>{ if(input)delete input.dataset.voiceAttendanceCaptured; }); if(!state.armed || state.paused)return; clearTimeout(state.studentResumeTimer); state.studentResumeTimer=setTimeout(()=>{ state.active=true; state.sleeping=false; state.commandMode=false; state.lastCompletedStudent=""; setBarState("listening"); const candidate=resumePreferredInput(); candidate?activateInput(candidate):enterCommandMode({ announceComplete:false }); },160); }
+  function resumeAfterClearModal(){ if(!state.suspendedForModal || !state.armed || state.paused)return; state.suspendedForModal=false; state.active=true; setBarState("listening"); const candidate=resumePreferredInput(); candidate?activateInput(candidate):enterCommandMode({ announceComplete:false }); }
 
   function init() {
     refreshVoices(); if (synth) synth.onvoiceschanged = refreshVoices; bindDictationTargets();
     ui.start?.addEventListener("click",startVoice); ui.pause?.addEventListener("click",() => pauseVoice()); ui.stop?.addEventListener("click",hardStopVoice);
-    ui.voice?.addEventListener("change",() => { state.chosenVoice = ui.voice.value; localStorage.setItem("emis_voice_name",ui.voice.value); });
+    ui.voice?.addEventListener("change",() => { state.chosenVoice = ui.voice.value; localStorage.setItem("emis_voice_name",ui.voice.value); }); document.getElementById("manualVoiceAccent")?.addEventListener("change",event=>{ localStorage.setItem("emis_voice_accent",event.target.value); state.languageIndex=0; resetRecognition({keepLanguage:true}); if(state.armed&&(state.active||state.sleeping)&&!state.paused)scheduleRestart(140); });
     ui.promptEach?.addEventListener("change",() => localStorage.setItem("emis_voice_prompt_each",ui.promptEach.checked ? "1":"0")); ui.safeMode?.addEventListener("change",() => localStorage.setItem("emis_voice_safe_mode",ui.safeMode.checked ? "1":"0"));
     ui.minimize?.addEventListener("click",toggleMinimize); ui.maximize?.addEventListener("click",toggleMaximize); ui.close?.addEventListener("click",closeStudioVoice);
-    const storedVoice = localStorage.getItem("emis_voice_name"); if (storedVoice) ui.voice.value = storedVoice; if (ui.promptEach) ui.promptEach.checked = localStorage.getItem("emis_voice_prompt_each") === "1"; if (ui.safeMode) ui.safeMode.checked = localStorage.getItem("emis_voice_safe_mode") === "1";
+    refreshVoices(); const storedVoice = localStorage.getItem("emis_voice_name"); if (storedVoice && [...(ui.voice?.options||[])].some(option=>option.value===storedVoice)) ui.voice.value = storedVoice; const accent=document.getElementById("manualVoiceAccent"),storedAccent=localStorage.getItem("emis_voice_accent"); if(accent&&storedAccent&&[...accent.options].some(option=>option.value===storedAccent))accent.value=storedAccent; if (ui.promptEach) ui.promptEach.checked = localStorage.getItem("emis_voice_prompt_each") === "1"; if (ui.safeMode) ui.safeMode.checked = localStorage.getItem("emis_voice_safe_mode") === "1";
 
-    modal.addEventListener("keydown",manualKeyboardHandler); modal.addEventListener("focusin",scoreFocusHandler); modal.addEventListener("focusout",scoreBlurHandler); modal.addEventListener("input",manualInputAutoAdvance); modal.addEventListener("wheel",stopNumberWheel,{ passive:false });
+    modal.addEventListener("keydown",manualKeyboardHandler); modal.addEventListener("focusin",scoreFocusHandler); modal.addEventListener("focusout",scoreBlurHandler); modal.addEventListener("input",manualInputAutoAdvance); modal.addEventListener("wheel",stopNumberWheel,{ passive:false }); document.addEventListener("emis:manual-student-loaded",resumeVoiceForLoadedStudent);
     modal.addEventListener("transitionend",() => { if (modal.getAttribute("aria-hidden") === "true") closeStudioVoice(); });
     if (ui.tableBody) new MutationObserver(() => { bindDictationTargets(); onGridMutation(); }).observe(ui.tableBody,{ childList:true,subtree:true }); new MutationObserver(bindDictationTargets).observe(document.body,{ childList:true,subtree:true });
     new MutationObserver(() => { if (modal.getAttribute("aria-hidden") === "true") closeStudioVoice(); }).observe(modal,{ attributes:true,attributeFilter:["aria-hidden"] });
+    if(ui.clearModal)new MutationObserver(()=>{ if(ui.clearModal.getAttribute("aria-hidden")==="true")resumeAfterClearModal(); }).observe(ui.clearModal,{ attributes:true,attributeFilter:["aria-hidden"] });
 
     if (!state.supported) { setBarState("unsupported"); setStatus("Voice entry unavailable in this browser","Typing and keyboard auto-navigation still work."); }
     else { setBarState("idle"); setStatus("Manual mode • microphone is off","Voice entry will not listen or wake until you click Start Voice."); }
