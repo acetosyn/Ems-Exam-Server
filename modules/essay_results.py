@@ -116,7 +116,7 @@ def now_string():
 def can_manage_results():
     role = clean_text(session.get("user_type")).lower()
 
-    if role not in {"admin", "teacher"}: return False
+    if role not in {"admin", "teacher", "teacher_admin"}: return False
 
     now = time.time()
     last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)

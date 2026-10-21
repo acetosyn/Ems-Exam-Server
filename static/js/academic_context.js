@@ -127,6 +127,8 @@
     window.EMISAcademic = Object.freeze({ parseContext, applyDefaults, normalizeTerm, termLabel });
     window.EMISAcademicContext = parseContext();
 
+    // This script is loaded near the end of <body>, so known selectors normally already exist.
+    // Apply immediately before page controllers initialize, then repeat once at DOM ready for any late DOM fragments.
+    applyDefaults();
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => applyDefaults(), { once: true });
-    else applyDefaults();
 })();

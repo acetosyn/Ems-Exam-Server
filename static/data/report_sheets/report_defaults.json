@@ -19,8 +19,8 @@
   },
   "2026/2027|FIRST|JSS1|JSS1A|": {
     "form_teacher": "Mrs Rahma Adetobi",
-    "next_term": "2026-10-30",
-    "updated_at": "2026-10-21 08:08:42",
+    "next_term": "2027-02-28",
+    "updated_at": "2026-10-21 21:00:16",
     "updated_by": "admin"
   },
   "2026/2027|FIRST|SS1|SS1_GOLD|": {
@@ -43,14 +43,20 @@
   },
   "2026/2027|THIRD|JSS1|JSS1A|": {
     "form_teacher": "Mrs Rahma Adetobi",
-    "next_term": "2026-12-28",
-    "updated_at": "2026-10-15 13:31:58",
+    "next_term": "2027-02-22",
+    "updated_at": "2026-10-21 13:40:01",
     "updated_by": "admin"
   },
   "2026/2027|SECOND|JSS1|JSS1A|": {
     "form_teacher": "",
-    "next_term": "2027-11-22",
-    "updated_at": "2026-10-21 08:09:59",
+    "next_term": "2026-10-21",
+    "updated_at": "2026-10-21 13:39:34",
+    "updated_by": "admin"
+  },
+  "2025/2026|SECOND|JSS1|JSS1A|": {
+    "form_teacher": "",
+    "next_term": "2027-01-25",
+    "updated_at": "2026-10-21 20:01:54",
     "updated_by": "admin"
   }
 }

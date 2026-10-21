@@ -45,7 +45,7 @@ def push_notification(n_type, message, payload=None):
 
 
 def is_admin():
-    return str(session.get("user_type", "")).lower() in ["admin", "teacher"]
+    return str(session.get("user_type", "")).lower() in ["admin", "teacher", "teacher_admin"]
 
 
 def get_class_label(data):

@@ -3,7 +3,7 @@
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/teachers.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/subjects.css') }}?v=20261016-class-viewer4">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_admin_hub.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_admin_hub.css', v='20261021-accessscope5') }}">
 {% endblock %}
 {% block content %}
 <div class="academic-admin-hub" id="academicAdminHub" data-staff-role="{{ session.get('user_type') or 'guest' }}" data-initial-view="{{ initial_view or 'teachers' }}">
@@ -168,6 +168,7 @@
       <section class="identity-summary-grid" aria-label="Staff identity summary">
         <article><span class="identity-summary-icon total"><i class="fa-solid fa-id-card"></i></span><div><small>Total Staff IDs</small><strong id="staffIdTotal">—</strong><span>All active and inactive accounts</span></div></article>
         <article><span class="identity-summary-icon teacher"><i class="fa-solid fa-chalkboard-user"></i></span><div><small>Teacher IDs</small><strong id="staffIdTeachers">—</strong><span>EMT prefix</span></div></article>
+        <article><span class="identity-summary-icon adminteacher"><i class="fa-solid fa-user-shield"></i></span><div><small>Teacher Admin IDs</small><strong id="staffIdTeacherAdmins">—</strong><span>ADM prefix</span></div></article>
         <article><span class="identity-summary-icon islamiyyah"><i class="fa-solid fa-mosque"></i></span><div><small>Islamiyyah IDs</small><strong id="staffIdIslamiyyah">—</strong><span>IMS prefix</span></div></article>
         <article><span class="identity-summary-icon active"><i class="fa-solid fa-user-check"></i></span><div><small>Active Accounts</small><strong id="staffIdActive">—</strong><span>Can sign in now</span></div></article>
       </section>
@@ -176,17 +177,17 @@
         <aside class="identity-generator-card">
           <div class="identity-card-heading"><span class="identity-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span><div><span>CREATE CREDENTIALS</span><h3>Generate Staff IDs</h3><p>Select exactly who the ID belongs to before generating.</p></div></div>
           <form id="staffIdGenerateForm" class="identity-generator-form">
-            <label class="identity-field"><span>ID For Who?</span><select id="staffIdRole" required><option value="teacher">Normal Teacher</option><option value="islamiyyah_teacher">Islamiyyah Teacher</option></select></label>
-            <div class="identity-prefix-preview"><span>Generated prefix</span><strong id="staffIdPrefixPreview">EMT</strong><small id="staffIdAccessPreview">Normal Teacher • Academy + History restricted</small></div>
-            <label class="identity-field"><span>How many IDs?</span><input id="staffIdCount" type="number" min="1" max="100" value="1" required></label>
-            <button id="staffIdGenerateBtn" type="submit" class="identity-primary-btn"><i class="fa-solid fa-bolt"></i><span>Generate Credentials</span></button>
+            <div class="identity-generator-top"><label class="identity-field identity-role-field"><span><i class="fa-solid fa-user-tag"></i> Staff Role</span><select id="staffIdRole" required><option value="teacher">Normal Teacher</option><option value="teacher_admin">Teacher Admin</option><option value="islamiyyah_teacher">Islamiyyah Teacher</option></select></label><label class="identity-field identity-count-field"><span><i class="fa-solid fa-hashtag"></i> Quantity</span><input id="staffIdCount" type="number" min="1" max="100" value="1" required></label></div>
+            <div class="identity-prefix-preview"><div><span>Credential pattern</span><strong id="staffIdPrefixPreview">EMT</strong></div><small id="staffIdAccessPreview">Normal Teacher • assigned classes + subjects only • score entry only</small></div>
+            <div id="staffAssignmentBuilder" class="identity-assignment-builder"><div class="identity-assignment-head"><div><span>TEACHING ACCESS</span><strong>Build the Teacher Access Scope</strong></div><small>Choose one class, add every subject the teacher handles in that class, then add another class only when needed.</small></div><div class="identity-session-strip"><label class="identity-field"><span><i class="fa-solid fa-calendar-days"></i> Academic Session</span><select id="staffAssignmentSession"></select></label><span class="identity-access-lock"><i class="fa-solid fa-lock"></i> Server enforced</span></div><div id="staffAssignmentRows" class="identity-assignment-rows"></div><div class="identity-assignment-footer"><div><span>ACCESS SUMMARY</span><div id="staffAssignmentSummary" class="identity-assignment-summary" aria-live="polite"></div></div><div class="identity-assignment-actions"><button id="staffAddClass" type="button" class="identity-secondary-btn identity-add-class"><i class="fa-solid fa-layer-group"></i><span>Assign Another Class</span></button><button id="staffAssignGenerate" type="submit" class="identity-primary-btn identity-assign-generate"><i class="fa-solid fa-shield-check"></i><span>Assign & Generate ID</span></button></div></div><small class="identity-assignment-note"><i class="fa-solid fa-circle-info"></i> <b>All Arms</b> gives the selected subjects across every configured arm of that class. A class can be selected only once; add more subjects inside its existing card.</small></div>
+            <button id="staffIdGenerateBtn" type="submit" class="identity-primary-btn identity-generate-main identity-admin-generate" hidden><i class="fa-solid fa-bolt"></i><span>Generate Teacher Admin ID</span></button>
           </form>
-          <div class="identity-rule-note"><i class="fa-solid fa-circle-info"></i><div><strong>Role is permanent for the generated prefix</strong><span>EMT accounts use the normal Teacher permission set. IMS accounts use the restricted Islamiyyah permission set.</span></div></div>
+          <div class="identity-rule-note"><i class="fa-solid fa-circle-info"></i><div><strong>Role is permanent for the generated prefix</strong><span>EMT = assigned score-entry scope. ADM = regular-school Teacher Admin. IMS = assigned Tahfeez/Islamiyyah scope. Generated IDs are never recycled.</span></div></div>
         </aside>
 
         <section class="identity-register-card">
           <div class="identity-register-head"><div><span>SECURE REGISTER</span><h3>Staff Credentials</h3><p>Passwords are visible only inside this Admin session.</p></div><div class="identity-register-actions"><button id="staffIdTogglePasswords" type="button"><i class="fa-solid fa-eye-slash"></i><span>Hide Passwords</span></button><button id="staffIdRefresh" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button></div></div>
-          <div class="identity-filter-row"><label><i class="fa-solid fa-magnifying-glass"></i><input id="staffIdSearch" type="search" placeholder="Search staff ID or name..."></label><select id="staffIdRoleFilter"><option value="all">All Roles</option><option value="teacher">Teachers</option><option value="islamiyyah_teacher">Islamiyyah Teachers</option></select><select id="staffIdStatusFilter"><option value="all">All Status</option><option value="active">Active</option><option value="inactive">Inactive</option></select><button id="staffIdExportCsv" type="button"><i class="fa-solid fa-file-csv"></i><span>CSV</span></button></div>
+          <div class="identity-filter-row"><label><i class="fa-solid fa-magnifying-glass"></i><input id="staffIdSearch" type="search" placeholder="Search staff ID or name..."></label><select id="staffIdRoleFilter"><option value="all">All Roles</option><option value="teacher">Teachers</option><option value="teacher_admin">Teacher Admins</option><option value="islamiyyah_teacher">Islamiyyah Teachers</option></select><select id="staffIdStatusFilter"><option value="all">All Status</option><option value="active">Active</option><option value="inactive">Inactive</option></select><button id="staffIdExportCsv" type="button"><i class="fa-solid fa-file-csv"></i><span>CSV</span></button></div>
           <div class="identity-table-meta"><span id="staffIdResultCount">0 credentials</span><span><i class="fa-solid fa-shield-halved"></i> Credential data never appears to Teacher accounts.</span></div>
           <div class="identity-table-scroll"><table class="identity-table"><thead><tr><th>Staff ID</th><th>Role</th><th>Name</th><th>Password</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody id="staffIdTableBody"><tr><td colspan="7" class="identity-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading credentials…</td></tr></tbody></table></div>
         </section>
@@ -205,6 +206,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="{{ url_for('static', filename='js/teacher_assignments.js') }}"></script>
 <script src="{{ url_for('static', filename='js/subjects.js') }}?v=20261016-class-viewer4"></script>
-<script src="{{ url_for('static', filename='js/ids.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ids.js') }}?v=20261021-accessscope6"></script>
 <script src="{{ url_for('static', filename='js/academic_admin_hub.js') }}"></script>
 {% endblock %}

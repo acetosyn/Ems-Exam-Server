@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_history.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/broadsheets.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_document.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_history_hub.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_archive_v2.css', v='20261014-archive2') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_history_hub.css', v='20261021-history3') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/academic_archive_v2.css', v='20261021-history3') }}">
 {% endblock %}
 {% block content %}
 <div class="history-hub" id="academicHistoryHub" data-initial-view="{{ request.args.get('view', 'history') }}">
@@ -20,7 +20,7 @@
   <div class="history-toast-host" id="historyToastHost" aria-live="polite"></div>
 
   <section class="history-hero">
-    <div class="history-hero-main"><span class="history-eyebrow"><i class="fa-solid fa-box-archive"></i> PERMANENT ACADEMIC RECORDS</span><h1>Student Academic History</h1><p>Search verified records, follow progress and compile an official transcript.</p><div class="history-hero-actions"><button type="button" class="history-btn primary" id="focusHistorySearch"><i class="fa-solid fa-magnifying-glass"></i> Find Student</button><button type="button" class="history-btn ghost" id="rebuildAcademicArchive"><i class="fa-solid fa-arrows-rotate"></i> Rebuild Archive</button></div></div>
+    <div class="history-hero-main"><span class="history-eyebrow"><i class="fa-solid fa-box-archive"></i> PERMANENT ACADEMIC RECORDS</span><h1>Student Academic History</h1><p>Every generated term sheet, cumulative result, revision and transcript reference is preserved here for verification, parent requests and school records.</p><div class="history-hero-actions"><button type="button" class="history-btn primary" id="focusHistorySearch"><i class="fa-solid fa-magnifying-glass"></i> Find Student</button><button type="button" class="history-btn ghost" id="rebuildAcademicArchive"><i class="fa-solid fa-arrows-rotate"></i> Rebuild Archive</button></div></div>
     <aside class="history-hero-card"><div class="vault-icon"><i class="fa-solid fa-shield-halved"></i></div><div><small>Archive Status</small><strong>Permanent Record Vault</strong><span>Scores • History • Transcript • Revisions</span></div></aside>
   </section>
 
@@ -30,11 +30,13 @@
     <article><span class="history-stat-icon teal"><i class="fa-solid fa-calendar-days"></i></span><div><small>Sessions</small><strong data-history-counter id="historyStatSessions">0</strong><em>Academic years retained</em></div></article>
     <article><span class="history-stat-icon green"><i class="fa-solid fa-circle-check"></i></span><div><small>Complete</small><strong data-history-counter id="historyStatComplete">0</strong><em>Complete report records</em></div></article>
     <article><span class="history-stat-icon amber"><i class="fa-solid fa-clock-rotate-left"></i></span><div><small>Revisions</small><strong data-history-counter id="historyStatRevisions">0</strong><em>Protected replacements</em></div></article>
+    <article><span class="history-stat-icon cyan"><i class="fa-solid fa-file-shield"></i></span><div><small>Saved Sheets</small><strong data-history-counter id="historyStatDocuments">0</strong><em>Cumulative / final copies</em></div></article>
   </section>
 
-  <section class="history-toolbar-card">
-    <div class="history-search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="historySearchInput" type="search" autocomplete="off" placeholder="Student name or admission number"><kbd>Enter</kbd></div><select id="historySessionFilter"><option value="">All sessions</option></select><select id="historyClassFilter"><option value="">All classes</option></select><select id="historyTermFilter"><option value="">All terms</option><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select><select id="historyScoreMode" title="Score display"><option value="both">Score + %</option><option value="score">Score only</option><option value="percent">% only</option></select><button type="button" class="history-btn primary" id="runHistorySearch"><i class="fa-solid fa-search"></i> Search</button><button type="button" class="history-btn ghost" id="selectVisibleHistoryBtn"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" class="history-btn ghost archive-download" id="downloadSelectedHistoryArchiveBtn" disabled><i class="fa-solid fa-file-zipper"></i> Download Selected Archive</button><button type="button" class="history-btn ghost icon-only" id="clearHistorySearch" title="Clear filters"><i class="fa-solid fa-eraser"></i></button>
+  <section class="history-toolbar-card premium-history-toolbar">
+    <div class="history-search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="historySearchInput" type="search" autocomplete="off" placeholder="Student name or admission number"><kbd>Enter</kbd></div><select id="historySessionFilter"><option value="">All sessions</option></select><select id="historyClassFilter"><option value="">All classes</option></select><select id="historyTermFilter"><option value="">All terms</option><option value="FIRST">First Term</option><option value="SECOND">Second Term</option><option value="THIRD">Third Term</option></select><select id="historyDocumentFilter" title="Saved document type"><option value="standard">Term Results</option><option value="cumulative">Cumulative Sheets</option><option value="third_term_decision">Third Term Final</option><option value="all">All Saved Documents</option></select><select id="historyScoreMode" title="Score display"><option value="both">Score + %</option><option value="score">Score only</option><option value="percent">% only</option></select><button type="button" class="history-btn primary" id="runHistorySearch"><i class="fa-solid fa-search"></i> Search</button><button type="button" class="history-btn ghost" id="selectVisibleHistoryBtn"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" class="history-btn ghost icon-only" id="clearHistorySearch" title="Clear filters"><i class="fa-solid fa-eraser"></i></button>
   </section>
+  <section class="history-selection-actions" id="historySelectionActions"><div><i class="fa-solid fa-circle-check"></i><strong id="historySelectedCountAction">0 selected</strong><span>Batch transcript / archive actions</span></div><div><button type="button" class="history-btn ghost" id="saveSelectedTranscriptRefsBtn"><i class="fa-solid fa-bookmark"></i> Save Transcript Refs</button><button type="button" class="history-btn primary archive-download" id="downloadSelectedHistoryArchiveBtn" disabled><i class="fa-solid fa-file-zipper"></i> Download Selected ZIP</button><button type="button" class="history-btn ghost" id="clearSelectedHistoryBtn"><i class="fa-solid fa-xmark"></i> Clear</button></div></section>
 
   <section class="history-workspace">
     <aside class="history-results-pane"><header class="pane-heading"><div><span class="section-kicker">Search Results</span><h2>Academic Records</h2></div><div class="history-result-counters"><span id="historyResultCount" class="record-count">0</span><span id="historySelectedCount" class="record-count selected">0 selected</span></div></header><div id="historySearchResults" class="history-search-results"><div class="history-empty compact"><i class="fa-solid fa-magnifying-glass"></i><strong>Search the archive</strong><span>Use a name, admission number or filter.</span></div></div></aside>
@@ -58,6 +60,7 @@
             <article class="history-summary-card"><header><span class="section-kicker">Quick Summary</span><h3>Academic Journey</h3></header><div class="journey-metrics"><div><small>Sessions</small><strong id="journeySessions">0</strong></div><div><small>Terms</small><strong id="journeyTerms">0</strong></div><div><small>Latest Class</small><strong id="journeyClass">—</strong></div><div><small>Latest Grade</small><strong id="journeyGrade">—</strong></div></div></article>
           </section>
           <section class="history-timeline-section"><header class="timeline-heading"><div><span class="section-kicker">Academic Timeline</span><h3>Session & Term History</h3></div><span class="timeline-hint"><i class="fa-solid fa-arrow-pointer"></i> Select a term for the official sheet</span></header><div id="academicTimeline" class="academic-timeline"></div></section>
+          <section class="history-document-vault"><header class="timeline-heading"><div><span class="section-kicker">Generated Sheets Vault</span><h3>Saved Final & Cumulative Reports</h3></div><span class="timeline-hint"><i class="fa-solid fa-box-archive"></i> Auto-saved when official sheets are generated</span></header><div id="historyArchivedDocuments" class="history-archived-documents"><div class="history-empty compact"><i class="fa-solid fa-file-shield"></i><span>No additional generated sheets archived yet.</span></div></div></section>
         </div>
 
         <section id="historyTranscriptView" class="transcript-workspace" hidden>
@@ -81,16 +84,20 @@
   <div class="broad-toast-host" id="broadToastHost" aria-live="polite"></div>
 
   <section class="broad-hero">
-    <div class="broad-hero-copy"><span class="broad-kicker"><i class="fa-solid fa-table-cells-large"></i> EMIS CLASS ANALYTICS</span><h1>Summary & Cumulative Broadsheets</h1><p>Term, annual and subject performance in one class workspace.</p><div class="broad-hero-pills"><span><i class="fa-solid fa-table"></i> Term Matrix</span><span><i class="fa-solid fa-layer-group"></i> Annual Matrix</span><span><i class="fa-solid fa-chart-simple"></i> Analytics</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet Excel</span></div></div>
+    <div class="broad-hero-copy"><span class="broad-kicker"><i class="fa-solid fa-table-cells-large"></i> EMIS CLASS ANALYTICS</span><h1>Summary & Cumulative Broadsheets</h1><p>Term, annual and subject performance in one class workspace.</p><div class="broad-hero-pills"><span><i class="fa-solid fa-table"></i> Term Matrix</span><span><i class="fa-solid fa-layer-group"></i> Annual Matrix</span><span><i class="fa-solid fa-chart-simple"></i> Analytics</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet Excel</span><span><i class="fa-solid fa-file-signature"></i> Parent Transcripts</span><span><i class="fa-solid fa-shield-halved"></i> Revision Safe</span></div></div>
     <aside class="broad-hero-card"><div><small>Session</small><strong id="broadHeroSession">—</strong></div><div><small>Class</small><strong id="broadHeroClass">—</strong></div><div><small>View</small><strong id="broadHeroView">Term Broadsheet</strong></div><span class="hero-live"><i></i> History-powered</span></aside>
   </section>
 
-  <section class="broad-stats">
-    <article><i class="fa-solid fa-users"></i><div><span>Students</span><strong id="broadStatStudents">0</strong></div></article>
-    <article><i class="fa-solid fa-circle-check"></i><div><span>Complete</span><strong id="broadStatComplete">0</strong></div></article>
-    <article><i class="fa-solid fa-chart-line"></i><div><span>Class Average</span><strong id="broadStatAverage">—</strong></div></article>
-    <article><i class="fa-solid fa-trophy"></i><div><span>Highest Average</span><strong id="broadStatHighest">—</strong></div></article>
-    <article><i class="fa-solid fa-bars-progress"></i><div><span>Coverage</span><strong id="broadStatCoverage">0%</strong></div></article>
+  <section class="broad-stats premium-broad-stats">
+    <article><i class="fa-solid fa-users"></i><div><span>Students</span><strong id="broadStatStudents">0</strong><small>class records</small></div></article>
+    <article><i class="fa-solid fa-circle-check"></i><div><span>Complete</span><strong id="broadStatComplete">0</strong><small>final records</small></div></article>
+    <article><i class="fa-solid fa-chart-line"></i><div><span>Class Average</span><strong id="broadStatAverage">—</strong><small>selected view</small></div></article>
+    <article><i class="fa-solid fa-arrow-trend-up"></i><div><span>Passed</span><strong id="broadStatPassed">0</strong><small id="broadStatPassRate">0% pass</small></div></article>
+    <article><i class="fa-solid fa-triangle-exclamation"></i><div><span>Failed</span><strong id="broadStatFailed">0</strong><small>requires attention</small></div></article>
+    <article><i class="fa-solid fa-medal"></i><div><span>Distinctions</span><strong id="broadStatDistinction">0</strong><small>Grade A</small></div></article>
+    <article><i class="fa-solid fa-life-ring"></i><div><span>At Risk</span><strong id="broadStatAtRisk">0</strong><small>below 45%</small></div></article>
+    <article><i class="fa-solid fa-trophy"></i><div><span>Highest</span><strong id="broadStatHighest">—</strong><small>class leader</small></div></article>
+    <article><i class="fa-solid fa-bars-progress"></i><div><span>Coverage</span><strong id="broadStatCoverage">0%</strong><small>records complete</small></div></article>
   </section>
 
   <section class="broad-controls">
@@ -103,9 +110,11 @@
     <button type="button" id="exportBroadsheets" class="broad-btn" disabled><i class="fa-solid fa-file-excel"></i> Export</button>
     <button type="button" id="printBroadsheets" class="broad-btn" disabled><i class="fa-solid fa-print"></i> Preview / Print</button>
     <button type="button" id="downloadClassArchive" class="broad-btn archive" disabled><i class="fa-solid fa-file-zipper"></i> Download Class Archive</button>
+    <button type="button" id="openBroadsheetAdminDelete" class="broad-btn danger"><i class="fa-solid fa-trash-can"></i> Admin Delete</button>
   </section>
 
   <section class="broad-health-card"><div><span>Academic Coverage</span><strong id="broadCoverageLabel">No class loaded</strong></div><div class="broad-progress"><i id="broadCoverageBar"></i></div><em id="broadCoverageMeta">Select a session and class.</em></section>
+  <section class="broad-outcome-strip" id="broadOutcomeStrip"><span><i class="fa-solid fa-chart-pie"></i> Class Outcome</span><strong id="broadOutcomeSummary">Load a class to see pass, fail, distinction and support summaries.</strong><em id="broadOutcomeAttendance">Attendance —</em></section>
 
   <section class="broad-selection-bar" id="broadSelectionBar"><span><strong id="broadSelectedCount">0</strong> student(s) selected for transcript/history actions</span><div><button type="button" id="broadSelectVisible"><i class="fa-solid fa-check-double"></i> Select Visible</button><button type="button" id="broadClearSelection"><i class="fa-solid fa-xmark"></i> Clear</button><button type="button" id="broadPreviewTranscript"><i class="fa-solid fa-eye"></i> Preview Transcript</button><button type="button" id="broadDownloadSelectedArchive"><i class="fa-solid fa-file-zipper"></i> Download Selected</button></div></section>
 
@@ -138,13 +147,25 @@
 
   <div id="broadsheetDocumentCanvas" class="emis-document-preview-shell broad-print-canvas" hidden></div>
 
-  <footer class="broad-footer"><span><i class="fa-solid fa-database"></i> Permanent Academic History</span><span><i class="fa-solid fa-calculator"></i> Actual score / maximum</span><span><i class="fa-solid fa-shield-halved"></i> Missing scores stay blank</span><span><i class="fa-solid fa-table-columns"></i> Sticky headers</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet export</span></footer>
+  <footer class="broad-footer"><span><i class="fa-solid fa-database"></i> Permanent Academic History</span><span><i class="fa-solid fa-calculator"></i> Actual score / maximum</span><span><i class="fa-solid fa-shield-halved"></i> Missing scores stay blank</span><span><i class="fa-solid fa-table-columns"></i> Sticky headers</span><span><i class="fa-solid fa-file-excel"></i> Multi-sheet export</span><span><i class="fa-solid fa-file-signature"></i> Transcript ZIP</span><span><i class="fa-solid fa-clock-rotate-left"></i> Revision history</span><span><i class="fa-solid fa-box-archive"></i> Auto archive</span></footer>
 </div></section>
+
+<div id="archiveAdminDeleteModal" class="archive-admin-delete-modal" hidden aria-hidden="true">
+  <div class="archive-admin-delete-dialog" role="dialog" aria-modal="true" aria-labelledby="archiveDeleteTitle">
+    <header><span><i class="fa-solid fa-database"></i></span><div><small>CENTRAL ADMIN DATA CONTROL</small><h2 id="archiveDeleteTitle">Broadsheet / History Admin Delete</h2><p>Deletes the same permanent records used by Report Sheets, Broadsheets and transcripts. Use with care.</p></div><button type="button" id="closeArchiveAdminDelete"><i class="fa-solid fa-xmark"></i></button></header>
+    <div class="archive-delete-options"><button type="button" class="active" data-archive-delete="term_class"><b>Current Class + Term</b><small>Selected session / term / class arm only.</small></button><button type="button" data-archive-delete="class_history"><b>Entire Class History</b><small>All sessions and terms for the selected class arm.</small></button><button type="button" data-archive-delete="database"><b>Entire Academic Report Database</b><small>Requires Admin login details + DELETE.</small></button></div>
+    <div id="archiveDeleteContext" class="archive-delete-context">Select a session and class in Broadsheets first.</div>
+    <div id="archiveDeleteCredentials" class="archive-delete-credentials" hidden><label><span>ADMIN_USERNAME</span><input id="archiveDeleteUsername" autocomplete="username"></label><label><span>ADMIN_PASSWORD</span><input id="archiveDeletePassword" type="password" autocomplete="current-password"></label></div>
+    <label class="archive-delete-confirm"><span>Type <b>DELETE</b> to confirm</span><input id="archiveDeleteConfirmText" autocomplete="off" placeholder="DELETE"></label>
+    <div class="archive-delete-alert"><i class="fa-solid fa-triangle-exclamation"></i><span id="archiveDeleteWarning">This action permanently removes stored academic report data.</span></div>
+    <footer><button type="button" id="cancelArchiveAdminDelete" class="broad-btn">Cancel</button><button type="button" id="confirmArchiveAdminDelete" class="broad-btn danger" disabled><i class="fa-solid fa-trash-can"></i> Confirm Delete</button></footer>
+  </div>
+</div>
 </div>
 {% endblock %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/academic_document.js') }}"></script>
-<script src="{{ url_for('static', filename='js/academic_history.js', v='20261014-archive2') }}"></script>
-<script src="{{ url_for('static', filename='js/broadsheets.js', v='20261014-archive2') }}"></script>
-<script src="{{ url_for('static', filename='js/academic_history_hub.js', v='20261014-archive2') }}"></script>
+<script src="{{ url_for('static', filename='js/academic_history.js', v='20261021-history3') }}"></script>
+<script src="{{ url_for('static', filename='js/broadsheets.js', v='20261021-history3') }}"></script>
+<script src="{{ url_for('static', filename='js/academic_history_hub.js', v='20261021-history3') }}"></script>
 {% endblock %}

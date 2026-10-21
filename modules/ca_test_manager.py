@@ -53,7 +53,7 @@ CA_LOCK = RLock()
 def ca_staff_required(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
-        if clean(session.get("user_type")).lower() not in {"admin", "teacher"}: return jsonify({"success": False, "message": "Unauthorized."}), 403
+        if clean(session.get("user_type")).lower() not in {"admin", "teacher", "teacher_admin"}: return jsonify({"success": False, "message": "Unauthorized."}), 403
         return view(*args, **kwargs)
     return wrapped
 

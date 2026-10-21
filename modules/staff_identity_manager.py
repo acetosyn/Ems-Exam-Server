@@ -1,4 +1,4 @@
-# MODULE: Staff Identity Manager — Admin-owned EMT / IMS credential lifecycle and role-aware authentication
+# MODULE: Staff Identity Manager — Admin-owned EMT / ADM / IMS credential lifecycle and role-aware authentication
 # STORAGE: database.db (teachers + staff_identity_audit)
 
 import secrets
@@ -14,6 +14,7 @@ STAFF_LOCK = RLock()
 _STAFF_SCHEMA_READY = False
 ROLE_CONFIG = {
     "teacher": {"prefix": "EMT", "label": "Teacher"},
+    "teacher_admin": {"prefix": "ADM", "label": "Teacher Admin"},
     "islamiyyah_teacher": {"prefix": "IMS", "label": "Islamiyyah Teacher"},
 }
 VALID_STATUSES = {"active", "inactive"}
@@ -75,22 +76,24 @@ def init_staff_identity_tables():
             conn.execute("CREATE INDEX IF NOT EXISTS idx_staff_identity_audit_created ON staff_identity_audit(created_at)")
             # Legacy EMT accounts automatically remain normal Teacher accounts; IMS always resolves to Islamiyyah.
             conn.execute("UPDATE teachers SET staff_role='islamiyyah_teacher' WHERE UPPER(teacher_id) LIKE 'IMS%' AND COALESCE(staff_role,'')!='islamiyyah_teacher'")
-            conn.execute("UPDATE teachers SET staff_role='teacher' WHERE (staff_role IS NULL OR TRIM(staff_role)='') AND UPPER(teacher_id) NOT LIKE 'IMS%'")
+            conn.execute("UPDATE teachers SET staff_role='teacher_admin' WHERE UPPER(teacher_id) LIKE 'ADM%' AND COALESCE(staff_role,'')!='teacher_admin'")
+            conn.execute("UPDATE teachers SET staff_role='teacher' WHERE (staff_role IS NULL OR TRIM(staff_role)='') AND UPPER(teacher_id) NOT LIKE 'IMS%' AND UPPER(teacher_id) NOT LIKE 'ADM%'")
             conn.commit(); _STAFF_SCHEMA_READY = True
         finally: conn.close()
 
 
 def normalize_role(role):
     token = clean(role).lower().replace("-", "_").replace(" ", "_")
-    aliases = {"islamiyah": "islamiyyah_teacher", "islamiyah_teacher": "islamiyyah_teacher", "islamiyyah": "islamiyyah_teacher", "ims": "islamiyyah_teacher", "emt": "teacher", "normal_teacher": "teacher"}
+    aliases = {"islamiyah": "islamiyyah_teacher", "islamiyah_teacher": "islamiyyah_teacher", "islamiyyah": "islamiyyah_teacher", "ims": "islamiyyah_teacher", "emt": "teacher", "normal_teacher": "teacher", "adm": "teacher_admin", "teacheradmin": "teacher_admin", "admin_teacher": "teacher_admin"}
     token = aliases.get(token, token)
-    if token not in ROLE_CONFIG: raise ValueError("Staff type must be Teacher or Islamiyyah Teacher.")
+    if token not in ROLE_CONFIG: raise ValueError("Staff type must be Teacher, Teacher Admin or Islamiyyah Teacher.")
     return token
 
 
 def role_from_staff_id(staff_id, stored_role=""):
     token = clean(staff_id).upper(); role = clean(stored_role).lower()
     if token.startswith("IMS"): return "islamiyyah_teacher"
+    if token.startswith("ADM"): return "teacher_admin"
     if role in ROLE_CONFIG: return role
     return "teacher"
 
@@ -110,7 +113,7 @@ def _serialize(row, include_password=False):
 def list_staff_accounts(role="", include_password=False):
     init_staff_identity_tables(); normalized = normalize_role(role) if clean(role) else ""; conn = _connect()
     try:
-        rows = conn.execute("SELECT * FROM teachers ORDER BY CASE WHEN UPPER(teacher_id) LIKE 'EMT%' THEN 0 WHEN UPPER(teacher_id) LIKE 'IMS%' THEN 1 ELSE 2 END, UPPER(teacher_id)").fetchall(); accounts = [_serialize(row, include_password=include_password) for row in rows]
+        rows = conn.execute("SELECT * FROM teachers ORDER BY CASE WHEN UPPER(teacher_id) LIKE 'EMT%' THEN 0 WHEN UPPER(teacher_id) LIKE 'ADM%' THEN 1 WHEN UPPER(teacher_id) LIKE 'IMS%' THEN 2 ELSE 3 END, UPPER(teacher_id)").fetchall(); accounts = [_serialize(row, include_password=include_password) for row in rows]
         return [row for row in accounts if not normalized or row.get("staff_role") == normalized]
     finally: conn.close()
 
@@ -123,21 +126,21 @@ def get_staff_account(staff_id, include_password=False):
 
 
 def _next_number(conn, prefix):
-    # Never recycle a Staff ID after deletion: both live accounts and identity audit history reserve the number permanently.
-    live = [row[0] for row in conn.execute("SELECT teacher_id FROM teachers WHERE UPPER(teacher_id) LIKE ?", (f"{prefix}%",)).fetchall()]
-    issued = [row[0] for row in conn.execute("SELECT staff_id FROM staff_identity_audit WHERE UPPER(staff_id) LIKE ?", (f"{prefix}%",)).fetchall()]
-    numbers = []
-    for raw in live + issued:
+    # Reuse deleted numbers safely: allocate the lowest positive number not currently held by a live credential.
+    live = [row[0] for row in conn.execute("SELECT teacher_id FROM teachers WHERE UPPER(teacher_id) LIKE ?", (f"{prefix}%",)).fetchall()]; used = set()
+    for raw in live:
         token = clean(raw).upper()
-        if token.startswith(prefix) and token[len(prefix):].isdigit(): numbers.append(int(token[len(prefix):]))
-    return max(numbers, default=0) + 1
+        if token.startswith(prefix) and token[len(prefix):].isdigit(): used.add(int(token[len(prefix):]))
+    number = 1
+    while number in used: number += 1
+    return number
 
 
 def _password(length=10):
-    alphabet = string.ascii_letters + string.digits
-    while True:
-        value = "".join(secrets.choice(alphabet) for _ in range(length))
-        if any(c.islower() for c in value) and any(c.isupper() for c in value) and any(c.isdigit() for c in value): return value
+    letters = string.ascii_lowercase
+    # Easy staff passwords: normal/Islamiyyah = abc12 (5 chars); Teacher Admin = abc123 (6 chars).
+    digits = 3 if int(length) == 6 else 2
+    return "".join(secrets.choice(letters) for _ in range(3)) + "".join(secrets.choice(string.digits) for _ in range(digits))
 
 
 def generate_staff_ids(role="teacher", count=1, created_by=""):
@@ -151,8 +154,8 @@ def generate_staff_ids(role="teacher", count=1, created_by=""):
         try:
             number = _next_number(conn, prefix)
             for _ in range(count):
-                while conn.execute("SELECT 1 FROM teachers WHERE UPPER(teacher_id)=?", (f"{prefix}{number:03d}",)).fetchone(): number += 1
-                staff_id = f"{prefix}{number:03d}"; password = _password(); now = utc_now()
+                while conn.execute("SELECT 1 FROM teachers WHERE UPPER(teacher_id)=?", (f"{prefix}{number}",)).fetchone(): number += 1
+                staff_id = f"{prefix}{number}"; password = _password(6 if normalized == "teacher_admin" else 5); now = utc_now()
                 cursor = conn.execute("INSERT INTO teachers(teacher_id,password,full_name,status,staff_role,created_at,updated_at,created_by) VALUES(?,?,?,?,?,?,?,?)", (staff_id, password, "", "active", normalized, now, now, clean(created_by)))
                 _audit(conn, staff_id, normalized, "CREATE", created_by, f"Generated {ROLE_CONFIG[normalized]['label']} credential")
                 generated.append({"id": cursor.lastrowid, "staff_id": staff_id, "teacher_id": staff_id, "password": password, "full_name": "", "status": "active", "staff_role": normalized, "role_label": ROLE_CONFIG[normalized]["label"], "prefix": prefix, "created_at": now, "created_by": clean(created_by)})
@@ -195,8 +198,8 @@ def delete_staff_account(row_id, changed_by=""):
         try:
             row = conn.execute("SELECT * FROM teachers WHERE id=?", (int(row_id),)).fetchone()
             if not row: return False
-            account = _serialize(row); conn.execute("BEGIN IMMEDIATE"); _audit(conn, account["staff_id"], account["staff_role"], "DELETE", changed_by, "Credential deleted by administrator; Staff ID remains permanently reserved")
-            # Remove orphanable teaching-load rows so a deleted account can never leave privileges behind. The identity audit remains immutable.
+            account = _serialize(row); conn.execute("BEGIN IMMEDIATE"); _audit(conn, account["staff_id"], account["staff_role"], "DELETE", changed_by, "Credential deleted by administrator; numeric Staff ID slot released for reuse")
+            # Remove orphanable teaching-load rows so a deleted account cannot leave privileges behind. Audit history remains timestamped even if the numeric ID is later reused.
             table_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='teacher_assignments'").fetchone()
             if table_exists: conn.execute("DELETE FROM teacher_assignments WHERE UPPER(teacher_id)=?", (account["staff_id"],))
             conn.execute("DELETE FROM teachers WHERE id=?", (int(row_id),)); conn.commit(); return True
@@ -206,8 +209,8 @@ def delete_staff_account(row_id, changed_by=""):
 
 
 def staff_identity_stats():
-    accounts = list_staff_accounts(); teacher = [r for r in accounts if r["staff_role"] == "teacher"]; islamiyyah = [r for r in accounts if r["staff_role"] == "islamiyyah_teacher"]
-    return {"total": len(accounts), "teachers": len(teacher), "islamiyyah_teachers": len(islamiyyah), "active": sum(1 for r in accounts if r.get("status") == "active"), "inactive": sum(1 for r in accounts if r.get("status") != "active")}
+    accounts = list_staff_accounts(); teacher = [r for r in accounts if r["staff_role"] == "teacher"]; teacher_admin = [r for r in accounts if r["staff_role"] == "teacher_admin"]; islamiyyah = [r for r in accounts if r["staff_role"] == "islamiyyah_teacher"]
+    return {"total": len(accounts), "teachers": len(teacher), "teacher_admins": len(teacher_admin), "islamiyyah_teachers": len(islamiyyah), "active": sum(1 for r in accounts if r.get("status") == "active"), "inactive": sum(1 for r in accounts if r.get("status") != "active")}
 
 
 def list_staff_identity_audit(limit=80):

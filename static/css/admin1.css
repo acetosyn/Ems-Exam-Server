@@ -3084,3 +3084,65 @@ body.dark .class-arm-badge {
 .base-notif-head{min-height:64px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e6edf2;background:linear-gradient(135deg,#f8fcfd,#eef8f7)}.base-notif-head>div{display:grid;gap:2px}.base-notif-head h3{margin:0;color:#173650;font-size:.92rem;font-weight:900}.base-notif-live{display:inline-flex;align-items:center;gap:5px;color:#087a6d;font-size:.56rem;font-weight:950;letter-spacing:.08em}.base-notif-live i,.base-notif-foot>span i{width:7px;height:7px;border-radius:50%;background:#15a67d;box-shadow:0 0 0 4px rgba(21,166,125,.08)}.base-notif-head button{min-height:29px;padding:0 9px;border:1px solid #cfe0e7;border-radius:8px;color:#36566f;background:#fff;font-size:.63rem;font-weight:850;cursor:pointer}.base-notif-head button:hover{border-color:#9dc7c0;color:#087a6d;background:#f1faf8}
 .base-notif-list{max-height:380px;overflow:auto;padding:6px;background:#fff}.base-notif-item{display:grid;grid-template-columns:36px minmax(0,1fr);gap:9px;align-items:start;padding:9px;border:1px solid transparent;border-radius:11px;transition:.15s ease}.base-notif-item:hover{border-color:#dce8ee;background:#f8fbfc}.base-notif-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:#245ca6;background:#edf4ff}.base-notif-item.success .base-notif-icon{color:#087a65;background:#e9f8f3}.base-notif-item.warning .base-notif-icon{color:#9a6b0d;background:#fff6df}.base-notif-item.danger .base-notif-icon{color:#b02d42;background:#fff0f3}.base-notif-item strong,.base-notif-item small,.base-notif-item em{display:block}.base-notif-item strong{color:#1e3448;font-size:.71rem;line-height:1.35;font-weight:820}.base-notif-item small{margin-top:2px;color:#6f8191;font-size:.59rem;line-height:1.35}.base-notif-item em{margin-top:3px;color:#98a5b1;font-size:.54rem;font-style:normal;font-weight:700}.base-notif-empty{min-height:145px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;color:#748697}.base-notif-empty>i{width:42px;height:42px;display:grid;place-items:center;margin-bottom:8px;border-radius:13px;color:#0c7d72;background:#edf8f6;font-size:1rem}.base-notif-empty strong{color:#31495e;font-size:.75rem}.base-notif-empty span{max-width:260px;margin-top:4px;font-size:.61rem;line-height:1.45}.base-notif-foot{min-height:38px;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #e7edf2;background:#f8fafb;color:#728494}.base-notif-foot>span{display:inline-flex;align-items:center;gap:6px;font-size:.58rem;font-weight:850}.base-notif-foot>span.offline i{background:#d05a68;box-shadow:0 0 0 4px rgba(208,90,104,.08)}.base-notif-foot small{font-size:.54rem}.notif-count.pulse{animation:emisNotifPulse 1.7s ease-in-out infinite}@keyframes emisNotifPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @media(max-width:600px){.base-notif-menu{position:fixed!important;top:calc(var(--header-height) + 8px)!important;right:8px!important;left:8px!important;width:auto!important;max-width:none!important}.base-notif-list{max-height:min(58vh,420px)}}
+
+/* ==========================================================
+   SIDEBAR FAST-COLLAPSE + BRAND IDENTITY — 2026-10-21
+   ----------------------------------------------------------
+   Desktop content snaps instantly; only the sidebar/toggle
+   receives a short micro-animation. This avoids the old slow
+   page-drag effect while preserving a polished visual cue.
+========================================================== */
+@media (min-width: 769px) {
+  .sidebar { transition: width 85ms cubic-bezier(.2,.8,.2,1) !important; will-change: width; contain: layout style; }
+  .main-content, .base-footer { transition: none !important; }
+  .sidebar-heading, .sidebar-nav-label, .sidebar .btn-logout span { transition: none !important; }
+  .sidebar.collapsed .sidebar-heading, .sidebar.collapsed .sidebar-nav-label, .sidebar.collapsed .btn-logout span { display:none !important; }
+
+  .desktop-toggle {
+    top: calc(var(--header-height) + 14px) !important;
+    left: 14px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 12px !important;
+    background: linear-gradient(145deg,#123a5d,#0a2742) !important;
+    border: 1px solid rgba(125,211,252,.2) !important;
+    box-shadow: 0 8px 20px rgba(2,12,27,.22) !important;
+    transform: none !important;
+  }
+  .desktop-toggle i { font-size:.78rem; transition:transform 130ms cubic-bezier(.2,.85,.25,1),color 120ms ease !important; transform:rotate(0deg); }
+  .desktop-toggle.is-collapsed i { transform:rotate(180deg); }
+  .desktop-toggle:hover { background:linear-gradient(145deg,#174d76,#0d3456) !important; transform:scale(1.04) !important; }
+  .desktop-toggle:active { transform:scale(.94) !important; }
+
+  .sidebar-header { min-height:54px !important; padding:12px 8px 10px !important; margin-bottom:6px !important; }
+  .sidebar-heading { width:100%; margin:0 !important; display:flex; align-items:center; justify-content:center; }
+  .sidebar-role { margin:0 !important; min-width:68px; justify-content:center; padding:5px 10px !important; letter-spacing:.055em; box-shadow:inset 0 0 0 1px rgba(251,113,133,.12); }
+  .sidebar.collapsed .sidebar-header { min-height:20px !important; padding:4px 0 !important; border-bottom-color:transparent !important; }
+  .sidebar.collapsed .sidebar-role { display:none !important; }
+}
+
+/* EMIS application identity — always readable across all 10 themes. */
+.base-brand { gap:.7rem !important; }
+.base-brand-text {
+  position:relative;
+  min-width:174px;
+  padding:7px 11px 7px 13px;
+  border:1px solid rgba(125,211,252,.14);
+  border-radius:11px;
+  background:linear-gradient(100deg,rgba(34,211,238,.10),rgba(59,130,246,.045) 58%,transparent);
+  box-shadow:inset 3px 0 0 #22d3ee;
+}
+.base-brand-text strong {
+  color:#f8fbff !important;
+  font-size:1.02rem !important;
+  font-weight:950 !important;
+  letter-spacing:.025em !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.2),0 0 18px rgba(34,211,238,.14);
+}
+.base-brand-text span { color:#b9d4e9 !important; font-weight:800 !important; letter-spacing:.015em; }
+.base-brand:hover .base-brand-text { border-color:rgba(34,211,238,.28); background:linear-gradient(100deg,rgba(34,211,238,.14),rgba(59,130,246,.07) 58%,transparent); }
+
+@media (max-width: 768px) {
+  .base-brand-text { min-width:0; padding:4px 7px 4px 9px; border-radius:9px; }
+  .base-brand-text strong { font-size:.84rem !important; }
+}

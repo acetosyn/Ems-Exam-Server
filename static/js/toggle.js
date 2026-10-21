@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================================================
   // DESKTOP COLLAPSE
   // =========================================================
-  const applyDesktopState = () => { if (!sidebar || isMobile()) return; sidebar.classList.toggle("collapsed", isCollapsed); sidebar.setAttribute("aria-hidden", "false"); };
+  const syncDesktopToggle = () => { if (!desktopBtn) return; desktopBtn.classList.toggle("is-collapsed", isCollapsed); desktopBtn.setAttribute("aria-expanded", String(!isCollapsed)); desktopBtn.setAttribute("aria-label", isCollapsed ? "Expand sidebar" : "Collapse sidebar"); desktopBtn.title = isCollapsed ? "Expand sidebar" : "Collapse sidebar"; };
+  const applyDesktopState = () => { if (!sidebar || isMobile()) return; sidebar.classList.toggle("collapsed", isCollapsed); sidebar.setAttribute("aria-hidden", "false"); syncDesktopToggle(); };
   applyDesktopState();
-  desktopBtn?.addEventListener("click", () => { if (isMobile() || !sidebar) return; isCollapsed = !isCollapsed; sidebar.classList.toggle("collapsed", isCollapsed); localStorage.setItem("sidebarCollapsed", String(isCollapsed)); });
+  desktopBtn?.addEventListener("click", () => { if (isMobile() || !sidebar) return; isCollapsed = !isCollapsed; sidebar.classList.toggle("collapsed", isCollapsed); syncDesktopToggle(); localStorage.setItem("sidebarCollapsed", String(isCollapsed)); });
 
   // =========================================================
   // MOBILE DRAWER

@@ -31,6 +31,8 @@
         <div class="mode-badge" data-role="{{ user_type|default('admin') }}">
           {% if user_type == 'teacher' %}
             <i class="fa-solid fa-chalkboard-user"></i><span>Teacher</span>
+          {% elif user_type == 'teacher_admin' %}
+            <i class="fa-solid fa-user-shield"></i><span>Teacher Admin</span>
           {% else %}
             <i class="fa-solid fa-shield-halved"></i><span>Administrator</span>
           {% endif %}

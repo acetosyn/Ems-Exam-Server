@@ -131,7 +131,7 @@ def subject_matches(filter_value, folder_value, record_subject=""):
 def can_view_results():
     role = str(session.get("user_type") or "").strip().lower()
 
-    if role not in {"admin", "teacher"}:
+    if role not in {"admin", "teacher", "teacher_admin"}:
         return False
 
     now = time.time()
@@ -164,7 +164,7 @@ def can_view_results():
 def can_view_notifications():
     """Allow live header notifications for every authenticated staff role without granting result-page access."""
     role = str(session.get("user_type") or "").strip().lower()
-    if role not in {"admin", "teacher", "islamiyyah_teacher"}: return False
+    if role not in {"admin", "teacher", "teacher_admin", "islamiyyah_teacher"}: return False
     now = time.time(); last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
     if last_activity is not None:
         try:
@@ -178,7 +178,7 @@ def notification_visible_for_role(item, role=""):
     role = str(role or session.get("user_type") or "").strip().lower(); event_type = str((item or {}).get("type") or "").lower()
     academy_event = event_type.startswith(("islamiyah", "academy", "tahfeez"))
     if role == "admin": return True
-    if role == "teacher": return not academy_event
+    if role in {"teacher", "teacher_admin"}: return not academy_event
     if role == "islamiyyah_teacher": return academy_event
     return False
 
@@ -2168,8 +2168,8 @@ def api_get_academic_settings():
 
 @api_bp.route("/api/academic-settings", methods=["POST"])
 def api_update_academic_settings():
-    if str(session.get("user_type") or "").strip().lower() != "admin":
-        return jsonify({"success": False, "error": "Admin access is required to change the global academic period."}), 403
+    if str(session.get("user_type") or "").strip().lower() not in {"admin", "teacher_admin"}:
+        return jsonify({"success": False, "error": "Admin or Teacher Admin access is required to change the global academic period."}), 403
 
     data = request.get_json(silent=True) or {}
     raw_year = data.get("current_year") or data.get("year") or ""
