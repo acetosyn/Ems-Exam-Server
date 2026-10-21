@@ -125,14 +125,25 @@ def get_staff_account(staff_id, include_password=False):
     finally: conn.close()
 
 
+def _purge_legacy_deleted_credentials(conn, prefix=""):
+    """Remove old soft-deleted credential rows left by earlier EMS builds so their numbers can be reused."""
+    params=[]; where="LOWER(TRIM(COALESCE(status,''))) IN ('deleted','removed','archived')"
+    if prefix: where += " AND UPPER(teacher_id) LIKE ?"; params.append(f"{clean(prefix).upper()}%")
+    rows=conn.execute(f"SELECT teacher_id FROM teachers WHERE {where}", params).fetchall(); ids=[clean(row[0]).upper() for row in rows if clean(row[0])]
+    for staff_id in ids:
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='teacher_assignments'").fetchone(): conn.execute("DELETE FROM teacher_assignments WHERE UPPER(teacher_id)=?", (staff_id,))
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='teacher_assignment_audit'").fetchone(): conn.execute("DELETE FROM teacher_assignment_audit WHERE UPPER(teacher_id)=?", (staff_id,))
+        conn.execute("DELETE FROM teachers WHERE UPPER(teacher_id)=?", (staff_id,))
+    return ids
+
 def _next_number(conn, prefix):
-    # Reuse deleted numbers safely: allocate the lowest positive number not currently held by a live credential.
-    live = [row[0] for row in conn.execute("SELECT teacher_id FROM teachers WHERE UPPER(teacher_id) LIKE ?", (f"{prefix}%",)).fetchall()]; used = set()
+    # Deleted IDs are reusable. Always allocate the lowest positive number still absent from live credentials.
+    _purge_legacy_deleted_credentials(conn, prefix); live=[row[0] for row in conn.execute("SELECT teacher_id FROM teachers WHERE UPPER(teacher_id) LIKE ?", (f"{prefix}%",)).fetchall()]; used=set()
     for raw in live:
-        token = clean(raw).upper()
+        token=clean(raw).upper()
         if token.startswith(prefix) and token[len(prefix):].isdigit(): used.add(int(token[len(prefix):]))
-    number = 1
-    while number in used: number += 1
+    number=1
+    while number in used: number+=1
     return number
 
 
@@ -194,15 +205,20 @@ def set_staff_status(row_id, status, changed_by=""):
 def delete_staff_account(row_id, changed_by=""):
     init_staff_identity_tables()
     with STAFF_LOCK:
-        conn = _connect()
+        conn=_connect()
         try:
-            row = conn.execute("SELECT * FROM teachers WHERE id=?", (int(row_id),)).fetchone()
+            row=conn.execute("SELECT * FROM teachers WHERE id=?", (int(row_id),)).fetchone()
             if not row: return False
-            account = _serialize(row); conn.execute("BEGIN IMMEDIATE"); _audit(conn, account["staff_id"], account["staff_role"], "DELETE", changed_by, "Credential deleted by administrator; numeric Staff ID slot released for reuse")
-            # Remove orphanable teaching-load rows so a deleted account cannot leave privileges behind. Audit history remains timestamped even if the numeric ID is later reused.
-            table_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='teacher_assignments'").fetchone()
-            if table_exists: conn.execute("DELETE FROM teacher_assignments WHERE UPPER(teacher_id)=?", (account["staff_id"],))
-            conn.execute("DELETE FROM teachers WHERE id=?", (int(row_id),)); conn.commit(); return True
+            account=_serialize(row); staff_id=clean(account["staff_id"]).upper(); conn.execute("BEGIN IMMEDIATE"); _audit(conn, staff_id, account["staff_role"], "DELETE", changed_by, "Credential permanently deleted; numeric Staff ID slot released for reuse")
+            if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='teacher_assignments'").fetchone(): conn.execute("DELETE FROM teacher_assignments WHERE UPPER(teacher_id)=?", (staff_id,))
+            if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='teacher_assignment_audit'").fetchone(): conn.execute("DELETE FROM teacher_assignment_audit WHERE UPPER(teacher_id)=?", (staff_id,))
+            # Delete by canonical Staff ID, not only the numeric database row, so no legacy duplicate/ghost keeps the slot occupied.
+            conn.execute("DELETE FROM teachers WHERE UPPER(teacher_id)=?", (staff_id,)); remaining=conn.execute("SELECT COUNT(*) FROM teachers WHERE UPPER(teacher_id)=?", (staff_id,)).fetchone()[0]
+            if remaining: raise RuntimeError(f"Unable to fully delete {staff_id}.")
+            if not conn.execute("SELECT 1 FROM teachers LIMIT 1").fetchone():
+                try: conn.execute("DELETE FROM sqlite_sequence WHERE name='teachers'")
+                except sqlite3.Error: pass
+            conn.commit(); return True
         except Exception:
             conn.rollback(); raise
         finally: conn.close()

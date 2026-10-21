@@ -298,8 +298,32 @@ def apply_teacher_assignment_sync_event(action, payload, event=None):
 # =========================================================
 # REPORT-SHEET ACCESS POLICY — server-side authority
 # =========================================================
+def _assignment_session_sort_key(value):
+    token = normalize_academic_session(value); first = clean(token.split("/", 1)[0]) if "/" in token else ""
+    try: return int(first)
+    except (TypeError, ValueError): return 0
+
+def _teacher_report_assignments(teacher_id, academic_session=""):
+    """Resolve the Teacher's effective score-entry scope without making access vanish at session rollover.
+
+    Exact-session assignments always win. If Academic Admin explicitly saved/cleared the requested
+    session, an empty set means no access. Otherwise the latest active assignment set is inherited so
+    an existing Teacher ID continues to work when the central academic session advances.
+    """
+    init_teacher_assignment_tables(); token = clean(teacher_id).upper(); requested = normalize_assignment_session(academic_session); exact = get_teacher_assignments(token, requested)
+    if exact: return exact, requested, False
+    conn = _connect()
+    try:
+        managed = conn.execute("SELECT 1 FROM teacher_assignment_audit WHERE UPPER(teacher_id)=? AND academic_session=? LIMIT 1", (token, requested)).fetchone()
+        if managed: return [], requested, False
+        sessions = [clean(row[0]) for row in conn.execute("SELECT DISTINCT academic_session FROM teacher_assignments WHERE UPPER(teacher_id)=? AND active=1", (token,)).fetchall() if clean(row[0])]
+    finally: conn.close()
+    if not sessions: return [], requested, False
+    source = sorted(sessions, key=_assignment_session_sort_key, reverse=True)[0]; inherited = get_teacher_assignments(token, source)
+    return inherited, source, bool(inherited and source != requested)
+
 def teacher_report_scope(teacher_id, academic_session=""):
-    assignments = get_teacher_assignments(teacher_id, academic_session); levels, arms, subjects, all_arms = set(), {}, {}, set()
+    requested = normalize_assignment_session(academic_session); assignments, assignment_session, inherited = _teacher_report_assignments(teacher_id, requested); levels, arms, subjects, all_arms = set(), {}, {}, set()
     for row in assignments:
         level, arm, subject = clean(row.get("class_level")).upper(), clean(row.get("class_arm")).upper(), clean(row.get("subject_key")).upper()
         if not level: continue
@@ -307,7 +331,7 @@ def teacher_report_scope(teacher_id, academic_session=""):
         if arm: arms[level].add(arm)
         else: all_arms.add(level)
         if subject: subjects[level].add(subject)
-    return {"teacher_id": clean(teacher_id).upper(), "academic_session": normalize_assignment_session(academic_session), "class_levels": sorted(levels), "class_arms": {k:([] if k in all_arms else sorted(v)) for k,v in arms.items()}, "subjects": {k: sorted(v) for k,v in subjects.items()}, "assignments": assignments}
+    return {"teacher_id": clean(teacher_id).upper(), "academic_session": requested, "assignment_session": assignment_session, "assignment_inherited": inherited, "class_levels": sorted(levels), "class_arms": {k:([] if k in all_arms else sorted(v)) for k,v in arms.items()}, "subjects": {k: sorted(v) for k,v in subjects.items()}, "assignments": assignments}
 
 def teacher_can_access_report_class(teacher_id, academic_session, class_level, class_arm=""):
     level = normalize_configured_class_level(class_level); arm = clean(class_arm).upper(); scope = teacher_report_scope(teacher_id, academic_session)
