@@ -50,7 +50,7 @@ promotion_bp = Blueprint("promotion_bp", __name__)
 def require_authenticated_staff():
     """Students & Classes is shared by Admin, normal Teacher and Islamiyyah Teacher accounts only."""
     role = clean(session.get("user_type")).lower()
-    if role not in {"admin", "teacher", "islamiyyah_teacher"}: return jsonify({"success": False, "error": "Staff login required."}), 403
+    if role not in {"admin", "teacher", "teacher_admin", "islamiyyah_teacher"}: return jsonify({"success": False, "error": "Staff login required."}), 403
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASE_DIR = BASE_DIR / "static" / "data" / "database"

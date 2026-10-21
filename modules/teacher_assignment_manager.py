@@ -149,6 +149,19 @@ def _normalize_assignment(item):
     return {"school_section": school_section_for_class(level), "class_level": level, "class_arm": arm, "subject_key": clean(subject.get("key")).upper()}
 
 
+def validate_teacher_assignment_payload(assignments, academic_session="", staff_role="teacher", require_assignment=False):
+    """Validate a proposed ID teaching scope before the credential is created."""
+    session_value = normalize_assignment_session(academic_session); items = assignments if isinstance(assignments, list) else []; normalized=[]; seen=set()
+    for item in items:
+        row=_normalize_assignment(item); identity=_assignment_identity(row)
+        if identity in seen: continue
+        seen.add(identity); normalized.append(row)
+    role=clean(staff_role).lower(); academy={"TAHFEEZ","ISLAMIYAH"}
+    if require_assignment and not normalized: raise ValueError("Assign at least one class and subject before generating this staff ID.")
+    if role == "islamiyyah_teacher" and any(row.get("school_section") not in academy for row in normalized): raise ValueError("IMS accounts can only be assigned to Tahfeez or Islamiyyah classes.")
+    if role in {"teacher","teacher_admin"} and any(row.get("school_section") in academy for row in normalized): raise ValueError("Regular-school staff accounts cannot be assigned to Tahfeez or Islamiyyah classes.")
+    return {"academic_session":session_value,"assignments":normalized}
+
 def _assignment_identity(row): return "|".join([clean(row.get("class_level")).upper(), clean(row.get("class_arm")).upper(), clean(row.get("subject_key")).upper()])
 
 
@@ -200,7 +213,7 @@ def replace_teacher_assignments(teacher_id, assignments, academic_session="", ch
             canonical_teacher_id = teacher["teacher_id"] if teacher else token; staff_role = role_from_staff_id(canonical_teacher_id, teacher["staff_role"] if teacher else "")
             academy_sections = {"TAHFEEZ", "ISLAMIYAH"}
             if staff_role == "islamiyyah_teacher" and any(row.get("school_section") not in academy_sections for row in normalized): raise ValueError("IMS accounts can only be assigned to Tahfeez or Islamiyyah classes.")
-            if staff_role == "teacher" and any(row.get("school_section") in academy_sections for row in normalized): raise ValueError("EMT accounts cannot be assigned to Tahfeez or Islamiyyah classes. Generate an IMS account for Academy staff.")
+            if staff_role in {"teacher", "teacher_admin"} and any(row.get("school_section") in academy_sections for row in normalized): raise ValueError("Regular-school staff accounts cannot be assigned to Tahfeez or Islamiyyah classes. Generate an IMS account for Academy staff.")
             now = utc_now(); conn.execute("UPDATE teacher_assignments SET active=0, updated_at=? WHERE teacher_id=? AND academic_session=?", (now, canonical_teacher_id, session_value))
             for row in normalized:
                 conn.execute("""
@@ -227,9 +240,9 @@ def delete_teacher_assignments(teacher_id):
 def get_teacher_assignment_stats(academic_session=""):
     init_teacher_assignment_tables(); session_value = normalize_assignment_session(academic_session); conn = _connect()
     try:
-        teacher_total = int(conn.execute("SELECT COUNT(*) FROM teachers").fetchone()[0] or 0); active_teachers = int(conn.execute("SELECT COUNT(*) FROM teachers WHERE LOWER(COALESCE(status,'active'))='active'").fetchone()[0] or 0)
-        assignment_count = int(conn.execute("SELECT COUNT(*) FROM teacher_assignments WHERE academic_session=? AND active=1", (session_value,)).fetchone()[0] or 0)
-        teachers_assigned = int(conn.execute("SELECT COUNT(DISTINCT teacher_id) FROM teacher_assignments WHERE academic_session=? AND active=1", (session_value,)).fetchone()[0] or 0)
+        teacher_total = int(conn.execute("SELECT COUNT(*) FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))<>'teacher_admin'").fetchone()[0] or 0); active_teachers = int(conn.execute("SELECT COUNT(*) FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))<>'teacher_admin' AND LOWER(COALESCE(status,'active'))='active'").fetchone()[0] or 0)
+        assignment_count = int(conn.execute("SELECT COUNT(*) FROM teacher_assignments WHERE academic_session=? AND active=1 AND teacher_id NOT IN (SELECT teacher_id FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher_admin')", (session_value,)).fetchone()[0] or 0)
+        teachers_assigned = int(conn.execute("SELECT COUNT(DISTINCT teacher_id) FROM teacher_assignments WHERE academic_session=? AND active=1 AND teacher_id NOT IN (SELECT teacher_id FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher_admin')", (session_value,)).fetchone()[0] or 0)
         return {"academic_session": session_value, "teacher_count": teacher_total, "active_teacher_count": active_teachers, "teachers_assigned": teachers_assigned, "teachers_unassigned": max(0, teacher_total - teachers_assigned), "assignment_count": assignment_count}
     finally: conn.close()
 
@@ -243,6 +256,7 @@ def list_teachers_with_assignment_summary(academic_session=""):
                    COUNT(DISTINCT CASE WHEN a.active=1 THEN a.class_level || '|' || a.class_arm END) AS class_count,
                    COUNT(DISTINCT CASE WHEN a.active=1 THEN a.subject_key END) AS subject_count
             FROM teachers t LEFT JOIN teacher_assignments a ON a.teacher_id=t.teacher_id AND a.academic_session=? AND a.active=1
+            WHERE LOWER(COALESCE(t.staff_role,'teacher'))<>'teacher_admin'
             GROUP BY t.id, t.teacher_id, t.full_name, t.status, t.staff_role, t.created_at ORDER BY COALESCE(NULLIF(TRIM(t.full_name),''), t.teacher_id) COLLATE NOCASE
         """, (session_value,)).fetchall()
         return [{**dict(row), "staff_role": role_from_staff_id(row["teacher_id"], row["staff_role"]), "assignment_count": int(row["assignment_count"] or 0), "class_count": int(row["class_count"] or 0), "subject_count": int(row["subject_count"] or 0)} for row in rows]
@@ -279,3 +293,33 @@ def apply_teacher_assignment_sync_event(action, payload, event=None):
     if not teacher_id: raise ValueError("Synchronized teacher_id is required.")
     saved = replace_teacher_assignments(teacher_id, assignments, session_value, changed_by=f"sync:{clean((event or {}).get('server_id'))}", require_teacher=False, audit=True)
     return {"teacher_id": teacher_id, "academic_session": session_value, "assignment_count": len(saved), "updated_at": clean(payload.get("updated_at")) or utc_now()}
+
+
+# =========================================================
+# REPORT-SHEET ACCESS POLICY — server-side authority
+# =========================================================
+def teacher_report_scope(teacher_id, academic_session=""):
+    assignments = get_teacher_assignments(teacher_id, academic_session); levels, arms, subjects, all_arms = set(), {}, {}, set()
+    for row in assignments:
+        level, arm, subject = clean(row.get("class_level")).upper(), clean(row.get("class_arm")).upper(), clean(row.get("subject_key")).upper()
+        if not level: continue
+        levels.add(level); arms.setdefault(level, set()); subjects.setdefault(level, set())
+        if arm: arms[level].add(arm)
+        else: all_arms.add(level)
+        if subject: subjects[level].add(subject)
+    return {"teacher_id": clean(teacher_id).upper(), "academic_session": normalize_assignment_session(academic_session), "class_levels": sorted(levels), "class_arms": {k:([] if k in all_arms else sorted(v)) for k,v in arms.items()}, "subjects": {k: sorted(v) for k,v in subjects.items()}, "assignments": assignments}
+
+def teacher_can_access_report_class(teacher_id, academic_session, class_level, class_arm=""):
+    level = normalize_configured_class_level(class_level); arm = clean(class_arm).upper(); scope = teacher_report_scope(teacher_id, academic_session)
+    if level not in scope["class_levels"]: return False
+    allowed_arms = set(scope["class_arms"].get(level, [])); return not allowed_arms or not arm or arm in allowed_arms
+
+def teacher_allowed_report_subjects(teacher_id, academic_session, class_level, class_arm=""):
+    level = normalize_configured_class_level(class_level); arm = clean(class_arm).upper(); rows = teacher_report_scope(teacher_id, academic_session)["assignments"]; output=[]
+    for row in rows:
+        if clean(row.get("class_level")).upper()!=level: continue
+        assigned_arm=clean(row.get("class_arm")).upper()
+        if assigned_arm and arm and assigned_arm!=arm: continue
+        key=clean(row.get("subject_key")).upper()
+        if key and key not in output: output.append(key)
+    return output

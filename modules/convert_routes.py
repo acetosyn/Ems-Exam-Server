@@ -28,7 +28,7 @@ convert_bp = Blueprint("convert_bp", __name__)
 def teacher_allowed(view_func):
     @wraps(view_func)
     def wrapper(*args, **kwargs):
-        if session.get("user_type") not in ["admin", "teacher"]:
+        if session.get("user_type") not in ["admin", "teacher", "teacher_admin"]:
             return jsonify({"error": "Unauthorized access"}), 401
         return view_func(*args, **kwargs)
     return wrapper

@@ -71,6 +71,7 @@ def _records_for_scope(academic_session, class_level="", class_arm=""):
     ensure_history_bootstrap(); academic_session = normalize_academic_session(academic_session); class_level = clean_upper(class_level); class_arm = clean_upper(class_arm)
     rows = []
     for row in read_academic_records():
+        if clean(row.get("record_variant") or "standard").lower() != "standard": continue
         if academic_session and clean(row.get("session")) != academic_session: continue
         if class_level and clean_upper(row.get("class_level")) != class_level: continue
         if class_arm and clean_upper(row.get("class_arm")) != class_arm: continue

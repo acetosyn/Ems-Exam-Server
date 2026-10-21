@@ -1,5 +1,5 @@
 /* ======================================================================
-   report_voice_entry.js — EMIS Smart Voice Score Entry Extension v3.1
+   report_voice_entry.js — EMIS Smart Voice Score Entry Extension v3.3
    Purpose:
      • Optional Speech-to-Text score entry for Manual Result Studio
      • Prevent TTS from being re-captured as student scores
@@ -32,13 +32,22 @@
   const state = {
     active: false, paused: false, sleeping: false, recognizing: false, current: null, recognition: null, heardFinal: false, voices: [], chosenVoice: "", lastTranscript: "", pendingConfirmation: null,
     pendingSubjectAdvance: null, restartTimer: 0, actionTimer: 0, manualAdvanceTimer: 0, audioContext: null, dictationTarget: null, supported: !!Recognition, lang: "en-NG", ttsActive: false,
-    ignoreUntil: 0, suppressRecognitionRestart: false, minimized: false, maximized: false, armed: false, languageIndex: 0, interimCandidate: "", interimCandidateAt: 0, interimStopTimer: 0, sessionAnnounced: false, commandMode: false, lastCompletedStudent: "", studentResumeTimer: 0, suspendedForModal: false
+    ignoreUntil: 0, suppressRecognitionRestart: false, minimized: false, maximized: false, armed: false, languageIndex: 0, interimCandidate: "", interimTarget: null, interimCandidateAt: 0, interimStopTimer: 0, sessionAnnounced: false, commandMode: false, lastCompletedStudent: "", studentResumeTimer: 0, suspendedForModal: false, noSpeechCount: 0, invalidNumberCount: 0, interimCommitBusy: false
   };
 
   const fillerWords = new Set(["the","score","mark","marks","is","its","it's","please","enter","put","record","student","got","gets","has","was","equals","equal","to","a"]);
-  const units = { zero:0, oh:0, one:1, won:1, two:2, too:2, to:2, three:3, tree:3, four:4, for:4, five:5, six:6, sex:6, seven:7, eight:8, ate:8, nine:9 };
+  const units = { zero:0, oh:0, one:1, won:1, two:2, too:2, to:2, three:3, tree:3, four:4, for:4, fore:4, fur:4, fir:4, fork:4, foo:4, foe:4, five:5, six:6, sex:6, seven:7, eight:8, ate:8, nine:9 };
   const teens = { ten:10, eleven:11, twelve:12, thirteen:13, fourteen:14, fifteen:15, sixteen:16, seventeen:17, eighteen:18, nineteen:19 };
-  const tens = { twenty:20, thirty:30, forty:40, fifty:50, sixty:60, seventy:70, eighty:80, ninety:90 };
+  const tens = { twenty:20, thirty:30, forty:40, fourty:40, fifty:50, sixty:60, seventy:70, eighty:80, ninety:90 };
+  /* Small one-syllable scores are the easiest for browser STT to mis-hear. These aliases are intentionally used only when the utterance reduces to one short number token. */
+  const smallNumberAliases = new Map([
+    ["zero",0],["oh",0],["o",0],
+    ["one",1],["won",1],["wan",1],
+    ["two",2],["too",2],["to",2],["tu",2],
+    ["three",3],["tree",3],["free",3],["thee",3],
+    ["four",4],["for",4],["fore",4],["fur",4],["fir",4],["fork",4],["foo",4],["foe",4],["floor",4],["full",4],["fall",4],["far",4],["forth",4],["force",4],
+    ["five",5],["fife",5],["hive",5],["life",5],["fine",5],["fire",5]
+  ]);
   const fieldAliases = { ca1:["ca1","ca 1","c a 1","first ca","first continuous assessment"], ca2:["ca2","ca 2","c a 2","second ca","second continuous assessment"], test1:["test1","test 1","first test"], test2:["test2","test 2","second test"], ass1:["ass1","assessment 1","first assessment"], ass2:["ass2","assessment 2","second assessment"], test:["test"], exam:["exam","examination"] };
 
   function clean(value) { return String(value ?? "").trim(); }
@@ -111,8 +120,16 @@
      NUMBERS + COMMANDS
   ============================================================ */
 
+  function smallNumberRescue(raw) {
+    const normalized = normalizeText(raw); if (!normalized) return null;
+    const compact = normalized.replace(/\b(the|score|mark|marks|is|its|it's|please|enter|put|record|student|got|gets|has|was|equals|equal|a|number|say|said)\b/g," ").replace(/\s+/g," ").trim();
+    if (!compact || compact.includes(" ")) return null;
+    return smallNumberAliases.has(compact) ? smallNumberAliases.get(compact) : null;
+  }
+
   function parseNumberWords(raw) {
     const normalized = normalizeText(raw).replace(/,/g," "), direct = normalized.match(/(?:^|\s)(\d+(?:\.\d+)?)(?:\s|$)/); if (direct) return Number(direct[1]);
+    const rescued = smallNumberRescue(normalized); if (Number.isFinite(rescued)) return rescued;
     let tokens = normalized.split(" ").filter(Boolean).filter(token => !fillerWords.has(token)); if (!tokens.length) return null;
     const decimalIndex = tokens.findIndex(token => ["point","dot","decimal"].includes(token)), wholeTokens = decimalIndex >= 0 ? tokens.slice(0,decimalIndex) : tokens, decimalTokens = decimalIndex >= 0 ? tokens.slice(decimalIndex + 1) : [];
     const allowed = token => token in units || token in teens || token in tens || token === "and"; if (!wholeTokens.every(allowed) || !decimalTokens.every(token => token in units)) return null;
@@ -122,15 +139,19 @@
     if (!decimalTokens.length) return whole; return Number(`${whole}.${decimalTokens.map(token => units[token]).join("")}`);
   }
 
+
   function validScore(transcript, max) { const value = parseNumberWords(transcript); if (!Number.isFinite(value) || value < 0 || value > Number(max || 100)) return null; return Math.round(value * 100) / 100; }
   function wakeWord(text) { return /^(hello|hi|hey|hello emis|hi emis|hey emis)$/.test(normalizeText(text)); }
+
+  function normalTeacherRole(){ return String(document.getElementById("reportPage")?.dataset.reportRole || document.body.dataset.emisRole || "").trim().toLowerCase() === "teacher"; }
 
   const voiceActions = [
     { command:"clear_class_scores", label:"Clear Class Scores", aliases:["clear class scores","clear class score","reset class scores","reset class score","clear all class scores"] },
     { command:"clear_scores", label:"Clear Scores", aliases:["clear scores","clear score","clear student scores","clear student score","reset scores","reset score","reset student scores"] },
     { command:"hybrid_generate", label:"Generate Hybrid Class", aliases:["generate hybrid class","generate hybrid class report","generate hybrid class reports","generate hybrid reports","hybrid class reports","hybrid generate","generate hybrid"] },
     { command:"save_generate", label:"Generate Class Reports", aliases:["generate class report","generate class reports","generate class result","generate class results","generate reports","generate report"] },
-    { command:"save_next", label:"Save and Next", aliases:["save and next","save next","save then next","next student and save","save and next student"] },
+    { command:"smart_save", label:"Save", aliases:["save"] },
+    { command:"save_next", label:"Save and Next", aliases:["save and next","save next","next and save","save then next","next then save","next student and save","save and next student"] },
     { command:"save_student", label:"Save Student", aliases:["save student","save students","save scores","save student scores"] },
     { command:"save_draft", label:"Save Draft", aliases:["save draft","save drought","save draught","safe draft","safe drought","save raft"] }
   ];
@@ -142,10 +163,11 @@
   }
   function editDistance(a,b){ a=String(a||"");b=String(b||"");const prev=Array.from({length:b.length+1},(_,i)=>i),cur=new Array(b.length+1);for(let i=1;i<=a.length;i++){cur[0]=i;for(let j=1;j<=b.length;j++)cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));for(let j=0;j<=b.length;j++)prev[j]=cur[j];}return prev[b.length]; }
   function phraseSimilarity(a,b){ if(!a||!b)return 0;const max=Math.max(a.length,b.length);return max?1-(editDistance(a,b)/max):1; }
-  function hasActionIntent(raw){ const {text,compact}=actionCanonicalText(raw); return /^(save|clear|reset|generate|hybrid|next student)/.test(text) || /^(save|safe|clear|kleer|reset|generate|genrate|generator|hybrid|hybird|nextstudent)/.test(compact); }
+  function currentScoreFormComplete(){ const inputs=scoreSequence(); return inputs.length>0 && inputs.every(input=>{ const raw=clean(input.value), value=Number(raw), min=Number(input.min || 0), max=Number(input.max || 100); return raw!=="" && Number.isFinite(value) && value>=min && value<=max; }); }
+  function hasActionIntent(raw){ const {text,compact}=actionCanonicalText(raw); return /^(save|clear|reset|generate|hybrid|next\b)/.test(text) || /^(save|safe|clear|kleer|reset|generate|genrate|generator|hybrid|hybird|next)/.test(compact); }
   function actionCommand(text) {
-    if(!hasActionIntent(text))return ""; const heard=actionCanonicalText(text); let best={ command:"",score:0 };
-    for(const action of voiceActions){ for(const alias of action.aliases){ const expected=actionCanonicalText(alias); if(heard.compact===expected.compact || heard.compact.includes(expected.compact) || expected.compact.includes(heard.compact) && heard.compact.length>=7)return action.command; const score=phraseSimilarity(heard.compact,expected.compact); if(score>best.score)best={ command:action.command,score }; } }
+    const heard=actionCanonicalText(text); if(heard.text==="next")return currentScoreFormComplete()?"save_next":""; if(!hasActionIntent(text))return ""; let best={ command:"",score:0 };
+    for(const action of voiceActions){ if(normalTeacherRole() && ["save_generate","hybrid_generate"].includes(action.command))continue; for(const alias of action.aliases){ const expected=actionCanonicalText(alias); if(heard.compact===expected.compact || heard.compact.includes(expected.compact) || expected.compact.includes(heard.compact) && heard.compact.length>=7)return action.command; const score=phraseSimilarity(heard.compact,expected.compact); if(score>best.score)best={ command:action.command,score }; } }
     return best.score>=.72?best.command:"";
   }
   function actionLabel(command){ return voiceActions.find(item=>item.command===command)?.label || command; }
@@ -250,7 +272,7 @@
   function currentStudentKey(){ return clean(ui.studentSelect?.value || $("manualScoreStudentIdentity")?.textContent || "student"); }
   async function enterCommandMode({ announceComplete = false } = {}) {
     if (!state.armed) return; stopRecognition(); state.active = true; state.paused = false; state.sleeping = false; state.commandMode = true; state.pendingConfirmation = null; state.pendingSubjectAdvance = null; clearActiveDecorations(); setBarState("listening"); if (ui.field) ui.field.textContent = "Voice commands ready";
-    setStatus("Student entry complete • voice remains active","Say “Save and Next”, “Generate Class Reports”, “Generate Hybrid Class”, or “Clear Scores”.");
+    setStatus("Student entry complete • voice remains active","Say “Save”, “Next”, “Save and Next”, “Generate Class Reports”, “Generate Hybrid Class”, or “Clear Scores”.");
     const key=currentStudentKey(); if(announceComplete && state.lastCompletedStudent!==key){ state.lastCompletedStudent=key; await speak("Score entry complete. Voice capture remains active.",{ rate:1.08 }); } else scheduleRestart(180);
   }
   async function finishSequence() { if (!state.armed) return; await enterCommandMode({ announceComplete:true }); }
@@ -272,7 +294,13 @@
 
   function recognitionLanguages(){ const chosen=clean(document.getElementById("manualVoiceAccent")?.value||"auto"), list=chosen!=="auto"?[chosen,"en-GB","en-US"]:["en-NG","en-GB","en-US"]; return [...new Set(list.filter(Boolean))]; }
   function activeRecognitionLanguage(){ const langs=recognitionLanguages(); return langs[Math.min(state.languageIndex,Math.max(0,langs.length-1))] || "en-GB"; }
-  function resetRecognition({ keepLanguage = true } = {}) { clearTimeout(state.interimStopTimer); state.interimStopTimer=0; state.interimCandidate=""; try{state.recognition?.abort();}catch(_){} state.recognition=null; state.recognizing=false; if(!keepLanguage)state.languageIndex=0; }
+  function autoAccentSelected(){ return clean(document.getElementById("manualVoiceAccent")?.value || "auto") === "auto"; }
+  function rotateRecognitionLanguage(reason="") {
+    if (!autoAccentSelected()) return false; const langs=recognitionLanguages(); if(langs.length<2)return false;
+    state.languageIndex=(state.languageIndex+1)%langs.length; resetRecognition({keepLanguage:true}); state.noSpeechCount=0; state.invalidNumberCount=0;
+    setStatus("Tuning speech recognition",`${reason ? `${reason} • ` : ""}Trying ${activeRecognitionLanguage()} for clearer short-number capture.`); scheduleRestart(140); return true;
+  }
+  function resetRecognition({ keepLanguage = true } = {}) { clearTimeout(state.interimStopTimer); state.interimStopTimer=0; state.interimCandidate=""; state.interimTarget=null; try{state.recognition?.abort();}catch(_){} state.recognition=null; state.recognizing=false; if(!keepLanguage)state.languageIndex=0; }
   function createRecognition() {
     if (!Recognition) return null; const recognition = new Recognition(); recognition.continuous = false; recognition.interimResults = true; recognition.maxAlternatives = 5; recognition.lang = activeRecognitionLanguage();
     recognition.onstart = () => { state.recognizing = true; state.heardFinal = false; }; recognition.onaudiostart=()=>{ if(!state.ttsActive&&!state.sleeping)setStatus("Microphone active • speak normally",state.lastTranscript||"Say the score once in your normal voice"); };
@@ -283,19 +311,33 @@
       if (["not-allowed","service-not-allowed"].includes(code)) { state.active = false; state.sleeping = false; setBarState("unsupported"); setStatus("Microphone permission blocked","Allow microphone access in the browser, then try again."); return; }
       if (["language-not-supported","language_not_supported"].includes(code)) { const langs=recognitionLanguages(); if(state.languageIndex<langs.length-1){ state.languageIndex++; resetRecognition({keepLanguage:true}); setStatus("Switching speech model",`Trying ${activeRecognitionLanguage()}…`); scheduleRestart(160); return; } }
       if (["phrases-not-supported","phrases_not_supported"].includes(code)) { resetRecognition({keepLanguage:true}); setStatus("Compatibility speech mode enabled","Your browser does not support speech phrase hints. EMIS removed them and will continue listening normally."); scheduleRestart(160); return; }
-      if (code === "no-speech") { setStatus(state.sleeping ? "Sleeping • waiting for hello" : "Listening quietly…", state.sleeping ? "Say hello or hi to wake." : "No need to shout — say the score once and pause briefly."); scheduleRestart(180); return; }
+      if (code === "no-speech") { state.noSpeechCount++; if(!state.sleeping && state.noSpeechCount>=2 && rotateRecognitionLanguage("Short score not detected")) return; setStatus(state.sleeping ? "Sleeping • waiting for hello" : "Listening quietly…", state.sleeping ? "Say hello or hi to wake." : "No need to shout — say the score once and pause briefly."); scheduleRestart(180); return; }
       if (code === "audio-capture") { tone(false); setStatus("Microphone is not available","Check that the correct microphone is connected and not being blocked by another app."); return; }
       if (code !== "aborted") { tone(false); resetRecognition({keepLanguage:true}); setStatus(`Speech error: ${code || "unknown"}`,"EMIS will reopen a clean listening session automatically."); scheduleRestart(220); }
     };
-    recognition.onend = () => { state.recognizing = false; clearTimeout(state.interimStopTimer); if (!state.armed || state.suppressRecognitionRestart || state.ttsActive || state.paused) return; if (state.active || state.sleeping) { state.recognition=null; scheduleRestart(120); } };
+    recognition.onend = () => { const pendingLive=clean(state.interimCandidate),pendingInput=state.interimTarget; state.recognizing=false; clearTimeout(state.interimStopTimer); if(!state.heardFinal&&pendingLive&&pendingInput&&state.armed&&state.active&&!state.paused&&!state.ttsActive){ state.recognition=null; commitEndedInterimScore(pendingLive,pendingInput).then(committed=>{ if(!committed&&state.armed&&state.active&&!state.paused&&!state.ttsActive)scheduleRestart(120); }); return; } if (!state.armed || state.suppressRecognitionRestart || state.ttsActive || state.paused) return; if (state.active || state.sleeping) { state.recognition=null; scheduleRestart(120); } };
     return recognition;
   }
 
   function scheduleRestart(delay = 160) { clearTimeout(state.restartTimer); if (!state.armed) return; state.restartTimer = setTimeout(() => { if (state.armed && (state.active || state.sleeping) && !state.paused && !state.recognizing && !state.ttsActive && Date.now() >= state.ignoreUntil) listenCurrent(); else if (state.armed && (state.active || state.sleeping) && !state.paused && Date.now() < state.ignoreUntil) scheduleRestart(Math.max(120,state.ignoreUntil-Date.now()+30)); },delay); }
   function listenCurrent() { if (!state.armed || (!state.active && !state.sleeping) || state.paused || !Recognition || state.ttsActive || Date.now() < state.ignoreUntil || state.recognizing) return; state.heardFinal = false; try { state.recognition ||= createRecognition(); if(!state.recognition)return; state.recognition.lang=activeRecognitionLanguage(); state.recognition.start(); } catch (error) { if (!/already started/i.test(clean(error?.message))) { state.recognition=null; scheduleRestart(220); } } }
 
+  async function commitStableInterimScore(live,inputAtCapture) {
+    if(state.interimCommitBusy || !inputAtCapture || state.current!==inputAtCapture || !state.armed || !state.active || state.paused || state.ttsActive)return;
+    const max=voiceMaxForInput(inputAtCapture),value=validScore(live,max); if(value===null || actionCommand(live))return;
+    state.interimCommitBusy=true; state.suppressRecognitionRestart=true; state.ignoreUntil=Date.now()+260; clearTimeout(state.interimStopTimer); state.interimStopTimer=0; state.interimCandidate=""; state.interimTarget=null;
+    try{state.recognition?.abort();}catch(_){} state.recognition=null; state.recognizing=false; state.noSpeechCount=0; state.invalidNumberCount=0;
+    commitValue(inputAtCapture,value); setStatus(isAttendanceVoiceInput(inputAtCapture)?"Attendance captured":"Score captured",`${labelForInput(inputAtCapture).field} = ${value}`);
+    try{await advanceAfterEntry(inputAtCapture);}finally{state.interimCommitBusy=false;setTimeout(()=>{state.suppressRecognitionRestart=false;if(state.armed&&state.active&&!state.paused)scheduleRestart(90);},100);}
+  }
+
+  async function commitEndedInterimScore(live,inputAtCapture) {
+    if(!live||!inputAtCapture||state.current!==inputAtCapture||!state.armed||!state.active||state.paused||state.ttsActive)return false; const max=voiceMaxForInput(inputAtCapture),value=validScore(live,max); if(value===null||actionCommand(live))return false;
+    state.interimCandidate=""; state.interimTarget=null; state.noSpeechCount=0; state.invalidNumberCount=0; commitValue(inputAtCapture,value); setStatus(isAttendanceVoiceInput(inputAtCapture)?"Attendance captured":"Score captured",`${labelForInput(inputAtCapture).field} = ${value}`); await advanceAfterEntry(inputAtCapture); return true;
+  }
+
   function bestFinalAlternatives(event) {
-    const candidates = []; for (let i=event.resultIndex;i<event.results.length;i++) { const result = event.results[i]; if (!result.isFinal) { const live = clean(result[0]?.transcript); if (live && !state.ttsActive) { state.lastTranscript = live; if (ui.transcript) ui.transcript.textContent = live; const max=voiceMaxForInput(state.current), parsed=validScore(live,max), liveAction=actionCommand(live); if(parsed!==null || liveAction){ state.interimCandidate=live; clearTimeout(state.interimStopTimer); state.interimStopTimer=setTimeout(()=>{ if(state.recognizing&&state.active&&!state.paused&&clean(state.interimCandidate)===live){ try{state.recognition?.stop();}catch(_){} } },liveAction?360:520); } } continue; } clearTimeout(state.interimStopTimer); state.interimCandidate=""; for (let j=0;j<Math.min(result.length,5);j++) candidates.push({ transcript:clean(result[j].transcript), confidence:Number(result[j].confidence || 0) }); } return candidates;
+    const candidates = []; for (let i=event.resultIndex;i<event.results.length;i++) { const result = event.results[i]; if (!result.isFinal) { const live = clean(result[0]?.transcript); if (live && !state.ttsActive) { state.lastTranscript = live; if (ui.transcript) ui.transcript.textContent = live; const inputAtCapture=state.current,max=voiceMaxForInput(inputAtCapture),parsed=validScore(live,max),liveAction=actionCommand(live); if(parsed!==null || liveAction){ state.interimCandidate=live; state.interimTarget=inputAtCapture; clearTimeout(state.interimStopTimer); if(parsed!==null && !liveAction && inputAtCapture){ const delay=max<=10?260:620; state.interimStopTimer=setTimeout(()=>{ if(state.recognizing&&state.active&&!state.paused&&clean(state.interimCandidate)===live&&state.current===inputAtCapture)commitStableInterimScore(live,inputAtCapture); },delay); } else state.interimStopTimer=setTimeout(()=>{ if(state.recognizing&&state.active&&!state.paused&&clean(state.interimCandidate)===live){ try{state.recognition?.stop();}catch(_){} } },360); } } continue; } clearTimeout(state.interimStopTimer); state.interimCandidate=""; state.interimTarget=null; for (let j=0;j<Math.min(result.length,5);j++) candidates.push({ transcript:clean(result[j].transcript), confidence:Number(result[j].confidence || 0) }); } return candidates;
   }
 
   function currentStudentVoiceName(){ const selected=ui.studentSelect?.selectedOptions?.[0]?.textContent || ""; if(selected)return clean(selected.split("—")[0]); return clean(modal.querySelector("#manualScoreStudentIdentity strong")?.textContent) || "this student"; }
@@ -310,10 +352,11 @@
     setStatus(`${label} is not available yet`,`${detail} Voice capture remains active.`); await speak(detail,{ rate:1.06 }); return true;
   }
   async function performAction(command,heardText="") {
-    clearTimeout(state.actionTimer); const label=actionLabel(command); if(heardText)setStatus(`Voice command • ${label}`,`Heard “${heardText}” → ${label}`);
-    if (command === "save_draft") { const wasArmed=state.armed; stopRecognition(); ui.saveDraft?.click(); setStatus("Saving draft…",heardText?`Heard “${heardText}” and matched it to Save Draft.`:"Draft save command received."); if(wasArmed)setTimeout(()=>{ state.active=true; state.sleeping=false; setBarState("listening"); scheduleRestart(180); },650); return; }
-    if (command === "save_student") { if(await explainUnavailableAction("Save Student",ui.saveStudent))return; stopRecognition(); ui.saveStudent?.click(); setStatus("Saving student…","Voice capture will continue after the save."); setTimeout(()=>{ if(state.armed&&!state.paused){ state.active=true; setBarState("listening"); const input=resumePreferredInput(); input?activateInput(input):enterCommandMode(); } },650); return; }
-    if (command === "save_next") { if(await explainUnavailableAction("Save and Next",ui.saveNext))return; stopRecognition(); state.commandMode=true; state.current=null; ui.saveNext?.click(); setStatus("Saving and opening next student…","Voice capture will continue automatically."); setTimeout(()=>{ if(state.armed&&!state.paused&&state.commandMode)enterCommandMode({ announceComplete:false }); },1200); return; }
+    if(normalTeacherRole() && ["save_generate","hybrid_generate"].includes(command)){ setStatus("Score entry only","Normal Teacher IDs can save assigned scores but cannot generate official report sheets."); scheduleRestart(180); return; }
+    clearTimeout(state.actionTimer); const complete=currentScoreFormComplete(); if(command==="smart_save")command=complete?"save_next":"save_draft"; if(command==="save_next"&&!complete)command="save_draft"; const label=actionLabel(command); if(heardText)setStatus(`Voice command • ${label}`,`Heard “${heardText}” → ${label}`);
+    if (command === "save_draft") { const wasArmed=state.armed; stopRecognition(); ui.saveDraft?.click(); setStatus("Saving draft…",complete?`Heard “${heardText || "save"}”. Student is not advancing until Save and Next is used.`:`Heard “${heardText || "save"}”. Incomplete scores were safely stored as a draft.`); if(wasArmed)setTimeout(()=>{ state.active=true; state.sleeping=false; setBarState("listening"); scheduleRestart(180); },650); return; }
+    if (command === "save_student") { if(!complete){ const wasArmed=state.armed; stopRecognition(); ui.saveDraft?.click(); setStatus("Saving student progress as draft…",`${currentStudentVoiceName()} still has incomplete score boxes, so EMIS saved the work without marking the student complete.`); if(wasArmed)setTimeout(()=>{ state.active=true; state.sleeping=false; setBarState("listening"); scheduleRestart(180); },650); return; } if(await explainUnavailableAction("Save Student",ui.saveStudent))return; stopRecognition(); ui.saveStudent?.click(); setStatus("Saving student…","Voice capture will continue after the save."); setTimeout(()=>{ if(state.armed&&!state.paused){ state.active=true; setBarState("listening"); const input=resumePreferredInput(); input?activateInput(input):enterCommandMode(); } },650); return; }
+    if (command === "save_next") { if(await explainUnavailableAction("Save and Next",ui.saveNext))return; stopRecognition(); state.commandMode=true; state.current=null; ui.saveNext?.click(); setStatus("Saving and opening next student…",`All score boxes for ${currentStudentVoiceName()} are complete, so EMIS matched “${heardText || "next"}” to Save and Next.`); setTimeout(()=>{ if(state.armed&&!state.paused&&state.commandMode)enterCommandMode({ announceComplete:false }); },1200); return; }
     if (command === "clear_scores" || command === "clear_class_scores") { const button=command==="clear_class_scores"?ui.clearClassScores:ui.clearScores,label=command==="clear_class_scores"?"Clear Class Scores":"Clear Scores"; if(!button)return; await speak(`${label} confirmation opened.`,{ rate:1.08 }); stopRecognition(); state.active=false; state.suspendedForModal=true; setStatus("Voice waiting for confirmation","Complete or cancel the warning modal. Voice capture will resume automatically."); button.click(); return; }
     if (command === "save_generate" || command === "hybrid_generate") { const button=command==="hybrid_generate"?ui.saveHybrid:ui.saveGenerate,label=command==="hybrid_generate"?"Generate Hybrid Class":"Generate Class Reports"; if(await explainUnavailableAction(label,button))return; await speak(command==="hybrid_generate"?"Generating hybrid class reports.":"Generating class reports.",{ rate:1.08 }); hardStopVoice(); button.click(); return; }
   }
@@ -325,7 +368,7 @@
 
   async function handleRecognitionResult(event) {
     if (state.ttsActive || Date.now() < state.ignoreUntil) return; const alternatives = bestFinalAlternatives(event); if (!alternatives.length) return;
-    state.heardFinal = true; const primary = alternatives[0], heard = primary.transcript; state.lastTranscript = heard; if (ui.transcript) ui.transcript.textContent = heard;
+    state.heardFinal = true; state.noSpeechCount=0; const primary = alternatives[0], heard = primary.transcript; state.lastTranscript = heard; if (ui.transcript) ui.transcript.textContent = heard;
 
     if (state.sleeping) {
       if (!state.armed) { hardStopVoice(); return; }
@@ -339,9 +382,10 @@
 
     if (state.pendingSubjectAdvance) { setStatus("Subject total awaiting confirmation",`Say “confirm”, “next”, “wrong”, or tap a score box.`); scheduleRestart(160); return; }
 
-    const input = state.current; if(!input){ state.commandMode=true; setStatus("Voice commands ready","Say “Save and Next”, “Generate Class Reports”, “Generate Hybrid Class”, or “Clear Scores”."); scheduleRestart(180); return; } const max = voiceMaxForInput(input); let chosen = null;
+    const input = state.current; if(!input){ state.commandMode=true; setStatus("Voice commands ready",normalTeacherRole()?"Say “Save”, “Next”, “Save and Next”, “Clear Scores”, or “Clear Class Scores”.":"Say “Save”, “Next”, “Save and Next”, “Generate Class Reports”, “Generate Hybrid Class”, or “Clear Scores”."); scheduleRestart(180); return; } const max = voiceMaxForInput(input); let chosen = null;
     for (const alt of alternatives) { const value = validScore(alt.transcript,max); if (value !== null) { chosen = { ...alt,value }; break; } }
-    if (!chosen) { tone(false); setStatus(`Score must be 0–${max}`,`Heard: “${heard}” • say the number again`); scheduleRestart(170); return; }
+    if (!chosen) { state.invalidNumberCount++; tone(false); if(state.invalidNumberCount>=2 && rotateRecognitionLanguage(`Heard “${heard}”`))return; setStatus(`Score must be 0–${max}`,`Heard: “${heard}” • say the number again`); scheduleRestart(170); return; }
+    state.invalidNumberCount=0;
 
     if(input===ui.daysOpen && Number(ui.present?.value||0)>chosen.value){ tone(false); setStatus("Days Open cannot be below Present",`Present is already ${clean(ui.present?.value)}. Say a value of ${clean(ui.present?.value)} or higher.`); scheduleRestart(170); return; }
     if (ui.safeMode?.checked && chosen.confidence > 0 && chosen.confidence < .32) { state.pendingConfirmation = chosen; setStatus(`Confirm ${chosen.value}?`,`Say “confirm”, “wrong”, or simply repeat the correct value.`); scheduleRestart(150); return; }

@@ -3,6 +3,7 @@
 
 import csv
 import shutil
+import time
 from pathlib import Path
 from datetime import datetime
 from threading import RLock
@@ -25,6 +26,7 @@ REGULAR_SCORE_FILE = ISLAMIYAH_DIR / "regular_school_score_records.csv"
 ACTIVITY_FILE = ISLAMIYAH_DIR / "academy_activity.csv"
 BACKUP_DIR = ISLAMIYAH_DIR / "backups"
 ISLAMIYAH_LOCK = RLock()
+_ISLAMIYAH_SEED_RUNTIME = {}
 
 ENROLLMENT_HEADERS = [
     "Session", "Admission_number", "Linked_admission_number", "Last_name", "First_name", "Other_names", "Full_name", "Sex", "Phone",
@@ -107,30 +109,42 @@ def ensure_islamiyah_storage():
     _ensure_csv(ENROLLMENT_FILE, ENROLLMENT_HEADERS); _ensure_csv(SCORE_FILE, SCORE_HEADERS); _ensure_csv(REGULAR_SCORE_FILE, REGULAR_SCORE_HEADERS); _ensure_csv(ACTIVITY_FILE, ACTIVITY_HEADERS); return {"enrollments": str(ENROLLMENT_FILE), "scores": str(SCORE_FILE), "regular_school_scores": str(REGULAR_SCORE_FILE), "activity": str(ACTIVITY_FILE)}
 
 
-def _read_rows(path, headers):
-    _ensure_csv(path, headers)
-    with ISLAMIYAH_LOCK:
-        with path.open("r", newline="", encoding="utf-8-sig") as file: return list(csv.DictReader(file))
+# ============================================================
+# FAST CSV READ CACHE — file-signature aware, automatically invalidated after every write
+# ============================================================
 
+_ISLAMIYAH_READ_CACHE = {}
+
+def _read_rows(path, headers):
+    _ensure_csv(path, headers); key = str(path.resolve())
+    with ISLAMIYAH_LOCK:
+        try: stat = path.stat(); signature = (stat.st_mtime_ns, stat.st_size)
+        except OSError: signature = (0, 0)
+        cached = _ISLAMIYAH_READ_CACHE.get(key)
+        if cached and cached.get("signature") == signature: return [dict(row) for row in cached.get("rows", ())]
+        with path.open("r", newline="", encoding="utf-8-sig") as file: rows = list(csv.DictReader(file))
+        _ISLAMIYAH_READ_CACHE[key] = {"signature": signature, "rows": tuple(dict(row) for row in rows)}; return [dict(row) for row in rows]
 
 def _write_rows(path, headers, rows):
-    _ensure_csv(path, headers); temp = path.with_suffix(path.suffix + ".tmp")
+    _ensure_csv(path, headers); temp = path.with_suffix(path.suffix + ".tmp"); key = str(path.resolve())
     with ISLAMIYAH_LOCK:
         with temp.open("w", newline="", encoding="utf-8-sig") as file:
             writer = csv.DictWriter(file, fieldnames=headers, extrasaction="ignore"); writer.writeheader(); writer.writerows(rows)
-        temp.replace(path)
+        temp.replace(path); _ISLAMIYAH_READ_CACHE.pop(key, None)
     return path
 
 
 def read_enrollments(): return _read_rows(ENROLLMENT_FILE, ENROLLMENT_HEADERS)
 def write_enrollments(rows):
     rows = list(rows); current_session = get_current_academic_context().get("academic_session", "")
-    result = _write_rows(ENROLLMENT_FILE, ENROLLMENT_HEADERS, rows)
+    result = _write_rows(ENROLLMENT_FILE, ENROLLMENT_HEADERS, rows); _ISLAMIYAH_SEED_RUNTIME.clear()
     sync_current_islamiyah_profiles(rows, current_session); return result
 
 # Seed known class placements from the combined register, preserving every existing session placement.
 def seed_register_enrollments(academic_session):
-    session_value = normalize_islamiyah_session(academic_session); indexes = master_identity_indexes()
+    session_value = normalize_islamiyah_session(academic_session); now_tick = time.monotonic(); cached = _ISLAMIYAH_SEED_RUNTIME.get(session_value)
+    if cached and now_tick - cached < 30: return read_enrollments()
+    indexes = master_identity_indexes()
     with ISLAMIYAH_LOCK:
         rows = read_enrollments(); by_key = {_enrollment_key(row.get("Session"), row.get("Admission_number")): dict(row) for row in rows}; changed = False; now = now_string()
         for profile in read_register():
@@ -142,6 +156,7 @@ def seed_register_enrollments(academic_session):
             if record != previous: by_key[key] = record; changed = True
         output = list(by_key.values())
         if changed: _write_rows(ENROLLMENT_FILE, ENROLLMENT_HEADERS, output); sync_current_islamiyah_profiles(output, session_value)
+        _ISLAMIYAH_SEED_RUNTIME[session_value] = time.monotonic()
     return output
 
 def read_scores(): return _read_rows(SCORE_FILE, SCORE_HEADERS)
@@ -403,10 +418,10 @@ def score_to_record(row):
     }
 
 
-def get_enrollment(admission_number, academic_session, active_only=False):
+def get_enrollment(admission_number, academic_session, active_only=False, ensure_seed=True):
     session_value, admission = normalize_academic_session(academic_session), normalize_admission_number(admission_number)
     if not session_value or not admission: return None
-    if session_value == get_current_academic_context().get("academic_session"): seed_register_enrollments(session_value)
+    if ensure_seed and session_value == get_current_academic_context().get("academic_session"): seed_register_enrollments(session_value)
     matches = []
     for row in read_enrollments():
         if normalize_academic_session(row.get("Session")) != session_value: continue
@@ -615,7 +630,7 @@ def get_student_history(admission_number, academic_session=""):
         totals = [float(row["total"]) for row in item["subjects"] if row.get("complete") and row.get("total") is not None]; item["average"] = round(sum(totals) / len(totals), 2) if totals and len(totals) == len(item["subjects"]) else None
     return list(grouped.values())
 
-def get_report_islamiyah_row(admission_number, academic_session, term):
+def get_report_islamiyah_row(admission_number, academic_session, term, ensure_seed=True):
     """Return one aggregated Islamiyyah /100 row for a regular-school report, or None before the session roster is activated.
 
     Each Islamiyah subject uses CA /30 + Exam /70. The regular report's single Islamiyyah row is the equal-weight average
@@ -623,7 +638,7 @@ def get_report_islamiyah_row(admission_number, academic_session, term):
     """
     session_value, term_value = normalize_academic_session(academic_session), normalize_academic_term(term); direct_regular = get_regular_school_islamiyah_row(admission_number, session_value, term_value)
     if direct_regular is not None: return direct_regular
-    enrollment = get_enrollment(admission_number, session_value, active_only=False)
+    enrollment = get_enrollment(admission_number, session_value, active_only=False, ensure_seed=ensure_seed)
     if not enrollment: return None
     base = {"subject": "Islamiyyah", "subject_key": "ISLAMIYYAH", "mode": "ISLAMIYAH", "assessment_mode": "ISLAMIYAH", "source": "ISLAMIYYAH_SCHOOL", "academy_admission_number": enrollment.get("admission_number"), "regular_admission_number": enrollment.get("regular_admission_number"), "ca_max": CA_MAX, "exam_max": EXAM_MAX, "total_max": TOTAL_MAX, "islamiyah_class": enrollment.get("islamiyah_class"), "islamiyah_class_label": enrollment.get("islamiyah_class_label"), "position": 0, "position_text": "--", "out_of": 0, "lowest": None, "highest": None, "class_average": None}
     if not enrollment.get("active"): return {**base, "has_ca": False, "has_exam": False, "ca_complete": False, "exam_complete": False, "complete": False, "ca_total": None, "exam": None, "total": None, "grade": "-", "comment": "Islamiyah roster inactive", "islamiyah_status": "inactive", "islamiyah_subject_count": 0, "islamiyah_subjects_complete": 0, "islamiyah_components": []}

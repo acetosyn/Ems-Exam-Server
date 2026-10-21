@@ -58,7 +58,7 @@ VALID_TERMS = {"FIRST", "SECOND", "THIRD"}
 # ============================================================
 
 def can_manage_uploads():
-    return session.get("user_type") in {"admin", "teacher"}
+    return session.get("user_type") in {"admin", "teacher", "teacher_admin"}
 
 
 def normalize_class(value):

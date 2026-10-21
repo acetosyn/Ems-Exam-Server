@@ -43,6 +43,9 @@
         {% if user_type == 'teacher' %}
           <i class="fa-solid fa-chalkboard-user"></i>
           <span>Teacher Mode</span>
+        {% elif user_type == 'teacher_admin' %}
+          <i class="fa-solid fa-user-shield"></i>
+          <span>Teacher Admin Mode</span>
         {% else %}
           <i class="fa-solid fa-shield-halved"></i>
           <span>Admin Mode</span>

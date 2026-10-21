@@ -572,9 +572,9 @@ app.register_blueprint(broadsheet_bp)
 
 @app.before_request
 def enforce_staff_identity_session():
-    """Immediately revoke deleted/disabled EMT and IMS sessions across every blueprint, including direct API calls."""
+    """Immediately revoke deleted/disabled EMT, ADM and IMS sessions across every blueprint, including direct API calls."""
     role = str(session.get("user_type") or "").strip().lower()
-    if role not in {"teacher", "islamiyyah_teacher"} or str(request.path or "").startswith("/static/"): return None
+    if role not in {"teacher", "teacher_admin", "islamiyyah_teacher"} or str(request.path or "").startswith("/static/"): return None
     staff_id = str(session.get("teacher_id") or session.get("username") or "").strip(); account = get_staff_account(staff_id)
     if account and account.get("status") == "active" and account.get("staff_role") == role: return None
     session.clear()

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{% if user_type == 'admin' %}EMIS Admin Dashboard{% elif user_type == 'islamiyyah_teacher' %}EMIS Islamiyyah Dashboard{% else %}EMIS Teacher Dashboard{% endif %} — Live Control Center{% endblock %}
+{% block title %}{% if user_type == 'admin' %}EMIS Admin Dashboard{% elif user_type == 'teacher_admin' %}EMIS Teacher Admin Dashboard{% elif user_type == 'islamiyyah_teacher' %}EMIS Islamiyyah Dashboard{% else %}EMIS Teacher Dashboard{% endif %} — Live Control Center{% endblock %}
 
 {% block late_styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_transform.css', v='20261016-launcher3-sage10') }}">
@@ -17,9 +17,9 @@
   <section class="dash-hero">
     <div class="dash-hero-main">
       <div class="dash-eyebrow"><span class="live-beacon"></span><span>EMIS Live Control Center</span></div>
-      <h1>{% if user_type == 'admin' %}Admin Dashboard{% elif user_type == 'islamiyyah_teacher' %}Islamiyyah Dashboard{% else %}Teacher Dashboard{% endif %}</h1>
-      <p>{% if user_type == 'islamiyyah_teacher' %}Your restricted workspace provides Dashboard, Students & Classes and Tahfeez & Islamiyyah only.{% elif user_type == 'teacher' %}Access the regular-school teaching workflow. Tahfeez & Islamiyyah and History remain restricted.{% else %}Monitor examinations, results, attendance, CA/Test progress, report sheets and synchronization from one place.{% endif %}</p>
-      <div class="dash-identity-row"><span class="dash-role"><i class="fa-solid {% if user_type == 'admin' %}fa-shield-halved{% elif user_type == 'islamiyyah_teacher' %}fa-mosque{% else %}fa-chalkboard-user{% endif %}"></i> {% if user_type == 'admin' %}Admin Account{% elif user_type == 'islamiyyah_teacher' %}Islamiyyah Teacher • IMS{% else %}Teacher • EMT{% endif %}</span><span class="dash-user"><i class="fa-regular fa-circle-user"></i> Signed in as <strong>{{ session.get('username') or session.get('admin_username') or session.get('teacher_id') or 'Staff' }}</strong></span></div>
+      <h1>{% if user_type == 'admin' %}Admin Dashboard{% elif user_type == 'teacher_admin' %}Teacher Admin Dashboard{% elif user_type == 'islamiyyah_teacher' %}Islamiyyah Dashboard{% else %}Teacher Dashboard{% endif %}</h1>
+      <p>{% if user_type == 'islamiyyah_teacher' %}Your restricted workspace provides Dashboard, Students & Classes and Tahfeez & Islamiyyah only.{% elif user_type == 'teacher_admin' %}Manage the regular-school workflow and official reports. Academic Admin, Tahfeez & Islamiyyah and History remain restricted.{% elif user_type == 'teacher' %}Use the regular-school workflow. Report Sheets are limited to your assigned classes and subjects, and official generation is restricted.{% else %}Monitor examinations, results, attendance, CA/Test progress, report sheets and synchronization from one place.{% endif %}</p>
+      <div class="dash-identity-row"><span class="dash-role"><i class="fa-solid {% if user_type == 'admin' %}fa-shield-halved{% elif user_type == 'teacher_admin' %}fa-user-shield{% elif user_type == 'islamiyyah_teacher' %}fa-mosque{% else %}fa-chalkboard-user{% endif %}"></i> {% if user_type == 'admin' %}Admin Account{% elif user_type == 'teacher_admin' %}Teacher Admin • ADM{% elif user_type == 'islamiyyah_teacher' %}Islamiyyah Teacher • IMS{% else %}Teacher • EMT{% endif %}</span><span class="dash-user"><i class="fa-regular fa-circle-user"></i> Signed in as <strong>{{ session.get('username') or session.get('admin_username') or session.get('teacher_id') or 'Staff' }}</strong></span></div>
     </div>
 
     <aside class="academic-period-card" aria-label="Active academic period">
@@ -32,7 +32,7 @@
       <div class="connection-pill" id="connectionPill"><span class="connection-dot"></span><span id="connectionText">Checking network</span></div>
       <button id="autoRefreshToggle" class="dash-btn dash-btn-soft" type="button" aria-pressed="true"><i class="fa-solid fa-arrows-rotate"></i><span>Auto Refresh</span></button>
       <button id="refreshDashboard" class="dash-btn dash-btn-primary" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh Now</span></button>
-      {% if user_type in ['admin','teacher'] %}<button class="dash-btn dash-btn-ghost" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_settings') }}'"><i class="fa-solid fa-sliders"></i><span>Settings</span></button>{% endif %}
+      {% if user_type in ['admin','teacher_admin'] %}<button class="dash-btn dash-btn-ghost" type="button" onclick="window.location.href='{{ url_for('admin_bp.admin_settings') }}'"><i class="fa-solid fa-sliders"></i><span>Settings</span></button>{% endif %}
     </div>
   </section>
 
@@ -59,15 +59,27 @@
         <a class="module-link shortcut-red" data-module-name="promotion student database" href="{{ url_for('admin_bp.admin_promotion') }}" title="Students & Classes"><span class="module-icon"><i class="fa-solid fa-users"></i></span><strong>Students</strong></a>
         <a class="module-link shortcut-dark" data-module-name="settings academic settings" href="{{ url_for('admin_bp.admin_settings') }}" title="Settings"><span class="module-icon"><i class="fa-solid fa-sliders"></i></span><strong>Settings</strong></a>
         <a class="module-link shortcut-gray" data-module-name="support help" href="{{ url_for('admin_bp.admin_support') }}" title="Support"><span class="module-icon"><i class="fa-solid fa-headset"></i></span><strong>Support</strong></a>
-      {% elif user_type == 'teacher' %}
+      {% elif user_type == 'teacher_admin' %}
         <a class="module-link shortcut-blue" data-module-name="student exam login" href="/student_login" target="_blank"><span class="module-icon"><i class="fa-solid fa-user-graduate"></i></span><strong>Student Login</strong></a>
+        <a class="module-link shortcut-purple" data-module-name="upload exams questions" href="/admin/uploads"><span class="module-icon"><i class="fa-solid fa-file-arrow-up"></i></span><strong>Upload Exams</strong></a>
+        <a class="module-link shortcut-teal" data-module-name="convert questions" href="{{ url_for('admin_bp.admin_convert') }}"><span class="module-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span><strong>Convert</strong></a>
         <a class="module-link shortcut-red" data-module-name="students classes" href="{{ url_for('admin_bp.admin_promotion') }}"><span class="module-icon"><i class="fa-solid fa-users"></i></span><strong>Students</strong></a>
-        <a class="module-link shortcut-cyan" data-module-name="academic administration assignments" href="{{ url_for('admin_bp.admin_teachers') }}"><span class="module-icon"><i class="fa-solid fa-sliders"></i></span><strong>Academic Admin</strong></a>
         <a class="module-link shortcut-orange" data-module-name="results" href="{{ url_for('admin_bp.admin_results') }}"><span class="module-icon"><i class="fa-solid fa-chart-line"></i></span><strong>Results</strong></a>
         <a class="module-link shortcut-seagreen" data-module-name="attendance" href="{{ url_for('admin_bp.admin_attendance') }}"><span class="module-icon"><i class="fa-solid fa-calendar-check"></i></span><strong>Attendance</strong></a>
         <a class="module-link shortcut-yellow" data-module-name="ca tests" href="{{ url_for('admin_bp.admin_ca_tests') }}"><span class="module-icon"><i class="fa-solid fa-clipboard-check"></i></span><strong>CA Tests</strong></a>
         <a class="module-link shortcut-indigo" data-module-name="report sheets reports" href="{{ url_for('admin_bp.admin_report_sheets') }}"><span class="module-icon"><i class="fa-solid fa-file-lines"></i></span><strong>Reports</strong></a>
+        <a class="module-link shortcut-cyan" data-module-name="cumulative annual first second third term results" href="{{ url_for('admin_bp.admin_report_sheets') }}#reportCumulativeHub"><span class="module-icon"><i class="fa-solid fa-layer-group"></i></span><strong>Annual</strong></a>
         <a class="module-link shortcut-dark" data-module-name="settings" href="{{ url_for('admin_bp.admin_settings') }}"><span class="module-icon"><i class="fa-solid fa-sliders"></i></span><strong>Settings</strong></a>
+        <a class="module-link shortcut-gray" data-module-name="support" href="{{ url_for('admin_bp.admin_support') }}"><span class="module-icon"><i class="fa-solid fa-headset"></i></span><strong>Support</strong></a>
+      {% elif user_type == 'teacher' %}
+        <a class="module-link shortcut-blue" data-module-name="student exam login" href="/student_login" target="_blank"><span class="module-icon"><i class="fa-solid fa-user-graduate"></i></span><strong>Student Login</strong></a>
+        <a class="module-link shortcut-purple" data-module-name="upload exams questions" href="/admin/uploads"><span class="module-icon"><i class="fa-solid fa-file-arrow-up"></i></span><strong>Upload Exams</strong></a>
+        <a class="module-link shortcut-teal" data-module-name="convert questions" href="{{ url_for('admin_bp.admin_convert') }}"><span class="module-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span><strong>Convert</strong></a>
+        <a class="module-link shortcut-red" data-module-name="students classes" href="{{ url_for('admin_bp.admin_promotion') }}"><span class="module-icon"><i class="fa-solid fa-users"></i></span><strong>Students</strong></a>
+        <a class="module-link shortcut-orange" data-module-name="results" href="{{ url_for('admin_bp.admin_results') }}"><span class="module-icon"><i class="fa-solid fa-chart-line"></i></span><strong>Results</strong></a>
+        <a class="module-link shortcut-seagreen" data-module-name="attendance" href="{{ url_for('admin_bp.admin_attendance') }}"><span class="module-icon"><i class="fa-solid fa-calendar-check"></i></span><strong>Attendance</strong></a>
+        <a class="module-link shortcut-yellow" data-module-name="ca tests" href="{{ url_for('admin_bp.admin_ca_tests') }}"><span class="module-icon"><i class="fa-solid fa-clipboard-check"></i></span><strong>CA Tests</strong></a>
+        <a class="module-link shortcut-indigo" data-module-name="report sheets score entry" href="{{ url_for('admin_bp.admin_report_sheets') }}"><span class="module-icon"><i class="fa-solid fa-pen-to-square"></i></span><strong>Score Entry</strong></a>
         <a class="module-link shortcut-gray" data-module-name="support" href="{{ url_for('admin_bp.admin_support') }}"><span class="module-icon"><i class="fa-solid fa-headset"></i></span><strong>Support</strong></a>
       {% elif user_type == 'islamiyyah_teacher' %}
         <a class="module-link shortcut-red" data-module-name="students classes" href="{{ url_for('admin_bp.admin_promotion') }}"><span class="module-icon"><i class="fa-solid fa-users"></i></span><strong>Students & Classes</strong></a>

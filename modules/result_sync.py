@@ -650,7 +650,7 @@ def sync_status_summary():
 
 
 def _staff_allowed():
-    return _clean(session.get("user_type")).lower() in {"admin", "teacher"}
+    return _clean(session.get("user_type")).lower() in {"admin", "teacher", "teacher_admin"}
 
 
 @sync_bp.route("/api/sync/status", methods=["GET"])

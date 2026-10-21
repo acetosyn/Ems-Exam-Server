@@ -5,14 +5,14 @@
 {% block late_styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/report_sheets_transform.css', v='20261013-rd1') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/report_workflow_v3.css', v='20261013-cum1') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/cumulative_report_v3.css', v='20261015-cumui4') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cumulative_report_v3.css', v='20261021-accessscope5') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/report_islamiyah_sync.css', v='20261013-cum4') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_sync_mobile_v3.css', v='20261013-cum5') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/report_workspace_v4.css', v='20261015-cumlive2') }}">
 {% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/report_sheets.css', v='20261018-voiceflow6') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report_sheets.css', v='20261021-adminarchive1') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_phase4_redesign.css', v='20261013-p45') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_phase5_mobile.css', v='20261013-p45') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/academic_entry_theme_v1.css', v='20261014-entrytheme1') }}">
@@ -22,17 +22,33 @@
 
 {% block content %}
 
-<div id="reportPage" class="report-page report-attendance-style" data-stage="backend" data-student-source="students2026.csv" data-exam-source="EMIS Examination Results">
+<div id="reportPage" class="report-page report-attendance-style" data-stage="backend" data-report-role="{{ session.get('user_type','guest') }}" data-student-source="students2026.csv" data-exam-source="EMIS Examination Results">
 
   <!-- ============================================================
        LIVE REPORT NOTIFICATIONS
   ============================================================ -->
   <div id="reportFlashStack" class="report-flash-stack" aria-live="polite" aria-atomic="true"></div>
 
+  {% if session.get('user_type') == 'teacher' %}
+  <!-- NORMAL TEACHER NAVIGATION — persistent escape + reliable return to class setup. -->
+  <div id="teacherReportPageNav" class="teacher-report-page-nav" aria-label="Teacher score entry navigation">
+    <button type="button" id="teacherReportBackTopBtn" class="teacher-report-nav-btn back-top"><i class="fa-solid fa-arrow-up"></i><span>Back to Setup</span></button>
+    <a class="teacher-report-nav-btn exit-dashboard" href="{{ url_for('admin_bp.admin_dashboard') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Exit to Dashboard</span></a>
+  </div>
+  {% endif %}
+  {% if session.get('user_type') == 'admin' %}
+  <!-- CENTRAL ADMIN NAVIGATION — long report pages always have an escape route. -->
+  <div id="adminReportPageNav" class="teacher-report-page-nav admin-report-page-nav" aria-label="Admin report navigation">
+    <button type="button" id="adminReportBackTopBtn" class="teacher-report-nav-btn back-top"><i class="fa-solid fa-arrow-up"></i><span>Back to Setup</span></button>
+    <a class="teacher-report-nav-btn exit-dashboard" href="{{ url_for('admin_bp.admin_dashboard') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Exit to Dashboard</span></a>
+  </div>
+  {% endif %}
+
   <!-- ============================================================
        CLASS ARM CONFIGURATION
   ============================================================ -->
   <script id="reportClassArmsConfig" type="application/json">{{ class_arms|default({})|tojson }}</script>
+  <script id="reportAccessScopeConfig" type="application/json">{{ report_access_scope|default({})|tojson }}</script>
 
   <!-- ============================================================
        SIMPLE REPORT WORKSPACE — ONE MODULE AT A TIME
@@ -43,10 +59,15 @@
   </section>
 
   <nav class="report-workspace-switcher" id="reportWorkspaceSwitcher" aria-label="Report workspace mode">
+    {% if session.get('user_type') == 'teacher' %}
+    <button type="button" class="active" data-report-workspace="manual"><i class="fa-solid fa-pen-ruler"></i><span>Score Entry</span><small>Assigned classes + subjects only</small></button>
+    {% else %}
     <button type="button" class="active" data-report-workspace="auto"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Auto Reports</span><small>Compile from EMIS</small></button>
     <button type="button" data-report-workspace="manual"><i class="fa-solid fa-pen-ruler"></i><span>Manual Workstation</span><small>Enter / correct scores</small></button>
     <button type="button" data-report-workspace="cumulative"><i class="fa-solid fa-layer-group"></i><span>Third Term Cumulative</span><small>Compile all 3 terms</small></button>
     <button type="button" data-report-workspace="test"><i class="fa-solid fa-flask-vial"></i><span>Test Lab</span><small>Safe trial generation</small></button>
+    {% if session.get('user_type') == 'admin' %}<button type="button" id="openReportAdminDeleteBtn" class="report-admin-delete-tab"><i class="fa-solid fa-trash-can"></i><span>Admin Delete</span><small>Protected data cleanup</small></button>{% endif %}
+    {% endif %}
   </nav>
 
   <!-- ============================================================
@@ -60,9 +81,15 @@
         <span class="report-title-icon"><i class="fa-solid fa-file-invoice"></i></span>
 
         <div>
+          {% if session.get('user_type') == 'teacher' %}
+          <span class="report-kicker"><i class="fa-solid fa-keyboard"></i> Assigned Score Entry</span>
+          <h1>Teacher Score Entry Workstation</h1>
+          <p>Load only your assigned classes, enter only your assigned subject scores, and save them into the shared EMIS academic record for Admin review and report generation.</p>
+          {% else %}
           <span class="report-kicker"><i class="fa-solid fa-file-circle-check"></i> Result Generation Studio</span>
           <h1>Automated Report Sheet Generator</h1>
           <p>Load students, combine the configured assessment records, examination results, Islamiyyah and attendance, then prepare clean printable report sheets.</p>
+          {% endif %}
         </div>
       </div>
 
@@ -195,6 +222,10 @@
 
     </div>
 
+    {% if session.get('user_type') == 'teacher' %}
+    <div id="reportTeacherAccessBanner" class="report-teacher-access-banner"><span class="report-teacher-access-icon"><i class="fa-solid fa-shield-halved"></i></span><div><small>YOUR ASSIGNED REPORT ACCESS</small><strong id="reportTeacherAccessTitle">Restricted Teacher Workspace</strong><p id="reportTeacherAccessText">Only classes and subjects assigned to {{ session.get('teacher_id') or session.get('username') }} can be loaded or edited.</p></div><span class="report-teacher-access-lock"><i class="fa-solid fa-lock"></i> Enforced</span></div>
+    {% endif %}
+
 
     <div class="report-control-grid compact-grid">
 
@@ -213,13 +244,18 @@
             <div class="report-input-wrap">
               <i class="fa-solid fa-calendar-days"></i>
 
-              <select id="reportSession" class="form-input">
+              <select id="reportSession" class="form-input" {% if session.get('user_type') == 'teacher' %}disabled aria-readonly="true" data-active-period-locked="1"{% endif %}>
+                {% if session.get('user_type') == 'teacher' %}
+                {% set teacher_active_session = global_academic_context.get('current_session') or global_academic_context.get('academic_session') or global_academic_context.get('session') or '' %}
+                <option value="{{ teacher_active_session }}" selected>{{ teacher_active_session or 'SESSION NOT SET' }}</option>
+                {% else %}
                 <option value="2025/2026">2025/2026</option>
                 <option value="2026/2027">2026/2027</option>
                 <option value="2027/2028">2027/2028</option>
                 <option value="2028/2029">2028/2029</option>
                 <option value="2029/2030">2029/2030</option>
                 <option value="2030/2031">2030/2031</option>
+                {% endif %}
               </select>
             </div>
           </div>
@@ -230,10 +266,15 @@
             <div class="report-input-wrap">
               <i class="fa-solid fa-book-open-reader"></i>
 
-              <select id="reportTerm" class="form-input">
+              <select id="reportTerm" class="form-input" {% if session.get('user_type') == 'teacher' %}disabled aria-readonly="true" data-active-period-locked="1"{% endif %}>
+                {% if session.get('user_type') == 'teacher' %}
+                {% set teacher_active_term = global_academic_context.get('current_term_label') or global_academic_context.get('term_label') or '' %}
+                <option value="{{ teacher_active_term }}" selected>{{ teacher_active_term or 'TERM NOT SET' }}</option>
+                {% else %}
                 <option value="FIRST TERM">FIRST TERM</option>
                 <option value="SECOND TERM">SECOND TERM</option>
                 <option value="THIRD TERM">THIRD TERM</option>
+                {% endif %}
               </select>
             </div>
           </div>
@@ -345,8 +386,9 @@
       </div>
 
 
+      {% if session.get('user_type') != 'teacher' %}
       <!-- ========================================================
-           NEXT TERM BEGINS — REQUIRED BEFORE CLASS LOAD
+           NEXT TERM BEGINS — ADMIN / TEACHER ADMIN REPORT GENERATION
       ========================================================= -->
       <div class="report-action-group next-term-required">
         <div class="form-group">
@@ -355,6 +397,7 @@
           <small class="report-field-note next-term-required-note">Must be set before Load. The saved date appears automatically on every report sheet for this class and term.</small>
         </div>
       </div>
+      {% endif %}
 
 
       <!-- ========================================================
@@ -375,16 +418,15 @@
            GENERATION ACTIONS
       ========================================================= -->
       <div class="report-action-group actions">
-
-        <div class="report-group-title"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Generate</span></div>
-
+        <div class="report-group-title"><i class="fa-solid {{ 'fa-keyboard' if session.get('user_type') == 'teacher' else 'fa-wand-magic-sparkles' }}"></i><span>{{ 'Score Entry' if session.get('user_type') == 'teacher' else 'Generate' }}</span></div>
         <div class="report-compact-actions">
-          <button id="loadReportStudentsBtn" type="button" class="report-btn neutral"><i class="fa-solid fa-users-viewfinder"></i> Load</button>
+          <button id="loadReportStudentsBtn" type="button" class="report-btn {{ 'success' if session.get('user_type') == 'teacher' else 'neutral' }}"><i class="fa-solid fa-users-viewfinder"></i> {{ 'Load Assigned Class' if session.get('user_type') == 'teacher' else 'Load' }}</button>
+          {% if session.get('user_type') != 'teacher' %}
           <button id="previewReportsBtn" type="button" class="report-btn primary"><i class="fa-solid fa-eye"></i> Preview</button>
           <button id="generateSelectedReportBtn" type="button" class="report-btn warning"><i class="fa-solid fa-user-check"></i> Selected</button>
           <button id="generateReportsBtn" type="button" class="report-btn success"><i class="fa-solid fa-wand-magic-sparkles"></i> Full Class</button>
+          {% endif %}
         </div>
-
       </div>
 
     </div>
@@ -395,6 +437,7 @@
   <!-- ============================================================
        SIMPLE AUTO ACTION BAR
   ============================================================ -->
+  {% if session.get('user_type') != 'teacher' %}
   <section class="report-simple-actions" id="reportSimpleAutoActions" data-workspace-panel="auto">
     <div><span>AUTOMATIC COMPILATION</span><strong>Load the class, preview, then generate.</strong></div>
     <div class="report-simple-action-buttons">
@@ -406,6 +449,7 @@
       <button type="button" data-proxy-click="openSavedReportsBtn"><i class="fa-solid fa-folder-open"></i> Saved</button>
     </div>
   </section>
+  {% endif %}
 
   <!-- ============================================================
        ISOLATED REPORT TEST LAB
@@ -782,35 +826,23 @@
   <section class="report-cumulative-hub compact-annual is-details-collapsed" id="reportCumulativeHub">
     <div class="report-cumulative-head">
       <div><span class="section-kicker">Third Term • Live 3-Term Sync</span><h2><i class="fa-solid fa-layer-group"></i> Cumulative Result Workspace</h2><p>Reads the same Manual, Automatic or Hybrid Report Sheet records. Every pupil remains visible while incomplete terms are clearly locked from official cumulative PDF generation.</p></div>
-      <div class="report-cumulative-actions"><label class="cumulative-source-select"><span>Live Source</span><select id="reportCumulativeSource"><option value="manual" selected>Manual Workstation</option><option value="auto">Automatic EMIS</option><option value="hybrid">Hybrid</option></select></label><span id="reportCumulativePrintBadge" class="cumulative-print-badge inactive"><i class="fa-solid fa-shield-halved"></i> Official print locked until 3/3 terms</span><button type="button" id="cumulativeManualGenerateBtn" class="report-mini-btn cumulative-manual"><i class="fa-solid fa-pen-ruler"></i> Open Manual Entry</button><button type="button" id="cumulativeAutoGenerateBtn" class="report-mini-btn cumulative-auto"><i class="fa-solid fa-bolt"></i> Auto Sync</button><button type="button" id="cumulativeHybridSyncBtn" class="report-mini-btn cumulative-hybrid"><i class="fa-solid fa-code-merge"></i> Hybrid Sync</button><button type="button" id="compileCumulativeBtn" class="report-mini-btn success-soft"><i class="fa-solid fa-rotate"></i> Sync Now</button><button type="button" id="cumulativePreviewReportsBtn" class="report-mini-btn" disabled><i class="fa-solid fa-file-invoice"></i> Preview Sheets</button><button type="button" id="cumulativePrintAllBtn" class="report-mini-btn" disabled><i class="fa-solid fa-print"></i> Print All</button><button type="button" id="cumulativeExportCsvBtn" class="report-mini-btn"><i class="fa-solid fa-file-csv"></i> CSV</button><button type="button" id="toggleCumulativeHubBtn" class="report-mini-btn cumulative-toggle" aria-expanded="false"><i class="fa-solid fa-chevron-down"></i> Details</button></div>
+      <div class="report-cumulative-actions"><label class="cumulative-source-select"><span>Live Source</span><select id="reportCumulativeSource"><option value="manual" selected>Manual Workstation</option><option value="auto">Automatic EMIS</option><option value="hybrid">Hybrid</option></select></label><span id="reportCumulativePrintBadge" class="cumulative-print-badge inactive"><i class="fa-solid fa-shield-halved"></i> Official print locked until 3/3 terms</span><span class="cumulative-print-badge archive-ready"><i class="fa-solid fa-box-archive"></i> Auto-saves to History</span><button type="button" id="cumulativeManualGenerateBtn" class="report-mini-btn cumulative-manual"><i class="fa-solid fa-pen-ruler"></i> Open Manual Entry</button><button type="button" id="cumulativeAutoGenerateBtn" class="report-mini-btn cumulative-auto"><i class="fa-solid fa-bolt"></i> Auto Sync</button><button type="button" id="cumulativeHybridSyncBtn" class="report-mini-btn cumulative-hybrid"><i class="fa-solid fa-code-merge"></i> Hybrid Sync</button><button type="button" id="compileCumulativeBtn" class="report-mini-btn success-soft"><i class="fa-solid fa-rotate"></i> Sync Now</button><button type="button" id="toggleCumulativeHubBtn" class="report-mini-btn cumulative-toggle" aria-expanded="false"><i class="fa-solid fa-chevron-down"></i> Annual Register</button></div>
     </div>
 
-    <div class="cumulative-integrity-strip" id="reportCumIntegrityStrip"><span class="live"><i class="fa-solid fa-arrows-rotate"></i> Live sync enabled</span><strong id="reportCumIntegrityText">Set Next Term Begins, then the selected class will load automatically.</strong><em id="reportCumSyncTime">Not synced yet</em></div>
-
-    <div class="cumulative-generation-gate" id="reportCumGenerationGate">
-      <div class="cumulative-gate-copy"><span><i class="fa-solid fa-lock"></i> Official Cumulative Rule</span><strong id="reportCumGateTitle">First + Second + Third Term are required</strong><p id="reportCumGateMessage">A pupil's Third Term cumulative sheet is generated only when that pupil has complete First Term, Second Term and Third Term Report Sheet records. Official class PDF/position stays locked until the whole class reaches 3/3.</p></div>
-      <div class="cumulative-gate-steps" aria-label="Cumulative term readiness">
-        <article class="first" data-cum-gate="first"><i class="fa-solid fa-1"></i><div><span>First Term</span><strong id="reportCumGateFirst">0 / 0</strong><small>foundation record</small></div></article>
-        <b class="cumulative-gate-arrow"><i class="fa-solid fa-chevron-right"></i></b>
-        <article class="second" data-cum-gate="second"><i class="fa-solid fa-2"></i><div><span>Second Term</span><strong id="reportCumGateSecond">0 / 0</strong><small>required before annual</small></div></article>
-        <b class="cumulative-gate-arrow"><i class="fa-solid fa-chevron-right"></i></b>
-        <article class="third" data-cum-gate="third"><i class="fa-solid fa-3"></i><div><span>Third Term</span><strong id="reportCumGateThird">0 / 0</strong><small>current term record</small></div></article>
-        <b class="cumulative-gate-arrow"><i class="fa-solid fa-chevron-right"></i></b>
-        <article class="annual" data-cum-gate="annual"><i class="fa-solid fa-file-circle-check"></i><div><span>Cumulative PDF</span><strong id="reportCumGateAnnual">LOCKED</strong><small id="reportCumGateAnnualHint">waiting for 3/3 terms</small></div></article>
+    <section class="cumulative-readiness-card" id="reportCumGenerationGate">
+      <div class="cumulative-readiness-head"><div class="cumulative-readiness-copy"><span><i class="fa-solid fa-layer-group"></i> 3-Term Readiness</span><strong id="reportCumGateTitle">First + Second + Third Term are required</strong><small id="reportCumGateMessage">Complete the three saved term records to unlock the official two-sheet result.</small></div><div class="cumulative-readiness-live"><b><i class="fa-solid fa-bolt"></i> LIVE</b><span id="reportCumIntegrityText">Waiting for class data.</span><em id="reportCumSyncTime">Not synced yet</em></div></div>
+      <div class="cumulative-readiness-metrics">
+        <article class="roster"><span>Pupils</span><strong id="reportCumRoster">0</strong><small>class roster</small></article>
+        <article class="first"><span>1st Term</span><strong id="reportCumFirst">0 / 0</strong><small>complete</small></article>
+        <article class="second"><span>2nd Term</span><strong id="reportCumSecond">0 / 0</strong><small>complete</small></article>
+        <article class="third"><span>3rd Term</span><strong id="reportCumThird">0 / 0</strong><small>complete</small></article>
+        <article class="complete"><span>3-Term</span><strong id="reportCumComplete">0 / 0</strong><small>pupils complete</small></article>
+        <article class="coverage"><span>Coverage</span><strong id="reportCumDataCoverage">0%</strong><small>saved term slots</small></article>
+        <article class="average"><span>Class Avg.</span><strong id="reportCumAverage">—</strong><small>annual</small></article>
+        <article class="result" data-cum-gate="annual"><span>2-Sheet Result</span><strong id="reportCumGateAnnual">LOCKED</strong><small id="reportCumGateAnnualHint">waiting for 3/3</small></article>
       </div>
-    </div>
-
-    <div class="report-cumulative-grid cumulative-grid-seven">
-      <article class="roster"><span>Class Roster</span><strong id="reportCumRoster">0</strong><em>active students</em></article>
-      <article><span>First Term</span><strong id="reportCumFirst">0</strong><em>complete term records</em></article>
-      <article><span>Second Term</span><strong id="reportCumSecond">0</strong><em>complete term records</em></article>
-      <article><span>Third Term</span><strong id="reportCumThird">0</strong><em>complete term records</em></article>
-      <article class="annual"><span>3-Term Complete</span><strong id="reportCumComplete">0</strong><em id="reportCumCoverage">0% final coverage</em></article>
-      <article class="coverage"><span>Data Coverage</span><strong id="reportCumDataCoverage">0%</strong><em>term slots filled</em></article>
-      <article class="average"><span>Annual Class Avg.</span><strong id="reportCumAverage">—</strong><em>available only at 3/3</em></article>
-    </div>
-
-    <div class="report-cumulative-progress"><div><i id="reportCumProgressBar"></i></div><span id="reportCumProgressText">Each pupil needs First + Second + Third Term records before an official cumulative sheet can be generated.</span></div>
+      <div class="report-cumulative-progress"><div><i id="reportCumProgressBar"></i></div><span id="reportCumProgressText">Checking saved First, Second and Third Term records…</span></div>
+    </section>
 
     <div id="reportCumulativeDetails" class="report-cumulative-details" aria-hidden="true">
       <div class="cumulative-table-tools">
@@ -818,12 +850,10 @@
         <div class="cumulative-filter-group" id="reportCumFilters"><button type="button" class="active" data-cum-filter="all">All</button><button type="button" data-cum-filter="complete">3/3 Complete</button><button type="button" data-cum-filter="partial">Partial</button><button type="button" data-cum-filter="missing-first">Missing 1st</button><button type="button" data-cum-filter="missing-second">Missing 2nd</button><button type="button" data-cum-filter="missing-third">Missing 3rd</button><button type="button" data-cum-filter="no-data">No Scores</button></div>
       </div>
 
-      <div class="cumulative-bulkbar">
-        <div class="cumulative-bulk-left"><button type="button" id="reportCumSelectVisibleBtn"><i class="fa-solid fa-square-check"></i> Select Visible</button><button type="button" id="reportCumClearSelectionBtn"><i class="fa-solid fa-square-xmark"></i> Clear</button><span class="cumulative-selected-count"><strong id="reportCumSelectedCount">0</strong> selected</span></div>
-        <div class="cumulative-bulk-right"><button type="button" id="reportCumViewSelectedBtn" disabled><i class="fa-solid fa-eye"></i> View Student</button><button type="button" id="reportCumSelectedPdfBtn" disabled title="Official PDF unlocks only after the class reaches complete First, Second and Third Term coverage."><i class="fa-solid fa-file-pdf"></i> Selected PDF</button><button type="button" id="reportCumSelectedCsvBtn" disabled><i class="fa-solid fa-file-csv"></i> Selected CSV</button></div>
+      <div class="cumulative-register-actionbar">
+        <div class="cumulative-register-title"><span><i class="fa-solid fa-table-cells-large"></i> Live Annual Register</span><strong>Compare all three terms, preview the two official sheets, print or export.</strong><small>Annual Avg. gives First, Second and Third Term equal weight.</small></div>
+        <div class="cumulative-register-buttons"><button type="button" id="cumulativePreviewReportsBtn" class="report-mini-btn" disabled><i class="fa-solid fa-file-invoice"></i> Preview All • 2 Pages</button><button type="button" id="cumulativePrintAllBtn" class="report-mini-btn" disabled><i class="fa-solid fa-print"></i> Print All ×2</button><button type="button" id="cumulativeExportExcelBtn" class="report-mini-btn excel"><i class="fa-solid fa-file-excel"></i> Full Verification Excel</button><button type="button" id="cumulativeExportCsvBtn" class="report-mini-btn"><i class="fa-solid fa-file-csv"></i> CSV</button><span class="cumulative-selected-count" id="reportCumSelectionBar"><strong id="reportCumSelectedCount">0</strong> selected</span><div class="cumulative-context-actions" id="reportCumContextActions"><button type="button" id="reportCumViewSelectedBtn" disabled><i class="fa-solid fa-eye"></i> Preview 2 Sheets</button><button type="button" id="reportCumSelectedPdfBtn" disabled><i class="fa-solid fa-print"></i> Print 2 Pages</button><button type="button" id="reportCumSelectedExcelBtn" disabled><i class="fa-solid fa-file-excel"></i> Selected Excel</button><button type="button" id="reportCumSelectedCsvBtn" disabled><i class="fa-solid fa-file-csv"></i> Selected CSV</button><button type="button" id="reportCumClearSelectionBtn" class="selection-clear" title="Clear selected pupils"><i class="fa-solid fa-xmark"></i></button></div></div>
       </div>
-
-      <div class="cumulative-pdf-notice" id="reportCumPdfNotice"><i class="fa-solid fa-circle-info"></i><div><strong>Cumulative PDF is currently locked.</strong><span id="reportCumPdfReason">Complete First Term, Second Term and Third Term results before generating official cumulative sheets.</span></div></div>
 
       <div class="report-cumulative-preview">
         <div class="cumulative-preview-head"><div><strong>Live Annual Class Register</strong><small id="reportCumVisibleCount">0 students shown</small></div><span id="reportCumPreviewMeta">No cumulative data loaded</span></div>
@@ -831,13 +861,37 @@
           <table class="cumulative-preview-table cumulative-excel-table">
             <thead>
               <tr class="cumulative-group-head"><th class="cumulative-select-col" rowspan="2"><input id="reportCumSelectAllCheckbox" type="checkbox" aria-label="Select all visible cumulative students"></th><th class="cumulative-number-col" rowspan="2">#</th><th class="cumulative-student-col" rowspan="2">Student</th><th class="cumulative-admission-col" rowspan="2">Admission</th><th class="cumulative-term-group first" colspan="3">First Term</th><th class="cumulative-term-group second" colspan="3">Second Term</th><th class="cumulative-term-group third" colspan="3">Third Term</th><th class="cumulative-term-group annual" colspan="6">Cumulative / Annual</th><th class="cumulative-action-col" rowspan="2">Action</th></tr>
-              <tr class="cumulative-column-head"><th>Score</th><th>Avg.</th><th>Grade</th><th>Score</th><th>Avg.</th><th>Grade</th><th>Score</th><th>Avg.</th><th>Grade</th><th>Score</th><th>Avg.</th><th>Grade</th><th>Position</th><th>Progress</th><th>Status</th></tr>
+              <tr class="cumulative-column-head"><th>Score</th><th>Avg.</th><th>Grade</th><th>Score</th><th>Avg.</th><th>Grade</th><th>Score</th><th>Avg.</th><th>Grade</th><th>Raw Score</th><th>Annual Avg.</th><th>Grade</th><th>Position</th><th>Progress</th><th>Status</th></tr>
             </thead>
             <tbody id="reportCumPreviewBody"><tr><td colspan="20" class="cumulative-empty">Set Next Term Begins and select a class to load the live cumulative roster.</td></tr></tbody>
           </table>
         </div>
       </div>
-      <div class="cumulative-feature-note"><span><i class="fa-solid fa-table-cells"></i> Excel-style 3-term register</span><span><i class="fa-solid fa-square-check"></i> Multi-student selection</span><span><i class="fa-solid fa-eye"></i> Student detail viewer</span><span><i class="fa-solid fa-arrow-down-wide-short"></i> Search, sort and readiness filters</span><span><i class="fa-solid fa-list-check"></i> Per-student 1/3 → 2/3 → 3/3 progress</span><span><i class="fa-solid fa-shield-halved"></i> PDF integrity guard</span><span><i class="fa-solid fa-file-csv"></i> Full or selected CSV export</span><span><i class="fa-solid fa-link"></i> Live Manual / Auto / Hybrid synchronization</span></div>
+
+      <!-- SECONDARY TOOLS — verification and full two-sheet preview stay below the live annual register -->
+      <!-- ============================================================
+           SCORE VERIFICATION CENTRE — TERM-BY-TERM + CUMULATIVE PROOF
+      ============================================================ -->
+      <section class="cumulative-verification-centre" id="reportCumVerificationCentre">
+        <header class="cumulative-verification-head"><div><span><i class="fa-solid fa-shield-check"></i> Score Verification Centre</span><strong>Verify every saved term before trusting the cumulative result.</strong><small>First, Second and Third Term values come directly from their saved report records. Cumulative Compare shows the exact subject arithmetic side by side.</small></div><div class="cumulative-verification-excel"><button type="button" id="reportCumExcelFirst" class="report-mini-btn"><i class="fa-solid fa-file-excel"></i> First Excel</button><button type="button" id="reportCumExcelSecond" class="report-mini-btn"><i class="fa-solid fa-file-excel"></i> Second Excel</button><button type="button" id="reportCumExcelThird" class="report-mini-btn"><i class="fa-solid fa-file-excel"></i> Third Excel</button><button type="button" id="reportCumExcelAnnual" class="report-mini-btn"><i class="fa-solid fa-file-excel"></i> Cumulative Excel</button><button type="button" id="reportCumExcelCompare" class="report-mini-btn compare"><i class="fa-solid fa-table-columns"></i> Compare All Excel</button></div></header>
+        <div class="cumulative-verification-tabs" id="reportCumVerificationTabs"><button type="button" data-cum-verify-view="FIRST">First Term</button><button type="button" data-cum-verify-view="SECOND">Second Term</button><button type="button" data-cum-verify-view="THIRD">Third Term</button><button type="button" class="active" data-cum-verify-view="COMPARE">Cumulative Compare</button></div>
+        <div class="cumulative-verification-studentbar" id="reportCumVerificationStudentBar"><div class="verification-student-copy"><span><i class="fa-solid fa-user-check"></i> Student Score Viewer</span><strong id="reportCumVerificationStudentName">Select a student</strong><small id="reportCumVerificationStudentMeta">One pupil at a time • no repeated names down the table.</small></div><div class="verification-student-nav"><button type="button" id="reportCumVerificationPrev" aria-label="Previous student"><i class="fa-solid fa-chevron-left"></i></button><label><span>Student</span><select id="reportCumVerificationStudent"><option value="">Load cumulative class first</option></select></label><b id="reportCumVerificationStudentPosition">0 / 0</b><button type="button" id="reportCumVerificationNext" aria-label="Next student"><i class="fa-solid fa-chevron-right"></i></button></div></div>
+        <div class="cumulative-verification-proof" id="reportCumVerificationProof"><i class="fa-solid fa-calculator"></i><div><strong>How verification works</strong><span>Choose a pupil above. The table shows only that pupil's subjects, with First + Second + Third Term arithmetic exposed clearly.</span></div></div>
+        <div class="cumulative-verification-table-wrap"><table class="cumulative-verification-table"><thead id="reportCumVerificationHead"><tr><th>Verification data loads with the cumulative class.</th></tr></thead><tbody id="reportCumVerificationBody"><tr><td class="cumulative-empty">Load the cumulative class to inspect First, Second, Third and Cumulative scores.</td></tr></tbody></table></div>
+        <footer class="cumulative-verification-foot"><span><i class="fa-solid fa-database"></i> Saved term records only</span><span><i class="fa-solid fa-equals"></i> Visible arithmetic proof</span><span><i class="fa-solid fa-file-excel"></i> Individual term Excel exports</span><span><i class="fa-solid fa-code-compare"></i> Full side-by-side comparison</span></footer>
+      </section>
+
+      <div id="reportCumSheetGridWrap" class="cumulative-sheet-grid-wrap cumulative-dual-preview-wrap" hidden>
+        <div class="cumulative-sheet-grid-head cumulative-dual-preview-head"><div><span><i class="fa-solid fa-file-invoice"></i> Official Two-Sheet Report Preview</span><strong id="reportCumSheetGridTitle">Third Term + Cumulative reports</strong><small>Each pupil has Page 1: normal Third Term result with the annual promotion/repeat decision, and Page 2: the true 3-term cumulative result.</small></div><div class="cumulative-dual-preview-actions"><button type="button" id="reportCumDualPrintCurrent" class="report-mini-btn"><i class="fa-solid fa-print"></i> Print Current Sheet</button><button type="button" id="reportCumDualPrintPair" class="report-mini-btn pair"><i class="fa-solid fa-copy"></i> Print Student 2 Pages</button><button type="button" id="reportCumSheetGridPrintAll" class="report-mini-btn"><i class="fa-solid fa-print"></i> Print All Shown</button></div></div>
+        <div class="cumulative-dual-proof"><i class="fa-solid fa-circle-check"></i><div><strong>Same full Report List + Student Report Preview layout as Test Lab</strong><span>Use the two page buttons to switch between the student's Third Term sheet and Cumulative sheet. The cumulative CA/Test/Exam cells are calculated from the saved three-term records, not generated fake scores.</span></div></div>
+        <div class="report-preview-shell report-preview-shell-v2 cumulative-report-preview-studio">
+          <aside class="report-student-list-card cumulative-dual-list-card"><div class="report-list-head report-list-head-v2"><div><span class="section-kicker">Generated Students</span><h2><i class="fa-solid fa-file-lines"></i> Report List</h2></div><div class="cumulative-dual-list-meta"><strong id="reportCumDualCount">0</strong><span>students • 2 sheets each</span></div></div><div id="reportCumSheetGrid" class="report-student-list cumulative-dual-student-list"></div></aside>
+          <section class="report-preview-card cumulative-dual-preview-card"><div class="report-preview-head"><div><span class="section-kicker">Live Result Sheet</span><h2><i class="fa-solid fa-file-invoice"></i> Student Report Preview</h2><p id="reportCumDualMeta">Select a pupil from the report list.</p></div><div class="report-preview-actions cumulative-dual-sheet-actions"><div class="report-preview-nav"><button type="button" id="reportCumDualPrev" class="report-mini-btn" title="Previous student"><i class="fa-solid fa-chevron-left"></i></button><span id="reportCumDualPosition">0 / 0</span><button type="button" id="reportCumDualNext" class="report-mini-btn" title="Next student"><i class="fa-solid fa-chevron-right"></i></button></div><div class="cumulative-page-toggle"><button type="button" id="reportCumDualThird" class="active" data-cum-page="third"><i class="fa-solid fa-file-lines"></i> Third Term</button><button type="button" id="reportCumDualAnnual" data-cum-page="cumulative"><i class="fa-solid fa-layer-group"></i> Cumulative</button></div><span id="reportCumDualStatus" class="report-preview-status ready">Ready</span></div></div><div id="reportCumDualCanvas" class="report-sheet-canvas"><div class="report-empty"><i class="fa-solid fa-file-circle-plus"></i><strong>No report selected</strong><span>Choose one or more pupils from the Annual Register, then preview their official two-sheet results.</span></div></div></section>
+        </div>
+      </div>
+
+
+      <div class="cumulative-feature-note"><span><i class="fa-solid fa-table-cells"></i> Excel-style 3-term register</span><span><i class="fa-solid fa-square-check"></i> Multi-student selection</span><span><i class="fa-solid fa-eye"></i> Student detail viewer</span><span><i class="fa-solid fa-arrow-down-wide-short"></i> Search, sort and readiness filters</span><span><i class="fa-solid fa-list-check"></i> Per-student 1/3 → 2/3 → 3/3 progress</span><span><i class="fa-solid fa-shield-halved"></i> PDF integrity guard</span><span><i class="fa-solid fa-file-excel"></i> First / Second / Third / Cumulative Excel verification</span><span><i class="fa-solid fa-calculator"></i> Visible cumulative calculation proof</span><span><i class="fa-solid fa-file-csv"></i> Full or selected CSV export</span><span><i class="fa-solid fa-link"></i> Live Manual / Auto / Hybrid synchronization</span></div>
     </div>
   </section>
 
@@ -847,8 +901,8 @@
       <header><div><span>Student Cumulative Detail</span><h3 id="reportCumDrawerTitle">Student</h3><p id="reportCumDrawerMeta">Select a student from the cumulative register.</p></div><button type="button" id="reportCumDrawerClose" class="cumulative-drawer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></header>
       <div class="cumulative-drawer-readiness" id="reportCumDrawerReadiness"><i class="fa-solid fa-hourglass-half"></i><div><strong>Waiting for term records</strong><span>A cumulative sheet needs First, Second and Third Term records.</span></div></div>
       <div class="cumulative-drawer-terms" id="reportCumDrawerTerms"></div>
-      <div class="cumulative-drawer-annual" id="reportCumDrawerAnnual"></div>
-      <footer><button type="button" id="reportCumDrawerManualBtn" class="report-mini-btn cumulative-manual"><i class="fa-solid fa-pen-ruler"></i> Open Manual Workstation</button><button type="button" id="reportCumDrawerPdfBtn" class="report-mini-btn" disabled><i class="fa-solid fa-file-pdf"></i> Official PDF</button></footer>
+      <div class="cumulative-drawer-annual" id="reportCumDrawerAnnual"></div><div class="cumulative-drawer-proof" id="reportCumDrawerProof"></div>
+      <footer><button type="button" id="reportCumDrawerManualBtn" class="report-mini-btn cumulative-manual"><i class="fa-solid fa-pen-ruler"></i> Open Manual Workstation</button><button type="button" id="reportCumDrawerPdfBtn" class="report-mini-btn" disabled><i class="fa-solid fa-file-pdf"></i> Print 2 Pages</button></footer>
     </section>
   </div>
 
@@ -1241,6 +1295,7 @@
 
   <section id="manualVoiceBar" class="manual-voice-bar" aria-label="Smart Voice Score Entry">
     <div class="manual-voice-summary"><span id="manualVoiceStateDot" class="manual-voice-dot"></span><div><strong>Smart Voice Entry</strong><small id="manualVoiceStatus">Optional • microphone is off</small></div></div>
+    <label class="manual-auto-save-toggle" for="manualAutoSaveAdvance" title="When Auto Save is ON, completing the final score box manually saves the student and opens the next incomplete student automatically. Voice entry is not affected."><span class="manual-auto-save-copy"><strong><i class="fa-solid fa-forward-fast"></i> Auto Save</strong><small id="manualAutoSaveHint">Manual Save & Next</small></span><input id="manualAutoSaveAdvance" type="checkbox" aria-label="Auto save and open next student"><span class="manual-auto-save-track" aria-hidden="true"><i></i></span><b id="manualAutoSaveState">OFF</b></label>
     <div class="manual-voice-actions"><button type="button" id="manualVoiceStartBtn" class="manual-voice-btn start"><i class="fa-solid fa-microphone"></i><span>Start Voice</span></button><button type="button" id="manualVoicePauseBtn" class="manual-voice-btn" disabled><i class="fa-solid fa-pause"></i><span>Pause</span></button><button type="button" id="manualVoiceStopBtn" class="manual-voice-btn stop" disabled><i class="fa-solid fa-stop"></i><span>Stop</span></button></div>
     <div class="manual-voice-options"><label class="manual-voice-check"><input id="manualVoicePromptEach" type="checkbox"><span>Speak fields</span></label><label class="manual-voice-check"><input id="manualVoiceSafeMode" type="checkbox"><span>Safe confirm</span></label><select id="manualVoiceAccent" class="manual-voice-select compact" title="Speech recognition accent"><option value="auto" selected>African English • Auto</option><option value="en-NG">Nigeria English</option><option value="en-GH">Ghana English</option><option value="en-KE">Kenya English</option><option value="en-ZA">South Africa English</option><option value="en-GB">UK English</option></select><select id="manualVoiceSelect" class="manual-voice-select" title="Choose text-to-speech voice"><option value="">Google UK English Female / best available</option></select></div>
     <div class="manual-voice-live"><span id="manualVoiceField">Ready</span><strong id="manualVoiceTranscript">Say a score when a box is highlighted</strong></div>
@@ -1271,12 +1326,14 @@
   <div class="manual-result-footer phase5-inline-footer">
     <div class="manual-footer-left"><button type="button" id="clearManualStudentBtn" class="report-btn manual-clear-score-btn"><i class="fa-solid fa-eraser"></i> Clear Scores</button><button type="button" id="clearManualClassScoresBtn" class="report-btn manual-clear-class-btn"><i class="fa-solid fa-users-slash"></i> Clear Class Scores</button><span id="manualUnsavedIndicator" class="manual-unsaved-indicator">Saved</span></div>
     <div class="manual-footer-right">
-      <button type="button" class="report-btn neutral" data-view-generated-reports><i class="fa-solid fa-table-cells-large"></i> View Generated</button>
+      {% if session.get('user_type') != 'teacher' %}<button type="button" class="report-btn neutral" data-view-generated-reports><i class="fa-solid fa-table-cells-large"></i> View Generated</button>{% endif %}
       <button type="button" id="saveManualDraftBtn" class="report-btn neutral"><i class="fa-solid fa-floppy-disk"></i> Save Draft</button>
       <button type="button" id="saveManualStudentBtn" class="report-btn manual-save-student"><i class="fa-solid fa-user-check"></i> Save Student</button>
       <button type="button" id="saveManualNextBtn" class="report-btn manual-save-next"><i class="fa-solid fa-forward-step"></i> Save & Next</button>
+      {% if session.get('user_type') != 'teacher' %}
       <button type="button" id="saveGenerateManualBtn" class="report-btn success manual-class-generate" disabled><i class="fa-solid fa-users-rectangle"></i><span>Generate Class Reports</span><small id="manualGenerateLockText">Complete class first</small></button>
       <button type="button" id="saveGenerateHybridBtn" class="report-btn primary manual-class-generate" disabled><i class="fa-solid fa-code-merge"></i><span>Generate Hybrid Class</span><small>Whole class only</small></button>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -1430,6 +1487,25 @@
 
 </div>
 
+{% if session.get('user_type') == 'admin' %}
+<!-- CENTRAL ADMIN DELETE — destructive actions are intentionally isolated from everyday report controls. -->
+<div id="reportAdminDeleteModal" class="report-admin-delete-modal" hidden aria-hidden="true">
+  <div class="report-admin-delete-dialog" role="dialog" aria-modal="true" aria-labelledby="reportAdminDeleteTitle">
+    <header><span class="danger-icon"><i class="fa-solid fa-shield-halved"></i></span><div><small>CENTRAL ADMIN ONLY</small><h2 id="reportAdminDeleteTitle">Protected Report Data Delete</h2><p>Choose exactly what should be removed. This cannot be undone from the Report Sheets page.</p></div><button type="button" id="closeReportAdminDeleteBtn" class="icon-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></header>
+    <section class="report-admin-delete-scope">
+      <button type="button" class="active" data-admin-delete-action="term_class"><i class="fa-solid fa-calendar-xmark"></i><span><strong>Current Class + Term</strong><small>Deletes the selected session, term, class and arm only.</small></span></button>
+      <button type="button" data-admin-delete-action="class_history"><i class="fa-solid fa-school-circle-xmark"></i><span><strong>Entire Class History</strong><small>Deletes every saved term/report for the selected class arm.</small></span></button>
+      <button type="button" data-admin-delete-action="database" class="database-danger"><i class="fa-solid fa-database"></i><span><strong>Entire Report Sheet Database</strong><small>Deletes Report Sheets + Academic History records. Admin login verification is required.</small></span></button>
+    </section>
+    <div id="reportAdminDeleteContext" class="report-admin-delete-context"><i class="fa-solid fa-location-dot"></i><span>Select a class in Report Setup first.</span></div>
+    <section id="reportAdminDeleteCredentials" class="report-admin-delete-credentials" hidden><label><span>ADMIN_USERNAME</span><input id="reportDeleteAdminUsername" type="text" autocomplete="username" placeholder="Administrator username"></label><label><span>ADMIN_PASSWORD</span><input id="reportDeleteAdminPassword" type="password" autocomplete="current-password" placeholder="Administrator password"></label></section>
+    <label class="report-admin-delete-confirm"><span>Type <b>DELETE</b> in capital letters to unlock deletion</span><input id="reportAdminDeleteConfirmText" type="text" autocomplete="off" spellcheck="false" placeholder="DELETE"></label>
+    <div class="report-admin-delete-warning"><i class="fa-solid fa-triangle-exclamation"></i><div><strong id="reportAdminDeleteWarningTitle">You are deleting stored academic report data.</strong><span id="reportAdminDeleteWarningText">Current class + term removes saved scores/reports/history for only the selected academic context.</span></div></div>
+    <footer><button type="button" id="cancelReportAdminDeleteBtn" class="report-mini-btn">Cancel</button><button type="button" id="confirmReportAdminDeleteBtn" class="report-danger-confirm" disabled><i class="fa-solid fa-trash-can"></i> Confirm Delete</button></footer>
+  </div>
+</div>
+{% endif %}
+
 <!-- Premium command palette: uses existing report actions; no backend route changes. -->
 <div id="reportCommandPalette" class="report-command-palette" aria-hidden="true">
   <div class="report-command-panel" role="dialog" aria-modal="true" aria-labelledby="reportCommandTitle">
@@ -1451,20 +1527,20 @@
      Must load before report_sheet.js because the main controller
      calls window.ReportSheetPDF.render(...)
 ============================================================ -->
-<script src="{{ url_for('static', filename='js/report_sheet_pdf.js', v='20261015-teacherheaders1') }}"></script>
+<script src="{{ url_for('static', filename='js/report_sheet_pdf.js', v='20261021-cumloadfix1') }}"></script>
 
 <!-- ============================================================
      REPORT SHEET MAIN BACKEND / UI CONTROLLER
      Handles arms, students, generation, notifications, remarks,
      printing, saved reports, exports and source readiness.
 ============================================================ -->
-<script src="{{ url_for('static', filename='js/report_sheet.js', v='20261018-voiceflow6') }}"></script>
+<script src="{{ url_for('static', filename='js/report_sheet.js', v='20261021-adminarchive1') }}"></script>
 
 <!-- ============================================================
      SMART VOICE / AUTO-NAVIGATION EXTENSION
      Loads after report_sheet.js and does not replace the core studio.
 ============================================================ -->
-<script src="{{ url_for('static', filename='js/report_voice_entry.js', v='20261018-voiceflow6') }}"></script>
+<script src="{{ url_for('static', filename='js/report_voice_entry.js', v='20261021-teacherentry1') }}"></script>
 
 <!-- Phase 4/5 compact academic workspace + mobile auto-flow -->
 <script src="{{ url_for('static', filename='js/academic_phase4_redesign.js', v='20261013-p45') }}"></script>
@@ -1472,6 +1548,6 @@
 <script src="{{ url_for('static', filename='js/report_workflow_v3.js', v='20261015-cumdatefix1') }}"></script>
 <script src="{{ url_for('static', filename='js/cumulative_report_v3.js', v='20261015-cumlive2') }}"></script>
 <script src="{{ url_for('static', filename='js/report_islamiyah_sync.js', v='20261013-cum4') }}"></script>
-<script src="{{ url_for('static', filename='js/report_workspace_v4.js', v='20261015-cumdatefix1') }}"></script>
+<script src="{{ url_for('static', filename='js/report_workspace_v4.js', v='20261021-teacherentry1') }}"></script>
 
 {% endblock %}

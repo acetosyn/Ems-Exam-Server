@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import threading
+import zipfile
 from datetime import datetime, timezone
 from functools import wraps
 from pathlib import Path
@@ -27,6 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 HISTORY_DIR = BASE_DIR / "static" / "data" / "academic_history"
 RECORD_FILE = HISTORY_DIR / "academic_records.jsonl"
 REVISION_FILE = HISTORY_DIR / "record_revisions.jsonl"
+TRANSCRIPT_SAVE_FILE = HISTORY_DIR / "transcript_saves.jsonl"
 SNAPSHOT_FILE = BASE_DIR / "static" / "data" / "report_sheets" / "generated_reports.jsonl"
 HISTORY_LOCK = threading.RLock()
 TERM_ORDER = {"FIRST": 1, "SECOND": 2, "THIRD": 3}
@@ -79,9 +81,10 @@ def student_identity_key(admission_number, full_name=""):
     return hashlib.sha256(f"{admission}|{name}".encode("utf-8")).hexdigest()[:20]
 
 
-def academic_record_key(student_key, academic_session, term, class_level, class_arm):
-    raw = "|".join([clean(student_key), normalize_academic_session(academic_session), normalize_academic_term(term), clean_upper(class_level), clean_upper(class_arm)])
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:24]
+def academic_record_key(student_key, academic_session, term, class_level, class_arm, record_variant=""):
+    variant = clean_upper(record_variant); parts = [clean(student_key), normalize_academic_session(academic_session), normalize_academic_term(term), clean_upper(class_level), clean_upper(class_arm)]
+    if variant and variant not in {"TERM", "STANDARD", "REPORT"}: parts.append(variant)
+    return hashlib.sha256("|".join(parts).encode("utf-8")).hexdigest()[:24]
 
 
 def _read_jsonl(path):
@@ -116,12 +119,12 @@ def _snapshot_to_record(snapshot):
     admission = normalize_admission_number(report.get("admission_number") or snapshot.get("admission_number")); full_name = clean(report.get("full_name") or snapshot.get("full_name"))
     academic_session = normalize_academic_session(report.get("session") or snapshot.get("session")); term = normalize_academic_term(report.get("term") or snapshot.get("term")); class_level = clean_upper(report.get("class_level") or snapshot.get("class_level")); class_arm = clean_upper(report.get("class_arm") or snapshot.get("class_arm"))
     if not admission or not academic_session or not term or not class_level: return None
-    student_key = student_identity_key(admission, full_name); record_id = academic_record_key(student_key, academic_session, term, class_level, class_arm)
+    report_variant = clean(report.get("report_variant") or snapshot.get("report_variant") or "standard").lower(); record_variant = "cumulative" if report.get("is_cumulative_report") or report_variant in {"cumulative", "annual_cumulative", "annual"} else (report_variant if report_variant not in {"", "standard", "term", "report"} else "standard"); student_key = student_identity_key(admission, full_name); record_id = academic_record_key(student_key, academic_session, term, class_level, class_arm, record_variant)
     attendance = report.get("attendance") if isinstance(report.get("attendance"), dict) else {}; subjects = report.get("subjects") if isinstance(report.get("subjects"), list) else []
     average = safe_float(report.get("average")); total_score = safe_float(report.get("total_score")); maximum_score = _subjects_maximum(subjects); score_percentage = round(total_score / maximum_score * 100, 2) if total_score is not None and maximum_score else average; attendance_percentage = safe_float(attendance.get("attendance_percentage")); grading = _grading_payload(class_level)
     return {
         "record_id": record_id, "student_key": student_key, "admission_number": admission, "full_name": full_name, "sex": clean(report.get("sex")),
-        "session": academic_session, "term": term, "term_label": academic_term_label(term), "class_level": class_level, "class_arm": class_arm, "result_year": clean(report.get("result_year")),
+        "session": academic_session, "term": term, "term_label": "Cumulative / Annual" if record_variant == "cumulative" else academic_term_label(term), "class_level": class_level, "class_arm": class_arm, "result_year": clean(report.get("result_year")), "record_variant": record_variant, "report_variant": report_variant, "document_label": "Annual Cumulative Report" if record_variant == "cumulative" else ("Third Term Final Decision" if record_variant == "third_term_decision" else academic_term_label(term)),
         "snapshot_id": clean(snapshot.get("snapshot_id")), "result_name": clean(snapshot.get("result_name") or report.get("result_name")), "generated_at": clean(snapshot.get("generated_at")) or now_iso(), "generated_by": clean(snapshot.get("generated_by")) or "Staff",
         "source_mode": clean(report.get("source_mode") or snapshot.get("source_mode") or "auto"), "academic_complete": bool(report.get("academic_complete")), "subject_count": len(subjects), "subjects_complete": int(report.get("subjects_complete") or sum(1 for row in subjects if isinstance(row, dict) and row.get("complete"))),
         "total_score": total_score, "maximum_score": maximum_score, "score_percentage": score_percentage, "average": average, "grade": clean(report.get("grade")) or _class_grade(average, class_level)[0], "grading_system": grading.get("system"), "grading_ready": grading.get("ready"), "position": int(report.get("position") or 0), "position_text": clean(report.get("position_text")) or "--", "out_of": int(report.get("out_of") or 0), "attendance_percentage": attendance_percentage,
@@ -218,11 +221,11 @@ def _session_sort(value):
     except Exception: return 0
 
 
-def _record_sort(row): return (_session_sort(row.get("session")), TERM_ORDER.get(normalize_academic_term(row.get("term")), 0), clean(row.get("generated_at")))
+def _record_sort(row): return (_session_sort(row.get("session")), TERM_ORDER.get(normalize_academic_term(row.get("term")), 0), 1 if clean(row.get("record_variant")).lower() == "cumulative" else 0, clean(row.get("generated_at")))
 
 
 def _summary_record(record):
-    summary = {key: record.get(key) for key in ("record_id", "student_key", "admission_number", "full_name", "sex", "session", "term", "term_label", "class_level", "class_arm", "result_year", "snapshot_id", "result_name", "generated_at", "source_mode", "academic_complete", "subject_count", "subjects_complete", "total_score", "maximum_score", "score_percentage", "average", "grade", "position", "position_text", "out_of", "attendance_percentage", "revision_count", "grading_system", "grading_ready")}; bundle = _score_bundle(record); summary["total_score"], summary["maximum_score"], summary["score_percentage"] = bundle.get("score"), bundle.get("maximum"), bundle.get("percentage"); summary["score_ratio"] = _score_ratio(bundle.get("score"), bundle.get("maximum")); return summary
+    summary = {key: record.get(key) for key in ("record_id", "student_key", "admission_number", "full_name", "sex", "session", "term", "term_label", "class_level", "class_arm", "result_year", "snapshot_id", "result_name", "generated_at", "generated_by", "source_mode", "academic_complete", "subject_count", "subjects_complete", "total_score", "maximum_score", "score_percentage", "average", "grade", "position", "position_text", "out_of", "attendance_percentage", "revision_count", "grading_system", "grading_ready", "record_variant", "report_variant", "document_label")}; bundle = _score_bundle(record); summary["total_score"], summary["maximum_score"], summary["score_percentage"] = bundle.get("score"), bundle.get("maximum"), bundle.get("percentage"); summary["score_ratio"] = _score_ratio(bundle.get("score"), bundle.get("maximum")); summary["record_variant"] = clean(record.get("record_variant") or "standard").lower(); summary["document_label"] = clean(record.get("document_label")) or ("Annual Cumulative Report" if summary["record_variant"] == "cumulative" else academic_term_label(record.get("term"))); return summary
 
 
 def _student_profile(admission, records):
@@ -238,22 +241,23 @@ def dashboard_summary(records):
     return {"students": len(students), "term_records": len(records), "sessions": len(sessions), "session_values": sessions, "complete_records": complete, "partial_records": max(0, len(records) - complete), "average": round(sum(averages) / len(averages), 2) if averages else None, "revisions": len(read_revisions())}
 
 
-def search_history(query_text="", academic_session="", class_level="", term="", limit=200):
-    ensure_history_bootstrap(); token = clean(query_text).lower(); academic_session = normalize_academic_session(academic_session); class_level = clean_upper(class_level); term = normalize_academic_term(term); rows = read_academic_records()
+def search_history(query_text="", academic_session="", class_level="", term="", limit=200, record_type=""):
+    ensure_history_bootstrap(); token = clean(query_text).lower(); academic_session = normalize_academic_session(academic_session); class_level = clean_upper(class_level); term = normalize_academic_term(term); record_type=clean(record_type).lower(); rows = read_academic_records()
     filtered = []
     for row in rows:
-        haystack = f"{row.get('admission_number','')} {row.get('full_name','')} {row.get('class_level','')} {row.get('class_arm','')} {row.get('session','')}".lower()
+        haystack = f"{row.get('admission_number','')} {row.get('full_name','')} {row.get('class_level','')} {row.get('class_arm','')} {row.get('session','')} {row.get('document_label','')}".lower()
         if token and token not in haystack: continue
         if academic_session and clean(row.get("session")) != academic_session: continue
         if class_level and clean_upper(row.get("class_level")) != class_level: continue
         if term and normalize_academic_term(row.get("term")) != term: continue
+        if record_type and record_type != "all" and clean(row.get("record_variant") or "standard").lower() != record_type: continue
         filtered.append(row)
     filtered.sort(key=_record_sort, reverse=True); filtered = filtered[:max(1, min(int(limit or 200), 500))]
     return [_summary_record(row) for row in filtered]
 
 
 def student_history(admission_number, student_key=""):
-    ensure_history_bootstrap(); admission = normalize_admission_number(admission_number); requested_key = clean(student_key); rows = [row for row in read_academic_records() if normalize_admission_number(row.get("admission_number")) == admission]
+    ensure_history_bootstrap(); admission = normalize_admission_number(admission_number); requested_key = clean(student_key); all_rows = [row for row in read_academic_records() if normalize_admission_number(row.get("admission_number")) == admission]; rows = [row for row in all_rows if clean(row.get("record_variant") or "standard").lower() == "standard"]
     identities = {}
     for row in rows:
         key = clean(row.get("student_key")); identities.setdefault(key, {"student_key": key, "full_name": clean(row.get("full_name")), "sex": clean(row.get("sex")), "records": 0}); identities[key]["records"] += 1
@@ -262,7 +266,8 @@ def student_history(admission_number, student_key=""):
     rows.sort(key=_record_sort, reverse=True); profile = _student_profile(admission, rows); sessions = []
     for session_value in sorted({clean(row.get("session")) for row in rows}, key=_session_sort, reverse=True):
         period_rows = [row for row in rows if clean(row.get("session")) == session_value]; period_rows.sort(key=lambda row: TERM_ORDER.get(normalize_academic_term(row.get("term")), 0)); averages = [safe_float(row.get("average")) for row in period_rows]; averages = [value for value in averages if value is not None]; bundles = [_score_bundle(row) for row in period_rows]; annual_score = round(sum(float(item["score"]) for item in bundles if item.get("score") is not None), 2) if any(item.get("score") is not None for item in bundles) else None; annual_max = round(sum(float(item["maximum"]) for item in bundles if item.get("score") is not None and item.get("maximum")), 2) if annual_score is not None else None; sessions.append({"session": session_value, "class_level": clean(period_rows[-1].get("class_level")) if period_rows else "", "class_arm": clean(period_rows[-1].get("class_arm")) if period_rows else "", "terms": [_summary_record(row) for row in period_rows], "annual_score": annual_score, "annual_max": annual_max, "annual_score_percentage": round(annual_score / annual_max * 100, 2) if annual_score is not None and annual_max else None, "annual_average": round(sum(averages) / len(averages), 2) if averages else None, "terms_available": len(averages)})
-    return {"profile": profile, "identities": list(identities.values()), "ambiguous_identity": len(identities) > 1 and not requested_key, "records": [_summary_record(row) for row in rows], "sessions": sessions}
+    documents = [row for row in all_rows if clean(row.get("record_variant") or "standard").lower() != "standard" and (not requested_key or clean(row.get("student_key")) == requested_key)]; documents.sort(key=_record_sort, reverse=True)
+    return {"profile": profile, "identities": list(identities.values()), "ambiguous_identity": len(identities) > 1 and not requested_key, "records": [_summary_record(row) for row in rows], "archived_documents": [_summary_record(row) for row in documents], "sessions": sessions}
 
 
 
@@ -294,9 +299,9 @@ def build_student_transcript(admission_number, student_key=""):
     identities = {}
     for row in all_rows:
         key = clean(row.get("student_key")); identities.setdefault(key, {"student_key": key, "full_name": clean(row.get("full_name")), "sex": clean(row.get("sex")), "records": 0}); identities[key]["records"] += 1
-    if requested_key: rows = [row for row in all_rows if clean(row.get("student_key")) == requested_key]
-    elif len(identities) == 1: requested_key = next(iter(identities)); rows = [row for row in all_rows if clean(row.get("student_key")) == requested_key]
-    else: rows = all_rows
+    if requested_key: rows = [row for row in all_rows if clean(row.get("student_key")) == requested_key and clean(row.get("record_variant") or "standard").lower() == "standard"]
+    elif len(identities) == 1: requested_key = next(iter(identities)); rows = [row for row in all_rows if clean(row.get("student_key")) == requested_key and clean(row.get("record_variant") or "standard").lower() == "standard"]
+    else: rows = [row for row in all_rows if clean(row.get("record_variant") or "standard").lower() == "standard"]
     if len(identities) > 1 and not requested_key: return {"ambiguous_identity": True, "identities": list(identities.values()), "profile": {"admission_number": admission}, "sessions": []}
     rows.sort(key=_record_sort); profile = _student_profile(admission, rows); sessions = []
     for session_value in sorted({clean(row.get("session")) for row in rows if clean(row.get("session"))}, key=_session_sort):
@@ -341,6 +346,56 @@ def get_record(record_id):
     return next((row for row in read_academic_records() if clean(row.get("record_id")) == rid), None)
 
 
+# ============================================================
+# ARCHIVE ADMINISTRATION — transcript saves, batch exports and destructive cleanup
+# ============================================================
+
+def _append_jsonl(path, row):
+    ensure_history_dir();
+    with path.open("a", encoding="utf-8") as file: file.write(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+def save_transcript_reference(admission_number, student_key="", reason="manual", snapshot_id=""):
+    transcript = build_student_transcript(admission_number, student_key)
+    if transcript.get("ambiguous_identity") or not transcript.get("sessions"): return None
+    profile = transcript.get("profile") or {}; reference = f"EMIS-TR-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}-{normalize_admission_number(admission_number).upper()}"; row = {"reference": reference, "saved_at": now_iso(), "saved_by": clean(session.get("admin_username") or session.get("username") or session.get("teacher_id") or "Staff"), "admission_number": normalize_admission_number(admission_number), "student_key": clean(student_key or profile.get("student_key")), "full_name": clean(profile.get("full_name")), "snapshot_id": clean(snapshot_id), "reason": clean(reason or "manual"), "sessions": len(transcript.get("sessions") or [])}; _append_jsonl(TRANSCRIPT_SAVE_FILE, row); return row
+
+def delete_history_scope(academic_session="", term="", class_level="", class_arm="", delete_all=False):
+    academic_session = normalize_academic_session(academic_session); term = normalize_academic_term(term); level, arm = clean_upper(class_level), clean_upper(class_arm)
+    with HISTORY_LOCK:
+        records = _read_jsonl(RECORD_FILE); revisions = _read_jsonl(REVISION_FILE)
+        def matches(row):
+            if delete_all: return True
+            if academic_session and clean(row.get("session")) != academic_session: return False
+            if term and normalize_academic_term(row.get("term")) != term: return False
+            if level and clean_upper(row.get("class_level")) != level: return False
+            if arm and clean_upper(row.get("class_arm")) != arm: return False
+            return bool(academic_session or term or level or arm)
+        removed_records = [row for row in records if matches(row)]; removed_ids = {clean(row.get("record_id")) for row in removed_records}; kept_records = [row for row in records if not matches(row)]; kept_revisions = [] if delete_all else [row for row in revisions if clean(row.get("record_id")) not in removed_ids and not matches(row.get("record") or row)]
+        _write_jsonl(RECORD_FILE, kept_records); _write_jsonl(REVISION_FILE, kept_revisions)
+        if delete_all and TRANSCRIPT_SAVE_FILE.exists(): TRANSCRIPT_SAVE_FILE.write_text("", encoding="utf-8")
+    return {"deleted_history_records": len(removed_records), "deleted_revision_records": len(revisions) - len(kept_revisions)}
+
+def _parse_csv_tokens(value): return [clean(item) for item in clean(value).replace(";", ",").split(",") if clean(item)]
+
+def _batch_transcripts_from_request():
+    admissions, keys = _parse_csv_tokens(request.args.get("admissions")), _parse_csv_tokens(request.args.get("student_keys")); session_filter, level_filter, arm_filter = normalize_academic_session(request.args.get("session")), clean_upper(request.args.get("class_level")), clean_upper(request.args.get("class_arm")); records = read_academic_records(); identities = []
+    if admissions:
+        for index, admission in enumerate(admissions): identities.append((normalize_admission_number(admission), keys[index] if index < len(keys) else ""))
+    else:
+        seen = set()
+        for row in records:
+            if clean(row.get("record_variant") or "standard").lower() != "standard": continue
+            if session_filter and clean(row.get("session")) != session_filter: continue
+            if level_filter and clean_upper(row.get("class_level")) != level_filter: continue
+            if arm_filter and clean_upper(row.get("class_arm")) != arm_filter: continue
+            pair = (normalize_admission_number(row.get("admission_number")), clean(row.get("student_key")))
+            if pair[0] and pair not in seen: seen.add(pair); identities.append(pair)
+    transcripts = []
+    for admission, student_key in identities:
+        data = build_student_transcript(admission, student_key)
+        if data.get("sessions") and not data.get("ambiguous_identity"): transcripts.append(data)
+    return transcripts
+
 def apply_academic_history_sync_event(action, payload, event=None):
     if not isinstance(payload, dict): raise ValueError("Academic History sync payload must be an object.")
     action = clean(action).lower()
@@ -355,13 +410,13 @@ def apply_academic_history_sync_event(action, payload, event=None):
 @academic_history_bp.route("/api/academic-history/config")
 @admin_required
 def api_history_config():
-    ensure_history_bootstrap(); records = read_academic_records(); configured = [clean_upper(value) for value in list(STUDENT_DATABASE_CLASSES) + list(TAHFEEZ_CLASSES)]; archived = sorted({clean_upper(row.get("class_level")) for row in records if clean(row.get("class_level"))}); classes = list(dict.fromkeys(configured + archived)); return jsonify({"success": True, "dashboard": dashboard_summary(records), "classes": classes, "class_labels": {level: CLASS_LABELS.get(level, level) for level in classes}, "archived_classes": archived, "terms": ["FIRST", "SECOND", "THIRD"]})
+    ensure_history_bootstrap(); records = read_academic_records(); configured = [clean_upper(value) for value in list(STUDENT_DATABASE_CLASSES) + list(TAHFEEZ_CLASSES)]; archived = sorted({clean_upper(row.get("class_level")) for row in records if clean(row.get("class_level"))}); classes = list(dict.fromkeys(configured + archived)); dashboard = dashboard_summary([row for row in records if clean(row.get("record_variant") or "standard").lower() == "standard"]); dashboard["archived_documents"] = sum(1 for row in records if clean(row.get("record_variant") or "standard").lower() != "standard"); return jsonify({"success": True, "dashboard": dashboard, "classes": classes, "class_labels": {level: CLASS_LABELS.get(level, level) for level in classes}, "archived_classes": archived, "terms": ["FIRST", "SECOND", "THIRD"]})
 
 
 @academic_history_bp.route("/api/academic-history/search")
 @admin_required
 def api_history_search():
-    rows = search_history(request.args.get("q"), request.args.get("session"), request.args.get("class_level"), request.args.get("term"), request.args.get("limit", 200)); return jsonify({"success": True, "count": len(rows), "records": rows})
+    rows = search_history(request.args.get("q"), request.args.get("session"), request.args.get("class_level"), request.args.get("term"), request.args.get("limit", 500), request.args.get("record_type")); return jsonify({"success": True, "count": len(rows), "records": rows})
 
 
 @academic_history_bp.route("/api/academic-history/student/<admission_number>")
@@ -381,7 +436,7 @@ def api_history_record(record_id):
 @academic_history_bp.route("/api/academic-history/rebuild", methods=["POST"])
 @admin_required
 def api_history_rebuild():
-    result = rebuild_archive_from_snapshots(queue_sync=True); return jsonify({"success": True, "message": f"Academic archive rebuilt from {result['snapshots']} saved report snapshot(s).", **result, "dashboard": dashboard_summary(read_academic_records())})
+    result = rebuild_archive_from_snapshots(queue_sync=True); rows=read_academic_records(); dashboard=dashboard_summary([row for row in rows if clean(row.get("record_variant") or "standard").lower()=="standard"]); dashboard["archived_documents"]=sum(1 for row in rows if clean(row.get("record_variant") or "standard").lower()!="standard"); return jsonify({"success": True, "message": f"Academic archive rebuilt from {result['snapshots']} saved report snapshot(s).", **result, "dashboard": dashboard})
 
 
 
@@ -402,6 +457,32 @@ def api_student_transcript_export(admission_number):
     if not transcript.get("sessions"): return jsonify({"success": False, "message": "No archived academic records were found for this student."}), 404
     workbook = build_transcript_workbook(transcript); output = io.BytesIO(); workbook.save(output); output.seek(0); profile = transcript.get("profile") or {}; safe_name = "_".join(clean(profile.get("full_name") or admission_number).split()) or normalize_admission_number(admission_number)
     return send_file(output, as_attachment=True, download_name=f"{safe_name}_Academic_Transcript.xlsx", mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
+@academic_history_bp.route("/api/academic-history/transcript/save", methods=["POST"])
+@admin_required
+def api_transcript_save():
+    data = request.get_json(silent=True) or {}; students = data.get("students") if isinstance(data.get("students"), list) else []; saved = []
+    for item in students:
+        if not isinstance(item, dict): continue
+        row = save_transcript_reference(item.get("admission_number"), item.get("student_key"), data.get("reason") or "report_sheet_action", item.get("snapshot_id"))
+        if row: saved.append(row)
+    return jsonify({"success": True, "count": len(saved), "saved": saved, "message": f"{len(saved)} transcript reference(s) saved to Academic History."})
+
+@academic_history_bp.route("/api/academic-history/transcripts/batch-preview")
+@admin_required
+def api_transcript_batch_preview():
+    transcripts = _batch_transcripts_from_request(); return jsonify({"success": True, "count": len(transcripts), "transcripts": transcripts})
+
+@academic_history_bp.route("/api/academic-history/transcripts/batch-export")
+@admin_required
+def api_transcript_batch_export():
+    transcripts = _batch_transcripts_from_request()
+    if not transcripts: return jsonify({"success": False, "message": "No archived student transcripts matched the selected scope."}), 404
+    output = io.BytesIO()
+    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        for index, transcript in enumerate(transcripts, 1):
+            book = build_transcript_workbook(transcript); item = io.BytesIO(); book.save(item); profile = transcript.get("profile") or {}; stem = "_".join(clean(profile.get("full_name") or profile.get("admission_number") or f"Student_{index}").split()); archive.writestr(f"{stem}_Academic_Transcript.xlsx", item.getvalue())
+    output.seek(0); return send_file(output, as_attachment=True, download_name="EMIS_Selected_Academic_Archive.zip", mimetype="application/zip")
 
 @academic_history_bp.route("/api/academic-history/export/<admission_number>")
 @admin_required
