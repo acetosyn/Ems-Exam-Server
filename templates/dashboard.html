@@ -2,11 +2,11 @@
 {% block title %}{% if user_type == 'admin' %}EMIS Admin Dashboard{% elif user_type == 'teacher_admin' %}EMIS Teacher Admin Dashboard{% elif user_type == 'islamiyyah_teacher' %}EMIS Islamiyyah Dashboard{% else %}EMIS Teacher Dashboard{% endif %} — Live Control Center{% endblock %}
 
 {% block late_styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_transform.css', v='20261016-launcher3-sage10') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_transform.css', v='20261021-quicklinks-v4-mist') }}">
 {% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}?v=20261016-launcher3-sage10">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}?v=20261021-quicklinks-v4-mist">
 {% endblock %}
 
 {% block content %}

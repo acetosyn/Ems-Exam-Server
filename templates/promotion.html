@@ -3,12 +3,15 @@
 {% block title %}EMIS — Students & Classes{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=20-visual-refresh">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}?v=23-tight-class-context">
 {% endblock %}
 
 {% block content %}
 
-<div class="promotion-page fade-in">
+<div class="promotion-page student-page-visual-upgrade fade-in">
 
   <!-- =========================================================
        PAGE HEADER
@@ -24,7 +27,6 @@
           <span class="promotion-live-badge"><span class="live-dot"></span> Live Database</span>
         </div>
 
-        <p>Manage every active regular-school student class and school progression from one database workspace. Tahfeez and Islamiyyah are managed in their dedicated Academy page.</p>
       </div>
     </div>
 
@@ -54,36 +56,41 @@
 
 
   <!-- =========================================================
-       CLASS SNAPSHOT — ONE DYNAMIC CARD, NOT 17 STATIC CARDS
+       COMPACT CLASS CONTEXT — ONE TIGHT STATUS STRIP
   ========================================================== -->
-  <section class="class-snapshot-shell" id="summaryGrid" aria-label="Student class overview">
-    <article id="classSummarySpotlight" class="class-snapshot-card" data-class="CRECHE" tabindex="0" role="button" aria-label="Open the class shown in this snapshot">
-      <div class="class-snapshot-main"><span id="summarySpotlightIcon" class="class-snapshot-icon early"><i class="fa-solid fa-users"></i></span><div class="class-snapshot-copy"><span class="snapshot-eyebrow">Class Snapshot</span><div class="snapshot-title-row"><strong id="summaryClassName">Creche</strong><span id="summaryClassPosition">1 of 17</span></div><p id="summaryClassMeta">Live student count • select this snapshot to open the class</p></div></div>
-      <div class="class-snapshot-count"><span>Students</span><strong id="summaryClassCount">0</strong></div>
+  <section id="summaryGrid" class="student-class-context compact-context-strip" aria-label="Selected class overview">
+    <article id="classSummarySpotlight" class="class-context-main context-primary" data-class="CRECHE" tabindex="0" role="button" aria-label="Open the class shown in this snapshot">
+      <span id="summarySpotlightIcon" class="class-snapshot-icon early"><i class="fa-solid fa-users"></i></span>
+      <div class="context-primary-copy"><span class="snapshot-eyebrow">Selected Class</span><div class="snapshot-title-row"><strong id="summaryClassName">Creche</strong><span id="summaryClassPosition">1 of 17</span></div><p id="summaryClassMeta">Live roster</p></div>
+      <div class="context-student-count"><strong id="summaryClassCount">0</strong><span>Students</span></div>
       <div class="class-snapshot-controls"><button id="summaryPrevClass" type="button" aria-label="Previous class" title="Previous class"><i class="fa-solid fa-chevron-left"></i></button><span class="snapshot-auto"><i class="fa-solid fa-circle-play"></i> Auto</span><button id="summaryNextClass" type="button" aria-label="Next class" title="Next class"><i class="fa-solid fa-chevron-right"></i></button></div>
     </article>
+
+    <div id="hybridClassBar" class="context-tile context-mapping purple">
+      <span class="context-mini-icon purple"><i class="fa-solid fa-layer-group"></i></span>
+      <div class="context-tile-copy"><span>Hybrid</span><strong><b id="hybridCurrentBasic">Creche</b><i class="fa-solid fa-arrow-right-arrow-left"></i><em id="hybridCurrentTraditional">Early Years</em></strong><small id="hybridClassNote">Selected class naming</small></div>
+    </div>
+
+    <div class="context-tile context-flow teal">
+      <span class="context-mini-icon teal"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+      <div class="context-tile-copy"><span>Transition</span><strong><b id="transitionPrevious">—</b><i class="fa-solid fa-chevron-right"></i><em id="transitionCurrent">Creche</em><i class="fa-solid fa-chevron-right"></i><b id="transitionNext">Starter</b></strong><small id="transitionNote">Previous • Current • Next</small></div>
+    </div>
+
+    <div class="context-tile context-health green">
+      <span class="context-mini-icon green"><i class="fa-solid fa-heart-pulse"></i></span>
+      <div class="context-tile-copy"><span>Class Health</span><strong class="context-health-line"><b><i class="fa-solid fa-user-group"></i><span id="classHealthTotal">0</span></b><b><i class="fa-solid fa-layer-group"></i><span id="classHealthArms">0</span></b><b><i class="fa-solid fa-venus-mars"></i><span id="classHealthSex">0 / 0</span></b></strong><small id="classHealthNote">Roster quality</small><span id="classHealthReview" class="context-hidden-metric">0</span></div>
+    </div>
+
+    <div class="context-tile context-destination gold">
+      <span class="context-mini-icon gold"><i class="fa-solid fa-location-arrow"></i></span>
+      <div class="context-tile-copy"><span>Next</span><strong id="destinationReadinessClass">Starter</strong><small id="destinationReadinessCount">0 students</small><span id="destinationReadinessNote" class="context-hidden-metric">Ready for promotion planning</span></div>
+    </div>
+
+    <details class="context-roadmap compact-roadmap" aria-label="Recommended promotion order">
+      <summary title="View full promotion path"><i class="fa-solid fa-route"></i><span>Path</span><i class="fa-solid fa-chevron-down"></i></summary>
+      <div><p id="promotionRoadmapHint">Creche to SS3 progression guidance with live class counts and safe sequencing.</p><div id="promotionRoadmap" class="promotion-roadmap"></div></div>
+    </details>
   </section>
-
-  <section class="hybrid-class-bar" id="hybridClassBar" aria-label="Hybrid class system">
-    <div class="hybrid-bar-label"><span class="hybrid-bar-icon"><i class="fa-solid fa-layer-group"></i></span><div><strong>Hybrid Class System</strong><small>Selected class naming</small></div></div>
-    <div class="hybrid-current-map"><strong id="hybridCurrentBasic">Creche</strong><i class="fa-solid fa-arrow-right-arrow-left"></i><span id="hybridCurrentTraditional">Early Years</span></div>
-    <span id="hybridClassNote" class="hybrid-bar-note">The mapping updates automatically with the selected class.</span>
-  </section>
-
-  <details class="promotion-roadmap-panel" aria-label="Recommended promotion order">
-    <summary class="promotion-roadmap-head"><div><span class="section-icon"><i class="fa-solid fa-route"></i></span><div><h2>Full School Promotion Path</h2><p id="promotionRoadmapHint">Creche to SS3 progression guidance with live class counts and safe upper-class-first sequencing.</p></div></div><span class="roadmap-expand">View full path <i class="fa-solid fa-chevron-down"></i></span></summary>
-    <div id="promotionRoadmap" class="promotion-roadmap"></div>
-  </details>
-
-  <!-- =========================================================
-       CLASS OPERATIONS CONTROL DECK
-  ========================================================== -->
-  <section class="class-operations-deck" aria-label="Selected class operations overview">
-    <article class="class-operation-card transition-card"><div class="operation-card-head"><span><i class="fa-solid fa-arrow-right-arrow-left"></i></span><div><strong>Class Transition</strong><small>Previous • current • next</small></div></div><div class="transition-flow"><div><span>Previous</span><strong id="transitionPrevious">—</strong></div><i class="fa-solid fa-chevron-right"></i><div class="current"><span>Current</span><strong id="transitionCurrent">Creche</strong></div><i class="fa-solid fa-chevron-right"></i><div><span>Next</span><strong id="transitionNext">Starter</strong></div></div><p id="transitionNote">Universal promotion is enabled for every regular-school class.</p></article>
-    <article class="class-operation-card health-card"><div class="operation-card-head"><span><i class="fa-solid fa-heart-pulse"></i></span><div><strong>Class Health</strong><small>Live roster quality</small></div></div><div class="operation-metrics"><div><span>Students</span><strong id="classHealthTotal">0</strong></div><div><span>Arms</span><strong id="classHealthArms">0</strong></div><div><span>Male / Female</span><strong id="classHealthSex">0 / 0</strong></div><div><span>Needs Review</span><strong id="classHealthReview">0</strong></div></div><p id="classHealthNote">Class roster health updates with the selected class.</p></article>
-    <article class="class-operation-card destination-card"><div class="operation-card-head"><span><i class="fa-solid fa-location-arrow"></i></span><div><strong>Destination Readiness</strong><small>Before you promote</small></div></div><div class="destination-readiness"><div><span>Destination</span><strong id="destinationReadinessClass">Starter</strong></div><div><span>Current Occupancy</span><strong id="destinationReadinessCount">0 students</strong></div></div><p id="destinationReadinessNote">EMIS preserves compatible arms and balances unmatched transitions automatically.</p></article>
-  </section>
-
 
   <!-- =========================================================
        STUDENT DATABASE FILTERS
@@ -196,6 +203,11 @@
           </div>
 
           <p id="tableSubtitle">Loading Starter student records...</p>
+          <div class="student-table-ambience">
+            <span class="ambience-pill green"><i class="fa-solid fa-circle-nodes"></i> Live roster</span>
+            <span class="ambience-pill blue"><i class="fa-solid fa-book-open-reader"></i> Teacher-friendly</span>
+            <span class="ambience-pill amber"><i class="fa-solid fa-bolt"></i> Quick actions</span>
+          </div>
         </div>
       </div>
 
@@ -1071,7 +1083,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/student_database.js') }}?v=19-universal-progression"></script>
+<script src="{{ url_for('static', filename='js/student_database.js') }}?v=23-tight-class-context"></script>
 <script src="{{ url_for('static', filename='js/promotion.js') }}?v=19-universal-progression"></script>
 <script src="{{ url_for('static', filename='js/promotion_import.js') }}?v=13-flex-placement"></script>
 {% endblock %}
