@@ -25,7 +25,7 @@
   <!-- ============================================================
        GLOBAL EMIS CSS
   ============================================================ -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin1.css') }}?v=20261021-sidebarfast1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin1.css') }}?v=20261021-sidebarhover2">
 
   {% block styles %}{% endblock %}
 
@@ -108,27 +108,27 @@
 
           {% if staff_role == 'admin' %}
             <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="active-role"><i class="fa-solid fa-shield-halved"></i><span>Admin ({{ session.get('username') }})</span></a>
-            <a href="{{ url_for('admin_bp.admin_promotion') }}"><i class="fa-solid fa-users"></i><span>Students & Classes</span></a>
+            <a href="{{ url_for('admin_bp.admin_promotion') }}"><i class="fa-solid fa-user-group"></i><span>Students & Classes</span></a>
             <a href="{{ url_for('admin_bp.admin_islamiyah') }}"><i class="fa-solid fa-mosque"></i><span>Tahfeez &amp; Islamiyyah</span></a>
-            <a href="{{ url_for('admin_bp.admin_attendance') }}"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+            <a href="{{ url_for('admin_bp.admin_attendance') }}"><i class="fa-solid fa-calendar-days"></i><span>Attendance</span></a>
             <a href="{{ url_for('admin_bp.admin_ca_tests') }}"><i class="fa-solid fa-clipboard-list"></i><span>CA Tests</span></a>
-            <a href="{{ url_for('admin_bp.admin_results') }}"><i class="fa-solid fa-square-poll-vertical"></i><span>Exam Results</span></a>
+            <a href="{{ url_for('admin_bp.admin_results') }}"><i class="fa-solid fa-chart-column"></i><span>Exam Results</span></a>
             <a href="{{ url_for('admin_bp.admin_report_sheets') }}"><i class="fa-solid fa-file-lines"></i><span>Report Sheets</span></a>
-            <a href="{{ url_for('admin_bp.admin_academic_history') }}"><i class="fa-solid fa-box-archive"></i><span>History &amp; Broadsheets</span></a>
-            <a href="{{ url_for('admin_bp.admin_teachers') }}"><i class="fa-solid fa-sliders"></i><span>Academic Admin</span></a>
-            <a href="{{ url_for('admin_bp.admin_settings') }}"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="{{ url_for('admin_bp.admin_academic_history') }}"><i class="fa-solid fa-clock-rotate-left"></i><span>History &amp; Broadsheets</span></a>
+            <a href="{{ url_for('admin_bp.admin_teachers') }}"><i class="fa-solid fa-user-gear"></i><span>Academic Admin</span></a>
+            <a href="{{ url_for('admin_bp.admin_settings') }}"><i class="fa-solid fa-gears"></i><span>Settings</span></a>
           {% elif staff_role in ['teacher_admin','teacher'] %}
             <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="active-role"><i class="fa-solid {% if staff_role == 'teacher_admin' %}fa-user-shield{% else %}fa-chalkboard-user{% endif %}"></i><span>{% if staff_role == 'teacher_admin' %}Teacher Admin{% else %}Teacher{% endif %} ({{ session.get('teacher_id') }})</span></a>
-            <a href="{{ url_for('admin_bp.admin_promotion') }}"><i class="fa-solid fa-users"></i><span>Students & Classes</span></a>
-            <a href="{{ url_for('admin_bp.admin_attendance') }}"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+            <a href="{{ url_for('admin_bp.admin_promotion') }}"><i class="fa-solid fa-user-group"></i><span>Students & Classes</span></a>
+            <a href="{{ url_for('admin_bp.admin_attendance') }}"><i class="fa-solid fa-calendar-days"></i><span>Attendance</span></a>
             <a href="{{ url_for('admin_bp.admin_ca_tests') }}"><i class="fa-solid fa-clipboard-list"></i><span>CA Tests</span></a>
-            <a href="{{ url_for('admin_bp.admin_results') }}"><i class="fa-solid fa-square-poll-vertical"></i><span>Exam Results</span></a>
+            <a href="{{ url_for('admin_bp.admin_results') }}"><i class="fa-solid fa-chart-column"></i><span>Exam Results</span></a>
             <a href="{{ url_for('admin_bp.admin_report_sheets') }}"><i class="fa-solid fa-file-lines"></i><span>Report Sheets</span></a>
-            <a href="{{ url_for('admin_bp.admin_settings') }}"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="{{ url_for('admin_bp.admin_settings') }}"><i class="fa-solid fa-gears"></i><span>Settings</span></a>
             <a href="#" class="disabled-link" aria-disabled="true"><i class="fa-solid fa-lock"></i><span>Academic Admin + Academy + History Restricted</span></a>
           {% elif staff_role == 'islamiyyah_teacher' %}
             <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="active-role"><i class="fa-solid fa-mosque"></i><span>Islamiyyah ({{ session.get('teacher_id') }})</span></a>
-            <a href="{{ url_for('admin_bp.admin_promotion') }}"><i class="fa-solid fa-users"></i><span>Students & Classes</span></a>
+            <a href="{{ url_for('admin_bp.admin_promotion') }}"><i class="fa-solid fa-user-group"></i><span>Students & Classes</span></a>
             <a href="{{ url_for('admin_bp.admin_islamiyah') }}"><i class="fa-solid fa-mosque"></i><span>Tahfeez &amp; Islamiyyah</span></a>
             <a href="#" class="disabled-link" aria-disabled="true"><i class="fa-solid fa-lock"></i><span>Other Modules Restricted</span></a>
           {% else %}
@@ -225,37 +225,37 @@
     <ul class="sidebar-menu">
 
       {% if staff_role == 'admin' %}
-        <li><a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><span class="sidebar-nav-icon nav-dashboard"><i class="fa-solid fa-chart-pie"></i></span><span class="sidebar-nav-label">Dashboard</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-users"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><span class="sidebar-nav-icon nav-dashboard"><i class="fa-solid fa-gauge-high"></i></span><span class="sidebar-nav-label">Dashboard</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-user-group"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_islamiyah') }}" class="{% if request.endpoint == 'admin_bp.admin_islamiyah' %}active{% endif %}"><span class="sidebar-nav-icon nav-ca"><i class="fa-solid fa-mosque"></i></span><span class="sidebar-nav-label">Tahfeez &amp; Islamiyyah</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_attendance') }}" class="{% if request.endpoint == 'admin_bp.admin_attendance' %}active{% endif %}"><span class="sidebar-nav-icon nav-attendance"><i class="fa-solid fa-calendar-check"></i></span><span class="sidebar-nav-label">Attendance</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_attendance') }}" class="{% if request.endpoint == 'admin_bp.admin_attendance' %}active{% endif %}"><span class="sidebar-nav-icon nav-attendance"><i class="fa-solid fa-calendar-days"></i></span><span class="sidebar-nav-label">Attendance</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_ca_tests') }}" class="{% if request.endpoint == 'admin_bp.admin_ca_tests' %}active{% endif %}"><span class="sidebar-nav-icon nav-ca"><i class="fa-solid fa-clipboard-list"></i></span><span class="sidebar-nav-label">CA Tests</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><span class="sidebar-nav-icon nav-results"><i class="fa-solid fa-square-poll-vertical"></i></span><span class="sidebar-nav-label">Results</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><span class="sidebar-nav-icon nav-results"><i class="fa-solid fa-chart-column"></i></span><span class="sidebar-nav-label">Results</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_report_sheets') }}" class="{% if request.endpoint == 'admin_bp.admin_report_sheets' %}active{% endif %}"><span class="sidebar-nav-icon nav-reports"><i class="fa-solid fa-file-lines"></i></span><span class="sidebar-nav-label">Report Sheets</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_academic_history') }}" class="{% if request.endpoint == 'admin_bp.admin_academic_history' %}active{% endif %}"><span class="sidebar-nav-icon nav-history"><i class="fa-solid fa-box-archive"></i></span><span class="sidebar-nav-label">History &amp; Broadsheets</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_teachers') }}" class="{% if request.endpoint == 'admin_bp.admin_teachers' %}active{% endif %}"><span class="sidebar-nav-icon nav-teachers"><i class="fa-solid fa-sliders"></i></span><span class="sidebar-nav-label">Academic Admin</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_settings') }}" class="{% if request.endpoint == 'admin_bp.admin_settings' %}active{% endif %}"><span class="sidebar-nav-icon nav-settings"><i class="fa-solid fa-gear"></i></span><span class="sidebar-nav-label">Settings</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_academic_history') }}" class="{% if request.endpoint == 'admin_bp.admin_academic_history' %}active{% endif %}"><span class="sidebar-nav-icon nav-history"><i class="fa-solid fa-clock-rotate-left"></i></span><span class="sidebar-nav-label">History &amp; Broadsheets</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_teachers') }}" class="{% if request.endpoint == 'admin_bp.admin_teachers' %}active{% endif %}"><span class="sidebar-nav-icon nav-teachers"><i class="fa-solid fa-user-gear"></i></span><span class="sidebar-nav-label">Academic Admin</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_settings') }}" class="{% if request.endpoint == 'admin_bp.admin_settings' %}active{% endif %}"><span class="sidebar-nav-icon nav-settings"><i class="fa-solid fa-gears"></i></span><span class="sidebar-nav-label">Settings</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_support') }}" class="{% if request.endpoint == 'admin_bp.admin_support' %}active{% endif %}"><span class="sidebar-nav-icon nav-support"><i class="fa-solid fa-headset"></i></span><span class="sidebar-nav-label">Support</span></a></li>
       {% elif staff_role == 'teacher_admin' %}
         <li><a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><span class="sidebar-nav-icon nav-dashboard"><i class="fa-solid fa-house"></i></span><span class="sidebar-nav-label">Dashboard</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-users"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_attendance') }}" class="{% if request.endpoint == 'admin_bp.admin_attendance' %}active{% endif %}"><span class="sidebar-nav-icon nav-attendance"><i class="fa-solid fa-calendar-check"></i></span><span class="sidebar-nav-label">Attendance</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-user-group"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_attendance') }}" class="{% if request.endpoint == 'admin_bp.admin_attendance' %}active{% endif %}"><span class="sidebar-nav-icon nav-attendance"><i class="fa-solid fa-calendar-days"></i></span><span class="sidebar-nav-label">Attendance</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_ca_tests') }}" class="{% if request.endpoint == 'admin_bp.admin_ca_tests' %}active{% endif %}"><span class="sidebar-nav-icon nav-ca"><i class="fa-solid fa-clipboard-list"></i></span><span class="sidebar-nav-label">CA Tests</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><span class="sidebar-nav-icon nav-results"><i class="fa-solid fa-square-poll-vertical"></i></span><span class="sidebar-nav-label">Results</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><span class="sidebar-nav-icon nav-results"><i class="fa-solid fa-chart-column"></i></span><span class="sidebar-nav-label">Results</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_report_sheets') }}" class="{% if request.endpoint == 'admin_bp.admin_report_sheets' %}active{% endif %}"><span class="sidebar-nav-icon nav-reports"><i class="fa-solid fa-file-lines"></i></span><span class="sidebar-nav-label">Report Sheets</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_settings') }}" class="{% if request.endpoint == 'admin_bp.admin_settings' %}active{% endif %}"><span class="sidebar-nav-icon nav-settings"><i class="fa-solid fa-gear"></i></span><span class="sidebar-nav-label">Settings</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_settings') }}" class="{% if request.endpoint == 'admin_bp.admin_settings' %}active{% endif %}"><span class="sidebar-nav-icon nav-settings"><i class="fa-solid fa-gears"></i></span><span class="sidebar-nav-label">Settings</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_support') }}" class="{% if request.endpoint == 'admin_bp.admin_support' %}active{% endif %}"><span class="sidebar-nav-icon nav-support"><i class="fa-solid fa-headset"></i></span><span class="sidebar-nav-label">Support</span></a></li>
       {% elif staff_role == 'teacher' %}
         <li><a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><span class="sidebar-nav-icon nav-dashboard"><i class="fa-solid fa-house"></i></span><span class="sidebar-nav-label">Dashboard</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-users"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_attendance') }}" class="{% if request.endpoint == 'admin_bp.admin_attendance' %}active{% endif %}"><span class="sidebar-nav-icon nav-attendance"><i class="fa-solid fa-calendar-check"></i></span><span class="sidebar-nav-label">Attendance</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-user-group"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_attendance') }}" class="{% if request.endpoint == 'admin_bp.admin_attendance' %}active{% endif %}"><span class="sidebar-nav-icon nav-attendance"><i class="fa-solid fa-calendar-days"></i></span><span class="sidebar-nav-label">Attendance</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_ca_tests') }}" class="{% if request.endpoint == 'admin_bp.admin_ca_tests' %}active{% endif %}"><span class="sidebar-nav-icon nav-ca"><i class="fa-solid fa-clipboard-list"></i></span><span class="sidebar-nav-label">CA Tests</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><span class="sidebar-nav-icon nav-results"><i class="fa-solid fa-square-poll-vertical"></i></span><span class="sidebar-nav-label">Results</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><span class="sidebar-nav-icon nav-results"><i class="fa-solid fa-chart-column"></i></span><span class="sidebar-nav-label">Results</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_report_sheets') }}" class="{% if request.endpoint == 'admin_bp.admin_report_sheets' %}active{% endif %}"><span class="sidebar-nav-icon nav-reports"><i class="fa-solid fa-file-lines"></i></span><span class="sidebar-nav-label">Report Sheets</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_support') }}" class="{% if request.endpoint == 'admin_bp.admin_support' %}active{% endif %}"><span class="sidebar-nav-icon nav-support"><i class="fa-solid fa-headset"></i></span><span class="sidebar-nav-label">Support</span></a></li>
       {% elif staff_role == 'islamiyyah_teacher' %}
         <li><a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><span class="sidebar-nav-icon nav-dashboard"><i class="fa-solid fa-house"></i></span><span class="sidebar-nav-label">Dashboard</span></a></li>
-        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-users"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-user-group"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_islamiyah') }}" class="{% if request.endpoint == 'admin_bp.admin_islamiyah' %}active{% endif %}"><span class="sidebar-nav-icon nav-ca"><i class="fa-solid fa-mosque"></i></span><span class="sidebar-nav-label">Tahfeez &amp; Islamiyyah</span></a></li>
       {% endif %}
 
@@ -313,17 +313,17 @@
   <nav class="emis-mobile-dock" aria-label="Mobile quick navigation">
     {% if staff_role == 'admin' %}
       <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><i class="fa-solid fa-house"></i><span>Home</span></a>
-      <a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><i class="fa-solid fa-users"></i><span>Students</span></a>
-      <a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+      <a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><i class="fa-solid fa-user-group"></i><span>Students</span></a>
+      <a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><i class="fa-solid fa-chart-column"></i><span>Results</span></a>
       <a href="{{ url_for('admin_bp.admin_report_sheets') }}" class="{% if request.endpoint == 'admin_bp.admin_report_sheets' %}active{% endif %}"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
     {% elif staff_role in ['teacher_admin','teacher'] %}
       <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><i class="fa-solid fa-house"></i><span>Home</span></a>
-      <a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><i class="fa-solid fa-users"></i><span>Students</span></a>
-      <a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+      <a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><i class="fa-solid fa-user-group"></i><span>Students</span></a>
+      <a href="{{ url_for('admin_bp.admin_results') }}" class="{% if request.endpoint == 'admin_bp.admin_results' %}active{% endif %}"><i class="fa-solid fa-chart-column"></i><span>Results</span></a>
       <a href="{{ url_for('admin_bp.admin_report_sheets') }}" class="{% if request.endpoint == 'admin_bp.admin_report_sheets' %}active{% endif %}"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
     {% elif staff_role == 'islamiyyah_teacher' %}
       <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><i class="fa-solid fa-house"></i><span>Home</span></a>
-      <a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><i class="fa-solid fa-users"></i><span>Students</span></a>
+      <a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><i class="fa-solid fa-user-group"></i><span>Students</span></a>
       <a href="{{ url_for('admin_bp.admin_islamiyah') }}" class="{% if request.endpoint == 'admin_bp.admin_islamiyah' %}active{% endif %}"><i class="fa-solid fa-mosque"></i><span>Academy</span></a>
     {% endif %}
     <button id="mobileMoreBtn" type="button" aria-label="Open all modules" aria-expanded="false" aria-controls="sidebar"><i class="fa-solid fa-grip"></i><span>More</span></button>

@@ -3146,3 +3146,57 @@ body.dark .class-arm-badge {
   .base-brand-text { min-width:0; padding:4px 7px 4px 9px; border-radius:9px; }
   .base-brand-text strong { font-size:.84rem !important; }
 }
+
+
+/* ==========================================================
+   SIDEBAR PREMIUM HOVER + ICON POLISH — 2026-10-21
+   ----------------------------------------------------------
+   Each navigation item keeps a distinct accent while the active
+   EMIS theme contributes a restrained secondary tint. Hover is
+   intentionally luminous, not loud: quick lift, edge highlight,
+   icon halo and label clarity without a color-riot effect.
+========================================================== */
+html[data-emis-theme="snow"]{--sb-theme-hover:#22d3ee;--sb-theme-glow:rgba(34,211,238,.16)}
+html[data-emis-theme="ocean"]{--sb-theme-hover:#a78bfa;--sb-theme-glow:rgba(167,139,250,.17)}
+html[data-emis-theme="emerald"]{--sb-theme-hover:#f59e0b;--sb-theme-glow:rgba(245,158,11,.15)}
+html[data-emis-theme="royal"]{--sb-theme-hover:#2dd4bf;--sb-theme-glow:rgba(45,212,191,.16)}
+html[data-emis-theme="ruby"]{--sb-theme-hover:#38bdf8;--sb-theme-glow:rgba(56,189,248,.17)}
+html[data-emis-theme="amber"]{--sb-theme-hover:#c084fc;--sb-theme-glow:rgba(192,132,252,.16)}
+html[data-emis-theme="aqua"]{--sb-theme-hover:#fb7185;--sb-theme-glow:rgba(251,113,133,.15)}
+html[data-emis-theme="midnight"]{--sb-theme-hover:#67e8f9;--sb-theme-glow:rgba(103,232,249,.18)}
+html[data-emis-theme="deepnavy"]{--sb-theme-hover:#fbbf24;--sb-theme-glow:rgba(251,191,36,.15)}
+html[data-emis-theme="darkviolet"]{--sb-theme-hover:#34d399;--sb-theme-glow:rgba(52,211,153,.16)}
+
+.sidebar-menu a:has(.nav-dashboard){--sb-item:#60a5fa;--sb-item-rgb:96,165,250}
+.sidebar-menu a:has(.nav-promotion){--sb-item:#f472b6;--sb-item-rgb:244,114,182}
+.sidebar-menu a:has(.nav-attendance){--sb-item:#22d3ee;--sb-item-rgb:34,211,238}
+.sidebar-menu a:has(.nav-ca){--sb-item:#fb923c;--sb-item-rgb:251,146,60}
+.sidebar-menu a:has(.nav-results){--sb-item:#a78bfa;--sb-item-rgb:167,139,250}
+.sidebar-menu a:has(.nav-reports){--sb-item:#c084fc;--sb-item-rgb:192,132,252}
+.sidebar-menu a:has(.nav-history){--sb-item:#38bdf8;--sb-item-rgb:56,189,248}
+.sidebar-menu a:has(.nav-teachers){--sb-item:#34d399;--sb-item-rgb:52,211,153}
+.sidebar-menu a:has(.nav-settings){--sb-item:#94a3b8;--sb-item-rgb:148,163,184}
+.sidebar-menu a:has(.nav-support){--sb-item:#facc15;--sb-item-rgb:250,204,21}
+.sidebar-menu a{--sb-item:#7dd3fc;--sb-item-rgb:125,211,252;overflow:hidden;isolation:isolate}
+.sidebar-menu a::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(circle at 13% 50%,rgba(var(--sb-item-rgb),.16),transparent 37%),linear-gradient(100deg,rgba(var(--sb-item-rgb),.095),color-mix(in srgb,var(--sb-theme-hover,#22d3ee) 8%,transparent) 72%,transparent);transform:scaleX(.96);transition:opacity 130ms ease,transform 150ms cubic-bezier(.2,.8,.2,1);z-index:-1}
+html[data-emis-theme] body .sidebar .sidebar-menu a:hover{background:linear-gradient(100deg,rgba(var(--sb-item-rgb),.14),color-mix(in srgb,var(--sb-theme-hover,#22d3ee) 9%,transparent) 70%,rgba(255,255,255,.035))!important;border-color:rgba(var(--sb-item-rgb),.30)!important;color:#fff!important;transform:translateX(3px) scale(1.006)!important;box-shadow:inset 3px 0 0 var(--sb-item),0 8px 24px rgba(var(--sb-item-rgb),.10),0 0 18px var(--sb-theme-glow,rgba(34,211,238,.12))!important}
+.sidebar-menu a:hover::after{opacity:1;transform:scaleX(1)}
+.sidebar-menu a:hover .sidebar-nav-icon{color:#fff!important;background:linear-gradient(145deg,rgba(var(--sb-item-rgb),.30),rgba(var(--sb-item-rgb),.12))!important;border-color:rgba(var(--sb-item-rgb),.42)!important;box-shadow:0 7px 18px rgba(var(--sb-item-rgb),.24),inset 0 0 0 1px rgba(255,255,255,.055)!important;transform:translateY(-1px) scale(1.065)!important;filter:none!important}
+.sidebar-menu a:hover .sidebar-nav-icon i{transform:scale(1.09) rotate(-2deg)!important;text-shadow:0 0 12px rgba(var(--sb-item-rgb),.45)}
+.sidebar-menu a:hover .sidebar-nav-label{color:#fff!important;text-shadow:0 1px 10px rgba(var(--sb-item-rgb),.12)}
+html[data-emis-theme] body .sidebar .sidebar-menu a.active{background:linear-gradient(100deg,rgba(var(--sb-item-rgb),.11),rgba(255,255,255,.055))!important;box-shadow:inset 3px 0 0 var(--sb-item),0 7px 20px rgba(var(--sb-item-rgb),.09)!important;border-color:rgba(var(--sb-item-rgb),.28)!important}
+.sidebar-menu a.active .sidebar-nav-icon{box-shadow:0 8px 22px rgba(var(--sb-item-rgb),.20)!important}
+
+/* Premium icon presence: slightly stronger stroke/readability without enlarging containers. */
+.sidebar-nav-icon i{font-size:1.02rem!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.12))}
+.sidebar-menu a.active .sidebar-nav-icon i{transform:scale(1.065)!important}
+
+/* Collapsed navigation keeps the glow compact around the icon only. */
+@media (min-width:769px){
+  .sidebar.collapsed .sidebar-menu a:hover{transform:none!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+  .sidebar.collapsed .sidebar-menu a:hover::after{display:none}
+  .sidebar.collapsed .sidebar-menu a:hover .sidebar-nav-icon{box-shadow:0 0 0 1px rgba(var(--sb-item-rgb),.25),0 8px 22px rgba(var(--sb-item-rgb),.25),0 0 18px var(--sb-theme-glow,rgba(34,211,238,.14))!important}
+}
+
+/* Motion accessibility: retain color feedback but remove the movement. */
+@media (prefers-reduced-motion:reduce){.sidebar-menu a,.sidebar-menu a::after,.sidebar-nav-icon,.sidebar-nav-icon i{transition:none!important}.sidebar-menu a:hover,.sidebar-menu a:hover .sidebar-nav-icon,.sidebar-menu a:hover .sidebar-nav-icon i{transform:none!important}}
