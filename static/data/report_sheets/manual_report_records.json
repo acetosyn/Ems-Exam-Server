@@ -2545,5 +2545,325 @@
     "exclusion_reason": "",
     "updated_at": "2026-10-18 21:00:58",
     "updated_by": "admin"
+  },
+  "2026/2027|SECOND|JSS1|JSS1A|std015": {
+    "session": "2026/2027",
+    "term": "SECOND",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std015",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 18,
+        "test2": 17,
+        "exam": 28
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 7,
+        "ca2": 6,
+        "test1": 15,
+        "test2": 18,
+        "exam": 32
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 5,
+        "ca2": 9,
+        "test1": 16,
+        "test2": 14,
+        "exam": 32
+      },
+      "PHE": {
+        "subject": "P.H.E",
+        "subject_key": "PHE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 6,
+        "test1": 17,
+        "test2": 19,
+        "exam": 29
+      },
+      "DIGITAL TECH": {
+        "subject": "Digital Tech.",
+        "subject_key": "DIGITAL TECH",
+        "included": true,
+        "ca1": 7,
+        "ca2": 8,
+        "test1": 9,
+        "test2": 10,
+        "exam": 30
+      }
+    },
+    "attendance": {
+      "days_open": 90,
+      "present": 90,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 90,
+      "absent_total": 0,
+      "attendance_percentage": 100.0
+    },
+    "attendance_override_enabled": true,
+    "prefer_manual_scores": false,
+    "suppress_automatic_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "excluded_from_class_report": false,
+    "exclusion_reason": "",
+    "updated_at": "2026-10-21 08:14:26",
+    "updated_by": "admin"
+  },
+  "2026/2027|SECOND|JSS1|JSS1A|std013": {
+    "session": "2026/2027",
+    "term": "SECOND",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std013",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 9,
+        "ca2": 10,
+        "test1": 17,
+        "test2": 18,
+        "exam": 36
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 5,
+        "ca2": 7,
+        "test1": 18,
+        "test2": 20,
+        "exam": 30
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 4,
+        "ca2": 2,
+        "test1": 1,
+        "test2": 17,
+        "exam": 27
+      },
+      "PHE": {
+        "subject": "P.H.E",
+        "subject_key": "PHE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 7,
+        "test1": 6,
+        "test2": 16,
+        "exam": 27
+      },
+      "DIGITAL TECH": {
+        "subject": "Digital Tech.",
+        "subject_key": "DIGITAL TECH",
+        "included": true,
+        "ca1": 5,
+        "ca2": 7,
+        "test1": 17,
+        "test2": 16,
+        "exam": 29
+      }
+    },
+    "attendance": {
+      "days_open": 90,
+      "present": 90,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 90,
+      "absent_total": 0,
+      "attendance_percentage": 100.0
+    },
+    "attendance_override_enabled": false,
+    "prefer_manual_scores": false,
+    "suppress_automatic_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "excluded_from_class_report": false,
+    "exclusion_reason": "",
+    "updated_at": "2026-10-21 08:16:17",
+    "updated_by": "admin"
+  },
+  "2026/2027|SECOND|JSS1|JSS1A|std001": {
+    "session": "2026/2027",
+    "term": "SECOND",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std001",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 8,
+        "ca2": 7,
+        "test1": 14,
+        "test2": 20,
+        "exam": 22
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 8,
+        "ca2": 9,
+        "test1": 17,
+        "test2": 13,
+        "exam": 25
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 8,
+        "ca2": 7,
+        "test1": 15,
+        "test2": 19,
+        "exam": 31
+      },
+      "PHE": {
+        "subject": "P.H.E",
+        "subject_key": "PHE",
+        "included": true,
+        "ca1": 7,
+        "ca2": 6,
+        "test1": 18,
+        "test2": 2,
+        "exam": 32
+      },
+      "DIGITAL TECH": {
+        "subject": "Digital Tech.",
+        "subject_key": "DIGITAL TECH",
+        "included": true,
+        "ca1": 10,
+        "ca2": 8,
+        "test1": 7,
+        "test2": 14,
+        "exam": 26
+      }
+    },
+    "attendance": {
+      "days_open": 90,
+      "present": 90,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 90,
+      "absent_total": 0,
+      "attendance_percentage": 100.0
+    },
+    "attendance_override_enabled": false,
+    "prefer_manual_scores": false,
+    "suppress_automatic_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "excluded_from_class_report": false,
+    "exclusion_reason": "",
+    "updated_at": "2026-10-21 08:17:57",
+    "updated_by": "admin"
+  },
+  "2026/2027|SECOND|JSS1|JSS1A|std007": {
+    "session": "2026/2027",
+    "term": "SECOND",
+    "class_level": "JSS1",
+    "class_arm": "JSS1A",
+    "admission_number": "std007",
+    "subjects": {
+      "MATHEMATICS": {
+        "subject": "Mathematics",
+        "subject_key": "MATHEMATICS",
+        "included": true,
+        "ca1": 7,
+        "ca2": 8,
+        "test1": 14,
+        "test2": 17,
+        "exam": 22
+      },
+      "ENGLISH LANGUAGE": {
+        "subject": "English Language",
+        "subject_key": "ENGLISH LANGUAGE",
+        "included": true,
+        "ca1": 9,
+        "ca2": 7,
+        "test1": 14,
+        "test2": 11,
+        "exam": 22
+      },
+      "BUSINESS STUDIES": {
+        "subject": "Business Studies",
+        "subject_key": "BUSINESS STUDIES",
+        "included": true,
+        "ca1": 5,
+        "ca2": 9,
+        "test1": 17,
+        "test2": 12,
+        "exam": 32
+      },
+      "PHE": {
+        "subject": "P.H.E",
+        "subject_key": "PHE",
+        "included": true,
+        "ca1": 4,
+        "ca2": 5,
+        "test1": 4,
+        "test2": 14,
+        "exam": 24
+      },
+      "DIGITAL TECH": {
+        "subject": "Digital Tech.",
+        "subject_key": "DIGITAL TECH",
+        "included": true,
+        "ca1": 4,
+        "ca2": 7,
+        "test1": 19,
+        "test2": 13,
+        "exam": 20
+      }
+    },
+    "attendance": {
+      "days_open": 90,
+      "present": 90,
+      "absent": 0,
+      "late": 0,
+      "sick": 0,
+      "excused": 0,
+      "unmarked": 0,
+      "present_credit": 90,
+      "absent_total": 0,
+      "attendance_percentage": 100.0
+    },
+    "attendance_override_enabled": false,
+    "prefer_manual_scores": false,
+    "suppress_automatic_scores": false,
+    "status": "FINAL",
+    "teacher_note": "",
+    "excluded_from_class_report": false,
+    "exclusion_reason": "",
+    "updated_at": "2026-10-21 08:24:25",
+    "updated_by": "admin"
   }
 }
