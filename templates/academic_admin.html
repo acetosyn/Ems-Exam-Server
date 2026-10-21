@@ -182,7 +182,7 @@
             <div id="staffAssignmentBuilder" class="identity-assignment-builder"><div class="identity-assignment-head"><div><span>TEACHING ACCESS</span><strong>Build the Teacher Access Scope</strong></div><small>Choose one class, add every subject the teacher handles in that class, then add another class only when needed.</small></div><div class="identity-session-strip"><label class="identity-field"><span><i class="fa-solid fa-calendar-days"></i> Academic Session</span><select id="staffAssignmentSession"></select></label><span class="identity-access-lock"><i class="fa-solid fa-lock"></i> Server enforced</span></div><div id="staffAssignmentRows" class="identity-assignment-rows"></div><div class="identity-assignment-footer"><div><span>ACCESS SUMMARY</span><div id="staffAssignmentSummary" class="identity-assignment-summary" aria-live="polite"></div></div><div class="identity-assignment-actions"><button id="staffAddClass" type="button" class="identity-secondary-btn identity-add-class"><i class="fa-solid fa-layer-group"></i><span>Assign Another Class</span></button><button id="staffAssignGenerate" type="submit" class="identity-primary-btn identity-assign-generate"><i class="fa-solid fa-shield-check"></i><span>Assign & Generate ID</span></button></div></div><small class="identity-assignment-note"><i class="fa-solid fa-circle-info"></i> <b>All Arms</b> gives the selected subjects across every configured arm of that class. A class can be selected only once; add more subjects inside its existing card.</small></div>
             <button id="staffIdGenerateBtn" type="submit" class="identity-primary-btn identity-generate-main identity-admin-generate" hidden><i class="fa-solid fa-bolt"></i><span>Generate Teacher Admin ID</span></button>
           </form>
-          <div class="identity-rule-note"><i class="fa-solid fa-circle-info"></i><div><strong>Role is permanent for the generated prefix</strong><span>EMT = assigned score-entry scope. ADM = regular-school Teacher Admin. IMS = assigned Tahfeez/Islamiyyah scope. Generated IDs are never recycled.</span></div></div>
+          <div class="identity-rule-note"><i class="fa-solid fa-circle-info"></i><div><strong>Role is permanent for the generated prefix</strong><span>EMT = assigned score-entry scope. ADM = regular-school Teacher Admin. IMS = assigned Tahfeez/Islamiyyah scope. Deleted ID numbers are reusable; disabled IDs remain reserved until deleted.</span></div></div>
         </aside>
 
         <section class="identity-register-card">
@@ -206,6 +206,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="{{ url_for('static', filename='js/teacher_assignments.js') }}"></script>
 <script src="{{ url_for('static', filename='js/subjects.js') }}?v=20261016-class-viewer4"></script>
-<script src="{{ url_for('static', filename='js/ids.js') }}?v=20261021-accessscope6"></script>
+<script src="{{ url_for('static', filename='js/ids.js') }}?v=20261021-idreuse2"></script>
 <script src="{{ url_for('static', filename='js/academic_admin_hub.js') }}"></script>
 {% endblock %}
