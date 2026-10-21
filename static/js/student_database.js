@@ -627,6 +627,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    function studentBand(student) {
+        const category = normalize(student.Class_category || student.Class || "");
+        if (["creche","starter","pre_class","nursery1","nursery2"].some(item => category.includes(item))) return "early";
+        if (["primary1","primary2","primary3","primary4","primary5","primary6","basic 1","basic 2","basic 3","basic 4","basic 5","basic 6"].some(item => category.includes(item))) return "primary";
+        if (["jss1","jss2","jss3","basic 7","basic 8","basic 9"].some(item => category.includes(item))) return "junior";
+        if (["ss1","ss2","ss3","basic 10","basic 11","basic 12"].some(item => category.includes(item))) return "senior";
+        return "general";
+    }
+
+
+    function studentInitials(name) {
+        const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return "ST";
+        return parts.slice(0, 2).map(part => part.charAt(0).toUpperCase()).join("");
+    }
+
+
+    function sexBadgeMeta(value) {
+        const sex = normalize(value);
+        if (sex === "male") return { cls: "male", icon: "fa-solid fa-mars", label: "Male" };
+        if (sex === "female") return { cls: "female", icon: "fa-solid fa-venus", label: "Female" };
+        return { cls: "unknown", icon: "fa-solid fa-user", label: value || "—" };
+    }
+
+
     function admissionNumberValue(value) {
         const match = String(value || "").toLowerCase().match(/^std(\d+)$/);
         return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
@@ -666,30 +691,39 @@ document.addEventListener("DOMContentLoaded", () => {
         const admission = student.Admission_number || "";
         const key = normalizeAdmission(admission);
         const name = fullName(student);
+        const tone = studentBand(student);
+        const sexMeta = sexBadgeMeta(student.Sex || "");
+        const categoryLabel = student.Hybrid_class_label || displayClass(student.Class_category || "—");
+        const phone = student.Phone || "—";
 
         return `
-            <tr class="${state.selected.has(key) ? "is-selected" : ""}">
+            <tr class="student-data-row tone-${tone} ${state.selected.has(key) ? "is-selected" : ""}">
                 <td class="select-col" data-column-name="select">
                     <input type="checkbox" class="student-check" data-admission="${escapeHtml(admission)}" ${state.selected.has(key) ? "checked" : ""} aria-label="Select ${escapeHtml(name)}">
                 </td>
 
                 <td data-column-name="student">
-                    <div class="student-name">${escapeHtml(name || "Unknown Student")}</div>
-                    <div class="student-sub">${escapeHtml(admission)}</div>
+                    <div class="student-identity">
+                        <span class="student-avatar-chip ${tone}" aria-hidden="true">${escapeHtml(studentInitials(name))}</span>
+                        <div class="student-identity-copy">
+                            <div class="student-name">${escapeHtml(name || "Unknown Student")}</div>
+                            <div class="student-sub">${escapeHtml(admission)}</div>
+                        </div>
+                    </div>
                 </td>
 
                 <td data-column-name="admission">
                     <span class="admission-number">${escapeHtml(admission || "—")}</span>
                 </td>
 
-                <td data-column-name="sex">${escapeHtml(student.Sex || "—")}</td>
+                <td data-column-name="sex"><span class="sex-badge ${sexMeta.cls}"><i class="${sexMeta.icon}"></i>${escapeHtml(sexMeta.label)}</span></td>
 
                 <td data-column-name="class">
-                    <span class="student-class-cell">${escapeHtml(displayClass(student.Class || "—"))}</span>
+                    <span class="student-class-cell ${tone}">${escapeHtml(displayClass(student.Class || "—"))}</span>
                 </td>
 
-                <td data-column-name="category">${escapeHtml(student.Hybrid_class_label || displayClass(student.Class_category || "—"))}</td>
-                <td data-column-name="phone">${escapeHtml(student.Phone || "—")}</td>
+                <td data-column-name="category"><span class="class-system-badge ${tone}">${escapeHtml(categoryLabel)}</span></td>
+                <td data-column-name="phone"><span class="phone-pill"><i class="fa-solid fa-phone"></i>${escapeHtml(phone)}</span></td>
 
                 <td class="actions-col">
                     <div class="row-actions">

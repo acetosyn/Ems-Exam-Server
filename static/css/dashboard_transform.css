@@ -158,3 +158,97 @@
 .emis-dashboard .module-link.shortcut-yellow .module-icon{color:#fff!important}.emis-dashboard .module-link.shortcut-yellow strong{color:#fff!important}
 @media(max-width:760px){.emis-dashboard .module-link,.emis-dashboard .module-link[class*="shortcut-"]{min-height:59px!important;padding:7px 8px!important;gap:7px!important}.emis-dashboard .module-icon{width:33px!important;height:33px!important;flex-basis:33px!important;border-radius:8px!important;font-size:.82rem!important}.emis-dashboard .module-link strong{font-size:.62rem!important}.emis-dashboard .quick-title h2{font-size:.72rem!important}}
 @media(max-width:520px){.emis-dashboard .module-link strong{font-size:.60rem!important}}
+
+
+/* =====================================================================
+   2026-10-21 — QUICK LINKS V4: SOFT MIST LAUNCHER
+   Keeps the vivid app icons, removes the heavy dark slab, and makes the
+   launcher shorter/tighter with accent-tinted cards and calm hover glow.
+   ===================================================================== */
+.emis-dashboard .quick-access-panel.quick-access-top{
+  --launcher-ink:#163047;
+  --launcher-muted:#667b8e;
+  padding:11px 12px 12px!important;
+  border:1px solid rgba(139,170,190,.34)!important;
+  border-radius:16px!important;
+  background:
+    radial-gradient(circle at 8% -30%,rgba(14,165,233,.13),transparent 35%),
+    radial-gradient(circle at 88% 125%,rgba(16,185,129,.10),transparent 34%),
+    linear-gradient(135deg,rgba(241,248,252,.96),rgba(232,242,248,.94) 48%,rgba(237,247,244,.95))!important;
+  box-shadow:0 14px 30px rgba(30,64,86,.10),inset 0 1px 0 rgba(255,255,255,.86)!important;
+}
+.emis-dashboard .quick-access-panel.quick-access-top::before{
+  opacity:1!important;
+  background:
+    linear-gradient(90deg,rgba(28,77,104,.032) 1px,transparent 1px),
+    linear-gradient(rgba(28,77,104,.024) 1px,transparent 1px)!important;
+  background-size:30px 30px!important;
+}
+.emis-dashboard .quick-access-header{margin-bottom:9px!important;min-height:34px}
+.emis-dashboard .quick-title{gap:8px!important}
+.emis-dashboard .quick-title .section-label{color:#0f766e!important;font-size:.63rem!important;letter-spacing:.08em!important}
+.emis-dashboard .quick-title .section-label i{color:#d38a08!important}
+.emis-dashboard .quick-title h2{color:#1c344a!important;font-size:.86rem!important;font-weight:880!important;text-shadow:none!important}
+.emis-dashboard .module-search{height:34px!important;min-width:220px;border:1px solid #cbdbe5!important;border-radius:11px!important;background:rgba(255,255,255,.78)!important;color:#27435a!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 5px 14px rgba(28,64,87,.05)!important}
+.emis-dashboard .module-search i{color:#1787b0!important}.emis-dashboard .module-search input{color:#213b50!important;font-size:.69rem!important}.emis-dashboard .module-search input::placeholder{color:#8da0b0!important}.emis-dashboard .module-search kbd{border-color:#cfdae3!important;background:#edf3f7!important;color:#5d7183!important}
+
+.emis-dashboard .module-link-grid{gap:7px!important;grid-auto-rows:minmax(54px,auto)}
+.emis-dashboard .module-link,.emis-dashboard .module-link[class*="shortcut-"]{
+  min-height:54px!important;
+  padding:6px 8px!important;
+  gap:8px!important;
+  border:1px solid color-mix(in srgb,var(--shortcut) 28%,#d7e2e9 72%)!important;
+  border-radius:11px!important;
+  color:#263d51!important;
+  background:
+    linear-gradient(135deg,color-mix(in srgb,var(--shortcut) 7%,#ffffff 93%),color-mix(in srgb,var(--shortcut2) 5%,#f4f8fa 95%))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 5px 14px rgba(30,64,86,.055)!important;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease!important;
+}
+.emis-dashboard .module-link::before{
+  left:0!important;top:9px!important;bottom:9px!important;width:3px!important;height:auto!important;border-radius:0 4px 4px 0!important;
+  background:linear-gradient(180deg,var(--shortcut),var(--shortcut2))!important;opacity:.92!important
+}
+.emis-dashboard .module-link::after{
+  width:58px!important;height:58px!important;right:-32px!important;top:-34px!important;
+  background:radial-gradient(circle,color-mix(in srgb,var(--shortcut) 14%,transparent),transparent 70%)!important
+}
+.emis-dashboard .module-link:hover{
+  transform:translateY(-2px)!important;
+  border-color:color-mix(in srgb,var(--shortcut) 48%,#c9d9e3 52%)!important;
+  background:
+    linear-gradient(135deg,color-mix(in srgb,var(--shortcut) 13%,#ffffff 87%),color-mix(in srgb,var(--shortcut2) 9%,#eff6f8 91%))!important;
+  box-shadow:0 10px 22px color-mix(in srgb,var(--shortcut) 13%,rgba(30,64,86,.08))!important;
+}
+.emis-dashboard .module-link:active{transform:translateY(0)!important}
+.emis-dashboard .module-icon{
+  width:35px!important;height:35px!important;flex:0 0 35px!important;border-radius:10px!important;
+  font-size:.88rem!important;
+  background:linear-gradient(145deg,var(--shortcut),var(--shortcut2))!important;
+  box-shadow:0 7px 14px color-mix(in srgb,var(--shortcut) 27%,transparent),inset 0 1px 0 rgba(255,255,255,.24)!important
+}
+.emis-dashboard .module-link:hover .module-icon{
+  transform:translateY(-1px) scale(1.045)!important;
+  background:linear-gradient(145deg,var(--shortcut),var(--shortcut2))!important;
+  box-shadow:0 9px 18px color-mix(in srgb,var(--shortcut) 36%,transparent),inset 0 1px 0 rgba(255,255,255,.28)!important
+}
+.emis-dashboard .module-link strong{
+  color:#233b50!important;
+  font-family:"Segoe UI Variable",Inter,"Segoe UI",Arial,sans-serif!important;
+  font-size:.73rem!important;
+  font-weight:820!important;
+  line-height:1.12!important;
+  text-shadow:none!important
+}
+.emis-dashboard .module-link:hover strong{color:#142f45!important;text-shadow:none!important}
+.emis-dashboard .module-link.shortcut-yellow strong{color:#3c4752!important;text-shadow:none!important}
+
+@media(max-width:1380px){
+  .emis-dashboard .module-link-grid{gap:7px!important}
+}
+@media(max-width:760px){
+  .emis-dashboard .quick-access-panel.quick-access-top{padding:9px!important}
+  .emis-dashboard .module-link,.emis-dashboard .module-link[class*="shortcut-"]{min-height:50px!important;padding:6px 7px!important;gap:7px!important}
+  .emis-dashboard .module-icon{width:31px!important;height:31px!important;flex-basis:31px!important;font-size:.76rem!important}
+  .emis-dashboard .module-link strong{font-size:.61rem!important}
+}
