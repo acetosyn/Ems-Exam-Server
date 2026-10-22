@@ -103,7 +103,9 @@
       await installPageStyles(styles); if(id!==navigationSequence)return false;
       document.dispatchEvent(new CustomEvent("emis:page-leave",{detail:{from:location.href,to:finalUrl.href}}));
       let swapped=false; const swap=()=>{ if(swapped)return; swapped=true; currentMain.replaceWith(preparedMain); document.title=nextDoc.title || document.title; body.dataset.emisEndpoint=nextDoc.body?.dataset.emisEndpoint || ""; body.dataset.emisSoftNav=nextDoc.body?.dataset.emisSoftNav || "1"; syncActiveNavigation(nextDoc); updateAcademicContext(nextDoc); };
-      if(document.startViewTransition){ try { await document.startViewTransition(swap).updateCallbackDone; } catch (_) { swap(); } } else swap();
+      // Chrome stability: swap directly. Page-level CSS micro-animations remain,
+      // but the browser View Transition API is intentionally not used here.
+      swap();
       await installPageScripts(scripts); updateAcademicContext(nextDoc); updateHistory(finalUrl,{push:options.push!==false,restoreScroll:options.restoreScroll});
       document.querySelector(MAIN_SELECTOR)?.setAttribute("data-emis-soft-loaded","1"); document.dispatchEvent(new CustomEvent("emis:page-ready",{detail:{url:finalUrl.href,endpoint:body.dataset.emisEndpoint}})); setBusy(false,finalUrl.href); return true;
     } catch(error) {
@@ -115,8 +117,9 @@
     if(!url || PREFETCHED.has(url.href))return; PREFETCHED.add(url.href); const link=document.createElement("link"); link.rel="prefetch"; link.href=url.href; link.as="document"; document.head.appendChild(link);
   }
 
-  document.addEventListener("pointerover",event=>{const anchor=event.target.closest?.("a[href]"); if(!anchor)return; const url=eligibleUrl(anchor); if(url)prefetch(url);},{passive:true});
-  document.addEventListener("touchstart",event=>{const anchor=event.target.closest?.("a[href]"); if(!anchor)return; const url=eligibleUrl(anchor); if(url)prefetch(url);},{passive:true});
+  // Automatic pointer/touch prefetch was removed. On Chrome it can queue several
+  // expensive Flask page requests simply while the pointer crosses the sidebar.
+  // EMISRouter.prefetch(...) remains available for an intentional future use.
 
   document.addEventListener("click",event=>{
     const routeButton=event.target.closest?.("[data-route]"); if(routeButton && !routeButton.matches("a[href]")){const raw=routeButton.getAttribute("data-route"),url=sameOriginUrl(raw); if(url && raw.startsWith("/")){event.preventDefault(); sourceAllowsSoftNavigation() && routeAllowsSoftNavigation(url) ? softNavigate(url) : hardNavigate(url); return;}}

@@ -95,7 +95,7 @@ app.secret_key = os.getenv("SECRET_KEY", "fallback_secret_key")
 
 # Never allow Flask to tell browsers to keep stale static resources
 # for long periods.
-app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
 
 # Ensure changed HTML/Jinja templates are detected without requiring
 # a Python restart simply because a template file changed.
@@ -117,7 +117,8 @@ app.jinja_env.auto_reload = True
 # ==========================================================
 
 STARTUP_VERSION = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
-ASSET_VERSION = os.getenv("ASSET_VERSION", "").strip() or STARTUP_VERSION
+EXPLICIT_ASSET_VERSION = os.getenv("ASSET_VERSION", "").strip()
+ASSET_VERSION = EXPLICIT_ASSET_VERSION or STARTUP_VERSION
 
 
 # ==========================================================
@@ -217,7 +218,11 @@ def static_asset_version(filename, endpoint="static"):
             modification = int(stat.st_mtime_ns)
             size = int(stat.st_size)
 
-            return f"{ASSET_VERSION}-{modification}-{size}"
+            # Physical files are already self-versioned by mtime + size.
+            # Do NOT include STARTUP_VERSION here: a Flask/Passenger restart
+            # must not invalidate every unchanged CSS/JS file in Chrome.
+            prefix = f"{EXPLICIT_ASSET_VERSION}-" if EXPLICIT_ASSET_VERSION else ""
+            return f"{prefix}{modification}-{size}"
 
         except OSError:
             pass
@@ -411,11 +416,11 @@ def _set_static_revalidation_headers(response):
     handling of large images/fonts.
     """
 
-    response.headers["Cache-Control"] = (
-        "no-cache, must-revalidate, max-age=0"
-    )
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
+    # Static URLs are fingerprinted with each file's mtime + size, so the
+    # browser may safely keep them. When a file changes, its URL changes.
+    response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+    response.headers.pop("Pragma", None)
+    response.headers.pop("Expires", None)
 
     return response
 
@@ -428,12 +433,12 @@ def _set_code_asset_headers(response):
     Browser must not retain an obsolete JS/CSS implementation.
     """
 
-    response.headers["Cache-Control"] = (
-        "no-store, no-cache, must-revalidate, max-age=0"
-    )
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-    response.headers["Surrogate-Control"] = "no-store"
+    # JS/CSS URLs are fingerprinted per physical file. Cache them aggressively;
+    # a changed file receives a different ?v= URL automatically.
+    response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+    response.headers.pop("Pragma", None)
+    response.headers.pop("Expires", None)
+    response.headers.pop("Surrogate-Control", None)
 
     return response
 
@@ -679,11 +684,11 @@ def print_cache_configuration():
     print("\n[EMIS] CACHE PROTECTION")
     print(f"[EMIS] Deployment fallback version : {ASSET_VERSION}")
     print(f"[EMIS] Static directory            : {STATIC_DIR}")
-    print("[EMIS] Per-file static versioning  : ENABLED")
+    print("[EMIS] Per-file static versioning  : ENABLED (restart-stable)")
     print("[EMIS] Hardcoded HTML URL rewrite  : ENABLED")
     print("[EMIS] HTML no-store protection    : ENABLED")
     print("[EMIS] API no-store protection     : ENABLED")
-    print("[EMIS] JS/CSS strict protection    : ENABLED")
+    print("[EMIS] JS/CSS immutable file cache : ENABLED")
     print("[EMIS] Template auto reload        : ENABLED")
     print()
 

@@ -4,7 +4,7 @@
    behavior and final responsive consistency across the shared EMIS shell.
    ============================================================================ */
 
-@view-transition { navigation:auto; }
+@view-transition { navigation:none; }
 ::view-transition-old(root){animation:emis-vt-out .13s ease both} ::view-transition-new(root){animation:emis-vt-in .18s ease both}
 @keyframes emis-vt-out{to{opacity:.72;transform:translateY(-2px)}} @keyframes emis-vt-in{from{opacity:.72;transform:translateY(3px)}}
 
