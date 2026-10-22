@@ -1,0 +1,16 @@
+{
+    "year": "2026",
+    "class_level": "PRIMARY5",
+    "class_category": "PRIMARY5",
+    "class_arm": "PRIMARY5",
+    "target_arm": "PRIMARY5",
+    "term": "FIRST",
+    "term_label": "1st Term",
+    "term_required": true,
+    "term_optional": false,
+    "subjects": [
+        "Mathematics"
+    ],
+    "updated_at": "2026-10-22T13:51:42",
+    "updated_by": "admin"
+}

@@ -13,7 +13,9 @@ from modules.notifications import push_notification
 
 uploads_bp = Blueprint("uploads_bp", __name__)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+PARENT_DIR = os.path.dirname(FILE_DIR)
+BASE_DIR = FILE_DIR if os.path.isdir(os.path.join(FILE_DIR, "static")) else PARENT_DIR if os.path.isdir(os.path.join(PARENT_DIR, "static")) else FILE_DIR
 
 
 # ============================================================
@@ -64,7 +66,21 @@ def safe_filename(filename):
 
 
 def normalize_class(value):
+    raw = str(value or "").upper().strip(); compact = re.sub(r"[\s_\-/&]", "", raw)
+    primary_match = re.fullmatch(r"(?:P|PRI|PRIMARY|BASIC)([1-6])(?:[AB])?", compact)
+    if primary_match: return f"PRIMARY{primary_match.group(1)}"
     return normalize_class_level(value)
+
+
+def class_folder_aliases(class_cat):
+    level = normalize_class(class_cat); aliases = [level] if level else []
+    if level.startswith("PRIMARY") and level[7:].isdigit():
+        number = level[7:]; aliases.extend([f"P{number}", f"PRIMARY {number}", f"BASIC{number}", f"BASIC {number}"])
+    seen, output = set(), []
+    for alias in aliases:
+        key = str(alias or "").strip()
+        if key and key.upper() not in seen: seen.add(key.upper()); output.append(key)
+    return output
 
 
 def is_term_aware_class(class_cat):
@@ -107,9 +123,9 @@ def detect_class_from_filename(filename):
 
     # Primary/Basic filenames are accepted alongside JSS/SS. JSS is checked before SS because "jss1" also contains "ss1".
     patterns = [
-        ("PRIMARY1", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*1(?![0-9])"), ("PRIMARY2", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*2(?![0-9])"),
-        ("PRIMARY3", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*3(?![0-9])"), ("PRIMARY4", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*4(?![0-9])"),
-        ("PRIMARY5", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*5(?![0-9])"), ("PRIMARY6", r"(?<![a-z0-9])(?:primary|pri|basic)[\s_-]*6(?![0-9])"),
+        ("PRIMARY1", r"(?<![a-z0-9])(?:primary|pri|basic|p)[\s_-]*1(?![0-9])"), ("PRIMARY2", r"(?<![a-z0-9])(?:primary|pri|basic|p)[\s_-]*2(?![0-9])"),
+        ("PRIMARY3", r"(?<![a-z0-9])(?:primary|pri|basic|p)[\s_-]*3(?![0-9])"), ("PRIMARY4", r"(?<![a-z0-9])(?:primary|pri|basic|p)[\s_-]*4(?![0-9])"),
+        ("PRIMARY5", r"(?<![a-z0-9])(?:primary|pri|basic|p)[\s_-]*5(?![0-9])"), ("PRIMARY6", r"(?<![a-z0-9])(?:primary|pri|basic|p)[\s_-]*6(?![0-9])"),
         ("JSS1", r"(?<![a-z0-9])jss[\s_-]*1(?![0-9])"), ("JSS2", r"(?<![a-z0-9])jss[\s_-]*2(?![0-9])"), ("JSS3", r"(?<![a-z0-9])jss[\s_-]*3(?![0-9])"),
         ("SS1", r"(?<![a-z0-9])ss[\s_-]*1(?![0-9])"), ("SS2", r"(?<![a-z0-9])ss[\s_-]*2(?![0-9])"), ("SS3", r"(?<![a-z0-9])ss[\s_-]*3(?![0-9])"),
     ]
@@ -231,6 +247,23 @@ def get_year_path(year):
 
 def get_class_path(year, class_cat):
     return os.path.join(get_year_path(year), normalize_class(class_cat))
+
+
+def get_class_paths(year, class_cat):
+    return [os.path.join(get_year_path(year), folder_name) for folder_name in class_folder_aliases(class_cat)]
+
+
+def find_existing_json_path(year, class_cat, filename, term=None):
+    class_cat, filename, normalized_term = normalize_class(class_cat), safe_filename(filename), normalize_term(term)
+    if class_cat not in SUPPORTED_CLASSES or not filename: return None
+    candidates = []
+    for class_folder in get_class_paths(year, class_cat):
+        if is_term_aware_class(class_cat):
+            if normalized_term: candidates.append(os.path.join(class_folder, normalized_term, filename))
+        elif is_optional_term_class(class_cat) and normalized_term:
+            candidates.extend([os.path.join(class_folder, normalized_term, filename), os.path.join(class_folder, filename)])
+        else: candidates.append(os.path.join(class_folder, filename))
+    return next((path for path in candidates if os.path.isfile(path)), candidates[0] if candidates else None)
 
 
 def get_term_path(year, class_cat, term):
@@ -598,60 +631,42 @@ def list_year_files(year):
     if not os.path.isdir(year_folder):
         return jsonify({"success": True, "year": int(year), "count": 0, "uploads": []})
 
-    results = []
+    results, seen_items = [], set()
+
+    def add_items(items):
+        for item in items:
+            key = (item.get("class_category"), item.get("term"), str(item.get("filename") or "").lower())
+            if key in seen_items: continue
+            seen_items.add(key); results.append(item)
 
     for class_cat in SUPPORTED_CLASSES:
-        class_folder = get_class_path(year, class_cat)
+        class_folders = get_class_paths(year, class_cat)
+        print(f"[CLASS] {class_cat:<8} | candidates={class_folders}")
 
-        print(f"[CLASS] {class_cat:<4} | {class_folder} | exists={os.path.isdir(class_folder)}")
+        for class_folder in class_folders:
+            if not os.path.isdir(class_folder): continue
+            print(f"    [USING] {class_folder}")
 
-        if not os.path.isdir(class_folder): continue
+            # ========================================================
+            # PRIMARY1–6 / JSS1–3 — STRICT TERM FOLDERS
+            # ========================================================
+            if is_term_aware_class(class_cat):
+                for term in ("FIRST", "SECOND", "THIRD"):
+                    term_folder = os.path.join(class_folder, term)
+                    print(f"    [TERM] {term:<6} | {term_folder} | exists={os.path.isdir(term_folder)}")
+                    add_items(scan_library_folder(year=year, class_cat=class_cat, folder=term_folder, term=term, legacy=False))
+                add_items(scan_library_folder(year=year, class_cat=class_cat, folder=class_folder, term=None, legacy=True))
 
-        # ========================================================
-        # PRIMARY1–6 / JSS1–3 — STRICT TERM FOLDERS
-        # ========================================================
-
-        if is_term_aware_class(class_cat):
-            for term in ("FIRST", "SECOND", "THIRD"):
-                term_folder = os.path.join(class_folder, term)
-
-                print(f"    [TERM] {term:<6} | {term_folder} | exists={os.path.isdir(term_folder)}")
-
-                results.extend(scan_library_folder(
-                    year=year, class_cat=class_cat,
-                    folder=term_folder, term=term, legacy=False,
-                ))
-
-            # Legacy flat JSS support remains available.
-            # Example: JSS1/mathematics_jss1.json
-            results.extend(scan_library_folder(
-                year=year, class_cat=class_cat,
-                folder=class_folder, term=None, legacy=True,
-            ))
-
-        # ========================================================
-        # SS1 / SS2 / SS3 — HYBRID ROOT + TERM FOLDERS
-        # ========================================================
-
-        else:
-            # General/root SS JSONs.
-            print(f"    [GENERAL] {class_folder}")
-
-            results.extend(scan_library_folder(
-                year=year, class_cat=class_cat,
-                folder=class_folder, term=None, legacy=False,
-            ))
-
-            # Optional FIRST / SECOND / THIRD SS JSONs.
-            for term in ("FIRST", "SECOND", "THIRD"):
-                term_folder = os.path.join(class_folder, term)
-
-                print(f"    [TERM] {term:<6} | {term_folder} | exists={os.path.isdir(term_folder)}")
-
-                results.extend(scan_library_folder(
-                    year=year, class_cat=class_cat,
-                    folder=term_folder, term=term, legacy=False,
-                ))
+            # ========================================================
+            # SS1 / SS2 / SS3 — HYBRID ROOT + TERM FOLDERS
+            # ========================================================
+            else:
+                print(f"    [GENERAL] {class_folder}")
+                add_items(scan_library_folder(year=year, class_cat=class_cat, folder=class_folder, term=None, legacy=False))
+                for term in ("FIRST", "SECOND", "THIRD"):
+                    term_folder = os.path.join(class_folder, term)
+                    print(f"    [TERM] {term:<6} | {term_folder} | exists={os.path.isdir(term_folder)}")
+                    add_items(scan_library_folder(year=year, class_cat=class_cat, folder=term_folder, term=term, legacy=False))
 
     # ========================================================
     # SORT RESULTS
@@ -716,7 +731,7 @@ def preview_json(year, filename):
         return jsonify({"error": "Term is required for Primary/JSS JSON preview"}), 400
 
     # SS may have term or remain general/root.
-    json_path = get_json_path(year, class_cat, filename, term)
+    json_path = find_existing_json_path(year, class_cat, filename, term)
 
     print("\n" + "=" * 90)
     print("EMIS JSON PREVIEW")
@@ -795,7 +810,7 @@ def delete_json(year, filename):
     # SS deletion:
     # term supplied    -> delete from SS1/FIRST etc.
     # no term supplied -> delete from SS1 root/general.
-    json_path = get_json_path(year, class_cat, filename, term)
+    json_path = find_existing_json_path(year, class_cat, filename, term)
 
     if not json_path or not os.path.isfile(json_path):
         return jsonify({

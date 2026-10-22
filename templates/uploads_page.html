@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Past Question Library | EMIS Portal{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/uploads.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exam_document_export.css') }}">
+
+<div class="uploads-standalone-page">{% include "uploads.html" %}</div>
+
+<script src="{{ url_for('static', filename='js/uploads.js') }}"></script>
+<script src="{{ url_for('static', filename='js/exam_document_export.js') }}"></script>
+<script src="{{ url_for('static', filename='js/push.js') }}"></script>
+<script src="{{ url_for('static', filename='js/available_years.js') }}"></script>
+{% endblock %}

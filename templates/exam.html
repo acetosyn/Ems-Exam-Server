@@ -26,6 +26,7 @@
   <meta name="student-class" content="{{ class_arm or student.class_arm or student.class or class_level or class_category or '' }}">
   <meta name="exam-subject" content="{{ subject or '' }}">
   <meta name="exam-year" content="{{ year or '' }}">
+  <meta name="exam-result-url" content="{{ url_for('student_portal_bp.result') }}">
 
   <!-- JSS TERM AWARE -->
   <meta name="exam-term" content="{{ active_term or term or '' }}">
@@ -80,25 +81,33 @@
   ====================================================== -->
 
   <section class="exam-controlbar">
-    <div id="examSubjectTitle" class="exam-subject-pill {% if not exam_started %}hidden{% endif %}">
-      <i class="fa-solid fa-book-open"></i>
-      <span>
-        {{ subject }}
-        {% if active_term or term %} • {{ term_label or active_term or term }}{% endif %}
-      </span>
+    <div id="examSubjectTitle" class="exam-subject-pill exam-subject-pill-rich {% if not exam_started %}hidden{% endif %}">
+      <div class="subject-pill-badge">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+      <div class="subject-pill-copy">
+        <small>Live Examination</small>
+        <span>
+          {{ subject }}
+          {% if active_term or term %} • {{ term_label or active_term or term }}{% endif %}
+        </span>
+      </div>
     </div>
 
     <div class="exam-control-right">
-      <div class="hourglass-card {% if not exam_started %}hidden{% endif %}">
-        <div class="hourglass"><div class="hg-top"></div><div class="hg-bottom"></div></div>
+      <div class="hourglass-card hourglass-card-rich {% if not exam_started %}hidden{% endif %}">
+        <div class="hourglass hourglass-rich"><div class="hg-top"></div><div class="hg-bottom"></div></div>
       </div>
 
-      <div id="examTimer" class="exam-topbar-timer {% if not exam_started %}hidden{% endif %}">
-        <i class="fa-solid fa-hourglass-half"></i>
-        <div><small>Countdown</small><span id="timerDisplay">00:00</span></div>
+      <div id="examTimer" class="exam-topbar-timer exam-topbar-timer-rich {% if not exam_started %}hidden{% endif %}">
+        <div class="timer-leading-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+        <div class="timer-copy">
+          <small>Countdown</small>
+          <span id="timerDisplay">00:00</span>
+        </div>
       </div>
 
-      <div class="exam-topbar-student exam-student-chip {% if not exam_started %}hidden{% endif %}">
+      <div class="exam-topbar-student exam-student-chip exam-student-chip-rich {% if not exam_started %}hidden{% endif %}">
         <i class="fa-solid fa-user"></i>
         <span>{{ student.full_name }}{% if class_arm %} • {{ class_arm }}{% endif %}</span>
       </div>
@@ -286,13 +295,13 @@
 
             <h2 class="q-h2">
               Question <span id="currentQuestionNumber">1</span>
-              <small>/ <span id="totalQuestions">0</span></small>
+              <span class="question-total-badge">of <span id="totalQuestions">0</span></span>
             </h2>
           </div>
 
-          <button id="flagBtn" class="flag-btn" type="button" onclick="toggleFlag()">
-            <i class="fa-solid fa-flag"></i>
-            <span id="flagText">Flag</span>
+          <button id="flagBtn" class="flag-btn flag-btn-rich" type="button" onclick="toggleFlag()">
+            <i class="fa-solid fa-bookmark"></i>
+            <span id="flagText">Flag for Review</span>
           </button>
         </div>
 

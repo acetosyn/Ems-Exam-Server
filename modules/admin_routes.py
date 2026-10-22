@@ -8,7 +8,7 @@ from pathlib import Path
 
 from flask import Blueprint, request, session, redirect, url_for, jsonify, render_template, flash
 
-from modules.teacher_assignment_manager import replace_teacher_assignments, validate_teacher_assignment_payload, teacher_report_scope
+from modules.teacher_assignment_manager import delete_teacher_assignments, replace_teacher_assignments, validate_teacher_assignment_payload, teacher_report_scope
 from modules.staff_identity_manager import delete_staff_account, generate_staff_ids, get_staff_account, list_staff_accounts, list_staff_identity_audit, set_staff_status, staff_identity_stats, validate_staff_login
 from modules.school_structure import class_label, hybrid_class_label, basic_class_reference
 from modules.class_config import SUPPORTED_CLASSES, STUDENT_DATABASE_CLASSES, TAHFEEZ_CLASSES, ISLAMIYAH_CLASSES, CLASS_ARMS_BY_LEVEL
@@ -56,9 +56,37 @@ def report_page_access_scope():
 
 STAFF_SESSION_TIMEOUT_SECONDS = 2 * 60 * 60
 STAFF_SESSION_ACTIVITY_KEY = "_staff_last_activity"
+STAFF_SESSION_SHADOW_KEY = "__staff_shadow"
+STUDENT_SESSION_SHADOW_KEY = "__student_shadow"
+STAFF_ACTIVE_SESSION_KEYS = ("user_type", "username", "staff_role", "admin_username", "teacher_id", STAFF_SESSION_ACTIVITY_KEY)
+STUDENT_ACTIVE_SESSION_KEYS = ("user_type", "student", "student_id", "admission_number", "student_name", "first_name", "last_name", "sex", "gender", "class", "class_arm", "class_category", "class_level", "stream", "ss_stream", "student_status", "exam_started", "exam_submitted", "selected_subject", "selected_year", "selected_class_level", "selected_class_arm", "selected_term", "student_login_name_used", "student_login_time", "academic_session")
+
+
+def _snapshot_session(keys):
+    return {key: session.get(key) for key in keys if key in session}
+
+
+def _preserved_student_shadow():
+    student_shadow = session.get(STUDENT_SESSION_SHADOW_KEY)
+    if isinstance(student_shadow, dict) and student_shadow:
+        return dict(student_shadow)
+    if str(session.get("user_type") or "").strip().lower() == "student" and session.get("student"):
+        return _snapshot_session(STUDENT_ACTIVE_SESSION_KEYS)
+    return {}
+
+
+def clear_staff_session_preserve_student():
+    preserved_student = _preserved_student_shadow()
+    for key in dict.fromkeys(STAFF_ACTIVE_SESSION_KEYS):
+        session.pop(key, None)
+    session.pop(STAFF_SESSION_SHADOW_KEY, None)
+    if preserved_student:
+        session[STUDENT_SESSION_SHADOW_KEY] = preserved_student
+    session.modified = True
 
 
 def start_staff_session(user_type, username, teacher_id=None):
+    preserved_student = _preserved_student_shadow()
     session.clear()
     session.permanent = True
 
@@ -72,6 +100,9 @@ def start_staff_session(user_type, username, teacher_id=None):
     if role in {"teacher", "teacher_admin", "islamiyyah_teacher"} and teacher_id: session["teacher_id"] = teacher_id
 
     session[STAFF_SESSION_ACTIVITY_KEY] = time.time()
+    session[STAFF_SESSION_SHADOW_KEY] = _snapshot_session(STAFF_ACTIVE_SESSION_KEYS)
+    if preserved_student:
+        session[STUDENT_SESSION_SHADOW_KEY] = preserved_student
     session.modified = True
 
 
@@ -85,7 +116,7 @@ def refresh_staff_session():
     if role in {"teacher", "teacher_admin", "islamiyyah_teacher"}:
         staff_id = str(session.get("teacher_id") or session.get("username") or "").strip(); account = get_staff_account(staff_id)
         if not account or account.get("status") != "active" or account.get("staff_role") != role:
-            session.clear(); return False
+            clear_staff_session_preserve_student(); return False
 
     now = time.time()
     last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
@@ -96,7 +127,7 @@ def refresh_staff_session():
 
             if elapsed > STAFF_SESSION_TIMEOUT_SECONDS:
                 print(f"[STAFF SESSION] {role} session expired after {round(elapsed / 3600, 2)} hour(s) inactivity.")
-                session.clear()
+                clear_staff_session_preserve_student()
                 return False
 
         except (TypeError, ValueError):
@@ -225,17 +256,21 @@ def staff_ids_api():
     try:
         if request.method == "POST":
             payload = request.get_json(silent=True) or request.form; role = payload.get("staff_role") or payload.get("role") or "teacher"; assignments = payload.get("assignments") or []; academic_session = payload.get("academic_session") or ""; actor=session.get("username") or "EMIS Admin"; generated=[]
-            if role in {"teacher", "islamiyyah_teacher"}: validate_teacher_assignment_payload(assignments, academic_session, role, require_assignment=True)
+            if role == "teacher": validate_teacher_assignment_payload(assignments, academic_session, role, require_assignment=True)
             try:
                 generated = generate_staff_ids(role, payload.get("count", 1), created_by=actor)
-                if role in {"teacher", "islamiyyah_teacher"}:
+                if role == "teacher":
                     for account in generated: replace_teacher_assignments(account.get("staff_id"), assignments, academic_session, changed_by=actor)
+                elif role == "islamiyyah_teacher":
+                    # IMS is a page-scoped Academy role, not a class/subject-scoped Report Sheets role.
+                    # Clear any legacy assignment rows if a deleted IMS number has been recycled.
+                    for account in generated: delete_teacher_assignments(account.get("staff_id"))
             except Exception:
                 for account in generated:
                     try: delete_staff_account(account.get("id"), changed_by=actor)
                     except Exception: pass
                 raise
-            return jsonify({"success": True, "message": f"{len(generated)} staff credential(s) generated" + (" and teaching access saved." if role != "teacher_admin" else "."), "generated": generated, "accounts": list_staff_accounts(include_password=True), "stats": staff_identity_stats()})
+            return jsonify({"success": True, "message": f"{len(generated)} staff credential(s) generated" + (" and teaching access saved." if role == "teacher" else "."), "generated": generated, "accounts": list_staff_accounts(include_password=True), "stats": staff_identity_stats()})
         return jsonify({"success": True, "accounts": list_staff_accounts(request.args.get("role", ""), include_password=True), "stats": staff_identity_stats(), "audit": list_staff_identity_audit(60)})
     except ValueError as error: return jsonify({"success": False, "error": str(error)}), 400
     except Exception as error:
@@ -278,7 +313,8 @@ def admin_dashboard():
 def admin_teachers():
     user_type = session.get("user_type")
     legacy_tool = request.args.get("open", "").strip().lower()
-    if user_type == "admin" and legacy_tool in {"uploads", "convert"}: return render_template("teachers.html", user_type="admin")
+    if user_type == "admin" and legacy_tool == "uploads": return redirect("/admin/uploads")
+    if user_type == "admin" and legacy_tool == "convert": return render_template("teachers.html", user_type="admin")
     if user_type == "admin":
         initial_view = request.args.get("view", "teachers").strip().lower()
         if initial_view not in {"teachers", "subjects", "ids"}: initial_view = "teachers"
@@ -410,7 +446,7 @@ def api_system_readiness():
 
 
 @admin_bp.route("/admin/support")
-@teacher_allowed
+@staff_allowed
 def admin_support():
     return render_template("support.html", user_type=session.get("user_type"))
 
@@ -503,5 +539,5 @@ def admin_results():
 
 @admin_bp.route("/admin/logout")
 def admin_logout():
-    session.clear()
+    clear_staff_session_preserve_student()
     return redirect(url_for("admin_bp.admin_login"))

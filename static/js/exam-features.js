@@ -125,8 +125,18 @@
 
 
       /* ========================================================
-         QUESTION NAVIGATION
+         QUESTION NAVIGATION — COMPACT SIDEBAR
       ======================================================== */
+
+      #questionGridWrap { max-height:330px!important; overflow-y:auto!important; overflow-x:hidden!important; padding:2px 4px 4px 1px!important; scrollbar-gutter:stable; }
+      #questionGrid { display:grid!important; grid-template-columns:repeat(6,minmax(0,1fr))!important; gap:6px!important; width:100%!important; min-width:0!important; }
+      .question-nav-btn { position:relative; width:100%!important; min-width:0!important; height:38px!important; min-height:38px!important; padding:0!important; border-radius:11px!important; font-size:.72rem!important; line-height:1!important; font-weight:900!important; }
+      .question-nav-btn .dot { top:4px!important; right:4px!important; width:6px!important; height:6px!important; }
+      .question-nav-btn.ef-flagged::after { top:4px!important; left:4px!important; width:5px!important; height:5px!important; }
+      .sidebar-actions { margin-top:22px!important; }
+      .sidebar-actions .btn-secondary { min-height:40px!important; }
+      @media(max-width:1180px){#questionGrid{grid-template-columns:repeat(5,minmax(0,1fr))!important}.question-nav-btn{height:36px!important;min-height:36px!important;font-size:.69rem!important}}
+      @media(max-width:760px){#questionGridWrap{max-height:280px!important}.sidebar-actions{margin-top:16px!important}}
 
       .question-nav-btn {
         position:relative;

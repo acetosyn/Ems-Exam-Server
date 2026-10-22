@@ -572,6 +572,104 @@ app.register_blueprint(broadsheet_bp)
 
 
 # ==========================================================
+# PARALLEL STAFF + STUDENT SESSION MULTIPLEXING
+# ==========================================================
+
+STAFF_SESSION_SHADOW_KEY = "__staff_shadow"
+STUDENT_SESSION_SHADOW_KEY = "__student_shadow"
+
+STAFF_ACTIVE_SESSION_KEYS = (
+    "user_type", "username", "staff_role", "admin_username", "teacher_id",
+    "_staff_last_activity"
+)
+
+STUDENT_ACTIVE_SESSION_KEYS = (
+    "user_type", "student", "student_id", "admission_number", "student_name",
+    "first_name", "last_name", "sex", "gender", "class", "class_arm",
+    "class_category", "class_level", "stream", "ss_stream", "student_status",
+    "exam_started", "exam_submitted", "selected_subject", "selected_year",
+    "selected_class_level", "selected_class_arm", "selected_term",
+    "student_login_name_used", "student_login_time", "academic_session"
+)
+
+STUDENT_ROUTE_PREFIXES = (
+    "/student_login", "/student_portal", "/exam_dashboard", "/start_exam",
+    "/exam", "/submit_exam", "/result", "/back_to_exam_dashboard",
+    "/exam-diagram/", "/logout", "/api/student/",
+    "/api/notifications/notify/exam_start", "/api/notifications/notify/exam_end"
+)
+
+
+def _session_snapshot(keys):
+    return {key: session.get(key) for key in keys if key in session}
+
+
+def _clear_active_identity_keys():
+    for key in dict.fromkeys(STAFF_ACTIVE_SESSION_KEYS + STUDENT_ACTIVE_SESSION_KEYS):
+        session.pop(key, None)
+
+
+def _restore_shadow(shadow):
+    if not isinstance(shadow, dict) or not shadow:
+        return False
+    _clear_active_identity_keys()
+    for key, value in shadow.items():
+        session[key] = value
+    session.modified = True
+    return True
+
+
+def _is_student_request_path(path):
+    path = str(path or "")
+    return any(path == prefix or path.startswith(prefix) for prefix in STUDENT_ROUTE_PREFIXES)
+
+
+def _current_role():
+    return str(session.get("user_type") or "").strip().lower()
+
+
+def _persist_active_identity_shadow():
+    role = _current_role()
+    if role == "student":
+        session[STUDENT_SESSION_SHADOW_KEY] = _session_snapshot(STUDENT_ACTIVE_SESSION_KEYS)
+        session.modified = True
+        return
+    if role in {"admin", "teacher", "teacher_admin", "islamiyyah_teacher"}:
+        session[STAFF_SESSION_SHADOW_KEY] = _session_snapshot(STAFF_ACTIVE_SESSION_KEYS)
+        session.modified = True
+
+
+@app.before_request
+def activate_parallel_portal_session():
+    path = str(request.path or "")
+    if path.startswith("/static/"):
+        return None
+
+    student_shadow = session.get(STUDENT_SESSION_SHADOW_KEY)
+    staff_shadow = session.get(STAFF_SESSION_SHADOW_KEY)
+    role = _current_role()
+
+    if _is_student_request_path(path):
+        if isinstance(student_shadow, dict) and student_shadow and role != "student":
+            _restore_shadow(student_shadow)
+        return None
+
+    if isinstance(staff_shadow, dict) and staff_shadow and role not in {"admin", "teacher", "teacher_admin", "islamiyyah_teacher"}:
+        _restore_shadow(staff_shadow)
+
+    return None
+
+
+@app.after_request
+def sync_parallel_portal_session(response):
+    try:
+        _persist_active_identity_shadow()
+    except Exception as error:
+        print("[EMIS SESSION] Parallel-session sync warning:", error)
+    return response
+
+
+# ==========================================================
 # GLOBAL STAFF ID SESSION ENFORCEMENT
 # ==========================================================
 
@@ -579,11 +677,23 @@ app.register_blueprint(broadsheet_bp)
 def enforce_staff_identity_session():
     """Immediately revoke deleted/disabled EMT, ADM and IMS sessions across every blueprint, including direct API calls."""
     role = str(session.get("user_type") or "").strip().lower()
-    if role not in {"teacher", "teacher_admin", "islamiyyah_teacher"} or str(request.path or "").startswith("/static/"): return None
-    staff_id = str(session.get("teacher_id") or session.get("username") or "").strip(); account = get_staff_account(staff_id)
-    if account and account.get("status") == "active" and account.get("staff_role") == role: return None
-    session.clear()
-    if str(request.path or "").startswith("/api/"): return jsonify({"success": False, "error": "Your staff account is disabled, deleted or no longer valid. Please contact the Administrator."}), 401
+    if role not in {"teacher", "teacher_admin", "islamiyyah_teacher"} or str(request.path or "").startswith("/static/"):
+        return None
+
+    staff_id = str(session.get("teacher_id") or session.get("username") or "").strip()
+    account = get_staff_account(staff_id)
+
+    if account and account.get("status") == "active" and account.get("staff_role") == role:
+        return None
+
+    session.pop(STAFF_SESSION_SHADOW_KEY, None)
+    for key in STAFF_ACTIVE_SESSION_KEYS:
+        session.pop(key, None)
+    session.modified = True
+
+    if str(request.path or "").startswith("/api/"):
+        return jsonify({"success": False, "error": "Your staff account is disabled, deleted or no longer valid. Please contact the Administrator."}), 401
+
     return redirect(flask_url_for("admin_bp.admin_login"))
 
 

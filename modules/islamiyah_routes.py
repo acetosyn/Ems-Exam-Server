@@ -10,7 +10,6 @@ from openpyxl.styles import Font, Alignment
 
 from modules.academic_records import clean, normalize_academic_session, normalize_academic_term, get_current_academic_context
 from modules.school_structure import ISLAMIYAH_CLASS_LEVELS, ISLAMIYAH_ROSTER_CLASSES, islamiyah_base_level
-from modules.teacher_assignment_manager import get_teacher_assignments
 from modules.result_sync import queue_emis_event_safely
 from modules.islamiyah_manager import CA_MAX, EXAM_MAX, TOTAL_MAX, ISLAMIYAH_PROMOTION_PATH, assign_students, build_enrollment_sync_payload, build_score_scope_sync_payload, get_class_result_summary, get_enrollment, get_islamiyah_dashboard, get_islamiyah_roster_coverage, get_score_entry_roster, get_score_records, get_student_history, get_report_sync_roster, get_student_report_sync_sheet, get_report_islamiyah_row, get_regular_school_roster, get_regular_school_report_sheet, save_regular_school_islamiyah_score, regular_school_class_options, import_current_student_database, islamiyah_class_label, islamiyah_subject_rows, list_enrollments, next_islamiyah_class, normalize_islamiyah_class, normalize_islamiyah_session, promote_islamiyah_students, save_student_score, upsert_external_islamiyah_students, enroll_regular_students, add_islamiyah_student, update_islamiyah_student, remove_islamiyah_students, clear_islamiyah_score_records, clear_regular_school_score_records, get_academy_activity, log_academy_activity
 from modules.tahfeez_database import get_tahfeez_management_roster, get_tahfeez_summary, set_tahfeez_placements, remove_tahfeez_placements, register_regular_students_to_tahfeez, add_tahfeez_student, update_tahfeez_student, tahfeez_database_health_check
@@ -53,27 +52,21 @@ def _resolve_context(session_value="", term_value=""):
 
 
 def _teacher_access(academic_session):
-    if _role() == "admin": return {level: {row["key"] for row in islamiyah_subject_rows(level)} for level in ISLAMIYAH_CLASS_LEVELS}
-    assignments = get_teacher_assignments(_teacher_id(), academic_session); access = {}
-    for row in assignments:
-        level = clean(row.get("class_level")).upper()
-        if level not in ISLAMIYAH_CLASS_LEVELS and clean(row.get("school_section")).upper() != "ISLAMIYAH": continue
-        if level in ISLAMIYAH_CLASS_LEVELS:
-            for target in ISLAMIYAH_CLASS_LEVELS:
-                if target == level or (islamiyah_base_level(target) == level): access.setdefault(target, set()).add(clean(row.get("subject_key")).upper())
-    return access
+    # Central Admin and IMS staff both receive the complete Academy scope. IMS is restricted by PAGE access,
+    # not by class/subject assignment. Normal EMT/ADM roles cannot enter this API at all.
+    return {level: {row["key"] for row in islamiyah_subject_rows(level)} for level in ISLAMIYAH_CLASS_LEVELS}
 
 
 def _ensure_access(academic_session, class_level="", subject=""):
     access = _teacher_access(academic_session)
     if _role() == "admin": return access, ""
-    if not access: return access, "No Islamiyah teaching load is assigned to this Teacher for the selected academic session."
+    if not access: return access, "Academy access is unavailable for this account."
     if class_level:
         level = normalize_islamiyah_class(class_level)
-        if level not in access: return access, f"You are not assigned to {islamiyah_class_label(level)}."
+        if level not in access: return access, f"Academy access does not include {islamiyah_class_label(level)}."
         if subject:
             wanted = clean(subject).upper(); rows = islamiyah_subject_rows(level); key = next((row["key"] for row in rows if wanted in {clean(row["key"]).upper(), clean(row["name"]).upper(), clean(row["id"]).upper()}), wanted)
-            if key not in access.get(level, set()): return access, f"You are not assigned to {next((row['name'] for row in rows if row['key'] == key), subject)} in {islamiyah_class_label(level)}."
+            if key not in access.get(level, set()): return access, f"Academy access does not include {next((row['name'] for row in rows if row['key'] == key), subject)} in {islamiyah_class_label(level)}."
     return access, ""
 
 
@@ -428,7 +421,7 @@ def api_islamiyah_results():
 def api_islamiyah_history(admission_number):
     try:
         academic_session = normalize_academic_session(request.args.get("session")); check_session = academic_session or _resolve_context("", "")[0]; access, error = _ensure_access(normalize_islamiyah_session(check_session)); enrollment = get_enrollment(admission_number, check_session, active_only=False)
-        if _role() == "islamiyyah_teacher" and (not enrollment or enrollment.get("islamiyah_class") not in access): return jsonify({"success": False, "message": error or "This student's Islamiyah record is outside your assigned teaching load."}), 403
+        if _role() == "islamiyyah_teacher" and (not enrollment or enrollment.get("islamiyah_class") not in access): return jsonify({"success": False, "message": error or "This student's Islamiyyah record is unavailable."}), 403
         history = get_student_history(admission_number, academic_session); return jsonify({"success": True, "admission_number": admission_number, "history": history, "count": len(history)})
     except ValueError as error: return jsonify({"success": False, "message": str(error)}), 400
 

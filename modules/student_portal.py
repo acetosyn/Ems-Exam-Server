@@ -66,7 +66,6 @@ BASE_SUBJECT_MAP = {
 # =========================================================
 
 def get_logged_in_student():
-    if session.get("user_type") != "student": return None
     student = session.get("student")
     return student if isinstance(student, dict) else None
 
@@ -754,12 +753,26 @@ def submit_exam():
     # =====================================================
 
     previous = read_results(class_arm or class_level, subject, year, term)
+    result_url = url_for("student_portal_bp.result")
 
     for result_row in previous:
         existing_admission = str(result_row.get("Admission No", "")).strip().lower()
 
         if existing_admission and existing_admission == admission_no.lower():
-            return jsonify({"error": "Exam already submitted"}), 403
+            session["exam_submitted"] = True
+            session["exam_started"] = False
+
+            return jsonify({
+                "status": "ok",
+                "already_submitted": True,
+                "message": "Exam already submitted",
+                "redirect_url": result_url,
+                "academic_session": academic_session,
+                "term": term,
+                "class_level": class_level,
+                "class_arm": class_arm,
+                "subject": subject,
+            }), 200
 
     now = datetime.now()
 
@@ -902,6 +915,7 @@ def submit_exam():
     return jsonify({
         "status": "ok",
         "message": "Exam submitted successfully",
+        "redirect_url": result_url,
         "academic_session": academic_session,
         "term": term,
         "class_level": class_level,

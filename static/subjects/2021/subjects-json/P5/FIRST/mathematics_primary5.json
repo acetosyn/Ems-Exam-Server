@@ -1,0 +1,394 @@
+{
+  "school": "EPITOME MODEL ISLAMIC SCHOOLS",
+  "subject": "Mathematics",
+  "class": "Primary 5",
+  "exam_title": "1st Term Examination",
+  "session": "2026/2027",
+  "time_allowed_minutes": 120,
+  "class_category": "PRIMARY 5",
+  "questions": [
+    {
+      "id": 1,
+      "question": "The product of a number multiplied by itself is called ______.",
+      "diagram": null,
+      "options": [
+        "A. Square root",
+        "B. Prime factor",
+        "C. Square",
+        "D. Multiple"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 2,
+      "question": "What is the square of 25?",
+      "diagram": null,
+      "options": [
+        "A. 625",
+        "B. 50",
+        "C. 1",
+        "D. 125"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 3,
+      "question": "What is the sum of the squares of 4, 8, and 10?",
+      "diagram": null,
+      "options": [
+        "A. 1048",
+        "B. 480",
+        "C. 180",
+        "D. 164"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 4,
+      "question": "What is 120 divided by 10?",
+      "diagram": null,
+      "options": [
+        "A. 1200",
+        "B. 12",
+        "C. 2",
+        "D. 20"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 5,
+      "question": "Find the remainder when 24,500 is divided by 3.",
+      "diagram": null,
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 0"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 6,
+      "question": "When a certain number is divided by 200, the quotient is 2 and the remainder is 100. What is the number?",
+      "diagram": null,
+      "options": [
+        "A. 100",
+        "B. 200",
+        "C. 400",
+        "D. 500"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 7,
+      "question": "Which of these numbers is not a prime number?",
+      "diagram": null,
+      "options": [
+        "A. 7",
+        "B. 2",
+        "C. 4",
+        "D. 5"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 8,
+      "question": "Change 57/1000 to a decimal.",
+      "diagram": null,
+      "options": [
+        "A. 57.0",
+        "B. 0.57",
+        "C. 0.057",
+        "D. 5.7"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 9,
+      "question": "Simplify 20% to its lowest fractional form.",
+      "diagram": null,
+      "options": [
+        "A. 20/100",
+        "B. 2/10",
+        "C. 1/5",
+        "D. 1/20"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 10,
+      "question": "Change 1% to a decimal.",
+      "diagram": null,
+      "options": [
+        "A. 0.01",
+        "B. 0.0001",
+        "C. 1.01",
+        "D. 0.1"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 11,
+      "question": "How many digits are there in 1,000,000?",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 8"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 12,
+      "question": "Find the L.C.M. of 10 and 15.",
+      "diagram": null,
+      "options": [
+        "A. 30",
+        "B. 45",
+        "C. 150",
+        "D. 25"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 13,
+      "question": "Which option contains all the even numbers in the set: 1, 3, 4, 5, 10, 11, 14, 30, 31?",
+      "diagram": null,
+      "options": [
+        "A. 1, 3, 5, 11, 31",
+        "B. 4, 10, 14, 30",
+        "C. 3, 4, 10, 31",
+        "D. 4, 5, 14, 31"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 14,
+      "question": "The ages of Tade and Tunde are 15 years and 9 years respectively. Express their ages as a ratio in simplest form.",
+      "diagram": null,
+      "options": [
+        "A. 5:3",
+        "B. 5:9",
+        "C. 9:15",
+        "D. 3:5"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 15,
+      "question": "Share 250 mangoes in the ratio 2:3. What is the larger share?",
+      "diagram": null,
+      "options": [
+        "A. 100",
+        "B. 150",
+        "C. 250",
+        "D. 750"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 16,
+      "question": "What is the value of 5% of 200?",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 10",
+        "C. 20",
+        "D. 40"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 17,
+      "question": "Express 0.75 as a fraction in its lowest form.",
+      "diagram": null,
+      "options": [
+        "A. 1/4",
+        "B. 2/3",
+        "C. 3/4",
+        "D. 75/10"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 18,
+      "question": "What is the H.C.F. of 18 and 24?",
+      "diagram": null,
+      "options": [
+        "A. 2",
+        "B. 3",
+        "C. 6",
+        "D. 12"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 19,
+      "question": "Which of these numbers is a factor of 36?",
+      "diagram": null,
+      "options": [
+        "A. 5",
+        "B. 7",
+        "C. 9",
+        "D. 11"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 20,
+      "question": "What is 3/5 of 100?",
+      "diagram": null,
+      "options": [
+        "A. 20",
+        "B. 40",
+        "C. 60",
+        "D. 80"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 21,
+      "question": "Find the value of 2,345 + 5,678.",
+      "diagram": null,
+      "options": [
+        "A. 7,913",
+        "B. 8,023",
+        "C. 8,113",
+        "D. 8,203"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 22,
+      "question": "Subtract 3,786 from 10,000.",
+      "diagram": null,
+      "options": [
+        "A. 6,114",
+        "B. 6,214",
+        "C. 7,214",
+        "D. 7,314"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "id": 23,
+      "question": "Find the product of 24 and 15.",
+      "diagram": null,
+      "options": [
+        "A. 260",
+        "B. 300",
+        "C. 360",
+        "D. 390"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 24,
+      "question": "A trader bought 8 exercise books at ₦250 each. How much did the books cost altogether?",
+      "diagram": null,
+      "options": [
+        "A. ₦1,250",
+        "B. ₦1,500",
+        "C. ₦2,000",
+        "D. ₦2,500"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 25,
+      "question": "What is the place value of 7 in 47,562?",
+      "diagram": null,
+      "options": [
+        "A. 7",
+        "B. 70",
+        "C. 700",
+        "D. 7,000"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "id": 26,
+      "question": "Which of the following fractions is the greatest?",
+      "diagram": null,
+      "options": [
+        "A. 1/2",
+        "B. 2/3",
+        "C. 3/4",
+        "D. 1/4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 27,
+      "question": "Convert 3/10 to a percentage.",
+      "diagram": null,
+      "options": [
+        "A. 3%",
+        "B. 10%",
+        "C. 30%",
+        "D. 300%"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 28,
+      "question": "A class has 20 boys and 30 girls. What is the ratio of boys to girls in simplest form?",
+      "diagram": null,
+      "options": [
+        "A. 2:3",
+        "B. 3:2",
+        "C. 20:50",
+        "D. 5:3"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "id": 29,
+      "question": "What is the next number in the sequence 5, 10, 15, 20, ______?",
+      "diagram": null,
+      "options": [
+        "A. 21",
+        "B. 24",
+        "C. 25",
+        "D. 30"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "id": 30,
+      "question": "A rectangle is 8 cm long and 5 cm wide. What is its perimeter?",
+      "diagram": null,
+      "options": [
+        "A. 13 cm",
+        "B. 26 cm",
+        "C. 40 cm",
+        "D. 80 cm"
+      ],
+      "correctOption": "B"
+    }
+  ],
+  "essay": {
+    "title": "SECTION B - THEORY",
+    "instruction": "Attempt all the questions. Show all necessary workings clearly.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "(a) Find 5% of 120 cm.\n(b) Find 45% of 2,000 cm.\n(c) 60% of the students admitted to a college were admitted to study Science. If the college admitted 120 students, how many students studied Science?",
+        "diagram": null
+      },
+      {
+        "id": 2,
+        "question": "(a) The sales of a shop on five days of a week were ₦6,612, ₦5,330, ₦4,033, ₦708 and ₦6,035. Find the total sales.\n(b) Find the cost of 25 books if each book costs ₦7.75.\n(c) Find the product of 276 and 32.",
+        "diagram": null
+      },
+      {
+        "id": 3,
+        "question": "The parents of Olu, Ayo and Ige gave them ₦30,000 to share in the ratio 4:5:6.\n(a) How much does each person get?\n(b) Who gets the biggest share?\n(c) Who gets the smallest share?",
+        "diagram": null
+      }
+    ]
+  },
+  "term": "FIRST",
+  "term_label": "1st Term"
+}

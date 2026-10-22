@@ -40,6 +40,12 @@ ESSAY_LOCK = Lock()
 STAFF_SESSION_TIMEOUT_SECONDS = 20 * 60
 STAFF_SESSION_ACTIVITY_KEY = "_staff_last_activity"
 
+def clear_staff_session_preserve_student():
+    for key in ("user_type", "username", "staff_role", "admin_username", "teacher_id", STAFF_SESSION_ACTIVITY_KEY):
+        session.pop(key, None)
+    session.pop("__staff_shadow", None)
+    session.modified = True
+
 
 # ============================================================
 # BASIC HELPERS
@@ -125,7 +131,7 @@ def can_manage_results():
         try:
             if now - float(last_activity) > STAFF_SESSION_TIMEOUT_SECONDS:
                 print(f"[ESSAY SESSION] {role} session expired after 20 minutes inactivity.")
-                session.clear()
+                clear_staff_session_preserve_student()
                 return False
         except (TypeError, ValueError):
             pass
