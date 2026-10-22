@@ -35,7 +35,8 @@ from modules.class_config import (
 
 push_bp = Blueprint("push_bp", __name__)
 
-BASE_DIR = Path(__file__).resolve().parent
+FILE_DIR = Path(__file__).resolve().parent
+BASE_DIR = FILE_DIR if (FILE_DIR / "static").is_dir() else FILE_DIR.parent if (FILE_DIR.parent / "static").is_dir() else FILE_DIR
 
 # Source:
 # Primary/JSS -> static/subjects/<YEAR>/subjects-json/PRIMARY1/FIRST/file.json
@@ -522,36 +523,36 @@ def get_portal_target_folder(year, class_level, target_arm, term=None):
     return folder
 
 
+
+
+def source_class_folder_names(class_level):
+    level = normalize_class_level(class_level); aliases = [level] if level else []
+    if level.startswith("PRIMARY") and level[7:].isdigit():
+        number = level[7:]; aliases.extend([f"P{number}", f"PRIMARY {number}", f"BASIC{number}", f"BASIC {number}"])
+    seen, output = set(), []
+    for alias in aliases:
+        key = str(alias or "").strip()
+        if key and key.upper() not in seen: seen.add(key.upper()); output.append(key)
+    return output
+
+
+def get_subject_class_folders(year, class_level):
+    return [SUBJECTS_JSON_ROOT / str(year) / "subjects-json" / folder_name for folder_name in source_class_folder_names(class_level)]
+
 def get_subject_source_path(year, class_level, filename, term=None):
-    """
-    JSS:
-        strict term path only.
+    """Resolve repository JSON across canonical PRIMARY5 and friendly P5/Basic 5 folder aliases."""
+    class_level, normalized_term = normalize_class_level(class_level), normalize_term(term)
+    class_folders = get_subject_class_folders(year, class_level)
+    candidates = []
 
-    SS:
-        term selected -> SS/<TERM>/file.json first
-        if missing    -> SS/file.json fallback
-        no term       -> SS/file.json
-    """
+    for class_folder in class_folders:
+        if is_term_aware_class(class_level):
+            if normalized_term: candidates.append(class_folder / normalized_term / filename)
+        elif is_optional_term_class(class_level) and normalized_term:
+            candidates.extend([class_folder / normalized_term / filename, class_folder / filename])
+        else: candidates.append(class_folder / filename)
 
-    class_folder = SUBJECTS_JSON_ROOT / str(year) / "subjects-json" / class_level
-    normalized_term = normalize_term(term)
-
-    # Primary/JSS = strict term source.
-    if is_term_aware_class(class_level):
-        if not normalized_term: return None
-
-        return class_folder / normalized_term / filename
-
-    # SS = term-specific source first, then root/general fallback.
-    if is_optional_term_class(class_level) and normalized_term:
-        term_path = class_folder / normalized_term / filename
-
-        if term_path.exists(): return term_path
-
-        return class_folder / filename
-
-    # SS general/root.
-    return class_folder / filename
+    return next((path for path in candidates if path.exists()), candidates[0] if candidates else None)
 
 
 def is_term_specific_source(path, term):
@@ -1395,60 +1396,32 @@ def available_terms():
             "terms": [],
         }), 400
 
-    class_folder = (
-        SUBJECTS_JSON_ROOT
-        / year
-        / "subjects-json"
-        / class_level
-    )
+    class_folders = get_subject_class_folders(year, class_level)
 
     # --------------------------------------------------------
     # GENERAL / ROOT SS AVAILABILITY
     # --------------------------------------------------------
-
     general_available = False
-
-    if class_folder.exists() and class_folder.is_dir():
+    for class_folder in class_folders:
+        if not class_folder.exists() or not class_folder.is_dir(): continue
         try:
-            general_available = any(
-                file.is_file()
-                and file.suffix.lower() == ".json"
-                and file.name.lower() != "pushed_subjects.json"
-                for file in class_folder.iterdir()
-            )
-
-        except OSError:
-            general_available = False
+            if any(file.is_file() and file.suffix.lower() == ".json" and file.name.lower() != "pushed_subjects.json" for file in class_folder.iterdir()): general_available = True; break
+        except OSError: pass
 
     # --------------------------------------------------------
     # FIRST / SECOND / THIRD AVAILABILITY
     # --------------------------------------------------------
-
     available = []
-
     if supports_term_folders(class_level):
         for term in ("FIRST", "SECOND", "THIRD"):
-            term_folder = class_folder / term
-
-            if not term_folder.exists() or not term_folder.is_dir():
-                continue
-
-            try:
-                has_json = any(
-                    file.is_file()
-                    and file.suffix.lower() == ".json"
-                    and file.name.lower() != "pushed_subjects.json"
-                    for file in term_folder.iterdir()
-                )
-
-            except OSError:
-                has_json = False
-
-            if has_json:
-                available.append({
-                    "term": term,
-                    "label": term_label(term),
-                })
+            has_json = False
+            for class_folder in class_folders:
+                term_folder = class_folder / term
+                if not term_folder.exists() or not term_folder.is_dir(): continue
+                try:
+                    if any(file.is_file() and file.suffix.lower() == ".json" and file.name.lower() != "pushed_subjects.json" for file in term_folder.iterdir()): has_json = True; break
+                except OSError: pass
+            if has_json: available.append({"term": term, "label": term_label(term)})
 
     return jsonify({
         "success": True,

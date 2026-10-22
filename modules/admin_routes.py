@@ -56,9 +56,37 @@ def report_page_access_scope():
 
 STAFF_SESSION_TIMEOUT_SECONDS = 2 * 60 * 60
 STAFF_SESSION_ACTIVITY_KEY = "_staff_last_activity"
+STAFF_SESSION_SHADOW_KEY = "__staff_shadow"
+STUDENT_SESSION_SHADOW_KEY = "__student_shadow"
+STAFF_ACTIVE_SESSION_KEYS = ("user_type", "username", "staff_role", "admin_username", "teacher_id", STAFF_SESSION_ACTIVITY_KEY)
+STUDENT_ACTIVE_SESSION_KEYS = ("user_type", "student", "student_id", "admission_number", "student_name", "first_name", "last_name", "sex", "gender", "class", "class_arm", "class_category", "class_level", "stream", "ss_stream", "student_status", "exam_started", "exam_submitted", "selected_subject", "selected_year", "selected_class_level", "selected_class_arm", "selected_term", "student_login_name_used", "student_login_time", "academic_session")
+
+
+def _snapshot_session(keys):
+    return {key: session.get(key) for key in keys if key in session}
+
+
+def _preserved_student_shadow():
+    student_shadow = session.get(STUDENT_SESSION_SHADOW_KEY)
+    if isinstance(student_shadow, dict) and student_shadow:
+        return dict(student_shadow)
+    if str(session.get("user_type") or "").strip().lower() == "student" and session.get("student"):
+        return _snapshot_session(STUDENT_ACTIVE_SESSION_KEYS)
+    return {}
+
+
+def clear_staff_session_preserve_student():
+    preserved_student = _preserved_student_shadow()
+    for key in dict.fromkeys(STAFF_ACTIVE_SESSION_KEYS):
+        session.pop(key, None)
+    session.pop(STAFF_SESSION_SHADOW_KEY, None)
+    if preserved_student:
+        session[STUDENT_SESSION_SHADOW_KEY] = preserved_student
+    session.modified = True
 
 
 def start_staff_session(user_type, username, teacher_id=None):
+    preserved_student = _preserved_student_shadow()
     session.clear()
     session.permanent = True
 
@@ -72,6 +100,9 @@ def start_staff_session(user_type, username, teacher_id=None):
     if role in {"teacher", "teacher_admin", "islamiyyah_teacher"} and teacher_id: session["teacher_id"] = teacher_id
 
     session[STAFF_SESSION_ACTIVITY_KEY] = time.time()
+    session[STAFF_SESSION_SHADOW_KEY] = _snapshot_session(STAFF_ACTIVE_SESSION_KEYS)
+    if preserved_student:
+        session[STUDENT_SESSION_SHADOW_KEY] = preserved_student
     session.modified = True
 
 
@@ -85,7 +116,7 @@ def refresh_staff_session():
     if role in {"teacher", "teacher_admin", "islamiyyah_teacher"}:
         staff_id = str(session.get("teacher_id") or session.get("username") or "").strip(); account = get_staff_account(staff_id)
         if not account or account.get("status") != "active" or account.get("staff_role") != role:
-            session.clear(); return False
+            clear_staff_session_preserve_student(); return False
 
     now = time.time()
     last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
@@ -96,7 +127,7 @@ def refresh_staff_session():
 
             if elapsed > STAFF_SESSION_TIMEOUT_SECONDS:
                 print(f"[STAFF SESSION] {role} session expired after {round(elapsed / 3600, 2)} hour(s) inactivity.")
-                session.clear()
+                clear_staff_session_preserve_student()
                 return False
 
         except (TypeError, ValueError):
@@ -282,7 +313,8 @@ def admin_dashboard():
 def admin_teachers():
     user_type = session.get("user_type")
     legacy_tool = request.args.get("open", "").strip().lower()
-    if user_type == "admin" and legacy_tool in {"uploads", "convert"}: return render_template("teachers.html", user_type="admin")
+    if user_type == "admin" and legacy_tool == "uploads": return redirect("/admin/uploads")
+    if user_type == "admin" and legacy_tool == "convert": return render_template("teachers.html", user_type="admin")
     if user_type == "admin":
         initial_view = request.args.get("view", "teachers").strip().lower()
         if initial_view not in {"teachers", "subjects", "ids"}: initial_view = "teachers"
@@ -507,5 +539,5 @@ def admin_results():
 
 @admin_bp.route("/admin/logout")
 def admin_logout():
-    session.clear()
+    clear_staff_session_preserve_student()
     return redirect(url_for("admin_bp.admin_login"))

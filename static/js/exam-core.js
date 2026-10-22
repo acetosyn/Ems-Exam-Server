@@ -192,6 +192,50 @@ function uniqueArray(items) {
   return [...new Set((items || []).filter(Boolean))];
 }
 
+function resolveExamResultURL(output = {}) {
+  return String(
+    output.redirect_url ||
+    output.result_url ||
+    getMetaContent("exam-result-url") ||
+    "/result"
+  ).trim() || "/result";
+}
+
+function redirectToExamResult(output = {}, successMessage = "Exam submitted successfully. Redirecting...") {
+  const targetUrl = resolveExamResultURL(output);
+
+  try {
+    window.__ANTI_CHEAT_ACTIVE = false;
+    window.__ANTICHEAT_READY = false;
+    window.__examFinished = true;
+    closeEndExam?.();
+  } catch (error) {
+    console.warn("[exam-core] Could not fully disable exam guards before redirect:", error);
+  }
+
+  try {
+    const loadingOverlay = $("#loadingOverlay");
+    if (loadingOverlay) loadingOverlay.classList.remove("hidden");
+  } catch (error) {
+    console.warn("[exam-core] Could not show loading overlay before redirect:", error);
+  }
+
+  examFlash(successMessage, "success");
+
+  setTimeout(() => {
+    try {
+      location.replace(targetUrl);
+    } catch (error) {
+      console.error("[exam-core] location.replace failed, falling back:", error);
+      window.location.href = targetUrl;
+    }
+  }, 320);
+
+  setTimeout(() => {
+    if (!document.hidden) window.location.href = targetUrl;
+  }, 1400);
+}
+
 
 // ======================================================
 // CLASS NORMALIZATION
@@ -1540,6 +1584,26 @@ window.closeEndExam = function () {
 // ======================================================
 // SUBMIT EXAM
 // ======================================================
+function setSubmitExamBusy(isBusy) {
+  const submitButtons = $$("#endExamModal .btn-danger, #essaySubmitBtn, .btn-submit-exam");
+  submitButtons.forEach((button) => {
+    if (!button) return;
+    if (!button.dataset.originalHtml) button.dataset.originalHtml = button.innerHTML;
+    button.disabled = Boolean(isBusy);
+    button.classList.toggle("is-loading", Boolean(isBusy));
+    button.innerHTML = isBusy
+      ? `<i class="fa-solid fa-spinner fa-spin"></i><span>Submitting...</span>`
+      : button.dataset.originalHtml;
+  });
+
+  const modal = $("#endExamModal");
+  if (modal) modal.classList.toggle("is-submitting", Boolean(isBusy));
+
+  const loadingOverlay = $("#loadingOverlay");
+  if (loadingOverlay) loadingOverlay.classList.toggle("hidden", !isBusy);
+}
+
+
 
 window.submitExam = async function (timeUp = false) {
   if (window.__examFinished) return;
@@ -1550,6 +1614,7 @@ window.submitExam = async function (timeUp = false) {
   }
 
   window.__examFinished = true;
+  setSubmitExamBusy(true);
 
   if (window.examTimer) {
     clearInterval(window.examTimer);
@@ -1691,7 +1756,17 @@ window.submitExam = async function (timeUp = false) {
 
     const output = await response.json().catch(() => ({}));
 
-    if (!response.ok) throw new Error(output.error || `Submit failed (${response.status})`);
+    if (!response.ok) {
+      const message = output.error || output.message || `Submit failed (${response.status})`;
+
+      if (String(message).toLowerCase().includes("already submitted") && (output.redirect_url || output.result_url)) {
+        console.warn("[exam-core] Submission already existed. Redirecting to result page.", output);
+        redirectToExamResult(output, "This exam was already submitted. Opening your confirmation page...");
+        return;
+      }
+
+      throw new Error(message);
+    }
 
     console.log("[exam-core] Examination result submitted successfully:", output);
 
@@ -1713,10 +1788,14 @@ window.submitExam = async function (timeUp = false) {
       console.warn("[exam-core] Could not clear local exam state:", storageError);
     }
 
-    location.replace("/result");
+    redirectToExamResult(output, output.already_submitted
+      ? "This exam was already submitted. Opening your confirmation page..."
+      : "Exam submitted successfully. Redirecting...");
+    return;
 
   } catch (error) {
     window.__examFinished = false;
+    setSubmitExamBusy(false);
 
     console.error("[exam-core] Submit exam error:", {
       error,
@@ -2298,6 +2377,17 @@ window.startExam = async function () {
     }
 
     // ==================================================
+    // SECURITY HAND-OFF
+    // exam-realtime.js owns anti-cheat. Calling it here guarantees
+    // activation even when another layer wrapped startExam later.
+    // ==================================================
+
+    try {
+      if (typeof window.activateExamSecurity === "function") window.activateExamSecurity("exam-core-start");
+      if (typeof window.ensureExamSecurityActive === "function") window.ensureExamSecurityActive("exam-core-start-fallback");
+    } catch (securityError) { console.warn("[exam-core] Security activation hand-off failed:", securityError); }
+
+    // ==================================================
     // SHOW ACTIVE EXAM CONTROLS
     // ==================================================
 
@@ -2562,10 +2652,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const startButton = $("#startExamBtn");
 
   if (startButton) {
-    startButton.addEventListener(
-      "click",
-      window.startExam
-    );
+    // Resolve window.startExam at click-time so experience/security wrappers
+    // installed after exam-core.js are never bypassed by a stale function reference.
+    startButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (typeof window.startExam === "function") window.startExam();
+    });
   }
 });
 

@@ -70,7 +70,9 @@ function flashMessage(text, type = "success") {
     ====================================================== */
 
     normalizeClass(value) {
-      return String(value || "").toUpperCase().trim();
+      const raw = String(value || "").toUpperCase().trim(), compact = raw.replace(/[\s_\-/&]/g, "");
+      const primary = compact.match(/^(?:P|PRI|PRIMARY|BASIC)([1-6])(?:[AB])?$/);
+      return primary ? `PRIMARY${primary[1]}` : compact === "ALL" ? "ALL" : raw;
     },
 
     normalizeTerm(value) {

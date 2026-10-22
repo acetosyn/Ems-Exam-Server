@@ -51,46 +51,11 @@
 
 
   <!-- ============================================================
-       COMPACT STATUS BAR
+       TOP LIVE NOTIFICATION STRIP
+       Compact Push success / warning / error notices live here.
   ============================================================= -->
 
-  <section class="uploads-status-bar">
-
-    <div class="status-item">
-      <span class="status-icon"><i class="fa-solid fa-calendar-days"></i></span>
-      <div><small>Year</small><strong id="statSelectedYear">—</strong></div>
-    </div>
-
-    <div class="status-divider"></div>
-
-    <div class="status-item">
-      <span class="status-icon"><i class="fa-solid fa-folder-tree"></i></span>
-      <div><small>Files</small><strong id="statLoadedFiles">0</strong></div>
-    </div>
-
-    <div class="status-divider"></div>
-
-    <div class="status-item">
-      <span class="status-icon"><i class="fa-solid fa-list-check"></i></span>
-      <div><small>Selected</small><strong id="pushCount">0</strong></div>
-    </div>
-
-    <div class="status-divider"></div>
-
-    <div class="status-item">
-      <span class="status-icon"><i class="fa-solid fa-location-arrow"></i></span>
-      <div><small>Target</small><strong id="statTargetArm">—</strong></div>
-    </div>
-
-    <div class="status-years">
-      <span class="status-years-label">Available</span>
-      <div id="availableYearsList" class="available-years-list"><span class="year-loading">Loading…</span></div>
-    </div>
-
-  </section>
-
-
-
+  <div id="pushNoticeStack" class="push-notice-stack push-notice-top" aria-live="polite" aria-atomic="false"></div>
 
 
   <!-- ============================================================
@@ -219,28 +184,44 @@
            optional = SS
       ======================================================= -->
 
-      <div class="class-navigation">
+      <div class="class-navigation" aria-label="Class filter">
 
-        <button class="class-pill active" data-class="ALL" data-term-aware="false" data-term-mode="all" type="button">All</button>
+        <div class="class-nav-group class-nav-scope">
+          <span class="class-nav-group-label"><i class="fa-solid fa-layer-group"></i> Scope</span>
+          <div class="class-nav-group-grid">
+            <button class="class-pill active" data-class="ALL" data-term-aware="false" data-term-mode="all" type="button">All</button>
+          </div>
+        </div>
 
-        <button class="class-pill primary" data-class="PRIMARY1" data-term-aware="true" data-term-mode="required" type="button">P1</button>
-        <button class="class-pill primary" data-class="PRIMARY2" data-term-aware="true" data-term-mode="required" type="button">P2</button>
-        <button class="class-pill primary" data-class="PRIMARY3" data-term-aware="true" data-term-mode="required" type="button">P3</button>
-        <button class="class-pill primary" data-class="PRIMARY4" data-term-aware="true" data-term-mode="required" type="button">P4</button>
-        <button class="class-pill primary" data-class="PRIMARY5" data-term-aware="true" data-term-mode="required" type="button">P5</button>
-        <button class="class-pill primary" data-class="PRIMARY6" data-term-aware="true" data-term-mode="required" type="button">P6</button>
+        <div class="class-nav-group class-nav-primary">
+          <span class="class-nav-group-label"><i class="fa-solid fa-school"></i> Primary</span>
+          <div class="class-nav-group-grid primary-grid">
+            <button class="class-pill primary" data-class="PRIMARY1" data-term-aware="true" data-term-mode="required" type="button">P1</button>
+            <button class="class-pill primary" data-class="PRIMARY2" data-term-aware="true" data-term-mode="required" type="button">P2</button>
+            <button class="class-pill primary" data-class="PRIMARY3" data-term-aware="true" data-term-mode="required" type="button">P3</button>
+            <button class="class-pill primary" data-class="PRIMARY4" data-term-aware="true" data-term-mode="required" type="button">P4</button>
+            <button class="class-pill primary" data-class="PRIMARY5" data-term-aware="true" data-term-mode="required" type="button">P5</button>
+            <button class="class-pill primary" data-class="PRIMARY6" data-term-aware="true" data-term-mode="required" type="button">P6</button>
+          </div>
+        </div>
 
-        <span class="class-nav-divider"></span>
+        <div class="class-nav-group class-nav-junior">
+          <span class="class-nav-group-label"><i class="fa-solid fa-book-open-reader"></i> Junior Sec.</span>
+          <div class="class-nav-group-grid">
+            <button class="class-pill" data-class="JSS1" data-term-aware="true" data-term-mode="required" type="button">JSS1</button>
+            <button class="class-pill" data-class="JSS2" data-term-aware="true" data-term-mode="required" type="button">JSS2</button>
+            <button class="class-pill" data-class="JSS3" data-term-aware="true" data-term-mode="required" type="button">JSS3</button>
+          </div>
+        </div>
 
-        <button class="class-pill" data-class="JSS1" data-term-aware="true" data-term-mode="required" type="button">JSS1</button>
-        <button class="class-pill" data-class="JSS2" data-term-aware="true" data-term-mode="required" type="button">JSS2</button>
-        <button class="class-pill" data-class="JSS3" data-term-aware="true" data-term-mode="required" type="button">JSS3</button>
-
-        <span class="class-nav-divider"></span>
-
-        <button class="class-pill" data-class="SS1" data-term-aware="true" data-term-mode="optional" type="button">SS1</button>
-        <button class="class-pill" data-class="SS2" data-term-aware="true" data-term-mode="optional" type="button">SS2</button>
-        <button class="class-pill" data-class="SS3" data-term-aware="true" data-term-mode="optional" type="button">SS3</button>
+        <div class="class-nav-group class-nav-senior">
+          <span class="class-nav-group-label"><i class="fa-solid fa-user-graduate"></i> Senior Sec.</span>
+          <div class="class-nav-group-grid">
+            <button class="class-pill" data-class="SS1" data-term-aware="true" data-term-mode="optional" type="button">SS1</button>
+            <button class="class-pill" data-class="SS2" data-term-aware="true" data-term-mode="optional" type="button">SS2</button>
+            <button class="class-pill" data-class="SS3" data-term-aware="true" data-term-mode="optional" type="button">SS3</button>
+          </div>
+        </div>
 
       </div>
 
@@ -460,9 +441,11 @@
               <option value="JSS3" data-term-aware="true" data-term-mode="required">JSS3</option>
               </optgroup>
 
-              <option value="SS1" data-term-aware="true" data-term-mode="optional">SS1</option>
-              <option value="SS2" data-term-aware="true" data-term-mode="optional">SS2</option>
-              <option value="SS3" data-term-aware="true" data-term-mode="optional">SS3</option>
+              <optgroup label="Senior Secondary">
+                <option value="SS1" data-term-aware="true" data-term-mode="optional">SS1</option>
+                <option value="SS2" data-term-aware="true" data-term-mode="optional">SS2</option>
+                <option value="SS3" data-term-aware="true" data-term-mode="optional">SS3</option>
+              </optgroup>
 
             </select>
 
@@ -621,18 +604,6 @@
 
   </section>
 
-
-
-    <!-- ============================================================
-     PUSH NOTIFICATION CENTRE
-     In normal page flow — never overlays the Push Target panel.
-============================================================= -->
-
-<div id="pushNoticeStack"
-     class="push-notice-stack"
-     aria-live="polite"
-     aria-atomic="false">
-</div>
 
 
   <!-- ============================================================

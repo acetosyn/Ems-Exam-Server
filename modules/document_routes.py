@@ -287,7 +287,7 @@ def uploads_page():
     if not can_manage_uploads():
         return redirect(url_for("admin_bp.admin_login"))
 
-    return render_template("uploads.html", user_type=session.get("user_type"), classes=SUPPORTED_CLASSES, class_arms=CLASS_ARMS)
+    return render_template("uploads_page.html", user_type=session.get("user_type"), classes=SUPPORTED_CLASSES, class_arms=CLASS_ARMS)
 
 
 # ============================================================

@@ -12,7 +12,7 @@ from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.page import PageMargins
 
-from modules.excel_manager import read_results, get_excel_path, EXPECTED_HEADERS, repair_missing_headers
+from modules.excel_manager import read_results, get_excel_path, EXPECTED_HEADERS, read_result_workbook_rows, save_result_workbook_atomic
 from modules.class_config import SUPPORTED_CLASSES, normalize_class_level, is_exam_term_required_class, get_subjects_for_class
 from modules.student_results import normalize_result_year, academic_session_from_year
 from modules.academic_settings import get_academic_settings as get_global_academic_settings, save_academic_settings, YEAR_MIN as ACADEMIC_YEAR_MIN, YEAR_MAX as ACADEMIC_YEAR_MAX
@@ -31,6 +31,12 @@ SUBJECT_LIBRARY_DIR = BASE_DIR / "static" / "subjects"
 VALID_TERMS = ("FIRST", "SECOND", "THIRD")
 STAFF_SESSION_TIMEOUT_SECONDS = 2 * 60 * 60
 STAFF_SESSION_ACTIVITY_KEY = "_staff_last_activity"
+
+def clear_staff_session_preserve_student():
+    for key in ("user_type", "username", "staff_role", "admin_username", "teacher_id", STAFF_SESSION_ACTIVITY_KEY):
+        session.pop(key, None)
+    session.pop("__staff_shadow", None)
+    session.modified = True
 
 ADMIN_NOTIFICATION_LIMIT = 1000
 ADMIN_NOTIFICATIONS = deque(maxlen=ADMIN_NOTIFICATION_LIMIT)
@@ -146,7 +152,7 @@ def can_view_results():
                     f"[RESULT SESSION] {role} session expired after "
                     f"{round(elapsed / 3600, 2)} hour(s) inactivity."
                 )
-                session.clear()
+                clear_staff_session_preserve_student()
                 return False
 
         except (TypeError, ValueError):
@@ -168,7 +174,7 @@ def can_view_notifications():
     now = time.time(); last_activity = session.get(STAFF_SESSION_ACTIVITY_KEY)
     if last_activity is not None:
         try:
-            if now - float(last_activity) > STAFF_SESSION_TIMEOUT_SECONDS: session.clear(); return False
+            if now - float(last_activity) > STAFF_SESSION_TIMEOUT_SECONDS: clear_staff_session_preserve_student(); return False
         except (TypeError, ValueError): pass
     session.permanent = True; session[STAFF_SESSION_ACTIVITY_KEY] = now; session.modified = True
     return True
@@ -261,29 +267,16 @@ def normalize_result_record(row, class_cat="", subject_name="", year="", term=""
 
 
 def read_excel_file_direct(excel_path: Path):
-    if not excel_path or not excel_path.exists():
-        return []
+    if not excel_path or not excel_path.exists(): return []
 
-    wb = load_workbook(excel_path)
-    ws = wb.active
+    headers, rows = read_result_workbook_rows(excel_path)
+    if not rows: return []
 
-    repair_missing_headers(ws)
-
-    rows = list(ws.iter_rows(values_only=True))
-    wb.save(excel_path)
-
-    if len(rows) < 2:
-        return []
-
-    headers = list(rows[0])
     results = []
 
-    for row in rows[1:]:
-        values = list(row) + [None] * max(0, len(headers) - len(row))
-        item = dict(zip(headers, values[:len(headers)]))
-
-        if item.get("Student Name") or item.get("Admission No"):
-            results.append(item)
+    for row in rows:
+        values = list(row) + [None] * max(0, len(headers) - len(row)); item = dict(zip(headers, values[:len(headers)]))
+        if item.get("Student Name") or item.get("Admission No"): results.append(item)
 
     return results
 
@@ -1962,7 +1955,8 @@ def delete_excel_results():
                 exist_ok=True,
             )
 
-            wb.save(path)
+            try: save_result_workbook_atomic(wb, path)
+            finally: wb.close()
 
             deleted_count += len(removed)
             touched_files += 1
