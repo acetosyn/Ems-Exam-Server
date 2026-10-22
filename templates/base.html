@@ -130,6 +130,7 @@
             <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="active-role"><i class="fa-solid fa-mosque"></i><span>Islamiyyah ({{ session.get('teacher_id') }})</span></a>
             <a href="{{ url_for('admin_bp.admin_promotion') }}"><i class="fa-solid fa-user-group"></i><span>Students & Classes</span></a>
             <a href="{{ url_for('admin_bp.admin_islamiyah') }}"><i class="fa-solid fa-mosque"></i><span>Tahfeez &amp; Islamiyyah</span></a>
+            <a href="{{ url_for('admin_bp.admin_support') }}"><i class="fa-solid fa-headset"></i><span>Support</span></a>
             <a href="#" class="disabled-link" aria-disabled="true"><i class="fa-solid fa-lock"></i><span>Other Modules Restricted</span></a>
           {% else %}
             <a href="{{ url_for('admin_bp.admin_login') }}"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
@@ -139,7 +140,7 @@
       </div>
 
 
-      {% if staff_role in ['admin','teacher_admin','teacher'] %}<a href="{{ url_for('admin_bp.admin_support') }}" class="base-nav-link">Support</a>{% endif %}
+      {% if staff_role in ['admin','teacher_admin','teacher','islamiyyah_teacher'] %}<a href="{{ url_for('admin_bp.admin_support') }}" class="base-nav-link">Support</a>{% endif %}
 
     </nav>
 
@@ -257,6 +258,7 @@
         <li><a href="{{ url_for('admin_bp.admin_dashboard') }}" class="{% if request.endpoint == 'admin_bp.admin_dashboard' %}active{% endif %}"><span class="sidebar-nav-icon nav-dashboard"><i class="fa-solid fa-house"></i></span><span class="sidebar-nav-label">Dashboard</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_promotion') }}" class="{% if request.endpoint == 'admin_bp.admin_promotion' %}active{% endif %}"><span class="sidebar-nav-icon nav-promotion"><i class="fa-solid fa-user-group"></i></span><span class="sidebar-nav-label">Students & Classes</span></a></li>
         <li><a href="{{ url_for('admin_bp.admin_islamiyah') }}" class="{% if request.endpoint == 'admin_bp.admin_islamiyah' %}active{% endif %}"><span class="sidebar-nav-icon nav-ca"><i class="fa-solid fa-mosque"></i></span><span class="sidebar-nav-label">Tahfeez &amp; Islamiyyah</span></a></li>
+        <li><a href="{{ url_for('admin_bp.admin_support') }}" class="{% if request.endpoint == 'admin_bp.admin_support' %}active{% endif %}"><span class="sidebar-nav-icon nav-support"><i class="fa-solid fa-headset"></i></span><span class="sidebar-nav-label">Support</span></a></li>
       {% endif %}
 
     </ul>

@@ -60,12 +60,10 @@
     },
 
     normalizeClassLevel(value) {
-      const compact = this.normalize(value).replaceAll("_", "").replaceAll(" ", "");
-
-      for (const cls of this.supportedClasses) {
-        if (compact === cls || compact.startsWith(cls)) return cls;
-      }
-
+      const compact = this.normalize(value).replaceAll("_", "").replaceAll(" ", "").replaceAll("/", "").replaceAll("&", "");
+      const primary = compact.match(/^(?:P|PRI|PRIMARY|BASIC)([1-6])(?:[AB])?$/);
+      if (primary) return `PRIMARY${primary[1]}`;
+      for (const cls of this.supportedClasses) { if (compact === cls || compact.startsWith(cls)) return cls; }
       return "";
     },
 

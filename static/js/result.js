@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     startSubmissionCelebration();
   }, 450);
+
+  setTimeout(() => {
+    showResultToast("Congratulations!", "Your examination was submitted successfully.");
+  }, 620);
 });
 
 /* ------------------------------------------------------------
@@ -355,4 +359,37 @@ function formatDateTime(value) {
     hour: "2-digit",
     minute: "2-digit"
   });
+}
+
+/* ------------------------------------------------------------
+   8. Success Toast
+-------------------------------------------------------------*/
+function showResultToast(title, message) {
+  if (document.getElementById("resultSuccessToast")) return;
+
+  const style = document.createElement("style");
+  style.id = "resultSuccessToastStyle";
+  style.textContent = `
+    .result-success-toast{position:fixed;right:22px;top:22px;z-index:999999;display:flex;align-items:flex-start;gap:12px;max-width:min(420px,calc(100vw - 26px));padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.98);border:1px solid #d6e8dc;box-shadow:0 18px 34px rgba(15,23,42,.16);backdrop-filter:blur(10px);animation:resultToastIn .26s ease forwards} 
+    .result-success-toast .icon{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#1f9b5b,#38c980);color:#fff;font-size:1.05rem;flex:0 0 auto} 
+    .result-success-toast strong{display:block;margin-bottom:4px;color:#123326;font-size:.95rem;font-weight:900} 
+    .result-success-toast span{display:block;color:#587062;font-size:.82rem;font-weight:650;line-height:1.45} 
+    @keyframes resultToastIn{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes resultToastOut{to{opacity:0;transform:translateY(-8px) scale(.985)}}
+    .result-success-toast.out{animation:resultToastOut .2s ease forwards}
+    @media(max-width:640px){.result-success-toast{left:12px;right:12px;top:14px;max-width:none}}
+  `;
+
+  if (!document.getElementById(style.id)) document.head.appendChild(style);
+
+  const toast = document.createElement("div");
+  toast.id = "resultSuccessToast";
+  toast.className = "result-success-toast";
+  toast.innerHTML = `<div class="icon"><i class="fa-solid fa-circle-check"></i></div><div><strong>${cleanText(title || "Success")}</strong><span>${cleanText(message || "Operation completed successfully.")}</span></div>`;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("out");
+    setTimeout(() => toast.remove(), 220);
+  }, 3600);
 }

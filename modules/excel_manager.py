@@ -2,6 +2,9 @@
 
 from pathlib import Path
 from datetime import datetime
+from threading import RLock
+from zipfile import is_zipfile
+import os, uuid
 
 from openpyxl import Workbook, load_workbook
 
@@ -11,6 +14,7 @@ from modules.class_config import SUPPORTED_CLASSES, normalize_class_level, norma
 BASE_DIR = Path(__file__).resolve().parent.parent
 RESULTS_BASE = BASE_DIR / "RESULTS"
 VALID_TERMS = ("FIRST", "SECOND", "THIRD")
+RESULT_WORKBOOK_LOCK = RLock()
 
 
 # =========================================================
@@ -272,6 +276,75 @@ def repair_missing_headers(ws):
 
 
 # =========================================================
+# SAFE WORKBOOK IO
+# =========================================================
+
+LEGACY_RESULT_HEADERS = ["Student Name", "Admission No", "Class Level", "Class Arm", "Subject", "Score (%)", "Correct", "Total", "Status", "Time Taken", "Submitted At"]
+
+def _atomic_save_workbook(wb, excel_path: Path):
+    ensure_folder(excel_path.parent)
+    temp_path = excel_path.with_name(f".{excel_path.stem}.{uuid.uuid4().hex}.tmp{excel_path.suffix}")
+
+    try:
+        wb.save(temp_path)
+        if not is_zipfile(temp_path): raise IOError(f"Temporary workbook validation failed: {temp_path}")
+        os.replace(temp_path, excel_path)
+    finally:
+        if temp_path.exists():
+            try: temp_path.unlink()
+            except OSError: pass
+
+def save_result_workbook_atomic(wb, excel_path: Path):
+    with RESULT_WORKBOOK_LOCK: _atomic_save_workbook(wb, excel_path)
+
+def _quarantine_corrupt_workbook(excel_path: Path):
+    if not excel_path.exists(): return None
+
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup_path = excel_path.with_name(f"{excel_path.stem}.corrupt-{stamp}{excel_path.suffix}")
+    counter = 1
+
+    while backup_path.exists():
+        backup_path = excel_path.with_name(f"{excel_path.stem}.corrupt-{stamp}-{counter}{excel_path.suffix}"); counter += 1
+
+    os.replace(excel_path, backup_path)
+    print(f"RESULT WORKBOOK RECOVERY: quarantined corrupt file [{excel_path}] -> [{backup_path}]")
+    return backup_path
+
+def _new_results_workbook():
+    wb = Workbook(); ws = wb.active; ws.title = "Results"; ws.append(EXPECTED_HEADERS)
+    return wb
+
+def _load_results_workbook_for_write(excel_path: Path):
+    if excel_path.exists():
+        try:
+            if not is_zipfile(excel_path): raise ValueError("File is not a valid XLSX/ZIP package")
+            return load_workbook(excel_path)
+        except Exception as error:
+            print(f"RESULT WORKBOOK CORRUPTION [{excel_path}]: {error}"); _quarantine_corrupt_workbook(excel_path)
+
+    return _new_results_workbook()
+
+def read_result_workbook_rows(excel_path: Path):
+    if not excel_path or not excel_path.exists(): return [], []
+
+    with RESULT_WORKBOOK_LOCK:
+        wb = load_workbook(excel_path, read_only=True, data_only=True)
+        try:
+            rows = list(wb.active.iter_rows(values_only=True))
+        finally:
+            wb.close()
+
+    if not rows: return EXPECTED_HEADERS.copy(), []
+
+    first_row = list(rows[0]); normalized_headers = [normalize_header_name(value) for value in first_row]
+    header_matches = sum(1 for value in normalized_headers if value in EXPECTED_HEADERS)
+
+    if header_matches < 2: return LEGACY_RESULT_HEADERS.copy(), rows
+    return normalized_headers, rows[1:]
+
+
+# =========================================================
 # ROW MAPPING
 # =========================================================
 
@@ -346,33 +419,15 @@ def map_result_row(row, headers=None):
 
 def excel_file_has_term(excel_path: Path, term):
     normalized_term = normalize_result_term(term)
-
-    if not normalized_term or not excel_path.exists():
-        return False
+    if not normalized_term or not excel_path.exists(): return False
 
     try:
-        wb = load_workbook(excel_path, read_only=True, data_only=True)
-        ws = wb.active
-
-        headers = [normalize_header_name(value) for value in next(ws.iter_rows(values_only=True), [])]
-
-        if "Term" not in headers:
-            wb.close()
-            return False
-
+        headers, rows = read_result_workbook_rows(excel_path)
+        if "Term" not in headers: return False
         index = headers.index("Term")
-
-        for row in ws.iter_rows(min_row=2, values_only=True):
-            if index < len(row) and normalize_result_term(row[index]) == normalized_term:
-                wb.close()
-                return True
-
-        wb.close()
-
+        return any(index < len(row) and normalize_result_term(row[index]) == normalized_term for row in rows)
     except Exception:
         return False
-
-    return False
 
 
 # =========================================================
@@ -380,15 +435,10 @@ def excel_file_has_term(excel_path: Path, term):
 # =========================================================
 
 def create_results_workbook(excel_path: Path):
-    ensure_folder(excel_path.parent)
-
-    wb = Workbook()
-    ws = wb.active
-
-    ws.title = "Results"
-    ws.append(EXPECTED_HEADERS)
-
-    wb.save(excel_path)
+    with RESULT_WORKBOOK_LOCK:
+        wb = _new_results_workbook()
+        try: _atomic_save_workbook(wb, excel_path)
+        finally: wb.close()
 
 
 def append_result_to_excel(result):
@@ -426,14 +476,6 @@ def append_result_to_excel(result):
         raise ValueError(f"Invalid result term: {raw_term}")
 
     excel_path = get_preferred_excel_path(class_level, subject, year, term)
-
-    if not excel_path.exists():
-        create_results_workbook(excel_path)
-
-    wb = load_workbook(excel_path)
-    ws = wb.active
-
-    headers = repair_missing_headers(ws)
 
     try:
         explicit_score = result.get("score_percentage", result.get("percentage", result.get("Score (%)")))
@@ -490,9 +532,12 @@ def append_result_to_excel(result):
         "Termination Reason": termination_reason,
     }
 
-    ws.append([row_data.get(header, "") for header in headers])
-
-    wb.save(excel_path)
+    with RESULT_WORKBOOK_LOCK:
+        wb = _load_results_workbook_for_write(excel_path)
+        try:
+            ws = wb.active; headers = repair_missing_headers(ws); ws.append([row_data.get(header, "") for header in headers]); _atomic_save_workbook(wb, excel_path)
+        finally:
+            wb.close()
 
     return True
 
@@ -524,24 +569,15 @@ def read_results(class_category, subject, year, term=""):
             continue
 
         try:
-            wb = load_workbook(excel_path)
-            ws = wb.active
-
-            headers = repair_missing_headers(ws)
-            rows = list(ws.iter_rows(values_only=True))
-
-            wb.save(excel_path)
-
+            headers, rows = read_result_workbook_rows(excel_path)
         except Exception as error:
-            print(f"RESULT READ ERROR [{excel_path}]:", error)
-            continue
+            print(f"RESULT READ ERROR [{excel_path}]:", error); continue
 
-        if len(rows) < 2:
-            return []
+        if not rows: return []
 
         results = []
 
-        for row in rows[1:]:
+        for row in rows:
             item = map_result_row(row, headers)
 
             if not item:
@@ -652,18 +688,11 @@ def _read_student_history(identifier, class_category, by_admission=False):
 
     for info in iter_class_result_files(class_category) or []:
         try:
-            wb = load_workbook(info["path"])
-            ws = wb.active
-
-            headers = repair_missing_headers(ws)
-            rows = list(ws.iter_rows(values_only=True))
-
-            wb.save(info["path"])
-
+            headers, rows = read_result_workbook_rows(info["path"])
         except Exception:
             continue
 
-        for row in rows[1:]:
+        for row in rows:
             item = map_result_row(row, headers)
 
             if not item:

@@ -254,3 +254,39 @@
   .admin-results-page .result-insights-grid,.admin-results-page .activity-grid{grid-template-columns:1fr 1fr!important}
 }
 @media(prefers-reduced-motion:reduce){.admin-results-page *, .admin-results-page *::before,.admin-results-page *::after{transition:none!important;animation:none!important}}
+
+
+/* =====================================================================
+   RESULTS PAGE VISUAL REFINEMENT V2
+   Compact aligned filters + highlighted spreadsheet feel.
+   ===================================================================== */
+.admin-results-page .results-filter-panel,.admin-results-page .results-table-panel,.admin-results-page .result-insights,.admin-results-page .results-activity-panel{position:relative;overflow:hidden;border:1px solid #dbe6ef;box-shadow:0 12px 34px rgba(18,38,63,.05)}
+.admin-results-page .results-filter-panel::before,.admin-results-page .results-table-panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,#ffd76b,#f4b942,#e7913b)}
+.admin-results-page .results-filter-grid{grid-template-columns:repeat(4,minmax(0,1fr));align-items:end}
+.admin-results-page .filter-field{position:relative;padding:10px 10px 11px;border-radius:12px;background:linear-gradient(180deg,#fffefb,#f9fbfd);border:1px solid #ebf0f5;box-shadow:inset 0 1px 0 rgba(255,255,255,.92)}
+.admin-results-page .filter-field::after{content:"";position:absolute;left:10px;right:10px;top:0;height:3px;border-radius:999px;background:linear-gradient(90deg,rgba(255,215,107,.95),rgba(36,87,214,.18));opacity:.9}
+.admin-results-page .filter-field.search-filter-field{grid-column:span 2}
+.admin-results-page .filter-field.session-filter{grid-column:auto}
+.admin-results-page .filter-control-wrap .filter-control,.admin-results-page .results-search-box{background:#fff;border-color:#d6e3ee;box-shadow:0 8px 18px rgba(36,87,214,.04)}
+.admin-results-page .results-search-box{padding-left:0}
+.admin-results-page .active-filter-bar{background:linear-gradient(90deg,#f8fbff,#fff9ea)}
+.admin-results-page .results-table-header{border-bottom:1px solid #ebf1f6}
+.admin-results-page .result-score-guide{border-top:1px dashed #e2e8ef;border-bottom:1px dashed #e2e8ef;background:linear-gradient(90deg,#fffef8,#fbfdff)}
+.admin-results-page .results-action-toolbar{border-bottom:1px solid #eef2f6}
+.admin-results-page .results-table{font-size:.74rem!important}
+.admin-results-page .results-table thead th{background:linear-gradient(180deg,#f4f7fb,#eaf1f6)!important;border-bottom:1px solid #d9e4ee!important}
+.admin-results-page .results-table tbody tr:nth-child(odd) td{background:#fcfdff!important}
+.admin-results-page .results-table tbody tr:hover td{background:#f6fbff!important}
+.admin-results-page .results-table thead th:first-child{background:linear-gradient(180deg,#eef5fb,#e1ebf4)!important}
+.admin-results-page .results-table thead th:nth-child(2){background:linear-gradient(180deg,#f4f7fb,#eaf1f6)!important}
+.admin-results-page .results-table tbody td:nth-child(2){background:inherit!important}
+.admin-results-page .results-table .class-badge,.admin-results-page .results-table .status-pill,.admin-results-page .results-table .subject-badge{border-radius:999px;box-shadow:none}
+.admin-results-page .results-table .student-name{font-weight:800}
+.admin-results-page .results-table .student-meta{display:block;margin-top:2px;font-size:.6rem;opacity:.78}
+.admin-results-page .results-table .score-cell strong{font-size:.8rem}
+.admin-results-page .results-table .actions-cell button,.admin-results-page .results-table td:nth-child(14) button{box-shadow:none}
+.admin-results-page .overview-card,.admin-results-page .result-insight-card,.admin-results-page .activity-card{box-shadow:0 10px 26px rgba(18,38,63,.04)}
+.admin-results-page .table-scroll-hint{display:flex;align-items:center;gap:8px;padding:7px 12px;background:#fffbef;color:#7d5a08;border-top:1px solid #f5e7ad;border-bottom:1px solid #f5e7ad}
+@media (min-width:1280px){.admin-results-page .results-filter-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.admin-results-page .filter-field.search-filter-field{grid-column:span 2}}
+@media (max-width:1100px){.admin-results-page .results-filter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.admin-results-page .filter-field.search-filter-field{grid-column:1/-1}}
+@media (max-width:767px){.admin-results-page .filter-field{padding:8px 8px 9px}.admin-results-page .filter-field::after{left:8px;right:8px}.admin-results-page .results-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.admin-results-page .filter-field.search-filter-field,.admin-results-page .filter-field.session-filter{grid-column:1/-1!important}}

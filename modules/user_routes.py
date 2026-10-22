@@ -10,6 +10,36 @@ from modules.api_routes import push_admin_notification
 user_bp = Blueprint("user_bp", __name__)
 
 
+STAFF_SESSION_SHADOW_KEY = "__staff_shadow"
+STUDENT_SESSION_SHADOW_KEY = "__student_shadow"
+STAFF_ACTIVE_SESSION_KEYS = ("user_type", "username", "staff_role", "admin_username", "teacher_id", "_staff_last_activity")
+STUDENT_ACTIVE_SESSION_KEYS = ("user_type", "student", "student_id", "admission_number", "student_name", "first_name", "last_name", "sex", "gender", "class", "class_arm", "class_category", "class_level", "stream", "ss_stream", "student_status", "exam_started", "exam_submitted", "selected_subject", "selected_year", "selected_class_level", "selected_class_arm", "selected_term", "student_login_name_used", "student_login_time", "academic_session")
+
+
+def _snapshot_session(keys):
+    return {key: session.get(key) for key in keys if key in session}
+
+
+def _preserved_staff_shadow():
+    staff_shadow = session.get(STAFF_SESSION_SHADOW_KEY)
+    current_role = str(session.get("user_type") or "").strip().lower()
+    if isinstance(staff_shadow, dict) and staff_shadow:
+        return dict(staff_shadow)
+    if current_role in {"admin", "teacher", "teacher_admin", "islamiyyah_teacher"}:
+        return _snapshot_session(STAFF_ACTIVE_SESSION_KEYS)
+    return {}
+
+
+def clear_student_session_preserve_staff():
+    preserved_staff = _preserved_staff_shadow()
+    for key in dict.fromkeys(STUDENT_ACTIVE_SESSION_KEYS):
+        session.pop(key, None)
+    session.pop(STUDENT_SESSION_SHADOW_KEY, None)
+    if preserved_staff:
+        session[STAFF_SESSION_SHADOW_KEY] = preserved_staff
+    session.modified = True
+
+
 # =========================================================
 # LOGIN SECURITY CONFIG
 # =========================================================
@@ -183,7 +213,7 @@ def student_login():
     # -----------------------------------------------------
 
     if request.method == "GET":
-        if session.get("user_type") == "student" and session.get("student"):
+        if session.get("student"):
             return redirect(url_for("student_portal_bp.student_portal"))
 
         return render_template("student_login.html")
@@ -256,8 +286,8 @@ def student_login():
 
     clear_failed_login(admission_number)
 
-    # Clear previous admin/teacher/student session only after
-    # authentication has succeeded.
+    # Keep a parallel staff login alive when a student signs in from another tab.
+    preserved_staff = _preserved_staff_shadow()
     session.clear()
 
     student_session = build_session_student(student)
@@ -336,6 +366,9 @@ def student_login():
 
     session["student_login_name_used"] = login_name
     session["student_login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    session[STUDENT_SESSION_SHADOW_KEY] = _snapshot_session(STUDENT_ACTIVE_SESSION_KEYS)
+    if preserved_staff:
+        session[STAFF_SESSION_SHADOW_KEY] = preserved_staff
 
 
     # =====================================================
@@ -362,5 +395,5 @@ def student_login():
 
 @user_bp.route("/logout")
 def logout():
-    session.clear()
+    clear_student_session_preserve_staff()
     return redirect(url_for("user_bp.student_login"))

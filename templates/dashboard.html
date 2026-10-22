@@ -18,7 +18,7 @@
     <div class="dash-hero-main">
       <div class="dash-eyebrow"><span class="live-beacon"></span><span>EMIS Live Control Center</span></div>
       <h1>{% if user_type == 'admin' %}Admin Dashboard{% elif user_type == 'teacher_admin' %}Teacher Admin Dashboard{% elif user_type == 'islamiyyah_teacher' %}Islamiyyah Dashboard{% else %}Teacher Dashboard{% endif %}</h1>
-      <p>{% if user_type == 'islamiyyah_teacher' %}Your restricted workspace provides Dashboard, Students & Classes and Tahfeez & Islamiyyah only.{% elif user_type == 'teacher_admin' %}Manage the regular-school workflow and official reports. Academic Admin, Tahfeez & Islamiyyah and History remain restricted.{% elif user_type == 'teacher' %}Use the regular-school workflow. Report Sheets are limited to your assigned classes and subjects, and official generation is restricted.{% else %}Monitor examinations, results, attendance, CA/Test progress, report sheets and synchronization from one place.{% endif %}</p>
+      <p>{% if user_type == 'islamiyyah_teacher' %}Your Academy workspace provides Dashboard, Students & Classes, Tahfeez & Islamiyyah and Support only.{% elif user_type == 'teacher_admin' %}Manage the regular-school workflow and official reports. Academic Admin, Tahfeez & Islamiyyah and History remain restricted.{% elif user_type == 'teacher' %}Use the regular-school workflow. Report Sheets are limited to your assigned classes and subjects, and official generation is restricted.{% else %}Monitor examinations, results, attendance, CA/Test progress, report sheets and synchronization from one place.{% endif %}</p>
       <div class="dash-identity-row"><span class="dash-role"><i class="fa-solid {% if user_type == 'admin' %}fa-shield-halved{% elif user_type == 'teacher_admin' %}fa-user-shield{% elif user_type == 'islamiyyah_teacher' %}fa-mosque{% else %}fa-chalkboard-user{% endif %}"></i> {% if user_type == 'admin' %}Admin Account{% elif user_type == 'teacher_admin' %}Teacher Admin • ADM{% elif user_type == 'islamiyyah_teacher' %}Islamiyyah Teacher • IMS{% else %}Teacher • EMT{% endif %}</span><span class="dash-user"><i class="fa-regular fa-circle-user"></i> Signed in as <strong>{{ session.get('username') or session.get('admin_username') or session.get('teacher_id') or 'Staff' }}</strong></span></div>
     </div>
 
@@ -47,7 +47,7 @@
       {% if user_type == 'admin' %}
         <a class="module-link shortcut-blue" data-module-name="student exam login" href="/student_login" target="_blank" title="Student Exam Login"><span class="module-icon"><i class="fa-solid fa-user-graduate"></i></span><strong>Student Login</strong></a>
         <a class="module-link shortcut-cyan" data-module-name="teachers subjects ids academic administration" href="{{ url_for('admin_bp.admin_teachers') }}" title="Academic Administration"><span class="module-icon"><i class="fa-solid fa-sliders"></i></span><strong>Academic Admin</strong></a>
-        <a class="module-link shortcut-purple" data-module-name="upload exams questions" href="/admin/teachers?open=uploads" title="Upload Exams"><span class="module-icon"><i class="fa-solid fa-file-arrow-up"></i></span><strong>Upload Exams</strong></a>
+        <a class="module-link shortcut-purple" data-module-name="upload exams questions" href="/admin/uploads" title="Upload Exams"><span class="module-icon"><i class="fa-solid fa-file-arrow-up"></i></span><strong>Upload Exams</strong></a>
         <a class="module-link shortcut-teal" data-module-name="convert questions" href="/admin/teachers?open=convert" title="Convert Questions"><span class="module-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span><strong>Convert</strong></a>
         <a class="module-link shortcut-orange" data-module-name="results examination essay" href="{{ url_for('admin_bp.admin_results') }}" title="Results"><span class="module-icon"><i class="fa-solid fa-chart-line"></i></span><strong>Results</strong></a>
         <a class="module-link shortcut-seagreen" data-module-name="attendance" href="{{ url_for('admin_bp.admin_attendance') }}" title="Attendance"><span class="module-icon"><i class="fa-solid fa-calendar-check"></i></span><strong>Attendance</strong></a>
@@ -84,6 +84,7 @@
       {% elif user_type == 'islamiyyah_teacher' %}
         <a class="module-link shortcut-red" data-module-name="students classes" href="{{ url_for('admin_bp.admin_promotion') }}"><span class="module-icon"><i class="fa-solid fa-users"></i></span><strong>Students & Classes</strong></a>
         <a class="module-link shortcut-seagreen" data-module-name="tahfeez islamiyyah academy" href="{{ url_for('admin_bp.admin_islamiyah') }}"><span class="module-icon"><i class="fa-solid fa-mosque"></i></span><strong>Tahfeez & Islamiyyah</strong></a>
+        <a class="module-link shortcut-gray" data-module-name="support" href="{{ url_for('admin_bp.admin_support') }}"><span class="module-icon"><i class="fa-solid fa-headset"></i></span><strong>Support</strong></a>
       {% endif %}
     </div>
     <div id="moduleSearchEmpty" class="module-search-empty" hidden>No matching EMIS module found.</div>

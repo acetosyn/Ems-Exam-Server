@@ -1,7 +1,8 @@
 /* ==========================================================
    EMIS TEACHER PAGE ROUTER — teacher_pageroutes.js v2
    ----------------------------------------------------------
-   • Dynamic modules: Upload Exams + Convert Questions
+   • Dynamic module: Convert Questions
+   • Upload Exams always opens standalone at /admin/uploads
    • Direct teacher routes: Results + Attendance + CA Tests
    • External Student Exam Login
    • Keyboard accessible module cards
@@ -10,7 +11,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const dynamicContainer = document.getElementById("teacherDynamicContent");
   const toolButtons = [...document.querySelectorAll(".module-item[data-page], .module-item[data-route], .module-item[data-external]")];
-  const dynamicButtons = toolButtons.filter(button => button.dataset.page);
+  const dynamicButtons = toolButtons.filter(button => button.dataset.page && normalizePage(button.dataset.page) !== "uploads.html");
   const routeCache = new Map();
 
   const loaderHTML = (label = "Opening module...") => `
@@ -93,21 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function initLoadedModule(page) {
-    if (page === "uploads.html") {
-      const wrap = dynamicContainer?.querySelector(".uploads-wrapper");
-      if (wrap) { wrap.__initialized__ = false; wrap.__push_initialized__ = false; }
-      window.EmisUploads?.initOnce?.(dynamicContainer);
-      window.EmisPush?.init?.();
-      window.EmisAvailableYears?.reload?.();
-    }
-
-    if (page === "convert.html") {
-      const wrap = dynamicContainer?.querySelector(".convert-wrapper");
-      if (wrap) wrap.__initialized__ = false;
-      window.EmisConvert?.initOnce?.(dynamicContainer);
-    }
-  }
+  function initLoadedModule(page) { if (page === "convert.html") { const wrap = dynamicContainer?.querySelector(".convert-wrapper"); if (wrap) wrap.__initialized__ = false; window.EmisConvert?.initOnce?.(dynamicContainer); } }
 
   async function loadTeacherPage(button, useCache = true) {
     if (!dynamicContainer) return;
@@ -157,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (button.dataset.page) loadTeacherPage(button);
+    if (button.dataset.page) { const page = normalizePage(button.dataset.page); if (page === "uploads.html") { window.location.href = "/admin/uploads"; return; } loadTeacherPage(button); }
   }
 
   toolButtons.forEach(button => {
@@ -170,10 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const moduleToOpen = new URLSearchParams(window.location.search).get("open");
-  if (moduleToOpen) {
-    const targetBtn = dynamicButtons.find(button => routeName(normalizePage(button.dataset.page)) === moduleToOpen);
-    if (targetBtn) setTimeout(() => loadTeacherPage(targetBtn), 350);
-  }
+  if (moduleToOpen === "uploads") { window.location.replace("/admin/uploads"); return; }
+  if (moduleToOpen) { const targetBtn = dynamicButtons.find(button => routeName(normalizePage(button.dataset.page)) === moduleToOpen); if (targetBtn) setTimeout(() => loadTeacherPage(targetBtn), 350); }
 
   document.getElementById("refreshDashboard")?.addEventListener("click", () => {
     routeCache.clear();

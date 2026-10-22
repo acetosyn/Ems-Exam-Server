@@ -95,7 +95,7 @@ app.secret_key = os.getenv("SECRET_KEY", "fallback_secret_key")
 
 # Never allow Flask to tell browsers to keep stale static resources
 # for long periods.
-app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
 
 # Ensure changed HTML/Jinja templates are detected without requiring
 # a Python restart simply because a template file changed.
@@ -117,7 +117,8 @@ app.jinja_env.auto_reload = True
 # ==========================================================
 
 STARTUP_VERSION = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
-ASSET_VERSION = os.getenv("ASSET_VERSION", "").strip() or STARTUP_VERSION
+EXPLICIT_ASSET_VERSION = os.getenv("ASSET_VERSION", "").strip()
+ASSET_VERSION = EXPLICIT_ASSET_VERSION or STARTUP_VERSION
 
 
 # ==========================================================
@@ -217,7 +218,11 @@ def static_asset_version(filename, endpoint="static"):
             modification = int(stat.st_mtime_ns)
             size = int(stat.st_size)
 
-            return f"{ASSET_VERSION}-{modification}-{size}"
+            # Physical files are already self-versioned by mtime + size.
+            # Do NOT include STARTUP_VERSION here: a Flask/Passenger restart
+            # must not invalidate every unchanged CSS/JS file in Chrome.
+            prefix = f"{EXPLICIT_ASSET_VERSION}-" if EXPLICIT_ASSET_VERSION else ""
+            return f"{prefix}{modification}-{size}"
 
         except OSError:
             pass
@@ -411,11 +416,11 @@ def _set_static_revalidation_headers(response):
     handling of large images/fonts.
     """
 
-    response.headers["Cache-Control"] = (
-        "no-cache, must-revalidate, max-age=0"
-    )
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
+    # Static URLs are fingerprinted with each file's mtime + size, so the
+    # browser may safely keep them. When a file changes, its URL changes.
+    response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+    response.headers.pop("Pragma", None)
+    response.headers.pop("Expires", None)
 
     return response
 
@@ -428,12 +433,12 @@ def _set_code_asset_headers(response):
     Browser must not retain an obsolete JS/CSS implementation.
     """
 
-    response.headers["Cache-Control"] = (
-        "no-store, no-cache, must-revalidate, max-age=0"
-    )
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-    response.headers["Surrogate-Control"] = "no-store"
+    # JS/CSS URLs are fingerprinted per physical file. Cache them aggressively;
+    # a changed file receives a different ?v= URL automatically.
+    response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+    response.headers.pop("Pragma", None)
+    response.headers.pop("Expires", None)
+    response.headers.pop("Surrogate-Control", None)
 
     return response
 
@@ -567,6 +572,104 @@ app.register_blueprint(broadsheet_bp)
 
 
 # ==========================================================
+# PARALLEL STAFF + STUDENT SESSION MULTIPLEXING
+# ==========================================================
+
+STAFF_SESSION_SHADOW_KEY = "__staff_shadow"
+STUDENT_SESSION_SHADOW_KEY = "__student_shadow"
+
+STAFF_ACTIVE_SESSION_KEYS = (
+    "user_type", "username", "staff_role", "admin_username", "teacher_id",
+    "_staff_last_activity"
+)
+
+STUDENT_ACTIVE_SESSION_KEYS = (
+    "user_type", "student", "student_id", "admission_number", "student_name",
+    "first_name", "last_name", "sex", "gender", "class", "class_arm",
+    "class_category", "class_level", "stream", "ss_stream", "student_status",
+    "exam_started", "exam_submitted", "selected_subject", "selected_year",
+    "selected_class_level", "selected_class_arm", "selected_term",
+    "student_login_name_used", "student_login_time", "academic_session"
+)
+
+STUDENT_ROUTE_PREFIXES = (
+    "/student_login", "/student_portal", "/exam_dashboard", "/start_exam",
+    "/exam", "/submit_exam", "/result", "/back_to_exam_dashboard",
+    "/exam-diagram/", "/logout", "/api/student/",
+    "/api/notifications/notify/exam_start", "/api/notifications/notify/exam_end"
+)
+
+
+def _session_snapshot(keys):
+    return {key: session.get(key) for key in keys if key in session}
+
+
+def _clear_active_identity_keys():
+    for key in dict.fromkeys(STAFF_ACTIVE_SESSION_KEYS + STUDENT_ACTIVE_SESSION_KEYS):
+        session.pop(key, None)
+
+
+def _restore_shadow(shadow):
+    if not isinstance(shadow, dict) or not shadow:
+        return False
+    _clear_active_identity_keys()
+    for key, value in shadow.items():
+        session[key] = value
+    session.modified = True
+    return True
+
+
+def _is_student_request_path(path):
+    path = str(path or "")
+    return any(path == prefix or path.startswith(prefix) for prefix in STUDENT_ROUTE_PREFIXES)
+
+
+def _current_role():
+    return str(session.get("user_type") or "").strip().lower()
+
+
+def _persist_active_identity_shadow():
+    role = _current_role()
+    if role == "student":
+        session[STUDENT_SESSION_SHADOW_KEY] = _session_snapshot(STUDENT_ACTIVE_SESSION_KEYS)
+        session.modified = True
+        return
+    if role in {"admin", "teacher", "teacher_admin", "islamiyyah_teacher"}:
+        session[STAFF_SESSION_SHADOW_KEY] = _session_snapshot(STAFF_ACTIVE_SESSION_KEYS)
+        session.modified = True
+
+
+@app.before_request
+def activate_parallel_portal_session():
+    path = str(request.path or "")
+    if path.startswith("/static/"):
+        return None
+
+    student_shadow = session.get(STUDENT_SESSION_SHADOW_KEY)
+    staff_shadow = session.get(STAFF_SESSION_SHADOW_KEY)
+    role = _current_role()
+
+    if _is_student_request_path(path):
+        if isinstance(student_shadow, dict) and student_shadow and role != "student":
+            _restore_shadow(student_shadow)
+        return None
+
+    if isinstance(staff_shadow, dict) and staff_shadow and role not in {"admin", "teacher", "teacher_admin", "islamiyyah_teacher"}:
+        _restore_shadow(staff_shadow)
+
+    return None
+
+
+@app.after_request
+def sync_parallel_portal_session(response):
+    try:
+        _persist_active_identity_shadow()
+    except Exception as error:
+        print("[EMIS SESSION] Parallel-session sync warning:", error)
+    return response
+
+
+# ==========================================================
 # GLOBAL STAFF ID SESSION ENFORCEMENT
 # ==========================================================
 
@@ -574,11 +677,23 @@ app.register_blueprint(broadsheet_bp)
 def enforce_staff_identity_session():
     """Immediately revoke deleted/disabled EMT, ADM and IMS sessions across every blueprint, including direct API calls."""
     role = str(session.get("user_type") or "").strip().lower()
-    if role not in {"teacher", "teacher_admin", "islamiyyah_teacher"} or str(request.path or "").startswith("/static/"): return None
-    staff_id = str(session.get("teacher_id") or session.get("username") or "").strip(); account = get_staff_account(staff_id)
-    if account and account.get("status") == "active" and account.get("staff_role") == role: return None
-    session.clear()
-    if str(request.path or "").startswith("/api/"): return jsonify({"success": False, "error": "Your staff account is disabled, deleted or no longer valid. Please contact the Administrator."}), 401
+    if role not in {"teacher", "teacher_admin", "islamiyyah_teacher"} or str(request.path or "").startswith("/static/"):
+        return None
+
+    staff_id = str(session.get("teacher_id") or session.get("username") or "").strip()
+    account = get_staff_account(staff_id)
+
+    if account and account.get("status") == "active" and account.get("staff_role") == role:
+        return None
+
+    session.pop(STAFF_SESSION_SHADOW_KEY, None)
+    for key in STAFF_ACTIVE_SESSION_KEYS:
+        session.pop(key, None)
+    session.modified = True
+
+    if str(request.path or "").startswith("/api/"):
+        return jsonify({"success": False, "error": "Your staff account is disabled, deleted or no longer valid. Please contact the Administrator."}), 401
+
     return redirect(flask_url_for("admin_bp.admin_login"))
 
 
@@ -679,11 +794,11 @@ def print_cache_configuration():
     print("\n[EMIS] CACHE PROTECTION")
     print(f"[EMIS] Deployment fallback version : {ASSET_VERSION}")
     print(f"[EMIS] Static directory            : {STATIC_DIR}")
-    print("[EMIS] Per-file static versioning  : ENABLED")
+    print("[EMIS] Per-file static versioning  : ENABLED (restart-stable)")
     print("[EMIS] Hardcoded HTML URL rewrite  : ENABLED")
     print("[EMIS] HTML no-store protection    : ENABLED")
     print("[EMIS] API no-store protection     : ENABLED")
-    print("[EMIS] JS/CSS strict protection    : ENABLED")
+    print("[EMIS] JS/CSS immutable file cache : ENABLED")
     print("[EMIS] Template auto reload        : ENABLED")
     print()
 

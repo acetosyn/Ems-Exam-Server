@@ -1,10 +1,11 @@
 /* =================================================================================================
-   exam-realtime.js — EMIS STRICT EXAM SECURITY v6.1
+   exam-realtime.js — EMIS STRICT EXAM SECURITY v6.2
 
    SECURITY RULES:
    • Production-safe security activation with persistent readiness watchdog
-   • First REAL tab switch / minimize / browser-window focus loss = warning
-   • Second REAL tab switch / minimize / browser-window focus loss = termination
+   • First REAL tab switch / minimize / browser-window focus loss / fullscreen exit = warning
+   • Second REAL tab switch / minimize / browser-window focus loss / fullscreen exit = termination
+   • Fullscreen requested automatically when the student starts the examination
    • visibilitychange + blur from ONE action count only once
    • Right-click is ALWAYS blocked but NEVER counts as a tab/focus strike
    • Repeated right-clicks can NEVER terminate an exam
@@ -28,10 +29,10 @@
 ================================================================================================= */
 
 (() => {
-  if (window.__EMIS_REALTIME_V61__) return;
-  window.__EMIS_REALTIME_V61__ = true;
+  if (window.__EMIS_REALTIME_V62__) return;
+  window.__EMIS_REALTIME_V62__ = true;
 
-  console.log("%c[exam-realtime] STRICT SECURITY v6.1 loaded ✓", "color:#0f766e;font-weight:900;font-size:13px");
+  console.log("%c[exam-realtime] STRICT SECURITY v6.2 loaded ✓", "color:#0f766e;font-weight:900;font-size:13px");
 
   /* ==============================================================================================
      CONFIG
@@ -73,6 +74,7 @@
     suppressFocusUntil:0,
     suppressFocusReason:"",
     blurTimer:null,
+    fullscreenRequestPending:false,
     offline15Shown:false,
     offline5Shown:false,
     activationWatchdogTimer:null,
@@ -399,6 +401,41 @@
   }, true);
 
   /* ==============================================================================================
+     FULLSCREEN GUARD
+     Browser JavaScript cannot physically disable the OS minimize button or browser chrome.
+     We therefore request fullscreen at exam start and treat leaving fullscreen as a real
+     examination-window violation while visibility/blur guards catch minimize/tab switching.
+  ============================================================================================== */
+
+  async function requestExamFullscreen(source = "runtime") {
+    if (window.__examFinished || document.fullscreenElement) return true;
+    if (state.fullscreenRequestPending) return false;
+    const target = document.documentElement;
+    if (!target?.requestFullscreen) return false;
+    state.fullscreenRequestPending = true;
+    try { await target.requestFullscreen({ navigationUI:"hide" }); emitSecurityEvent("fullscreen_entered", { source }); return true; }
+    catch (error) { console.warn(`[exam-realtime] Fullscreen request rejected via ${source}:`, error); return false; }
+    finally { state.fullscreenRequestPending = false; }
+  }
+
+  window.requestExamFullscreen = requestExamFullscreen;
+
+  /* ==============================================================================================
+     PAGEHIDE / FULLSCREEN EXIT
+     Adds a stricter fallback for minimize / tab leave flows on some browsers.
+  ============================================================================================== */
+
+  window.addEventListener("pagehide", () => {
+    if (!securityActive() || focusStrikeSuppressed()) return;
+    strike("pagehide_leave");
+  }, true);
+
+  document.addEventListener("fullscreenchange", () => {
+    if (!securityActive() || focusStrikeSuppressed()) return;
+    if (!document.fullscreenElement && document.body.classList.contains("exam-started")) strike("fullscreen_exit");
+  }, true);
+
+  /* ==============================================================================================
      RIGHT-CLICK PRE-SUPPRESSION
 
      pointerdown occurs before contextmenu. This prevents Edge from ever interpreting
@@ -587,6 +624,16 @@
       4000
     );
   });
+
+  /* ==============================================================================================
+     NEW WINDOW / TAB PROTECTION
+  ============================================================================================== */
+
+  const nativeWindowOpen = window.open?.bind(window);
+  window.open = function (...args) {
+    if (securityEngaged()) { flash("Opening another window or tab is disabled during the examination.", "warning", "Navigation Disabled", 3500); return null; }
+    return nativeWindowOpen ? nativeWindowOpen(...args) : null;
+  };
 
   /* ==============================================================================================
      NAVIGATION LINK PROTECTION
@@ -811,6 +858,8 @@
     if (examReadyForSecurity()) activateSecurity(source);
   }
 
+  window.ensureExamSecurityActive = ensureSecurityActive;
+
   /* ==============================================================================================
      STARTEXAM WRAPPER
   ============================================================================================== */
@@ -824,6 +873,7 @@
 
     window.startExam = async function (...args) {
       state.startRequested = true;
+      requestExamFullscreen("startExam-wrapper");
 
       let result;
 
@@ -859,8 +909,12 @@
 
     startBtn.__emisRealtimeFallback = true;
 
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    if (fullscreenBtn && !fullscreenBtn.__emisFullscreenBound) { fullscreenBtn.__emisFullscreenBound = true; fullscreenBtn.addEventListener("click", () => requestExamFullscreen("fullscreen-button")); }
+
     startBtn.addEventListener("click", () => {
       state.startRequested = true;
+      requestExamFullscreen("start-button");
 
       setTimeout(() => ensureSecurityActive("start-button-500ms"), 500);
       setTimeout(() => ensureSecurityActive("start-button-1200ms"), 1200);
@@ -887,7 +941,7 @@
   ============================================================================================== */
 
   window.getExamSecurityStatus = () => ({
-    version:"6.1",
+    version:"6.2",
     active:window.__ANTI_CHEAT_ACTIVE,
     ready:window.__ANTICHEAT_READY,
     examFinished:Boolean(window.__examFinished),
