@@ -8,7 +8,7 @@ from pathlib import Path
 
 from flask import Blueprint, request, session, redirect, url_for, jsonify, render_template, flash
 
-from modules.teacher_assignment_manager import replace_teacher_assignments, validate_teacher_assignment_payload, teacher_report_scope
+from modules.teacher_assignment_manager import delete_teacher_assignments, replace_teacher_assignments, validate_teacher_assignment_payload, teacher_report_scope
 from modules.staff_identity_manager import delete_staff_account, generate_staff_ids, get_staff_account, list_staff_accounts, list_staff_identity_audit, set_staff_status, staff_identity_stats, validate_staff_login
 from modules.school_structure import class_label, hybrid_class_label, basic_class_reference
 from modules.class_config import SUPPORTED_CLASSES, STUDENT_DATABASE_CLASSES, TAHFEEZ_CLASSES, ISLAMIYAH_CLASSES, CLASS_ARMS_BY_LEVEL
@@ -225,17 +225,21 @@ def staff_ids_api():
     try:
         if request.method == "POST":
             payload = request.get_json(silent=True) or request.form; role = payload.get("staff_role") or payload.get("role") or "teacher"; assignments = payload.get("assignments") or []; academic_session = payload.get("academic_session") or ""; actor=session.get("username") or "EMIS Admin"; generated=[]
-            if role in {"teacher", "islamiyyah_teacher"}: validate_teacher_assignment_payload(assignments, academic_session, role, require_assignment=True)
+            if role == "teacher": validate_teacher_assignment_payload(assignments, academic_session, role, require_assignment=True)
             try:
                 generated = generate_staff_ids(role, payload.get("count", 1), created_by=actor)
-                if role in {"teacher", "islamiyyah_teacher"}:
+                if role == "teacher":
                     for account in generated: replace_teacher_assignments(account.get("staff_id"), assignments, academic_session, changed_by=actor)
+                elif role == "islamiyyah_teacher":
+                    # IMS is a page-scoped Academy role, not a class/subject-scoped Report Sheets role.
+                    # Clear any legacy assignment rows if a deleted IMS number has been recycled.
+                    for account in generated: delete_teacher_assignments(account.get("staff_id"))
             except Exception:
                 for account in generated:
                     try: delete_staff_account(account.get("id"), changed_by=actor)
                     except Exception: pass
                 raise
-            return jsonify({"success": True, "message": f"{len(generated)} staff credential(s) generated" + (" and teaching access saved." if role != "teacher_admin" else "."), "generated": generated, "accounts": list_staff_accounts(include_password=True), "stats": staff_identity_stats()})
+            return jsonify({"success": True, "message": f"{len(generated)} staff credential(s) generated" + (" and teaching access saved." if role == "teacher" else "."), "generated": generated, "accounts": list_staff_accounts(include_password=True), "stats": staff_identity_stats()})
         return jsonify({"success": True, "accounts": list_staff_accounts(request.args.get("role", ""), include_password=True), "stats": staff_identity_stats(), "audit": list_staff_identity_audit(60)})
     except ValueError as error: return jsonify({"success": False, "error": str(error)}), 400
     except Exception as error:
@@ -410,7 +414,7 @@ def api_system_readiness():
 
 
 @admin_bp.route("/admin/support")
-@teacher_allowed
+@staff_allowed
 def admin_support():
     return render_template("support.html", user_type=session.get("user_type"))
 

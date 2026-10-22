@@ -66,6 +66,9 @@ def init_teacher_assignment_tables():
             conn.execute("CREATE INDEX IF NOT EXISTS idx_teacher_assignments_teacher_session ON teacher_assignments(teacher_id, academic_session, active)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_teacher_assignments_class ON teacher_assignments(academic_session, class_level, class_arm, active)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_teacher_assignments_subject ON teacher_assignments(academic_session, subject_key, active)")
+            # IMS is now a page-scoped Academy role. Remove legacy class/subject assignment rows so old
+            # assignment data can never restrict or misrepresent an Islamiyyah Teacher account.
+            conn.execute("DELETE FROM teacher_assignments WHERE UPPER(teacher_id) IN (SELECT UPPER(teacher_id) FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='islamiyyah_teacher')")
             conn.commit()
         finally:
             conn.close()
@@ -212,7 +215,7 @@ def replace_teacher_assignments(teacher_id, assignments, academic_session="", ch
             if require_teacher and not teacher: raise ValueError("Teacher account not found.")
             canonical_teacher_id = teacher["teacher_id"] if teacher else token; staff_role = role_from_staff_id(canonical_teacher_id, teacher["staff_role"] if teacher else "")
             academy_sections = {"TAHFEEZ", "ISLAMIYAH"}
-            if staff_role == "islamiyyah_teacher" and any(row.get("school_section") not in academy_sections for row in normalized): raise ValueError("IMS accounts can only be assigned to Tahfeez or Islamiyyah classes.")
+            if staff_role == "islamiyyah_teacher" and normalized: raise ValueError("IMS accounts have full Tahfeez & Islamiyyah workspace access and do not use class/subject assignments.")
             if staff_role in {"teacher", "teacher_admin"} and any(row.get("school_section") in academy_sections for row in normalized): raise ValueError("Regular-school staff accounts cannot be assigned to Tahfeez or Islamiyyah classes. Generate an IMS account for Academy staff.")
             now = utc_now(); conn.execute("UPDATE teacher_assignments SET active=0, updated_at=? WHERE teacher_id=? AND academic_session=?", (now, canonical_teacher_id, session_value))
             for row in normalized:
@@ -240,9 +243,9 @@ def delete_teacher_assignments(teacher_id):
 def get_teacher_assignment_stats(academic_session=""):
     init_teacher_assignment_tables(); session_value = normalize_assignment_session(academic_session); conn = _connect()
     try:
-        teacher_total = int(conn.execute("SELECT COUNT(*) FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))<>'teacher_admin'").fetchone()[0] or 0); active_teachers = int(conn.execute("SELECT COUNT(*) FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))<>'teacher_admin' AND LOWER(COALESCE(status,'active'))='active'").fetchone()[0] or 0)
-        assignment_count = int(conn.execute("SELECT COUNT(*) FROM teacher_assignments WHERE academic_session=? AND active=1 AND teacher_id NOT IN (SELECT teacher_id FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher_admin')", (session_value,)).fetchone()[0] or 0)
-        teachers_assigned = int(conn.execute("SELECT COUNT(DISTINCT teacher_id) FROM teacher_assignments WHERE academic_session=? AND active=1 AND teacher_id NOT IN (SELECT teacher_id FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher_admin')", (session_value,)).fetchone()[0] or 0)
+        teacher_total = int(conn.execute("SELECT COUNT(*) FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher'").fetchone()[0] or 0); active_teachers = int(conn.execute("SELECT COUNT(*) FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher' AND LOWER(COALESCE(status,'active'))='active'").fetchone()[0] or 0)
+        assignment_count = int(conn.execute("SELECT COUNT(*) FROM teacher_assignments WHERE academic_session=? AND active=1 AND teacher_id IN (SELECT teacher_id FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher')", (session_value,)).fetchone()[0] or 0)
+        teachers_assigned = int(conn.execute("SELECT COUNT(DISTINCT teacher_id) FROM teacher_assignments WHERE academic_session=? AND active=1 AND teacher_id IN (SELECT teacher_id FROM teachers WHERE LOWER(COALESCE(staff_role,'teacher'))='teacher')", (session_value,)).fetchone()[0] or 0)
         return {"academic_session": session_value, "teacher_count": teacher_total, "active_teacher_count": active_teachers, "teachers_assigned": teachers_assigned, "teachers_unassigned": max(0, teacher_total - teachers_assigned), "assignment_count": assignment_count}
     finally: conn.close()
 
@@ -256,7 +259,7 @@ def list_teachers_with_assignment_summary(academic_session=""):
                    COUNT(DISTINCT CASE WHEN a.active=1 THEN a.class_level || '|' || a.class_arm END) AS class_count,
                    COUNT(DISTINCT CASE WHEN a.active=1 THEN a.subject_key END) AS subject_count
             FROM teachers t LEFT JOIN teacher_assignments a ON a.teacher_id=t.teacher_id AND a.academic_session=? AND a.active=1
-            WHERE LOWER(COALESCE(t.staff_role,'teacher'))<>'teacher_admin'
+            WHERE LOWER(COALESCE(t.staff_role,'teacher'))='teacher'
             GROUP BY t.id, t.teacher_id, t.full_name, t.status, t.staff_role, t.created_at ORDER BY COALESCE(NULLIF(TRIM(t.full_name),''), t.teacher_id) COLLATE NOCASE
         """, (session_value,)).fetchall()
         return [{**dict(row), "staff_role": role_from_staff_id(row["teacher_id"], row["staff_role"]), "assignment_count": int(row["assignment_count"] or 0), "class_count": int(row["class_count"] or 0), "subject_count": int(row["subject_count"] or 0)} for row in rows]
